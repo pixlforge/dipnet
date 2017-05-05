@@ -2,6 +2,10 @@
 
 Main repo for the *Dipnet* project.
 
+## Development server
+
+You can the development server at the address [Development server](https://dipnet.pixlforge.ch). It's automatically updated after each push to this repository.
+
 # Laravel
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
