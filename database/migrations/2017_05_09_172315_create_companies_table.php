@@ -16,6 +16,7 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 45);
+            $table->string('status', 8);
             $table->string('description')->nullable();
             $table->string('address_line1')->nullable();
             $table->string('address_line2')->nullable();
@@ -25,6 +26,7 @@ class CreateCompaniesTable extends Migration
             $table->string('fax', 45)->nullable();
             $table->string('email', 45)->nullable();
             $table->timestamps();
+            $table->integer('user_id')->unsigned();
             $table->softDeletes();
         });
     }

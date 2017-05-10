@@ -26,6 +26,7 @@ class CreateArticlesTable extends Migration
             $table->integer('category_id')->unsigned();
             $table->integer('extra_rate_id')->unsigned();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

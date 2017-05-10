@@ -26,6 +26,7 @@ class CreateContactsTable extends Migration
             $table->integer('discount')->nullable();
             $table->integer('company_id')->unsigned();
             $table->integer('contact_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->timestamps();
             $table->softDeletes();
         });

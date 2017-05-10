@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFormatsTable extends Migration
+class CreateDeliveriesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateFormatsTable extends Migration
      */
     public function up()
     {
-        Schema::create('formats', function (Blueprint $table) {
+        Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 45)->unique();
-            $table->integer('width');
-            $table->integer('height');
-            $table->decimal('surface');
+            $table->integer('order_id')->unsigned();
+            $table->integer('contact_id')->unsigned();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +28,6 @@ class CreateFormatsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('formats');
+        Schema::dropIfExists('deliveries');
     }
 }
