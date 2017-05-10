@@ -115,3 +115,25 @@ Route::get('/documents/{document}', 'DocumentsController@show');
 Route::get('/documents/{document}/edit', 'DocumentsController@edit');
 Route::patch('/documents/{document}', 'DocumentsController@update');
 Route::delete('/documents/{document}', 'DocumentsController@destroy');
+
+/**
+ * Delivery routes
+ */
+Route::get('/deliveries', 'DeliveriesController@index');
+Route::get('/deliveries/create', 'DeliveriesController@create');
+Route::post('/deliveries', 'DeliveriesController@store');
+Route::get('/deliveries/{delivery}', 'DeliveriesController@show');
+Route::get('/deliveries/{delivery}/edit', 'DeliveriesController@edit');
+Route::patch('/deliveries/{delivery}', 'DeliveriesController@update');
+Route::delete('/deliveries/{delivery}', 'DeliveriesController@destroy');
+
+/**
+ * Option routes
+ */
+Route::get('/options', 'OptionsController@index');
+Route::get('/options/create', 'OptionsController@create');
+Route::post('/options', 'OptionsController@store');
+Route::get('/options/{option}', 'OptionsController@show');
+Route::get('/options/{option}/edit', 'OptionsController@edit');
+Route::patch('/options/{option}', 'OptionsController@update');
+Route::delete('/options/{option}', 'OptionsController@destroy');
