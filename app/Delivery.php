@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Delivery extends Model
 {
-    //
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected  = 'deliveries';
 }
