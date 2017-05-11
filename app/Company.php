@@ -12,4 +12,36 @@ class Company extends Model
      * @var string
      */
     protected  = 'companies';
+
+    /**
+     * Relationship to Business
+     */
+    public function business()
+    {
+        $this->belongsToMany(Business::class);
+    }
+
+    /**
+     * Relationship to BusinessComment
+     */
+    public function businessComment()
+    {
+        $this->belongsToMany(BusinessComment::class);
+    }
+
+    /**
+     * Relationship to Contact
+     */
+    public function contact()
+    {
+        $this->belongsToMany(Contact::class);
+    }
+
+    /**
+     * Relationship to User
+     */
+    public function user()
+    {
+        $this->hasOne(User::class);
+    }
 }

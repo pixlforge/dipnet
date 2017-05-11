@@ -12,4 +12,12 @@ class Category extends Model
      * @var string
      */
     protected  = 'categories';
+
+    /**
+     * Relationship to Article
+     */
+    public function article()
+    {
+        $this->belongsToMany(Article::class);
+    }
 }

@@ -12,4 +12,28 @@ class Article extends Model
      * @var string
      */
     protected  = 'articles';
+
+    /**
+     * Relationship to Category
+     */
+    public function category()
+    {
+        $this->hasOne(Category::class);
+    }
+
+    /**
+     * Relationship to Document
+     */
+    public function document()
+    {
+        // TODO
+    }
+
+    /**
+     * Relationship to ExtraRate
+     */
+    public function extraRate()
+    {
+        $this->hasOne(ExtraRate::class);
+    }
 }

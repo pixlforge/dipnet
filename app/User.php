@@ -10,6 +10,61 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
+    protected  = 'users';
+
+    /**
+     * Relationship to BusinessComment
+     */
+    public function businessComment()
+    {
+        $this->hasMany(BusinessComment::class);
+    }
+
+    /**
+     * Relationship to Business
+     */
+    public function business()
+    {
+        $this->belongsToMany(Business::class);
+    }
+
+    /**
+     * Relationship to Contact
+     */
+    public function contact()
+    {
+        $this->belongsToMany(Contact::class);
+    }
+
+    /**
+     * Relationship to Company
+     */
+    public function company()
+    {
+        $this->belongsTo(Company::class);
+    }
+
+    /**
+     * Relationship to DeliveryComment
+     */
+    public function deliveryComment()
+    {
+        $this->belongsToMany(DeliveryComment::class);
+    }
+
+    /**
+     * Relationship to Order
+     */
+    public function order()
+    {
+        $this->belongsToMany(Order::class);
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -26,11 +81,5 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected  = 'users';
+    
 }

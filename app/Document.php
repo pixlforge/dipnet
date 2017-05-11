@@ -12,4 +12,12 @@ class Document extends Model
      * @var string
      */
     protected  = 'documents';
+
+    /**
+     * Relationship to Article
+     */
+    public function article()
+    {
+        // TODO
+    }
 }

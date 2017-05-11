@@ -12,4 +12,20 @@ class Delivery extends Model
      * @var string
      */
     protected  = 'deliveries';
+
+    /**
+     * Relationship to Contact
+     */
+    public function contact()
+    {
+        $this->hasOne(Contact::class);
+    }
+
+    /**
+     * Relationship to Order
+     */
+    public function order()
+    {
+        $this->hasOne(Order::class);
+    }
 }

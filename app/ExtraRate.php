@@ -12,4 +12,12 @@ class ExtraRate extends Model
      * @var string
      */
     protected  = 'extra_rates';
+
+    /**
+     * Relationship to Article
+     */
+    public function article()
+    {
+        $this->belongsToMany(Article::class);
+    }
 }

@@ -12,4 +12,12 @@ class DeliveryComment extends Model
      * @var string
      */
     protected  = 'delivery_comments';
+
+    /**
+     * Relationship to User
+     */
+    public function user()
+    {
+        $this->hasOne(User::class);
+    }
 }

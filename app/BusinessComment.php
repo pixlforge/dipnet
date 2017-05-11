@@ -12,4 +12,20 @@ class BusinessComment extends Model
      * @var string
      */
     protected  = 'business_comments';
+
+    /**
+     * Relationship to Business
+     */
+    public function business()
+    {
+        $this->hasOne(Business::class);
+    }
+
+    /**
+     * Relationship to User
+     */
+    public function user()
+    {
+        $this->hasOne(User::class);
+    }
 }

@@ -12,4 +12,36 @@ class Order extends Model
      * @var string
      */
     protected  = 'orders';
+
+    /**
+     * Relationship to Business
+     */
+    public function business()
+    {
+        $this->hasOne(Business::class);
+    }
+
+    /**
+     * Relationship to Contact
+     */
+    public function contact()
+    {
+        $this->hasOne(Contact::class);
+    }
+
+    /**
+     * Relationship to Delivery
+     */
+    public function delivery()
+    {
+        $this->belongsTo(Delivery::class);
+    }
+
+    /**
+     * Relationship to User
+     */
+    public function user()
+    {
+        $this->hasOne(User::class);
+    }
 }
