@@ -18,7 +18,7 @@ class BusinessComment extends Model
      */
     public function business()
     {
-        $this->hasOne(Business::class);
+        return $this->hasOne(Business::class);
     }
 
     /**
@@ -26,6 +26,6 @@ class BusinessComment extends Model
      */
     public function user()
     {
-        $this->hasOne(User::class);
+        return $this->hasOne(User::class);
     }
 }

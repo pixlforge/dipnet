@@ -18,6 +18,6 @@ class Format extends Model
      */
     public function document()
     {
-        $this->hasMany(Document::class);
+        return $this->hasMany(Document::class);
     }
 }

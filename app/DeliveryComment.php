@@ -18,7 +18,7 @@ class DeliveryComment extends Model
      */
     public function delivery()
     {
-        $this->belongsTo(Delivery::class);
+        return $this->belongsTo(Delivery::class);
     }
 
     /**
@@ -26,6 +26,6 @@ class DeliveryComment extends Model
      */
     public function user()
     {
-        $this->hasOne(User::class);
+        return $this->hasOne(User::class);
     }
 }

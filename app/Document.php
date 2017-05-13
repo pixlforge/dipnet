@@ -18,7 +18,7 @@ class Document extends Model
      */
     public function article()
     {
-        $this->belongsTo(Article::class);
+        return $this->belongsTo(Article::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class Document extends Model
      */
     public function delivery()
     {
-        $this->belongsTo(Delivery::class);
+        return $this->belongsTo(Delivery::class);
     }
 
     /**
@@ -34,6 +34,6 @@ class Document extends Model
      */
     public function format()
     {
-        $this->belongsTo(Format::class);
+        return $this->belongsTo(Format::class);
     }
 }

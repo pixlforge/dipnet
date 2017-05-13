@@ -18,7 +18,7 @@ class Company extends Model
      */
     public function business()
     {
-        $this->belongsToMany(Business::class);
+        return $this->belongsToMany(Business::class);
     }
 
     /**

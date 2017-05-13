@@ -18,7 +18,7 @@ class Article extends Model
      */
     public function category()
     {
-        $this->hasOne(Category::class);
+        return $this->hasOne(Category::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class Article extends Model
      */
     public function document()
     {
-        $this->hasMany(Document::class);
+        return $this->hasMany(Document::class);
     }
 
     /**
@@ -34,6 +34,6 @@ class Article extends Model
      */
     public function extraRate()
     {
-        $this->belongsTo(ExtraRate::class);
+        return $this->belongsTo(ExtraRate::class);
     }
 }

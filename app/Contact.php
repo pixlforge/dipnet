@@ -18,7 +18,7 @@ class Contact extends Model
      */
     public function business()
     {
-        $this->hasOne(Business::class);
+        return $this->hasOne(Business::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class Contact extends Model
      */
     public function company()
     {
-        $this->hasOne(Company::class);
+        return $this->hasOne(Company::class);
     }
 
     /**
@@ -34,7 +34,7 @@ class Contact extends Model
      */
     public function delivery()
     {
-        $this->hasMany(Delivery::class);
+        return $this->hasMany(Delivery::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class Contact extends Model
      */
     public function order()
     {
-        $this->belongsToMany(Order::class);
+        return $this->belongsToMany(Order::class);
     }
 
     /**
@@ -50,6 +50,6 @@ class Contact extends Model
      */
     public function user()
     {
-        $this->hasOne(User::class);
+        return $this->hasOne(User::class);
     }
 }

@@ -18,7 +18,7 @@ class Order extends Model
      */
     public function business()
     {
-        $this->hasOne(Business::class);
+        return $this->hasOne(Business::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class Order extends Model
      */
     public function contact()
     {
-        $this->hasOne(Contact::class);
+        return $this->hasOne(Contact::class);
     }
 
     /**
@@ -34,7 +34,7 @@ class Order extends Model
      */
     public function delivery()
     {
-        $this->hasMany(Delivery::class);
+        return $this->hasMany(Delivery::class);
     }
 
     /**
@@ -42,6 +42,6 @@ class Order extends Model
      */
     public function user()
     {
-        $this->hasOne(User::class);
+        return $this->hasOne(User::class);
     }
 }

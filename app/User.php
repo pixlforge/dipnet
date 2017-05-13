@@ -21,7 +21,7 @@ class User extends Authenticatable
      */
     public function businessComment()
     {
-        $this->hasMany(BusinessComment::class);
+        return $this->hasMany(BusinessComment::class);
     }
 
     /**
@@ -29,7 +29,7 @@ class User extends Authenticatable
      */
     public function business()
     {
-        $this->belongsToMany(Business::class);
+        return $this->belongsToMany(Business::class);
     }
 
     /**
@@ -37,7 +37,7 @@ class User extends Authenticatable
      */
     public function contact()
     {
-        $this->belongsToMany(Contact::class);
+        return $this->belongsToMany(Contact::class);
     }
 
     /**
@@ -45,7 +45,7 @@ class User extends Authenticatable
      */
     public function company()
     {
-        $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class);
     }
 
     /**
@@ -53,7 +53,7 @@ class User extends Authenticatable
      */
     public function deliveryComment()
     {
-        $this->belongsToMany(DeliveryComment::class);
+        return $this->belongsToMany(DeliveryComment::class);
     }
 
     /**
@@ -61,7 +61,7 @@ class User extends Authenticatable
      */
     public function order()
     {
-        $this->belongsToMany(Order::class);
+        return $this->belongsToMany(Order::class);
     }
 
     /**

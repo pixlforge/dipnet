@@ -18,7 +18,7 @@ class Delivery extends Model
      */
     public function contact()
     {
-        $this->belongsTo(Contact::class);
+        return $this->belongsTo(Contact::class);
     }
 
     /**
@@ -26,7 +26,7 @@ class Delivery extends Model
      */
     public function deliveryComment()
     {
-        $this->hasMany(DeliveryComment::class);
+        return $this->hasMany(DeliveryComment::class);
     }
 
     /**
@@ -34,7 +34,7 @@ class Delivery extends Model
      */
     public function document()
     {
-        $this->hasMany(Document::class);
+        return $this->hasMany(Document::class);
     }
 
     /**
@@ -42,6 +42,6 @@ class Delivery extends Model
      */
     public function order()
     {
-        $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class);
     }
 }

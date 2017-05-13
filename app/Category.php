@@ -18,6 +18,6 @@ class Category extends Model
      */
     public function article()
     {
-        $this->belongsToMany(Article::class);
+        return $this->belongsToMany(Article::class);
     }
 }
