@@ -15,7 +15,7 @@ class CreateBusinessCommentsTable extends Migration
     {
         Schema::create('business_comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('content', 1024);
+            $table->text('content');
             $table->integer('business_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamps();

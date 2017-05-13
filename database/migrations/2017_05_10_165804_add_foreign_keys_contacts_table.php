@@ -15,7 +15,6 @@ class AddForeignKeysContactsTable extends Migration
     {
         Schema::table('contacts', function (Blueprint $table) {
             $table->foreign('company_id')->references('id')->on('companies');
-            // $table->foreign('contact_id')->references('id')->on('contacts');
             $table->foreign('business_id')->references('id')->on('businesses');
             $table->foreign('user_id')->references('id')->on('users');
         });
@@ -30,7 +29,6 @@ class AddForeignKeysContactsTable extends Migration
     {
         Schema::table('contacts', function (Blueprint $table) {
             $table->dropForeign('contacts_company_id_foreign');
-            // $table->dropForeign('contacts_contact_id_foreign');
             $table->dropForeign('contacts_business_id_foreign');
             $table->dropForeign('contacts_user_id_foreign');
         });
