@@ -12,4 +12,12 @@ class Format extends Model
      * @var string
      */
     protected  = 'formats';
+
+    /**
+     * Relationship to Document
+     */
+    public function document()
+    {
+        $this->hasMany(Document::class);
+    }
 }

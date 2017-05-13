@@ -26,7 +26,7 @@ class Article extends Model
      */
     public function document()
     {
-        // TODO
+        $this->hasMany(Document::class);
     }
 
     /**
@@ -34,6 +34,6 @@ class Article extends Model
      */
     public function extraRate()
     {
-        $this->hasOne(ExtraRate::class);
+        $this->belongsTo(ExtraRate::class);
     }
 }

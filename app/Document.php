@@ -14,10 +14,26 @@ class Document extends Model
     protected  = 'documents';
 
     /**
-     * Relationship to Article
+     * Relationships to Article
      */
     public function article()
     {
-        // TODO
+        $this->belongsTo(Article::class);
+    }
+
+    /**
+     * Relationship to Delivery
+     */
+    public function delivery()
+    {
+        $this->belongsTo(Delivery::class);
+    }
+
+    /**
+     * Relationship to Format
+     */
+    public function format()
+    {
+        $this->belongsTo(Format::class);
     }
 }

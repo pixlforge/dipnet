@@ -18,7 +18,23 @@ class Delivery extends Model
      */
     public function contact()
     {
-        $this->hasOne(Contact::class);
+        $this->belongsTo(Contact::class);
+    }
+
+    /**
+     * Relationship to DeliveryComment
+     */
+    public function deliveryComment()
+    {
+        $this->hasMany(DeliveryComment::class);
+    }
+
+    /**
+     * Relationship to Document
+     */
+    public function document()
+    {
+        $this->hasMany(Document::class);
     }
 
     /**
@@ -26,6 +42,6 @@ class Delivery extends Model
      */
     public function order()
     {
-        $this->hasOne(Order::class);
+        $this->belongsTo(Order::class);
     }
 }

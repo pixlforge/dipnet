@@ -18,6 +18,6 @@ class ExtraRate extends Model
      */
     public function article()
     {
-        $this->belongsToMany(Article::class);
+        $this->hasMany(Article::class);
     }
 }

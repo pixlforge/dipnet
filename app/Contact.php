@@ -34,7 +34,7 @@ class Contact extends Model
      */
     public function delivery()
     {
-        $this->belongsTo(Delivery::class);
+        $this->hasMany(Delivery::class);
     }
 
     /**

@@ -14,6 +14,14 @@ class DeliveryComment extends Model
     protected  = 'delivery_comments';
 
     /**
+     * Relationship to Delivery
+     */
+    public function delivery()
+    {
+        $this->belongsTo(Delivery::class);
+    }
+
+    /**
      * Relationship to User
      */
     public function user()
