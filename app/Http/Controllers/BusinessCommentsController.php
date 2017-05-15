@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ExtraRateController extends Controller
+class BusinessCommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
