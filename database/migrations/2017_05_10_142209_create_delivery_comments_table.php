@@ -16,8 +16,8 @@ class CreateDeliveryCommentsTable extends Migration
         Schema::create('delivery_comments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('content', 1024);
-            $table->integer('delivery_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->unsignedInteger('delivery_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
         });
     }

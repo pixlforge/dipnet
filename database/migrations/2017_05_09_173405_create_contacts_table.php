@@ -24,10 +24,10 @@ class CreateContactsTable extends Migration
             $table->string('fax', 45)->nullable();
             $table->string('email', 45)->nullable();
             $table->integer('discount')->nullable();
-            $table->integer('company_id')->unsigned();
-            $table->integer('contact_id')->unsigned()->nullable();
-            $table->integer('business_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->unsignedInteger('company_id');
+            $table->unsignedInteger('contact_id')->nullable();
+            $table->unsignedInteger('business_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
         });

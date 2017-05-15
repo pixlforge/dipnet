@@ -19,8 +19,8 @@ class CreateBusinessesTable extends Migration
             $table->string('reference', 45)->nullable();
             $table->string('description')->nullable();
             $table->integer('discount');
-            $table->integer('company_id')->unsigned();
-            $table->integer('main_contact_id')->unsigned();
+            $table->unsignedInteger('company_id');
+            $table->unsignedInteger('main_contact_id');
             $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();

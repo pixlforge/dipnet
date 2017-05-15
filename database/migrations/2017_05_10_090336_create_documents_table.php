@@ -24,9 +24,9 @@ class CreateDocumentsTable extends Migration
             $table->integer('width');
             $table->integer('nb_orig');
             $table->tinyInteger('free');
-            $table->integer('format_id')->unsigned();
-            $table->integer('delivery_id')->unsigned();
-            $table->integer('article_id')->unsigned();
+            $table->unsignedInteger('format_id');
+            $table->unsignedInteger('delivery_id');
+            $table->unsignedInteger('article_id');
             $table->timestamps();
         });
     }

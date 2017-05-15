@@ -23,8 +23,8 @@ class CreateArticlesTable extends Migration
             $table->tinyInteger('consumable');
             $table->integer('price')->nullable();
             $table->integer('price_m2')->nullable();
-            $table->integer('category_id')->unsigned();
-            $table->integer('extra_rate_id')->unsigned();
+            $table->unsignedInteger('category_id');
+            $table->unsignedInteger('extra_rate_id');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -17,9 +17,9 @@ class CreateOrdersTable extends Migration
             $table->increments('id');
             $table->string('reference', 45)->unique();
             $table->string('status', 45);
-            $table->integer('business_id')->unsigned();
-            $table->integer('contact_id')->unsigned();
-            $table->integer('user_id')->unsigned();
+            $table->unsignedInteger('business_id');
+            $table->unsignedInteger('contact_id');
+            $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -15,8 +15,8 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('order_id')->unsigned();
-            $table->integer('contact_id')->unsigned();
+            $table->unsignedInteger('order_id');
+            $table->unsignedInteger('contact_id');
             $table->timestamps();
         });
     }
