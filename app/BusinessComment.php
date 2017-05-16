@@ -18,7 +18,7 @@ class BusinessComment extends Model
      */
     public function business()
     {
-        return $this->hasOne(Business::class);
+        return $this->belongsTo(Business::class);
     }
 
     /**
@@ -26,6 +26,6 @@ class BusinessComment extends Model
      */
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->belongsTo(User::class);
     }
 }

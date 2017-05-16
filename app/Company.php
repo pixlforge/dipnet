@@ -18,7 +18,7 @@ class Company extends Model
      */
     public function business()
     {
-        return $this->belongsToMany(Business::class);
+        return $this->hasMany(Business::class);
     }
 
     /**
@@ -34,7 +34,7 @@ class Company extends Model
      */
     public function contact()
     {
-        $this->belongsToMany(Contact::class);
+        $this->hasMany(Contact::class);
     }
 
     /**

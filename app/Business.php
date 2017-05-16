@@ -18,7 +18,7 @@ class Business extends Model
      */
     public function businessComment()
     {
-        return $this->belongsToMany(BusinessComment::class);
+        return $this->hasMany(BusinessComment::class);
     }
 
     /**
@@ -34,7 +34,7 @@ class Business extends Model
      */
     public function company()
     {
-        return $this->hasOne(Company::class);
+        return $this->belongsTo(Company::class);
     }
 
     /**
@@ -42,7 +42,7 @@ class Business extends Model
      */
     public function order()
     {
-        return $this->belongsToMany(Order::class);
+        return $this->hasMany(Order::class);
     }
 
     /**
