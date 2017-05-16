@@ -17,7 +17,7 @@ class CreateDeliveryCommentsTable extends Migration
             $table->increments('id');
             $table->string('content', 1024);
             $table->unsignedInteger('delivery_id');
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('created_by_user_id');
             $table->timestamps();
         });
     }

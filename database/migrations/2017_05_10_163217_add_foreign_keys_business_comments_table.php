@@ -15,7 +15,7 @@ class AddForeignKeysBusinessCommentsTable extends Migration
     {
         Schema::table('business_comments', function (Blueprint $table) {
             $table->foreign('business_id')->references('id')->on('businesses');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('created_by_user_id')->references('id')->on('users');
         });
     }
 
@@ -28,7 +28,7 @@ class AddForeignKeysBusinessCommentsTable extends Migration
     {
         Schema::table('business_comments', function (Blueprint $table) {
             $table->dropForeign('business_comments_business_id_foreign');
-            $table->dropForeign('business_comments_user_id_foreign');
+            $table->dropForeign('business_comments_created_by_user_id_foreign');
         });
     }
 }

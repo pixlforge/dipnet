@@ -15,7 +15,7 @@ class AddForeignKeysDeliveryCommentsTable extends Migration
     {
         Schema::table('delivery_comments', function (Blueprint $table) {
             $table->foreign('delivery_id')->references('id')->on('deliveries');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('created_by_user_id')->references('id')->on('users');
         });
     }
 
@@ -28,7 +28,7 @@ class AddForeignKeysDeliveryCommentsTable extends Migration
     {
         Schema::table('delivery_comments', function (Blueprint $table) {
             $table->dropForeign('delivery_comments_delivery_id_foreign');
-            $table->dropForeign('delivery_comments_user_id_foreign');
+            $table->dropForeign('delivery_comments_created_by_user_id_foreign');
         });
     }
 }
