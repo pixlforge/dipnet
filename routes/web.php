@@ -55,3 +55,6 @@ Route::resource('/documents', 'DocumentsController');
  * Delivery routes
  */
 Route::resource('/deliveries', 'DeliveriesController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
