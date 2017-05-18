@@ -22,8 +22,9 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('email_validated');
             $table->string('firstname', 45)->nullable();
             $table->string('lastname', 45)->nullable();
-            $table->timestamp('last_login_at');
+            $table->unsignedInteger('company_id');
             $table->rememberToken();
+            $table->timestamp('last_login_at');
             $table->timestamps();
             $table->softDeletes();
         });
