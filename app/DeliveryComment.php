@@ -7,13 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class DeliveryComment extends Model
 {
     /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected  = 'delivery_comments';
-
-    /**
      * Relationship to Delivery
      */
     public function delivery()

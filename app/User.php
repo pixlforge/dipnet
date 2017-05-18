@@ -10,13 +10,6 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
-     * The table associated with the model.
-     *
-     * @var string
-     */
-    protected  = 'users';
-
-    /**
      * Relationship to BusinessComment
      */
     public function businessComment()
@@ -70,7 +63,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'username', 'email', 'password',
     ];
 
     /**
