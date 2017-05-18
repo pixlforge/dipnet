@@ -21,10 +21,7 @@ class CreateArticlesTable extends Migration
             $table->tinyInteger('required_printing');
             $table->tinyInteger('public');
             $table->tinyInteger('consumable');
-            $table->integer('price')->nullable();
-            $table->integer('price_m2')->nullable();
             $table->unsignedInteger('category_id');
-            $table->unsignedInteger('extra_rate_id');
             $table->timestamps();
             $table->softDeletes();
         });
