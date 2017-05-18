@@ -15,7 +15,6 @@ class AddForeignKeysArticlesTable extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->foreign('category_id')->references('id')->on('categories');
-            $table->foreign('extra_rate_id')->references('id')->on('extra_rates');
         });
     }
 
@@ -28,7 +27,6 @@ class AddForeignKeysArticlesTable extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             $table->dropForeign('articles_category_id_foreign');
-            $table->dropForeign('articles_extra_rate_id_foreign');
         });
     }
 }
