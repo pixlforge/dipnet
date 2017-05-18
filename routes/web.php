@@ -42,11 +42,6 @@ Route::resource('/formats', 'FormatsController');
 Route::resource('/categories', 'CategoriesController');
 
 /**
- * Extra Rate routes
- */
-Route::resource('/extrarates', 'ExtraRatesController');
-
-/**
  * Article routes
  */
 Route::resource('/articles', 'ArticlesController');
