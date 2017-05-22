@@ -80,7 +80,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Dipnet
+                    {{ env('APP_NAME') }}
                 </div>
 
                 <div class="links">
