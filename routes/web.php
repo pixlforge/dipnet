@@ -1,8 +1,10 @@
 <?php
 
 /**
- * Basic routes
+ * Auth routes
  */
+Auth::routes();
+Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/', 'PagesController@welcome');
 Route::get('/index', 'PagesController@index')->name('home');
 
@@ -55,6 +57,3 @@ Route::resource('/documents', 'DocumentsController');
  * Delivery routes
  */
 Route::resource('/deliveries', 'DeliveriesController');
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
