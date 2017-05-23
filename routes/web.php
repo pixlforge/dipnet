@@ -5,6 +5,10 @@
  */
 Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
+
+/**
+ * Basic routes
+ */
 Route::get('/', 'PagesController@welcome');
 Route::get('/index', 'PagesController@index')->name('home');
 
