@@ -24,7 +24,6 @@ class CreateContactsTable extends Migration
             $table->string('fax', 45)->nullable();
             $table->string('email', 45)->nullable();
             $table->unsignedInteger('company_id');
-            $table->unsignedInteger('reference_contact_id')->nullable();
             $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();
