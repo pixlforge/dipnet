@@ -17,7 +17,7 @@ class CreateDocumentsTable extends Migration
             $table->increments('id');
             $table->string('file_name', 45);
             $table->string('file_path', 1024);
-            $table->string('mime_type', 45);
+            $table->string('mime_type', 75);
             $table->integer('quantity');
             $table->string('rolled_folded_flat', 8);
             $table->integer('length');
