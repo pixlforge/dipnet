@@ -7,7 +7,7 @@
         <meta name="robots" content="noindex, nofollow">
 
         <title>{{ env('APP_NAME') }}</title>
-
+        <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
@@ -89,5 +89,6 @@
                 </div>
             </div>
         </div>
+        <script src="{{ mix('/js/app.js') }}"></script>
     </body>
 </html>
