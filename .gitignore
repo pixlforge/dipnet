@@ -11,3 +11,4 @@ npm-debug.log
 .env
 *.bak
 _ide_helper.php
+.DS_Store
