@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('lastname', 45)->nullable();
             $table->unsignedInteger('company_id');
             $table->rememberToken();
-            $table->timestamp('last_login_at');
+            $table->timestamp('last_login_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
