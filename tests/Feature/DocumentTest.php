@@ -21,4 +21,14 @@ class DocumentTest extends TestCase
         $document = factory('App\Document')->create();
         $this->assertDatabaseHas('documents', ['file_name' => $document->file_name]);
     }
+
+    /**
+     * Multiple documents can be created
+     *
+     * @test
+     */
+    function multiple_documents_can_be_created()
+    {
+        factory('App\Document', 100)->create();
+    }
 }

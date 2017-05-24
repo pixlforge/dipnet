@@ -21,4 +21,14 @@ class UserTest extends TestCase
         $user = factory('App\User')->create();
         $this->assertDatabaseHas('users', ['id' => $user->id]);
     }
+
+    /**
+     * Multiple users can be created
+     *
+     * @test
+     */
+    function multiple_users_can_be_created()
+    {
+        factory('App\User')->create();
+    }
 }
