@@ -65,7 +65,7 @@ $factory->define(App\Contact::class, function(Faker\Generator $faker) {
 
 $factory->define(App\Format::class, function(Faker\Generator $faker) {
     return [
-        'name' => $faker->unique()->text($maxNbChars = 10),
+        'name' => $faker->unique()->domainWord,
         'height' => $faker->randomNumber($nbDigits = 2, $strict = false),
         'width' => $faker->randomNumber($nbDigits = 2, $strict = false),
         'surface' => $faker->randomNumber($nbDigits = 5, $strict = false),
