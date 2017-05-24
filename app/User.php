@@ -10,27 +10,11 @@ class User extends Authenticatable
     use Notifiable;
 
     /**
-     * Relationship to BusinessComment
-     */
-    public function businessComment()
-    {
-        return $this->hasMany(BusinessComment::class);
-    }
-
-    /**
      * Relationship to Business
      */
     public function business()
     {
         return $this->hasMany(Business::class);
-    }
-
-    /**
-     * Relationship to Contact
-     */
-    public function contact()
-    {
-        return $this->hasMany(Contact::class);
     }
 
     /**
