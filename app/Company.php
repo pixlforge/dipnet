@@ -35,6 +35,6 @@ class Company extends Model
      */
     public function user()
     {
-        $this->hasOne(User::class);
+        $this->hasMany(User::class);
     }
 }
