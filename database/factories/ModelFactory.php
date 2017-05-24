@@ -16,7 +16,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
-        'username' => $faker->userName,
+        'username' => $faker->unique()->userName,
         'password' => $password ?: $password = bcrypt('secret'),
         'role' => $faker->randomElement(['user', 'admin']),
         'email' => $faker->unique()->safeEmail,
@@ -161,10 +161,15 @@ $factory->define(App\Delivery::class, function(Faker\Generator $faker) {
 });
 
 $factory->define(App\Document::class, function(Faker\Generator $faker) {
+
+    do {
+        $mimeType = $faker->mimeType;
+    } while(strlen($mimeType) > 45);
+
     return [
         'file_name' => $fileName = $faker->isbn13 . '.' . $faker->fileExtension,
         'file_path' => '/path/to/file/',
-        'mime_type' => $faker->mimeType,
+        'mime_type' => $mimeType,
         'quantity' => $faker->numberBetween($min = 1, $max = 100),
         'rolled_folded_flat' => $faker->randomElement(['rolled', 'folded', 'flat']),
         'length' => $faker->numberBetween($min = 1, $max = 100),
