@@ -11,6 +11,6 @@ class DeliveryCommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\DeliveryComment::class, 10)->create();
     }
 }

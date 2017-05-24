@@ -11,6 +11,6 @@ class BusinessCommentsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(App\BusinessComment::class, 10)->create();
     }
 }
