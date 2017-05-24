@@ -21,4 +21,14 @@ class CategoryTest extends TestCase
         $category = factory('App\Category')->create();
         $this->assertDatabaseHas('categories', ['name' => $category->name]);
     }
+
+    /**
+     * Multiple categories can be created
+     *
+     * @test
+     */
+    function multiple_categories_can_be_created()
+    {
+        factory('App\Category', 100)->create();
+    }
 }
