@@ -7,18 +7,18 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserTest extends TestCase
+class CategoryTest extends TestCase
 {
     use DatabaseMigrations;
 
     /**
-     * A user can be inserted into the database
+     * A category can be inserted into the database
      *
      * @test
      */
-    function a_user_can_be_inserted_into_the_database()
+    function a_category_can_be_inserted_into_the_database()
     {
-        $user = factory('App\User')->create();
-        $this->assertDatabaseHas('users', ['id' => $user->id]);
+        $category = factory('App\Category')->create();
+        $this->assertDatabaseHas('categories', ['name' => $category->name]);
     }
 }

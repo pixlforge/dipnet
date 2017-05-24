@@ -7,18 +7,18 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserTest extends TestCase
+class BusinessTest extends TestCase
 {
     use DatabaseMigrations;
 
     /**
-     * A user can be inserted into the database
+     * A business can be inserted into the database
      *
      * @test
      */
-    function a_user_can_be_inserted_into_the_database()
+    function a_business_can_be_inserted_into_the_database()
     {
-        $user = factory('App\User')->create();
-        $this->assertDatabaseHas('users', ['id' => $user->id]);
+        $business = factory('App\Business')->create();
+        $this->assertDatabaseHas('businesses', ['id' => $business->id]);
     }
 }

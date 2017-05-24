@@ -7,18 +7,18 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserTest extends TestCase
+class DocumentTest extends TestCase
 {
     use DatabaseMigrations;
 
     /**
-     * A user can be inserted into the database
+     * A document can be inserted into the database
      *
      * @test
      */
-    function a_user_can_be_inserted_into_the_database()
+    function a_document_can_be_inserted_into_the_database()
     {
-        $user = factory('App\User')->create();
-        $this->assertDatabaseHas('users', ['id' => $user->id]);
+        $document = factory('App\Document')->create();
+        $this->assertDatabaseHas('documents', ['file_name' => $document->file_name]);
     }
 }
