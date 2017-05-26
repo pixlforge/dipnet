@@ -18,7 +18,7 @@ class CommentTest extends TestCase
      *
      * @test
      */
-    function a_business_comment_can_be_inserted_into_the_database2()
+    function a_business_comment_can_be_inserted_into_the_database()
     {
         $businessComment = factory('App\BusinessComment')->create();
         $this->assertDatabaseHas('business_comments', ['content' => $businessComment->content]);
@@ -29,7 +29,7 @@ class CommentTest extends TestCase
      *
      * @test
      */
-    function a_delivery_comment_can_be_inserted_into_the_database2()
+    function a_delivery_comment_can_be_inserted_into_the_database()
     {
         $deliveryComment = factory('App\DeliveryComment')->create();
         $this->assertDatabaseHas('delivery_comments', ['content' => $deliveryComment->content]);
