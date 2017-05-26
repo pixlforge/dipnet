@@ -74,7 +74,7 @@ $factory->define(App\Format::class, function(Faker\Generator $faker) {
 
 $factory->define(App\Category::class, function(Faker\Generator $faker) {
     return [
-        'name' => $faker->unique()->domainWord,
+        'name' => $faker->unique()->colorName,
     ];
 });
 
@@ -149,7 +149,7 @@ $factory->define(App\DeliveryComment::class, function(Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Delivery::class, function(Faker\Generator $faker) {
+$factory->define(App\Delivery::class, function() {
     return [
         'order_id' => function() {
             return factory(App\Order::class)->create()->id;
