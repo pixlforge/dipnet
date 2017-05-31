@@ -6,6 +6,9 @@ Main repo for the *Dipnet* project.
 
 You can the development server at the address [Development server](https://dipnet.pixlforge.ch). It's automatically updated after each push to this repository.
 
+## Update 31/05/2017
+ - Laravel was updated from version 5.4.21 to 5.4.24 using Composer. Several other packages were updated. Check commit [5f0c222](https://github.com/pixlforge/dipnet/commit/5f0c222af469f769fed23a9ff3ad2ae0771b2f5d) for more.
+
 # Laravel
 
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
