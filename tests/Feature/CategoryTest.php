@@ -3,9 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CategoryTest extends TestCase
 {
@@ -29,6 +27,43 @@ class CategoryTest extends TestCase
      */
     function multiple_categories_can_be_created()
     {
-        factory('App\Category', 100)->create();
+        factory('App\Category', 10)->create();
+    }
+    
+    /**
+     * A category can be updated
+     * 
+     * @test
+     */
+    function a_category_can_be_updated()
+    {
+        $category = factory('App\Category')->create();
+
+        $this->assertDatabaseHas('categories', [
+            'name' => $category->name,
+        ]);
+
+        \App\Category::where('name', $category->name)
+                    ->update(['name' => 'Cat']);
+
+        $this->assertDatabaseHas('categories', [
+            'id' => 1,
+            'name' => 'Cat',
+        ]);
+    }
+
+    /**
+     * A category can be deleted
+     *
+     * @test
+     */
+    function a_category_can_be_deleted()
+    {
+        $category = factory('App\Category')->create();
+        $this->assertDatabaseHas('categories', [
+            'id' => $category->id
+        ]);
+
+
     }
 }
