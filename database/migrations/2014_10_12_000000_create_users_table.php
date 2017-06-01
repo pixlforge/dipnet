@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->string('email')->unique();
-            $table->tinyInteger('email_validated');
+            $table->boolean('email_validated')->default(false);
 			$table->unsignedInteger('contact_id')->nullable();
             $table->unsignedInteger('company_id')->nullable();
             $table->rememberToken();
