@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateDocumentsArticlesTable extends Migration
+class CreateArticleDocumentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateDocumentsArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('document_article', function (Blueprint $table) {
+        Schema::create('article_document', function (Blueprint $table) {
             $table->increments('id');
 			$table->unsignedInteger('document_id');
 			$table->unsignedInteger('article_id');
@@ -27,6 +27,6 @@ class CreateDocumentsArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document_article');
+        Schema::dropIfExists('article_document');
     }
 }

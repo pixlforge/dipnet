@@ -18,7 +18,7 @@ class CreateCompaniesTable extends Migration
             $table->string('name', 45);
             $table->string('status', 8);
             $table->string('description')->nullable();
-            $table->unsignedInteger('contact_id');
+            $table->unsignedInteger('contact_id')->nullable();
             $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();

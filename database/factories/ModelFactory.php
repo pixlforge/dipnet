@@ -21,8 +21,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'role' => $faker->randomElement(['user', 'admin']),
         'email' => $faker->unique()->safeEmail,
         'email_validated' => true,
-        'firstname' => $faker->firstName,
-        'lastname' => $faker->lastName,
         'company_id' => function() {
             return factory(App\Company::class)->create()->id;
         },
@@ -35,13 +33,6 @@ $factory->define(App\Company::class, function(Faker\Generator $faker) {
         'name' => $faker->company,
         'status' => $faker->randomElement(['ok', 'nok']),
         'description' => $faker->catchPhrase,
-        'address_line1' => $faker->streetName,
-        'address_line2' => $faker->streetAddress,
-        'zip' => $faker->postcode,
-        'city' => $faker->city,
-        'phone_number' => $faker->e164PhoneNumber,
-        'fax' => $faker->e164PhoneNumber,
-        'email' => $faker->companyEmail,
         'created_by_username' => $faker->userName,
     ];
 });
@@ -114,11 +105,7 @@ $factory->define(App\Order::class, function(Faker\Generator $faker) {
 $factory->define(App\Article::class, function(Faker\Generator $faker) {
     return [
         'reference' => $faker->randomNumber($nbDigits = 8, $strict = false),
-        'description_web' => $desc = $faker->text($maxNbChars = 45),
-        'description_dip' => $desc,
-        'required_printing' => $faker->randomElement([0, 1]),
-        'public' => $faker->randomElement([0, 1]),
-        'consumable' => $faker->randomElement([0, 1]),
+        'type' => $faker->randomElement(['impression', 'option']),
         'category_id' => function() {
             return factory(App\Category::class)->create()->id;
         },

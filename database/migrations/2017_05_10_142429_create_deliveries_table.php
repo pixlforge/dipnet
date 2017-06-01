@@ -17,7 +17,7 @@ class CreateDeliveriesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('order_id');
             $table->unsignedInteger('delivery_contact_id');
-			$table->text('internal_comment', 1024);
+			$table->text('internal_comment')->nullable();
             $table->timestamps();
         });
     }
