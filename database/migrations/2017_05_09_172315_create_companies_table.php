@@ -18,13 +18,7 @@ class CreateCompaniesTable extends Migration
             $table->string('name', 45);
             $table->string('status', 8);
             $table->string('description')->nullable();
-            $table->string('address_line1')->nullable();
-            $table->string('address_line2')->nullable();
-            $table->string('zip', 16)->nullable();
-            $table->string('city', 45)->nullable();
-            $table->string('phone_number', 45)->nullable();
-            $table->string('fax', 45)->nullable();
-            $table->string('email', 45)->nullable();
+            $table->unsignedInteger('contact_id');
             $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();

@@ -27,7 +27,6 @@ class CreateDocumentsTable extends Migration
             $table->unsignedInteger('format_id');
             $table->unsignedInteger('delivery_id');
             $table->unsignedInteger('main_article_id');
-            $table->unsignedInteger('option_article_id')->nullable();
             $table->timestamps();
         });
     }
