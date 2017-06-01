@@ -13,7 +13,7 @@ class CreateDocumentsArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('documents_articles', function (Blueprint $table) {
+        Schema::create('document_article', function (Blueprint $table) {
             $table->increments('id');
 			$table->unsignedInteger('document_id');
 			$table->unsignedInteger('article_id');
@@ -27,6 +27,6 @@ class CreateDocumentsArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('documents_articles');
+        Schema::dropIfExists('document_article');
     }
 }

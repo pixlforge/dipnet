@@ -13,7 +13,7 @@ class AddForeignKeysDocumentsArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::table('documents_articles', function (Blueprint $table) {
+        Schema::table('article_document', function (Blueprint $table) {
             $table->foreign('document_id')->references('id')->on('documents');
             $table->foreign('article_id')->references('id')->on('articles');
         });
@@ -26,9 +26,9 @@ class AddForeignKeysDocumentsArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::table('documents', function (Blueprint $table) {
-            $table->dropForeign('documents_articles_document_id_foreign');
-            $table->dropForeign('documents_articles_article_id_foreign');
+        Schema::table('article_document', function (Blueprint $table) {
+            $table->dropForeign('article_document_document_id_foreign');
+            $table->dropForeign('article_document_article_id_foreign');
         });
     }
 }
