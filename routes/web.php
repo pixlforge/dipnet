@@ -4,12 +4,13 @@
  * Auth routes
  */
 Auth::routes();
+Route::get('/logout', 'SessionsController@destroy');
 Route::get('/home', 'HomeController@index');
 
 /**
  * Basic routes
  */
-Route::get('/', 'PagesController@index')->name('home');
+Route::get('/', 'PagesController@index')->name('index');
 
 /**
  * User routes
