@@ -9,8 +9,7 @@ Route::get('/home', 'HomeController@index');
 /**
  * Basic routes
  */
-Route::get('/', 'PagesController@welcome');
-Route::get('/index', 'PagesController@index')->name('home');
+Route::get('/', 'PagesController@index')->name('home');
 
 /**
  * User routes
