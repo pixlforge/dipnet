@@ -12,7 +12,7 @@
                     @if (env('APP_NAME') == 'Dipnet')
                         <img src="{{ asset('img/logos/dip-logo.png') }}" alt="Dip logo" class="img-fluid">
                     @else
-                        <img src="{{ asset('img/logos/multicop-logo-png') }}" alt="Multicop logo" class="img-fluid">
+                        <img src="{{ asset('img/logos/multicop-logo.png') }}" alt="Multicop logo" class="img-fluid">
                     @endif
                 </a>
 
