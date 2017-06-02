@@ -41,7 +41,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-secondary">Connexion</button>
+                                <button type="submit" class="btn {{ env('APP_NAME') == 'Dipnet' ? 'btn-primary' : 'btn-secondary' }}">Connexion</button>
                                 <a class="btn btn-link" href="{{ route('password.request') }}">
                                     Mot de passe oublié?
                                 </a>
