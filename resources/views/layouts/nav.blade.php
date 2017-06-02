@@ -8,7 +8,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <a href="{{ route('home') }}" class="navbar-brand">
+                <a href="{{ route('index') }}" class="navbar-brand">
                     @if (env('APP_NAME') == 'Dipnet')
                         <img src="{{ asset('img/logos/dip-logo.png') }}" alt="Dip logo" class="img-fluid">
                     @else
@@ -18,8 +18,8 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active">
-                            <a href="{{ route('home') }}" class="nav-link">Accueil <span class="sr-only">(current)</span></a>
+                        <li class="nav-item">
+                            <a href="{{ route('index') }}" class="nav-link">Accueil</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">Link</a>
@@ -34,7 +34,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 @if (Auth::check())
-                                    <a href="{{ route('logout') }}" class="dropdown-item">Déconnexion</a>
+                                    <a href="{{ url('logout') }}" class="dropdown-item">Déconnexion</a>
                                 @else
                                     <a href="{{ route('login') }}" class="dropdown-item">Connexion</a>
                                     <a href="{{ route('register') }}" class="dropdown-item">Enregistrement</a>
