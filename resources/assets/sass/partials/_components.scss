@@ -1,0 +1,41 @@
+.help-block {
+  color: tomato;
+}
+
+.bg-primary {
+  background: $primary;
+}
+
+.btn-primary {
+  background: $primary;
+  border: 1px solid $primary-darker;
+
+  &:hover {
+    background: $primary-darker;
+    border: 1px solid $primary-darker;
+  }
+}
+
+.bg-secondary {
+  background: $secondary;
+}
+
+.btn-secondary {
+  color: #fff;
+  background: $secondary;
+  border: 1px solid $secondary-darker;
+
+  &:hover {
+    color: #fff;
+    background: $secondary-darker;
+    border: 1px solid $secondary-darker;
+  }
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background: $dark;
+}
+
+.form-control:focus {
+  border-color: $dark;
+}
