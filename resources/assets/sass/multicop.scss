@@ -1,0 +1,15 @@
+@import "partials/multicop.scss";
+
+.bg-primary {
+  background: $primary;
+}
+
+.btn-primary {
+  background: $primary;
+  border: 1px solid $primary-darker;
+
+  &:hover {
+    background: $primary-darker;
+    border: 1px solid $primary-darker;
+  }
+}
