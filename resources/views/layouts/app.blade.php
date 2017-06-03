@@ -12,6 +12,11 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    @if (env('APP_NAME') == 'Dipnet')
+        <link href="{{ mix('css/dip.css') }}" rel="stylesheet">
+    @else
+        <link href="{{ mix('css/multicop.css') }}" rel="stylesheet">
+    @endif
 
     <!-- Scripts -->
     <script>

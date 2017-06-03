@@ -53,7 +53,7 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn {{ env('APP_NAME') == 'Dipnet' ? 'btn-primary' : 'btn-secondary' }} btn-block mt-4">
+                                <button type="submit" class="btn btn-primary btn-block mt-4">
                                     Réinitialiser le mot de passe
                                 </button>
                             </div>

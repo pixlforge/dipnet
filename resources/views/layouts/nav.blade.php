@@ -46,7 +46,7 @@
                     <form method="GET" action="" class="form-inline">
                         {{ csrf_field() }}
                         <input type="text" class="form-control mr-sm-2" placeholder="Rechercher">
-                        <button class="btn {{ env('APP_NAME') == 'Dipnet' ? 'btn-primary' : 'btn-secondary' }} my-2 my-sm-0" type="submit">Recherche</button>
+                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Recherche</button>
                     </form>
 
                 </div>
