@@ -12,6 +12,26 @@ class CompanyTest extends TestCase
     use DatabaseMigrations;
 
     /**
+     * Company views are available
+     *
+     * @test
+     */
+    function company_views_are_available()
+    {
+        $response = $this->get('/companies');
+        $response->assertViewIs('companies.index');
+
+        $response = $this->get('/companies/create');
+        $response->assertViewIs('companies.create');
+
+        $response = $this->get('/companies/company-id');
+        $response->assertViewIs('companies.show');
+
+        $response = $this->get('/companies/company-id/edit');
+        $response->assertViewIs('companies.edit');
+    }
+
+    /**
      * A company can be inserted into the database
      *
      * @test

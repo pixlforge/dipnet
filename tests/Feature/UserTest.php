@@ -42,8 +42,6 @@ class UserTest extends TestCase
         $user = factory('App\User')->create();
         $this->assertDatabaseHas('users', [
             'username' => $user->username,
-            'firstname' => $user->firstname,
-            'lastname' => $user->lastname,
             'email' => $user->email,
         ]);
     }

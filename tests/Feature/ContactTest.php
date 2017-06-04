@@ -12,6 +12,26 @@ class ContactTest extends TestCase
     use DatabaseMigrations;
 
     /**
+     * Contact views are available
+     *
+     * @test
+     */
+    function contact_views_are_available()
+    {
+        $response = $this->get('/contacts');
+        $response->assertViewIs('contacts.index');
+
+        $response = $this->get('/contacts/create');
+        $response->assertViewIs('contacts.create');
+
+        $response = $this->get('/contacts/contact-id');
+        $response->assertViewIs('contacts.show');
+
+        $response = $this->get('/contacts/contact-id/edit');
+        $response->assertViewIs('contacts.edit');
+    }
+
+    /**
      * A contact can be inserted into the database
      *
      * @test

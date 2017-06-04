@@ -12,6 +12,26 @@ class OrderTest extends TestCase
     use DatabaseMigrations;
 
     /**
+     * Order views are available
+     *
+     * @test
+     */
+    function order_views_are_available()
+    {
+        $response = $this->get('/orders');
+        $response->assertViewIs('orders.index');
+
+        $response = $this->get('/orders/create');
+        $response->assertViewIs('orders.create');
+
+        $response = $this->get('/orders/order-id');
+        $response->assertViewIs('orders.show');
+
+        $response = $this->get('/orders/order-id/edit');
+        $response->assertViewIs('orders.edit');
+    }
+
+    /**
      * An order can be inserted into the database
      *
      * @test

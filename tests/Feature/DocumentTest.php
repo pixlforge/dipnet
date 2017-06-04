@@ -12,6 +12,26 @@ class DocumentTest extends TestCase
     use DatabaseMigrations;
 
     /**
+     * Document views are available
+     *
+     * @test
+     */
+    function document_views_are_available()
+    {
+        $response = $this->get('/documents');
+        $response->assertViewIs('documents.index');
+
+        $response = $this->get('/documents/create');
+        $response->assertViewIs('documents.create');
+
+        $response = $this->get('/documents/document-id');
+        $response->assertViewIs('documents.show');
+
+        $response = $this->get('/documents/document-id/edit');
+        $response->assertViewIs('documents.edit');
+    }
+
+    /**
      * A document can be inserted into the database
      *
      * @test

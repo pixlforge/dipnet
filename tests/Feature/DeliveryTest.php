@@ -12,6 +12,26 @@ class DeliveryTest extends TestCase
     use DatabaseMigrations;
 
     /**
+     * Delivery views are available
+     *
+     * @test
+     */
+    function delivery_views_are_available()
+    {
+        $response = $this->get('/deliveries');
+        $response->assertViewIs('deliveries.index');
+
+        $response = $this->get('/deliveries/create');
+        $response->assertViewIs('deliveries.create');
+
+        $response = $this->get('/deliveries/delivery-id');
+        $response->assertViewIs('deliveries.show');
+
+        $response = $this->get('/deliveries/delivery-id/edit');
+        $response->assertViewIs('deliveries.edit');
+    }
+
+    /**
      * A delivery can be inserted into the database
      *
      * @test

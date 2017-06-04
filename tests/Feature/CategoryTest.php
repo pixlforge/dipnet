@@ -10,6 +10,26 @@ class CategoryTest extends TestCase
     use DatabaseMigrations;
 
     /**
+     * Category views are available
+     *
+     * @test
+     */
+    function category_views_are_available()
+    {
+        $response = $this->get('/categories');
+        $response->assertViewIs('categories.index');
+
+        $response = $this->get('/categories/create');
+        $response->assertViewIs('categories.create');
+
+        $response = $this->get('/categories/category-id');
+        $response->assertViewIs('categories.show');
+
+        $response = $this->get('/categories/category-id/edit');
+        $response->assertViewIs('categories.edit');
+    }
+
+    /**
      * A category can be inserted into the database
      *
      * @test
@@ -64,6 +84,10 @@ class CategoryTest extends TestCase
             'id' => $category->id
         ]);
 
-
+        $categoryToDelete = \App\Category::find(1);
+        $categoryToDelete->delete();
+        $this->assertDatabaseMissing('categories', [
+            'id' => $categoryToDelete->id
+        ]);
     }
 }
