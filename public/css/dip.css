@@ -1,1 +1,15 @@
-.bg-primary,.btn-primary{background:#E1001A}.btn-primary{border:1px solid #ae0014}.btn-primary:hover{background:#ae0014;border:1px solid #ae0014}
+.bg-primary {
+  background: #E1001A;
+}
+
+.btn-primary {
+  background: #E1001A;
+  border: 1px solid #ae0014;
+}
+
+.btn-primary:hover {
+  background: #ae0014;
+  border: 1px solid #ae0014;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInJlc291cmNlcy9hc3NldHMvc2Fzcy9kaXAuc2NzcyIsInJlc291cmNlcy9hc3NldHMvc2Fzcy9wYXJ0aWFscy9fZGlwLnNjc3MiXSwic291cmNlc0NvbnRlbnQiOlsiQGltcG9ydCBcInBhcnRpYWxzL2RpcC5zY3NzXCI7XG5cbi5iZy1wcmltYXJ5IHtcbiAgYmFja2dyb3VuZDogJHByaW1hcnk7XG59XG5cbi5idG4tcHJpbWFyeSB7XG4gIGJhY2tncm91bmQ6ICRwcmltYXJ5O1xuICBib3JkZXI6IDFweCBzb2xpZCAkcHJpbWFyeS1kYXJrZXI7XG5cbiAgJjpob3ZlciB7XG4gICAgYmFja2dyb3VuZDogJHByaW1hcnktZGFya2VyO1xuICAgIGJvcmRlcjogMXB4IHNvbGlkICRwcmltYXJ5LWRhcmtlcjtcbiAgfVxufSIsIiRwcmltYXJ5OiAjRTEwMDFBO1xuJHByaW1hcnktZGFya2VyOiBkYXJrZW4oJHByaW1hcnksIDEwJSk7Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBLEFBQUEsV0FBVyxDQUFDO0VBQ1YsVUFBVSxFQ0hGLE9BQU87Q0RJaEI7O0FBRUQsQUFBQSxZQUFZLENBQUM7RUFDWCxVQUFVLEVDUEYsT0FBTztFRFFmLE1BQU0sRUFBRSxHQUFHLENBQUMsS0FBSyxDQ1BGLE9BQXFCO0NEYXJDOztBQVJELEFBSUUsWUFKVSxBQUlWLE1BQU8sQ0FBQztFQUNOLFVBQVUsRUNWRyxPQUFxQjtFRFdsQyxNQUFNLEVBQUUsR0FBRyxDQUFDLEtBQUssQ0NYSixPQUFxQjtDRFluQyJ9 */
