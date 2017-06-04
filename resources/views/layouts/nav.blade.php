@@ -18,12 +18,18 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
+
+                        {{--Homepage--}}
                         <li class="nav-item">
                             <a href="{{ route('index') }}" class="nav-link">Accueil</a>
                         </li>
+
+                        {{--Dashboard--}}
                         <li class="nav-item">
-                            <a href="#" class="nav-link">Link</a>
+                            <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
                         </li>
+
+                        {{--Account--}}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                                 @if (Auth::check())
@@ -43,6 +49,7 @@
                         </li>
                     </ul>
 
+                    {{--Search form--}}
                     <form method="GET" action="" class="form-inline">
                         {{ csrf_field() }}
                         <input type="text" class="form-control mr-sm-2" placeholder="Rechercher">
