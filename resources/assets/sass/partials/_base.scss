@@ -6,3 +6,7 @@ body {
 .intro {
   min-height: 80vh!important;
 }
+
+.form-control::placeholder {
+  color: #ccc
+}
