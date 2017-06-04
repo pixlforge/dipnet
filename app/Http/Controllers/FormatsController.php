@@ -13,7 +13,7 @@ class FormatsController extends Controller
      */
     public function index()
     {
-        //
+        return view('formats.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class FormatsController extends Controller
      */
     public function create()
     {
-        //
+        return view('formats.create');
     }
 
     /**
@@ -34,7 +34,7 @@ class FormatsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd(request()->all());
     }
 
     /**
@@ -45,7 +45,7 @@ class FormatsController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('formats.show');
     }
 
     /**
@@ -56,7 +56,7 @@ class FormatsController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('formats.edit');
     }
 
     /**

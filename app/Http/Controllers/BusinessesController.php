@@ -13,7 +13,7 @@ class BusinessesController extends Controller
      */
     public function index()
     {
-        //
+        return view('businesses.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class BusinessesController extends Controller
      */
     public function create()
     {
-        //
+        return view('businesses.create');
     }
 
     /**
@@ -45,7 +45,7 @@ class BusinessesController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('businesses.show');
     }
 
     /**
@@ -56,7 +56,7 @@ class BusinessesController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('businesses.edit');
     }
 
     /**

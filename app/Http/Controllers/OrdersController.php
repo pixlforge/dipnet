@@ -13,7 +13,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        //
+        return view('orders.index');
     }
 
     /**
@@ -23,7 +23,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        //
+        return view('orders.create');
     }
 
     /**
@@ -45,7 +45,7 @@ class OrdersController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('orders.show');
     }
 
     /**
@@ -56,7 +56,7 @@ class OrdersController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('orders.edit');
     }
 
     /**
