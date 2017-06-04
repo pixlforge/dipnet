@@ -13,6 +13,11 @@ Route::get('/home', 'HomeController@index');
 Route::get('/', 'PagesController@index')->name('index');
 
 /**
+ * Admin routes
+ */
+Route::get('/admin/dashboard', 'AdminController@dashboard')->name('dashboard');
+
+/**
  * User routes
  */
 Route::resource('/users', 'UsersController');
