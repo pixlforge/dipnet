@@ -18,7 +18,7 @@ class CreateFormatsTable extends Migration
             $table->string('name', 45)->unique();
             $table->integer('height');
             $table->integer('width');
-            $table->decimal('surface')->nullable();
+            $table->decimal('surface', 8, 4)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

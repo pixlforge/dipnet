@@ -59,7 +59,7 @@ $factory->define(App\Format::class, function(Faker\Generator $faker) {
         'name' => $faker->unique()->domainWord,
         'height' => $faker->randomNumber($nbDigits = 2, $strict = false),
         'width' => $faker->randomNumber($nbDigits = 2, $strict = false),
-        'surface' => $faker->randomNumber($nbDigits = 5, $strict = false),
+        'surface' => $faker->randomNumber($nbDigits = 4, $strict = false),
     ];
 });
 
