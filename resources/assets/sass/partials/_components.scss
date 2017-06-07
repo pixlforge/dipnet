@@ -2,24 +2,16 @@
   color: tomato;
 }
 
-//.bg-primary {
-//  background: $primary;
-//}
-//
-//.btn-primary {
-//  background: $primary;
-//  border: 1px solid $primary-darker;
-//
-//  &:hover {
-//    background: $primary-darker;
-//    border: 1px solid $primary-darker;
-//  }
-//}
-
 .dropdown-item.active, .dropdown-item:active {
   background: $dark;
 }
 
 .form-control:focus {
   border-color: $dark;
+}
+
+a.link-unstyled {
+  color: initial;
+  text-decoration: none;
+  transition: all .1s ease-out;
 }
