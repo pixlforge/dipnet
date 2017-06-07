@@ -1,6 +1,6 @@
 <header>
 
-    <div class="container">
+    <div class="container-fluid">
 
         <nav class="navbar navbar-toggleable-md navbar-light">
 
@@ -52,8 +52,8 @@
                     {{--Search form--}}
                     <form method="GET" action="" class="form-inline">
                         {{ csrf_field() }}
-                        <input type="text" class="form-control mr-sm-2" placeholder="Rechercher">
-                        <button class="btn btn-primary my-2 my-sm-0" type="submit">Recherche</button>
+                        <input type="text" class="form-control form-control-sm mr-sm-2" placeholder="Rechercher">
+                        <button class="btn btn-primary btn-sm my-2 my-sm-0" type="submit">Recherche</button>
                     </form>
 
                 </div>

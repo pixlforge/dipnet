@@ -4,15 +4,10 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <h1 class="display-1 text-center my-5">Dashboard</h1>
             </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
+            <div class="col-12">
                 <div class="card-columns">
 
                     {{--Formats--}}
@@ -20,10 +15,8 @@
                         <div class="card-block">
                             <h4 class="card-title">Formats</h4>
                             <div class="list-group">
-                                <a href="{{ url('/formats') }}" class="list-group-item list-group-item-action">Formats index</a>
-                                <a href="{{ url('/formats/create') }}" class="list-group-item list-group-item-action">Formats create</a>
-                                <a href="{{ url('/formats/format-id') }}" class="list-group-item list-group-item-action">Formats show</a>
-                                <a href="{{ url('/formats/format-id/edit') }}" class="list-group-item list-group-item-action">Formats edit</a>
+                                <a href="{{ url('/formats') }}" class="list-group-item list-group-item-action">Tous les formats</a>
+                                <a href="{{ url('/formats/create') }}" class="list-group-item list-group-item-action">Créer un format</a>
                             </div>
                         </div>
                     </div>
@@ -31,12 +24,10 @@
                     {{--Compagnies--}}
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Companies</h4>
+                            <h4 class="card-title">Sociétés</h4>
                             <div class="list-group">
-                                <a href="{{ url('/companies') }}" class="list-group-item list-group-item-action">Companies index</a>
-                                <a href="{{ url('/companies/create') }}" class="list-group-item list-group-item-action">Companies create</a>
-                                <a href="{{ url('/companies/company-id') }}" class="list-group-item list-group-item-action">Companies show</a>
-                                <a href="{{ url('/companies/company-id/edit') }}" class="list-group-item list-group-item-action">Companies edit</a>
+                                <a href="{{ url('/companies') }}" class="list-group-item list-group-item-action">Toutes les sociétés</a>
+                                <a href="{{ url('/companies/create') }}" class="list-group-item list-group-item-action">Créer une société</a>
                             </div>
                         </div>
                     </div>
@@ -44,12 +35,10 @@
                     {{--Categories--}}
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Categories</h4>
+                            <h4 class="card-title">Catégories</h4>
                             <div class="list-group">
-                                <a href="{{ url('/categories') }}" class="list-group-item list-group-item-action">Categories index</a>
-                                <a href="{{ url('/categories/create') }}" class="list-group-item list-group-item-action">Categories create</a>
-                                <a href="{{ url('/categories/category-id') }}" class="list-group-item list-group-item-action">Categories show</a>
-                                <a href="{{ url('/categories/category-id/edit') }}" class="list-group-item list-group-item-action">Categories edit</a>
+                                <a href="{{ url('/categories') }}" class="list-group-item list-group-item-action">Toutes les catégories</a>
+                                <a href="{{ url('/categories/create') }}" class="list-group-item list-group-item-action">Créer une catégorie</a>
                             </div>
                         </div>
                     </div>
@@ -57,12 +46,10 @@
                     {{--Businesses--}}
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Businesses</h4>
+                            <h4 class="card-title">Affaires</h4>
                             <div class="list-group">
-                                <a href="{{ url('/businesses') }}" class="list-group-item list-group-item-action">Businesses index</a>
-                                <a href="{{ url('/businesses/create') }}" class="list-group-item list-group-item-action">Businesses create</a>
-                                <a href="{{ url('/businesses/business-id') }}" class="list-group-item list-group-item-action">Businesses show</a>
-                                <a href="{{ url('/businesses/business-id/edit') }}" class="list-group-item list-group-item-action">Businesses edit</a>
+                                <a href="{{ url('/businesses') }}" class="list-group-item list-group-item-action">Toutes les affaires</a>
+                                <a href="{{ url('/businesses/create') }}" class="list-group-item list-group-item-action">Créer une affaire</a>
                             </div>
                         </div>
                     </div>
@@ -72,10 +59,8 @@
                         <div class="card-block">
                             <h4 class="card-title">Articles</h4>
                             <div class="list-group">
-                                <a href="{{ url('/articles') }}" class="list-group-item list-group-item-action">Articles index</a>
-                                <a href="{{ url('/articles/create') }}" class="list-group-item list-group-item-action">Articles create</a>
-                                <a href="{{ url('/articles/article-id') }}" class="list-group-item list-group-item-action">Articles show</a>
-                                <a href="{{ url('/articles/article-id/edit') }}" class="list-group-item list-group-item-action">Articles edit</a>
+                                <a href="{{ url('/articles') }}" class="list-group-item list-group-item-action">Tous les articles</a>
+                                <a href="{{ url('/articles/create') }}" class="list-group-item list-group-item-action">Créer un article</a>
                             </div>
                         </div>
                     </div>
@@ -85,10 +70,8 @@
                         <div class="card-block">
                             <h4 class="card-title">Contacts</h4>
                             <div class="list-group">
-                                <a href="{{ url('/contacts') }}" class="list-group-item list-group-item-action">Contacts index</a>
-                                <a href="{{ url('/contacts/create') }}" class="list-group-item list-group-item-action">Contacts create</a>
-                                <a href="{{ url('/contacts/contact-id') }}" class="list-group-item list-group-item-action">Contacts show</a>
-                                <a href="{{ url('/contacts/contact-id/edit') }}" class="list-group-item list-group-item-action">Contacts edit</a>
+                                <a href="{{ url('/contacts') }}" class="list-group-item list-group-item-action">Tous les contacts</a>
+                                <a href="{{ url('/contacts/create') }}" class="list-group-item list-group-item-action">Créer un contact</a>
                             </div>
                         </div>
                     </div>
@@ -96,12 +79,10 @@
                     {{--Orders--}}
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Orders</h4>
+                            <h4 class="card-title">Commandes</h4>
                             <div class="list-group">
-                                <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action">Orders index</a>
-                                <a href="{{ url('/orders/create') }}" class="list-group-item list-group-item-action">Orders create</a>
-                                <a href="{{ url('/orders/order-id') }}" class="list-group-item list-group-item-action">Orders show</a>
-                                <a href="{{ url('/orders/order-id/edit') }}" class="list-group-item list-group-item-action">Orders edit</a>
+                                <a href="{{ url('/orders') }}" class="list-group-item list-group-item-action">Toutes les commandes</a>
+                                <a href="{{ url('/orders/create') }}" class="list-group-item list-group-item-action">Créer une commande</a>
                             </div>
                         </div>
                     </div>
@@ -109,12 +90,10 @@
                     {{--Deliveries--}}
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Deliveries</h4>
+                            <h4 class="card-title">Livraisons</h4>
                             <div class="list-group">
-                                <a href="{{ url('/deliveries') }}" class="list-group-item list-group-item-action">Deliveries index</a>
-                                <a href="{{ url('/deliveries/create') }}" class="list-group-item list-group-item-action">Deliveries create</a>
-                                <a href="{{ url('/deliveries/delivery-id') }}" class="list-group-item list-group-item-action">Deliveries show</a>
-                                <a href="{{ url('/deliveries/delivery-id/edit') }}" class="list-group-item list-group-item-action">Deliveries edit</a>
+                                <a href="{{ url('/deliveries') }}" class="list-group-item list-group-item-action">Toutes les livraisons</a>
+                                <a href="{{ url('/deliveries/create') }}" class="list-group-item list-group-item-action">Créer une livraison</a>
                             </div>
                         </div>
                     </div>
@@ -124,16 +103,15 @@
                         <div class="card-block">
                             <h4 class="card-title">Documents</h4>
                             <div class="list-group">
-                                <a href="{{ url('/documents') }}" class="list-group-item list-group-item-action">Document index</a>
-                                <a href="{{ url('/documents/create') }}" class="list-group-item list-group-item-action">Document create</a>
-                                <a href="{{ url('/documents/document-id') }}" class="list-group-item list-group-item-action">Document show</a>
-                                <a href="{{ url('/documents/document-id/edit') }}" class="list-group-item list-group-item-action">Document edit</a>
+                                <a href="{{ url('/documents') }}" class="list-group-item list-group-item-action">Tous les documents</a>
+                                <a href="{{ url('/documents/create') }}" class="list-group-item list-group-item-action">Créer un document</a>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
+
         </div>
     </div>
 
