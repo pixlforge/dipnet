@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Business extends Model
 {
+    protected $fillable = [];
+
     /**
      * Relationship to BusinessComment
      */
@@ -36,5 +38,10 @@ class Business extends Model
     public function order()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'name';
     }
 }

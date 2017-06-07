@@ -37,4 +37,9 @@ class Company extends Model
     {
         $this->hasMany(User::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'name';
+    }
 }
