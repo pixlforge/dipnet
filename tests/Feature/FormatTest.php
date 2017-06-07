@@ -49,11 +49,9 @@ class FormatTest extends TestCase
      */
     function a_format_can_be_posted()
     {
-//        $format = factory('App\Format')->make();
-//        dd($format);
-//        $this->Format::create([
-//
-//        ])
+        $format = factory('App\Format')->make();
+
+
     }
 
 }
