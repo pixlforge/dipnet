@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Business;
 use Illuminate\Http\Request;
 
 class BusinessesController extends Controller
@@ -13,7 +14,8 @@ class BusinessesController extends Controller
      */
     public function index()
     {
-        return view('businesses.index');
+        $businesses = Business::all()->sortBy('name');
+        return view('businesses.index', compact('businesses'));
     }
 
     /**
@@ -34,29 +36,44 @@ class BusinessesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|min:2|max:45',
+            'reference' => 'max:45',
+            'description' => 'max:255',
+        ]);
+
+        Business::create([
+            'name' => request('name'),
+            'reference' => request('reference'),
+            'description' => request('description'),
+            'company_id' => 1,
+            'main_contact_id' => 1,
+            'created_by_username' => auth()->user()->name
+        ]);
+
+        return redirect()->route('businesses');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Business $business
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Business $business)
     {
-        return view('businesses.show');
+        return view('businesses.show', compact('business'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Business $business
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Business $business)
     {
-        return view('businesses.edit');
+        return view('businesses.edit', compact('business'));
     }
 
     /**

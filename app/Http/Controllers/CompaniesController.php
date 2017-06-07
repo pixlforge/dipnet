@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
 use Illuminate\Http\Request;
 
 class CompaniesController extends Controller
@@ -13,7 +14,8 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        return view('companies.index');
+        $companies = Company::all()->sortBy('name');
+        return view('companies.index', compact('companies'));
     }
 
     /**
@@ -34,29 +36,29 @@ class CompaniesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('companies');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Company $company
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Company $company)
     {
-        return view('companies.show');
+        return view('companies.show', compact('company'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Company $company
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Company $company)
     {
-        return view('companies.edit');
+        return view('companies.edit', compact('company'));
     }
 
     /**

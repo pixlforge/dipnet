@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Format;
 use Illuminate\Http\Request;
 
 class FormatsController extends Controller
@@ -13,7 +14,8 @@ class FormatsController extends Controller
      */
     public function index()
     {
-        return view('formats.index');
+        $formats = Format::all()->sortBy('name');
+        return view('formats.index', compact('formats'));
     }
 
     /**
@@ -34,29 +36,42 @@ class FormatsController extends Controller
      */
     public function store(Request $request)
     {
-        dd(request()->all());
+        $this->validate($request, [
+            'name' => 'required|unique:formats|min:2|max:45',
+            'height' => 'required',
+            'width' => 'required',
+        ]);
+
+        Format::create([
+            'name' => request('name'),
+            'height' => request('height'),
+            'width' => request('width'),
+            'surface' => request('surface'),
+        ]);
+
+        return redirect()->route('formats');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Format $format
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Format $format)
     {
-        return view('formats.show');
+        return view('formats.show', compact('format'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Format $format
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Format $format)
     {
-        return view('formats.edit');
+        return view('formats.edit', compact('format'));
     }
 
     /**
