@@ -9,8 +9,13 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FormatTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
+    /**
+     * Create a Format for all tests to use.
+     *
+     * @return mixed
+     */
     public function setUp()
     {
         parent::setUp();

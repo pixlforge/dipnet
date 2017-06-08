@@ -9,25 +9,60 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ContactTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /**
-     * Contact views are available
+     * Create a Contact for all tests to use.
+     *
+     * @return mixed
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        return $this->contact = factory('App\Contact')->create();
+    }
+
+    /**
+     * Contact index view is available
      *
      * @test
      */
-    function contact_views_are_available()
+    function contact_index_view_is_available()
     {
         $response = $this->get('/contacts');
         $response->assertViewIs('contacts.index');
+    }
 
+    /**
+     * Contact create view is available
+     *
+     * @test
+     */
+    function contact_create_view_is_available()
+    {
         $response = $this->get('/contacts/create');
         $response->assertViewIs('contacts.create');
-
-        $response = $this->get('/contacts/contact-id');
+    }
+    
+    /**
+     * Contact show view is available and requires a contact
+     * 
+     * @test
+     */
+    function contact_show_view_is_available_and_requires_a_contact()
+    {
+        $response = $this->get('/contacts/' . $this->contact->name);
         $response->assertViewIs('contacts.show');
-
-        $response = $this->get('/contacts/contact-id/edit');
+    }
+    
+    /**
+     * Contact edit view is available and requires a contact
+     * 
+     * @test
+     */
+    function contact_edit_view_is_available_and_requires_a_contact()
+    {
+        $response = $this->get('/contacts/' . $this->contact->name . '/edit');
         $response->assertViewIs('contacts.edit');
     }
 
@@ -42,3 +77,12 @@ class ContactTest extends TestCase
         $this->assertDatabaseHas('contacts', ['name' => $contact->name]);
     }
 }
+
+
+
+
+
+
+
+
+

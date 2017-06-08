@@ -9,8 +9,13 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class BusinessTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
+    /**
+     * Create a Business for all tests to use.
+     *
+     * @return mixed
+     */
     public function setUp()
     {
         parent::setUp();

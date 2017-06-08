@@ -9,36 +9,79 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ArticleTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /**
-     * Article views are available
+     * Create an Article for all tests to use.
+     *
+     * @return mixed
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        return $this->article = factory('App\Article')->create();
+    }
+
+    /**
+     * Article index view is available
      *
      * @test
      */
-    function article_views_are_available()
+    function article_index_view_is_available()
     {
         $response = $this->get('/articles');
         $response->assertViewIs('articles.index');
-
-        $response = $this->get('/articles/create');
-        $response->assertViewIs('articles.create');
-
-        $response = $this->get('/articles/article-id');
-        $response->assertViewIs('articles.show');
-
-        $response = $this->get('/articles/article-id/edit');
-        $response->assertViewIs('articles.edit');
     }
 
     /**
-     * An article can be inserted into the database
+     * Article create view is available
      *
      * @test
      */
-    function an_article_can_be_inserted_into_the_database()
+    function article_create_view_is_available()
     {
-        $article = factory('App\Article')->create();
-        $this->assertDatabaseHas('articles', ['id' => $article->id]);
+        $response = $this->get('/articles/create');
+        $response->assertViewIs('articles.create');
+    }
+    
+    /**
+     * Article show view is available and requires an article
+     * 
+     * @test
+     */
+    function article_show_view_is_available_and_requires_an_article()
+    {
+        $response = $this->get('/articles/' . $this->article->reference);
+        $response->assertViewIs('articles.show');
+    }
+
+    /**
+     * Article edit view is available and requires an article
+     *
+     * @test
+     */
+    function article_edit_view_is_available_and_requires_an_article()
+    {
+        $response = $this->get('/articles/' . $this->article->reference . '/edit');
+        $response->assertViewIs('articles.edit');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

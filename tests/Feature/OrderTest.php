@@ -9,25 +9,60 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class OrderTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
     /**
-     * Order views are available
+     * Create an Order for all tests to use.
+     *
+     * @return mixed
+     */
+    public function setUp()
+    {
+        parent::setUp();
+        return $this->order = factory('App\Order')->create();
+    }
+
+    /**
+     * Order index view is available
      *
      * @test
      */
-    function order_views_are_available()
+    function order_index_view_available()
     {
         $response = $this->get('/orders');
         $response->assertViewIs('orders.index');
+    }
 
+    /**
+     * Order create view is available
+     *
+     * @test
+     */
+    function order_create_view_is_available()
+    {
         $response = $this->get('/orders/create');
         $response->assertViewIs('orders.create');
+    }
 
-        $response = $this->get('/orders/order-id');
+    /**
+     * Order show view is available and requires an order
+     *
+     * @test
+     */
+    function order_show_view_is_available_and_requires_an_order()
+    {
+        $response = $this->get('/orders/' . $this->order->reference);
         $response->assertViewIs('orders.show');
+    }
 
-        $response = $this->get('/orders/order-id/edit');
+    /**
+     * Order edit view is available and requires an order
+     *
+     * @test
+     */
+    function order_edit_view_is_available_and_requires_an_order()
+    {
+        $response = $this->get('/orders/' . $this->order->reference . '/edit');
         $response->assertViewIs('orders.edit');
     }
 

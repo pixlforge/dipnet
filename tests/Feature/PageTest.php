@@ -4,7 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 
-class ViewsTest extends TestCase
+class PageTest extends TestCase
 {
     /**
      * Index view is available

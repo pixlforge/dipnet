@@ -9,8 +9,13 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CategoryTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseMigrations;
 
+    /**
+     * Create a Category for all tests to use.
+     *
+     * @return mixed
+     */
     public function setUp()
     {
         parent::setUp();
