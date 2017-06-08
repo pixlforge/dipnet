@@ -16,9 +16,8 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 45);
-            $table->string('status', 8);
+            $table->enum('status', ['temp', 'perm']);
             $table->string('description')->nullable();
-            $table->unsignedInteger('contact_id')->nullable();
             $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();
