@@ -27,10 +27,14 @@
                                     <em>Updated at</em>: {{ $business->updated_at->format('d M Y') }}
                                     <small>{{ $business->updated_at->diffForHumans() }}</small>
                                 </li>
-                                {{--<li>--}}
-                                {{--<em>Deleted at</em>: {{ $business->deleted_at }}--}}
-                                {{--<small>{{ $business->deleted_at->diffForHumans() }}</small>--}}
-                                {{--</li>--}}
+                                @unless($business->deleted_at === null)
+                                    <li>
+                                        <div class="bg-danger text-white">
+                                            <em>Deleted at</em>: {{ $business->deleted_at->format('d M Y') }}
+                                            <small>{{ $business->deleted_at->diffForHumans() }}</small>
+                                        </div>
+                                    </li>
+                                @endunless
                             </ul>
                         </div>
                     </div>

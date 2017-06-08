@@ -9,16 +9,19 @@
                 <h2 class="text-muted">Liste de toutes les sociétés</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $companies->count() }}</strong> sociétés au
+                <p class="text-center mb-5">Il existe actuellement <strong>{{ $companies->count() }}</strong> sociétés
+                    au
                     total.</p>
                 <div class="card-columns">
                     @foreach ($companies as $company)
-                        <a class="link-unstyled" href="{{ url('/businesses/' . $company->name) }}">
+                        <a class="link-unstyled" href="{{ url('/companies/' . $company->name) }}">
                             <div class="card">
                                 <div class="card-block">
                                     <h3 class="card-title">{{ $company->name }}</h3>
                                     <ul class="list-unstyled">
-
+                                        <li><em>Nom</em>: {{ $company->name }}</li>
+                                        <li><em>Status</em>: {{ $company->status }}</li>
+                                        <li><em>Description</em>: {{ $company->description }}</li>
                                         <li><em>Créé par</em>: {{ $company->created_by_username }}</li>
                                         <li>
                                             <em>Created at</em>: {{ $company->created_at->format('d M Y') }}
@@ -28,10 +31,14 @@
                                             <em>Updated at</em>: {{ $company->updated_at->format('d M Y') }}
                                             <small>{{ $company->updated_at->diffForHumans() }}</small>
                                         </li>
-                                        {{--<li>--}}
-                                        {{--<em>Deleted at</em>: {{ $company->deleted_at }}--}}
-                                        {{--<small>{{ $company->deleted_at->diffForHumans() }}</small>--}}
-                                        {{--</li>--}}
+                                        @unless($company->deleted_at === null)
+                                            <li>
+                                                <div class="bg-danger text-white">
+                                                    <em>Deleted at</em>: {{ $company->deleted_at->format('d M Y') }}
+                                                    <small>{{ $company->deleted_at->diffForHumans() }}</small>
+                                                </div>
+                                            </li>
+                                        @endunless
                                     </ul>
                                 </div>
                             </div>

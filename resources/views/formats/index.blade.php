@@ -9,7 +9,8 @@
                 <h2 class="text-muted">Liste de tous les formats</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $formats->count() }}</strong> formats au total.</p>
+                <p class="text-center mb-5">Il existe actuellement <strong>{{ $formats->count() }}</strong> formats au
+                    total.</p>
                 <div class="card-columns">
                     @foreach ($formats as $format)
                         <a class="link-unstyled" href="{{ url('/formats/' . $format->name) }}">
@@ -28,10 +29,14 @@
                                             <em>Updated at</em>: {{ $format->updated_at->format('d M Y') }}
                                             <small>{{ $format->updated_at->diffForHumans() }}</small>
                                         </li>
-                                        {{--<li>--}}
-                                            {{--<em>Deleted at</em>: {{ $format->deleted_at }}--}}
-                                            {{--<small>{{ $format->deleted_at->diffForHumans() }}</small>--}}
-                                        {{--</li>--}}
+                                        @unless($format->deleted_at === null)
+                                            <li>
+                                                <div class="bg-danger text-white">
+                                                    <em>Deleted at</em>: {{ $format->deleted_at->format('d M Y') }}
+                                                    <small>{{ $format->deleted_at->diffForHumans() }}</small>
+                                                </div>
+                                            </li>
+                                        @endunless
                                     </ul>
                                 </div>
                             </div>
