@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Delivery;
 use Illuminate\Http\Request;
 
 class DeliveriesController extends Controller
@@ -34,16 +35,16 @@ class DeliveriesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return redirect()->route('deliveries');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Delivery $delivery
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Delivery $delivery)
     {
         return view('deliveries.show');
     }
@@ -51,10 +52,10 @@ class DeliveriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Delivery $delivery
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Delivery $delivery)
     {
         return view('deliveries.edit');
     }
