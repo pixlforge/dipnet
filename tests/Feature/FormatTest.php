@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class FormatTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
 
     public function setUp()
     {
@@ -79,9 +79,8 @@ class FormatTest extends TestCase
      */
 //    function a_format_can_be_posted()
 //    {
-//        $format = factory('App\Format')->make();
-//
-//
+//        $response = $this->post($this->format);
+//        dd($response);
 //    }
 
 }

@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CompanyTest extends TestCase
 {
-    use DatabaseMigrations;
+    use DatabaseTransactions;
     
     public function setUp()
     {
