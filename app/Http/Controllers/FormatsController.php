@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Format;
 use Illuminate\Http\Request;
+use App\Format;
 
 class FormatsController extends Controller
 {
@@ -14,7 +14,7 @@ class FormatsController extends Controller
      */
     public function index()
     {
-        $formats = Format::all()->sortBy('name');
+        $formats = Format::withTrashed()->get();
         return view('formats.index', compact('formats'));
     }
 
