@@ -21,7 +21,10 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'role' => $faker->randomElement(['user', 'admin']),
         'email' => $faker->unique()->safeEmail,
         'email_validated' => true,
-        'company_id' => function() {
+        'contact_id' => function () {
+            return factory(App\Contact::class)->create()->id;
+        },
+        'company_id' => function () {
             return factory(App\Company::class)->create()->id;
         },
         'remember_token' => str_random(10),
