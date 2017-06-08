@@ -10,24 +10,54 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class CompanyTest extends TestCase
 {
     use DatabaseMigrations;
+    
+    public function setUp()
+    {
+        parent::setUp();
+        return $this->company = factory('App\Company')->create();
+    }
 
     /**
-     * Company views are available
+     * Company index view is available
      *
      * @test
      */
-    function company_views_are_available()
+    function company_index_view_is_available()
     {
         $response = $this->get('/companies');
         $response->assertViewIs('companies.index');
-
+    }
+    
+    /**
+     * Company create view is available
+     * 
+     * @test
+     */
+    function company_create_view_is_available()
+    {
         $response = $this->get('/companies/create');
         $response->assertViewIs('companies.create');
+    }
 
-        $response = $this->get('/companies/company-id');
+    /**
+     * Company show view is available
+     *
+     * @test
+     */
+    function company_show_view_is_available()
+    {
+        $response = $this->get('/companies/' . $this->company->name);
         $response->assertViewIs('companies.show');
+    }
 
-        $response = $this->get('/companies/company-id/edit');
+    /**
+     * Company edit view is available
+     *
+     * @test
+     */
+    function company_edit_view_is_available()
+    {
+        $response = $this->get('/companies/' . $this->company->name . '/edit');
         $response->assertViewIs('companies.edit');
     }
 

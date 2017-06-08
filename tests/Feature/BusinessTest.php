@@ -11,34 +11,70 @@ class BusinessTest extends TestCase
 {
     use DatabaseMigrations;
 
+    public function setUp()
+    {
+        parent::setUp();
+        return $this->business = factory('App\Business')->create();
+    }
+
     /**
-     * Business views are available
+     * Business index view is available
      *
      * @test
      */
-    function business_views_are_available()
+    function business_index_view_is_available()
     {
         $response = $this->get('/businesses');
         $response->assertViewIs('businesses.index');
-
-        $response = $this->get('/businesses/create');
-        $response->assertViewIs('businesses.create');
-
-        $response = $this->get('/businesses/business-id');
-        $response->assertViewIs('businesses.show');
-
-        $response = $this->get('/businesses/business-id/edit');
-        $response->assertViewIs('businesses.edit');
     }
 
     /**
-     * A business can be inserted into the database
+     * Business create view is available
      *
      * @test
      */
-    function a_business_can_be_inserted_into_the_database()
+    function business_create_view_is_available()
     {
-        $business = factory('App\Business')->create();
-        $this->assertDatabaseHas('businesses', ['id' => $business->id]);
+        $response = $this->get('/businesses/create');
+        $response->assertViewIs('businesses.create');
+    }
+
+    /**
+     * Business show view is available and requires a business
+     *
+     * @test
+     */
+    function business_show_view_is_available_and_requires_a_business()
+    {
+        $response = $this->get('/businesses/' . $this->business->name);
+        $response->assertViewIs('businesses.show');
+    }
+
+    /**
+     * Business edit view is available and requires a business
+     *
+     * @test
+     */
+    function business_edit_view_is_available_and_requires_a_business()
+    {
+        $response = $this->get('/businesses/' . $this->business->name . '/edit');
+        $response->assertViewIs('businesses.edit');
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

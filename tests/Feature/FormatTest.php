@@ -11,23 +11,53 @@ class FormatTest extends TestCase
 {
     use DatabaseMigrations;
 
+    public function setUp()
+    {
+        parent::setUp();
+        return $this->format = factory('App\Format')->create();
+    }
+
     /**
-     * Format views are available
+     * Format index view is available
      *
      * @test
      */
-    function format_views_are_available()
+    function format_index_view_is_available()
     {
         $response = $this->get('/formats');
         $response->assertViewIs('formats.index');
+    }
 
+    /**
+     * Format create view is available
+     *
+     * @test
+     */
+    function format_create_view_is_available()
+    {
         $response = $this->get('/formats/create');
         $response->assertViewIs('formats.create');
+    }
 
-        $response = $this->get('/formats/format-id');
+    /**
+     * Format show view is available
+     *
+     * @test
+     */
+    function format_show_view_is_available()
+    {
+        $response = $this->get('/formats/' . $this->format->name);
         $response->assertViewIs('formats.show');
+    }
 
-        $response = $this->get('/formats/format-id/edit');
+    /**
+     * Format edit view is available
+     *
+     * @test
+     */
+    function format_edit_view_is_available()
+    {
+        $response = $this->get('/formats/' . $this->format->name . '/edit');
         $response->assertViewIs('formats.edit');
     }
 
@@ -47,11 +77,11 @@ class FormatTest extends TestCase
      *
      * @test
      */
-    function a_format_can_be_posted()
-    {
-        $format = factory('App\Format')->make();
-
-
-    }
+//    function a_format_can_be_posted()
+//    {
+//        $format = factory('App\Format')->make();
+//
+//
+//    }
 
 }
