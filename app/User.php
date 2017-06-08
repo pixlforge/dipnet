@@ -45,6 +45,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Relationship to Contact
+     */
+    public function contact()
+    {
+        return $this->belongsTo(Contact::class);
+    }
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
@@ -61,5 +69,15 @@ class User extends Authenticatable
     protected $hidden = [
         'password','remember_token',
     ];
-    
+
+    /**
+     * Set the username attribute as a key used in routing
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'username';
+    }
+
 }

@@ -42,4 +42,12 @@ class Contact extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    /**
+     * Relationship to User
+     */
+    public function user()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -34,4 +34,9 @@ class Article extends Model
     {
         return $this->belongsTo(ExtraRate::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'reference';
+    }
 }
