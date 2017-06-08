@@ -31,7 +31,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Company::class, function(Faker\Generator $faker) {
     return [
         'name' => $faker->company,
-        'status' => $faker->randomElement(['ok', 'nok']),
+        'status' => $faker->randomElement(['temp', 'perm']),
         'description' => $faker->catchPhrase,
         'created_by_username' => $faker->userName,
     ];
