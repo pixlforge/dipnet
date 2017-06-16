@@ -9,7 +9,15 @@ class Order extends Model
 {
     use SoftDeletes;
 
+    /**
+     * Carbon dates
+     */
     protected $dates = ['deleted_at'];
+
+    /**
+     * Disable mass assignment protection for given fields
+     */
+    protected $fillable = ['reference', 'status', 'business_id', 'contact_id', 'user_id'];
 
     /**
      * Relationship to Business
@@ -41,10 +49,5 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'reference';
     }
 }

@@ -3,9 +3,22 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Delivery extends Model
 {
+    use SoftDeletes;
+
+    /**
+     * Carbon dates
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Disable mass assignment protection on declared fields
+     */
+    protected $fillable = ['order_id', 'contact_id', 'internal_comment'];
+
     /**
      * Relationship to Contact
      */
@@ -35,6 +48,6 @@ class Delivery extends Model
      */
     public function order()
     {
-        return $this->belongsTo(Order::class);
+        return $this->belongsTo(Order::class)->withTrashed();
     }
 }

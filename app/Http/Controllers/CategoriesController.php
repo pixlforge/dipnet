@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Http\Requests\CategoryRequest;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+    /**
+     * CategoriesController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,15 +40,11 @@ class CategoriesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param CategoryRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:categories|min:2|max:45',
-        ]);
-
         Category::create([
             'name' => request('name'),
         ]);
@@ -72,23 +77,29 @@ class CategoriesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param CategoryRequest $request
+     * @param Category $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $category->update([
+            'name' => request('name')
+        ]);
+
+        return redirect()->route('categories');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Category $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('categories');
     }
 }

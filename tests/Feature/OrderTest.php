@@ -19,6 +19,7 @@ class OrderTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         return $this->order = factory('App\Order')->create();
     }
 
@@ -29,7 +30,10 @@ class OrderTest extends TestCase
      */
     function order_index_view_available()
     {
+        $this->signIn();
+
         $response = $this->get('/orders');
+
         $response->assertViewIs('orders.index');
     }
 
@@ -40,7 +44,10 @@ class OrderTest extends TestCase
      */
     function order_create_view_is_available()
     {
+        $this->signIn();
+
         $response = $this->get('/orders/create');
+
         $response->assertViewIs('orders.create');
     }
 
@@ -51,7 +58,10 @@ class OrderTest extends TestCase
      */
     function order_show_view_is_available_and_requires_an_order()
     {
-        $response = $this->get('/orders/' . $this->order->reference);
+        $this->signIn();
+
+        $response = $this->get('/orders/' . $this->order->id);
+
         $response->assertViewIs('orders.show');
     }
 
@@ -62,18 +72,79 @@ class OrderTest extends TestCase
      */
     function order_edit_view_is_available_and_requires_an_order()
     {
-        $response = $this->get('/orders/' . $this->order->reference . '/edit');
+        $this->signIn();
+
+        $response = $this->get('/orders/' . $this->order->id . '/edit');
+
         $response->assertViewIs('orders.edit');
     }
 
     /**
-     * An order can be inserted into the database
+     * Authorized users can create orders
      *
      * @test
      */
-    function an_order_can_be_inserted_into_the_database()
+    function authorized_users_can_create_orders()
     {
+        $this->signIn();
+
+        $order = factory('App\Order')->make();
+
+        $this->post('/orders', $order->toArray())
+            ->assertRedirect('/orders');
+    }
+
+    /**
+     * Authorized users can update order
+     *
+     * @test
+     */
+    function authorized_users_can_update_orders()
+    {
+        $this->signIn();
+
+        $order = factory('App\Order')->create(['status' => 'nok']);
+
+        $order->status = 'ok';
+
+        $this->put("/orders/{$order->id}", $order->toArray())
+            ->assertRedirect('/orders');
+    }
+
+    /**
+     * Authorized users can delete orders
+     *
+     * @test
+     */
+    function authorized_users_can_delete_orders()
+    {
+        $this->signIn();
+
         $order = factory('App\Order')->create();
-        $this->assertDatabaseHas('orders', ['reference' => $order->reference]);
+
+        $this->assertDatabaseHas('orders', ['id' => $order->id]);
+
+        $this->delete("/orders/{$order->id}")
+            ->assertRedirect('/orders');
+    }
+
+    /**
+     * Authorized users can restore orders
+     *
+     * @test
+     */
+    function authorized_users_can_restore_orders()
+    {
+        $this->signIn();
+
+        $order = factory('App\Order')->create();
+
+        $this->assertDatabaseHas('orders', ['id' => $order->id]);
+
+        $this->delete("/orders/{$order->id}")
+            ->assertRedirect('/orders');
+
+        $this->put("/orders/{$order->id}/restore", [$order])
+            ->assertRedirect('/orders');
     }
 }

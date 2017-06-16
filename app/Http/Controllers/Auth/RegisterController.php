@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Contact;
+use App\Company;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -28,12 +30,10 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/';
-    /** @noinspection PhpDocSignatureInspection */
 
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -63,11 +63,46 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $company = Company::create([
+            'name' => $data['username'] . ' (Default)',
+            'status' => 'temporaire',
+            'created_by_username' => $data['username']
+        ]);
+
+//        dd($company);
+
+        $contact = Contact::create([
+            'name' => $data['username'] . ' (Default)',
+            'address_line1' => $data['address_line1'],
+            'address_line2' => $data['address_line2'],
+            'zip' => $data['zip'],
+            'city' => $data['city'],
+            'phone_number' => $data['phone_number'],
+            'fax' => $data['fax'],
+            'email' => $data['email'],
+            'company_id' => $company->id,
+            'created_by_username' => $data['username']
+        ]);
+
+//        dd($contact);
+
         return User::create([
             'username' => $data['username'],
+            'password' => bcrypt($data['password']),
             'role' => 'user',
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'email_validated' => 0,
+            'contact_id' => $contact->id,
+            'company_id' => $company->id
         ]);
+
+//        return [$user, $contact, $company];
+
+//        return User::create([
+//            'username' => $data['username'],
+//            'role' => 'user',
+//            'email' => $data['email'],
+//            'password' => bcrypt($data['password'])
+//        ]);
     }
 }

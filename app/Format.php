@@ -9,8 +9,15 @@ class Format extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name', 'height', 'width', 'surface'];
+    /**
+     * Carbon instances
+     */
     protected $dates = ['deleted_at'];
+
+    /**
+     * Fillable fields
+     */
+    protected $fillable = ['name', 'height', 'width', 'surface'];
 
     /**
      * Relationship to Document
@@ -20,6 +27,11 @@ class Format extends Model
         return $this->hasMany(Document::class);
     }
 
+    /**
+     * Get the name as key route
+     *
+     * @return string
+     */
     public function getRouteKeyName()
     {
         return 'name';

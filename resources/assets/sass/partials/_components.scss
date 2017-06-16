@@ -15,3 +15,11 @@ a.link-unstyled {
   text-decoration: none;
   transition: all .1s ease-out;
 }
+
+a.btn-transparent {
+  -webkit-appearance: none;
+
+  .fa.fa-ellipsis-v {
+    color: $light-grey;
+  }
+}

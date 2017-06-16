@@ -30,6 +30,7 @@
 
                                 <div class="row">
 
+                                    {{--Height--}}
                                     <div class="col-xs-12 col-sm-6 col-md-4{{ $errors->has('height') ? ' has-error' : '' }}">
                                         <label for="height">Hauteur</label>
                                         <input type="number" id="height" name="height" class="form-control"
@@ -41,6 +42,7 @@
                                         @endif
                                     </div>
 
+                                    {{--Width--}}
                                     <div class="col-xs-12 col-sm-6 col-md-4{{ $errors->has('width') ? ' has-error' : '' }}">
                                         <label for="width">Largeur</label>
                                         <input type="number" id="width" name="width" class="form-control"
@@ -52,6 +54,7 @@
                                         @endif
                                     </div>
 
+                                    {{--Surface--}}
                                     <div class="col-xs-12 col-md-4{{ $errors->has('surface') ? ' has-error' : '' }}">
                                         <label for="surface">Surface</label>
                                         <input type="number" step="any" id="surface" name="surface" class="form-control"
@@ -62,9 +65,9 @@
                                         </span>
                                         @endif
                                     </div>
-
                                 </div>
 
+                                {{--Submit--}}
                                 <div class="form-group mt-4">
                                     <button class="btn btn-block btn-primary" type="submit">Créer</button>
                                 </div>

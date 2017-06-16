@@ -29,8 +29,10 @@ class ArticleTest extends TestCase
      */
     function article_index_view_is_available()
     {
-        $response = $this->get('/articles');
-        $response->assertViewIs('articles.index');
+        $this->signIn();
+
+        $this->get('/articles')
+            ->assertViewIs('articles.index');
     }
 
     /**
@@ -40,8 +42,10 @@ class ArticleTest extends TestCase
      */
     function article_create_view_is_available()
     {
-        $response = $this->get('/articles/create');
-        $response->assertViewIs('articles.create');
+        $this->signIn();
+
+        $this->get('/articles/create')
+            ->assertViewIs('articles.create');
     }
     
     /**
@@ -51,8 +55,10 @@ class ArticleTest extends TestCase
      */
     function article_show_view_is_available_and_requires_an_article()
     {
-        $response = $this->get('/articles/' . $this->article->reference);
-        $response->assertViewIs('articles.show');
+        $this->signIn();
+
+        $this->get('/articles/' . $this->article->reference)
+            ->assertViewIs('articles.show');
     }
 
     /**
@@ -62,9 +68,88 @@ class ArticleTest extends TestCase
      */
     function article_edit_view_is_available_and_requires_an_article()
     {
-        $response = $this->get('/articles/' . $this->article->reference . '/edit');
-        $response->assertViewIs('articles.edit');
+        $this->signIn();
+
+        $this->get('/articles/' . $this->article->reference . '/edit')
+            ->assertViewIs('articles.edit');
     }
+    
+    /**
+     * Authorized users can create articles
+     * 
+     * @test
+     */
+    function authorized_users_can_create_articles()
+    {
+        $this->signIn();
+
+        $category = factory('App\Category')->create();
+
+        $article = factory('App\Article')->make(['category' => $category->id]);
+
+        $this->post('/articles', $article->toArray())
+            ->assertRedirect('/articles');
+    }
+
+    /**
+     * Authorized users can update articles
+     *
+     * @test
+     */
+    function authorized_users_can_update_articles()
+    {
+        $this->signIn();
+
+        $category = factory('App\Category')->create();
+
+        $article = factory('App\Article')->make(['category' => $category->id]);
+
+        $this->post('/articles', $article->toArray())
+            ->assertRedirect('/articles');
+
+        $article->description = 'Lorem Ipsum dolor sit amet';
+
+        $this->put("/articles/{$article->reference}", $article->toArray())
+            ->assertRedirect('/articles');
+    }
+
+    /**
+     * Authorized users can delete articles
+     *
+     * @test
+     */
+    function authorized_users_can_delete_articles()
+    {
+        $this->signIn();
+
+        $article = factory('App\Article')->create();
+
+        $this->assertDatabaseHas('articles', ['reference' => $article->reference]);
+
+        $this->delete("/articles/{$article->reference}")
+            ->assertRedirect('articles');
+    }
+
+    /**
+     * Authorized users can restore artices
+     *
+     * @test
+     */
+    function authorized_users_can_restore_articles()
+    {
+        $this->signIn();
+
+        $article = factory('App\Article')->create();
+
+        $this->assertDatabaseHas('articles', ['reference' => $article->reference]);
+
+        $this->delete("/articles/{$article->reference}")
+            ->assertRedirect('articles');
+
+        $this->put("/articles/{$article->reference}/restore", [$article])
+            ->assertRedirect('articles');
+    }
+
 }
 
 

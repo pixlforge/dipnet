@@ -8,13 +8,13 @@
   background: $primary;
   border: 1px solid $primary-darker;
 
-  &:hover {
+  &:hover,
+  &:active {
     background: $primary-darker;
     border: 1px solid $primary-darker;
   }
-}
 
-a:hover .card {
-  color: #fff;
-  background: $primary;
+  &:focus {
+    color: #fff;
+  }
 }

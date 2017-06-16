@@ -9,7 +9,15 @@ class Company extends Model
 {
     use SoftDeletes;
 
+    /**
+     * Carbon dates
+     */
     protected $dates = ['deleted_at'];
+
+    /**
+     * Disable mass assignment for the following fields
+     */
+    protected $fillable = ['name', 'status', 'description', 'created_by_username'];
 
     /**
      * Relationship to Business
@@ -24,7 +32,7 @@ class Company extends Model
      */
     public function businessComment()
     {
-        $this->belongsToMany(BusinessComment::class);
+        return $this->belongsToMany(BusinessComment::class);
     }
 
     /**
@@ -32,7 +40,7 @@ class Company extends Model
      */
     public function contact()
     {
-        $this->hasMany(Contact::class);
+        return $this->hasMany(Contact::class);
     }
 
     /**
@@ -40,11 +48,6 @@ class Company extends Model
      */
     public function user()
     {
-        $this->hasMany(User::class);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'name';
+        return $this->hasMany(User::class);
     }
 }

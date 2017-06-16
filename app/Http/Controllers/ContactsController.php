@@ -2,10 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
+use App\Contact;
+use App\Http\Requests\ContactRequest;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
 class ContactsController extends Controller
 {
+    use SoftDeletes;
+
+    /**
+     * ContactsController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +27,9 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        return view('contacts.index');
+        $contacts = Contact::withTrashed()->with('company')->get()->sortBy('name');
+
+        return view('contacts.index', compact('contacts'));
     }
 
     /**
@@ -23,18 +39,33 @@ class ContactsController extends Controller
      */
     public function create()
     {
-        return view('contacts.create');
+        $companies = Company::all()->sortBy('name');
+
+        return view('contacts.create', compact('companies'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ContactRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ContactRequest $request)
     {
-        //
+        Contact::create([
+            'name' => request('name'),
+            'address_line1' => request('address_line1'),
+            'address_line2' => request('address_line2'),
+            'zip' => request('zip'),
+            'city' => request('city'),
+            'phone_number' => request('phone_number'),
+            'fax' => request('fax'),
+            'email' => request('email'),
+            'company_id' => request('company_id'),
+            'created_by_username' => auth()->user()->username
+        ]);
+
+        return redirect()->route('contacts');
     }
 
     /**
@@ -51,34 +82,62 @@ class ContactsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Contact $contact)
     {
-        return view('contacts.edit');
+        $companies = Company::all()->sortBy('name');
+
+        return view('contacts.edit', compact(['contact', 'companies']));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param ContactRequest $request
+     * @param Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ContactRequest $request, Contact $contact)
     {
-        //
+        $contact->update([
+            'name' => request('name'),
+            'address_line1' => request('address_line1'),
+            'address_line2' => request('address_line2'),
+            'zip' => request('zip'),
+            'city' => request('city'),
+            'phone_number' => request('phone_number'),
+            'fax' => request('fax'),
+            'email' => request('email'),
+            'company_id' => request('company_id')
+        ]);
+
+        return redirect()->route('contacts');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
+
+        return redirect()->route('contacts');
+    }
+
+    /**
+     * Restores a previously soft deleted model.
+     *
+     * @param $contact
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore($contact)
+    {
+        Contact::onlyTrashed()->where('id', $contact)->restore();
+
+        return redirect()->route('contacts');
     }
 }

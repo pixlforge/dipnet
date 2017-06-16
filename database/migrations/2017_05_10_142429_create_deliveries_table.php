@@ -16,9 +16,10 @@ class CreateDeliveriesTable extends Migration
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('order_id');
-            $table->unsignedInteger('delivery_contact_id');
+            $table->unsignedInteger('contact_id');
 			$table->text('internal_comment')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

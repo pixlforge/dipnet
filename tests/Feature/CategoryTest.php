@@ -29,6 +29,7 @@ class CategoryTest extends TestCase
      */
     function category_index_view_is_available()
     {
+        $this->signIn();
         $response = $this->get('/categories');
         $response->assertViewIs('categories.index');
     }
@@ -40,6 +41,7 @@ class CategoryTest extends TestCase
      */
     function category_create_view_is_available()
     {
+        $this->signIn();
         $response = $this->get('/categories/create');
         $response->assertViewIs('categories.create');
     }
@@ -51,7 +53,8 @@ class CategoryTest extends TestCase
      */
     function category_show_view_is_available()
     {
-        $response = $this->get('/categories/' . $this->category->name);
+        $this->signIn();
+        $response = $this->get('/categories/' . $this->category->id);
         $response->assertViewIs('categories.show');
     }
 
@@ -62,47 +65,57 @@ class CategoryTest extends TestCase
      */
     function category_edit_view_is_available()
     {
-        $response = $this->get('/categories/' . $this->category->name . '/edit');
+        $this->signIn();
+        $response = $this->get('/categories/' . $this->category->id . '/edit');
         $response->assertViewIs('categories.edit');
     }
 
     /**
-     * A category can be inserted into the database
+     * Authorized users can create categories
      *
      * @test
      */
-    function a_category_can_be_inserted_into_the_database()
+    function authorized_users_can_create_categories()
     {
+        $this->signIn();
+
+        $category = factory('App\Category')->make();
+
+        $this->post('/categories', $category->toArray())
+            ->assertRedirect('/categories');
+    }
+
+    /**
+     * Authorized users can update categories
+     *
+     * @test
+     */
+    function authorized_users_can_update_categories()
+    {
+        $this->signIn();
+
         $category = factory('App\Category')->create();
-        $this->assertDatabaseHas('categories', ['name' => $category->name]);
+
+        $categoryUpdated = [
+            'name' => 'SuperCool'
+        ];
+
+        $this->put("/categories/{$category->id}", $categoryUpdated)
+            ->assertRedirect('/categories');
     }
 
     /**
-     * Multiple categories can be created
+     * Authorized users can delete a category
      *
      * @test
      */
-    function multiple_categories_can_be_created()
+    function authorized_users_can_delete_a_category()
     {
-        factory('App\Category', 10)->create();
-    }
+        $this->signIn();
 
-    /**
-     * A category can be deleted
-     *
-     * @test
-     */
-//    function a_category_can_be_deleted()
-//    {
-//        $category = factory('App\Category')->create();
-//        $this->assertDatabaseHas('categories', [
-//            'id' => $category->id
-//        ]);
-//
-//        $categoryToDelete = \App\Category::find(1);
-//        $categoryToDelete->delete();
-//        $this->assertDatabaseMissing('categories', [
-//            'id' => $categoryToDelete->id
-//        ]);
-//    }
+        $category = factory('App\Category')->create();
+
+        $this->delete("/categories/{$category->id}")
+            ->assertRedirect('categories');
+    }
 }

@@ -19,6 +19,7 @@ class CompanyTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         return $this->company = factory('App\Company')->create();
     }
 
@@ -30,6 +31,7 @@ class CompanyTest extends TestCase
     function company_index_view_is_available()
     {
         $response = $this->get('/companies');
+
         $response->assertViewIs('companies.index');
     }
     
@@ -41,6 +43,7 @@ class CompanyTest extends TestCase
     function company_create_view_is_available()
     {
         $response = $this->get('/companies/create');
+
         $response->assertViewIs('companies.create');
     }
 
@@ -51,7 +54,8 @@ class CompanyTest extends TestCase
      */
     function company_show_view_is_available()
     {
-        $response = $this->get('/companies/' . $this->company->name);
+        $response = $this->get('/companies/' . $this->company->id);
+
         $response->assertViewIs('companies.show');
     }
 
@@ -62,18 +66,80 @@ class CompanyTest extends TestCase
      */
     function company_edit_view_is_available()
     {
-        $response = $this->get('/companies/' . $this->company->name . '/edit');
+        $response = $this->get('/companies/' . $this->company->id . '/edit');
+
         $response->assertViewIs('companies.edit');
     }
 
     /**
-     * A company can be inserted into the database
+     * Authorized users can create companies
      *
      * @test
      */
-    function a_company_can_be_inserted_into_the_database()
+    function authorized_users_can_create_companies()
     {
-       $company = factory('App\Company')->create();
-       $this->assertDatabaseHas('companies', ['id' => $company->id]);
+        $this->signIn();
+
+        $company = factory('App\Company')->create();
+
+        $this->post("/companies", $company->toArray())
+            ->assertRedirect('/companies');
+    }
+
+    /**
+     * Authorized users can update companies
+     *
+     * @test
+     */
+    function authorized_users_can_update_companies()
+    {
+        $this->signIn();
+
+        $company = factory('App\Company')->create();
+
+        $this->post("/companies", $company->toArray())
+            ->assertRedirect('/companies');
+
+        $company->city = 'Courgenay';
+
+        $this->put("/companies/{$company->id}", $company->toArray())
+            ->assertRedirect('/companies');
+    }
+
+    /**
+     * Authorized users can delete companies
+     *
+     * @test
+     */
+    function authorized_users_can_delete_companies()
+    {
+        $this->signIn();
+
+        $company = factory('App\Company')->create();
+
+        $this->assertDatabaseHas('companies', ['id' => $company->id]);
+
+        $this->delete("/companies/{$company->id}")
+            ->assertRedirect('/companies');
+    }
+
+    /**
+     * Authorized users can restore companies
+     *
+     * @test
+     */
+    function authorized_users_can_restore_companies()
+    {
+        $this->signIn();
+
+        $company = factory('App\Company')->create();
+
+        $this->assertDatabaseHas('companies', ['id' => $company->id]);
+
+        $this->delete("/companies/{$company->id}")
+            ->assertRedirect('/companies');
+
+        $this->put("/companies/{$company->id}/restore", [$company])
+            ->assertRedirect('/companies');
     }
 }

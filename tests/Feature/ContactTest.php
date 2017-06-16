@@ -19,6 +19,7 @@ class ContactTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         return $this->contact = factory('App\Contact')->create();
     }
 
@@ -29,7 +30,10 @@ class ContactTest extends TestCase
      */
     function contact_index_view_is_available()
     {
+        $this->signIn();
+
         $response = $this->get('/contacts');
+
         $response->assertViewIs('contacts.index');
     }
 
@@ -40,7 +44,10 @@ class ContactTest extends TestCase
      */
     function contact_create_view_is_available()
     {
+        $this->signIn();
+
         $response = $this->get('/contacts/create');
+
         $response->assertViewIs('contacts.create');
     }
     
@@ -51,7 +58,10 @@ class ContactTest extends TestCase
      */
     function contact_show_view_is_available_and_requires_a_contact()
     {
+        $this->signIn();
+
         $response = $this->get('/contacts/' . $this->contact->name);
+
         $response->assertViewIs('contacts.show');
     }
     
@@ -62,20 +72,85 @@ class ContactTest extends TestCase
      */
     function contact_edit_view_is_available_and_requires_a_contact()
     {
-        $response = $this->get('/contacts/' . $this->contact->name . '/edit');
+        $this->signIn();
+
+        $response = $this->get('/contacts/' . $this->contact->id . '/edit');
+
         $response->assertViewIs('contacts.edit');
     }
 
     /**
-     * A contact can be inserted into the database
+     * Authorized users can create contacts
      *
      * @test
      */
-    function a_contact_can_be_inserted_into_the_database()
+    function authorized_users_can_create_contacts()
     {
+        $this->signIn();
+
         $contact = factory('App\Contact')->create();
-        $this->assertDatabaseHas('contacts', ['name' => $contact->name]);
+
+        $this->post("/contacts", $contact->toArray())
+            ->assertRedirect('/contacts');
     }
+
+    /**
+     * Authorized users can update contacts
+     *
+     * @test
+     */
+    function authorized_users_can_update_contacts()
+    {
+        $this->signIn();
+
+        $contact = factory('App\Contact')->create();
+
+        $this->post("/contacts", $contact->toArray())
+            ->assertRedirect('/contacts');
+
+        $contact->city = 'Courgenay';
+
+        $this->put("/contacts/{$contact->id}", $contact->toArray())
+            ->assertRedirect('/contacts');
+    }
+
+    /**
+     * Authorized users can delete contacts
+     *
+     * @test
+     */
+    function authorized_users_can_delete_contacts()
+    {
+        $this->signIn();
+
+        $contact = factory('App\Contact')->create();
+
+        $this->assertDatabaseHas('contacts', ['id' => $contact->id]);
+
+        $this->delete("/contacts/{$contact->id}")
+            ->assertRedirect('/contacts');
+    }
+
+    /**
+     * Authorized users can restore contacts
+     *
+     * @test
+     */
+    function authorized_users_can_restore_contacts()
+    {
+        $this->signIn();
+
+        $contact = factory('App\Contact')->create();
+
+        $this->assertDatabaseHas('contacts', ['id' => $contact->id]);
+
+        $this->delete("/contacts/{$contact->id}")
+            ->assertRedirect('/contacts');
+
+        $this->put("/contacts/{$contact->id}/restore", [$contact])
+            ->assertRedirect('/contacts');
+    }
+
 }
 
 

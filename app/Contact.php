@@ -9,7 +9,26 @@ class Contact extends Model
 {
     use SoftDeletes;
 
+    /**
+     * Carbon dates
+     */
     protected $dates = ['deleted_at'];
+
+    /**
+     * Disable mass assignment protection for the following fields
+     */
+    protected $fillable = [
+        'name',
+        'address_line1',
+        'address_line2',
+        'zip',
+        'city',
+        'phone_number',
+        'fax',
+        'email',
+        'company_id',
+        'created_by_username'
+    ];
 
     /**
      * Relationship to Business

@@ -46,6 +46,8 @@ Route::get('/companies/{company}', 'CompaniesController@show');
 Route::post('/companies', 'CompaniesController@store');
 Route::get('/companies/{company}/edit', 'CompaniesController@edit');
 Route::put('/companies/{company}', 'CompaniesController@update');
+Route::delete('/companies/{company}', 'CompaniesController@destroy');
+Route::put('/companies/{company}/restore', 'CompaniesController@restore');
 
 /**
  * Contact routes
@@ -56,6 +58,8 @@ Route::get('/contacts/{contact}', 'ContactsController@show');
 Route::post('/contacts', 'ContactsController@store');
 Route::get('/contacts/{contact}/edit', 'ContactsController@edit');
 Route::put('/contacts/{contact}', 'ContactsController@update');
+Route::delete('/contacts/{contact}', 'ContactsController@destroy');
+Route::put('/contacts/{contact}/restore', 'ContactsController@restore');
 
 /**
  * Order routes
@@ -66,6 +70,8 @@ Route::get('/orders/{order}', 'OrdersController@show');
 Route::post('/orders', 'OrdersController@store');
 Route::get('/orders/{order}/edit', 'OrdersController@edit');
 Route::put('/orders/{order}', 'OrdersController@update');
+Route::delete('/orders/{order}', 'OrdersController@destroy');
+Route::put('/orders/{order}/restore', 'OrdersController@restore');
 
 /**
  * Format routes
@@ -76,6 +82,8 @@ Route::get('/formats/{format}', 'FormatsController@show');
 Route::post('/formats', 'FormatsController@store');
 Route::get('/formats/{format}/edit', 'FormatsController@edit');
 Route::put('/formats/{format}', 'FormatsController@update');
+Route::delete('/formats/{format}', 'FormatsController@destroy');
+Route::put('/formats/{format}/restore', 'FormatsController@restore');
 
 /**
  * Category routes
@@ -86,6 +94,7 @@ Route::get('/categories/{category}', 'CategoriesController@show');
 Route::post('/categories', 'CategoriesController@store');
 Route::get('/categories/{category}/edit', 'CategoriesController@edit');
 Route::put('/categories/{category}', 'CategoriesController@update');
+Route::delete('/categories/{category}', 'CategoriesController@destroy');
 
 /**
  * Article routes
@@ -96,6 +105,8 @@ Route::get('/articles/{article}', 'ArticlesController@show');
 Route::post('/articles', 'ArticlesController@store');
 Route::get('/articles/{article}/edit', 'ArticlesController@edit');
 Route::put('/articles/{article}', 'ArticlesController@update');
+Route::delete('/articles/{article}', 'ArticlesController@destroy');
+Route::put('/articles/{article}/restore', 'ArticlesController@restore');
 
 /**
  * Document routes
@@ -116,3 +127,5 @@ Route::get('/deliveries/{delivery}', 'DeliveriesController@show');
 Route::post('/deliveries', 'DeliveriesController@store');
 Route::get('/deliveries/{delivery}/edit', 'DeliveriesController@edit');
 Route::put('/deliveries/{delivery}', 'DeliveriesController@update');
+Route::delete('/deliveries/{delivery}', 'DeliveriesController@destroy');
+Route::put('/deliveries/{delivery}/restore', 'DeliveriesController@restore');

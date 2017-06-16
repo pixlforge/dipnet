@@ -10,7 +10,51 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
+    /**
+     * Carbon dates
+     */
     protected $dates = ['deleted_at'];
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'username', 'email', 'password', 'role', 'contact_id', 'company_id'
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'password','remember_token',
+    ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        /**
+         * Creates a contact when a user successfully registers
+         */
+//        static::creating(function () {
+//            Contact::create([
+//                'name' => request('username'),
+//                'address_line1' => request('address_line1'),
+//                'address_line2' => request('address_line2'),
+//                'zip' => request('zip'),
+//                'city' => request('city'),
+//                'phone_number' => request('phone_number'),
+//                'fax' => request('fax'),
+//                'email' => request('email'),
+//                'company_id' => 1,
+//                'created_by_username' => request('username')
+//            ]);
+//        });
+    }
 
     /**
      * Relationship to Business
@@ -51,24 +95,6 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Contact::class);
     }
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
-    protected $fillable = [
-        'username', 'email', 'password', 'role',
-    ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password','remember_token',
-    ];
 
     /**
      * Set the username attribute as a key used in routing

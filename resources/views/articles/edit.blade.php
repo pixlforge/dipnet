@@ -4,9 +4,91 @@
 
     <div class="container-fluid">
         <div class="row">
-            <div class="col intro d-flex justify-content-center align-items-center">
-                <h1 class="display-1">Articles edit</h1>
+            <div class="col-12 text-center my-5">
+                <h1 class="display-1">Articles</h1>
+                <h2 class="text-muted">Modifier l'article {{ $article->reference }}</h2>
             </div>
+
+            <div class="col-xs-12 col-md-10 offset-md-1">
+                <div class="card">
+                    <div class="card-block">
+                        <h4 class="text-center my-3">Modifier un article</h4>
+
+                        <div class="col-xs-12 col-xl-8 offset-xl-2">
+                            <form method="POST" action="{{ url("/articles/{$article->reference}") }}" role="form">
+                                {{ method_field('PUT') }}
+                                {{ csrf_field() }}
+
+                                {{--Référence--}}
+                                <div class="form-group{{ $errors->has('reference') ? ' has-error' : '' }}">
+                                    <label for="reference">Référence de l'article</label>
+                                    <input type="text" id="reference" name="reference" class="form-control"
+                                           value="{{ $errors->has('reference') ? old('reference') : $article->reference }}" placeholder="e.g. A-123" required autofocus>
+                                    @if ($errors->has('reference'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('reference') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
+                                {{--Description--}}
+                                <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
+                                    <label for="description">Description</label>
+                                    <input type="text" id="description" name="description" class="form-control"
+                                           value="{{ $errors->has('description') ? old('description') : $article->description }}" placeholder="e.g. Courte description">
+                                    @if ($errors->has('description'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
+                                {{--Type--}}
+                                <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+                                    <label for="type">Type</label>
+                                    <select name="type" id="type" class="custom-select form-control" required>
+                                        <option selected>Sélectionnez un type</option>
+                                        <option disabled>&mdash;&mdash;&mdash;&mdash;&mdash;</option>
+                                        <option value="impression" {{ $article->type == 'impression' ? 'selected' : '' }}>Impression</option>
+                                        <option value="option" {{ $article->type == 'option' ? 'selected' : '' }}>Option</option>
+                                    </select>
+                                    @if ($errors->has('type'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('type') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
+                                {{--Category--}}
+                                <div class="form-group{{ $errors->has('category') ? ' has-error' : '' }}">
+                                    <label for="category">Catégorie</label>
+                                    <select name="category" id="category" class="custom-select form-control" required>
+                                        <option selected>Sélectionnez une catégorie</option>
+                                        <option disabled>&mdash;&mdash;&mdash;&mdash;&mdash;</option>
+                                        @forelse ($categories as $category)
+                                            <option value="{{ $category->id }}" {{ $article->category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                                        @empty
+                                            <option disabled>Aucune catégorie trouvée</option>
+                                        @endforelse
+                                    </select>
+                                    @if ($errors->has('category'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('category') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
+                                {{--Submit--}}
+                                <div class="form-group mt-4">
+                                    <button class="btn btn-block btn-primary" type="submit">Mettre à jour</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
 

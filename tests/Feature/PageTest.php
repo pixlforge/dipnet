@@ -60,15 +60,4 @@ class PageTest extends TestCase
         $response = $this->get('/password/reset/{token}');
         $response->assertViewIs('auth.passwords.reset');
     }
-
-    /**
-     * Admin dashboard is available
-     *
-     * @test
-     */
-    function admin_dashboard_is_available()
-    {
-        $response = $this->get('/admin/dashboard');
-        $response->assertViewIs('admin.dashboard');
-    }
 }

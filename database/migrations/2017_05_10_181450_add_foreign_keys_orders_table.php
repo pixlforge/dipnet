@@ -15,8 +15,8 @@ class AddForeignKeysOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->foreign('business_id')->references('id')->on('businesses');
-            $table->foreign('billing_contact_id')->references('id')->on('contacts');
-            $table->foreign('created_by_user_id')->references('id')->on('users');
+            $table->foreign('contact_id')->references('id')->on('contacts');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -29,8 +29,8 @@ class AddForeignKeysOrdersTable extends Migration
     {
         Schema::table('orders', function (Blueprint $table) {
             $table->dropForeign('orders_business_id_foreign');
-            $table->dropForeign('orders_billing_contact_id_foreign');
-            $table->dropForeign('orders_created_by_user_id_foreign');
+            $table->dropForeign('orders_contact_id_foreign');
+            $table->dropForeign('orders_user_id_foreign');
         });
     }
 }

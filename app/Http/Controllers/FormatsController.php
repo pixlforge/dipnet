@@ -2,11 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\FormatRequest;
 use Illuminate\Http\Request;
 use App\Format;
 
 class FormatsController extends Controller
 {
+    /**
+     * FormatsController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,17 +40,11 @@ class FormatsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param FormatRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FormatRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:formats|min:2|max:45',
-            'height' => 'required',
-            'width' => 'required',
-        ]);
-
         Format::create([
             'name' => request('name'),
             'height' => request('height'),
@@ -77,23 +80,43 @@ class FormatsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param FormatRequest $request
+     * @param Format $format
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(FormatRequest $request, Format $format)
     {
-        //
+        $format->update([
+            'name' => request('name'),
+            'height' => request('height'),
+            'width' => request('width'),
+            'surface' => request('surface')
+        ]);
+
+        return redirect()->route('formats');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Format $format
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Format $format)
     {
-        //
+        $format->delete();
+        return redirect()->route('formats');
+    }
+
+    /**
+     * Restores a previously soft deleted model.
+     *
+     * @param $format
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore($format)
+    {
+        Format::onlyTrashed()->where('name', $format)->restore();
+        return redirect()->route('formats');
     }
 }

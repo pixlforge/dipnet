@@ -34,7 +34,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Company::class, function(Faker\Generator $faker) {
     return [
         'name' => $faker->company,
-        'status' => $faker->randomElement(['temp', 'perm']),
+        'status' => $faker->randomElement(['temporaire', 'permanent']),
         'description' => $faker->catchPhrase,
         'created_by_username' => $faker->userName,
     ];
@@ -80,11 +80,11 @@ $factory->define(App\Business::class, function(Faker\Generator $faker) {
         'company_id' => function() {
             return factory(App\Company::class)->create()->id;
         },
-        'main_contact_id' => function() {
+        'contact_id' => function() {
             return factory(App\Contact::class)->create()->id;
         },
         'created_by_username' => function() {
-            return factory(App\User::class)->create()->id;
+            return factory(App\User::class)->create()->username;
         },
     ];
 });
@@ -96,10 +96,10 @@ $factory->define(App\Order::class, function(Faker\Generator $faker) {
         'business_id' => function() {
             return factory(App\Business::class)->create()->id;
         },
-        'billing_contact_id' => function() {
+        'contact_id' => function() {
             return factory(App\Contact::class)->create()->id;
         },
-        'created_by_user_id' => function() {
+        'user_id' => function() {
             return factory(App\User::class)->create()->id;
         },
     ];
@@ -108,6 +108,7 @@ $factory->define(App\Order::class, function(Faker\Generator $faker) {
 $factory->define(App\Article::class, function(Faker\Generator $faker) {
     return [
         'reference' => $faker->randomNumber($nbDigits = 8, $strict = false),
+        'description' => $faker->word,
         'type' => $faker->randomElement(['impression', 'option']),
         'category_id' => function() {
             return factory(App\Category::class)->create()->id;
@@ -144,7 +145,7 @@ $factory->define(App\Delivery::class, function() {
         'order_id' => function() {
             return factory(App\Order::class)->create()->id;
         },
-        'delivery_contact_id' => function() {
+        'contact_id' => function() {
             return factory(App\Contact::class)->create()->id;
         },
     ];

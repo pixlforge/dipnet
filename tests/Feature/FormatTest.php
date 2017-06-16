@@ -19,6 +19,7 @@ class FormatTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         return $this->format = factory('App\Format')->create();
     }
 
@@ -29,7 +30,10 @@ class FormatTest extends TestCase
      */
     function format_index_view_is_available()
     {
+        $this->signIn();
+
         $response = $this->get('/formats');
+
         $response->assertViewIs('formats.index');
     }
 
@@ -40,7 +44,10 @@ class FormatTest extends TestCase
      */
     function format_create_view_is_available()
     {
+        $this->signIn();
+
         $response = $this->get('/formats/create');
+
         $response->assertViewIs('formats.create');
     }
 
@@ -51,7 +58,10 @@ class FormatTest extends TestCase
      */
     function format_show_view_is_available()
     {
+        $this->signIn();
+
         $response = $this->get('/formats/' . $this->format->name);
+
         $response->assertViewIs('formats.show');
     }
 
@@ -62,30 +72,83 @@ class FormatTest extends TestCase
      */
     function format_edit_view_is_available()
     {
+        $this->signIn();
+
         $response = $this->get('/formats/' . $this->format->name . '/edit');
+
         $response->assertViewIs('formats.edit');
     }
 
     /**
-     * A format can be inserted into the database
+     * Authorized users can create formats
      *
      * @test
      */
-    function a_format_can_be_inserted_into_the_database()
+    function authorized_users_can_create_formats()
     {
-        $format = factory('App\Format')->create();
-        $this->assertDatabaseHas('formats', ['name' => $format->name]);
+        $this->signIn();
+
+        $format = factory('App\Format')->make();
+
+        $this->post('/formats', $format->toArray())
+            ->assertRedirect('/formats');
+    }
+    
+    /**
+     * Authorized users can update formats
+     * 
+     * @test
+     */
+    function authorized_users_can_update_formats()
+    {
+        $this->signIn();
+
+        $format = factory('App\Format')->make();
+
+        $this->post('/formats', $format->toArray())
+            ->assertRedirect('/formats');
+
+        $formatUpdated = [
+            'name' => 'Premium',
+            'height' => 340,
+            'width' => 230,
+            'surface' => 0.1234
+        ];
+
+        $this->put("/formats/{$format->name}", $formatUpdated)
+            ->assertRedirect('/formats');
     }
 
     /**
-     * A format can be posted
+     * Authorized users can delete formats
      *
      * @test
      */
-//    function a_format_can_be_posted()
-//    {
-//        $response = $this->post($this->format);
-//        dd($response);
-//    }
+    function authorized_users_can_delete_formats()
+    {
+        $this->signIn();
 
+        $format = factory('App\Format')->create();
+
+        $this->delete("/formats/{$format->name}")
+            ->assertRedirect('formats');
+    }
+
+    /**
+     * Authorized users can restore formats
+     *
+     * @test
+     */
+    function authorized_users_can_restore_formats()
+    {
+        $this->signIn();
+
+        $format = factory('App\Format')->create();
+
+        $this->delete("/formats/{$format->name}")
+            ->assertRedirect('formats');
+
+        $this->put("/formats/{$format->name}/restore", [$format])
+            ->assertRedirect('formats');
+    }
 }

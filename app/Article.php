@@ -9,7 +9,15 @@ class Article extends Model
 {
     use SoftDeletes;
 
+    /**
+     * Carbon instances
+     */
     protected $dates = ['deleted_at'];
+    
+    /**
+     * Fillable fields
+     */
+    protected $fillable = ['reference', 'description', 'type', 'category_id'];
 
     /**
      * Relationship to Category
@@ -28,13 +36,20 @@ class Article extends Model
     }
 
     /**
-     * Relationship to ExtraRate
+     * Relationship to Company
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function extraRate()
+    public function company()
     {
-        return $this->belongsTo(ExtraRate::class);
+        return $this->belongsTo(Company::class);
     }
 
+    /**
+     * Get the reference as a key route 
+     * 
+     * @return string
+     */
     public function getRouteKeyName()
     {
         return 'reference';

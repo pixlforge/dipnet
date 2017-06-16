@@ -9,8 +9,15 @@ class Business extends Model
 {
     use SoftDeletes;
 
+    /**
+     * Carbon dates
+     */
     protected $dates = ['deleted_at'];
-    protected $fillable = [];
+
+    /**
+     * Disable mass assignment protection for the following fields
+     */
+    protected $fillable = ['name', 'reference', 'description', 'company_id', 'contact_id', 'created_by_username'];
 
     /**
      * Relationship to BusinessComment
@@ -42,10 +49,5 @@ class Business extends Model
     public function order()
     {
         return $this->hasMany(Order::class);
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'name';
     }
 }

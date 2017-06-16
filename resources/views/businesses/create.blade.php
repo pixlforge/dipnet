@@ -12,11 +12,11 @@
                 <div class="card">
                     <div class="card-block">
                         <h4 class="text-center my-3">Ajouter une nouvelle affaire</h4>
-
                         <div class="col-xs-12 col-xl-8 offset-xl-2">
                             <form method="POST" action="{{ url('/businesses') }}" role="form">
                                 {{ csrf_field() }}
 
+                                {{--Name--}}
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                     <label for="name">Nom de l'affaire</label>
                                     <input type="text" id="name" name="name" class="form-control"
@@ -28,6 +28,7 @@
                                     @endif
                                 </div>
 
+                                {{--Reference--}}
                                 <div class="form-group{{ $errors->has('reference') ? ' has-error' : '' }}">
                                     <label for="reference">Référence</label>
                                     <input type="text" id="reference" name="reference" class="form-control"
@@ -39,10 +40,11 @@
                                     @endif
                                 </div>
 
+                                {{--Description--}}
                                 <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                                     <label for="description">Description</label>
                                     <input type="text" id="description" name="description" class="form-control"
-                                           value="{{ old('description') }}" placeholder="e.g. Lorem ipsum dolor sit amet." required>
+                                           value="{{ old('description') }}" placeholder="e.g. Lorem ipsum dolor sit amet.">
                                     @if ($errors->has('description'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('description') }}</strong>
@@ -50,12 +52,45 @@
                                     @endif
                                 </div>
 
-                                <div>
-                                    <h3>TODO</h3>
-                                    <p>Select company</p>
-                                    <p>Select contact</p>
+                                {{--Company--}}
+                                <div class="form-group{{ $errors->has('company_id') ? ' has-error' : '' }}">
+                                    <label for="company_id">Société</label>
+                                    <select name="company_id" id="company_id" class="custom-select form-control">
+                                        <option disabled selected>Sélectionnez une société</option>
+                                        <option disabled>&mdash;&mdash;&mdash;&mdash;&mdash;</option>
+                                        @forelse ($companies as $company)
+                                            <option value="{{ $company->id }}" {{ old('company_id') == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>
+                                        @empty
+                                            <option disabled>Aucune société trouvée</option>
+                                        @endforelse
+                                    </select>
+                                    @if ($errors->has('company_id'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('company_id') }}</strong>
+                                    </span>
+                                    @endif
                                 </div>
 
+                                {{--Contact--}}
+                                <div class="form-group{{ $errors->has('contact_id') ? ' has-error' : '' }}">
+                                    <label for="contact_id">Contact</label>
+                                    <select name="contact_id" id="contact_id" class="custom-select form-control">
+                                        <option disabled selected>Sélectionnez un contact</option>
+                                        <option disabled>&mdash;&mdash;&mdash;&mdash;&mdash;</option>
+                                        @forelse ($contacts as $contact)
+                                            <option value="{{ $contact->id }}" {{ old('contact_id') == $contact->id ? 'selected' : '' }}>{{ "{$contact->company->name} / {$contact->name}" }}</option>
+                                        @empty
+                                            <option disabled>Aucun contact trouvé</option>
+                                        @endforelse
+                                    </select>
+                                    @if ($errors->has('contact_id'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('contact_id') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+
+                                {{--Submit--}}
                                 <div class="form-group mt-4">
                                     <button class="btn btn-block btn-primary" type="submit">Créer</button>
                                 </div>

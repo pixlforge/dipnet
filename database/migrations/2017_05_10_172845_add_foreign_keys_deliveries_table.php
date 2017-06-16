@@ -15,7 +15,7 @@ class AddForeignKeysDeliveriesTable extends Migration
     {
         Schema::table('deliveries', function (Blueprint $table) {
             $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('delivery_contact_id')->references('id')->on('contacts');
+            $table->foreign('contact_id')->references('id')->on('contacts');
         });
     }
 
@@ -28,7 +28,7 @@ class AddForeignKeysDeliveriesTable extends Migration
     {
         Schema::table('deliveries', function (Blueprint $table) {
             $table->dropForeign('deliveries_order_id_foreign');
-            $table->dropForeign('deliveries_delivery_contact_id_foreign');
+            $table->dropForeign('deliveries_contact_id_foreign');
         });
     }
 }

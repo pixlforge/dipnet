@@ -1,0 +1,54 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Foundation\Http\FormRequest;
+
+class ArticleRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'reference' => 'required|unique:articles,id,:id|min:3|max:45',
+            'description' => 'nullable|string|max:45',
+            'type' => 'required|in:impression,option',
+            'category' => 'required|exists:categories,id'
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'reference.required' => 'Veuillez entrer une référence.',
+            'reference.unique' => 'Cette référence est déjà utilisée.',
+            'reference.min' => 'Minimum 3 caractères.',
+            'reference.max' => 'Maximum 45 caractères.',
+            'description.string' => 'La description doit être du texte.',
+            'description.max' => 'Maximum 45 caractères.',
+            'type.required' => 'Veuillez sélectionner un type.',
+            'type.in' => 'Veuillez sélectionner un type parmi ceux proposés.',
+            'category.required' => 'Veuillez sélectionner une catégorie.',
+            'category.exists' => 'Veuillez sélectionner une catégorie parmi celles proposées.'
+        ];
+    }
+}

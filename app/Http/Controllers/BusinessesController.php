@@ -2,11 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
+use App\Contact;
 use App\Business;
+use App\Http\Requests\BusinessRequest;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\Request;
 
 class BusinessesController extends Controller
 {
+    /**
+     * BusinessesController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,8 @@ class BusinessesController extends Controller
      */
     public function index()
     {
-        $businesses = Business::all()->sortBy('name');
+        $businesses = Business::withTrashed()->with('company', 'contact')->get()->sortBy('name');
+
         return view('businesses.index', compact('businesses'));
     }
 
@@ -25,30 +38,27 @@ class BusinessesController extends Controller
      */
     public function create()
     {
-        return view('businesses.create');
+        $companies = Company::all()->sortBy('name');
+        $contacts = Contact::all()->sortBy('name')->sortBy('company.name');
+
+        return view('businesses.create', compact(['companies', 'contacts']));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param BusinessRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BusinessRequest $request)
     {
-        $this->validate($request, [
-            'name' => 'required|min:2|max:45',
-            'reference' => 'max:45',
-            'description' => 'max:255',
-        ]);
-
         Business::create([
             'name' => request('name'),
             'reference' => request('reference'),
             'description' => request('description'),
-            'company_id' => 1,
-            'main_contact_id' => 1,
-            'created_by_username' => auth()->user()->name
+            'company_id' => request('company_id'),
+            'contact_id' => request('contact_id'),
+            'created_by_username' => auth()->user()->username
         ]);
 
         return redirect()->route('businesses');
