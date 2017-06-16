@@ -63,14 +63,31 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        return $this->createAccount($data);
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    protected function createRelatedCompany(array $data)
+    {
         $company = Company::create([
             'name' => $data['username'] . ' (Default)',
             'status' => 'temporaire',
             'created_by_username' => $data['username']
         ]);
 
-//        dd($company);
+        return $company;
+    }
 
+    /**
+     * @param array $data
+     * @param $company
+     * @return mixed
+     */
+    protected function createRelatedContact(array $data, $company)
+    {
         $contact = Contact::create([
             'name' => $data['username'] . ' (Default)',
             'address_line1' => $data['address_line1'],
@@ -83,9 +100,17 @@ class RegisterController extends Controller
             'company_id' => $company->id,
             'created_by_username' => $data['username']
         ]);
+        return $contact;
+    }
 
-//        dd($contact);
-
+    /**
+     * @param array $data
+     * @param $contact
+     * @param $company
+     * @return mixed
+     */
+    protected function registerUser(array $data, $contact, $company)
+    {
         return User::create([
             'username' => $data['username'],
             'password' => bcrypt($data['password']),
@@ -95,14 +120,18 @@ class RegisterController extends Controller
             'contact_id' => $contact->id,
             'company_id' => $company->id
         ]);
+    }
 
-//        return [$user, $contact, $company];
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    protected function createAccount(array $data)
+    {
+        $company = $this->createRelatedCompany($data);
 
-//        return User::create([
-//            'username' => $data['username'],
-//            'role' => 'user',
-//            'email' => $data['email'],
-//            'password' => bcrypt($data['password'])
-//        ]);
+        $contact = $this->createRelatedContact($data, $company);
+
+        return $this->registerUser($data, $contact, $company);
     }
 }
