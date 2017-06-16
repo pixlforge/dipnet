@@ -26,7 +26,10 @@ class BusinessesController extends Controller
      */
     public function index()
     {
-        $businesses = Business::withTrashed()->with('company', 'contact')->get()->sortBy('name');
+        $businesses = Business::withTrashed()
+            ->with('company', 'contact')
+            ->get()
+            ->sortBy('name');
 
         return view('businesses.index', compact('businesses'));
     }
@@ -38,10 +41,16 @@ class BusinessesController extends Controller
      */
     public function create()
     {
-        $companies = Company::all()->sortBy('name');
-        $contacts = Contact::all()->sortBy('name')->sortBy('company.name');
+        $companies = Company::all()
+            ->sortBy('name');
 
-        return view('businesses.create', compact(['companies', 'contacts']));
+        $contacts = Contact::all()
+            ->sortBy('name')
+            ->sortBy('company.name');
+
+        return view('businesses.create', compact([
+            'companies', 'contacts'
+        ]));
     }
 
     /**
@@ -83,29 +92,62 @@ class BusinessesController extends Controller
      */
     public function edit(Business $business)
     {
-        return view('businesses.edit', compact('business'));
+        $companies = Company::all()
+            ->sortBy('name');
+
+        $contacts = Contact::all()
+            ->sortBy('name')
+            ->sortBy('company.name');
+
+        return view('businesses.edit', compact([
+            'business', 'companies', 'contacts'
+        ]));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param BusinessRequest $request
+     * @param Business $business
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(BusinessRequest $request, Business $business)
     {
-        //
+        $business->update([
+            'name' => request('name'),
+            'reference' => request('reference'),
+            'description' => request('description'),
+            'company_id' => request('company_id'),
+            'contact_id' => request('contact_id')
+        ]);
+
+        return redirect()
+            ->route('businesses');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param Business $business
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Business $business)
     {
-        //
+        $business->delete();
+
+        return redirect()->route('businesses');
+    }
+
+    /**
+     * Restores a previously soft deleted model.
+     *
+     * @param $business
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore($business)
+    {
+        Business::onlyTrashed()->where('id', $business)->restore();
+
+        return redirect()->route('businesses');
     }
 }
