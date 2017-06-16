@@ -52,20 +52,6 @@ class BusinessTest extends TestCase
     }
 
     /**
-     * Business show view is available and requires a business
-     *
-     * @test
-     */
-    function business_show_view_is_available_and_requires_a_business()
-    {
-        $this->signIn();
-
-        $response = $this->get('/businesses/' . $this->business->id);
-
-        $response->assertViewIs('businesses.show');
-    }
-
-    /**
      * Business edit view is available and requires a business
      *
      * @test
@@ -103,12 +89,9 @@ class BusinessTest extends TestCase
     {
         $this->signIn();
 
-        $business = factory('App\Article')->make();
+        $business = factory('App\Business')->create();
 
-        $this->post('/businesses', $business->toArray())
-            ->assertRedirect('/businesses');
-
-        $business->description = 'Lorem Ipsum dolor sit amet';
+        $business->description = 'Thank you Mario.';
 
         $this->put("/businesses/{$business->id}", $business->toArray())
             ->assertRedirect('/businesses');
@@ -123,16 +106,16 @@ class BusinessTest extends TestCase
     {
         $this->signIn();
 
-        $business = factory('App\Article')->create();
+        $business = factory('App\Business')->create();
 
-        $this->assertDatabaseHas('businesses', ['reference' => $business->reference]);
+        $this->assertDatabaseHas('businesses', ['id' => $business->id]);
 
-        $this->delete("/businesses/{$business->reference}")
-            ->assertRedirect('businesses');
+        $this->delete("/businesses/{$business->id}")
+            ->assertRedirect('/businesses');
     }
 
     /**
-     * Authorized users can restore artices
+     * Authorized users can restore businesses
      *
      * @test
      */
@@ -140,15 +123,15 @@ class BusinessTest extends TestCase
     {
         $this->signIn();
 
-        $business = factory('App\Article')->create();
+        $business = factory('App\Business')->create();
 
-        $this->assertDatabaseHas('businesses', ['reference' => $business->reference]);
+        $this->assertDatabaseHas('businesses', ['id' => $business->id]);
 
-        $this->delete("/businesses/{$business->reference}")
-            ->assertRedirect('businesses');
+        $this->delete("/businesses/{$business->id}")
+            ->assertRedirect('/businesses');
 
-        $this->put("/businesses/{$business->reference}/restore", [$business])
-            ->assertRedirect('businesses');
+        $this->put("/businesses/{$business->id}/restore", $business->toArray())
+            ->assertRedirect('/businesses');
     }
 }
 

@@ -48,18 +48,6 @@ class CompanyTest extends TestCase
     }
 
     /**
-     * Company show view is available
-     *
-     * @test
-     */
-    function company_show_view_is_available()
-    {
-        $response = $this->get('/companies/' . $this->company->id);
-
-        $response->assertViewIs('companies.show');
-    }
-
-    /**
      * Company edit view is available
      *
      * @test

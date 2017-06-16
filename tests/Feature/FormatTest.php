@@ -52,20 +52,6 @@ class FormatTest extends TestCase
     }
 
     /**
-     * Format show view is available
-     *
-     * @test
-     */
-    function format_show_view_is_available()
-    {
-        $this->signIn();
-
-        $response = $this->get('/formats/' . $this->format->name);
-
-        $response->assertViewIs('formats.show');
-    }
-
-    /**
      * Format edit view is available
      *
      * @test

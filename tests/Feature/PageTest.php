@@ -14,6 +14,7 @@ class PageTest extends TestCase
     function index_view_is_available()
     {
         $response = $this->get('/');
+
         $response->assertViewIs('pages.index');
     }
 
@@ -25,6 +26,7 @@ class PageTest extends TestCase
     function login_view_is_available()
     {
         $response = $this->get('/login');
+
         $response->assertViewIs('auth.login');
     }
     
@@ -36,6 +38,7 @@ class PageTest extends TestCase
     function register_view_is_available()
     {
         $response = $this->get('/register');
+
         $response->assertViewIs('auth.register');
     }
     
@@ -47,6 +50,7 @@ class PageTest extends TestCase
     function password_reset_request_view_is_available()
     {
         $response = $this->get('/password/reset');
+
         $response->assertViewIs('auth.passwords.email');
     }
     
@@ -58,6 +62,7 @@ class PageTest extends TestCase
     function password_reset_change_view_is_available()
     {
         $response = $this->get('/password/reset/{token}');
+
         $response->assertViewIs('auth.passwords.reset');
     }
 }

@@ -52,20 +52,6 @@ class ContactTest extends TestCase
     }
     
     /**
-     * Contact show view is available and requires a contact
-     * 
-     * @test
-     */
-    function contact_show_view_is_available_and_requires_a_contact()
-    {
-        $this->signIn();
-
-        $response = $this->get('/contacts/' . $this->contact->name);
-
-        $response->assertViewIs('contacts.show');
-    }
-    
-    /**
      * Contact edit view is available and requires a contact
      * 
      * @test

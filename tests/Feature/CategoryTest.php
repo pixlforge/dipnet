@@ -30,7 +30,9 @@ class CategoryTest extends TestCase
     function category_index_view_is_available()
     {
         $this->signIn();
+
         $response = $this->get('/categories');
+
         $response->assertViewIs('categories.index');
     }
 
@@ -42,20 +44,10 @@ class CategoryTest extends TestCase
     function category_create_view_is_available()
     {
         $this->signIn();
-        $response = $this->get('/categories/create');
-        $response->assertViewIs('categories.create');
-    }
 
-    /**
-     * Category show view is available
-     *
-     * @test
-     */
-    function category_show_view_is_available()
-    {
-        $this->signIn();
-        $response = $this->get('/categories/' . $this->category->id);
-        $response->assertViewIs('categories.show');
+        $response = $this->get('/categories/create');
+
+        $response->assertViewIs('categories.create');
     }
 
     /**
@@ -66,7 +58,9 @@ class CategoryTest extends TestCase
     function category_edit_view_is_available()
     {
         $this->signIn();
+
         $response = $this->get('/categories/' . $this->category->id . '/edit');
+
         $response->assertViewIs('categories.edit');
     }
 

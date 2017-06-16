@@ -53,20 +53,6 @@ class DeliveryTest extends TestCase
     }
 
     /**
-     * Delivery show view is available and requires a delivery
-     *
-     * @test
-     */
-    function delivery_show_view_is_available_and_requires_a_delivery()
-    {
-        $this->signIn();
-
-        $response = $this->get('/deliveries/' . $this->delivery->id);
-
-        $response->assertViewIs('deliveries.show');
-    }
-
-    /**
      * Delivery edit view is available and requires a delivery
      *
      * @test

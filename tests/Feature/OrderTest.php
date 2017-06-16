@@ -52,20 +52,6 @@ class OrderTest extends TestCase
     }
 
     /**
-     * Order show view is available and requires an order
-     *
-     * @test
-     */
-    function order_show_view_is_available_and_requires_an_order()
-    {
-        $this->signIn();
-
-        $response = $this->get('/orders/' . $this->order->id);
-
-        $response->assertViewIs('orders.show');
-    }
-
-    /**
      * Order edit view is available and requires an order
      *
      * @test
