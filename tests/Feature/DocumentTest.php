@@ -30,6 +30,8 @@ class DocumentTest extends TestCase
      */
     function document_index_view_is_available()
     {
+        $this->signIn();
+
         $response = $this->get('/documents');
 
         $response->assertViewIs('documents.index');
@@ -42,6 +44,8 @@ class DocumentTest extends TestCase
      */
     function document_create_view_is_available()
     {
+        $this->signIn();
+
         $response = $this->get('/documents/create');
 
         $response->assertViewIs('documents.create');
@@ -54,8 +58,26 @@ class DocumentTest extends TestCase
      */
     function document_edit_view_is_available_and_requires_a_document()
     {
+        $this->signIn();
+
         $response = $this->get('/documents/' . $this->document->id . '/edit');
 
         $response->assertViewIs('documents.edit');
     }
+
+    /**
+     * Authorized users can create documents
+     *
+     * @test
+     */
+    function authorized_users_can_create_documents()
+    {
+        $this->signIn();
+
+        $document = factory('App\Document')->create();
+
+        $this->post('/documents', $document->toArray())
+            ->assertRedirect('/documents');
+    }
+
 }

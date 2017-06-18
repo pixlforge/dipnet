@@ -59,4 +59,28 @@ class UserTest extends TestCase
 
         $response->assertViewIs('users.edit');
     }
+
+    /**
+     * Authorized users can create users
+     *
+     * @test
+     */
+//    function authorized_users_can_create_users()
+//    {
+//        $this->signIn();
+//
+//        $contact = factory('App\Contact')->create();
+//
+//        $company = factory('App\Company')->create();
+//
+//        $user = factory('App\User')->make([
+//            'contact_id' => $contact->id,
+//            'company_id' => $company->id
+//        ]);
+//
+//        $this->post("/users", $user->toArray())
+//            ->assertRedirect('users');
+//    }
+
+
 }

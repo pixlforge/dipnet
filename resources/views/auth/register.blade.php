@@ -14,7 +14,7 @@
 
                             <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                 <label for="username">Nom d'utilisateur</label>
-                                <input type="text" id="username" name="username" class="form-control" value="{{ old('username') }}" required autofocus>
+                                <input type="text" id="username" name="username" class="form-control" value="{{ old('username') }}" placeholder="e.g. John Doe" required autofocus>
                                 @if ($errors->has('username'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('username') }}</strong>
@@ -24,7 +24,7 @@
 
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email">E-mail</label>
-                                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" required>
+                                <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="e.g. votre@email.ch" required>
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -34,7 +34,7 @@
 
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password">Mot de passe</label>
-                                <input type="password" id="password" name="password" class="form-control" required>
+                                <input type="password" id="password" name="password" class="form-control" placeholder="Entre 6 et 45 caractères" required>
                                 @if ($errors->has('password'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('password') }}</strong>
@@ -44,17 +44,17 @@
 
                             <div class="form-group">
                                 <label for="password-confirm">Confirmation du mot de passe</label>
-                                <input type="password" id="password-confirm" name="password_confirmation" class="form-control" required>
+                                <input type="password" id="password-confirm" name="password_confirmation" class="form-control" placeholder="Répétez votre mot de passe" required>
                             </div>
 
                             {{--Contact section--}}
-                            <h2 class="card-title text-center mt-5">Contact</h2>
+                            <h2 class="card-title text-center my-5">Contact</h2>
 
                             {{--Address line 1--}}
                             <div class="form-group{{ $errors->has('address_line1') ? ' has-error' : '' }}">
                                 <label for="address_line1">Adresse ligne 1</label>
                                 <input type="text" id="address_line1" name="address_line1" class="form-control"
-                                       value="{{ old('address_line1') }}" placeholder="Rue n°" required>
+                                       value="{{ old('address_line1') }}" placeholder="Rue, n°" required>
                                 @if ($errors->has('address_line1'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('address_line1') }}</strong>
@@ -126,8 +126,25 @@
                                 </div>
                             </div>
 
+                            {{--Company section--}}
+                            <h2 class="card-title text-center mt-5">Société</h2>
+
+                            <p class="text-center my-5">Bénéficiez de diverses options de paiement et de livraison en inscrivant le nom de votre société ou de votre entreprise dans le champ suivant.</p>
+
+                            {{--Name--}}
+                            <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                <label for="name">Société</label>
+                                <input type="text" id="name" name="name" class="form-control"
+                                       value="{{ old('name') }}" placeholder="e.g. Pantone">
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block mt-4">S'enregistrer</button>
+                                <button type="submit" class="btn btn-primary btn-lg btn-block mt-5">Créer le compte</button>
                             </div>
 
                         </form>

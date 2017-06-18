@@ -72,8 +72,10 @@ class RegisterController extends Controller
      */
     protected function createRelatedCompany(array $data)
     {
+        $companyName = $this->getCompanyName($data);
+
         $company = Company::create([
-            'name' => $data['username'] . ' (Default)',
+            'name' => $companyName,
             'status' => 'temporaire',
             'created_by_username' => $data['username']
         ]);
@@ -114,9 +116,9 @@ class RegisterController extends Controller
         return User::create([
             'username' => $data['username'],
             'password' => bcrypt($data['password']),
-            'role' => 'user',
+            'role' => 'utilisateur',
             'email' => $data['email'],
-            'email_validated' => 0,
+            'email_validated' => false,
             'contact_id' => $contact->id,
             'company_id' => $company->id
         ]);
@@ -133,5 +135,16 @@ class RegisterController extends Controller
         $contact = $this->createRelatedContact($data, $company);
 
         return $this->registerUser($data, $contact, $company);
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    protected function getCompanyName(array $data)
+    {
+        if (isset($data['name'])) return $companyName = $data['name'];
+
+        return $companyName = $data['username'] . ' (Default)';
     }
 }

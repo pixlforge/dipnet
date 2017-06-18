@@ -16,7 +16,7 @@ class AddForeignKeysDocumentsTable extends Migration
         Schema::table('documents', function (Blueprint $table) {
             $table->foreign('format_id')->references('id')->on('formats');
             $table->foreign('delivery_id')->references('id')->on('deliveries');
-            $table->foreign('main_article_id')->references('id')->on('articles');
+            $table->foreign('article_id')->references('id')->on('articles');
         });
     }
 
@@ -30,7 +30,7 @@ class AddForeignKeysDocumentsTable extends Migration
         Schema::table('documents', function (Blueprint $table) {
             $table->dropForeign('documents_format_id_foreign');
             $table->dropForeign('documents_delivery_id_foreign');
-            $table->dropForeign('documents_main_article_id_foreign');
+            $table->dropForeign('documents_article_id_foreign');
         });
     }
 }

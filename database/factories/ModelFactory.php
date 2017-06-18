@@ -18,9 +18,9 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'username' => $faker->unique()->userName,
         'password' => $password ?: $password = bcrypt('secret'),
-        'role' => $faker->randomElement(['user', 'admin']),
+        'role' => $faker->randomElement(['utilisateur', 'administrateur']),
         'email' => $faker->unique()->safeEmail,
-        'email_validated' => true,
+        'email_validated' => false,
         'contact_id' => function () {
             return factory(App\Contact::class)->create()->id;
         },
@@ -162,7 +162,7 @@ $factory->define(App\Document::class, function(Faker\Generator $faker) {
         'file_path' => '/path/to/file/',
         'mime_type' => $mimeType,
         'quantity' => $faker->numberBetween($min = 1, $max = 100),
-        'rolled_folded_flat' => $faker->randomElement(['rolled', 'folded', 'flat']),
+        'rolled_folded_flat' => $faker->randomElement(['roulé', 'plié', 'plat']),
         'length' => $faker->numberBetween($min = 1, $max = 100),
         'width' => $faker->numberBetween($min = 1, $max = 100),
         'nb_orig' => $faker->numberBetween($min = 1, $max = 6),
@@ -173,7 +173,7 @@ $factory->define(App\Document::class, function(Faker\Generator $faker) {
         'delivery_id' => function() {
             return factory(App\Delivery::class)->create()->id;
         },
-        'main_article_id' => function() {
+        'article_id' => function() {
             return factory(App\Article::class)->create()->id;
         },
     ];

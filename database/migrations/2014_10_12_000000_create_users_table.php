@@ -17,7 +17,7 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('username')->unique();
             $table->string('password');
-            $table->enum('role', ['user', 'admin'])->default('user');
+            $table->enum('role', ['utilisateur', 'administrateur'])->default('utilisateur');
             $table->string('email')->unique();
             $table->boolean('email_validated')->default(false);
 			$table->unsignedInteger('contact_id')->nullable();
