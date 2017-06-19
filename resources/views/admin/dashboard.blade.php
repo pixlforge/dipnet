@@ -7,122 +7,111 @@
             <div class="col-12">
                 <h1 class="display-1 text-center my-5">Dashboard</h1>
             </div>
-            <div class="col-12">
+            <div class="col-xs-12 col-md-10 offset-md-1">
                 <div class="card-columns">
 
                     {{--Users--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Utilisateurs</h4>
-                            <div class="list-group">
-                                <a href="{{ route('users') }}" class="list-group-item list-group-item-action">Tous les utilisateurs</a>
-                                <a href="{{ url('/users/create') }}" class="list-group-item list-group-item-action">Nouvel utilisateur</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('users') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2">
+                                <i class="fa fa-users mr-2"></i>
+                                <span>Utilisateurs</span>
+                            </h4>
+                        </a>
                     </div>
 
                     {{--Formats--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Formats</h4>
-                            <div class="list-group">
-                                <a href="{{ route('formats') }}" class="list-group-item list-group-item-action">Tous les formats</a>
-                                <a href="{{ url('/formats/create') }}" class="list-group-item list-group-item-action">Nouveau format</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('formats') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2">
+                                <i class="fa fa-hashtag mr-2"></i>
+                                <span>Formats</span>
+                            </h4>
+                        </a>
                     </div>
 
+
                     {{--Compagnies--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Sociétés</h4>
-                            <div class="list-group">
-                                <a href="{{ route('companies') }}" class="list-group-item list-group-item-action">Toutes les sociétés</a>
-                                <a href="{{ url('/companies/create') }}" class="list-group-item list-group-item-action">Nouvelle société</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('companies') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2">
+                                <i class="fa fa-industry mr-2"></i>
+                                <span>Sociétés</span>
+                            </h4>
+                        </a>
                     </div>
 
                     {{--Categories--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Catégories</h4>
-                            <div class="list-group">
-                                <a href="{{ route('categories') }}" class="list-group-item list-group-item-action">Toutes les catégories</a>
-                                <a href="{{ url('/categories/create') }}" class="list-group-item list-group-item-action">Nouvelle catégorie</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('categories') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2">
+                                <i class="fa fa-tag mr-2"></i>
+                                <span>Catégories</span>
+                            </h4>
+                        </a>
                     </div>
 
                     {{--Businesses--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Affaires</h4>
-                            <div class="list-group">
-                                <a href="{{ route('businesses') }}" class="list-group-item list-group-item-action">Toutes les affaires</a>
-                                <a href="{{ url('/businesses/create') }}" class="list-group-item list-group-item-action">Nouvelle affaire</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('businesses') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2">
+                                <i class="fa fa-handshake-o mr-2"></i>
+                                <span>Affaires</span>
+                            </h4>
+                        </a>
                     </div>
 
                     {{--Articles--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Articles</h4>
-                            <div class="list-group">
-                                <a href="{{ route('articles') }}" class="list-group-item list-group-item-action">Tous les articles</a>
-                                <a href="{{ url('/articles/create') }}" class="list-group-item list-group-item-action">Nouvel article</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('articles') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2"><i class="fa fa-barcode mr-2"></i>
+                                <span>Articles</span>
+                            </h4>
+                        </a>
                     </div>
 
                     {{--Contacts--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Contacts</h4>
-                            <div class="list-group">
-                                <a href="{{ route('contacts') }}" class="list-group-item list-group-item-action">Tous les contacts</a>
-                                <a href="{{ url('/contacts/create') }}" class="list-group-item list-group-item-action">Nouveau contact</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('contacts') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2">
+                                <i class="fa fa-address-card mr-2"></i>
+                                <span>Contacts</span>
+                            </h4>
+                        </a>
                     </div>
 
                     {{--Orders--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Commandes</h4>
-                            <div class="list-group">
-                                <a href="{{ route('orders') }}" class="list-group-item list-group-item-action">Toutes les commandes</a>
-                                <a href="{{ url('/orders/create') }}" class="list-group-item list-group-item-action">Nouvelle commande</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('orders') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2">
+                                <i class="fa fa-shopping-cart mr-2"></i>
+                                <span>Commandes</span>
+                            </h4>
+                        </a>
                     </div>
 
                     {{--Deliveries--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Livraisons</h4>
-                            <div class="list-group">
-                                <a href="{{ route('deliveries') }}" class="list-group-item list-group-item-action">Toutes les livraisons</a>
-                                <a href="{{ url('/deliveries/create') }}" class="list-group-item list-group-item-action">Nouvelle livraison</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('deliveries') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2">
+                                <i class="fa fa-truck mr-2"></i>
+                                <span>Livraisons</span>
+                            </h4>
+                        </a>
                     </div>
 
                     {{--Documents--}}
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">Documents</h4>
-                            <div class="list-group">
-                                <a href="{{ route('documents') }}" class="list-group-item list-group-item-action">Tous les documents</a>
-                                <a href="{{ url('/documents/create') }}" class="list-group-item list-group-item-action">Nouveau document</a>
-                            </div>
-                        </div>
+                    <div class="card list-group">
+                        <a href="{{ route('documents') }}" class="list-group-item list-group-item-action">
+                            <h4 class="mt-2">
+                                <i class="fa fa-file-o mr-2"></i>
+                                <span>Documents</span>
+                            </h4>
+                        </a>
                     </div>
 
                 </div>
             </div>
-
         </div>
     </div>
 
