@@ -19,7 +19,12 @@
                         <div class="card">
                             <div class="card-block">
                                 <div class="d-flex justify-content-between">
-                                    <h3 class="card-title">{{ $format->name }}</h3>
+                                    <h3 class="card-title">
+                                        @unless ($format->deleted_at === null)
+                                            <i class="fa fa-trash text-danger"></i>
+                                        @else
+                                            <i class="fa fa-check text-success"></i>
+                                        @endunless</h3>
 
                                     <div class="dropdown">
                                         <a class="btn btn-transparent btn-sm" type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -27,25 +32,27 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
                                             @unless ($format->deleted_at === null)
-                                                <form method="POST" action="{{ url("/formats/{$format->name}/restore") }}">
+                                                <form method="POST"
+                                                      action="{{ url("/formats/{$format->id}/restore") }}">
                                                     {{ method_field('PUT') }}
                                                     {{ csrf_field() }}
 
-                                                    <button class="dropdown-item" type="submit">
+                                                    <button class="dropdown-item text-success" type="submit">
                                                         <i class="fa fa-refresh"></i>
                                                         <span class="ml-3">Restaurer</span>
                                                     </button>
                                                 </form>
                                             @else
-                                                <a class="dropdown-item" href="{{ url("/formats/{$format->name}/edit") }}">
+                                                <a class="dropdown-item"
+                                                   href="{{ url("/formats/{$format->id}/edit") }}">
                                                     <i class="fa fa-pencil"></i>
                                                     <span class="ml-3">Modifier</span>
                                                 </a>
-                                                <form method="POST" action="{{ url("/formats/{$format->name}") }}">
+                                                <form method="POST" action="{{ url("/formats/{$format->id}") }}">
                                                     {{ method_field('DELETE') }}
                                                     {{ csrf_field() }}
-                                                    <button class="dropdown-item" type="submit">
-                                                        <i class="fa fa-times"></i>
+                                                    <button class="dropdown-item text-danger" type="submit">
+                                                        <i class="fa fa-trash"></i>
                                                         <span class="ml-3">Supprimer</span>
                                                     </button>
                                                 </form>
@@ -55,22 +62,56 @@
 
                                 </div>
                                 <ul class="list-unstyled">
-                                    <li><em>Width</em>: {{ $format->width }}</li>
-                                    <li><em>Height</em>: {{ $format->height }}</li>
-                                    <li><em>Surface</em>: {{ $format->surface }}</li>
-                                    <li>
-                                        <em>Created at</em>: {{ $format->created_at->format('d M Y') }}
-                                        <small>{{ $format->created_at->diffForHumans() }}</small>
+
+                                    {{--Name--}}
+                                    <li class="mt-2 mb-4">
+                                        <h2><i class="fa fa-hashtag mr-2"></i> {{ $format->name }}</h2>
                                     </li>
-                                    <li>
-                                        <em>Updated at</em>: {{ $format->updated_at->format('d M Y') }}
-                                        <small>{{ $format->updated_at->diffForHumans() }}</small>
+
+                                    {{--Height--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-arrows-v mr-2"></i> Hauteur</h5>
+                                        <span class="text-capitalize">{{ $format->height }}</span>
                                     </li>
+
+                                    {{--Width--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-arrows-h mr-2"></i> Largeur</h5>
+                                        <span class="text-capitalize">{{ $format->width }}</span>
+                                    </li>
+
+                                    {{--Surface--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-arrows mr-2"></i> Surface</h5>
+                                        <span class="text-capitalize">{{ $format->surface }}</span>
+                                    </li>
+
+
+                                    {{--Created at--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <span>{{ $format->created_at->format('d M Y') }}</span>
+                                            <span><small>{{ $format->created_at->diffForHumans() }}</small></span>
+                                        </div>
+                                    </li>
+
+                                    {{--Modified at--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <span>{{ $format->updated_at->format('d M Y') }}</span>
+                                            <span><small>{{ $format->updated_at->diffForHumans() }}</small></span>
+                                        </div>
+                                    </li>
+
+                                    {{--Deleted at--}}
                                     @unless($format->deleted_at === null)
-                                        <li>
-                                            <div class="bg-danger text-white">
-                                                <em>Deleted at</em>: {{ $format->deleted_at->format('d M Y') }}
-                                                <small>{{ $format->deleted_at->diffForHumans() }}</small>
+                                        <li class="my-4 text-danger">
+                                            <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
+                                            <div class="d-flex flex-row justify-content-between">
+                                                <span>{{ $format->deleted_at->format('d M Y') }}</span>
+                                                <span><small>{{ $format->deleted_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>
                                     @endunless

@@ -66,15 +66,13 @@
 
                                     {{--Name--}}
                                     <li class="mt-2 mb-4">
-                                        <i class="fa fa-handshake-o fa-2x mr-3"></i>
-                                        <span class="h2">{{ $business->name }}</span>
+                                        <h2><i class="fa fa-handshake-o mr-2"></i> {{ $business->name }}</h2>
                                     </li>
 
                                     {{--Reference--}}
                                     @isset ($business->reference)
                                     <li class="my-4">
-                                        <h5>Référence</h5>
-                                        <i class="fa fa-hashtag fa-lg mr-3"></i>
+                                        <h5><i class="fa fa-hashtag mr-2"></i> Référence</h5>
                                         <span>{{ $business->reference }}</span><br>
                                     </li>
                                     @endisset
@@ -82,55 +80,45 @@
                                     {{--Description--}}
                                     @isset ($business->description)
                                         <li class="my-4">
-                                            <h5>Description</h5>
-                                            <i class="fa fa-comment fa-lg mr-3"></i>
+                                            <h5><i class="fa fa-comment mr-2"></i> Description</h5>
                                             <span>{{ $business->description}}</span><br>
                                         </li>
                                     @endisset
 
                                     {{--Company--}}
                                     <li class="my-4">
-                                        <h5>Société</h5>
-                                        <i class="fa fa-industry fa-lg mr-3"></i>
+                                        <h5><i class="fa fa-industry mr-2"></i> Société</h5>
                                         <span>{{ $business->company->name }}</span>
                                     </li>
 
                                     {{--Contact--}}
                                     @isset ($business->contact)
                                         <li class="my-4">
-                                            <h5>Contact</h5>
-                                            <i class="fa fa-location-arrow fa-lg mr-3"></i>
+                                            <h5><i class="fa fa-location-arrow mr-2"></i> Contact</h5>
                                             <span>{{ $business->contact->name }}</span>
                                         </li>
                                     @endisset
 
                                     {{--Created by--}}
                                     <li class="my-4">
-                                        <h5>Créé par</h5>
-                                        <i class="fa fa-user fa-lg mr-3"></i>
+                                        <h5><i class="fa fa-user mr-2"></i> Créé par</h5>
                                         <span>{{ $business->created_by_username }}</span>
                                     </li>
 
                                     {{--Created at--}}
                                     <li class="my-4">
-                                        <h5>Date de création</h5>
+                                        <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <div>
-                                                <i class="fa fa-calendar-check-o mr-3"></i>
-                                                <span>{{ $business->created_at->format('d M Y') }}</span>
-                                            </div>
+                                            <span>{{ $business->created_at->format('d M Y') }}</span>
                                             <span><small>{{ $business->created_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
 
                                     {{--Modified at--}}
                                     <li class="my-4">
-                                        <h5>Dernière modification</h5>
+                                        <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <div>
-                                                <i class="fa fa-calendar-plus-o mr-3"></i>
-                                                <span>{{ $business->updated_at->format('d M Y') }}</span>
-                                            </div>
+                                            <span>{{ $business->updated_at->format('d M Y') }}</span>
                                             <span><small>{{ $business->updated_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
@@ -138,17 +126,13 @@
                                     {{--Deleted at--}}
                                     @unless($business->deleted_at === null)
                                         <li class="my-4 text-danger">
-                                            <h5>Date de suppression</h5>
+                                            <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
                                             <div class="d-flex flex-row justify-content-between">
-                                                <div>
-                                                    <i class="fa fa-trash fa-lg mr-3"></i>
-                                                    <span>{{ $business->deleted_at->format('d M Y') }}</span>
-                                                </div>
+                                                <span>{{ $business->deleted_at->format('d M Y') }}</span>
                                                 <span><small>{{ $business->deleted_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>
                                     @endunless
-
                                 </ul>
                             </div>
                         </div>

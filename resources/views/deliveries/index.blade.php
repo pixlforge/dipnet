@@ -20,7 +20,13 @@
                         <div class="card">
                             <div class="card-block">
                                 <div class="d-flex justify-content-between">
-                                    <h3 class="card-title">{{ $delivery->id }}</h3>
+                                    <h3 class="card-title">
+                                        @unless ($delivery->deleted_at === null)
+                                            <i class="fa fa-trash text-danger"></i>
+                                        @else
+                                            <i class="fa fa-check text-success"></i>
+                                        @endunless
+                                    </h3>
 
                                     <div class="dropdown">
                                         <a class="btn btn-transparent btn-sm" type="button" id="dropdownMenuLink"
@@ -35,7 +41,7 @@
                                                     {{ method_field('PUT') }}
                                                     {{ csrf_field() }}
 
-                                                    <button class="dropdown-item" type="submit">
+                                                    <button class="dropdown-item text-success" type="submit">
                                                         <i class="fa fa-refresh"></i>
                                                         <span class="ml-3">Restaurer</span>
                                                     </button>
@@ -49,7 +55,7 @@
                                                 <form method="POST" action="{{ url("/deliveries/{$delivery->id}") }}">
                                                     {{ method_field('DELETE') }}
                                                     {{ csrf_field() }}
-                                                    <button class="dropdown-item" type="submit">
+                                                    <button class="dropdown-item text-danger" type="submit">
                                                         <i class="fa fa-times"></i>
                                                         <span class="ml-3">Supprimer</span>
                                                     </button>
@@ -60,37 +66,56 @@
 
                                 </div>
                                 <ul class="list-unstyled">
-                                    @if ($delivery->internal_comment)
-                                        <li><em>Description</em>: {{ $delivery->internal_comment }}</li>
-                                    @else
-                                        <li>Aucun commentaire fourni</li>
-                                    @endif
-                                    <li><em>ID</em>: {{ $delivery->id }}</li>
+
+                                    {{--Id--}}
+                                    <li class="mt-2 mb-4">
+                                        <h2><i class="fa fa-truck mr-2"></i> {{ $delivery->id}}</h2>
+                                    </li>
+
+                                    @isset ($delivery->internal_comment)
+                                        <li class="my-4">
+                                            <h5><i class="fa fa-comment mr-2"></i> Commentaire</h5>
+                                            <span>{{ $delivery->internal_comment }}</span>
+                                        </li>
+                                    @endisset
 
                                     {{--Order--}}
-                                    @unless ($delivery->order->deleted_at === null)
-                                        <li>
-                                            <div class="bg-danger text-white">
-                                                <em>Commande</em>: {{ $delivery->order->reference }}
-                                            </div>
-                                        </li>
-                                    @endunless
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-barcode mr-2"></i> Commande</h5>
+                                        <span>{{ $delivery->order->reference }}</span>
+                                    </li>
 
                                     {{--Contact--}}
-                                    <li><em>Contact</em>: {{ $delivery->contact->name }}</li>
-                                    <li>
-                                        <em>Created at</em>: {{ $delivery->created_at->format('d M Y') }}
-                                        <small>{{ $delivery->created_at->diffForHumans() }}</small>
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-address-card mr-2"></i> Contact</h5>
+                                        <span>{{ $delivery->contact->name }}</span>
                                     </li>
-                                    <li>
-                                        <em>Updated at</em>: {{ $delivery->updated_at->format('d M Y') }}
-                                        <small>{{ $delivery->updated_at->diffForHumans() }}</small>
+
+                                    {{--Created at--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <span>{{ $delivery->created_at->format('d M Y') }}</span>
+                                            <span><small>{{ $delivery->created_at->diffForHumans() }}</small></span>
+                                        </div>
                                     </li>
+
+                                    {{--Modified at--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <span>{{ $delivery->updated_at->format('d M Y') }}</span>
+                                            <span><small>{{ $delivery->updated_at->diffForHumans() }}</small></span>
+                                        </div>
+                                    </li>
+
+                                    {{--Deleted at--}}
                                     @unless($delivery->deleted_at === null)
-                                        <li>
-                                            <div class="bg-danger text-white">
-                                                <em>Deleted at</em>: {{ $delivery->deleted_at->format('d M Y') }}
-                                                <small>{{ $delivery->deleted_at->diffForHumans() }}</small>
+                                        <li class="my-4 text-danger">
+                                            <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
+                                            <div class="d-flex flex-row justify-content-between">
+                                                <span>{{ $delivery->deleted_at->format('d M Y') }}</span>
+                                                <span><small>{{ $delivery->deleted_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>
                                     @endunless

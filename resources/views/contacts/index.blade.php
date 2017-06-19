@@ -66,80 +66,67 @@
 
                                     {{--Name--}}
                                     <li class="mt-2 mb-4">
-                                        <i class="fa fa-address-card fa-2x mr-3"></i>
-                                        <span class="h2">{{ $contact->name }}</span>
+                                        <h2><i class="fa fa-address-card mr-2"></i> {{ $contact->name }}</h2>
                                     </li>
 
                                     {{--Address--}}
                                     <li class="my-4">
-                                        <h5>Adresse</h5>
-                                        <i class="fa fa-location-arrow fa-lg mr-3"></i>
-                                        <span>{{ $contact->address_line1 }}</span><br>
+                                        <h5><i class="fa fa-location-arrow mr-2"></i> Adresse</h5>
+                                        <div>{{ $contact->address_line1 }}</div>
                                         @isset ($contact->address_line2)
-                                            <span>{{ $contact->address_line2 }}</span><br>
+                                            <div>{{ $contact->address_line2 }}</div>
                                         @endisset
                                         <span>{{ $contact->zip }} &ndash; {{ $contact->city }}</span>
                                     </li>
 
                                     {{--Phone--}}
                                     <li class="my-4">
-                                        <h5>Téléphone</h5>
-                                        <i class="fa fa-phone fa-lg mr-3"></i>
+                                        <h5><i class="fa fa-phone mr-2"></i> Téléphone</h5>
                                         <span>{{ $contact->phone_number }}</span>
                                     </li>
 
                                     {{--Fax--}}
                                     @unless ($contact->fax === null)
                                         <li class="my-4">
-                                            <h5>Fax</h5>
-                                            <i class="fa fa-fax fa-lg mr-3"></i>
+                                            <h5><i class="fa fa-fax mr-2"></i> Fax</h5>
                                             <span>{{ $contact->fax }}</span>
                                         </li>
                                     @endunless
 
                                     {{--Email--}}
                                     <li class="my-4">
-                                        <h5>E-mail</h5>
-                                        <i class="fa fa-envelope fa-lg mr-3"></i>
+                                        <h5><i class="fa fa-envelope mr-2"></i> E-mail</h5>
                                         <span>{{ $contact->email }}</span>
                                     </li>
 
                                     {{--Company--}}
                                     @unless ($contact->company === null)
                                         <li class="my-4">
-                                            <h5>Compagnie</h5>
-                                            <i class="fa fa-industry fa-lg mr-3"></i>
+                                            <h5><i class="fa fa-industry mr-2"></i> Compagnie</h5>
                                             <span>{{ $contact->company->name }}</span>
                                         </li>
                                     @endunless
 
                                     {{--Created by--}}
                                     <li class="my-4">
-                                        <h5>Créé par</h5>
-                                        <i class="fa fa-user fa-lg mr-3"></i>
+                                        <h5><i class="fa fa-industry mr-2"></i> Créé par</h5>
                                         <span>{{ $contact->created_by_username }}</span>
                                     </li>
 
                                     {{--Created at--}}
                                     <li class="my-4">
-                                        <h5>Date de création</h5>
+                                        <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <div>
-                                                <i class="fa fa-calendar-check-o mr-3"></i>
-                                                <span>{{ $contact->created_at->format('d M Y') }}</span>
-                                            </div>
+                                            <span>{{ $contact->created_at->format('d M Y') }}</span>
                                             <span><small>{{ $contact->created_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
 
                                     {{--Modified at--}}
                                     <li class="my-4">
-                                        <h5>Dernière modification</h5>
+                                        <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <div>
-                                                <i class="fa fa-calendar-plus-o mr-3"></i>
-                                                <span>{{ $contact->updated_at->format('d M Y') }}</span>
-                                            </div>
+                                            <span>{{ $contact->updated_at->format('d M Y') }}</span>
                                             <span><small>{{ $contact->updated_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
@@ -147,17 +134,13 @@
                                     {{--Deleted at--}}
                                     @unless($contact->deleted_at === null)
                                         <li class="my-4 text-danger">
-                                            <h5>Date de suppression</h5>
+                                            <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
                                             <div class="d-flex flex-row justify-content-between">
-                                                <div>
-                                                    <i class="fa fa-trash fa-lg mr-3"></i>
-                                                    <span>{{ $contact->deleted_at->format('d M Y') }}</span>
-                                                </div>
+                                                <span>{{ $contact->deleted_at->format('d M Y') }}</span>
                                                 <span><small>{{ $contact->deleted_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>
                                     @endunless
-
                                 </ul>
                             </div>
                         </div>

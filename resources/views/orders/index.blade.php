@@ -19,7 +19,13 @@
                         <div class="card">
                             <div class="card-block">
                                 <div class="d-flex justify-content-between">
-                                    <h3 class="card-title">{{ $order->reference }}</h3>
+                                    <h3 class="card-title">
+                                        @unless ($order->deleted_at === null)
+                                            <i class="fa fa-trash text-danger"></i>
+                                        @else
+                                            <i class="fa fa-check text-success"></i>
+                                        @endunless
+                                    </h3>
 
                                     <div class="dropdown">
                                         <a class="btn btn-transparent btn-sm" type="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -31,7 +37,7 @@
                                                     {{ method_field('PUT') }}
                                                     {{ csrf_field() }}
 
-                                                    <button class="dropdown-item" type="submit">
+                                                    <button class="dropdown-item text-success" type="submit">
                                                         <i class="fa fa-refresh"></i>
                                                         <span class="ml-3">Restaurer</span>
                                                     </button>
@@ -44,7 +50,7 @@
                                                 <form method="POST" action="{{ url("/orders/{$order->id}") }}">
                                                     {{ method_field('DELETE') }}
                                                     {{ csrf_field() }}
-                                                    <button class="dropdown-item" type="submit">
+                                                    <button class="dropdown-item text-danger" type="submit">
                                                         <i class="fa fa-times"></i>
                                                         <span class="ml-3">Supprimer</span>
                                                     </button>
@@ -55,23 +61,62 @@
 
                                 </div>
                                 <ul class="list-unstyled">
-                                    <li><em>Status</em>: {{ $order->status }}</li>
-                                    <li><em>Affaire</em>: {{ $order->business->name }}</li>
-                                    <li><em>Contact</em>: {{ $order->contact->name }}</li>
-                                    <li><em>Créé par</em>: {{ $order->user->username }}</li>
-                                    <li>
-                                        <em>Created at</em>: {{ $order->created_at->format('d M Y') }}
-                                        <small>{{ $order->created_at->diffForHumans() }}</small>
+
+                                    {{--Reference--}}
+                                    <li class="mt-2 mb-4">
+                                        <h2><i class="fa fa-barcode mr-2"></i> {{ $order->reference }}</h2>
                                     </li>
-                                    <li>
-                                        <em>Updated at</em>: {{ $order->updated_at->format('d M Y') }}
-                                        <small>{{ $order->updated_at->diffForHumans() }}</small>
+
+                                    {{--Status--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-bolt mr-2"></i> Status</h5>
+                                        <span>{{ $order->status }}</span>
                                     </li>
+
+                                    {{--Business--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-handshake-o mr-2"></i> Affaire</h5>
+                                        <span>{{ $order->business->name }}</span>
+                                    </li>
+
+                                    {{--Contact--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-address-card mr-2"></i> Contact</h5>
+                                        <span class="text-capitalize">{{ $order->contact->name }}</span>
+                                    </li>
+
+                                    {{--Créé par--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-user mr-2"></i> Créé par</h5>
+                                        <span>{{ $order->user->username }}</span>
+                                    </li>
+
+
+                                    {{--Created at--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <span>{{ $order->created_at->format('d M Y') }}</span>
+                                            <span><small>{{ $order->created_at->diffForHumans() }}</small></span>
+                                        </div>
+                                    </li>
+
+                                    {{--Modified at--}}
+                                    <li class="my-4">
+                                        <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
+                                        <div class="d-flex flex-row justify-content-between">
+                                            <span>{{ $order->updated_at->format('d M Y') }}</span>
+                                            <span><small>{{ $order->updated_at->diffForHumans() }}</small></span>
+                                        </div>
+                                    </li>
+
+                                    {{--Deleted at--}}
                                     @unless($order->deleted_at === null)
-                                        <li>
-                                            <div class="bg-danger text-white">
-                                                <em>Deleted at</em>: {{ $order->deleted_at->format('d M Y') }}
-                                                <small>{{ $order->deleted_at->diffForHumans() }}</small>
+                                        <li class="my-4 text-danger">
+                                            <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
+                                            <div class="d-flex flex-row justify-content-between">
+                                                <span>{{ $order->deleted_at->format('d M Y') }}</span>
+                                                <span><small>{{ $order->deleted_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>
                                     @endunless

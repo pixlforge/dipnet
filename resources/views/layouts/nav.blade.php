@@ -10,9 +10,10 @@
 
                 <a href="{{ route('index') }}" class="navbar-brand">
                     @if (env('APP_NAME') == 'Dipnet')
-                        <img src="{{ asset('img/logos/dip-logo.png') }}" alt="Dip logo" class="img-fluid">
-                    @else
-                        <img src="{{ asset('img/logos/multicop-logo.png') }}" alt="Multicop logo" class="img-fluid">
+                        <img src="{{ asset('img/logos/dip-logo-md.png') }}" alt="Dip logo" class="img-fluid nav-logo">
+                    @endif
+                    @if (env('APP_NAME') == 'Multicop')
+                        <img src="{{ asset('img/logos/multicop-logo-md.png') }}" alt="Multicop logo" class="img-fluid nav-logo">
                     @endif
                 </a>
 

@@ -67,53 +67,43 @@
 
                                     {{--Name--}}
                                     <li class="mt-2 mb-4">
-                                        <i class="fa fa-industry fa-2x mr-3"></i>
-                                        <span class="h2">{{ $company->name }}</span>
+                                        <h2><i class="fa fa-industry mr-2"></i> {{ $company->name }}</h2>
                                     </li>
 
                                     {{--Status--}}
                                     <li class="my-4">
-                                        <h5>Status</h5>
-                                        <i class="fa fa-dashboard fa-lg mr-3"></i>
+                                        <h5><i class="fa fa-dashboard mr-2"></i> Status</h5>
                                         <span class="text-capitalize">{{ $company->status }}</span>
                                     </li>
 
                                     {{--Description--}}
                                     @isset ($company->description)
                                         <li class="my-4">
-                                            <h5>Description</h5>
-                                            <i class="fa fa-comment fa-lg mr-3"></i>
+                                            <h5><i class="fa fa-comment mr-2"></i> Description</h5>
                                             <span>{{ $company->description }}</span>
                                         </li>
                                     @endisset
 
                                     {{--Created by--}}
                                     <li class="my-4">
-                                        <h5>Créé par</h5>
-                                        <i class="fa fa-user fa-lg mr-3"></i>
+                                        <h5><i class="fa fa-user mr-2"></i> Créé par</h5>
                                         <span>{{ $company->created_by_username }}</span>
                                     </li>
 
                                     {{--Created at--}}
                                     <li class="my-4">
-                                        <h5>Date de création</h5>
+                                        <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <div>
-                                                <i class="fa fa-calendar-check-o mr-3"></i>
-                                                <span>{{ $company->created_at->format('d M Y') }}</span>
-                                            </div>
+                                            <span>{{ $company->created_at->format('d M Y') }}</span>
                                             <span><small>{{ $company->created_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
 
                                     {{--Modified at--}}
                                     <li class="my-4">
-                                        <h5>Dernière modification</h5>
+                                        <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <div>
-                                                <i class="fa fa-calendar-plus-o mr-3"></i>
-                                                <span>{{ $company->updated_at->format('d M Y') }}</span>
-                                            </div>
+                                            <span>{{ $company->updated_at->format('d M Y') }}</span>
                                             <span><small>{{ $company->updated_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
@@ -121,17 +111,13 @@
                                     {{--Deleted at--}}
                                     @unless($company->deleted_at === null)
                                         <li class="my-4 text-danger">
-                                            <h5>Date de suppression</h5>
+                                            <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
                                             <div class="d-flex flex-row justify-content-between">
-                                                <div>
-                                                    <i class="fa fa-trash fa-lg mr-3"></i>
-                                                    <span>{{ $company->deleted_at->format('d M Y') }}</span>
-                                                </div>
+                                                <span>{{ $company->deleted_at->format('d M Y') }}</span>
                                                 <span><small>{{ $company->deleted_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>
                                     @endunless
-
                                 </ul>
                             </div>
                         </div>
