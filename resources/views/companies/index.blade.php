@@ -9,9 +9,9 @@
                 <h2 class="text-muted">Liste de toutes les sociétés</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $companies->count() }}</strong> sociétés
-                    au
-                    total.</p>
+                <p class="text-center mb-5">
+                    Il existe actuellement <strong>{{ $companies->count() }}</strong> {{ str_plural('société', $companies->count()) }} au total.
+                </p>
                 <div class="text-center mb-5">
                     <a href="{{ url('/companies/create') }}" class="btn btn-primary">Ajouter</a>
                 </div>

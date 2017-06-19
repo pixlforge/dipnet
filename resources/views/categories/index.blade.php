@@ -9,7 +9,9 @@
                 <h2 class="text-muted">Liste de toutes les catégories</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $categories->count() }}</strong> catégories au total.</p>
+                <p class="text-center mb-5">
+                    Il existe actuellement <strong>{{ $categories->count() }}</strong> {{ str_plural('catégorie', $categories->count()) }} au total.
+                </p>
                 <div class="text-center mb-5">
                     <a href="{{ url('/categories/create') }}" class="btn btn-primary">Ajouter</a>
                 </div>

@@ -9,9 +9,9 @@
                 <h2 class="text-muted">Liste de touts les documents</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $documents->count() }}</strong> documents
-                    au
-                    total.</p>
+                <p class="text-center mb-5">
+                    Il existe actuellement <strong>{{ $documents->count() }}</strong> {{ str_plural('document', $documents->count()) }} au total.
+                </p>
                 <div class="text-center mb-5">
                     <a href="{{ url('/documents/create') }}" class="btn btn-primary disabled">Ajouter</a>
                 </div>

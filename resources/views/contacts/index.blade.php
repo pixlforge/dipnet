@@ -9,8 +9,9 @@
                 <h2 class="text-muted">Liste de tous les contacts</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $contacts->count() }}</strong> contacts au
-                    total.</p>
+                <p class="text-center mb-5">
+                    Il existe actuellement <strong>{{ $contacts->count() }}</strong> {{ str_plural('contact', $contacts->count()) }} au total.
+                </p>
                 <div class="text-center mb-5">
                     <a href="{{ url('/contacts/create') }}" class="btn btn-primary">Ajouter</a>
                 </div>

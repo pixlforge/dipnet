@@ -9,8 +9,9 @@
                 <h2 class="text-muted">Liste de tous les articles</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $articles->count() }}</strong> articles au
-                    total.</p>
+                <p class="text-center mb-5">
+                    Il existe actuellement <strong>{{ $articles->count() }}</strong> {{ str_plural('article', $articles->count()) }} au total.
+                </p>
                 <div class="text-center mb-5">
                     <a href="{{ url('/articles/create') }}" class="btn btn-primary">Ajouter</a>
                 </div>

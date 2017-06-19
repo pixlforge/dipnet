@@ -9,8 +9,10 @@
                 <h2 class="text-muted">Liste de tous les formats</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $formats->count() }}</strong> formats au
-                    total.</p>
+                <p class="text-center mb-5">
+                    Il existe actuellement <strong>{{ $formats->count() }}</strong> {{ str_plural('format', $formats->count()) }} au
+                    total.
+                </p>
                 <div class="text-center mb-5">
                     <a href="{{ url('/formats/create') }}" class="btn btn-primary">Ajouter</a>
                 </div>

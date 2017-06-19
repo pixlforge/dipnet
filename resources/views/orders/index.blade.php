@@ -9,8 +9,10 @@
                 <h2 class="text-muted">Liste de toutes les commandes</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $orders->count() }}</strong> commandes au
-                    total.</p>
+                <p class="text-center mb-5">
+                    Il existe actuellement <strong>{{ $orders->count() }}</strong> {{ str_plural('commande', $orders->count()) }} au
+                    total.
+                </p>
                 <div class="text-center mb-5">
                     <a href="{{ url('/orders/create') }}" class="btn btn-primary">Ajouter</a>
                 </div>
@@ -64,7 +66,7 @@
 
                                     {{--Reference--}}
                                     <li class="mt-2 mb-4">
-                                        <h2><i class="fa fa-barcode mr-2"></i> {{ $order->reference }}</h2>
+                                        <h2><i class="fa fa-shopping-cart mr-2"></i> {{ $order->reference }}</h2>
                                     </li>
 
                                     {{--Status--}}

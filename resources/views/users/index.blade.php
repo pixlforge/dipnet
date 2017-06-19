@@ -9,7 +9,9 @@
                 <h2 class="text-muted">Liste de tous les utilisateurs</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $users->count() }}</strong> utilisateurs au total.</p>
+                <p class="text-center mb-5">
+                    Il existe actuellement <strong>{{ $users->count() }}</strong> {{ str_plural('utilisateurs', $users->count()) }} au total.
+                </p>
                 <div class="text-center mb-5">
                     <a href="{{ url('/users/create') }}" class="btn btn-primary">Ajouter</a>
                 </div>

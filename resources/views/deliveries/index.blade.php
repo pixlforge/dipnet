@@ -9,9 +9,9 @@
                 <h2 class="text-muted">Liste de toutes les livraisons</h2>
             </div>
             <div class="col-12">
-                <p class="text-center mb-5">Il existe actuellement <strong>{{ $deliveries->count() }}</strong>
-                    livraisons au
-                    total.</p>
+                <p class="text-center mb-5">
+                    Il existe actuellement <strong>{{ $deliveries->count() }}</strong> {{ str_plural('livraison', $deliveries->count()) }} au total.
+                </p>
                 <div class="text-center mb-5">
                     <a href="{{ url('/deliveries/create') }}" class="btn btn-primary">Ajouter</a>
                 </div>
@@ -81,7 +81,7 @@
 
                                     {{--Order--}}
                                     <li class="my-4">
-                                        <h5><i class="fa fa-barcode mr-2"></i> Commande</h5>
+                                        <h5><i class="fa fa-shopping-cart mr-2"></i> Commande</h5>
                                         <span>{{ $delivery->order->reference }}</span>
                                     </li>
 
