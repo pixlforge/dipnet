@@ -40,7 +40,6 @@
                         </h5>
 
                         <p>Inscrit {{ $user->created_at->diffForHumans() }}, {{ $user->created_at->formatLocalized('%A %d %B %Y') }}.</p>
-
                     </div>
                 </div>
 
