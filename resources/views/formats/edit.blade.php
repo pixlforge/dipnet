@@ -14,7 +14,7 @@
                         <h4 class="text-center my-3">Modifier un format</h4>
 
                         <div class="col-xs-12 col-xl-8 offset-xl-2">
-                            <form method="POST" action="{{ url("/formats/{$format->name}") }}" role="form">
+                            <form method="POST" action="{{ url("/formats/{$format->id}") }}" role="form">
                                 {{ method_field('PUT') }}
                                 {{ csrf_field() }}
 

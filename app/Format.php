@@ -26,14 +26,4 @@ class Format extends Model
     {
         return $this->hasMany(Document::class);
     }
-
-    /**
-     * Get the name as key route
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'name';
-    }
 }
