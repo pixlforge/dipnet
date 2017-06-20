@@ -43,6 +43,7 @@
                             </a>
                             <div class="dropdown-menu">
                                 @if (Auth::check())
+                                    <a href="{{ route('profile') }}" class="dropdown-item">Profil</a>
                                     <a href="{{ url('logout') }}" class="dropdown-item">Déconnexion</a>
                                 @else
                                     <a href="{{ route('login') }}" class="dropdown-item">Connexion</a>
