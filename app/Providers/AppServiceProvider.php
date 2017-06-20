@@ -14,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
     }
 
     /**
@@ -28,8 +28,8 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register(\Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class);
 //            $this->app->register(\Barryvdh\Debugbar\ServiceProvider::class);
         }
-
-        setlocale(LC_TIME, 'French');
+        
+        setlocale(LC_TIME, "fr_CH.utf8");
         Carbon::setLocale('fr');
     }
 }
