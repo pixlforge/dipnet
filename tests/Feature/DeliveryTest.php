@@ -31,7 +31,7 @@ class DeliveryTest extends TestCase
      */
     function delivery_index_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/deliveries');
 
@@ -45,7 +45,7 @@ class DeliveryTest extends TestCase
      */
     function delivery_create_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/deliveries/create');
 
@@ -59,7 +59,7 @@ class DeliveryTest extends TestCase
      */
     function delivery_edit_view_is_available_and_requires_a_delivery()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/deliveries/' . $this->delivery->id . '/edit');
 
@@ -73,7 +73,7 @@ class DeliveryTest extends TestCase
      */
     function authorized_users_can_create_deliveries()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $delivery = factory('App\Delivery')->make();
 
@@ -88,7 +88,7 @@ class DeliveryTest extends TestCase
      */
     function authorized_users_can_update_deliveries()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $delivery = factory('App\Delivery')->create();
 
@@ -105,7 +105,7 @@ class DeliveryTest extends TestCase
      */
     function authorized_users_can_delete_deliveries()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $delivery = factory('App\Delivery')->create()->id;
 
@@ -120,7 +120,7 @@ class DeliveryTest extends TestCase
      */
     function authorized_users_can_restore_a_delivery()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $delivery = factory('App\Delivery')->create();
 

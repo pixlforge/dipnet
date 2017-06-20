@@ -30,7 +30,7 @@ class DocumentTest extends TestCase
      */
     function document_index_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/documents');
 
@@ -44,7 +44,7 @@ class DocumentTest extends TestCase
      */
     function document_create_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/documents/create');
 
@@ -58,7 +58,7 @@ class DocumentTest extends TestCase
      */
     function document_edit_view_is_available_and_requires_a_document()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/documents/' . $this->document->id . '/edit');
 
@@ -72,7 +72,7 @@ class DocumentTest extends TestCase
      */
     function authorized_users_can_create_documents()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $document = factory('App\Document')->create();
 

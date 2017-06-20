@@ -31,6 +31,8 @@ class UserTest extends TestCase
      */
     function user_index_view_is_available()
     {
+        $this->signIn(null, 'administrateur');
+
         $response = $this->get('/users');
 
         $response->assertViewIs('users.index');
@@ -43,6 +45,8 @@ class UserTest extends TestCase
      */
     function user_create_view_is_available()
     {
+        $this->signIn(null, 'administrateur');
+
         $response = $this->get('/users/create');
 
         $response->assertViewIs('users.create');
@@ -55,6 +59,8 @@ class UserTest extends TestCase
      */
     function user_edit_view_is_available_and_requires_a_user()
     {
+        $this->signIn(null, 'administrateur');
+
         $response = $this->get('/users/' . $this->user->username . '/edit');
 
         $response->assertViewIs('users.edit');
@@ -67,7 +73,7 @@ class UserTest extends TestCase
      */
 //    function authorized_users_can_create_users()
 //    {
-//        $this->signIn();
+//        $this->signIn(null, 'administrateur');
 //
 //        $contact = factory('App\Contact')->create();
 //

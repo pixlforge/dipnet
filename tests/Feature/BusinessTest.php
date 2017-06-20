@@ -30,7 +30,7 @@ class BusinessTest extends TestCase
      */
     function business_index_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/businesses');
 
@@ -44,7 +44,7 @@ class BusinessTest extends TestCase
      */
     function business_create_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/businesses/create');
 
@@ -58,7 +58,7 @@ class BusinessTest extends TestCase
      */
     function business_edit_view_is_available_and_requires_a_business()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/businesses/' . $this->business->id . '/edit');
 
@@ -72,7 +72,7 @@ class BusinessTest extends TestCase
      */
     function authorized_users_can_create_businesses()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $business = factory('App\Business')->make();
 
@@ -87,7 +87,7 @@ class BusinessTest extends TestCase
      */
     function authorized_users_can_update_businesses()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $business = factory('App\Business')->create();
 
@@ -104,7 +104,7 @@ class BusinessTest extends TestCase
      */
     function authorized_users_can_delete_businesses()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $business = factory('App\Business')->create();
 
@@ -121,7 +121,7 @@ class BusinessTest extends TestCase
      */
     function authorized_users_can_restore_businesses()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $business = factory('App\Business')->create();
 

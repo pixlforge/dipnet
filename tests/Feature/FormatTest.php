@@ -30,7 +30,7 @@ class FormatTest extends TestCase
      */
     function format_index_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/formats');
 
@@ -44,7 +44,7 @@ class FormatTest extends TestCase
      */
     function format_create_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/formats/create');
 
@@ -58,9 +58,9 @@ class FormatTest extends TestCase
      */
     function format_edit_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
-        $response = $this->get('/formats/' . $this->format->name . '/edit');
+        $response = $this->get('/formats/' . $this->format->id . '/edit');
 
         $response->assertViewIs('formats.edit');
     }
@@ -72,7 +72,7 @@ class FormatTest extends TestCase
      */
     function authorized_users_can_create_formats()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $format = factory('App\Format')->make();
 
@@ -87,21 +87,13 @@ class FormatTest extends TestCase
      */
     function authorized_users_can_update_formats()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
-        $format = factory('App\Format')->make();
+        $format = factory('App\Format')->create();
 
-        $this->post('/formats', $format->toArray())
-            ->assertRedirect('/formats');
+        $format->name = 'Super Format';
 
-        $formatUpdated = [
-            'name' => 'Premium',
-            'height' => 340,
-            'width' => 230,
-            'surface' => 0.1234
-        ];
-
-        $this->put("/formats/{$format->name}", $formatUpdated)
+        $this->put("/formats/{$format->id}", $format->toArray())
             ->assertRedirect('/formats');
     }
 
@@ -112,11 +104,11 @@ class FormatTest extends TestCase
      */
     function authorized_users_can_delete_formats()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $format = factory('App\Format')->create();
 
-        $this->delete("/formats/{$format->name}")
+        $this->delete("/formats/{$format->id}")
             ->assertRedirect('formats');
     }
 
@@ -127,14 +119,14 @@ class FormatTest extends TestCase
      */
     function authorized_users_can_restore_formats()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $format = factory('App\Format')->create();
 
-        $this->delete("/formats/{$format->name}")
+        $this->delete("/formats/{$format->id}")
             ->assertRedirect('formats');
 
-        $this->put("/formats/{$format->name}/restore", [$format])
+        $this->put("/formats/{$format->id}/restore", [$format])
             ->assertRedirect('formats');
     }
 }

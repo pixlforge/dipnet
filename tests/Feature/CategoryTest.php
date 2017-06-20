@@ -19,6 +19,7 @@ class CategoryTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         return $this->category = factory('App\Category')->create();
     }
 
@@ -29,7 +30,7 @@ class CategoryTest extends TestCase
      */
     function category_index_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/categories');
 
@@ -43,7 +44,7 @@ class CategoryTest extends TestCase
      */
     function category_create_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/categories/create');
 
@@ -57,7 +58,7 @@ class CategoryTest extends TestCase
      */
     function category_edit_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/categories/' . $this->category->id . '/edit');
 
@@ -71,7 +72,7 @@ class CategoryTest extends TestCase
      */
     function authorized_users_can_create_categories()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $category = factory('App\Category')->make();
 
@@ -86,7 +87,7 @@ class CategoryTest extends TestCase
      */
     function authorized_users_can_update_categories()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $category = factory('App\Category')->create();
 
@@ -105,7 +106,7 @@ class CategoryTest extends TestCase
      */
     function authorized_users_can_delete_a_category()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $category = factory('App\Category')->create();
 

@@ -19,6 +19,7 @@ class ArticleTest extends TestCase
     public function setUp()
     {
         parent::setUp();
+
         return $this->article = factory('App\Article')->create();
     }
 
@@ -29,7 +30,7 @@ class ArticleTest extends TestCase
      */
     function article_index_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $this->get('/articles')
             ->assertViewIs('articles.index');
@@ -42,7 +43,7 @@ class ArticleTest extends TestCase
      */
     function article_create_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $this->get('/articles/create')
             ->assertViewIs('articles.create');
@@ -55,7 +56,7 @@ class ArticleTest extends TestCase
      */
     function article_edit_view_is_available_and_requires_an_article()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $this->get('/articles/' . $this->article->reference . '/edit')
             ->assertViewIs('articles.edit');
@@ -68,7 +69,7 @@ class ArticleTest extends TestCase
      */
     function authorized_users_can_create_articles()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $category = factory('App\Category')->create();
 
@@ -85,7 +86,7 @@ class ArticleTest extends TestCase
      */
     function authorized_users_can_update_articles()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $category = factory('App\Category')->create();
 
@@ -107,7 +108,7 @@ class ArticleTest extends TestCase
      */
     function authorized_users_can_delete_articles()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $article = factory('App\Article')->create();
 
@@ -124,7 +125,7 @@ class ArticleTest extends TestCase
      */
     function authorized_users_can_restore_articles()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $article = factory('App\Article')->create();
 

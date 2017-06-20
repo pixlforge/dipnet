@@ -30,7 +30,7 @@ class ContactTest extends TestCase
      */
     function contact_index_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/contacts');
 
@@ -44,7 +44,7 @@ class ContactTest extends TestCase
      */
     function contact_create_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/contacts/create');
 
@@ -58,7 +58,7 @@ class ContactTest extends TestCase
      */
     function contact_edit_view_is_available_and_requires_a_contact()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/contacts/' . $this->contact->id . '/edit');
 
@@ -72,7 +72,7 @@ class ContactTest extends TestCase
      */
     function authorized_users_can_create_contacts()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $contact = factory('App\Contact')->create();
 
@@ -87,7 +87,7 @@ class ContactTest extends TestCase
      */
     function authorized_users_can_update_contacts()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $contact = factory('App\Contact')->create();
 
@@ -107,7 +107,7 @@ class ContactTest extends TestCase
      */
     function authorized_users_can_delete_contacts()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $contact = factory('App\Contact')->create();
 
@@ -124,7 +124,7 @@ class ContactTest extends TestCase
      */
     function authorized_users_can_restore_contacts()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $contact = factory('App\Contact')->create();
 

@@ -16,10 +16,12 @@ class AdminTest extends TestCase
      *
      * @test
      */
-    function admin_dashboard_is_available()
+    function admin_dashboard_is_available_and_only_admins_can_access_it()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
+
         $response = $this->get('/admin/dashboard');
+
         $response->assertStatus(200);
     }
 }

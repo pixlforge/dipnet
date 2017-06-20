@@ -30,6 +30,8 @@ class CompanyTest extends TestCase
      */
     function company_index_view_is_available()
     {
+        $this->signIn(null, 'administrateur');
+
         $response = $this->get('/companies');
 
         $response->assertViewIs('companies.index');
@@ -42,6 +44,8 @@ class CompanyTest extends TestCase
      */
     function company_create_view_is_available()
     {
+        $this->signIn(null, 'administrateur');
+
         $response = $this->get('/companies/create');
 
         $response->assertViewIs('companies.create');
@@ -54,6 +58,8 @@ class CompanyTest extends TestCase
      */
     function company_edit_view_is_available()
     {
+        $this->signIn(null, 'administrateur');
+
         $response = $this->get('/companies/' . $this->company->id . '/edit');
 
         $response->assertViewIs('companies.edit');
@@ -66,7 +72,7 @@ class CompanyTest extends TestCase
      */
     function authorized_users_can_create_companies()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $company = factory('App\Company')->create();
 
@@ -81,7 +87,7 @@ class CompanyTest extends TestCase
      */
     function authorized_users_can_update_companies()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $company = factory('App\Company')->create();
 
@@ -101,7 +107,7 @@ class CompanyTest extends TestCase
      */
     function authorized_users_can_delete_companies()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $company = factory('App\Company')->create();
 
@@ -118,7 +124,7 @@ class CompanyTest extends TestCase
      */
     function authorized_users_can_restore_companies()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $company = factory('App\Company')->create();
 

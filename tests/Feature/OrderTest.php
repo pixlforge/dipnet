@@ -30,7 +30,7 @@ class OrderTest extends TestCase
      */
     function order_index_view_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/orders');
 
@@ -44,7 +44,7 @@ class OrderTest extends TestCase
      */
     function order_create_view_is_available()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/orders/create');
 
@@ -58,7 +58,7 @@ class OrderTest extends TestCase
      */
     function order_edit_view_is_available_and_requires_an_order()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $response = $this->get('/orders/' . $this->order->id . '/edit');
 
@@ -72,7 +72,7 @@ class OrderTest extends TestCase
      */
     function authorized_users_can_create_orders()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $order = factory('App\Order')->make();
 
@@ -87,7 +87,7 @@ class OrderTest extends TestCase
      */
     function authorized_users_can_update_orders()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $order = factory('App\Order')->create(['status' => 'nok']);
 
@@ -104,7 +104,7 @@ class OrderTest extends TestCase
      */
     function authorized_users_can_delete_orders()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $order = factory('App\Order')->create();
 
@@ -121,7 +121,7 @@ class OrderTest extends TestCase
      */
     function authorized_users_can_restore_orders()
     {
-        $this->signIn();
+        $this->signIn(null, 'administrateur');
 
         $order = factory('App\Order')->create();
 
