@@ -26,9 +26,11 @@
                         </li>
 
                         {{--Dashboard--}}
-                        <li class="nav-item">
-                            <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
-                        </li>
+                        @can ('view', \App\Admin::class)
+                            <li class="nav-item">
+                                <a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>
+                            </li>
+                        @endcan
 
                         {{--Account--}}
                         <li class="nav-item dropdown">
@@ -36,7 +38,7 @@
                                 @if (Auth::check())
                                     {{ Auth::user()->username }}
                                 @else
-                                    Compte
+                                    <span>Compte</span>
                                 @endif
                             </a>
                             <div class="dropdown-menu">
