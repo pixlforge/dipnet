@@ -121,3 +121,8 @@ Route::get('/deliveries/{delivery}/edit', 'DeliveriesController@edit');
 Route::put('/deliveries/{delivery}', 'DeliveriesController@update');
 Route::delete('/deliveries/{delivery}', 'DeliveriesController@destroy');
 Route::put('/deliveries/{delivery}/restore', 'DeliveriesController@restore');
+
+/**
+ * Profiles
+ */
+Route::get('/profile', 'ProfilesController@profile')->name('profile');
