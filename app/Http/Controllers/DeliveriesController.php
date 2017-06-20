@@ -25,7 +25,10 @@ class DeliveriesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Delivery::class);
+
         $deliveries = Delivery::withTrashed()->with('order', 'contact')->get()->sortBy('created_at');
+
         return view('deliveries.index', compact('deliveries'));
     }
 
@@ -36,7 +39,10 @@ class DeliveriesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Delivery::class);
+
         $orders = Order::all();
+
         $contacts = Contact::all()->sortBy('company.name');
 
         return view('deliveries.create', compact(['orders', 'contacts']));
@@ -50,6 +56,8 @@ class DeliveriesController extends Controller
      */
     public function store(DeliveryRequest $request)
     {
+        $this->authorize('create', Delivery::class);
+
         Delivery::create([
             'order_id' => request('order_id'),
             'contact_id' => request('contact_id'),
@@ -67,6 +75,8 @@ class DeliveriesController extends Controller
      */
     public function show(Delivery $delivery)
     {
+        $this->authorize('view', $delivery);
+
         return view('deliveries.show');
     }
 
@@ -78,7 +88,10 @@ class DeliveriesController extends Controller
      */
     public function edit(Delivery $delivery)
     {
+        $this->authorize('update', $delivery);
+
         $orders = Order::all();
+
         $contacts = Contact::all();
 
         return view('deliveries.edit', compact(['delivery', 'orders', 'contacts']));
@@ -93,6 +106,8 @@ class DeliveriesController extends Controller
      */
     public function update(DeliveryRequest $request, Delivery $delivery)
     {
+        $this->authorize('update', $delivery);
+
         $delivery->update([
             'order_id' => request('order_id'),
             'contact_id' => request('contact_id'),
@@ -110,6 +125,8 @@ class DeliveriesController extends Controller
      */
     public function destroy(Delivery $delivery)
     {
+        $this->authorize('delete', $delivery);
+
         $delivery->delete();
 
         return redirect()->route('deliveries');
@@ -123,7 +140,10 @@ class DeliveriesController extends Controller
      */
     public function restore($delivery)
     {
+        $this->authorize('restore', Delivery::class);
+
         Delivery::onlyTrashed()->where('id', $delivery)->restore();
+
         return redirect()->route('deliveries');
     }
 }

@@ -24,6 +24,8 @@ class ArticlesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Article::class);
+
         $articles = Article::withTrashed()->with('category')->get()->sortBy('reference');
 
         return view('articles.index', compact('articles'));
@@ -36,6 +38,8 @@ class ArticlesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Article::class);
+
         $categories = Category::all();
 
         return view('articles.create', compact('categories'));
@@ -49,6 +53,8 @@ class ArticlesController extends Controller
      */
     public function store(ArticleRequest $request)
     {
+        $this->authorize('create', Article::class);
+
         Article::create([
             'reference' => request('reference'),
             'description' => request('description'),
@@ -67,6 +73,8 @@ class ArticlesController extends Controller
      */
     public function show(Article $article)
     {
+        $this->authorize('view', $article);
+
         return view('articles.show', compact('article'));
     }
 
@@ -78,6 +86,8 @@ class ArticlesController extends Controller
      */
     public function edit(Article $article)
     {
+        $this->authorize('update', $article);
+
         $categories = Category::all()->sortBy('name');
 
         return view('articles.edit', compact(['article', 'categories']));
@@ -92,6 +102,8 @@ class ArticlesController extends Controller
      */
     public function update(ArticleRequest $request, Article $article)
     {
+        $this->authorize('update', $article);
+
         $article->update([
             'reference' => request('reference'),
             'description' => request('description'),
@@ -110,6 +122,8 @@ class ArticlesController extends Controller
      */
     public function destroy(Article $article)
     {
+        $this->authorize('delete', $article);
+
         $article->delete();
 
         return redirect()->route('articles');
@@ -123,6 +137,8 @@ class ArticlesController extends Controller
      */
     public function restore($article)
     {
+        $this->authorize('restore', Article::class);
+
         Article::onlyTrashed()->where('reference', $article)->restore();
 
         return redirect()->route('articles');

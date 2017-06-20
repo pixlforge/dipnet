@@ -27,6 +27,8 @@ class ContactsController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Contact::class);
+
         $contacts = Contact::withTrashed()->with('company')->get()->sortBy('name');
 
         return view('contacts.index', compact('contacts'));
@@ -39,6 +41,8 @@ class ContactsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Contact::class);
+
         $companies = Company::all()->sortBy('name');
 
         return view('contacts.create', compact('companies'));
@@ -52,6 +56,8 @@ class ContactsController extends Controller
      */
     public function store(ContactRequest $request)
     {
+        $this->authorize('create', Contact::class);
+
         Contact::create([
             'name' => request('name'),
             'address_line1' => request('address_line1'),
@@ -71,12 +77,14 @@ class ContactsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Contact $contact
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Contact $contact)
     {
-        return view('contacts.show');
+        $this->authorize('view', $contact);
+
+        return view('contacts.show', compact('contact'));
     }
 
     /**
@@ -86,6 +94,8 @@ class ContactsController extends Controller
      */
     public function edit(Contact $contact)
     {
+        $this->authorize('update', $contact);
+
         $companies = Company::all()->sortBy('name');
 
         return view('contacts.edit', compact(['contact', 'companies']));
@@ -100,6 +110,8 @@ class ContactsController extends Controller
      */
     public function update(ContactRequest $request, Contact $contact)
     {
+        $this->authorize('update', $contact);
+
         $contact->update([
             'name' => request('name'),
             'address_line1' => request('address_line1'),
@@ -123,6 +135,8 @@ class ContactsController extends Controller
      */
     public function destroy(Contact $contact)
     {
+        $this->authorize('delete', $contact);
+
         $contact->delete();
 
         return redirect()->route('contacts');
@@ -136,6 +150,8 @@ class ContactsController extends Controller
      */
     public function restore($contact)
     {
+        $this->authorize('restore', Contact::class);
+
         Contact::onlyTrashed()->where('id', $contact)->restore();
 
         return redirect()->route('contacts');

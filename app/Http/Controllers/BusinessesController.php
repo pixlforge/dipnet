@@ -26,6 +26,8 @@ class BusinessesController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Business::class);
+
         $businesses = Business::withTrashed()
             ->with('company', 'contact')
             ->get()
@@ -41,6 +43,8 @@ class BusinessesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Business::class);
+
         $companies = Company::all()
             ->sortBy('name');
 
@@ -61,6 +65,8 @@ class BusinessesController extends Controller
      */
     public function store(BusinessRequest $request)
     {
+        $this->authorize('create', Business::class);
+
         Business::create([
             'name' => request('name'),
             'reference' => request('reference'),
@@ -81,6 +87,8 @@ class BusinessesController extends Controller
      */
     public function show(Business $business)
     {
+        $this->authorize('view', $business);
+
         return view('businesses.show', compact('business'));
     }
 
@@ -92,6 +100,8 @@ class BusinessesController extends Controller
      */
     public function edit(Business $business)
     {
+        $this->authorize('update', $business);
+
         $companies = Company::all()
             ->sortBy('name');
 
@@ -113,6 +123,8 @@ class BusinessesController extends Controller
      */
     public function update(BusinessRequest $request, Business $business)
     {
+        $this->authorize('update', $business);
+
         $business->update([
             'name' => request('name'),
             'reference' => request('reference'),
@@ -133,6 +145,8 @@ class BusinessesController extends Controller
      */
     public function destroy(Business $business)
     {
+        $this->authorize('delete', $business);
+
         $business->delete();
 
         return redirect()->route('businesses');
@@ -146,6 +160,8 @@ class BusinessesController extends Controller
      */
     public function restore($business)
     {
+        $this->authorize('restore', Business::class);
+
         Business::onlyTrashed()->where('id', $business)->restore();
 
         return redirect()->route('businesses');

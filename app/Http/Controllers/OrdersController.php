@@ -25,6 +25,8 @@ class OrdersController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Order::class);
+
         $orders = Order::withTrashed()->with(['business', 'contact', 'user'])->get()->sortBy('created_at');
 
         return view('orders.index', compact('orders'));
@@ -37,6 +39,8 @@ class OrdersController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Order::class);
+
         $businesses = Business::all()->sortBy('company.name');
 
         $contacts = Contact::all()->sortBy('company.name');
@@ -52,6 +56,8 @@ class OrdersController extends Controller
      */
     public function store(OrderRequest $request)
     {
+        $this->authorize('create', Order::class);
+
         Order::create([
             'reference' => request('reference'),
             'status' => request('status'),
@@ -71,6 +77,8 @@ class OrdersController extends Controller
      */
     public function show(Order $order)
     {
+        $this->authorize('view', $order);
+
         return view('orders.show', compact('order'));
     }
 
@@ -82,6 +90,8 @@ class OrdersController extends Controller
      */
     public function edit(Order $order)
     {
+        $this->authorize('update', $order);
+
         $businesses = Business::all()->sortBy('company.name');
 
         $contacts = Contact::all()->sortBy('company.name');
@@ -98,6 +108,8 @@ class OrdersController extends Controller
      */
     public function update(OrderRequest $request, Order $order)
     {
+        $this->authorize('update', $order);
+
         $order->update([
             'reference' => request('reference'),
             'status' => request('status'),
@@ -116,6 +128,8 @@ class OrdersController extends Controller
      */
     public function destroy(Order $order)
     {
+        $this->authorize('delete', $order);
+
         $order->delete();
 
         return redirect()->route('orders');
@@ -129,6 +143,8 @@ class OrdersController extends Controller
      */
     public function restore($order)
     {
+        $this->authorize('restore', Order::class);
+
         Order::onlyTrashed()->where('id', $order)->restore();
 
         return redirect()->route('orders');

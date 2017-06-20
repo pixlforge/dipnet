@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Admin;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller
@@ -19,6 +20,8 @@ class AdminController extends Controller
      */
     public function dashboard()
     {
+        $this->authorize('view', Admin::class);
+
         return view('admin.dashboard');
     }
 }

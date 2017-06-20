@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\FormatRequest;
-use Illuminate\Http\Request;
 use App\Format;
+use App\User;
+use Illuminate\Http\Request;
+use App\Http\Requests\FormatRequest;
 
 class FormatsController extends Controller
 {
@@ -23,7 +24,10 @@ class FormatsController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Format::class);
+
         $formats = Format::withTrashed()->get();
+
         return view('formats.index', compact('formats'));
     }
 
@@ -34,6 +38,8 @@ class FormatsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Format::class);
+
         return view('formats.create');
     }
 
@@ -45,6 +51,8 @@ class FormatsController extends Controller
      */
     public function store(FormatRequest $request)
     {
+        $this->authorize('create', Format::class);
+
         Format::create([
             'name' => request('name'),
             'height' => request('height'),
@@ -63,6 +71,8 @@ class FormatsController extends Controller
      */
     public function show(Format $format)
     {
+        $this->authorize('view', $format);
+
         return view('formats.show', compact('format'));
     }
 
@@ -74,6 +84,8 @@ class FormatsController extends Controller
      */
     public function edit(Format $format)
     {
+        $this->authorize('update', $format);
+
         return view('formats.edit', compact('format'));
     }
 
@@ -86,6 +98,8 @@ class FormatsController extends Controller
      */
     public function update(FormatRequest $request, Format $format)
     {
+        $this->authorize('update', $format);
+
         $format->update([
             'name' => request('name'),
             'height' => request('height'),
@@ -104,7 +118,10 @@ class FormatsController extends Controller
      */
     public function destroy(Format $format)
     {
+        $this->authorize('delete', $format);
+
         $format->delete();
+
         return redirect()->route('formats');
     }
 
@@ -116,7 +133,10 @@ class FormatsController extends Controller
      */
     public function restore($format)
     {
-        Format::onlyTrashed()->where('name', $format)->restore();
+        $this->authorize('restore', Format::class);
+
+        Format::onlyTrashed()->where('id', $format)->restore();
+
         return redirect()->route('formats');
     }
 }

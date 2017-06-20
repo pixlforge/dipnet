@@ -23,6 +23,8 @@ class DocumentsController extends Controller
      */
     public function index()
     {
+        $this->authorize('view', Document::class);
+
         $documents = Document::all()
             ->sortBy('file_name');
 
@@ -36,6 +38,8 @@ class DocumentsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Document::class);
+
         return view('documents.create');
     }
 
@@ -47,6 +51,8 @@ class DocumentsController extends Controller
      */
     public function store(DocumentRequest $request)
     {
+        $this->authorize('create', Document::class);
+
         Document::create([
             'file_name' => request('file_name'),
             'file_path' => request('file_path'),
@@ -68,23 +74,27 @@ class DocumentsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param Document $document
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Document $document)
     {
-        return view('documents.show');
+        $this->authorize('view', $document);
+
+        return view('documents.show', compact('document'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param Document $document
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Document $document)
     {
-        return view('documents.edit');
+        $this->authorize('update', $document);
+
+        return view('documents.edit', compact('document'));
     }
 
     /**

@@ -9,12 +9,22 @@ use Illuminate\Http\Request;
 class CompaniesController extends Controller
 {
     /**
+     * CompaniesController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
+        $this->authorize('view', Company::class);
+
         $companies = Company::withTrashed()->get()->sortBy('name');
 
         return view('companies.index', compact('companies'));
@@ -27,6 +37,8 @@ class CompaniesController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Company::class);
+
         return view('companies.create');
     }
 
@@ -38,6 +50,8 @@ class CompaniesController extends Controller
      */
     public function store(CompanyRequest $request)
     {
+        $this->authorize('create', Company::class);
+
         Company::create([
             'name' => request('name'),
             'status' => request('status'),
@@ -67,6 +81,8 @@ class CompaniesController extends Controller
      */
     public function edit(Company $company)
     {
+        $this->authorize('update', $company);
+
         return view('companies.edit', compact('company'));
     }
 
@@ -79,6 +95,8 @@ class CompaniesController extends Controller
      */
     public function update(CompanyRequest $request, Company $company)
     {
+        $this->authorize('update', $company);
+
         $company->update([
             'name' => request('name'),
             'status' => request('status'),
@@ -96,6 +114,8 @@ class CompaniesController extends Controller
      */
     public function destroy(Company $company)
     {
+        $this->authorize('delete', $company);
+
         $company->delete();
 
         return redirect()->route('companies');
@@ -109,6 +129,8 @@ class CompaniesController extends Controller
      */
     public function restore($company)
     {
+        $this->authorize('restore', Company::class);
+
         Company::onlyTrashed()->where('id', $company)->restore();
 
         return redirect()->route('companies');
