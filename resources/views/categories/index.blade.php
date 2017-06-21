@@ -57,7 +57,7 @@
                                         <li class="my-4">
                                             <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
                                             <div class="d-flex flex-row justify-content-between">
-                                                <span>{{ $category->created_at->format('d M Y') }}</span>
+                                                <span>{{ $category->created_at->formatLocalized('%A %d %B %Y') }}</span>
                                                 <span><small>{{ $category->created_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>
@@ -66,7 +66,7 @@
                                         <li class="my-4">
                                             <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
                                             <div class="d-flex flex-row justify-content-between">
-                                                <span>{{ $category->updated_at->format('d M Y') }}</span>
+                                                <span>{{ $category->updated_at->formatLocalized('%A %d %B %Y') }}</span>
                                                 <span><small>{{ $category->updated_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>

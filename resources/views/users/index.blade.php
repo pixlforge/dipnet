@@ -103,7 +103,7 @@
                                         <li class="my-4">
                                             <h5><i class="fa fa-industry mr-2"></i> Dernière connexion</h5>
                                             <div class="d-flex flex-row justify-content-between">
-                                                <span>{{ $user->last_login_at->format('D, d M Y') }}</span>
+                                                <span>{{ $user->last_login_at->formatLocalized('%A %d %B %Y') }}</span>
                                                 <span><small>{{ $user->last_login_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>
@@ -113,7 +113,7 @@
                                     <li class="my-4">
                                         <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <span>{{ $user->created_at->format('d M Y') }}</span>
+                                            <span>{{ $user->created_at->formatLocalized('%A %d %B %Y') }}</span>
                                             <span><small>{{ $user->created_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
@@ -122,7 +122,7 @@
                                     <li class="my-4">
                                         <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <span>{{ $user->updated_at->format('d M Y') }}</span>
+                                            <span>{{ $user->updated_at->formatLocalized('%A %d %B %Y') }}</span>
                                             <span><small>{{ $user->updated_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
@@ -132,7 +132,7 @@
                                         <li class="my-4 text-danger">
                                             <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
                                             <div class="d-flex flex-row justify-content-between">
-                                                <span>{{ $user->deleted_at->format('d M Y') }}</span>
+                                                <span>{{ $user->deleted_at->formatLocalized('%A %d %B %Y') }}</span>
                                                 <span><small>{{ $user->deleted_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>

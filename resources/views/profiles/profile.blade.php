@@ -39,11 +39,25 @@
                             <span>{{ $user->company->name }}</span>
                         </h5>
 
-                        <p>Inscrit {{ $user->created_at->diffForHumans() }}, {{ $user->created_at->formatLocalized('%A %d %B %Y') }}.</p>
+                        <p>Inscrit {{ $user->created_at->diffForHumans() }}, le {{ $user->created_at->formatLocalized('%A %d %B %Y') }}.</p>
                     </div>
                 </div>
 
             </div>
+
+            <div class="col-xs-12 col-md-6 col-lg-8">
+                <div class="card">
+                    <div class="card-block">
+
+                        <h2>Activity</h2>
+
+                        {{--Orders--}}
+
+
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

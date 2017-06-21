@@ -93,7 +93,7 @@
                                     <li class="my-4">
                                         <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <span>{{ $format->created_at->format('d M Y') }}</span>
+                                            <span>{{ $format->created_at->formatLocalized('%A %d %B %Y') }}</span>
                                             <span><small>{{ $format->created_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
@@ -102,7 +102,7 @@
                                     <li class="my-4">
                                         <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <span>{{ $format->updated_at->format('d M Y') }}</span>
+                                            <span>{{ $format->updated_at->formatLocalized('%A %d %B %Y') }}</span>
                                             <span><small>{{ $format->updated_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
@@ -112,7 +112,7 @@
                                         <li class="my-4 text-danger">
                                             <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
                                             <div class="d-flex flex-row justify-content-between">
-                                                <span>{{ $format->deleted_at->format('d M Y') }}</span>
+                                                <span>{{ $format->deleted_at->formatLocalized('%A %d %B %Y') }}</span>
                                                 <span><small>{{ $format->deleted_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>

@@ -143,7 +143,7 @@
                                         <div class="d-flex flex-row justify-content-between">
                                             <div>
                                                 <i class="fa fa-calendar-check-o mr-3"></i>
-                                                <span>{{ $document->created_at->format('d M Y') }}</span>
+                                                <span>{{ $document->created_at->formatLocalized('%A %d %B %Y') }}</span>
                                             </div>
                                             <span><small>{{ $document->created_at->diffForHumans() }}</small></span>
                                         </div>
@@ -155,7 +155,7 @@
                                         <div class="d-flex flex-row justify-content-between">
                                             <div>
                                                 <i class="fa fa-calendar-plus-o mr-3"></i>
-                                                <span>{{ $document->updated_at->format('d M Y') }}</span>
+                                                <span>{{ $document->updated_at->formatLocalized('%A %d %B %Y') }}</span>
                                             </div>
                                             <span><small>{{ $document->updated_at->diffForHumans() }}</small></span>
                                         </div>

@@ -118,7 +118,7 @@
                                     <li class="my-4">
                                         <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <span>{{ $contact->created_at->format('d M Y') }}</span>
+                                            <span>{{ $contact->created_at->formatLocalized('%A %d %B %Y') }}</span>
                                             <span><small>{{ $contact->created_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
@@ -127,7 +127,7 @@
                                     <li class="my-4">
                                         <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
                                         <div class="d-flex flex-row justify-content-between">
-                                            <span>{{ $contact->updated_at->format('d M Y') }}</span>
+                                            <span>{{ $contact->updated_at->formatLocalized('%A %d %B %Y') }}</span>
                                             <span><small>{{ $contact->updated_at->diffForHumans() }}</small></span>
                                         </div>
                                     </li>
@@ -137,7 +137,7 @@
                                         <li class="my-4 text-danger">
                                             <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
                                             <div class="d-flex flex-row justify-content-between">
-                                                <span>{{ $contact->deleted_at->format('d M Y') }}</span>
+                                                <span>{{ $contact->deleted_at->formatLocalized('%A %d %B %Y') }}</span>
                                                 <span><small>{{ $contact->deleted_at->diffForHumans() }}</small></span>
                                             </div>
                                         </li>
