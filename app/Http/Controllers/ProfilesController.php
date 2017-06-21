@@ -20,13 +20,21 @@ class ProfilesController extends Controller
      */
     public function profile()
     {
-        $user = User::where('id', auth()->id())->firstOrFail([
-            'username', 'email', 'email_validated', 'contact_id',
-            'company_id', 'last_login_at', 'created_at'
-        ]);
+        $user = User::where('id', auth()->id())
+            ->firstOrFail([
+                'username', 'email', 'email_validated', 'contact_id',
+                'company_id', 'last_login_at', 'created_at'
+            ]);
+
+        $users = User::where('company_id', $user->company->id)
+            ->get()
+            ->sortBy('username');
+
+//        dd($users);
+//        dd($user->contact->company);
 
         return view('profiles.profile', compact([
-            'user'
+            'user', 'users'
         ]));
     }
 }

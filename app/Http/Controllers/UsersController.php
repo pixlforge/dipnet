@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Company;
+use App\Contact;
 use App\User;
 use App\Http\Requests\UserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -23,7 +26,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::with(['contact', 'company'])->get()->sortBy('username');
+        $this->authorize('view', User::class);
+
+        $users = User::withTrashed()
+            ->with(['contact', 'company'])
+            ->get()
+            ->sortBy('username');
 
         return view('users.index', compact('users'));
     }
@@ -35,6 +43,8 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
+
         return view('users.create');
     }
 
@@ -46,6 +56,8 @@ class UsersController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $this->authorize('create', User::class);
+
         User::create([
             'username' => request('username'),
             'password' => bcrypt(request('password')),
@@ -67,6 +79,8 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view', $user);
+
         return view('users.show', compact('user'));
     }
 
@@ -78,29 +92,64 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $this->authorize('update', $user);
+
+        $contacts = Contact::all();
+
+        $companies = Company::all();
+
+        return view('users.edit', compact([
+            'user', 'contacts', 'companies'
+        ]));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UpdateUserRequest $request
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $this->authorize('update', $user);
+
+        $user->update([
+            'username' => request('username'),
+            'role' => request('role'),
+            'email' => request('email'),
+            'contact_id' => request('contact_id'),
+            'company_id' => request('company_id')
+        ]);
+
+        return redirect()->route('users');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
+
+        return redirect()->route('users');
+    }
+
+    /**
+     * Restores a previously soft deleted model.
+     *
+     * @param $user
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore($user)
+    {
+        $this->authorize('restore', User::class);
+
+        User::onlyTrashed()->where('id', $user)->restore();
+
+        return redirect()->route('users');
     }
 }

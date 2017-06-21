@@ -25,6 +25,8 @@ Route::get('/users/create', 'UsersController@create');
 Route::post('/users', 'UsersController@store');
 Route::get('/users/{user}/edit', 'UsersController@edit');
 Route::put('/users/{user}', 'UsersController@update');
+Route::delete('/users/{user}', 'UsersController@destroy');
+Route::put('/users/{user}/restore', 'UsersController@restore');
 
 /**
  * Business routes

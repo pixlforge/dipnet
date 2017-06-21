@@ -72,14 +72,4 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Contact::class);
     }
-
-    /**
-     * Set the username attribute as a key used in routing
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'username';
-    }
 }

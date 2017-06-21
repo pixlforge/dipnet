@@ -61,7 +61,7 @@ class UserTest extends TestCase
     {
         $this->signIn(null, 'administrateur');
 
-        $response = $this->get('/users/' . $this->user->username . '/edit');
+        $response = $this->get('/users/' . $this->user->id . '/edit');
 
         $response->assertViewIs('users.edit');
     }
@@ -71,22 +71,68 @@ class UserTest extends TestCase
      *
      * @test
      */
-//    function authorized_users_can_create_users()
-//    {
-//        $this->signIn(null, 'administrateur');
-//
-//        $contact = factory('App\Contact')->create();
-//
-//        $company = factory('App\Company')->create();
-//
-//        $user = factory('App\User')->make([
-//            'contact_id' => $contact->id,
-//            'company_id' => $company->id
-//        ]);
-//
-//        $this->post("/users", $user->toArray())
-//            ->assertRedirect('users');
-//    }
+    function authorized_users_can_create_users()
+    {
+        $this->signIn(null, 'administrateur');
 
+        $user = factory('App\User')->create();
 
+        $this->get('/users')->assertSee($user->username);
+    }
+
+    /**
+     * Authorized users can update users
+     *
+     * @test
+     */
+    function authorized_users_can_update_users()
+    {
+        $this->signIn(null, 'administrateur');
+
+        $user = factory('App\User')->create();
+
+        $user->username = 'Donald Trump';
+
+        $this->put("/users/{$user->id}", $user->toArray())
+            ->assertRedirect('users');
+    }
+
+    /**
+     * Authorized users can delete users
+     *
+     * @test
+     */
+    function authorized_users_can_delete_users()
+    {
+        $this->signIn(null, 'administrateur');
+
+        $user = factory('App\User')->create();
+        $this->assertDatabaseHas('users', [
+            'username' => $user->username,
+            'email' => $user->email,
+        ]);
+
+        $this->delete("/users/{$user->id}")
+            ->assertRedirect('/users');
+    }
+
+    /**
+     * Authorized users can restore users
+     *
+     * @test
+     */
+    function authorized_users_can_restore_users()
+    {
+        $this->signIn(null, 'administrateur');
+
+        $user = factory('App\User')->create();
+
+        $this->assertDatabaseHas('users', ['id' => $user->id]);
+
+        $this->delete("/users/{$user->id}")
+            ->assertRedirect('/users');
+
+        $this->put("/users/{$user->id}/restore", $user->toArray())
+            ->assertRedirect('/users');
+    }
 }
