@@ -39,6 +39,14 @@
                                     @endif
                                 </div>
 
+                                {{--Email validated--}}
+                                <div class="form-check">
+                                    <label for="email_validated" class="form-check-label">
+                                        <input type="checkbox" id="email_validated" name="email_validated" class="form-check-input"  value="1">
+                                        <span class="ml-2">E-mail validé</span>
+                                    </label>
+                                </div>
+
                                 {{--Role--}}
                                 <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
                                     <label for="role">Rôle</label>

@@ -40,6 +40,14 @@
                                     @endif
                                 </div>
 
+                                {{--Email validated--}}
+                                <div class="form-check">
+                                    <label for="email_validated" class="form-check-label">
+                                        <input type="checkbox" id="email_validated" name="email_validated" class="form-check-input" {{ $user->email_validated == 1 ? ' checked' : '' }}  value="1">
+                                        <span class="ml-2">E-mail validé</span>
+                                    </label>
+                                </div>
+
                                 {{--Role--}}
                                 <div class="form-group{{ $errors->has('role') ? ' has-error' : '' }}">
                                     <label for="role">Rôle</label>
@@ -60,7 +68,7 @@
                                 <div class="form-group{{ $errors->has('contact_id') ? ' has-error' : '' }}">
                                     <label for="contact_id">Contact</label>
                                     <select name="contact_id" id="contact_id" class="custom-select form-control" required>
-                                        <option selected>Sélectionnez un contact</option>
+                                        <option selected disabled>Sélectionnez un contact</option>
                                         <option disabled>&mdash;&mdash;&mdash;&mdash;&mdash;</option>
                                         @forelse ($contacts as $contact)
                                             <option value="{{ $contact->id }}" {{ $user->contact_id == $contact->id ? 'selected' : '' }}>{{ $contact->name }}</option>
@@ -79,7 +87,7 @@
                                 <div class="form-group{{ $errors->has('company_id') ? ' has-error' : '' }}">
                                     <label for="company_id">Société</label>
                                     <select name="company_id" id="company_id" class="custom-select form-control" required>
-                                        <option selected>Sélectionnez une société</option>
+                                        <option selected disabled>Sélectionnez une société</option>
                                         <option disabled>&mdash;&mdash;&mdash;&mdash;&mdash;</option>
                                         @forelse ($companies as $company)
                                             <option value="{{ $company->id }}" {{ $user->company_id == $company->id ? 'selected' : '' }}>{{ $company->name }}</option>

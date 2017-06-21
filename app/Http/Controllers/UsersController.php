@@ -7,6 +7,7 @@ use App\Contact;
 use App\User;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UpdateUserRequest;
+//use function foo\func;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -63,7 +64,7 @@ class UsersController extends Controller
             'password' => bcrypt(request('password')),
             'role' => request('role'),
             'email' => request('email'),
-            'email_validated' => 0,
+            'email_validated' => $this->getEmailStatus(),
             'contact_id' => request('contact_id'),
             'company_id' => request('company_id')
         ]);
@@ -118,6 +119,7 @@ class UsersController extends Controller
             'username' => request('username'),
             'role' => request('role'),
             'email' => request('email'),
+            'email_validated' => $this->getEmailStatus(),
             'contact_id' => request('contact_id'),
             'company_id' => request('company_id')
         ]);
@@ -151,5 +153,18 @@ class UsersController extends Controller
         User::onlyTrashed()->where('id', $user)->restore();
 
         return redirect()->route('users');
+    }
+
+    /**
+     * @return int
+     */
+    protected function getEmailStatus(): int
+    {
+        if (empty(request('email_validated'))) {
+            $emailStatus = 0;
+        } else {
+            $emailStatus = 1;
+        }
+        return $emailStatus;
     }
 }
