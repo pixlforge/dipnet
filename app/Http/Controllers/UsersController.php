@@ -95,9 +95,11 @@ class UsersController extends Controller
     {
         $this->authorize('update', $user);
 
-        $contacts = Contact::all();
+        $contacts = Contact::all()
+            ->sortBy('name');
 
-        $companies = Company::all();
+        $companies = Company::all()
+            ->sortBy('name');
 
         return view('users.edit', compact([
             'user', 'contacts', 'companies'

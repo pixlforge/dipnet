@@ -128,3 +128,5 @@ Route::put('/deliveries/{delivery}/restore', 'DeliveriesController@restore');
  * Profiles
  */
 Route::get('/profile', 'ProfilesController@profile')->name('profile');
+Route::get('/profile/{user}/edit', 'ProfilesController@edit');
+Route::put('/profile/{user}', 'ProfilesController@update');

@@ -23,4 +23,17 @@ class ProfileTest extends TestCase
         $this->get("/profile")
             ->assertViewIs('profiles.profile');
     }
+
+    /**
+     * An authenticated user can modify his profile
+     *
+     * @test
+     */
+    function an_authenticated_user_can_modify_his_profile()
+    {
+        $this->signIn();
+
+        $this->get('/profile')
+            ->assertSee('Profil');
+    }
 }

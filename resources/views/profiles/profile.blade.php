@@ -16,43 +16,54 @@
                     <div class="card-block">
 
                         {{--Username--}}
-                        <h2>
-                            <i class="fa fa-user mr-2"></i>
-                            <span>{{ $user->username }}</span>
-                        </h2>
+                        <div class="my-4">
+                            <h2>
+                                <i class="fa fa-user mr-2"></i>
+                                <span>{{ $user->username }}</span>
+                            </h2>
+                        </div>
 
                         {{--Email--}}
-                        <h5 class="my-3">
-                            <i class="fa fa-envelope mr-2"></i>
+                        <div class="my-4">
+                            <h5>
+                                <i class="fa fa-envelope mr-2"></i>
+                                <span>Adresse E-mail</span>
+                            </h5>
                             <span>{{ $user->email }}</span>
-                        </h5>
+                        </div>
 
                         {{--Contact--}}
-                        <h5 class="my-3">
-                            <i class="fa fa-address-card mr-2"></i>
+                        <div class="my-4">
+                            <h5>
+                                <i class="fa fa-address-card mr-2"></i>
+                                <span>Contact principal</span>
+                            </h5>
                             <span>{{ $user->contact->name }}</span>
-                        </h5>
+                        </div>
 
                         {{--Company--}}
-                        <h5 class="my-3">
-                            <i class="fa fa-industry mr-2"></i>
+                        <div class="my-4">
+                            <h5>
+                                <i class="fa fa-industry mr-2"></i>
+                                <span>Société</span>
+                            </h5>
                             <span>{{ $user->company->name }}</span>
-                        </h5>
+                        </div>
 
-                        <p>Inscrit {{ $user->created_at->diffForHumans() }}, le {{ $user->created_at->formatLocalized('%A %d %B %Y') }}.</p>
+                        <p class="text-center"><small>Inscrit {{ $user->created_at->diffForHumans() }}, le {{ $user->created_at->formatLocalized('%A %d %B %Y') }}.</small></p>
+
+                        <a href="{{ url('/profile/' . $user->id . '/edit') }}" class="btn btn-primary btn-block mt-4">Mettre à jour</a>
                     </div>
                 </div>
 
             </div>
 
-            <div class="col-xs-12 col-md-6 col-lg-8">
+            <div class="col-xs-12 col-md-6 col-lg-4">
                 <div class="card">
                     <div class="card-block">
 
-                        <h2>Activity</h2>
-
-                        {{--Orders--}}
-
+                        {{--Main Contact--}}
+                        <h2><i class="fa fa-address-card mr-2"></i> {{ $user->contact->name }}</h2>
 
                     </div>
                 </div>

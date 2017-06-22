@@ -12,6 +12,7 @@
                         <form method="POST" action="{{ route('register') }}" role="form" class="my-5">
                             {{ csrf_field() }}
 
+                            {{--Username--}}
                             <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
                                 <label for="username">Nom d'utilisateur</label>
                                 <input type="text" id="username" name="username" class="form-control" value="{{ old('username') }}" placeholder="e.g. John Doe" required autofocus>
@@ -22,6 +23,7 @@
                                 @endif
                             </div>
 
+                            {{--E-mail--}}
                             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email">E-mail</label>
                                 <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="e.g. votre@email.ch" required>
@@ -32,6 +34,7 @@
                                 @endif
                             </div>
 
+                            {{--Password--}}
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password">Mot de passe</label>
                                 <input type="password" id="password" name="password" class="form-control" placeholder="Entre 6 et 45 caractères" required>
@@ -42,6 +45,7 @@
                                 @endif
                             </div>
 
+                            {{--Password confirm--}}
                             <div class="form-group">
                                 <label for="password-confirm">Confirmation du mot de passe</label>
                                 <input type="password" id="password-confirm" name="password_confirmation" class="form-control" placeholder="Répétez votre mot de passe" required>
