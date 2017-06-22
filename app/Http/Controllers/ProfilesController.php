@@ -36,8 +36,14 @@ class ProfilesController extends Controller
             ->get()
             ->sortBy('username');
 
+        $contacts = Contact::where('company_id', $user->contact->id)
+            ->get()
+            ->sortBy('name');
+
+//        dd($contacts);
+
         return view('profiles.profile', compact([
-            'user', 'users'
+            'user', 'users', 'contacts'
         ]));
     }
 
