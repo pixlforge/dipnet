@@ -36,7 +36,7 @@ class ProfilesController extends Controller
             ->get()
             ->sortBy('username');
 
-        $contacts = Contact::where('company_id', $user->contact->id)
+        $contacts = Contact::where('company_id', $user->company->id)
             ->get()
             ->sortBy('name');
 
