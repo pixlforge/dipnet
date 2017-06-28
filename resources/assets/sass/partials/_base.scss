@@ -1,6 +1,7 @@
 body {
   background: #f9f9f9;
   color: #444;
+  font: 100% $font-stack;
 }
 
 .intro {
@@ -9,4 +10,30 @@ body {
 
 .form-control::placeholder {
   color: $light-grey;
+}
+
+/**
+ * Bootstrap extends
+ */
+
+.vh-100 {
+  min-height: 100vh!important;
+}
+
+.mt-5 {
+  margin-top: 2rem !important;
+}
+
+.mt-6 {
+  margin-top: 3rem !important;
+}
+
+.my-5 {
+  margin-top: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.my-6 {
+  margin-top: 3rem !important;
+  margin-bottom: 3rem !important;
 }

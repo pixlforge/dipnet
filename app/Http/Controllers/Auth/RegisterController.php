@@ -52,6 +52,22 @@ class RegisterController extends Controller
             'username' => 'required|string|unique:users|min:2|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
+        ],
+        [
+            'username.required' => 'Veuillez entrer un nom d\'utilisateur.',
+            'username.string' => 'Le nom d\'utilisateur doit être une chaîne de caractères.',
+            'username.unique' => 'Ce nom d\'utilisateur est déjà utilisé.',
+            'username.min' => 'Minimum 2 caractères.',
+            'username.max' => 'Maximum 255 caractères.',
+            'email.required' => 'Veuillez entrer une adresse e-mail.',
+            'email.string' => 'L\'adresse e-mail doit être une chaîne de caractères.',
+            'email.email' => 'L\'adresse e-mail doit correspondre au format utilisateur@fournisseur.tld.',
+            'email.max' => 'Maximum 255 caractères.',
+            'email.unique' => 'Cette adresse e-mail est déjà utilisée.',
+            'password.required' => 'Un mot de passe est requis.',
+            'password.string' => 'Le mot de passe doit être une chaîne de caractères.',
+            'password.min' => 'Minimum 6 caractères.',
+            'password.confirmed' => 'Les mots de passe ne concordent pas.'
         ]);
     }
 
@@ -61,9 +77,24 @@ class RegisterController extends Controller
      * @param  array  $data
      * @return User
      */
+//    protected function create(array $data)
+//    {
+//        return $this->createAccount($data);
+//    }
+
     protected function create(array $data)
     {
-        return $this->createAccount($data);
+        return User::create([
+            'username' => $data['username'],
+            'password' => bcrypt($data['password']),
+            'role' => 'utilisateur',
+            'email' => $data['email'],
+            'email_validated' => false,
+        ]);
+    }
+
+    public function contact(User $user) {
+        return $user->username;
     }
 
     /**

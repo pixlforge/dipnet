@@ -1,7 +1,7 @@
 @import "partials/multicop.scss";
 
 .bg-primary {
-  background: $primary;
+  background: $primary!important;
 }
 
 .btn-primary {
@@ -17,4 +17,12 @@
   &:focus {
     color: #fff;
   }
+}
+
+.form-control:focus {
+  border-bottom: 1px solid $primary;
+}
+
+.badge-white {
+  color: $primary;
 }

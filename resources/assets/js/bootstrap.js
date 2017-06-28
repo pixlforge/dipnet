@@ -1,3 +1,4 @@
+import Form from './Form';
 
 window._ = require('lodash');
 
@@ -39,3 +40,5 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+window.Form = Form;

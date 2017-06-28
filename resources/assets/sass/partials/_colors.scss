@@ -1,2 +1,27 @@
+$black: #000000;
+$white: #ffffff;
 $dark: #424242;
-$light-grey: #999;
+$dark-grey: #606060;
+$light-grey: #949494;
+$light-accent: #ff6f6f;
+
+$bg-red: #e84949;
+$bg-purple: #795691;
+$bg-orange: #ef9067;
+$error: #ff7e81;
+
+.bg-red {
+  background: $bg-red;
+}
+
+.bg-purple {
+  background: $bg-purple;
+}
+
+.bg-orange {
+  background: $bg-orange;
+}
+
+.transparent {
+  background: transparent;
+}

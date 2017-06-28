@@ -5,11 +5,11 @@
  */
 Auth::routes();
 Route::get('/logout', 'SessionsController@destroy');
-Route::get('/home', 'HomeController@index');
 
 /**
  * Basic routes
  */
+Route::get('/home', 'HomeController@index');
 Route::get('/', 'PagesController@index')->name('index');
 
 /**
@@ -130,3 +130,4 @@ Route::put('/deliveries/{delivery}/restore', 'DeliveriesController@restore');
 Route::get('/profile', 'ProfilesController@profile')->name('profile');
 Route::get('/profile/{user}/edit', 'ProfilesController@edit');
 Route::put('/profile/{user}', 'ProfilesController@update');
+Route::get('/profile/details', 'ProfilesController@details');

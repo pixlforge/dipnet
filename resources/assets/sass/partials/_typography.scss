@@ -1,0 +1,21 @@
+$font-stack: 'Lato', sans-serif;
+
+.text-small {
+  font-size: 12px;
+
+  a {
+    font-size: 14px;
+    color: $black;
+  }
+}
+
+.lead {
+  font-size: 30px;
+  font-weight: 300;
+}
+
+.description {
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.43;
+}

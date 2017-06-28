@@ -1,5 +1,5 @@
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,900);
 @import "font-awesome.css";
 
 // Bootstrap
@@ -9,5 +9,7 @@
 
 // Custom
 @import "partials/colors.scss";
+@import "partials/typography.scss";
 @import "partials/base.scss";
 @import "partials/components.scss";
+@import "partials/mediaqueries.scss";

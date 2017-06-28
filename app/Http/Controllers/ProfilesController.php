@@ -40,8 +40,6 @@ class ProfilesController extends Controller
             ->get()
             ->sortBy('name');
 
-//        dd($contacts);
-
         return view('profiles.profile', compact([
             'user', 'users', 'contacts'
         ]));
@@ -109,5 +107,13 @@ class ProfilesController extends Controller
             'contact_id' => request('contact_id'),
             'company_id' => request('company_id')
         ]);
+    }
+
+    /**
+     * @param User $user
+     * @return User
+     */
+    public function details(User $user) {
+        return $user;
     }
 }
