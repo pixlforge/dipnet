@@ -6,10 +6,12 @@
         data() {
             return {
                 form: new Form({
-                    username: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: ''
+                    address_line1: '',
+                    address_line2: '',
+                    zip: '',
+                    city: '',
+                    phone_number: '',
+                    fax: ''
                 }),
                 color: '#fff',
                 size: '96px',
@@ -26,12 +28,12 @@
             onSubmit() {
                 this.loading = true;
 
-                this.form.post('/register')
+                this.form.post('/profile/details/contact')
                     .then(response => {
                         this.loading = false;
                     })
                     .then(response => {
-                        window.location.href = 'profile/details/contact';
+                        window.location.href = '/profile/details/company';
                     })
                     .catch(response => {
                         this.loading = false;

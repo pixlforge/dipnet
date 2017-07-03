@@ -58,11 +58,11 @@
                 <div class="col-xs-12 col-lg-8 offset-lg-2">
 
                     <register inline-template>
-                        <form method="POST" action="{{ route('register') }}" id="register" role="form" @keydown="form.errors.clear($event.target.name)" class="">
-                            {{--{{ csrf_field() }}--}}
+                        <form method="POST" action="{{ route('register') }}" id="register" role="form" @keydown="form.errors.clear($event.target.name)">
+                            {{ csrf_field() }}
 
                             {{--Account section--}}
-                            <div id="account" class="">
+                            <div id="account">
                                 <h4 class="text-center">Enregistrement</h4>
 
                                 {{--Username--}}
@@ -206,27 +206,5 @@
             </div>
         </div>
     </div>
-
-    {{--Checklist--}}
-    {{--<div class="col-xs-12 col-md-5 offset-md-5 mt-md-5 no-padding">--}}
-    {{--<div class="d-flex flex-column justify-content-center checklist">--}}
-    {{--<a href="#" class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">--}}
-    {{--<span class="badge badge-white mx-4"><i class="fa fa-check"></i></span>--}}
-    {{--<span>Enregistrement</span>--}}
-    {{--</a>--}}
-    {{--<a class="d-flex align-items-center checklist-item checklist-item-active link-unstyled">--}}
-    {{--<span class="badge badge-white mx-4">2</span>--}}
-    {{--<span>Contact</span>--}}
-    {{--</a>--}}
-    {{--<a class="d-flex align-items-center checklist-item link-unstyled">--}}
-    {{--<span class="badge badge-white mx-4">3</span>--}}
-    {{--<span>Société</span>--}}
-    {{--</a>--}}
-    {{--<a class="d-flex align-items-center checklist-item link-unstyled">--}}
-    {{--<span class="badge badge-white mx-4">4</span>--}}
-    {{--<span>Prêt</span>--}}
-    {{--</a>--}}
-    {{--</div>--}}
-    {{--</div>--}}
 
 @endsection

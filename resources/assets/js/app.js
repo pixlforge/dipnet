@@ -18,6 +18,8 @@ window.Vue = require('vue');
  */
 
 Vue.component('register', require('./components/Register.vue'));
+Vue.component('contact-details', require('./components/ContactDetails.vue'));
+Vue.component('company-details', require('./components/CompanyDetails.vue'));
 
 const app = new Vue({
     el: '#app'

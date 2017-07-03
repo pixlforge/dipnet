@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Contact;
+use App\Http\Requests\CompanyDetailRequest;
+use App\Http\Requests\ContactDetailsRequest;
 use App\Http\Requests\UpdateProfileRequest;
 use App\User;
 use App\Profile;
@@ -111,9 +113,94 @@ class ProfilesController extends Controller
 
     /**
      * @param User $user
-     * @return User
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function details(User $user) {
-        return $user;
+    public function contactDetails(User $user)
+    {
+        return view('profiles.contact-details');
+    }
+
+
+    /**
+     * @param ContactDetailsRequest $request
+     */
+    public function contactDetailsStore(ContactDetailsRequest $request)
+    {
+        $contact = Contact::create([
+            'name' => auth()->user()->username . request('name'),
+            'address_line1' => request('address_line1'),
+            'address_line2' => request('address_line2'),
+            'zip' => request('zip'),
+            'city' => request('city'),
+            'phone_number' => request('phone_number'),
+            'fax' => request('fax'),
+            'email' => auth()->user()->email,
+            'created_by_username' => auth()->user()->username
+        ]);
+
+        $this->associateUserWithContact($contact);
+    }
+
+    /**
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function companyDetails(User $user)
+    {
+        return view('profiles.company-details');
+    }
+
+    /**
+     * @param CompanyDetailRequest $request
+     */
+    public function companyDetailsStore(CompanyDetailRequest $request)
+    {
+        if ($request->has('name')) {
+            $name = request('name');
+        } else {
+            $name = auth()->user()->username . ' (Default)';
+        }
+
+        $company = Company::create([
+            'name' => $name,
+            'created_by_username' => auth()->user()->username
+        ]);
+
+        $this->associateUserWithCompany($company);
+    }
+
+    public function associateUserWithContact($contact)
+    {
+        $user = User::where('id', auth()->user()->id)->firstOrFail();
+
+        $user->update([
+            'contact_id' => $contact->id
+        ]);
+    }
+
+    /**
+     * @param $company
+     */
+    public function associateUserWithCompany($company)
+    {
+        $user = User::where('id', auth()->user()->id)->firstOrFail();
+
+        $user->update([
+            'company_id' => $company->id
+        ]);
+
+        $this->associateContactWithCompany($company);
+    }
+
+    /**
+     * @param $company
+     */
+    public function associateContactWithCompany($company)
+    {
+        $contact = Contact::where('id', auth()->user()->id)->firstOrFail();
+
+        $contact->update([
+            'company_id' => $company->id
+        ]);
     }
 }

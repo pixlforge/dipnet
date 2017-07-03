@@ -123,6 +123,7 @@ a.btn-transparent {
   opacity: 1;
   background: $light-accent;
   border-radius: 4px;
+  box-shadow: 0 15px 18px 0 rgba(0, 0, 0, 0.06);
 }
 
 .badge-white {
@@ -194,6 +195,15 @@ a.btn-transparent {
 .carousel-slide-content {
   width: 75%;
   max-width: 500px;
+}
+
+.bg-shapes-red {
+  background: url('../img/register/art-pattern-steps.png') no-repeat bottom center,
+              $bg-red;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 /**

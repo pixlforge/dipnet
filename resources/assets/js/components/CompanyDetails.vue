@@ -6,10 +6,7 @@
         data() {
             return {
                 form: new Form({
-                    username: '',
-                    email: '',
-                    password: '',
-                    password_confirmation: ''
+                    name: ''
                 }),
                 color: '#fff',
                 size: '96px',
@@ -26,12 +23,12 @@
             onSubmit() {
                 this.loading = true;
 
-                this.form.post('/register')
+                this.form.post('/profile/details/company')
                     .then(response => {
                         this.loading = false;
                     })
                     .then(response => {
-                        window.location.href = 'profile/details/contact';
+                        window.location.href = '/';
                     })
                     .catch(response => {
                         this.loading = false;

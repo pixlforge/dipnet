@@ -130,4 +130,7 @@ Route::put('/deliveries/{delivery}/restore', 'DeliveriesController@restore');
 Route::get('/profile', 'ProfilesController@profile')->name('profile');
 Route::get('/profile/{user}/edit', 'ProfilesController@edit');
 Route::put('/profile/{user}', 'ProfilesController@update');
-Route::get('/profile/details', 'ProfilesController@details');
+Route::get('/profile/details/contact', 'ProfilesController@contactDetails')->name('contactDetails');
+Route::post('/profile/details/contact', 'ProfilesController@contactDetailsStore')->name('contactDetailsStore');
+Route::get('/profile/details/company', 'ProfilesController@companyDetails')->name('companyDetails');
+Route::post('/profile/details/company', 'ProfilesController@companyDetailsStore')->name('companyDetailsStore');
