@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('layouts.company-logo-white')
+
     <div class="container-fluid">
         <div class="row">
 
@@ -90,32 +92,12 @@
 
                             </div>
 
-                            {{--Company section--}}
-                            {{--<div id="company" class="">--}}
-                            {{--<h3 class="text-center my-6">Société</h3>--}}
-
-                            {{--Name--}}
-                            {{--<div class="form-group my-5{{ $errors->has('name') ? ' has-error' : '' }}">--}}
-                            {{--<label for="name">Société</label>--}}
-                            {{--<input type="text" id="name" name="name" v-model="name" class="form-control"--}}
-                            {{--value="{{ old('name') }}" placeholder="e.g. Pantone">--}}
-                            {{--@if ($errors->has('name'))--}}
-                            {{--<span class="help-block">--}}
-                            {{--<strong>{{ $errors->first('name') }}</strong>--}}
-                            {{--</span>--}}
-                            {{--@endif--}}
-                            {{--</div>--}}
-
-                            {{--</div>--}}
-
                             {{--Submit--}}
                             <button class="btn btn-black btn-block my-5" @click.prevent="onSubmit" :disabled="form.errors.any()">Ajouter</button>
 
                             <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
-
                         </form>
                     </contact-details>
-
                 </div>
             </div>
         </div>

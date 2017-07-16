@@ -2,6 +2,8 @@
 
 @section('content')
 
+    @include('layouts.company-logo-white')
+
     <div class="container-fluid">
         <div class="row">
 
@@ -15,7 +17,7 @@
                             <span>Enregistrement</span>
                         </a>
                         <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
-                            <span class="badge badge-white mx-4">2</span>
+                            <span class="badge badge-white mx-4"><i class="fa fa-check"></i></span>
                             <span>Contact</span>
                         </a>
                         <a class="d-flex align-items-center checklist-item checklist-item-active link-unstyled">
@@ -55,9 +57,10 @@
                             <button class="btn btn-black btn-block my-5" @click.prevent="onSubmit" :disabled="form.errors.any()">Terminer</button>
 
                             <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
-
                         </form>
                     </company-details>
+
+                    <p class="text-small text-center"><a href="{{ route('index') }}">Passer cette étape</a></p>
 
                 </div>
             </div>

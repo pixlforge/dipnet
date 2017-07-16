@@ -19,7 +19,7 @@ class CreateDocumentsTable extends Migration
             $table->string('file_path');
             $table->string('mime_type');
             $table->integer('quantity');
-            $table->enum('rolled_folded_flat', ['roulé', 'plié', 'plat']);
+            $table->enum('rolled_folded_flat', ['roulé', 'plié']);
             $table->integer('length');
             $table->integer('width');
             $table->integer('nb_orig');

@@ -88,9 +88,10 @@ a.link-unstyled {
   font-size: 14px;
   color: $white;
   background: $black;
+  transition: background .2s ease-out;
 
   &:hover {
-    color: $light-grey;
+    background: $dark;
   }
 }
 
@@ -220,8 +221,81 @@ a.btn-transparent {
   left: calc(50% - 36px);
 }
 
+.company-logo-container {
+  z-index: 99;
+  position: fixed;
+  top: -15px;
+  left: 20px;
+  width: 60px;
+  height: 100px;
+
+  &.company-logo-dipnet,
+  &.company-logo-dipnet-white{
+    background: url('../img/logos/dip-logo-white-md.png') no-repeat center center;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+  }
+
+  &.company-logo-multicop,
+  &.company-logo-multicop-white {
+    background: url('../img/logos/multicop-logo-white-md.png') no-repeat center center;
+    -webkit-background-size: contain;
+    -moz-background-size: contain;
+    -o-background-size: contain;
+    background-size: contain;
+  }
+
+  @media (min-width: $grid-sm) {
+  }
+
+  @media (min-width: $grid-md) {
+  }
+
+  @media (min-width: $grid-lg) {
+    top: 1%;
+    left: 8%;
+
+    &.company-logo-dipnet {
+      background: url('../img/logos/dip-logo-md.png') no-repeat center center;
+      -webkit-background-size: contain;
+      -moz-background-size: contain;
+      -o-background-size: contain;
+      background-size: contain;
+    }
+
+    &.company-logo-multicop {
+      background: url('../img/logos/multicop-logo-md.png') no-repeat center center;
+      -webkit-background-size: contain;
+      -moz-background-size: contain;
+      -o-background-size: contain;
+      background-size: contain;
+    }
+
+    &.company-logo-dipnet-white {
+      background: url('../img/logos/dip-logo-white-md.png') no-repeat center center;
+      -webkit-background-size: contain;
+      -moz-background-size: contain;
+      -o-background-size: contain;
+      background-size: contain;
+    }
+
+    &.company-logo-multicop-white {
+      background: url('../img/logos/multicop-logo-white-md.png') no-repeat center center;
+      -webkit-background-size: contain;
+      -moz-background-size: contain;
+      -o-background-size: contain;
+      background-size: contain;
+    }
+  }
+
+  @media (min-width: $grid-xl) {
+  }
+}
+
 /**
- * Loader
+ * Spinner
  */
 .v-spinner {
   position: fixed;
