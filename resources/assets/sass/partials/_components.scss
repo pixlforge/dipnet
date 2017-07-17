@@ -222,15 +222,15 @@ a.btn-transparent {
 }
 
 .company-logo-container {
-  z-index: 99;
-  position: fixed;
+  z-index: 20;
+  position: absolute;
   top: -15px;
   left: 20px;
   width: 60px;
   height: 100px;
 
-  &.company-logo-dipnet,
-  &.company-logo-dipnet-white{
+  &.company-logo-dip,
+  &.company-logo-dip-white{
     background: url('../img/logos/dip-logo-white-md.png') no-repeat center center;
     -webkit-background-size: contain;
     -moz-background-size: contain;
@@ -257,7 +257,7 @@ a.btn-transparent {
     top: 1%;
     left: 8%;
 
-    &.company-logo-dipnet {
+    &.company-logo-dip {
       background: url('../img/logos/dip-logo-md.png') no-repeat center center;
       -webkit-background-size: contain;
       -moz-background-size: contain;
@@ -273,7 +273,7 @@ a.btn-transparent {
       background-size: contain;
     }
 
-    &.company-logo-dipnet-white {
+    &.company-logo-dip-white {
       background: url('../img/logos/dip-logo-white-md.png') no-repeat center center;
       -webkit-background-size: contain;
       -moz-background-size: contain;

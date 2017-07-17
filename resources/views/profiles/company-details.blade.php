@@ -2,14 +2,14 @@
 
 @section('content')
 
-    @include('layouts.company-logo-white')
-
     <div class="container-fluid">
         <div class="row">
 
             {{--Checklist pan--}}
             <div class="col-xs-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding">
 
+                @include('layouts.company-logo-white')
+                
                 <div class="col-xs-12 col-md-5 offset-md-5 mt-md-checklist no-padding">
                     <div class="d-flex flex-column justify-content-center checklist">
                         <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">

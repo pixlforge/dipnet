@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    
+
     @include('layouts.company-logo')
 
     <div class="container-fluid">
@@ -104,9 +104,7 @@
                             <button class="btn btn-black btn-block mt-5" @click.prevent="onSubmit" :disabled="form.errors.any()">Créer le compte</button>
 
                             <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
-
                         </form>
-
                     </register>
 
                     <p class="text-small text-center mt-4">Vous disposez déjà d'un compte? <a href="{{ route('login') }}" class="ml-3">Connectez-vous</a></p>

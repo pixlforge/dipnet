@@ -17,7 +17,7 @@
                     @endif
                 </a>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div class="collapse navbar-collapse pt-2" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
 
                         {{--Homepage--}}
