@@ -2,14 +2,14 @@
 
 @section('content')
 
-<div class="container">
-    <div class="row">
-        <div class="col-10 offset-1">
-            <div class="card mt-5">
+<div class="container-fluid bg-shapes-red">
+    <div class="row vh-100">
+        <div class="col-xs-12 col-lg-10 mx-auto align-self-center">
+            <div class="card align-self-center">
                 <div class="card-block">
-                    <h1 class="card-title text-center mt-5">Réinitialiser le mot de passe</h1>
+                    <h4 class="card-title text-center mt-5">Réinitialiser le mot de passe</h4>
 
-                    <div class="col-8 offset-2">
+                    <div class="col-xs-12 col-lg-10 mx-auto">
 
                         @if (session('status'))
                             <div class="alert alert-success">
@@ -53,17 +53,15 @@
                             </div>
 
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block mt-4">
+
+                                {{--Submit--}}
+                                <button type="submit" class="btn btn-black btn-block mt-5">
                                     Réinitialiser le mot de passe
                                 </button>
                             </div>
-
                         </form>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
