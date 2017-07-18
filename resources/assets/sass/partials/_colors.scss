@@ -1,7 +1,7 @@
 $black: #000000;
 $white: #ffffff;
 $dark: #424242;
-$dark-grey: #606060;
+$dark-grey: #2b2b2b;
 $light-grey: #949494;
 $light-accent: #ff6f6f;
 
@@ -24,4 +24,31 @@ $error: #ff7e81;
 
 .transparent {
   background: transparent;
+}
+
+/**
+ * Shadows
+ */
+.z-depth-1 {
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.10) !important;
+}
+
+.z-depth-1-half {
+  box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15) !important;
+}
+
+.z-depth-2 {
+  box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+}
+
+.z-depth-3 {
+  box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19) !important;
+}
+
+.z-depth-4 {
+  box-shadow: 0 16px 28px 0 rgba(0, 0, 0, 0.22), 0 25px 55px 0 rgba(0, 0, 0, 0.21) !important;
+}
+
+.z-depth-5 {
+  box-shadow: 0 27px 24px 0 rgba(0, 0, 0, 0.2), 0 40px 77px 0 rgba(0, 0, 0, 0.22) !important;
 }

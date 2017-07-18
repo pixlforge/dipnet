@@ -1,5 +1,9 @@
 @if (env('APP_NAME') == 'Dipnet')
-    <div class="company-logo-container company-logo-dip" aria-hidden="true"></div>
+    <a href="{{ route('index') }}">
+        <div class="company-logo-container company-logo-dip" aria-hidden="true"></div>
+    </a>
 @elseif (env('APP_NAME') == 'Multicop')
-    <div class="company-logo-container company-logo-multicop" aria-hidden="true"></div>
+    <a href="{{ route('index') }}">
+        <div class="company-logo-container company-logo-multicop" aria-hidden="true"></div>
+    </a>
 @endif

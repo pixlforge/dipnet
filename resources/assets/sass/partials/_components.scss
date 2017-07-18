@@ -312,3 +312,33 @@ a.btn-transparent {
   left: calc(50% - 48px);
 }
 
+.card {
+  border: none;
+  border-radius: 0;
+}
+
+.dashboard-card {
+  border-radius: 0;
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.10);
+
+  a {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    text-align: center;
+    color: $dark-grey;
+
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
+  }
+
+  &:hover {
+    background: $light-grey;
+
+    i,
+    span {
+      color: $white;
+    }
+  }
+}
