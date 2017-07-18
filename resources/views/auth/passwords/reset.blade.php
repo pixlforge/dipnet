@@ -7,7 +7,7 @@
         <div class="col-xs-12 col-lg-10 mx-auto align-self-center">
             <div class="card align-self-center">
                 <div class="card-block">
-                    <h4 class="card-title text-center mt-5">Réinitialiser le mot de passe</h4>
+                    <h4 class="card-title text-center my-5">Réinitialiser le mot de passe</h4>
 
                     <div class="col-xs-12 col-lg-10 mx-auto">
 
@@ -22,7 +22,7 @@
 
                             <input type="hidden" name="token" value="{{ $token }}">
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <div class="form-group my-5{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email">E-mail</label>
                                 <input type="email" id="email" name="email" class="form-control" value="{{ $email or old('email') }}" required autofocus>
                                 @if ($errors->has('email'))
@@ -32,7 +32,7 @@
                                 @endif
                             </div>
 
-                            <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                            <div class="form-group my-5{{ $errors->has('password') ? ' has-error' : '' }}">
                                 <label for="password">Mot de passe</label>
                                 <input type="password" name="password" id="password" class="form-control" required>
                                 @if ($errors->has('password'))
@@ -42,7 +42,7 @@
                                 @endif
                             </div>
 
-                            <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                            <div class="form-group my-5{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
                                 <label for="password-confirm">Confirmer le mot de passe</label>
                                 <input type="password" name="password_confirmation" id="password-confirm" class="form-control" required>
                                 @if ($errors->has('password_confirmation'))
@@ -52,7 +52,7 @@
                                 @endif
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group my-5">
 
                                 {{--Submit--}}
                                 <button type="submit" class="btn btn-black btn-block mt-5">

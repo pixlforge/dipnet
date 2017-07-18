@@ -7,7 +7,7 @@
         <div class="col-xs-12 col-lg-10 mx-auto align-self-center">
             <div class="card align-self-center">
                 <div class="card-block">
-                    <h4 class="card-title text-center mt-5">Réinitialiser le mot de passe</h4>
+                    <h4 class="card-title text-center my-5">Réinitialiser le mot de passe</h4>
 
                     <div class="col-xs-12 col-lg-10 mx-auto">
 
@@ -20,7 +20,7 @@
                         <form method="POST" action="{{ route('password.email') }}" role="form" class="my-5">
                             {{ csrf_field() }}
 
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                            <div class="form-group my-5{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email">E-Mail Address</label>
                                 <input type="email" id="email" name="email" value="{{ old('email') }}" class="form-control" required autofocus>
                                 @if ($errors->has('email'))
@@ -30,7 +30,7 @@
                                 @endif
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group my-5">
 
                                 {{--Submit--}}
                                 <button type="submit" class="btn btn-black btn-block mt-5">
