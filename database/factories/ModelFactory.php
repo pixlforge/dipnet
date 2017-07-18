@@ -162,7 +162,7 @@ $factory->define(App\Document::class, function(Faker\Generator $faker) {
         'file_path' => '/path/to/file/',
         'mime_type' => $mimeType,
         'quantity' => $faker->numberBetween($min = 1, $max = 100),
-        'rolled_folded_flat' => $faker->randomElement(['roulé', 'plié', 'plat']),
+        'rolled_folded_flat' => $faker->randomElement(['roulé', 'plié']),
         'length' => $faker->numberBetween($min = 1, $max = 100),
         'width' => $faker->numberBetween($min = 1, $max = 100),
         'nb_orig' => $faker->numberBetween($min = 1, $max = 6),
