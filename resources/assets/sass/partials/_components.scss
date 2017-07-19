@@ -25,7 +25,7 @@
  */
 
 .dropdown-item.active, .dropdown-item:active {
-  background: $dark;
+  background: $tundora;
 }
 
 a.link-unstyled {
@@ -41,7 +41,7 @@ a.link-unstyled {
   transition: background .2s ease-out;
 
   &:hover {
-    background: $dark;
+    background: $tundora;
   }
 }
 
@@ -89,65 +89,6 @@ a.btn-transparent {
   padding: 0;
 }
 
-/**
- * Carousel
- */
-
-.carousel-item {
-  min-height: 100vh;
-  color: $white;
-}
-
-.carousel-indicators {
-  top: 88%;
-}
-
-.carousel-indicators li {
-  flex-grow: 0;
-  height: 10px;
-  width: 10px;
-  border-radius: 10px;
-  margin-right: 5px;
-  margin-left: 5px;
-  background: $black;
-  opacity: .2;
-
-  &.active {
-    opacity: 1;
-  }
-}
-
-.carousel-slide-first {
-  background: url('../img/register/art-red-pattern-login-1.png') no-repeat top center;
-}
-
-.carousel-slide-second {
-  background: url('../img/register/art-violet-pattern-login-2.png') no-repeat top center;
-}
-
-.carousel-slide-third {
-  background: url('../img/register/art-orange-pattern-login-3.png') no-repeat top center;
-}
-
-.carousel-slide {
-  width: 100%;
-  min-height: 100%;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.img-carousel {
-  width: 75%;
-  max-width: 500px;
-}
-
-.carousel-slide-content {
-  width: 75%;
-  max-width: 500px;
-}
-
 .bg-shapes-red {
   background: url('../img/register/art-red-pattern-login-1@3x.png') no-repeat bottom center,
               $bg-red;
@@ -164,84 +105,6 @@ a.btn-transparent {
 .img-fluid {
   width: 100%!important;
   max-height: 100%;
-}
-
-.todo {
-  top: calc(50% - 36px);
-  left: calc(50% - 36px);
-}
-
-.company-logo-container {
-  z-index: 20;
-  position: absolute;
-  top: -15px;
-  left: 20px;
-  width: 60px;
-  height: 100px;
-
-  &.company-logo-dip,
-  &.company-logo-dip-white{
-    background: url('../img/logos/dip-logo-white-md.png') no-repeat center center;
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size: contain;
-  }
-
-  &.company-logo-multicop,
-  &.company-logo-multicop-white {
-    background: url('../img/logos/multicop-logo-white-md.png') no-repeat center center;
-    -webkit-background-size: contain;
-    -moz-background-size: contain;
-    -o-background-size: contain;
-    background-size: contain;
-  }
-
-  @media (min-width: $grid-sm) {
-  }
-
-  @media (min-width: $grid-md) {
-  }
-
-  @media (min-width: $grid-lg) {
-    top: 1%;
-    left: 8%;
-
-    &.company-logo-dip {
-      background: url('../img/logos/dip-logo-md.png') no-repeat center center;
-      -webkit-background-size: contain;
-      -moz-background-size: contain;
-      -o-background-size: contain;
-      background-size: contain;
-    }
-
-    &.company-logo-multicop {
-      background: url('../img/logos/multicop-logo-md.png') no-repeat center center;
-      -webkit-background-size: contain;
-      -moz-background-size: contain;
-      -o-background-size: contain;
-      background-size: contain;
-    }
-
-    &.company-logo-dip-white {
-      background: url('../img/logos/dip-logo-white-md.png') no-repeat center center;
-      -webkit-background-size: contain;
-      -moz-background-size: contain;
-      -o-background-size: contain;
-      background-size: contain;
-    }
-
-    &.company-logo-multicop-white {
-      background: url('../img/logos/multicop-logo-white-md.png') no-repeat center center;
-      -webkit-background-size: contain;
-      -moz-background-size: contain;
-      -o-background-size: contain;
-      background-size: contain;
-    }
-  }
-
-  @media (min-width: $grid-xl) {
-  }
 }
 
 /**
@@ -287,17 +150,4 @@ a.btn-transparent {
   &:hover {
     box-shadow: 0 10px 13px 0 rgba(99, 99, 99, 0.2);
   }
-}
-
-.divider {
-  position: relative;
-  top: 10px;
-  width: 1px;
-  height: 17px;
-  border: solid 1px #f2f2f2;
-}
-
-.menu-avatar {
-  width: 32px;
-  border-radius: 100%;
 }

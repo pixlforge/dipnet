@@ -4,20 +4,18 @@
 
 @section('content')
 
+
     <div class="container-fluid">
         <div class="row">
-            <div class="col-12 text-center my-5">
-                <h1 class="display-1">Orders</h1>
-                <h2 class="text-muted">Liste de toutes les commandes</h2>
+            <div class="col-11 mx-auto">
+                <h1>Commandes</h1>
             </div>
-            <div class="col-12">
-                <p class="text-center mb-5">
-                    Il existe actuellement <strong>{{ $orders->count() }}</strong> {{ str_plural('commande', $orders->count()) }} au
-                    total.
-                </p>
-                <div class="text-center mb-5">
-                    <a href="{{ url('/orders/create') }}" class="btn btn-primary">Ajouter</a>
-                </div>
+        </div>
+    </div>
+
+    <div class="container-fluid bg-grey-light">
+        <div class="row">
+            <div class="col-11 mx-auto mt-5">
                 <div class="card-columns">
                     @foreach ($orders as $order)
                         <div class="card">

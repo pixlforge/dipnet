@@ -1,6 +1,7 @@
 <header>
 
     <div class="container-fluid">
+        <div class="col-11 mx-auto px-1">
 
         <nav class="navbar navbar-toggleable-md navbar-light">
 
@@ -10,23 +11,22 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            {{--Logo--}}
+            <a href="{{ route('index') }}">
+                @if (env('APP_NAME') == 'Dipnet')
+                    <img src="{{ asset('img/logos/dip-logo-md.png') }}" alt="Dip logo" class="nav-logo">
+                @endif
+                @if (env('APP_NAME') == 'Multicop')
+                    <img src="{{ asset('img/logos/multicop-logo-md.png') }}" alt="Multicop logo"
+                         class="nav-logo">
+                @endif
+            </a>
+
+
             <div class="collapse navbar-collapse pt-3 justify-content-between" id="navbarSupportedContent">
 
-                {{--Logo--}}
-                <div class="menu-item">
-                    <a href="{{ route('index') }}">
-                        @if (env('APP_NAME') == 'Dipnet')
-                            <img src="{{ asset('img/logos/dip-logo-md.png') }}" alt="Dip logo" class="nav-logo">
-                        @endif
-                        @if (env('APP_NAME') == 'Multicop')
-                            <img src="{{ asset('img/logos/multicop-logo-md.png') }}" alt="Multicop logo"
-                                 class="nav-logo">
-                        @endif
-                    </a>
-                </div>
-
                 {{--Search form--}}
-                <div class="menu-item">
+                <div class="menu-item ml-lg-5">
                     <form method="POST" action="" class="form-inline form-nav">
                         {{ csrf_field() }}
                         <i class="fa fa-search "></i>
@@ -47,7 +47,7 @@
                                 @endif
                             </a>
                         </li>
-                        
+
                         {{--Businesses--}}
                         <li class="nav-item mx-2{{ Route::is('businesses') ? ' active' : '' }}">
                             <a href="{{ route('businesses') }}" class="nav-link">
@@ -67,13 +67,6 @@
                                 @endif
                             </a>
                         </li>
-
-                        {{--Dashboard--}}
-                        {{--@can ('view', \App\Admin::class)--}}
-                            {{--<li class="nav-item">--}}
-                                {{--<a href="{{ route('dashboard') }}" class="nav-link">Dashboard</a>--}}
-                            {{--</li>--}}
-                        {{--@endcan--}}
                     </ul>
                 </div>
 
@@ -81,7 +74,8 @@
                 <div class="menu-item">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <img src="{{ asset('img/avatars/placeholder-girl.jpg') }}" alt="Avatar" class="menu-avatar" aria-hidden="true">
+                            <img src="{{ asset('img/avatars/placeholder-girl.jpg') }}" alt="Avatar" class="menu-avatar"
+                                 aria-hidden="true">
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
@@ -116,5 +110,6 @@
                 </div>
             </div>
         </nav>
+        </div>
     </div>
 </header>

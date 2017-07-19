@@ -1,7 +1,22 @@
 body {
-  background: #f9f9f9;
+  background: $white;
   color: $dark-grey;
   font: 100% $font-stack;
+}
+
+.container {
+  @media (min-width: $grid-sm) {
+  }
+
+  @media (min-width: $grid-md) {
+  }
+
+  @media (min-width: $grid-lg) {
+    width: 90%;
+  }
+
+  @media (min-width: $grid-xl) {
+  }
 }
 
 .intro {

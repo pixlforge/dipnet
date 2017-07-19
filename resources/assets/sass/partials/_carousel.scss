@@ -1,0 +1,54 @@
+.carousel-item {
+  min-height: 100vh;
+  color: $white;
+}
+
+.carousel-indicators {
+  top: 88%;
+}
+
+.carousel-indicators li {
+  flex-grow: 0;
+  height: 10px;
+  width: 10px;
+  border-radius: 10px;
+  margin-right: 5px;
+  margin-left: 5px;
+  background: $black;
+  opacity: .2;
+
+  &.active {
+    opacity: 1;
+  }
+}
+
+.carousel-slide-first {
+  background: url('../img/register/art-red-pattern-login-1.png') no-repeat top center;
+}
+
+.carousel-slide-second {
+  background: url('../img/register/art-violet-pattern-login-2.png') no-repeat top center;
+}
+
+.carousel-slide-third {
+  background: url('../img/register/art-orange-pattern-login-3.png') no-repeat top center;
+}
+
+.carousel-slide {
+  width: 100%;
+  min-height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.img-carousel {
+  width: 75%;
+  max-width: 500px;
+}
+
+.carousel-slide-content {
+  width: 75%;
+  max-width: 500px;
+}

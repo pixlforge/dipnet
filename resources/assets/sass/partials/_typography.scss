@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400');
+
 $font-stack: 'Lato', sans-serif;
 
 h1,
@@ -14,18 +16,18 @@ h6 {
   color: $dark-grey;
 
   a {
-    font-size: 14px;
+    font-size: .875rem;
     color: $black;
   }
 }
 
 .lead {
   font-size: 30px;
-  font-weight: 300;
+  font-weight: 400;
 }
 
 .description {
-  font-size: 14px;
-  font-weight: 300;
+  font-size: .875rem;
+  font-weight: 400;
   line-height: 1.43;
 }
