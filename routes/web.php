@@ -9,8 +9,9 @@ Route::get('/logout', 'SessionsController@destroy');
 /**
  * Basic routes
  */
-Route::get('/home', 'HomeController@index');
-Route::get('/', 'PagesController@index')->name('index');
+//Route::get('/home', 'HomeController@index');
+//Route::get('/', 'PagesController@index')->name('index');
+Route::get('/', 'OrdersController@index')->name('index');
 
 /**
  * Admin routes

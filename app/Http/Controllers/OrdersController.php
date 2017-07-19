@@ -25,9 +25,10 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', Order::class);
-
+//        $this->authorize('view', Order::class);
+//
         $orders = Order::withTrashed()->with(['business', 'contact', 'user'])->get()->sortBy('created_at');
+
 
         return view('orders.index', compact('orders'));
     }
