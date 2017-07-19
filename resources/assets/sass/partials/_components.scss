@@ -102,3 +102,12 @@
   padding: .5rem 1rem;
   text-transform: capitalize;
 }
+
+.card-custom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: .75rem;
+  margin-bottom: .75rem;
+  box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
+}

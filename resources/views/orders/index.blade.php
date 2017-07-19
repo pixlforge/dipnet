@@ -41,7 +41,7 @@
             <div class="col-10 mx-auto my-7">
 
                 @foreach($orders as $order)
-                    <div class="card d-flex flex-row align-items-center z-depth-custom my-2">
+                    <div class="card card-custom">
 
                         {{--Image--}}
                         <div class="col-2 d-flex justify-content-center align-items-center" style="height: 80px;">
@@ -88,7 +88,6 @@
                         </div>
                     </div>
                 @endforeach
-
             </div>
         </div>
     </div>
