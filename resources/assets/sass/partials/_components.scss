@@ -103,6 +103,14 @@
   text-transform: capitalize;
 }
 
+.badge-success {
+  background: $bg-success;
+}
+
+.badge-warning{
+  background: $bg-warning;
+}
+
 .card-custom {
   display: flex;
   flex-direction: row;
@@ -110,4 +118,5 @@
   margin-top: .75rem;
   margin-bottom: .75rem;
   box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
+  overflow: hidden;
 }
