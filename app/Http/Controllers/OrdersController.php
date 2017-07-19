@@ -25,6 +25,13 @@ class OrdersController extends Controller
      */
     public function index()
     {
+        if (auth()->user()->contact_id === null) {
+            return redirect()->route('contactDetails');
+        }
+
+        if(auth()->user()->company_id === null) {
+            return redirect()->route('companyDetails');
+        }
 //        $this->authorize('view', Order::class);
 //
         $orders = Order::withTrashed()->with(['business', 'contact', 'user'])->get()->sortBy('created_at');
@@ -40,7 +47,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Order::class);
+//        $this->authorize('create', Order::class);
 
         $businesses = Business::all()->sortBy('company.name');
 
