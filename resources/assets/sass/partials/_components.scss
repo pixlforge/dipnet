@@ -1,59 +1,4 @@
 /**
- * Logos
- */
-
-.nav-logo {
-  height: 32px;
-}
-
-/**
- * Errors
- */
-
-.help-block {
-  position: absolute;
-  left: 0;
-  right: 0;
-  margin-top: .5rem;
-  text-align: center;
-  font-size: 0.75rem;
-  color: $error;
-}
-
-/**
- * Buttons & Links
- */
-
-.dropdown-item.active, .dropdown-item:active {
-  background: $tundora;
-}
-
-a.link-unstyled {
-  color: inherit;
-  text-decoration: none;
-  transition: all .1s ease-out;
-}
-
-.btn-black {
-  font-size: 14px;
-  color: $white;
-  background: $black;
-  transition: background .2s ease-out;
-
-  &:hover {
-    background: $tundora;
-  }
-}
-
-a.btn-transparent {
-  -webkit-appearance: none;
-
-  .fa.fa-ellipsis-v {
-    color: $light-grey;
-  }
-}
-
-/**
  * Checklists
  */
 
@@ -150,4 +95,10 @@ a.btn-transparent {
   &:hover {
     box-shadow: 0 10px 13px 0 rgba(99, 99, 99, 0.2);
   }
+}
+
+.badge-custom {
+  font-size: .75rem;
+  padding: .5rem 1rem;
+  text-transform: capitalize;
 }

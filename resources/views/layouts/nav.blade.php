@@ -1,7 +1,7 @@
 <header>
 
     <div class="container-fluid">
-        <div class="col-11 mx-auto px-1">
+        <div class="col-10 mx-auto px-1">
 
         <nav class="navbar navbar-toggleable-md navbar-light">
 

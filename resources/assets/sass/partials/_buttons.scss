@@ -1,0 +1,38 @@
+button {
+  cursor: pointer;
+}
+
+.btn {
+  &:hover {
+    color: $white;
+  }
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background: $tundora;
+}
+
+a.link-unstyled {
+  color: inherit;
+  text-decoration: none;
+  transition: all .1s ease-out;
+}
+
+.btn-black {
+  font-size: 14px;
+  color: $white;
+  background: $black;
+  transition: background .2s ease-out;
+
+  &:hover {
+    background: $tundora;
+  }
+}
+
+a.btn-transparent {
+  -webkit-appearance: none;
+
+  .fa.fa-ellipsis-v {
+    color: $light-grey;
+  }
+}

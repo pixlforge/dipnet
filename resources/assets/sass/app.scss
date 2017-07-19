@@ -1,5 +1,4 @@
 // Fonts
-@import url(https://fonts.googleapis.com/css?family=Lato:300,400,900);
 @import "font-awesome.css";
 
 // Bootstrap
@@ -12,6 +11,8 @@
 @import "partials/colors.scss";
 @import "partials/typography.scss";
 @import "partials/base.scss";
+@import "partials/errors.scss";
+@import "partials/buttons.scss";
 @import "partials/nav.scss";
 @import "partials/forms.scss";
 @import "partials/carousel.scss";
