@@ -11,24 +11,24 @@
                 <div class="row align-items-center">
 
                     {{--Page title--}}
-                    <div class="col-xs-12 col-lg-6 center-on-small-only my-5 my-md-0">
+                    <div class="col-xs-12 col-lg-7 center-on-small-only my-5 my-md-0">
                         <h1>Commandes</h1>
                     </div>
 
                     {{--Sorter--}}
-                    <div class="col-xs-12 col-sm-6 col-lg-3 center-on-small-only">
-                        <label for="businessSelect" class="light ml-4 ml-sm-0">Business</label>
+                    <div class="col-xs-12 col-sm-6 col-lg-3 center-on-small-only ml-5 ml-sm-0">
+                        <label for="businessSelect" class="light ml-4 ml-sm-0">Affaire</label>
+                        <i class="fa fa-caret-down fa-select"></i>
                         <select name="businessSelect" id="businessSelect" class="custom-select">
                             <option selected>Tout</option>
-                            <option value="1">One</option>
-                            <option value="2">Two</option>
-                            <option value="3">Three</option>
+                            @foreach ($orders as $order)
+                                <option value="{{ $order->id }}">{{ $order->business->name }}</option>
+                            @endforeach
                         </select>
-                        <i class="fa fa-caret-down fa-select"></i>
                     </div>
 
                     {{--Button--}}
-                    <div class="col-xs-12 col-sm-6 col-lg-3 center-on-small-only text-lg-right">
+                    <div class="col-xs-12 col-sm-6 col-lg-2 center-on-small-only text-lg-right">
                         <a href="{{ url('/orders/create') }}" class="btn btn-lg btn-black">Nouvelle commande</a>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                     <div class="card card-custom">
 
                         {{--Image--}}
-                        <div class="col-12 col-lg-2 d-flex justify-content-center align-items-center hidden-sm-down"
+                        <div class="col-12 col-lg-2 d-flex justify-content-center align-items-center hidden-md-down"
                              style="height: 80px;">
                             <i class="fa fa-file-pdf-o fa-3x"></i>
                         </div>
@@ -61,7 +61,7 @@
                                 </div>
 
                                 {{--Status--}}
-                                <div class="col-12 col-lg-2">
+                                <div class="col-12 col-lg-2 text-center">
                                     @if ($order->status == 'ok')
                                         <span class="badge badge-custom badge-success">
                                             Completed
