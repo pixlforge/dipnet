@@ -3,7 +3,9 @@ button {
 }
 
 .btn {
-  &:hover {
+  &:hover,
+  &:active,
+  &:visited {
     color: $white;
   }
 }
