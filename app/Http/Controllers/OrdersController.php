@@ -32,10 +32,14 @@ class OrdersController extends Controller
         if(auth()->user()->company_id === null) {
             return redirect()->route('companyDetails');
         }
-//        $this->authorize('view', Order::class);
-//
-        $orders = Order::withTrashed()->with(['business', 'contact', 'user'])->get()->sortBy('created_at');
 
+        $this->authorize('view', Order::class);
+
+        if (auth()->user()->role == 'administrateur') {
+            $orders = Order::withTrashed()->with(['business', 'contact', 'user'])->get()->sortBy('created_at');
+        } else {
+            $orders = Order::where('user_id', auth()->user()->id)->with(['business', 'contact', 'user'])->get()->sortBy('created_at');
+        }
 
         return view('orders.index', compact('orders'));
     }
