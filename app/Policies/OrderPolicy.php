@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\User;
 use App\Order;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class OrderPolicy
 {
@@ -17,7 +18,7 @@ class OrderPolicy
      */
     public function view()
     {
-        return auth()->user()->role == 'administrateur';
+        return Auth::check();
     }
 
     /**
