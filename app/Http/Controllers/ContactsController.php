@@ -27,9 +27,22 @@ class ContactsController extends Controller
      */
     public function index()
     {
+        // User is authorized to access this resource
         $this->authorize('view', Contact::class);
 
-        $contacts = Contact::withTrashed()->with('company')->get()->sortBy('name');
+        // Request every model if the user is an admin,
+        // request only the related models otherwise.
+        if (auth()->user()->role == 'administrateur') {
+            $contacts = Contact::withTrashed()
+                ->with('company')
+                ->get()
+                ->sortBy('name');
+        } else {
+//            $contacts = Contact::withTrashed()
+//                ->with('company')
+//                ->get()
+//                ->sortBy('name');
+        }
 
         return view('contacts.index', compact('contacts'));
     }

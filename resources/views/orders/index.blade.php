@@ -4,7 +4,6 @@
 
 @section('content')
 
-
     <div class="container-fluid my-5">
         <div class="row">
             <div class="col-10 mx-auto">
@@ -40,7 +39,7 @@
         <div class="row">
             <div class="col-10 mx-auto my-7">
 
-                @foreach($orders as $order)
+                @foreach ($orders as $order)
                     <div class="card card-custom">
 
                         {{--Image--}}

@@ -4,151 +4,157 @@
 
 @section('content')
 
-    <div class="container-fluid">
+    <div class="container-fluid my-5">
         <div class="row">
-            <div class="col-12 text-center my-5">
-                <h1 class="display-1">Contacts</h1>
-                <h2 class="text-muted">Liste de tous les contacts</h2>
-            </div>
-            <div class="col-12">
-                <p class="text-center mb-5">
-                    Il existe actuellement <strong>{{ $contacts->count() }}</strong> {{ str_plural('contact', $contacts->count()) }} au total.
-                </p>
-                <div class="text-center mb-5">
-                    <a href="{{ url('/contacts/create') }}" class="btn btn-primary">Ajouter</a>
+            <div class="col-10 mx-auto">
+                <div class="row">
+                    <div class="col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only">
+
+                        {{--Page title--}}
+                        <h1 class="mt-5">
+                            Contacts
+                        </h1>
+
+                        {{--Add contact vue component--}}
+                        <add-contact v-cloak></add-contact>
+                    </div>
                 </div>
-                <div class="card-columns">
-                    @foreach ($contacts as $contact)
-                        <div class="card">
-                            <div class="card-block">
-                                <div class="d-flex justify-content-between">
-                                    <h3 class="card-title">
-                                        @unless ($contact->deleted_at === null)
-                                            <i class="fa fa-trash text-danger"></i>
-                                        @else
-                                            <i class="fa fa-check text-success"></i>
-                                        @endunless
-                                    </h3>
-                                    <div class="dropdown">
-                                        <a class="btn btn-transparent btn-sm" type="button" id="dropdownMenuLink"
-                                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fa fa-ellipsis-v fa-lg" aria-hidden="true"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right"
-                                             aria-labelledby="dropdownMenuLink">
-                                            @unless ($contact->deleted_at === null)
-                                                <form method="POST"
-                                                      action="{{ url("/contacts/{$contact->id}/restore") }}">
-                                                    {{ method_field('PUT') }}
-                                                    {{ csrf_field() }}
+            </div>
+        </div>
+    </div>
 
-                                                    <button class="dropdown-item text-success" type="submit">
-                                                        <i class="fa fa-refresh"></i>
-                                                        <span class="ml-3">Restaurer</span>
-                                                    </button>
-                                                </form>
-                                            @else
-                                                <a class="dropdown-item"
-                                                   href="{{ url("/contacts/{$contact->id}/edit") }}">
-                                                    <i class="fa fa-pencil"></i>
-                                                    <span class="ml-3">Modifier</span>
-                                                </a>
-                                                <form method="POST" action="{{ url("/contacts/{$contact->id}") }}">
-                                                    {{ method_field('DELETE') }}
-                                                    {{ csrf_field() }}
-                                                    <button class="dropdown-item text-danger" type="submit">
-                                                        <i class="fa fa-trash"></i>
-                                                        <span class="ml-3">Supprimer</span>
-                                                    </button>
-                                                </form>
-                                            @endunless
-                                        </div>
-                                    </div>
-                                </div>
-                                <ul class="list-unstyled">
+    <div class="container-fluid bg-grey-light">
+        <div class="row">
+            <div class="col-10 mx-auto my-7">
 
-                                    {{--Name--}}
-                                    <li class="mt-2 mb-4">
-                                        <h2><i class="fa fa-address-card mr-2"></i> {{ $contact->name }}</h2>
-                                    </li>
+                @foreach ($contacts as $contact)
+                    <div class="card card-custom center-on-small-only">
+                        
+                        <div class="col col-lg-1 hidden-md-down">
+                            <img src="{{ asset('img/placeholders/contact-bullet.jpg') }}" alt="Bullet" class="img-bullet">
+                        </div>
 
-                                    {{--Address--}}
-                                    <li class="my-4">
-                                        <h5><i class="fa fa-location-arrow mr-2"></i> Adresse</h5>
-                                        <div>{{ $contact->address_line1 }}</div>
-                                        @isset ($contact->address_line2)
-                                            <div>{{ $contact->address_line2 }}</div>
-                                        @endisset
-                                        <span>{{ $contact->zip }} &ndash; {{ $contact->city }}</span>
-                                    </li>
+                        <div class="col-12 col-lg-2">
 
-                                    {{--Phone--}}
-                                    <li class="my-4">
-                                        <h5><i class="fa fa-phone mr-2"></i> Téléphone</h5>
-                                        <span>{{ $contact->phone_number }}</span>
-                                    </li>
+                            {{--Name--}}
+                            <h5 class="mb-0">
+                                {{ $contact->name }}
+                            </h5>
+                        </div>
 
-                                    {{--Fax--}}
-                                    @unless ($contact->fax === null)
-                                        <li class="my-4">
-                                            <h5><i class="fa fa-fax mr-2"></i> Fax</h5>
-                                            <span>{{ $contact->fax }}</span>
-                                        </li>
-                                    @endunless
+                        <div class="col-12 col-lg-2">
 
-                                    {{--Email--}}
-                                    <li class="my-4">
-                                        <h5><i class="fa fa-envelope mr-2"></i> E-mail</h5>
-                                        <span>{{ $contact->email }}</span>
-                                    </li>
+                            {{--Address line 1--}}
+                            <div>
+                                <span class="card-content">{{ $contact->address_line1 }}</span>
+                            </div>
 
-                                    {{--Company--}}
-                                    @unless ($contact->company === null)
-                                        <li class="my-4">
-                                            <h5><i class="fa fa-industry mr-2"></i> Compagnie</h5>
-                                            <span>{{ $contact->company->name }}</span>
-                                        </li>
-                                    @endunless
+                            {{--Address line 2--}}
+                            <div>
+                                <span class="card-content">{{ $contact->address_line2 }}</span>
+                            </div>
 
-                                    {{--Created by--}}
-                                    <li class="my-4">
-                                        <h5><i class="fa fa-industry mr-2"></i> Créé par</h5>
-                                        <span>{{ $contact->created_by_username }}</span>
-                                    </li>
-
-                                    {{--Created at--}}
-                                    <li class="my-4">
-                                        <h5><i class="fa fa-calendar-check-o mr-2"></i> Date de création</h5>
-                                        <div class="d-flex flex-row justify-content-between">
-                                            <span>{{ $contact->created_at->formatLocalized('%A %d %B %Y') }}</span>
-                                            <span><small>{{ $contact->created_at->diffForHumans() }}</small></span>
-                                        </div>
-                                    </li>
-
-                                    {{--Modified at--}}
-                                    <li class="my-4">
-                                        <h5><i class="fa fa-calendar-plus-o mr-2"></i> Dernière modification</h5>
-                                        <div class="d-flex flex-row justify-content-between">
-                                            <span>{{ $contact->updated_at->formatLocalized('%A %d %B %Y') }}</span>
-                                            <span><small>{{ $contact->updated_at->diffForHumans() }}</small></span>
-                                        </div>
-                                    </li>
-
-                                    {{--Deleted at--}}
-                                    @unless($contact->deleted_at === null)
-                                        <li class="my-4 text-danger">
-                                            <h5><i class="fa fa-trash mr-2"></i> Date de suppression</h5>
-                                            <div class="d-flex flex-row justify-content-between">
-                                                <span>{{ $contact->deleted_at->formatLocalized('%A %d %B %Y') }}</span>
-                                                <span><small>{{ $contact->deleted_at->diffForHumans() }}</small></span>
-                                            </div>
-                                        </li>
-                                    @endunless
-                                </ul>
+                            {{--Zip & City--}}
+                            <div>
+                                <span class="card-content">{{ $contact->zip }}</span>
+                                <span class="card-content">{{ $contact->city }}</span>
                             </div>
                         </div>
-                    @endforeach
-                </div>
+
+                        <div class="col-12 col-lg-3">
+
+                            {{--Phone--}}
+                            <div>
+                                <span class="card-content"><em>Tel:</em></span>
+                                <span class="card-content ml-1">{{ $contact->phone_number }}</span>
+                            </div>
+
+                            {{--Fax--}}
+                            @unless ($contact->company_id == null)
+                                <div>
+                                    <span class="card-content"><em>Fax:</em></span>
+                                    <span class="card-content ml-1">{{ $contact->fax }}</span>
+                                </div>
+                            @endunless
+
+                            {{--Email--}}
+                            <div>
+                                <span class="card-content"><em>Email:</em></span>
+                                <span class="card-content ml-1">{{ $contact->email }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-3">
+
+                            {{--Company--}}
+                            @unless ($contact->company_id == null)
+                                <div>
+                                    <span class="card-content"><em>Société:</em></span>
+                                    <span class="card-content ml-1">{{ $contact->company->name }}</span>
+                                </div>
+                            @endunless
+
+                            {{--Created at--}}
+                            <div>
+                                <span class="card-content"><em>Créé:</em></span>
+                                <span class="card-content ml-1">{{ $contact->created_at->formatLocalized('%d %B %Y') }}</span>
+                            </div>
+
+                            {{--Modified at--}}
+                            <div>
+                                <span class="card-content"><em>Modifié:</em></span>
+                                <span class="card-content ml-1">{{ $contact->updated_at->formatLocalized('%d %B %Y') }}</span>
+                            </div>
+
+                            {{--Created by--}}
+                            <div>
+                                <span class="card-content"><em>Par:</em></span>
+                                <span class="card-content ml-1">{{ $contact->created_by_username }}</span>
+                            </div>
+                        </div>
+
+                        <div class="col-12 col-lg-1 center-on-small-only text-lg-right">
+
+                            {{--Dropdown--}}
+                            <div class="dropdown">
+                                <a class="btn btn-transparent btn-sm" type="button" id="dropdownMenuLink"
+                                   data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-ellipsis-v fa-lg" aria-hidden="true"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right"
+                                     aria-labelledby="dropdownMenuLink">
+                                    @unless ($contact->deleted_at === null)
+                                        <form method="POST"
+                                              action="{{ url("/contacts/{$contact->id}/restore") }}">
+                                            {{ method_field('PUT') }}
+                                            {{ csrf_field() }}
+
+                                            <button class="dropdown-item text-success" type="submit">
+                                                <i class="fa fa-refresh"></i>
+                                                <span class="ml-3">Restaurer</span>
+                                            </button>
+                                        </form>
+                                    @else
+                                        <a class="dropdown-item"
+                                           href="{{ url("/contacts/{$contact->id}/edit") }}">
+                                            <i class="fa fa-pencil"></i>
+                                            <span class="ml-3">Modifier</span>
+                                        </a>
+                                        <form method="POST" action="{{ url("/contacts/{$contact->id}") }}">
+                                            {{ method_field('DELETE') }}
+                                            {{ csrf_field() }}
+                                            <button class="dropdown-item text-danger" type="submit">
+                                                <i class="fa fa-trash"></i>
+                                                <span class="ml-3">Supprimer</span>
+                                            </button>
+                                        </form>
+                                    @endunless
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                @endforeach
             </div>
         </div>
     </div>

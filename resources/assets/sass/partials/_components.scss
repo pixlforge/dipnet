@@ -30,10 +30,6 @@
   background: $white;
 }
 
-.no-padding {
-  padding: 0;
-}
-
 .bg-shapes-red {
   background: url('../img/register/art-red-pattern-login-1@3x.png') no-repeat bottom center,
   $bg-red;
@@ -43,58 +39,9 @@
   background-size: cover;
 }
 
-/**
- * Images
- */
-
 .img-fluid {
   width: 100% !important;
   max-height: 100%;
-}
-
-/**
- * Spinner
- */
-.v-spinner {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, .15);
-}
-
-.v-moon {
-  position: fixed;
-  top: calc(50% - 48px);
-  left: calc(50% - 48px);
-}
-
-.card {
-  border: none;
-  border-radius: 0;
-}
-
-.dashboard-card {
-  border-radius: 0;
-  transition: all .2s ease-out;
-  box-shadow: 0 7px 10px 0 rgba(99, 99, 99, 0.1);
-
-  a {
-    padding-top: .75rem;
-    padding-bottom: .75rem;
-    text-align: center;
-    color: $dark-grey;
-
-    &:hover,
-    &:active {
-      text-decoration: none;
-    }
-  }
-
-  &:hover {
-    box-shadow: 0 10px 13px 0 rgba(99, 99, 99, 0.2);
-  }
 }
 
 .badge-custom {
@@ -111,36 +58,8 @@
   background: $bg-warning;
 }
 
-.card-custom {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: .75rem;
-  margin-bottom: .75rem;
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
-
-  .col-12 {
-    margin-top: .5rem;
-    margin-bottom: .5rem;
-  }
-
-  @media (min-width: $grid-lg) {
-    padding-top: 0;
-    padding-bottom: 0;
-
-    .col-12 {
-      margin-top: 0;
-      margin-bottom: 0;
-    }
-  }
-}
-
 .center-on-small-only {
-  @media (max-width: $grid-lg) {
-    text-align: center;
-  }
+  @media (max-width: $grid-lg) { text-align: center; }
 }
 
 .center-on-small-only .img-fluid,
@@ -158,4 +77,37 @@
   @media (max-width: $grid-lg) {
     display: inline;
   }
+}
+
+a.btn-transparent .fa.fa-ellipsis-v {
+  color: $lighter-grey;
+}
+
+.img-bullet {
+  display: block;
+  width: 30px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.fixed-lg-right {
+  @media (min-width: $grid-lg) {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.fixed-lg-left {
+  @media (min-width: $grid-lg) {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.mt-md-checklist {
+  @media (min-width: $grid-md) { margin-top: 15%; }
 }

@@ -21,13 +21,27 @@ a.link-unstyled {
 }
 
 .btn-black {
-  font-size: 14px;
-  color: $white;
+  font-size: .875rem;
+  color: $white !important;
   background: $black;
   transition: background .2s ease-out;
+  cursor: pointer;
 
   &:hover {
     background: $tundora;
+  }
+}
+
+.btn-white {
+  font-size: .875rem;
+  background: $white;
+  border: 1px solid $lighter-grey;
+  transition: background .2s ease-out;
+  cursor: pointer;
+
+  &:hover {
+    color: inherit;
+    background: $lighter-grey;
   }
 }
 

@@ -25,6 +25,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
+        // Test against the user having entered all his necessary account details
         if (auth()->user()->contact_id === null) {
             return redirect()->route('contactDetails');
         }
@@ -33,12 +34,19 @@ class OrdersController extends Controller
             return redirect()->route('companyDetails');
         }
 
+        // User is authorized to access this resource
         $this->authorize('view', Order::class);
 
         if (auth()->user()->role == 'administrateur') {
-            $orders = Order::withTrashed()->with(['business', 'contact', 'user'])->get()->sortBy('created_at');
+            $orders = Order::withTrashed()
+                ->with(['business', 'contact', 'user'])
+                ->get()
+                ->sortBy('created_at');
         } else {
-            $orders = Order::where('user_id', auth()->user()->id)->with(['business', 'contact', 'user'])->get()->sortBy('created_at');
+            $orders = Order::where('user_id', auth()->user()->id)
+                ->with(['business', 'contact', 'user'])
+                ->get()
+                ->sortBy('created_at');
         }
 
         return view('orders.index', compact('orders'));

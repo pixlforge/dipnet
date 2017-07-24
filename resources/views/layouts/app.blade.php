@@ -5,12 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <!-- CSRF Token -->
+    {{--CSRF Token--}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ env('APP_NAME') }}</title>
 
-    <!-- Styles -->
+    {{--Styles--}}
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
     @if (env('APP_NAME') == 'Dipnet')
         <link href="{{ mix('css/dip.css') }}" rel="stylesheet">
@@ -18,7 +18,7 @@
         <link href="{{ mix('css/multicop.css') }}" rel="stylesheet">
     @endif
 
-    <!-- Scripts -->
+    {{--Scripts--}}
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
@@ -31,7 +31,7 @@
         @yield('content')
     </div>
 
-    <!-- Scripts -->
+    {{--Scripts--}}
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>

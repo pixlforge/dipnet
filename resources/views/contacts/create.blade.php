@@ -33,7 +33,7 @@
                                 <div class="form-group{{ $errors->has('address_line1') ? ' has-error' : '' }}">
                                     <label for="address_line1">Adresse ligne 1</label>
                                     <input type="text" id="address_line1" name="address_line1" class="form-control"
-                                           value="{{ old('address_line1') }}" placeholder="Rue n°" required>
+                                           value="{{ old('address_line1') }}" placeholder="Rue, n°" required>
                                     @if ($errors->has('address_line1'))
                                         <span class="help-block">
                                         <strong>{{ $errors->first('address_line1') }}</strong>

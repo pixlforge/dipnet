@@ -19,6 +19,15 @@ body {
   }
 }
 
+.col-12,
+.card .col-12 {
+  flex-basis: auto !important;
+  @media (min-width: $grid-sm) { flex-basis: auto !important; }
+  @media (min-width: $grid-md) { flex-basis: auto !important; }
+  @media (min-width: $grid-lg) { flex-basis: auto !important; }
+  @media (min-width: $grid-xl) { flex-basis: auto !important; }
+}
+
 .intro {
   min-height: 80vh!important;
 }
@@ -31,6 +40,10 @@ body {
   margin-top: 2rem !important;
 }
 
+/**
+ * Margin top
+ */
+
 .mt-6 {
   margin-top: 3rem !important;
 }
@@ -38,6 +51,18 @@ body {
 .mt-7 {
   margin-top: 4rem !important;
 }
+
+.mt-8 {
+  margin-top: 6rem !important;
+}
+
+.mt-9 {
+  margin-top: 7.75rem !important;
+}
+
+/**
+ * Margin top and bottom
+ */
 
 .my-5 {
   margin-top: 2rem !important;
@@ -53,3 +78,22 @@ body {
   margin-top: 4rem !important;
   margin-bottom: 4rem !important;
 }
+
+/**
+ * Margin right
+ */
+
+.mr-6 {
+  margin-right: 4rem !important;
+}
+
+.mr-7 {
+  margin-right: 5rem !important;
+}
+
+.mr-8 {
+  margin-right: 6rem !important;
+}
+
+[v-cloak] > * { display:none }
+[v-cloak]::before { content: "loading…" }

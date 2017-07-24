@@ -1,0 +1,56 @@
+.card {
+  border: none;
+  border-radius: 0;
+}
+
+.dashboard-card {
+  border-radius: 0;
+  transition: all .2s ease-out;
+  box-shadow: 0 7px 10px 0 rgba(99, 99, 99, 0.1);
+
+  a {
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    text-align: center;
+    color: $dark-grey;
+
+    &:hover,
+    &:active {
+      text-decoration: none;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 10px 13px 0 rgba(99, 99, 99, 0.2);
+  }
+}
+
+.card-custom {
+  flex-direction: column;
+  align-items: center;
+  margin-top: .75rem;
+  margin-bottom: .75rem;
+  padding-top: 1.25rem !important;
+  padding-bottom: 1.25rem !important;
+  box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
+
+  .col-12 {
+    margin-top: .5rem;
+    margin-bottom: .5rem;
+  }
+
+  .card-content {
+    line-height: 1.6;
+  }
+
+  @media (min-width: $grid-lg) {
+    flex-direction: row;
+    padding-top: 0;
+    padding-bottom: 0;
+
+    .col-12 {
+      margin-top: 0;
+      margin-bottom: 0;
+    }
+  }
+}
