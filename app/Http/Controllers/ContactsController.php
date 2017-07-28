@@ -36,12 +36,12 @@ class ContactsController extends Controller
             $contacts = Contact::withTrashed()
                 ->with('company')
                 ->orderBy('name')
-                ->paginate(50);
+                ->paginate(30);
         } else {
             $contacts = Contact::where('company_id', auth()->user()->company_id)
                 ->with('company')
                 ->orderBy('name')
-                ->paginate(50);
+                ->paginate(30);
         }
 
         // Models are requested through Axios
@@ -49,6 +49,7 @@ class ContactsController extends Controller
             return $contacts;
         }
 
+        // Display view
         return view('contacts.index');
     }
 

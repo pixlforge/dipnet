@@ -17882,7 +17882,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             dataSet: false,
             contacts: [],
-            format: 'LLL',
+            format: 'LL',
             locale: 'fr',
             color: '#fff',
             size: '96px',
@@ -17970,7 +17970,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     watch: {
         dataSet: function dataSet() {
-            this.page = this.dataSet.current_page;
             this.prevUrl = this.dataSet.prev_page_url;
             this.nextUrl = this.dataSet.next_page_url;
         },

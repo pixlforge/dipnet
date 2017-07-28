@@ -160,7 +160,7 @@
             return {
                 dataSet: false,
                 contacts: [],
-                format: 'LLL',
+                format: 'LL',
                 locale: 'fr',
                 color: '#fff',
                 size: '96px',
