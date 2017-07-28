@@ -149,9 +149,8 @@
                 this.form.post('/contacts')
                     .then(response => {
                         this.loading = false;
-                    })
-                    .then(response => {
                         this.showModal = false;
+                        this.$emit('contactAdded');
                     })
                     .catch(response => {
                         this.loading = false;
