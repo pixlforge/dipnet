@@ -44,11 +44,12 @@ class ContactsController extends Controller
                 ->paginate(50);
         }
 
+        // Models are requested through Axios
         if (request()->wantsJson()) {
             return $contacts;
         }
 
-        return view('contacts.index', compact('contacts'));
+        return view('contacts.index');
     }
 
     /**
