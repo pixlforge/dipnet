@@ -204,7 +204,6 @@
                 this.dataSet = response.data;
                 this.contacts = response.data.data;
                 this.loading = false;
-                console.log(response);
             }
         }
     }
