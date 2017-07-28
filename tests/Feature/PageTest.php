@@ -7,18 +7,6 @@ use Tests\TestCase;
 class PageTest extends TestCase
 {
     /**
-     * Index view is available
-     *
-     * @test
-     */
-    function index_view_is_available()
-    {
-        $response = $this->get('/');
-
-        $response->assertViewIs('pages.index');
-    }
-
-    /**
      * Login view is available
      *
      * @test

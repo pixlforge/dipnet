@@ -17,7 +17,7 @@ class ContactPolicy
      */
     public function view()
     {
-        return auth()->user()->role == 'administrateur';
+        return \Auth::check();
     }
 
     /**
@@ -27,7 +27,7 @@ class ContactPolicy
      */
     public function create()
     {
-        return auth()->user()->role == 'administrateur';
+        return \Auth::check();
     }
 
     /**

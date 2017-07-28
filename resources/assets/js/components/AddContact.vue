@@ -16,16 +16,16 @@
             <div class="modal-panel" v-if="showModal">
                 <div class="container-fluid">
                     <div class="row">
-                        <div class="col-12">
+                        <div class="col-10 col-lg-8 offset-lg-1">
 
                             <!--Title-->
-                            <h3 class="m-5">Nouveau contact</h3>
+                            <h3 class="mt-7 mb-5">Nouveau contact</h3>
 
                             <!--Form-->
                             <form method="POST" action="">
 
                                 <!--Name-->
-                                <div class="form-group ml-5 mr-8">
+                                <div class="form-group">
                                     <label for="name">Nom</label>
                                     <span class="required">requis</span>
                                     <input type="text" id="name" name="name" v-model="form.name" class="form-control" placeholder="e.g. Principal">
@@ -33,7 +33,7 @@
                                 </div>
 
                                 <!--Address line 1-->
-                                <div class="form-group my-5 ml-5 mr-8">
+                                <div class="form-group my-5">
                                     <label for="address_line1">Adresse ligne 1</label>
                                     <span class="required">requis</span>
                                     <input type="text" id="address_line1" name="address_line1" v-model="form.address_line1" class="form-control" placeholder="e.g. Rue, n°">
@@ -41,22 +41,22 @@
                                 </div>
 
                                 <!--Address line 2-->
-                                <div class="form-group my-5 ml-5 mr-8">
+                                <div class="form-group my-5">
                                     <label for="address_line2">Adresse ligne 2</label>
                                     <input type="text" id="address_line2" name="address_line2" v-model="form.address_line2" class="form-control" placeholder="e.g. Appartement, suite">
                                     <div class="help-block" v-if="form.errors.has('address_line2')" v-text="form.errors.get('address_line2')"></div>
                                 </div>
 
                                 <!--Zip-->
-                                <div class="form-group my-5 ml-5 mr-8">
-                                    <label for="zip">NPA</label>
+                                <div class="form-group my-5">
+                                    <label for="zip">Code postal</label>
                                     <span class="required">requis</span>
                                     <input type="text" id="zip" name="zip" v-model="form.zip" class="form-control" placeholder="e.g. 1002">
                                     <div class="help-block" v-if="form.errors.has('zip')" v-text="form.errors.get('zip')"></div>
                                 </div>
 
                                 <!--City-->
-                                <div class="form-group my-5 ml-5 mr-8">
+                                <div class="form-group my-5">
                                     <label for="city">Ville</label>
                                     <span class="required">requis</span>
                                     <input type="text" id="city" name="city" v-model="form.city" class="form-control" placeholder="e.g. Lausanne">
@@ -64,21 +64,21 @@
                                 </div>
 
                                 <!--Phone-->
-                                <div class="form-group my-5 ml-5 mr-8">
+                                <div class="form-group my-5">
                                     <label for="phone_number">Téléphone</label>
                                     <input type="text" id="phone_number" name="phone_number" v-model="form.phone_number" class="form-control" placeholder="e.g. +41 (0)12 345 67 89">
                                     <div class="help-block" v-if="form.errors.has('phone_number')" v-text="form.errors.get('phone_number')"></div>
                                 </div>
 
                                 <!--Fax-->
-                                <div class="form-group my-5 ml-5 mr-8">
+                                <div class="form-group my-5">
                                     <label for="fax">Fax</label>
                                     <input type="text" id="fax" name="fax" v-model="form.fax" class="form-control" placeholder="e.g. +41 (0)12 345 67 90">
                                     <div class="help-block" v-if="form.errors.has('fax')" v-text="form.errors.get('fax')"></div>
                                 </div>
 
                                 <!--Email-->
-                                <div class="form-group my-5 ml-5 mr-8">
+                                <div class="form-group my-5">
                                     <label for="email">E-mail</label>
                                     <span class="required">requis</span>
                                     <input type="text" id="email" name="email" v-model="form.email" class="form-control" placeholder="e.g. votre@email.ch">
@@ -86,14 +86,14 @@
                                 </div>
 
                                 <!--Buttons-->
-                                <div class="form-group d-flex flex-row my-5 ml-5 mr-8">
-                                    <div class="col-5 pl-0">
-                                        <button class="btn btn-block btn-white" @click.prevent="toggleModal">
+                                <div class="form-group d-flex flex-column flex-lg-row my-6">
+                                    <div class="col-12 col-lg-5 px-0 pr-lg-2">
+                                        <button class="btn btn-block btn-lg btn-white" @click.prevent="toggleModal">
                                             Annuler
                                         </button>
                                     </div>
-                                    <div class="col-7 pr-0">
-                                        <button class="btn btn-block btn-black" @click.prevent="onSubmit">
+                                    <div class="col-12 col-lg-7 px-0 pl-lg-2">
+                                        <button class="btn btn-block btn-lg btn-black" @click.prevent="onSubmit">
                                             Ajouter
                                         </button>
                                     </div>

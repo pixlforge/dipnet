@@ -17,7 +17,7 @@ class ContactsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth', ['except' => 'index']);
     }
 
     /**
@@ -35,13 +35,17 @@ class ContactsController extends Controller
         if (auth()->user()->role == 'administrateur') {
             $contacts = Contact::withTrashed()
                 ->with('company')
-                ->get()
-                ->sortBy('name');
+                ->orderBy('name')
+                ->paginate(50);
         } else {
-//            $contacts = Contact::withTrashed()
-//                ->with('company')
-//                ->get()
-//                ->sortBy('name');
+            $contacts = Contact::where('company_id', auth()->user()->company_id)
+                ->with('company')
+                ->orderBy('name')
+                ->paginate(50);
+        }
+
+        if (request()->wantsJson()) {
+            return $contacts;
         }
 
         return view('contacts.index', compact('contacts'));
@@ -80,7 +84,7 @@ class ContactsController extends Controller
             'phone_number' => request('phone_number'),
             'fax' => request('fax'),
             'email' => request('email'),
-            'company_id' => request('company_id'),
+            'company_id' => auth()->user()->company_id,
             'created_by_username' => auth()->user()->username
         ]);
 

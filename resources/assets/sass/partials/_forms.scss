@@ -94,6 +94,11 @@ form {
   border: none;
 }
 
+.custom-select-with-border {
+  border-radius: 0;
+  border-bottom: 1px solid $lighter-grey;
+}
+
 .fa-select {
   position: relative;
   left: 60px;

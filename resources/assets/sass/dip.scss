@@ -19,7 +19,8 @@
   }
 }
 
-.form-control:focus {
+.form-control:focus,
+.custom-select-with-border:focus {
   border-bottom: 1px solid $primary;
 }
 

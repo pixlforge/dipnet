@@ -36,13 +36,13 @@ body {
   min-height: 100vh!important;
 }
 
-.mt-5 {
-  margin-top: 2rem !important;
-}
-
 /**
  * Margin top
  */
+
+.mt-5 {
+  margin-top: 2rem !important;
+}
 
 .mt-6 {
   margin-top: 3rem !important;
@@ -94,6 +94,23 @@ body {
 .mr-8 {
   margin-right: 6rem !important;
 }
+
+/**
+ * Padding right
+ */
+
+.pr-6 {
+  padding-right: 4rem !important;
+}
+
+.pr-7 {
+  padding-right: 5rem !important;
+}
+
+.pr-8 {
+  padding-right: 6rem !important;
+}
+
 
 [v-cloak] > * { display:none }
 [v-cloak]::before { content: "loading…" }

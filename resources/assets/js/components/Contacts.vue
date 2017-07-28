@@ -10,7 +10,7 @@
                             Contacts
                         </h1>
 
-                        <add-contact></add-contact>
+                        <add-contact @contactAdded="fetchContacts"></add-contact>
 
                     </div>
                 </div>
@@ -142,6 +142,8 @@
 
                 <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
 
+                <paginator :dataSet="dataSet" @updated="fetchContacts"></paginator>
+
             </div>
         </div>
     </div>
@@ -156,6 +158,7 @@
 
         data() {
             return {
+                dataSet: false,
                 contacts: [],
                 format: 'LLL',
                 locale: 'fr',
@@ -185,17 +188,23 @@
         },
 
         methods: {
-            fetchContacts() {
+            fetchContacts(page = 1) {
                 this.loading = true;
 
-                axios.get('/contacts')
+                axios.get('/contacts?page=' + page)
                     .then(response => {
-                        this.contacts = response.data;
-                        this.loading = false;
+                        this.refresh(response);
                     })
                     .catch(response => {
                         this.loading = false;
                     });
+            },
+
+            refresh(response) {
+                this.dataSet = response.data;
+                this.contacts = response.data.data;
+                this.loading = false;
+                console.log(response);
             }
         }
     }
