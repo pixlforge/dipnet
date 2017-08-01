@@ -203,7 +203,10 @@
             refresh(response) {
                 this.dataSet = response.data;
                 this.contacts = response.data.data;
+
                 this.loading = false;
+
+                window.scrollTo(0, 0);
             }
         }
     }
