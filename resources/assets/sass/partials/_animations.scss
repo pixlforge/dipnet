@@ -12,3 +12,20 @@
   transform: translateX(50%);
   opacity: 0;
 }
+
+.highlight-enter-active, .highlight-leave-active {
+  transition: all .4s;
+  background: rgba(255, 255, 255, 1);
+}
+
+.highlight-enter {
+  background: rgba(255, 245, 157, 1);
+}
+
+.highlight-leave-active {
+  background: rgba(239, 154, 154, 1);
+}
+
+.highlight-leave-to {
+  background: rgba(255, 255, 255, 1);
+}

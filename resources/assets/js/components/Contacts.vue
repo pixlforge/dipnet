@@ -22,14 +22,13 @@
 
                 <paginator :dataSet="dataSet" @updated="fetchContacts" class="my-2"></paginator>
 
-                <div v-for="(contact, index) in contacts">
-
+                <transition-group name="highlight" tag="div">
                     <contact class="card card-custom center-on-small-only"
-                             :data="contact"
-                             :key="contact.id"
-                             @deleted="remove(index)"></contact>
-
-                </div>
+                         v-for="(contact, index) in contacts"
+                         :data="contact"
+                         :key="contact.id"
+                         @deleted="remove(index)"></contact>
+                </transition-group>
 
                 <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
 

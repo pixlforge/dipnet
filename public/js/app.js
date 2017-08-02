@@ -27724,7 +27724,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -33026,8 +33025,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "updated": _vm.fetchContacts
     }
-  }), _vm._v(" "), _vm._l((_vm.contacts), function(contact, index) {
-    return _c('div', [_c('contact', {
+  }), _vm._v(" "), _c('transition-group', {
+    attrs: {
+      "name": "highlight",
+      "tag": "div"
+    }
+  }, _vm._l((_vm.contacts), function(contact, index) {
+    return _c('contact', {
       key: contact.id,
       staticClass: "card card-custom center-on-small-only",
       attrs: {
@@ -33038,8 +33042,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.remove(index)
         }
       }
-    })], 1)
-  }), _vm._v(" "), _c('moon-loader', {
+    })
+  })), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loading,
       "color": _vm.color,
@@ -33053,7 +33057,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "updated": _vm.fetchContacts
     }
-  })], 2)])])
+  })], 1)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
