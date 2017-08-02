@@ -35,13 +35,17 @@ class ContactsController extends Controller
         if (auth()->user()->role == 'administrateur') {
             $contacts = Contact::withTrashed()
                 ->with('company')
+                ->latest()
                 ->orderBy('name')
-                ->paginate(30);
+//                ->paginate(50);
+                ->get();
         } else {
             $contacts = Contact::where('company_id', auth()->user()->company_id)
                 ->with('company')
+                ->latest()
                 ->orderBy('name')
-                ->paginate(30);
+//                ->paginate(50);
+                ->get();
         }
 
         // Models are requested through Axios
@@ -50,7 +54,7 @@ class ContactsController extends Controller
         }
 
         // Display view
-        return view('contacts.index');
+        return view('contacts.index', compact('contacts'));
     }
 
     /**
@@ -77,7 +81,7 @@ class ContactsController extends Controller
     {
         $this->authorize('create', Contact::class);
 
-        Contact::create([
+        $contact = Contact::create([
             'name' => request('name'),
             'address_line1' => request('address_line1'),
             'address_line2' => request('address_line2'),
@@ -89,6 +93,10 @@ class ContactsController extends Controller
             'company_id' => auth()->user()->company_id,
             'created_by_username' => auth()->user()->username
         ]);
+
+        if (request()->expectsJson()) {
+            return $contact;
+        }
 
         return redirect()->route('contacts');
     }
@@ -157,6 +165,10 @@ class ContactsController extends Controller
         $this->authorize('delete', $contact);
 
         $contact->delete();
+
+        if (request()->wantsJson()) {
+            return response([], 204);
+        }
 
         return redirect()->route('contacts');
     }
