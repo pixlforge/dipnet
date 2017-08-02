@@ -1,5 +1,3 @@
-// import Form from './classes.js';
-// import Errors from './Errors.js';
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -14,16 +12,12 @@ window.Vue = require('vue');
 /**
  * Vue components
  */
+Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('register', require('./components/Register.vue'));
 Vue.component('contact-details', require('./components/ContactDetails.vue'));
 Vue.component('company-details', require('./components/CompanyDetails.vue'));
 Vue.component('paginator', require('./components/Paginator.vue'));
-
-/**
- * Contact components
- */
-Vue.component('show-contacts', require('./components/Contacts.vue'));
-Vue.component('add-contact', require('./components/AddContact.vue'));
+Vue.component('contacts', require('./components/Contacts.vue'));
 
 /**
  * Vue constructor

@@ -1,6 +1,8 @@
 import Form from './Form';
 
-window._ = require('lodash');
+window.Vue = require('vue');
+
+// window._ = require('lodash');
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -42,3 +44,9 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 // });
 
 window.Form = Form;
+
+window.events = new Vue();
+
+window.flash = function (message) {
+    window.events.$emit('flash', message);
+};
