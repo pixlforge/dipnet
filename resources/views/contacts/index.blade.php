@@ -4,6 +4,6 @@
 
 @section('content')
 
-    <show-contacts></show-contacts>
+    <contacts :data="{{ $contacts }}"></contacts>
 
 @endsection
