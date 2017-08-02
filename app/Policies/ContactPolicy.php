@@ -39,7 +39,7 @@ class ContactPolicy
      */
     public function update(User $user, Contact $contact)
     {
-        return auth()->user()->role == 'administrateur';
+        return \Auth::check();
     }
 
     /**
@@ -51,7 +51,7 @@ class ContactPolicy
      */
     public function delete(User $user, Contact $contact)
     {
-        return auth()->user()->role == 'administrateur';
+        return \Auth::check();
     }
 
     /**
