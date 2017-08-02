@@ -28,7 +28,13 @@
                                 <div class="form-group">
                                     <label for="name">Nom</label>
                                     <span class="required">requis</span>
-                                    <input type="text" id="name" name="name" v-model="form.name" class="form-control" placeholder="e.g. Principal">
+                                    <input type="text"
+                                           id="name"
+                                           name="name"
+                                           class="form-control"
+                                           placeholder="e.g. Principal"
+                                           v-model="form.name"
+                                           required autofocus>
                                     <div class="help-block" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></div>
                                 </div>
 
@@ -36,14 +42,25 @@
                                 <div class="form-group my-5">
                                     <label for="address_line1">Adresse ligne 1</label>
                                     <span class="required">requis</span>
-                                    <input type="text" id="address_line1" name="address_line1" v-model="form.address_line1" class="form-control" placeholder="e.g. Rue, n°">
+                                    <input type="text"
+                                           id="address_line1"
+                                           name="address_line1"
+                                           class="form-control"
+                                           placeholder="e.g. Rue, n°"
+                                           v-model="form.address_line1"
+                                           required>
                                     <div class="help-block" v-if="form.errors.has('address_line1')" v-text="form.errors.get('address_line1')"></div>
                                 </div>
 
                                 <!--Address line 2-->
                                 <div class="form-group my-5">
                                     <label for="address_line2">Adresse ligne 2</label>
-                                    <input type="text" id="address_line2" name="address_line2" v-model="form.address_line2" class="form-control" placeholder="e.g. Appartement, suite">
+                                    <input type="text"
+                                           id="address_line2"
+                                           name="address_line2"
+                                           class="form-control"
+                                           placeholder="e.g. Appartement, suite"
+                                           v-model="form.address_line2">
                                     <div class="help-block" v-if="form.errors.has('address_line2')" v-text="form.errors.get('address_line2')"></div>
                                 </div>
 
@@ -51,7 +68,13 @@
                                 <div class="form-group my-5">
                                     <label for="zip">Code postal</label>
                                     <span class="required">requis</span>
-                                    <input type="text" id="zip" name="zip" v-model="form.zip" class="form-control" placeholder="e.g. 1002">
+                                    <input type="text"
+                                           id="zip"
+                                           name="zip"
+                                           class="form-control"
+                                           placeholder="e.g. 1002"
+                                           v-model="form.zip"
+                                           required>
                                     <div class="help-block" v-if="form.errors.has('zip')" v-text="form.errors.get('zip')"></div>
                                 </div>
 
@@ -59,21 +82,37 @@
                                 <div class="form-group my-5">
                                     <label for="city">Ville</label>
                                     <span class="required">requis</span>
-                                    <input type="text" id="city" name="city" v-model="form.city" class="form-control" placeholder="e.g. Lausanne">
+                                    <input type="text"
+                                           id="city"
+                                           name="city"
+                                           class="form-control"
+                                           placeholder="e.g. Lausanne"
+                                           v-model="form.city"
+                                           required>
                                     <div class="help-block" v-if="form.errors.has('city')" v-text="form.errors.get('city')"></div>
                                 </div>
 
                                 <!--Phone-->
                                 <div class="form-group my-5">
                                     <label for="phone_number">Téléphone</label>
-                                    <input type="text" id="phone_number" name="phone_number" v-model="form.phone_number" class="form-control" placeholder="e.g. +41 (0)12 345 67 89">
+                                    <input type="text"
+                                           id="phone_number"
+                                           name="phone_number"
+                                           class="form-control"
+                                           placeholder="e.g. +41 (0)12 345 67 89"
+                                           v-model="form.phone_number">
                                     <div class="help-block" v-if="form.errors.has('phone_number')" v-text="form.errors.get('phone_number')"></div>
                                 </div>
 
                                 <!--Fax-->
                                 <div class="form-group my-5">
                                     <label for="fax">Fax</label>
-                                    <input type="text" id="fax" name="fax" v-model="form.fax" class="form-control" placeholder="e.g. +41 (0)12 345 67 90">
+                                    <input type="text"
+                                           id="fax"
+                                           name="fax"
+                                           class="form-control"
+                                           placeholder="e.g. +41 (0)12 345 67 90"
+                                           v-model="form.fax">
                                     <div class="help-block" v-if="form.errors.has('fax')" v-text="form.errors.get('fax')"></div>
                                 </div>
 
@@ -81,19 +120,27 @@
                                 <div class="form-group my-5">
                                     <label for="email">E-mail</label>
                                     <span class="required">requis</span>
-                                    <input type="text" id="email" name="email" v-model="form.email" class="form-control" placeholder="e.g. votre@email.ch">
+                                    <input type="text"
+                                           id="email"
+                                           name="email"
+                                           class="form-control"
+                                           placeholder="e.g. votre@email.ch"
+                                           v-model="form.email"
+                                           required>
                                     <div class="help-block" v-if="form.errors.has('email')" v-text="form.errors.get('email')"></div>
                                 </div>
 
                                 <!--Buttons-->
                                 <div class="form-group d-flex flex-column flex-lg-row my-6">
                                     <div class="col-12 col-lg-5 px-0 pr-lg-2">
-                                        <button class="btn btn-block btn-lg btn-white" @click.prevent="toggleModal">
+                                        <button class="btn btn-block btn-lg btn-white"
+                                                @click.prevent="toggleModal">
                                             Annuler
                                         </button>
                                     </div>
                                     <div class="col-12 col-lg-7 px-0 pl-lg-2">
-                                        <button class="btn btn-block btn-lg btn-black" @click.prevent="onSubmit">
+                                        <button class="btn btn-block btn-lg btn-black"
+                                                @click.prevent="addContact">
                                             Ajouter
                                         </button>
                                     </div>
@@ -143,14 +190,15 @@
                 this.showModal === false ? this.showModal = true : this.showModal = false;
             },
 
-            onSubmit() {
+            addContact() {
                 this.loading = true;
 
                 this.form.post('/contacts')
                     .then(response => {
                         this.loading = false;
                         this.showModal = false;
-                        this.$emit('contactAdded');
+
+                        this.$emit('created', response);
                     })
                     .catch(response => {
                         this.loading = false;

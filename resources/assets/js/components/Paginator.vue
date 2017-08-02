@@ -1,18 +1,25 @@
 <template>
-    <ul class="pagination" v-if="shouldPaginate">
-        <li class="page-item" v-show="prevUrl">
-            <a class="page-link" href="" rel="prev" aria-label="Previous" @click.prevent="page--">
-                <span aria-hidden="true">&laquo; Précédent</span>
-                <span class="sr-only">Précédent</span>
-            </a>
-        </li>
-        <li class="page-item" v-show="nextUrl">
-            <a class="page-link" href="" rel="next" aria-label="Next" @click.prevent="page++">
-                <span aria-hidden="true">Suivant &raquo;</span>
-                <span class="sr-only">Suivant</span>
-            </a>
-        </li>
-    </ul>
+    <div class="d-flex flex-column align-items-center" v-if="shouldPaginate">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="" rel="prev" aria-label="Previous" @click.prevent="prevPage">
+                    <span aria-hidden="true">&laquo; Précédent</span>
+                    <span class="sr-only">Précédent</span>
+                </a>
+            </li>
+            <li class="page-item disabled">
+                <a class="page-link" href="" rel="" aria-label=""
+                   v-text="'Page ' + this.page" @click.prevent=""></a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="" rel="next" aria-label="Next" @click.prevent="nextPage">
+                    <span aria-hidden="true">Suivant &raquo;</span>
+                    <span class="sr-only">Suivant</span>
+                </a>
+            </li>
+        </ul>
+        <p class="d-block">Résultats {{ dataSet.from }} à {{ dataSet.to }} ({{ dataSet.total }} total)</p>
+    </div>
 </template>
 
 <script>
@@ -40,13 +47,25 @@
 
         computed: {
             shouldPaginate() {
-                return !! this.prevUrl || !! this.nextUrl;
+                return !!this.prevUrl || !!this.nextUrl;
             }
         },
 
         methods: {
             broadcast() {
                 this.$emit('updated', this.page);
+            },
+
+            prevPage() {
+                if (this.page > 1) {
+                    this.page--;
+                }
+            },
+
+            nextPage() {
+                if (this.page < this.dataSet.last_page) {
+                    this.page++;
+                }
             }
         }
     }
