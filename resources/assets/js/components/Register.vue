@@ -29,11 +29,9 @@
                 this.form.post('/register')
                     .then(response => {
                         this.loading = false;
-                    })
-                    .then(response => {
                         window.location.href = 'profile/details/contact';
                     })
-                    .catch(response => {
+                    .catch(error => {
                         this.loading = false;
                     });
             }

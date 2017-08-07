@@ -1,7 +1,7 @@
 <template>
     <div class="alert alert-success alert-flash" role="alert" v-show="show">
-        <strong>Félicitations</strong>
-        <span class="d-block mt-1">{{ body }}</span>
+        <strong>OK!</strong>
+        <span class="ml-3">{{ body }}</span>
     </div>
 </template>
 

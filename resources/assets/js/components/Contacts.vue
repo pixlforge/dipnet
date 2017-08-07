@@ -5,10 +5,9 @@
                 <div class="row">
                     <div class="col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only">
 
-                        <!--Page title-->
-                        <h1 class="mt-5">
-                            Contacts
-                        </h1>
+                        <h1 class="mt-5">Contacts</h1>
+
+                        <span class="mt-5">{{ dataSet.total }} résultats</span>
 
                         <add-contact @created="add"></add-contact>
 
@@ -20,13 +19,13 @@
         <div class="row bg-grey-light">
             <div class="col-10 mx-auto my-7">
 
-                <paginator :dataSet="dataSet" @updated="fetchContacts" class="my-2"></paginator>
+                <paginator :dataSet="dataSet" @updated="fetchContacts" class=""></paginator>
 
-                <transition-group name="highlight" tag="div">
+                <transition-group name="highlight">
                     <contact class="card card-custom center-on-small-only"
                          v-for="(contact, index) in contacts"
                          :data="contact"
-                         :key="contact.id"
+                         :key="contact"
                          @deleted="remove(index)"></contact>
                 </transition-group>
 
@@ -42,23 +41,32 @@
 <script>
     import Contact from './Contact.vue';
     import AddContact from './AddContact.vue';
+    import Paginator from './Paginator.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
+    import { eventBus } from '../app';
 
     export default {
         props: ['data'],
-
         data() {
             return {
-                dataSet: false,
-                contacts: this.data,
+                dataSet: this.data,
+                contacts: this.data.data,
                 color: '#fff',
                 size: '96px',
                 loading: false
             }
         },
-
-        components: { Contact, AddContact, MoonLoader },
-
+        components: {
+            Contact,
+            AddContact,
+            Paginator,
+            MoonLoader
+        },
+        created() {
+            eventBus.$on('contactUpdated', (data) => {
+                this.edit(data);
+            })
+        },
         methods: {
             fetchContacts(page = 1) {
                 this.loading = true;
@@ -67,7 +75,7 @@
                     .then(response => {
                         this.refresh(response);
                     })
-                    .catch(response => {
+                    .catch(error => {
                         this.loading = false;
                     });
             },
@@ -84,13 +92,19 @@
             add(contact) {
                 this.contacts.unshift(contact);
 
-                flash('Le contact a bien été créé.');
+                flash('La création du contact a réussi.');
+            },
+
+            edit() {
+                this.fetchContacts();
+
+                flash('Les modifications apportées au contact ont été enregistrées.')
             },
 
             remove(index) {
                 this.contacts.splice(index, 1);
 
-                flash('Le contact a bien été supprimé.');
+                flash('Suppression du contact réussie.');
             }
         }
     }

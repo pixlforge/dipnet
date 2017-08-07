@@ -13,7 +13,7 @@
 
         <!--Modal Panel-->
         <transition name="slide">
-            <div class="modal-panel" v-if="showModal">
+            <div class="modal-panel" v-if="showModal" @keyup.esc="toggleModal" @keyup.enter="addContact">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-10 col-lg-8 offset-lg-1">
@@ -22,7 +22,7 @@
                             <h3 class="mt-7 mb-5">Nouveau contact</h3>
 
                             <!--Form-->
-                            <form method="POST" action="">
+                            <form @submit.prevent>
 
                                 <!--Name-->
                                 <div class="form-group">
@@ -33,7 +33,7 @@
                                            name="name"
                                            class="form-control"
                                            placeholder="e.g. Principal"
-                                           v-model="form.name"
+                                           v-model.trim="form.name"
                                            required autofocus>
                                     <div class="help-block" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></div>
                                 </div>
@@ -47,7 +47,7 @@
                                            name="address_line1"
                                            class="form-control"
                                            placeholder="e.g. Rue, n°"
-                                           v-model="form.address_line1"
+                                           v-model.trim="form.address_line1"
                                            required>
                                     <div class="help-block" v-if="form.errors.has('address_line1')" v-text="form.errors.get('address_line1')"></div>
                                 </div>
@@ -60,7 +60,7 @@
                                            name="address_line2"
                                            class="form-control"
                                            placeholder="e.g. Appartement, suite"
-                                           v-model="form.address_line2">
+                                           v-model.trim="form.address_line2">
                                     <div class="help-block" v-if="form.errors.has('address_line2')" v-text="form.errors.get('address_line2')"></div>
                                 </div>
 
@@ -73,7 +73,7 @@
                                            name="zip"
                                            class="form-control"
                                            placeholder="e.g. 1002"
-                                           v-model="form.zip"
+                                           v-model.trim="form.zip"
                                            required>
                                     <div class="help-block" v-if="form.errors.has('zip')" v-text="form.errors.get('zip')"></div>
                                 </div>
@@ -87,7 +87,7 @@
                                            name="city"
                                            class="form-control"
                                            placeholder="e.g. Lausanne"
-                                           v-model="form.city"
+                                           v-model.trim="form.city"
                                            required>
                                     <div class="help-block" v-if="form.errors.has('city')" v-text="form.errors.get('city')"></div>
                                 </div>
@@ -100,7 +100,7 @@
                                            name="phone_number"
                                            class="form-control"
                                            placeholder="e.g. +41 (0)12 345 67 89"
-                                           v-model="form.phone_number">
+                                           v-model.trim="form.phone_number">
                                     <div class="help-block" v-if="form.errors.has('phone_number')" v-text="form.errors.get('phone_number')"></div>
                                 </div>
 
@@ -112,7 +112,7 @@
                                            name="fax"
                                            class="form-control"
                                            placeholder="e.g. +41 (0)12 345 67 90"
-                                           v-model="form.fax">
+                                           v-model.trim="form.fax">
                                     <div class="help-block" v-if="form.errors.has('fax')" v-text="form.errors.get('fax')"></div>
                                 </div>
 
@@ -125,7 +125,7 @@
                                            name="email"
                                            class="form-control"
                                            placeholder="e.g. votre@email.ch"
-                                           v-model="form.email"
+                                           v-model.trim="form.email"
                                            required>
                                     <div class="help-block" v-if="form.errors.has('email')" v-text="form.errors.get('email')"></div>
                                 </div>
@@ -134,7 +134,7 @@
                                 <div class="form-group d-flex flex-column flex-lg-row my-6">
                                     <div class="col-12 col-lg-5 px-0 pr-lg-2">
                                         <button class="btn btn-block btn-lg btn-white"
-                                                @click.prevent="toggleModal">
+                                                @click.stop="toggleModal">
                                             Annuler
                                         </button>
                                     </div>
@@ -160,7 +160,6 @@
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
 
     export default {
-
         data() {
             return {
                 form: new Form({
@@ -180,11 +179,7 @@
                 showModal: false
             }
         },
-
-        components: {
-            MoonLoader
-        },
-
+        components: { MoonLoader },
         methods: {
             toggleModal() {
                 this.showModal === false ? this.showModal = true : this.showModal = false;
@@ -200,9 +195,7 @@
 
                         this.$emit('created', response);
                     })
-                    .catch(response => {
-                        this.loading = false;
-                    });
+                    .catch(this.loading = false);
             }
         }
     }

@@ -158,7 +158,7 @@ class ProfilesController extends Controller
         if ($request->has('name')) {
             $name = request('name');
         } else {
-            $name = auth()->user()->username . ' (Default)';
+            $name = auth()->user()->username;
         }
 
         $company = Company::create([

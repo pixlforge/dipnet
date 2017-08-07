@@ -16,8 +16,9 @@ Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('register', require('./components/Register.vue'));
 Vue.component('contact-details', require('./components/ContactDetails.vue'));
 Vue.component('company-details', require('./components/CompanyDetails.vue'));
-Vue.component('paginator', require('./components/Paginator.vue'));
 Vue.component('contacts', require('./components/Contacts.vue'));
+
+export const eventBus = new Vue();
 
 /**
  * Vue constructor

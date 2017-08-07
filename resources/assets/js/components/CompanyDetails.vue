@@ -26,11 +26,9 @@
                 this.form.post('/profile/details/company')
                     .then(response => {
                         this.loading = false;
-                    })
-                    .then(response => {
                         window.location.href = '/';
                     })
-                    .catch(response => {
+                    .catch(error => {
                         this.loading = false;
                     });
             }

@@ -13,19 +13,31 @@
   opacity: 0;
 }
 
-.highlight-enter-active, .highlight-leave-active {
-  transition: all 3s;
+.highlight-enter {
+  //background: rgba(255, 245, 157, 1);
+}
+
+.highlight-enter-to {
   background: rgba(255, 255, 255, 1);
 }
 
-.highlight-enter {
-  background: rgba(255, 245, 157, 1);
+.highlight-enter-active {
+  transition: background 2s;
 }
 
-.highlight-leave-active {
-  background: rgba(239, 154, 154, 1);
+.highlight-leave {
+  opacity: 1;
 }
 
 .highlight-leave-to {
-  background: rgba(255, 255, 255, 1);
+  opacity: 0;
+}
+
+.highlight-leave-active {
+  position: absolute;
+  transition: opacity .5s;
+}
+
+.highlight-move {
+  transition: transform .5s;
 }

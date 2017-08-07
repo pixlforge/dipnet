@@ -89,11 +89,10 @@
                     <!--<i class="fa fa-refresh"></i>-->
                     <!--<span class="ml-3">Restaurer</span>-->
                     <!--</a>-->
-                    <a class="dropdown-item" href="">
-                        <i class="fa fa-pencil"></i>
-                        <span class="ml-3">Modifier</span>
-                    </a>
-                    <a class="dropdown-item text-danger" href="" @click.prevent="destroy">
+
+                    <edit-contact :data="contact"></edit-contact>
+
+                    <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fa fa-trash"></i>
                         <span class="ml-3">Supprimer</span>
                     </a>
@@ -104,11 +103,11 @@
 </template>
 
 <script>
+    import EditContact from './EditContact.vue';
     import moment from 'moment';
 
     export default {
         props: ['data'],
-
         data() {
             return {
                 contact: this.data,
@@ -116,7 +115,7 @@
                 locale: 'fr'
             }
         },
-
+        components: { EditContact },
         methods: {
             destroy() {
                 axios.delete('/contacts/' + this.contact.id);

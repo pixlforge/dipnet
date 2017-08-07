@@ -33,19 +33,32 @@ class ContactsController extends Controller
         // Request every model if the user is an admin,
         // request only the related models otherwise.
         if (auth()->user()->role == 'administrateur') {
+            $paginatedContacts = Contact::withTrashed()
+                ->with('company')
+                ->latest()
+                ->orderBy('name')
+                ->paginate(50);
+//                ->get();
+
+//            $contacts = Contact::withTrashed()
+//                ->with('company')
+//                ->latest()
+//                ->orderBy('name')
+//                ->get();
+
             $contacts = Contact::withTrashed()
                 ->with('company')
                 ->latest()
                 ->orderBy('name')
-//                ->paginate(50);
-                ->get();
+                ->paginate(50)
+                ->toJson();
         } else {
             $contacts = Contact::where('company_id', auth()->user()->company_id)
                 ->with('company')
                 ->latest()
                 ->orderBy('name')
-//                ->paginate(50);
-                ->get();
+                ->paginate(50)
+                ->toJson();
         }
 
         // Models are requested through Axios
@@ -150,6 +163,10 @@ class ContactsController extends Controller
             'email' => request('email'),
             'company_id' => request('company_id')
         ]);
+
+        if (request()->expectsJson()) {
+            return response([], 204);
+        }
 
         return redirect()->route('contacts');
     }

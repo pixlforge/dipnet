@@ -31,11 +31,9 @@
                 this.form.post('/profile/details/contact')
                     .then(response => {
                         this.loading = false;
-                    })
-                    .then(response => {
                         window.location.href = '/profile/details/company';
                     })
-                    .catch(response => {
+                    .catch(error=> {
                         this.loading = false;
                     });
             }

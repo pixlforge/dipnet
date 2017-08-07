@@ -7,10 +7,7 @@
                     <span class="sr-only">Précédent</span>
                 </a>
             </li>
-            <li class="page-item disabled">
-                <a class="page-link" href="" rel="" aria-label=""
-                   v-text="'Page ' + this.page" @click.prevent=""></a>
-            </li>
+
             <li class="page-item">
                 <a class="page-link" href="" rel="next" aria-label="Next" @click.prevent="nextPage">
                     <span aria-hidden="true">Suivant &raquo;</span>
@@ -18,22 +15,20 @@
                 </a>
             </li>
         </ul>
-        <p class="d-block">Résultats {{ dataSet.from }} à {{ dataSet.to }} ({{ dataSet.total }} total)</p>
+        <!--<p class="d-block">Résultats {{ dataSet.from }} à {{ dataSet.to }} ({{ dataSet.total }} total)</p>-->
     </div>
 </template>
 
 <script>
     export default {
         props: ['dataSet'],
-
         data() {
             return {
                 page: 1,
-                prevUrl: false,
-                nextUrl: false
+                prevUrl: this.dataSet.prev_page_url,
+                nextUrl: this.dataSet.next_page_url
             }
         },
-
         watch: {
             dataSet() {
                 this.prevUrl = this.dataSet.prev_page_url;
@@ -44,13 +39,11 @@
                 this.broadcast();
             }
         },
-
         computed: {
             shouldPaginate() {
-                return !!this.prevUrl || !!this.nextUrl;
+                return !! this.prevUrl || !! this.nextUrl;
             }
         },
-
         methods: {
             broadcast() {
                 this.$emit('updated', this.page);
