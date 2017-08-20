@@ -27563,11 +27563,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-
-    components: {
-        MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
-    },
-
+    components: { MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a },
     methods: {
         onSubmit: function onSubmit() {
             var _this = this;
@@ -27577,9 +27573,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.form.post('/profile/details/company').then(function (response) {
                 _this.loading = false;
                 window.location.href = '/';
-            }).catch(function (error) {
-                _this.loading = false;
-            });
+            }).catch(this.loading = false);
         }
     }
 });
