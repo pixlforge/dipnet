@@ -152,7 +152,6 @@
                 <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
             </div>
         </transition>
-
     </div>
 </template>
 
@@ -193,7 +192,7 @@
                         this.loading = false;
                         this.showModal = false;
 
-                        this.$emit('created', response);
+                        this.$emit('contactWasCreated', response);
                     })
                     .catch(this.loading = false);
             }
