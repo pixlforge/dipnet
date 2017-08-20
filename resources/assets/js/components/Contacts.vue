@@ -86,6 +86,7 @@
                 flash('La création du contact a réussi.');
             },
             edit(contact) {
+                // TODO
 //                this.fetchContacts();
                 console.log(contact);
 
