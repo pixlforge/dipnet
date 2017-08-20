@@ -33,19 +33,6 @@ class ContactsController extends Controller
         // Request every model if the user is an admin,
         // request only the related models otherwise.
         if (auth()->user()->role == 'administrateur') {
-            $paginatedContacts = Contact::withTrashed()
-                ->with('company')
-                ->latest()
-                ->orderBy('name')
-                ->paginate(50);
-//                ->get();
-
-//            $contacts = Contact::withTrashed()
-//                ->with('company')
-//                ->latest()
-//                ->orderBy('name')
-//                ->get();
-
             $contacts = Contact::withTrashed()
                 ->with('company')
                 ->latest()

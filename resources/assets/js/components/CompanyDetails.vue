@@ -2,7 +2,6 @@
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
 
     export default {
-
         data() {
             return {
                 form: new Form({
@@ -13,13 +12,8 @@
                 loading: false
             }
         },
-
-        components: {
-            MoonLoader
-        },
-
+        components: { MoonLoader },
         methods: {
-
             onSubmit() {
                 this.loading = true;
 
@@ -28,9 +22,7 @@
                         this.loading = false;
                         window.location.href = '/';
                     })
-                    .catch(error => {
-                        this.loading = false;
-                    });
+                    .catch(this.loading = false);
             }
         }
     }
