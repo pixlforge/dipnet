@@ -32,7 +32,7 @@
                                            name="name"
                                            class="form-control"
                                            placeholder="e.g. Principal"
-                                           v-model="form.name"
+                                           v-model.trim="form.name"
                                            required autofocus>
                                     <div class="help-block" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></div>
                                 </div>
@@ -46,7 +46,7 @@
                                            name="address_line1"
                                            class="form-control"
                                            placeholder="e.g. Rue, n°"
-                                           v-model="form.address_line1"
+                                           v-model.trim="form.address_line1"
                                            required>
                                     <div class="help-block" v-if="form.errors.has('address_line1')" v-text="form.errors.get('address_line1')"></div>
                                 </div>
@@ -59,7 +59,7 @@
                                            name="address_line2"
                                            class="form-control"
                                            placeholder="e.g. Appartement, suite"
-                                           v-model="form.address_line2">
+                                           v-model.trim="form.address_line2">
                                     <div class="help-block" v-if="form.errors.has('address_line2')" v-text="form.errors.get('address_line2')"></div>
                                 </div>
 
@@ -72,7 +72,7 @@
                                            name="zip"
                                            class="form-control"
                                            placeholder="e.g. 1002"
-                                           v-model="form.zip"
+                                           v-model.trim="form.zip"
                                            required>
                                     <div class="help-block" v-if="form.errors.has('zip')" v-text="form.errors.get('zip')"></div>
                                 </div>
@@ -86,7 +86,7 @@
                                            name="city"
                                            class="form-control"
                                            placeholder="e.g. Lausanne"
-                                           v-model="form.city"
+                                           v-model.trim="form.city"
                                            required>
                                     <div class="help-block" v-if="form.errors.has('city')" v-text="form.errors.get('city')"></div>
                                 </div>
@@ -99,7 +99,7 @@
                                            name="phone_number"
                                            class="form-control"
                                            placeholder="e.g. +41 (0)12 345 67 89"
-                                           v-model="form.phone_number">
+                                           v-model.trim="form.phone_number">
                                     <div class="help-block" v-if="form.errors.has('phone_number')" v-text="form.errors.get('phone_number')"></div>
                                 </div>
 
@@ -111,7 +111,7 @@
                                            name="fax"
                                            class="form-control"
                                            placeholder="e.g. +41 (0)12 345 67 90"
-                                           v-model="form.fax">
+                                           v-model.trim="form.fax">
                                     <div class="help-block" v-if="form.errors.has('fax')" v-text="form.errors.get('fax')"></div>
                                 </div>
 
@@ -124,20 +124,9 @@
                                            name="email"
                                            class="form-control"
                                            placeholder="e.g. votre@email.ch"
-                                           v-model="form.email"
+                                           v-model.trim="form.email"
                                            required>
                                     <div class="help-block" v-if="form.errors.has('email')" v-text="form.errors.get('email')"></div>
-                                </div>
-
-                                <!--Company-->
-                                <div class="form-group my-5">
-                                    <label for="company_id">Société</label>
-                                    <span class="required">requis</span>
-                                    <select name="company_id" id="company_id">
-                                        <option value="">Cp1</option>
-                                        <option value="">Cp2</option>
-                                        <option value="">Cp3</option>
-                                    </select>
                                 </div>
 
                                 <!--Buttons-->
@@ -184,17 +173,14 @@
                     email: this.data.email,
                     company_id: this.data.company_id
                 }),
+                contact: this.data,
                 color: '#fff',
                 size: '96px',
                 loading: false,
-                contact: this.data,
                 showModal: false
             };
         },
         components: { MoonLoader },
-        mounted() {
-            console.log(this.contact);
-        },
         methods: {
             toggleModal() {
                 this.showModal === false ? this.showModal = true : this.showModal = false;
@@ -205,10 +191,11 @@
 
                 this.form.put('/contacts/' + this.contact.id)
                     .then(() => {
+                        eventBus.$emit('contactWasUpdated', this.contact);
+                    })
+                    .then(() => {
                         this.loading = false;
                         this.showModal = false;
-
-                        eventBus.$emit('contactUpdated', this.contact);
                     })
                     .catch(this.loading = false);
             }

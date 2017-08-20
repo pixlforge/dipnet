@@ -27495,7 +27495,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -27534,7 +27533,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.loading = false;
                 _this.showModal = false;
 
-                _this.$emit('created', response);
+                _this.$emit('contactWasCreated', response);
             }).catch(this.loading = false);
         }
     }
@@ -27816,13 +27815,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -27843,15 +27835,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     components: {
-        Contact: __WEBPACK_IMPORTED_MODULE_0__Contact_vue___default.a,
-        AddContact: __WEBPACK_IMPORTED_MODULE_1__AddContact_vue___default.a,
-        Paginator: __WEBPACK_IMPORTED_MODULE_2__Paginator_vue___default.a,
+        'app-contact': __WEBPACK_IMPORTED_MODULE_0__Contact_vue___default.a,
+        'app-add-contact': __WEBPACK_IMPORTED_MODULE_1__AddContact_vue___default.a,
+        'app-paginator': __WEBPACK_IMPORTED_MODULE_2__Paginator_vue___default.a,
         MoonLoader: __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
     },
     created: function created() {
         var _this = this;
 
-        __WEBPACK_IMPORTED_MODULE_4__app__["eventBus"].$on('contactUpdated', function (data) {
+        __WEBPACK_IMPORTED_MODULE_4__app__["eventBus"].$on('contactWasUpdated', function (data) {
             _this.edit(data);
         });
     },
@@ -27878,13 +27870,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             window.scrollTo(0, 0);
         },
-        add: function add(contact) {
+        contactAdded: function contactAdded(contact) {
             this.contacts.unshift(contact);
 
             flash('La création du contact a réussi.');
         },
-        edit: function edit() {
-            this.fetchContacts();
+        edit: function edit(contact) {
+            //                this.fetchContacts();
+            console.log(contact);
 
             flash('Les modifications apportées au contact ont été enregistrées.');
         },
@@ -28061,17 +28054,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -28091,19 +28073,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 email: this.data.email,
                 company_id: this.data.company_id
             }),
+            contact: this.data,
             color: '#fff',
             size: '96px',
             loading: false,
-            contact: this.data,
             showModal: false
         };
     },
 
     components: { MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a },
-    mounted: function mounted() {
-        console.log(this.contact);
-    },
-
     methods: {
         toggleModal: function toggleModal() {
             this.showModal === false ? this.showModal = true : this.showModal = false;
@@ -28114,10 +28092,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading = true;
 
             this.form.put('/contacts/' + this.contact.id).then(function () {
+                __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('contactWasUpdated', _this.contact);
+            }).then(function () {
                 _this.loading = false;
                 _this.showModal = false;
-
-                __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('contactUpdated', _this.contact);
             }).catch(this.loading = false);
         }
     }
@@ -33705,9 +33683,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.form.name),
-      expression: "form.name"
+      expression: "form.name",
+      modifiers: {
+        "trim": true
+      }
     }],
     staticClass: "form-control",
     attrs: {
@@ -33724,7 +33705,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.form.name = $event.target.value
+        _vm.form.name = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('name')) ? _c('div', {
@@ -33743,9 +33727,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.form.address_line1),
-      expression: "form.address_line1"
+      expression: "form.address_line1",
+      modifiers: {
+        "trim": true
+      }
     }],
     staticClass: "form-control",
     attrs: {
@@ -33761,7 +33748,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.form.address_line1 = $event.target.value
+        _vm.form.address_line1 = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('address_line1')) ? _c('div', {
@@ -33778,9 +33768,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Adresse ligne 2")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.form.address_line2),
-      expression: "form.address_line2"
+      expression: "form.address_line2",
+      modifiers: {
+        "trim": true
+      }
     }],
     staticClass: "form-control",
     attrs: {
@@ -33795,7 +33788,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.form.address_line2 = $event.target.value
+        _vm.form.address_line2 = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('address_line2')) ? _c('div', {
@@ -33814,9 +33810,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.form.zip),
-      expression: "form.zip"
+      expression: "form.zip",
+      modifiers: {
+        "trim": true
+      }
     }],
     staticClass: "form-control",
     attrs: {
@@ -33832,7 +33831,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.form.zip = $event.target.value
+        _vm.form.zip = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('zip')) ? _c('div', {
@@ -33851,9 +33853,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.form.city),
-      expression: "form.city"
+      expression: "form.city",
+      modifiers: {
+        "trim": true
+      }
     }],
     staticClass: "form-control",
     attrs: {
@@ -33869,7 +33874,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.form.city = $event.target.value
+        _vm.form.city = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('city')) ? _c('div', {
@@ -33886,9 +33894,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Téléphone")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.form.phone_number),
-      expression: "form.phone_number"
+      expression: "form.phone_number",
+      modifiers: {
+        "trim": true
+      }
     }],
     staticClass: "form-control",
     attrs: {
@@ -33903,7 +33914,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.form.phone_number = $event.target.value
+        _vm.form.phone_number = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('phone_number')) ? _c('div', {
@@ -33920,9 +33934,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Fax")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.form.fax),
-      expression: "form.fax"
+      expression: "form.fax",
+      modifiers: {
+        "trim": true
+      }
     }],
     staticClass: "form-control",
     attrs: {
@@ -33937,7 +33954,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.form.fax = $event.target.value
+        _vm.form.fax = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('fax')) ? _c('div', {
@@ -33956,9 +33976,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.form.email),
-      expression: "form.email"
+      expression: "form.email",
+      modifiers: {
+        "trim": true
+      }
     }],
     staticClass: "form-control",
     attrs: {
@@ -33974,7 +33997,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.form.email = $event.target.value
+        _vm.form.email = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.form.errors.has('email')) ? _c('div', {
@@ -33983,31 +34009,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "textContent": _vm._s(_vm.form.errors.get('email'))
     }
   }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
-  }, [_c('label', {
-    attrs: {
-      "for": "company_id"
-    }
-  }, [_vm._v("Société")]), _vm._v(" "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('select', {
-    attrs: {
-      "name": "company_id",
-      "id": "company_id"
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("Cp1")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("Cp2")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": ""
-    }
-  }, [_vm._v("Cp3")])])]), _vm._v(" "), _c('div', {
     staticClass: "form-group d-flex flex-column flex-lg-row my-6"
   }, [_c('div', {
     staticClass: "col-12 col-lg-5 px-0 pr-lg-2"
@@ -34064,15 +34065,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "mt-5"
   }, [_vm._v("Contacts")]), _vm._v(" "), _c('span', {
     staticClass: "mt-5"
-  }, [_vm._v(_vm._s(_vm.dataSet.total) + " résultats")]), _vm._v(" "), _c('add-contact', {
+  }, [_vm._v("\n                        " + _vm._s(_vm.dataSet.total) + "\n                        " + _vm._s(_vm.dataSet.total == 0 || _vm.dataSet.total == 1 ? 'résultat' : 'résultats') + "\n                    ")]), _vm._v(" "), _c('app-add-contact', {
     on: {
-      "created": _vm.add
+      "contactWasCreated": _vm.contactAdded
     }
   })], 1)])])]), _vm._v(" "), _c('div', {
     staticClass: "row bg-grey-light"
   }, [_c('div', {
     staticClass: "col-10 mx-auto my-7"
-  }, [_c('paginator', {
+  }, [_c('app-paginator', {
     attrs: {
       "dataSet": _vm.dataSet
     },
@@ -34084,8 +34085,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "highlight"
     }
   }, _vm._l((_vm.contacts), function(contact, index) {
-    return _c('contact', {
-      key: contact,
+    return _c('app-contact', {
+      key: contact.id,
       staticClass: "card card-custom center-on-small-only",
       attrs: {
         "data": contact
@@ -34102,7 +34103,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "color": _vm.color,
       "size": _vm.size
     }
-  }), _vm._v(" "), _c('paginator', {
+  }), _vm._v(" "), _c('app-paginator', {
     staticClass: "mt-4",
     attrs: {
       "dataSet": _vm.dataSet
