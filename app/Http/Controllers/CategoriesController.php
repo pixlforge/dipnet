@@ -103,6 +103,10 @@ class CategoriesController extends Controller
             'name' => request('name')
         ]);
 
+        if (request()->expectsJson()) {
+            return response([], 204);
+        }
+
         return redirect()->route('categories');
     }
 
