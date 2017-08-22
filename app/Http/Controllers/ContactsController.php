@@ -37,14 +37,16 @@ class ContactsController extends Controller
                 ->with('company')
                 ->latest()
                 ->orderBy('name')
-                ->paginate(50)
+//                ->paginate(50)
+                ->get()
                 ->toJson();
         } else {
             $contacts = Contact::where('company_id', auth()->user()->company_id)
                 ->with('company')
                 ->latest()
                 ->orderBy('name')
-                ->paginate(50)
+//                ->paginate(50)
+                ->get()
                 ->toJson();
         }
 

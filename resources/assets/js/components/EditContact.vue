@@ -12,7 +12,7 @@
 
         <!--Modal Panel-->
         <transition name="slide">
-            <div class="modal-panel" v-if="showModal" @keyup.esc="toggleModal" @keyup.enter="editContact">
+            <div class="modal-panel" v-if="showModal" @keyup.esc="toggleModal" @keyup.enter="updateContact">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-10 col-lg-8 offset-lg-1">
@@ -32,9 +32,9 @@
                                            name="name"
                                            class="form-control"
                                            placeholder="e.g. Principal"
-                                           v-model.trim="form.name"
+                                           v-model.trim="contact.name"
                                            required autofocus>
-                                    <div class="help-block" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></div>
+                                    <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
                                 </div>
 
                                 <!--Address line 1-->
@@ -46,9 +46,9 @@
                                            name="address_line1"
                                            class="form-control"
                                            placeholder="e.g. Rue, n°"
-                                           v-model.trim="form.address_line1"
+                                           v-model.trim="contact.address_line1"
                                            required>
-                                    <div class="help-block" v-if="form.errors.has('address_line1')" v-text="form.errors.get('address_line1')"></div>
+                                    <div class="help-block" v-if="errors.address_line1" v-text="errors.address_line1[0]"></div>
                                 </div>
 
                                 <!--Address line 2-->
@@ -59,8 +59,8 @@
                                            name="address_line2"
                                            class="form-control"
                                            placeholder="e.g. Appartement, suite"
-                                           v-model.trim="form.address_line2">
-                                    <div class="help-block" v-if="form.errors.has('address_line2')" v-text="form.errors.get('address_line2')"></div>
+                                           v-model.trim="contact.address_line2">
+                                    <div class="help-block" v-if="errors.address_line2" v-text="errors.address_line2[0]"></div>
                                 </div>
 
                                 <!--Zip-->
@@ -72,9 +72,9 @@
                                            name="zip"
                                            class="form-control"
                                            placeholder="e.g. 1002"
-                                           v-model.trim="form.zip"
+                                           v-model.trim="contact.zip"
                                            required>
-                                    <div class="help-block" v-if="form.errors.has('zip')" v-text="form.errors.get('zip')"></div>
+                                    <div class="help-block" v-if="errors.zip" v-text="errors.zip[0]"></div>
                                 </div>
 
                                 <!--City-->
@@ -86,9 +86,9 @@
                                            name="city"
                                            class="form-control"
                                            placeholder="e.g. Lausanne"
-                                           v-model.trim="form.city"
+                                           v-model.trim="contact.city"
                                            required>
-                                    <div class="help-block" v-if="form.errors.has('city')" v-text="form.errors.get('city')"></div>
+                                    <div class="help-block" v-if="errors.city" v-text="errors.city[0]"></div>
                                 </div>
 
                                 <!--Phone-->
@@ -99,8 +99,8 @@
                                            name="phone_number"
                                            class="form-control"
                                            placeholder="e.g. +41 (0)12 345 67 89"
-                                           v-model.trim="form.phone_number">
-                                    <div class="help-block" v-if="form.errors.has('phone_number')" v-text="form.errors.get('phone_number')"></div>
+                                           v-model.trim="contact.phone_number">
+                                    <div class="help-block" v-if="errors.phone_number" v-text="errors.phone_number[0]"></div>
                                 </div>
 
                                 <!--Fax-->
@@ -111,8 +111,8 @@
                                            name="fax"
                                            class="form-control"
                                            placeholder="e.g. +41 (0)12 345 67 90"
-                                           v-model.trim="form.fax">
-                                    <div class="help-block" v-if="form.errors.has('fax')" v-text="form.errors.get('fax')"></div>
+                                           v-model.trim="contact.fax">
+                                    <div class="help-block" v-if="errors.fax" v-text="errors.fax[0]"></div>
                                 </div>
 
                                 <!--Email-->
@@ -124,9 +124,9 @@
                                            name="email"
                                            class="form-control"
                                            placeholder="e.g. votre@email.ch"
-                                           v-model.trim="form.email"
+                                           v-model.trim="contact.email"
                                            required>
-                                    <div class="help-block" v-if="form.errors.has('email')" v-text="form.errors.get('email')"></div>
+                                    <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
                                 </div>
 
                                 <!--Buttons-->
@@ -139,7 +139,7 @@
                                     </div>
                                     <div class="col-12 col-lg-7 px-0 pl-lg-2">
                                         <button class="btn btn-block btn-lg btn-black"
-                                                @click.prevent="editContact">
+                                                @click.prevent="updateContact">
                                             Mettre à jour
                                         </button>
                                     </div>
@@ -162,7 +162,8 @@
         props: ['data'],
         data() {
             return {
-                form: new Form({
+                contact: {
+                    id: this.data.id,
                     name: this.data.name,
                     address_line1: this.data.address_line1,
                     address_line2: this.data.address_line2,
@@ -172,8 +173,8 @@
                     fax: this.data.fax,
                     email: this.data.email,
                     company_id: this.data.company_id
-                }),
-                contact: this.data,
+                },
+                errors: {},
                 color: '#fff',
                 size: '96px',
                 loading: false,
@@ -185,11 +186,10 @@
             toggleModal() {
                 this.showModal === false ? this.showModal = true : this.showModal = false;
             },
-
-            editContact() {
+            updateContact() {
                 this.loading = true;
 
-                this.form.put('/contacts/' + this.contact.id)
+                axios.put('/contacts/' + this.contact.id, this.contact)
                     .then(() => {
                         eventBus.$emit('contactWasUpdated', this.contact);
                     })
@@ -197,7 +197,10 @@
                         this.loading = false;
                         this.showModal = false;
                     })
-                    .catch(this.loading = false);
+                    .catch(error => {
+                        this.loading = false;
+                        this.errors = error.response.data;
+                    });
             }
         }
     }

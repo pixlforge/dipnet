@@ -120,7 +120,7 @@
             destroy() {
                 axios.delete('/contacts/' + this.contact.id);
 
-                this.$emit('deleted', this.contact.id);
+                this.$emit('contactWasDeleted', this.contact.id);
             },
 
             getDate(date) {
