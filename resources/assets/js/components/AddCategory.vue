@@ -2,7 +2,7 @@
     <div>
 
         <!--Button-->
-        <a @click="toggleModal" class="btn btn-lg btn-black mt-5">
+        <a @click="toggleModal" class="btn btn-lg btn-black mt-5" role="button">
             Nouvelle catégorie
         </a>
 

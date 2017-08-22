@@ -34117,6 +34117,9 @@ module.exports = Component.exports
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('a', {
     staticClass: "btn btn-lg btn-black mt-5",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": _vm.toggleModal
     }
@@ -34758,6 +34761,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('a', {
     staticClass: "btn btn-lg btn-black mt-5",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": _vm.toggleModal
     }
@@ -35015,7 +35021,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('a', {
     staticClass: "dropdown-item",
     attrs: {
-      "role": "button"
+      "role": "link"
     },
     on: {
       "click": function($event) {
@@ -35383,6 +35389,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('a', {
     staticClass: "btn btn-lg btn-black mt-5",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": _vm.toggleModal
     }
@@ -35679,7 +35688,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('a', {
     staticClass: "dropdown-item",
     attrs: {
-      "role": "button"
+      "role": "link"
     },
     on: {
       "click": function($event) {
@@ -35910,7 +35919,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('a', {
     staticClass: "dropdown-item",
     attrs: {
-      "role": "button"
+      "role": "link"
     },
     on: {
       "click": function($event) {

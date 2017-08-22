@@ -1,6 +1,6 @@
 <template>
     <div>
-        <a class="dropdown-item" role="button" @click.stop="toggleModal">
+        <a class="dropdown-item" role="link" @click.stop="toggleModal">
             <i class="fa fa-pencil"></i>
             <span class="ml-3">Modifier</span>
         </a>
