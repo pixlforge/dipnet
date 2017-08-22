@@ -32,9 +32,8 @@ class CategoryTest extends TestCase
     {
         $this->signIn(null, 'administrateur');
 
-        $response = $this->get('/categories');
-
-        $response->assertViewIs('categories.index');
+        $this->get('/categories')
+            ->assertStatus(200);
     }
 
     /**

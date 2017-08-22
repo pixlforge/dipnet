@@ -25,7 +25,10 @@ class CategoriesController extends Controller
     {
         $this->authorize('view', Category::class);
 
-        $categories = Category::all()->sortBy('name');
+        $categories = Category::latest()
+            ->orderBy('name')
+            ->get()
+            ->toJson();
 
         return view('categories.index', compact('categories'));
     }
@@ -114,6 +117,10 @@ class CategoriesController extends Controller
         $this->authorize('delete', $category);
 
         $category->delete();
+
+        if (request()->wantsJson()) {
+            return response([], 204);
+        }
 
         return redirect()->route('categories');
     }

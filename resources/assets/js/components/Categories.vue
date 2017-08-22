@@ -21,7 +21,7 @@
                                 v-for="(category, index) in categories"
                                 :data="category"
                                 :key="category"
-                                @formatWasDeleted="removeCategory(index)">
+                                @categoryWasDeleted="removeCategory(index)">
                     </app-category>
                 </transition-group>
                 <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
