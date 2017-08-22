@@ -51,15 +51,29 @@
             'app-add-format': AddFormat,
             MoonLoader
         },
+        created() {
+            eventBus.$on('formatWasUpdated', (data) => {
+                this.updateFormat(data);
+            })
+        },
         methods: {
             addFormat(format) {
                 this.formats.unshift(format);
-
                 flash('La création du format a réussi.');
+            },
+            updateFormat(data) {
+                for (let format of this.formats) {
+                    if (data.id === format.id) {
+                        format.name = data.name;
+                        format.height = data.height;
+                        format.width = data.width;
+                        format.surface = data.surface;
+                    }
+                }
+                flash('Les modifications apportées au format ont été enregistrées.')
             },
             removeFormat(index) {
                 this.formats.splice(index, 1);
-
                 flash('Suppression du format réussie.');
             }
         }

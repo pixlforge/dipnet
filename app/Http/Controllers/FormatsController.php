@@ -26,7 +26,16 @@ class FormatsController extends Controller
     {
         $this->authorize('view', Format::class);
 
-        $formats = Format::withTrashed()->get();
+        $formats = Format::withTrashed()
+            ->latest()
+            ->orderBy('name')
+            ->get()
+            ->toJson();
+
+        // Models are requested through Axios
+        if (request()->wantsJson()) {
+            return $formats;
+        }
 
         return view('formats.index', compact('formats'));
     }
@@ -53,12 +62,18 @@ class FormatsController extends Controller
     {
         $this->authorize('create', Format::class);
 
-        Format::create([
+        $format = Format::create([
             'name' => request('name'),
             'height' => request('height'),
             'width' => request('width'),
             'surface' => request('surface'),
         ]);
+
+        $first = 'first';
+
+        if (request()->expectsJson()) {
+            return $format->id;
+        }
 
         return redirect()->route('formats');
     }
@@ -100,12 +115,16 @@ class FormatsController extends Controller
     {
         $this->authorize('update', $format);
 
-        $format->update([
+        $format = $format->update([
             'name' => request('name'),
             'height' => request('height'),
             'width' => request('width'),
             'surface' => request('surface')
         ]);
+
+        if (request()->expectsJson()) {
+            return response([], 204);
+        }
 
         return redirect()->route('formats');
     }
@@ -121,6 +140,10 @@ class FormatsController extends Controller
         $this->authorize('delete', $format);
 
         $format->delete();
+
+        if (request()->wantsJson()) {
+            return response([], 204);
+        }
 
         return redirect()->route('formats');
     }

@@ -33,9 +33,9 @@
                                            name="name"
                                            class="form-control"
                                            placeholder="e.g. A4"
-                                           v-model.trim="form.name"
+                                           v-model.trim="format.name"
                                            required autofocus>
-                                    <div class="help-block" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></div>
+                                    <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
                                 </div>
 
                                 <!--Height-->
@@ -47,9 +47,9 @@
                                            name="height"
                                            class="form-control"
                                            placeholder="e.g. 297mm"
-                                           v-model.trim="form.height"
+                                           v-model.trim="format.height"
                                            required>
-                                    <div class="help-block" v-if="form.errors.has('height')" v-text="form.errors.get('height')"></div>
+                                    <div class="help-block" v-if="errors.height" v-text="errors.height[0]"></div>
                                 </div>
 
                                 <!--Width-->
@@ -61,9 +61,9 @@
                                            name="width"
                                            class="form-control"
                                            placeholder="e.g. 210mm"
-                                           v-model.trim="form.width"
+                                           v-model.trim="format.width"
                                            required>
-                                    <div class="help-block" v-if="form.errors.has('width')" v-text="form.errors.get('width')"></div>
+                                    <div class="help-block" v-if="errors.width" v-text="errors.width[0]"></div>
                                 </div>
 
                                 <!--Surface-->
@@ -74,8 +74,8 @@
                                            name="surface"
                                            class="form-control"
                                            placeholder="e.g. 62'500mm2"
-                                           v-model.trim="form.surface">
-                                    <div class="help-block" v-if="form.errors.has('surface')" v-text="form.errors.get('surface')"></div>
+                                           v-model.trim="format.surface">
+                                    <div class="help-block" v-if="errors.surface" v-text="errors.surface[0]"></div>
                                 </div>
 
                                 <!--Buttons-->
@@ -109,12 +109,13 @@
     export default {
         data() {
             return {
-                form: new Form({
+                format: {
                     name: '',
                     height: '',
                     width: '',
                     surface: ''
-                }),
+                },
+                errors: {},
                 color: '#fff',
                 size: '96px',
                 loading: false,
@@ -130,14 +131,20 @@
             addFormat() {
                 this.loading = true;
 
-                this.form.post('/formats')
+                axios.post('/formats', this.format)
                     .then(response => {
+                        this.format.id = response.data;
+                        this.$emit('formatWasCreated', this.format);
+                    })
+                    .then(() => {
                         this.loading = false;
                         this.showModal = false;
-
-                        this.$emit('formatWasCreated', response);
+                        this.format = {};
                     })
-                    .catch(this.loading = false);
+                    .catch(error => {
+                        this.loading = false;
+                        this.errors = error.response.data;
+                    });
             }
         }
     }

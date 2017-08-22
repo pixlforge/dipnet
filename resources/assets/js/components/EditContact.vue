@@ -156,7 +156,7 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import { eventBus } from '../app';
+    import {eventBus} from '../app';
 
     export default {
         props: ['data'],

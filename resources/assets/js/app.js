@@ -18,6 +18,8 @@ Vue.component('contact-details', require('./components/ContactDetails.vue'));
 Vue.component('company-details', require('./components/CompanyDetails.vue'));
 Vue.component('contacts', require('./components/Contacts.vue'));
 
+Vue.component('app-formats', require('./components/Formats.vue'));
+
 export const eventBus = new Vue();
 
 /**

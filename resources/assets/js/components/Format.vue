@@ -62,7 +62,7 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="Dropdown menu link">
 
-                    <!--<edit-contact :data="contact"></edit-contact>-->
+                    <app-edit-format :data="format"></app-edit-format>
 
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fa fa-trash"></i>
@@ -75,6 +75,7 @@
 </template>
 
 <script>
+    import EditFormat from './EditFormat.vue';
     import moment from 'moment';
 
     export default {
@@ -85,6 +86,9 @@
                 momentFormat: 'LLL',
                 momentLocale: 'fr'
             };
+        },
+        components: {
+            'app-edit-format': EditFormat
         },
         methods: {
             destroy() {
