@@ -6,39 +6,12 @@
 Auth::routes();
 Route::get('/logout', 'SessionsController@destroy');
 
-/**
- * Basic routes
- */
-//Route::get('/home', 'HomeController@index');
-//Route::get('/', 'PagesController@index')->name('index');
 Route::get('/', 'OrdersController@index')->name('index');
 
 /**
  * Admin routes
  */
 Route::get('/admin/dashboard', 'AdminController@dashboard')->name('dashboard');
-
-/**
- * User routes
- */
-Route::get('/users', 'UsersController@index')->name('users');
-Route::get('/users/create', 'UsersController@create');
-Route::post('/users', 'UsersController@store');
-Route::get('/users/{user}/edit', 'UsersController@edit');
-Route::put('/users/{user}', 'UsersController@update');
-Route::delete('/users/{user}', 'UsersController@destroy');
-Route::put('/users/{user}/restore', 'UsersController@restore');
-
-/**
- * Business routes
- */
-Route::get('/businesses', 'BusinessesController@index')->name('businesses');
-Route::get('/businesses/create', 'BusinessesController@create');
-Route::post('/businesses', 'BusinessesController@store');
-Route::get('/businesses/{business}/edit', 'BusinessesController@edit');
-Route::put('/businesses/{business}', 'BusinessesController@update');
-Route::delete('/businesses/{business}', 'BusinessesController@destroy');
-Route::put('/businesses/{business}/restore', 'BusinessesController@restore');
 
 /**
  * Company routes
@@ -52,15 +25,15 @@ Route::delete('/companies/{company}', 'CompaniesController@destroy');
 Route::put('/companies/{company}/restore', 'CompaniesController@restore');
 
 /**
- * Contact routes
+ * Business routes
  */
-Route::get('/contacts', 'ContactsController@index')->name('contacts');
-Route::get('/contacts/create', 'ContactsController@create');
-Route::post('/contacts', 'ContactsController@store');
-Route::get('/contacts/{contact}/edit', 'ContactsController@edit');
-Route::put('/contacts/{contact}', 'ContactsController@update');
-Route::delete('/contacts/{contact}', 'ContactsController@destroy');
-Route::put('/contacts/{contact}/restore', 'ContactsController@restore');
+Route::get('/businesses', 'BusinessesController@index')->name('businesses');
+Route::get('/businesses/create', 'BusinessesController@create');
+Route::post('/businesses', 'BusinessesController@store');
+Route::get('/businesses/{business}/edit', 'BusinessesController@edit');
+Route::put('/businesses/{business}', 'BusinessesController@update');
+Route::delete('/businesses/{business}', 'BusinessesController@destroy');
+Route::put('/businesses/{business}/restore', 'BusinessesController@restore');
 
 /**
  * Order routes
@@ -72,6 +45,37 @@ Route::get('/orders/{order}/edit', 'OrdersController@edit');
 Route::put('/orders/{order}', 'OrdersController@update');
 Route::delete('/orders/{order}', 'OrdersController@destroy');
 Route::put('/orders/{order}/restore', 'OrdersController@restore');
+
+/**
+ * Contact routes
+ */
+Route::get('/contacts', 'ContactsController@index')->name('contacts');
+Route::get('/contacts/create', 'ContactsController@create');
+Route::post('/contacts', 'ContactsController@store');
+Route::get('/contacts/{contact}/edit', 'ContactsController@edit');
+Route::put('/contacts/{contact}', 'ContactsController@update');
+Route::delete('/contacts/{contact}', 'ContactsController@destroy');
+Route::put('/contacts/{contact}/restore', 'ContactsController@restore');
+
+/**
+ * Delivery routes
+ */
+Route::get('/deliveries', 'DeliveriesController@index')->name('deliveries');
+Route::get('/deliveries/create', 'DeliveriesController@create');
+Route::post('/deliveries', 'DeliveriesController@store');
+Route::get('/deliveries/{delivery}/edit', 'DeliveriesController@edit');
+Route::put('/deliveries/{delivery}', 'DeliveriesController@update');
+Route::delete('/deliveries/{delivery}', 'DeliveriesController@destroy');
+Route::put('/deliveries/{delivery}/restore', 'DeliveriesController@restore');
+
+/**
+ * Document routes
+ */
+Route::get('/documents', 'DocumentsController@index')->name('documents');
+Route::get('/documents/create', 'DocumentsController@create');
+Route::post('/documents', 'DocumentsController@store');
+Route::get('/documents/{document}/edit', 'DocumentsController@edit');
+Route::put('/documents/{document}', 'DocumentsController@update');
 
 /**
  * Format routes
@@ -106,24 +110,15 @@ Route::delete('/articles/{article}', 'ArticlesController@destroy');
 Route::put('/articles/{article}/restore', 'ArticlesController@restore');
 
 /**
- * Document routes
+ * User routes
  */
-Route::get('/documents', 'DocumentsController@index')->name('documents');
-Route::get('/documents/create', 'DocumentsController@create');
-Route::post('/documents', 'DocumentsController@store');
-Route::get('/documents/{document}/edit', 'DocumentsController@edit');
-Route::put('/documents/{document}', 'DocumentsController@update');
-
-/**
- * Delivery routes
- */
-Route::get('/deliveries', 'DeliveriesController@index')->name('deliveries');
-Route::get('/deliveries/create', 'DeliveriesController@create');
-Route::post('/deliveries', 'DeliveriesController@store');
-Route::get('/deliveries/{delivery}/edit', 'DeliveriesController@edit');
-Route::put('/deliveries/{delivery}', 'DeliveriesController@update');
-Route::delete('/deliveries/{delivery}', 'DeliveriesController@destroy');
-Route::put('/deliveries/{delivery}/restore', 'DeliveriesController@restore');
+Route::get('/users', 'UsersController@index')->name('users');
+Route::get('/users/create', 'UsersController@create');
+Route::post('/users', 'UsersController@store');
+Route::get('/users/{user}/edit', 'UsersController@edit');
+Route::put('/users/{user}', 'UsersController@update');
+Route::delete('/users/{user}', 'UsersController@destroy');
+Route::put('/users/{user}/restore', 'UsersController@restore');
 
 /**
  * Profiles
