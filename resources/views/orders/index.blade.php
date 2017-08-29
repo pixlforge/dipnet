@@ -1,8 +1,10 @@
-@include('layouts.nav')
+@extends ('layouts.app')
 
-@extends('layouts.app')
+@include ('layouts.nav')
 
-@section('content')
+@section ('title', 'Commandes')
+
+@section ('content')
 
     <div class="container-fluid my-5">
         <div class="row">
