@@ -17,9 +17,9 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Categories.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -34,9 +34,9 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the view responsible for the creation of a new Category
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -46,24 +46,29 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new Category model.
      *
      * @param CategoryRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(CategoryRequest $request)
     {
         $this->authorize('create', Category::class);
 
-        Category::create([
+        $category = Category::create([
             'name' => request('name'),
         ]);
+
+        // Process the Axios http request and return the model's id.
+        if (request()->wantsJson()) {
+            return $category->id;
+        }
 
         return redirect()->route('categories');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Category.
      *
      * @param Category $category
      * @return \Illuminate\Http\Response
@@ -73,19 +78,6 @@ class CategoriesController extends Controller
         $this->authorize('view', $category);
 
         return view('categories.show', compact('category'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Category $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        $this->authorize('update', $category);
-
-        return view('categories.edit', compact('category'));
     }
 
     /**

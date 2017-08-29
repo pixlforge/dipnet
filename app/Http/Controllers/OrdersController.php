@@ -25,6 +25,7 @@ class OrdersController extends Controller
      */
     public function index()
     {
+        // TODO: transformer en middleware
         // Test against the user having entered all his necessary account details
         if (auth()->user()->contact_id === null) {
             return redirect()->route('contactDetails');
@@ -38,15 +39,14 @@ class OrdersController extends Controller
         $this->authorize('view', Order::class);
 
         if (auth()->user()->role == 'administrateur') {
-            $orders = Order::withTrashed()
-                ->with(['business', 'contact', 'user'])
-                ->get()
-                ->sortBy('created_at');
+            $orders = Order::with(['business', 'contact', 'user'])
+                ->orderBy('created_at')
+                ->get();
         } else {
             $orders = Order::where('user_id', auth()->user()->id)
                 ->with(['business', 'contact', 'user'])
-                ->get()
-                ->sortBy('created_at');
+                ->orderBy('created_at')
+                ->get();
         }
 
         return view('orders.index', compact('orders'));
@@ -59,7 +59,7 @@ class OrdersController extends Controller
      */
     public function create()
     {
-//        $this->authorize('create', Order::class);
+        $this->authorize('create', Order::class);
 
         $businesses = Business::all()->sortBy('company.name');
 
@@ -78,13 +78,17 @@ class OrdersController extends Controller
     {
         $this->authorize('create', Order::class);
 
-        Order::create([
+        $order = Order::create([
             'reference' => request('reference'),
             'status' => request('status'),
             'business_id' => request('business_id'),
             'contact_id' => request('contact_id'),
             'user_id' => auth()->id()
         ]);
+
+        if (request()->expectsJson()) {
+            return $order->id;
+        }
 
         return redirect()->route('orders');
     }
@@ -100,23 +104,6 @@ class OrdersController extends Controller
         $this->authorize('view', $order);
 
         return view('orders.show', compact('order'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Order $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        $this->authorize('update', $order);
-
-        $businesses = Business::all()->sortBy('company.name');
-
-        $contacts = Contact::all()->sortBy('company.name');
-
-        return view('orders.edit', compact(['businesses', 'contacts', 'order']));
     }
 
     /**

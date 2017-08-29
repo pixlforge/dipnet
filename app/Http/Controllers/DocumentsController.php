@@ -25,8 +25,9 @@ class DocumentsController extends Controller
     {
         $this->authorize('view', Document::class);
 
-        $documents = Document::all()
-            ->sortBy('file_name');
+        $documents = Document::orderBy('file_name')
+            ->get()
+            ->toJson();
 
         return view('documents.index', compact('documents'));
     }
@@ -82,19 +83,6 @@ class DocumentsController extends Controller
         $this->authorize('view', $document);
 
         return view('documents.show', compact('document'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Document $document
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Document $document)
-    {
-        $this->authorize('update', $document);
-
-        return view('documents.edit', compact('document'));
     }
 
     /**

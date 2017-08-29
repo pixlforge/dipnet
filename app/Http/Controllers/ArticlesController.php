@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Article;
 use App\Category;
 use App\Http\Requests\ArticleRequest;
-use Illuminate\Http\Request;
 
 class ArticlesController extends Controller
 {
@@ -18,15 +17,18 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the articles.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $this->authorize('view', Article::class);
 
-        $articles = Article::withTrashed()->with('category')->get()->sortBy('reference');
+        $articles = Article::with('category')
+            ->orderBy('reference')
+            ->get()
+            ->toJson();
 
         return view('articles.index', compact('articles'));
     }
@@ -34,7 +36,7 @@ class ArticlesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -55,12 +57,16 @@ class ArticlesController extends Controller
     {
         $this->authorize('create', Article::class);
 
-        Article::create([
+        $article = Article::create([
             'reference' => request('reference'),
             'description' => request('description'),
             'type' => request('type'),
             'category_id' => request('category')
         ]);
+
+        if (request()->expectsJson()) {
+            return $article->id;
+        }
 
         return redirect()->route('articles');
     }
@@ -76,21 +82,6 @@ class ArticlesController extends Controller
         $this->authorize('view', $article);
 
         return view('articles.show', compact('article'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Article $article
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Article $article)
-    {
-        $this->authorize('update', $article);
-
-        $categories = Category::all()->sortBy('name');
-
-        return view('articles.edit', compact(['article', 'categories']));
     }
 
     /**

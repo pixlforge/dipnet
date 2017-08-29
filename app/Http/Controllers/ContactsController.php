@@ -33,11 +33,9 @@ class ContactsController extends Controller
         // Request every model if the user is an admin,
         // request only the related models otherwise.
         if (auth()->user()->role == 'administrateur') {
-            $contacts = Contact::withTrashed()
+            $contacts = Contact::latest()
                 ->with('company')
-                ->latest()
                 ->orderBy('name')
-//                ->paginate(50)
                 ->get()
                 ->toJson();
         } else {
@@ -45,7 +43,6 @@ class ContactsController extends Controller
                 ->with('company')
                 ->latest()
                 ->orderBy('name')
-//                ->paginate(50)
                 ->get()
                 ->toJson();
         }
@@ -74,10 +71,10 @@ class ContactsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new Contact model.
      *
      * @param ContactRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(ContactRequest $request)
     {
@@ -97,7 +94,7 @@ class ContactsController extends Controller
         ]);
 
         if (request()->expectsJson()) {
-            return $contact;
+            return $contact->id;
         }
 
         return redirect()->route('contacts');
@@ -114,20 +111,6 @@ class ContactsController extends Controller
         $this->authorize('view', $contact);
 
         return view('contacts.show', compact('contact'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Contact $contact)
-    {
-        $this->authorize('update', $contact);
-
-        $companies = Company::all()->sortBy('name');
-
-        return view('contacts.edit', compact(['contact', 'companies']));
     }
 
     /**

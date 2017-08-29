@@ -20,26 +20,40 @@ class BusinessesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Businesses.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $this->authorize('view', Business::class);
 
-        $businesses = Business::withTrashed()
-            ->with('company', 'contact')
-            ->get()
-            ->sortBy('name');
+        if (auth()->user()->role === 'administrateur') {
+            $businesses = Business::with('company', 'contact')
+                ->orderBy('name')
+                ->get()
+                ->toJson();
 
-        return view('businesses.index', compact('businesses'));
+            $companies = Company::with('contact')
+                ->orderBy('name')
+                ->get()
+                ->toJson();
+        } else {
+            $businesses = Business::with('company', 'contact')
+                ->orderBy('name')
+                ->get()
+                ->toJson();
+        }
+
+        return view('businesses.index', compact([
+            'businesses', 'companies'
+        ]));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the view responsible of the creation of a new Business
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -58,60 +72,47 @@ class BusinessesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new Business model.
      *
      * @param BusinessRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|string
      */
     public function store(BusinessRequest $request)
     {
         $this->authorize('create', Business::class);
 
-        Business::create([
-            'name' => request('name'),
-            'reference' => request('reference'),
-            'description' => request('description'),
-            'company_id' => request('company_id'),
-            'contact_id' => request('contact_id'),
-            'created_by_username' => auth()->user()->username
-        ]);
+        if (auth()->user()->role == 'administrateur') {
+            $business = Business::create([
+                'name' => request('name'),
+                'reference' => request('reference'),
+                'description' => request('description'),
+                'company_id' => request('company_id'),
+                'contact_id' => request('contact_id'),
+                'created_by_username' => auth()->user()->username
+            ]);
+        } else {
+            $business = 'TODO';
+        }
+
+        // Process the Axios http request and return the model's id.
+        if (request()->wantsJson()) {
+            return $business->id;
+        }
 
         return redirect()->route('businesses');
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Business.
      *
      * @param Business $business
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Business $business)
     {
         $this->authorize('view', $business);
 
         return view('businesses.show', compact('business'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Business $business
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Business $business)
-    {
-        $this->authorize('update', $business);
-
-        $companies = Company::all()
-            ->sortBy('name');
-
-        $contacts = Contact::all()
-            ->sortBy('name')
-            ->sortBy('company.name');
-
-        return view('businesses.edit', compact([
-            'business', 'companies', 'contacts'
-        ]));
     }
 
     /**

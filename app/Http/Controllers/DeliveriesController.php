@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Order;
 use App\Contact;
 use App\Delivery;
 use App\Http\Requests\DeliveryRequest;
+use App\Order;
 use Illuminate\Http\Request;
 
 class DeliveriesController extends Controller
@@ -27,7 +27,10 @@ class DeliveriesController extends Controller
     {
         $this->authorize('view', Delivery::class);
 
-        $deliveries = Delivery::withTrashed()->with('order', 'contact')->get()->sortBy('created_at');
+        $deliveries = Delivery::with('order', 'contact')
+            ->orderBy('created_at')
+            ->get()
+            ->toJson();
 
         return view('deliveries.index', compact('deliveries'));
     }
@@ -78,23 +81,6 @@ class DeliveriesController extends Controller
         $this->authorize('view', $delivery);
 
         return view('deliveries.show');
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Delivery $delivery
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Delivery $delivery)
-    {
-        $this->authorize('update', $delivery);
-
-        $orders = Order::all();
-
-        $contacts = Contact::all();
-
-        return view('deliveries.edit', compact(['delivery', 'orders', 'contacts']));
     }
 
     /**

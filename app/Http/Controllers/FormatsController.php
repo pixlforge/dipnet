@@ -26,8 +26,7 @@ class FormatsController extends Controller
     {
         $this->authorize('view', Format::class);
 
-        $formats = Format::withTrashed()
-            ->latest()
+        $formats = Format::latest()
             ->orderBy('name')
             ->get()
             ->toJson();
@@ -41,9 +40,9 @@ class FormatsController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the view responsible for the creation of a new Format.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -53,10 +52,10 @@ class FormatsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new Format model.
      *
      * @param FormatRequest $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(FormatRequest $request)
     {
@@ -69,8 +68,7 @@ class FormatsController extends Controller
             'surface' => request('surface'),
         ]);
 
-        $first = 'first';
-
+        // Process the Axios http request and return the model's id.
         if (request()->expectsJson()) {
             return $format->id;
         }
@@ -79,7 +77,7 @@ class FormatsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Format.
      *
      * @param Format $format
      * @return \Illuminate\Http\Response
@@ -89,19 +87,6 @@ class FormatsController extends Controller
         $this->authorize('view', $format);
 
         return view('formats.show', compact('format'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Format $format
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Format $format)
-    {
-        $this->authorize('update', $format);
-
-        return view('formats.edit', compact('format'));
     }
 
     /**

@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Company;
 use App\Http\Requests\CompanyRequest;
-use Illuminate\Http\Request;
 
 class CompaniesController extends Controller
 {
@@ -17,7 +16,7 @@ class CompaniesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Companies.
      *
      * @return \Illuminate\Http\Response
      */
@@ -25,7 +24,8 @@ class CompaniesController extends Controller
     {
         $this->authorize('view', Company::class);
 
-        $companies = Company::withTrashed()->get()->sortBy('name');
+        $companies = Company::orderBy('name')
+            ->get();
 
         return view('companies.index', compact('companies'));
     }
@@ -43,7 +43,7 @@ class CompaniesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Persist a new Company model.
      *
      * @param CompanyRequest $request
      * @return \Illuminate\Http\Response
@@ -52,12 +52,16 @@ class CompaniesController extends Controller
     {
         $this->authorize('create', Company::class);
 
-        Company::create([
+        $company = Company::create([
             'name' => request('name'),
             'status' => request('status'),
             'description' => request('description'),
             'created_by_username' => auth()->user()->username
         ]);
+
+        if (request()->expectsJson()) {
+            return $company->id;
+        }
 
         return redirect()->route('companies');
     }
@@ -71,19 +75,6 @@ class CompaniesController extends Controller
     public function show(Company $company)
     {
         return view('companies.show', compact('company'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param Company $company
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Company $company)
-    {
-        $this->authorize('update', $company);
-
-        return view('companies.edit', compact('company'));
     }
 
     /**
