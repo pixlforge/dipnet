@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@include('layouts.nav')
+@include ('layouts.nav')
 
-@section('title', 'Catégories')
+@section ('title', 'Catégories')
 
-@section('content')
+@section ('content')
 
     <app-categories :data="{{ $categories }}"></app-categories>
 

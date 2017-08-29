@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@include('layouts.nav')
+@include ('layouts.nav')
 
-@section('title', 'Contacts')
+@section ('title', 'Contacts')
 
-@section('content')
+@section ('content')
 
     <contacts :data="{{ $contacts }}"></contacts>
 
