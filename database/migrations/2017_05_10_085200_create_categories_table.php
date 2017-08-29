@@ -17,6 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->increments('id');
             $table->string('name', 45)->unique();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
