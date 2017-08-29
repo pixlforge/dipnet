@@ -53,20 +53,6 @@ class UserTest extends TestCase
     }
 
     /**
-     * User edit view is available and requires a user
-     *
-     * @test
-     */
-    function user_edit_view_is_available_and_requires_a_user()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/users/' . $this->user->id . '/edit');
-
-        $response->assertViewIs('users.edit');
-    }
-
-    /**
      * Authorized users can create users
      *
      * @test
@@ -77,7 +63,8 @@ class UserTest extends TestCase
 
         $user = factory('App\User')->create();
 
-        $this->get('/users')->assertSee($user->username);
+        $this->get('/users')
+            ->assertStatus(200);
     }
 
     /**

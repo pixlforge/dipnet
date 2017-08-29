@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class ContactTest extends TestCase
 {
@@ -49,20 +47,6 @@ class ContactTest extends TestCase
         $response = $this->get('/contacts/create');
 
         $response->assertViewIs('contacts.create');
-    }
-    
-    /**
-     * Contact edit view is available and requires a contact
-     * 
-     * @test
-     */
-    function contact_edit_view_is_available_and_requires_a_contact()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/contacts/' . $this->contact->id . '/edit');
-
-        $response->assertViewIs('contacts.edit');
     }
 
     /**

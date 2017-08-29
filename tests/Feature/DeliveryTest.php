@@ -53,20 +53,6 @@ class DeliveryTest extends TestCase
     }
 
     /**
-     * Delivery edit view is available and requires a delivery
-     *
-     * @test
-     */
-    function delivery_edit_view_is_available_and_requires_a_delivery()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/deliveries/' . $this->delivery->id . '/edit');
-
-        $response->assertViewIs('deliveries.edit');
-    }
-
-    /**
      * Authorized users can create deliveries
      * 
      * @test

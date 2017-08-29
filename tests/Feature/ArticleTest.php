@@ -48,19 +48,6 @@ class ArticleTest extends TestCase
         $this->get('/articles/create')
             ->assertViewIs('articles.create');
     }
-
-    /**
-     * Article edit view is available and requires an article
-     *
-     * @test
-     */
-    function article_edit_view_is_available_and_requires_an_article()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $this->get('/articles/' . $this->article->reference . '/edit')
-            ->assertViewIs('articles.edit');
-    }
     
     /**
      * Authorized users can create articles

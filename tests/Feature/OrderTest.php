@@ -52,20 +52,6 @@ class OrderTest extends TestCase
     }
 
     /**
-     * Order edit view is available and requires an order
-     *
-     * @test
-     */
-    function order_edit_view_is_available_and_requires_an_order()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/orders/' . $this->order->id . '/edit');
-
-        $response->assertViewIs('orders.edit');
-    }
-
-    /**
      * Authorized users can create orders
      *
      * @test

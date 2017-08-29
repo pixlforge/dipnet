@@ -52,20 +52,6 @@ class CompanyTest extends TestCase
     }
 
     /**
-     * Company edit view is available
-     *
-     * @test
-     */
-    function company_edit_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/companies/' . $this->company->id . '/edit');
-
-        $response->assertViewIs('companies.edit');
-    }
-
-    /**
      * Authorized users can create companies
      *
      * @test

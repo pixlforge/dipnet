@@ -52,20 +52,6 @@ class FormatTest extends TestCase
     }
 
     /**
-     * Format edit view is available
-     *
-     * @test
-     */
-    function format_edit_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/formats/' . $this->format->id . '/edit');
-
-        $response->assertViewIs('formats.edit');
-    }
-
-    /**
      * Authorized users can create formats
      *
      * @test

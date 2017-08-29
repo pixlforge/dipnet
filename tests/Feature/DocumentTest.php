@@ -52,20 +52,6 @@ class DocumentTest extends TestCase
     }
 
     /**
-     * Document edit view is available and requires a document
-     *
-     * @test
-     */
-    function document_edit_view_is_available_and_requires_a_document()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/documents/' . $this->document->id . '/edit');
-
-        $response->assertViewIs('documents.edit');
-    }
-
-    /**
      * Authorized users can create documents
      *
      * @test

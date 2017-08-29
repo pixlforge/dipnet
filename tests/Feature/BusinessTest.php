@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
 
 class BusinessTest extends TestCase
 {
@@ -49,20 +47,6 @@ class BusinessTest extends TestCase
         $response = $this->get('/businesses/create');
 
         $response->assertViewIs('businesses.create');
-    }
-
-    /**
-     * Business edit view is available and requires a business
-     *
-     * @test
-     */
-    function business_edit_view_is_available_and_requires_a_business()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/businesses/' . $this->business->id . '/edit');
-
-        $response->assertViewIs('businesses.edit');
     }
 
     /**

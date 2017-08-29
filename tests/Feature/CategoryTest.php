@@ -51,20 +51,6 @@ class CategoryTest extends TestCase
     }
 
     /**
-     * Category edit view is available
-     *
-     * @test
-     */
-    function category_edit_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/categories/' . $this->category->id . '/edit');
-
-        $response->assertViewIs('categories.edit');
-    }
-
-    /**
      * Authorized users can create categories
      *
      * @test
