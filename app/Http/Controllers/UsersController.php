@@ -7,7 +7,6 @@ use App\Contact;
 use App\User;
 use App\Http\Requests\UserRequest;
 use App\Http\Requests\UpdateUserRequest;
-//use function foo\func;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -29,10 +28,9 @@ class UsersController extends Controller
     {
         $this->authorize('view', User::class);
 
-        $users = User::withTrashed()
-            ->with(['contact', 'company'])
-            ->get()
-            ->sortBy('username');
+        $users = User::with(['contact', 'company'])
+            ->orderBy('username')
+            ->get();
 
         return view('users.index', compact('users'));
     }
@@ -59,7 +57,7 @@ class UsersController extends Controller
     {
         $this->authorize('create', User::class);
 
-        User::create([
+        $user = User::create([
             'username' => request('username'),
             'password' => bcrypt(request('password')),
             'role' => request('role'),
@@ -68,6 +66,10 @@ class UsersController extends Controller
             'contact_id' => request('contact_id'),
             'company_id' => request('company_id')
         ]);
+
+        if (request()->expectsJson()) {
+            return $user->id;
+        }
 
         return redirect()->route('users');
     }
@@ -83,27 +85,6 @@ class UsersController extends Controller
         $this->authorize('view', $user);
 
         return view('users.show', compact('user'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param User $user
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        $this->authorize('update', $user);
-
-        $contacts = Contact::all()
-            ->sortBy('name');
-
-        $companies = Company::all()
-            ->sortBy('name');
-
-        return view('users.edit', compact([
-            'user', 'contacts', 'companies'
-        ]));
     }
 
     /**
