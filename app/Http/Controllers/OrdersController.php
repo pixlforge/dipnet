@@ -6,7 +6,6 @@ use App\Business;
 use App\Contact;
 use App\Http\Requests\OrderRequest;
 use App\Order;
-use Illuminate\Http\Request;
 
 class OrdersController extends Controller
 {
@@ -25,17 +24,6 @@ class OrdersController extends Controller
      */
     public function index()
     {
-        // TODO: transformer en middleware
-        // Test against the user having entered all his necessary account details
-        if (auth()->user()->contact_id === null) {
-            return redirect()->route('contactDetails');
-        }
-
-        if(auth()->user()->company_id === null) {
-            return redirect()->route('companyDetails');
-        }
-
-        // User is authorized to access this resource
         $this->authorize('view', Order::class);
 
         if (auth()->user()->role == 'administrateur') {
