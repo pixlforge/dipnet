@@ -1,0 +1,14 @@
+<?php
+
+use Faker\Generator as Faker;
+
+$factory->define(App\Article::class, function (Faker $faker) {
+    return [
+        'reference' => $faker->randomNumber($nbDigits = 8, $strict = false),
+        'description' => $faker->word,
+        'type' => $faker->randomElement(['impression', 'option']),
+        'category_id' => function() {
+            return factory(App\Category::class)->create()->id;
+        },
+    ];
+});
