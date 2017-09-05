@@ -12,9 +12,20 @@ $factory->define(App\Contact::class, function (Faker $faker) {
         'phone_number' => $faker->e164PhoneNumber,
         'fax' => $faker->e164PhoneNumber,
         'email' => $faker->companyEmail,
-        'company_id' => function() {
-            return factory(App\Company::class)->create()->id;
-        },
+        'company_id' => null,
         'created_by_username' => $faker->userName,
     ];
 });
+
+$factory->state(App\Contact::class, 'default', [
+    'name' => 'default',
+    'address_line1' => 'default',
+    'address_line2' => null,
+    'zip' => 'default',
+    'city' => 'default',
+    'phone_number' => 'default',
+    'fax' => 'default',
+    'email' => 'default',
+    'company_id' => null,
+    'created_by_username' => 'default',
+]);

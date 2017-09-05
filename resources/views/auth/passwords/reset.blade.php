@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('title', 'Réinitialisation du mot de passe')
+
+@section ('content')
 
 <div class="container-fluid bg-shapes-red">
     <div class="row vh-100">

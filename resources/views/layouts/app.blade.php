@@ -22,6 +22,7 @@
     <script>
         window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
+            'appName' => env('APP_NAME')
         ]) !!};
     </script>
 </head>

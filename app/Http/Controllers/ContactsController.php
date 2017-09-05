@@ -18,6 +18,10 @@ class ContactsController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => 'index']);
+        $this->middleware([
+            'user.account.contact',
+            'user.account.company'
+        ]);
     }
 
     /**

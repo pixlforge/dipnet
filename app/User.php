@@ -13,7 +13,9 @@ class User extends Authenticatable
     /**
      * Carbon dates
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at'
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -30,7 +32,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password','remember_token',
+        'remember_token',
     ];
 
     /**

@@ -1,6 +1,8 @@
-@extends('layouts.app')
+@extends ('layouts.app')
 
-@section('content')
+@section ('title', 'Connexion à votre compte')
+
+@section ('content')
 
     @include('layouts.company-logo')
 

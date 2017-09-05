@@ -6,6 +6,8 @@ use App\User;
 use App\Contact;
 use App\Company;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -22,14 +24,14 @@ class RegisterController extends Controller
     |
     */
 
-    use RegistersUsers;
+//    use RegistersUsers;
 
     /**
      * Where to redirect users after registration.
      *
      * @var string
      */
-    protected $redirectTo = 'profile/details/contact';
+//    protected $redirectTo = '/';
 
     /**
      * Create a new controller instance.
@@ -37,23 +39,45 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('guest')
+            ->except('updateContact', 'updateCompany');
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Show the registration view.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    protected function validator(array $data)
+    public function create()
     {
-        return Validator::make($data, [
+        return view('auth.register');
+    }
+
+    /**
+     * Store a new user account.
+     */
+    public function store()
+    {
+        $this->validateAccount();
+
+        $company = $this->createDefaultCompany();
+        $contact = $this->createDefaultContact($company->id);
+
+        $user = $this->createAccount($company, $contact);
+
+        return Auth::login($user);
+    }
+
+    /**
+     * Validate the user account.
+     */
+    protected function validateAccount()
+    {
+        request()->validate([
             'username' => 'required|string|unique:users|min:2|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
-        ],
-        [
+        ], [
             'username.required' => 'Veuillez entrer un nom d\'utilisateur.',
             'username.string' => 'Le nom d\'utilisateur doit être une chaîne de caractères.',
             'username.unique' => 'Ce nom d\'utilisateur est déjà utilisé.',
@@ -72,6 +96,156 @@ class RegisterController extends Controller
     }
 
     /**
+     * Create the user account.
+     *
+     * @param $company
+     * @param $contact
+     * @return $this|\Illuminate\Database\Eloquent\Model
+     */
+    protected function createAccount($company, $contact)
+    {
+        return User::create([
+            'username' => request('username'),
+            'password' => bcrypt(request('password')),
+            'role' => 'utilisateur',
+            'email' => request('email'),
+            'company_id' => $company->id,
+            'contact_id' => $contact->id
+        ]);
+    }
+
+
+    /**
+     * Create a default Company model to be associated with the user.
+     *
+     * @return mixed
+     */
+    protected function createDefaultCompany()
+    {
+        return factory('App\Company')
+            ->states('default')
+            ->create();
+    }
+
+    /**
+     * Create a default Contact model to be associated with the user.
+     *
+     * @param $companyId
+     * @return mixed
+     */
+    protected function createDefaultContact($companyId)
+    {
+        return factory('App\Contact')
+            ->states('default')
+            ->create(['company_id' => $companyId]);
+    }
+
+    public function updateContact()
+    {
+        request()->validate([
+            'name' => 'required|min:3|max:45',
+            'address_line1' => 'required|min:3|max:255',
+            'address_line2' => 'nullable|min:3|max:255',
+            'zip' => 'required|min:4|max:16',
+            'city' => 'required|min:3|max:45',
+            'phone_number' => 'nullable|max:45',
+            'fax' => 'nullable|max:45',
+            'email' => 'required|max:45'
+        ], [
+            'name.required' => 'Veuillez entrer un nom.',
+            'name.min' => 'Minimum 3 caractères.',
+            'name.max' => 'Maximum 45 caractères.',
+            'address_line1.required' => 'Veuillez entrer une adresse.',
+            'address_line1.min' => 'Minimum 3 caractères.',
+            'address_line1.max' => 'Maximum 255 caractères.',
+            'address_line2.min' => 'Minimum 3 caractères.',
+            'address_line2.max' => 'Maximum 255 caractères.',
+            'zip.required' => 'Veuillez entrer un code postal.',
+            'zip.min' => 'Le code postal doit être composé de 4 caractères au minimum.',
+            'zip.max' => 'Le code postal doit être composé de 16 caractères au maximum.',
+            'city.required' => 'Veuillez entrer une localité.',
+            'city.min' => 'Minimum 2 caractères.',
+            'city.max' => 'Maximum 45 caractères.',
+            'phone_number.max' => 'Le n° de téléphone doit être composé de 45 caractères au maximum.',
+            'fax.max' => 'Le n° de fax doit être composé de 45 caractères au maximum.',
+            'email.required' => 'Veuillez entrer une adresse e-mail pour le contact.',
+            'email.max' => 'Maximum 45 caractères.',
+        ]);
+
+        $contact = Contact::where('id', auth()->user()->contact_id);
+
+        $contact = $contact->update([
+            'name' => request('name'),
+            'address_line1' => request('address_line1'),
+            'address_line2' => request('address_line2'),
+            'zip' => request('zip'),
+            'city' => request('city'),
+            'phone_number' => request('phone_number'),
+            'fax' => request('fax'),
+            'email' => request('email'),
+            'created_by_username' => auth()->user()->username
+        ]);
+
+        return $contact;
+    }
+
+    public function updateCompany()
+    {
+        request()->validate([
+            'name' => 'nullable|min:3|max:45'
+        ], [
+            'name.min' => 'Minimum 3 caractères.',
+            'name.max' => 'Maximum 45 caractères.'
+        ]);
+
+        $company = Company::where('id', auth()->user()->company_id);
+
+        $company = $company->update([
+            'name' => request('name'),
+            'created_by_username' => auth()->user()->username
+        ]);
+
+        return $company;
+    }
+
+
+
+
+
+
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array  $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+//    protected function validator(array $data)
+//    {
+//        return Validator::make($data, [
+//            'username' => 'required|string|unique:users|min:2|max:255',
+//            'email' => 'required|string|email|max:255|unique:users',
+//            'password' => 'required|string|min:6|confirmed',
+//        ],
+//        [
+//            'username.required' => 'Veuillez entrer un nom d\'utilisateur.',
+//            'username.string' => 'Le nom d\'utilisateur doit être une chaîne de caractères.',
+//            'username.unique' => 'Ce nom d\'utilisateur est déjà utilisé.',
+//            'username.min' => 'Minimum 2 caractères.',
+//            'username.max' => 'Maximum 255 caractères.',
+//            'email.required' => 'Veuillez entrer une adresse e-mail.',
+//            'email.string' => 'L\'adresse e-mail doit être une chaîne de caractères.',
+//            'email.email' => 'L\'adresse e-mail doit correspondre au format utilisateur@fournisseur.tld.',
+//            'email.max' => 'Maximum 255 caractères.',
+//            'email.unique' => 'Cette adresse e-mail est déjà utilisée.',
+//            'password.required' => 'Un mot de passe est requis.',
+//            'password.string' => 'Le mot de passe doit être une chaîne de caractères.',
+//            'password.min' => 'Minimum 6 caractères.',
+//            'password.confirmed' => 'Les mots de passe ne concordent pas.'
+//        ]);
+//    }
+
+    /**
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
@@ -79,62 +253,59 @@ class RegisterController extends Controller
      */
 //    protected function create(array $data)
 //    {
-//        return $this->createAccount($data);
+//        $user = User::create([
+//            'username' => $data['username'],
+//            'password' => bcrypt($data['password']),
+//            'role' => 'utilisateur',
+//            'email' => $data['email'],
+//            'email_validated' => false,
+//        ]);
+//
+//        return $user;
 //    }
 
-    protected function create(array $data)
-    {
-        return User::create([
-            'username' => $data['username'],
-            'password' => bcrypt($data['password']),
-            'role' => 'utilisateur',
-            'email' => $data['email'],
-            'email_validated' => false,
-        ]);
-    }
-
-    public function contact(User $user) {
-        return $user->username;
-    }
+//    public function contact(User $user) {
+//        return $user->username;
+//    }
 
     /**
      * @param array $data
      * @return mixed
      */
-    protected function createRelatedCompany(array $data)
-    {
-        $companyName = $this->getCompanyName($data);
-
-        $company = Company::create([
-            'name' => $companyName,
-            'status' => 'temporaire',
-            'created_by_username' => $data['username']
-        ]);
-
-        return $company;
-    }
+//    protected function createRelatedCompany(array $data)
+//    {
+//        $companyName = $this->getCompanyName($data);
+//
+//        $company = Company::create([
+//            'name' => $companyName,
+//            'status' => 'temporaire',
+//            'created_by_username' => $data['username']
+//        ]);
+//
+//        return $company;
+//    }
 
     /**
      * @param array $data
      * @param $company
      * @return mixed
      */
-    protected function createRelatedContact(array $data, $company)
-    {
-        $contact = Contact::create([
-            'name' => $data['username'] . ' (Default)',
-            'address_line1' => $data['address_line1'],
-            'address_line2' => $data['address_line2'],
-            'zip' => $data['zip'],
-            'city' => $data['city'],
-            'phone_number' => $data['phone_number'],
-            'fax' => $data['fax'],
-            'email' => $data['email'],
-            'company_id' => $company->id,
-            'created_by_username' => $data['username']
-        ]);
-        return $contact;
-    }
+//    protected function createRelatedContact(array $data, $company)
+//    {
+//        $contact = Contact::create([
+//            'name' => $data['username'] . ' (Default)',
+//            'address_line1' => $data['address_line1'],
+//            'address_line2' => $data['address_line2'],
+//            'zip' => $data['zip'],
+//            'city' => $data['city'],
+//            'phone_number' => $data['phone_number'],
+//            'fax' => $data['fax'],
+//            'email' => $data['email'],
+//            'company_id' => $company->id,
+//            'created_by_username' => $data['username']
+//        ]);
+//        return $contact;
+//    }
 
     /**
      * @param array $data
@@ -142,40 +313,40 @@ class RegisterController extends Controller
      * @param $company
      * @return mixed
      */
-    protected function registerUser(array $data, $contact, $company)
-    {
-        return User::create([
-            'username' => $data['username'],
-            'password' => bcrypt($data['password']),
-            'role' => 'utilisateur',
-            'email' => $data['email'],
-            'email_validated' => false,
-            'contact_id' => $contact->id,
-            'company_id' => $company->id
-        ]);
-    }
+//    protected function registerUser(array $data, $contact, $company)
+//    {
+//        return User::create([
+//            'username' => $data['username'],
+//            'password' => bcrypt($data['password']),
+//            'role' => 'utilisateur',
+//            'email' => $data['email'],
+//            'email_validated' => false,
+//            'contact_id' => $contact->id,
+//            'company_id' => $company->id
+//        ]);
+//    }
 
     /**
      * @param array $data
      * @return mixed
      */
-    protected function createAccount(array $data)
-    {
-        $company = $this->createRelatedCompany($data);
-
-        $contact = $this->createRelatedContact($data, $company);
-
-        return $this->registerUser($data, $contact, $company);
-    }
+//    protected function createAccount(array $data)
+//    {
+//        $company = $this->createRelatedCompany($data);
+//
+//        $contact = $this->createRelatedContact($data, $company);
+//
+//        return $this->registerUser($data, $contact, $company);
+//    }
 
     /**
      * @param array $data
      * @return mixed
      */
-    protected function getCompanyName(array $data)
-    {
-        if (isset($data['name'])) return $companyName = $data['name'];
-
-        return $companyName = $data['username'] . ' (Default)';
-    }
+//    protected function getCompanyName(array $data)
+//    {
+//        if (isset($data['name'])) return $companyName = $data['name'];
+//
+//        return $companyName = $data['username'] . ' (Default)';
+//    }
 }

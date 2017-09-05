@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class UserRegistrationIsComplete
+class UserAccountCompanyInfo
 {
     /**
      * Handle an incoming request.
@@ -15,12 +15,8 @@ class UserRegistrationIsComplete
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->contact_id === null) {
-            return redirect()->route('contactDetails');
-        }
-
-        if(auth()->user()->company_id === null) {
-            return redirect()->route('companyDetails');
+        if (auth()->user()->company->name === 'default') {
+            return redirect()->route('missingCompany');
         }
 
         return $next($request);

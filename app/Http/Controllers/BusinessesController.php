@@ -16,7 +16,11 @@ class BusinessesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware([
+            'auth',
+            'user.account.contact',
+            'user.account.company'
+        ]);
     }
 
     /**

@@ -4,13 +4,6 @@
 
 @section ('content')
 
-    @include ('layouts.company-logo')
-
-    <div class="container-fluid">
-        <div class="row">
-            @include ('layouts.carousel')
-            <app-register></app-register>
-        </div>
-    </div>
+    <app-register></app-register>
 
 @endsection

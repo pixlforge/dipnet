@@ -8,7 +8,7 @@ $factory->define(App\User::class, function (Faker $faker) {
     return [
         'username' => $faker->unique()->userName,
         'password' => $password ?: $password = bcrypt('secret'),
-        'role' => $faker->randomElement(['utilisateur', 'administrateur']),
+        'role' => 'utilisateur',
         'email' => $faker->unique()->safeEmail,
         'email_validated' => false,
         'contact_id' => function () {

@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Business;
-use App\Contact;
-use App\Http\Requests\OrderRequest;
 use App\Order;
+use App\Contact;
+use App\Business;
+use App\Http\Requests\OrderRequest;
 
 class OrdersController extends Controller
 {
@@ -14,7 +14,11 @@ class OrdersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware([
+            'auth',
+            'user.account.contact',
+            'user.account.company'
+        ]);
     }
 
     /**

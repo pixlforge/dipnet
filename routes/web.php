@@ -4,16 +4,20 @@
  * Auth routes
  */
 Auth::routes();
+
+/**
+ * Register
+ */
+Route::get('/register',                         'Auth\RegisterController@create')
+    ->name('register');
+Route::post('/register',                        'Auth\RegisterController@store');
+Route::put('/register/contact',                 'Auth\RegisterController@updateContact');
+Route::put('/register/company',                 'Auth\RegisterController@updateCompany');
+
 Route::get('/logout',                           'SessionsController@destroy');
 
 Route::get('/',                                 'OrdersController@index')
     ->name('index');
-
-/**
- * Admin routes
- */
-Route::get('/admin/dashboard',                  'AdminController@dashboard')
-    ->name('dashboard');
 
 /**
  * Company routes
@@ -139,11 +143,11 @@ Route::get('/profile',                          'ProfilesController@profile')
     ->name('profile');
 Route::get('/profile/{user}/edit',              'ProfilesController@edit');
 Route::put('/profile/{user}',                   'ProfilesController@update');
-Route::get('/profile/details/contact',          'ProfilesController@contactDetails')
-    ->name('contactDetails');
-Route::post('/profile/details/contact',         'ProfilesController@contactDetailsStore')
-    ->name('contactDetailsStore');
-Route::get('/profile/details/company',          'ProfilesController@companyDetails')
-    ->name('companyDetails');
-Route::post('/profile/details/company',         'ProfilesController@companyDetailsStore')
-    ->name('companyDetailsStore');
+
+/**
+ * Account
+ */
+Route::get('/account/missing/contact',          'MissingContactInfoController@index')
+    ->name('missingContact');
+Route::get('/account/missing/company',          'MissingCompanyInfoController@index')
+    ->name('missingCompany');

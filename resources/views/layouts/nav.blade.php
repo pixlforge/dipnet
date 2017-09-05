@@ -85,11 +85,13 @@
 
                             <div class="divider mx-3"></div>
 
-                            <li class="nav-item">
-                                <a href="" class="nav-link">
-                                    {{ auth()->user()->company->name }}
-                                </a>
-                            </li>
+                            @if (auth()->user()->company)
+                                <li class="nav-item">
+                                    <a href="" class="nav-link">
+                                        {{ auth()->user()->company->name }}
+                                    </a>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </div>
