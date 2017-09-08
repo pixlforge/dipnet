@@ -115,7 +115,7 @@ class ContactTest extends TestCase
     function authenticated_users_must_first_confirm_their_email_address_before_creating_contacts()
     {
         $this->signIn(factory('App\User')
-            ->states('not-confirmed')
+            ->states('email-not-confirmed')
             ->create());
 
         $contact = factory('App\Contact')->make();

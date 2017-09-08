@@ -59,69 +59,50 @@ class RegisterTest extends TestCase
     }
 
     /**
- * It redirects the user if account contact information is missing
- *
- * @test
- */
-    function it_redirects_the_user_if_account_contact_information_is_missing()
-    {
-        $user = factory('App\User')->make([
-            'username' => 'JohnDoe',
-            'email' => 'johndoe@example.com',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
-            'contact_id' => 1,
-            'company_id' => 1
-        ]);
-
-        $this->post(route('register'), $user->toArray())
-            ->assertStatus(200);
-
-        $this->assertDatabaseHas('users', [
-            'username' => $user->username,
-            'email' => $user->email,
-            'contact_id' => 1,
-            'company_id' => 1
-        ]);
-
-        $this->get(route('index'))
-            ->assertRedirect(route('missingContact'));
-    }
-
-    /**
-     * It redirects the user if account company information is missing
+     * It redirects the user if account contact information is not confirmed
      *
      * @test
      */
-    function it_redirects_the_user_if_account_company_information_is_missing()
+    function it_redirects_the_user_if_account_contact_is_not_confirmed()
     {
-        $contact = factory('App\Contact')->create();
+        $user = factory('App\User')->states('contact-not-confirmed')->create();
 
-        $user = factory('App\User')->make([
-            'username' => 'JohnDoe',
-            'email' => 'johndoe@example.com',
-            'password' => 'secret',
-            'password_confirmation' => 'secret',
-            'contact_id' => $contact->id,
-            'company_id' => 1
+        $this->actingAs($user);
+
+        $this->get(route('index'))
+            ->assertRedirect(route('missingContact'));
+
+        $user->update([
+            'contact_confirmed' => true,
+            'company_confirmed' => true
         ]);
 
-        $this->post(route('register'), $user->toArray())
+        $this->get(route('index'))
             ->assertStatus(200);
+    }
 
-        $this->assertDatabaseHas('users', [
-            'username' => $user->username,
-            'email' => $user->email,
-            'contact_id' => 2,
-            'company_id' => 1
+    /**
+     * It redirects the user if account company information is not confirmed
+     *
+     * @test
+     */
+    function it_redirects_the_user_if_account_company_is_not_confirmed()
+    {
+        $user = factory('App\User')->states('company-not-confirmed')->create([
+            'contact_confirmed' => true
         ]);
 
-//        $user = User::where('id', 1)->first();
-//
-//        $this->actingAs($user);
-//
-//        $this->get(route('index'))
-//            ->assertRedirect(route('missingCompany'));
+        $this->actingAs($user);
+
+        $this->get(route('index'))
+            ->assertRedirect(route('missingCompany'));
+
+        $user->update([
+            'company_confirmed' => true
+        ]);
+
+        $this->get(route('index'))
+            ->assertStatus(200);
     }
     
     /**
@@ -133,7 +114,7 @@ class RegisterTest extends TestCase
     {
         Mail::fake();
 
-        event(new Registered(factory('App\User')->states('not-confirmed')->create()));
+        event(new Registered(factory('App\User')->states('email-not-confirmed')->create()));
 
         Mail::assertQueued(RegistrationEmailConfirmation::class);
     }

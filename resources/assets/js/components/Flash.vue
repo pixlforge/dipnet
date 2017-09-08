@@ -13,6 +13,7 @@
         data() {
             return {
                 body: this.message,
+                alertLevel: this.level,
                 show: false
             }
         },
@@ -24,14 +25,14 @@
         },
         computed: {
             alertClass() {
-                return 'alert-' + this.level;
+                return 'alert-' + this.alertLevel;
             }
         },
         methods: {
             flash(data) {
                 if (data) {
                     this.body = data.message;
-                    this.level = data.level;
+                    this.alertLevel = data.level;
                 }
 
                 this.show = true;

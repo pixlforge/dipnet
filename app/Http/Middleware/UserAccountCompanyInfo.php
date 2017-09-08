@@ -15,7 +15,7 @@ class UserAccountCompanyInfo
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->company->name === 'default') {
+        if (! auth()->user()->company_confirmed) {
             return redirect()->route('missingCompany');
         }
 

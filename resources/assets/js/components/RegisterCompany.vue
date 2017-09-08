@@ -46,26 +46,27 @@
                     <!--Name-->
                     <div class="form-group my-5">
                         <label for="name">Nom</label>
-                        <span class="required">requis</span>
                         <input type="text"
                                id="name"
                                name="name"
                                v-model="company.name"
                                class="form-control"
                                placeholder="e.g. Pantone SA"
-                               required autofocus>
+                               autofocus>
                         <div class="help-block"
                              v-if="errors.name"
                              v-text="errors.name[0]"></div>
                     </div>
 
                     <button class="btn btn-black btn-block mt-5"
-                            @click="updateCompanyInfo">
+                            @click="update">
                         Mettre à jour
                     </button>
 
+                    <p class="mt-5 text-center"><small>Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société et commandez en votre nom propre</small></p>
+
                     <p class="text-small text-center mt-5">
-                        <a href="/">
+                        <a @click="update">
                             Passer cette étape
                         </a>
                     </p>
@@ -103,10 +104,24 @@
             }
         },
         methods: {
-            updateCompanyInfo() {
+            update() {
                 this.toggleLoader();
 
-                axios.put('/register/company', this.company)
+                if (this.company.name.length === 0) {
+                    this.updateAsSelf();
+                } else {
+                    this.updateWithCompany();
+                }
+            },
+            updateWithCompany() {
+                this.updateCompany(this.company);
+            },
+            updateAsSelf() {
+                this.company.name = 'self';
+                this.updateCompany(this.company);
+            },
+            updateCompany(company) {
+                axios.put('/register/company', company)
                     .then(() => {
                         this.toggleLoader();
                         this.company = {};
@@ -125,6 +140,10 @@
 </script>
 
 <style scoped>
+    a {
+        cursor: pointer;
+    }
+
     .company-logo-container {
         position: fixed;
     }

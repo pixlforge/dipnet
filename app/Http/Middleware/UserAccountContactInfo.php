@@ -16,7 +16,7 @@ class UserAccountContactInfo
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->contact->name === 'default') {
+        if (! auth()->user()->contact_confirmed) {
             return redirect()->route('missingContact');
         }
 

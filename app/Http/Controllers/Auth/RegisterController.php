@@ -147,7 +147,7 @@ class RegisterController extends Controller
             'created_by_username' => auth()->user()->username
         ]);
 
-        return $contact;
+        $this->confirmContact();
     }
 
     /**
@@ -161,12 +161,19 @@ class RegisterController extends Controller
 
         $company = Company::where('id', auth()->user()->company_id);
 
-        $company = $company->update([
-            'name' => request('name'),
-            'created_by_username' => auth()->user()->username
-        ]);
+        if (request('name') !== 'self') {
+            $company = $company->update([
+                'name' => request('name'),
+                'created_by_username' => auth()->user()->username
+            ]);
+        } else {
+            $company = $company->update([
+                'name' => auth()->user()->username,
+                'created_by_username' => auth()->user()->username
+            ]);
+        }
 
-        return $company;
+        $this->confirmCompany();
     }
 
     /**
@@ -213,5 +220,23 @@ class RegisterController extends Controller
             'name.min' => 'Minimum 3 caractères.',
             'name.max' => 'Maximum 45 caractères.'
         ]);
+    }
+
+    /**
+     * Update the authenticated user as having confirmed his contact details.
+     */
+    protected function confirmContact()
+    {
+        auth()->user()->contact_confirmed = true;
+        auth()->user()->save();
+    }
+
+    /**
+     * Update the authenticated user as having confirmed his contact details.
+     */
+    protected function confirmCompany()
+    {
+        auth()->user()->company_confirmed = true;
+        auth()->user()->save();
     }
 }

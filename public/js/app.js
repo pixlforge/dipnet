@@ -29240,6 +29240,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             body: this.message,
+            alertLevel: this.level,
             show: false
         };
     },
@@ -29256,14 +29257,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     computed: {
         alertClass: function alertClass() {
-            return 'alert-' + this.level;
+            return 'alert-' + this.alertLevel;
         }
     },
     methods: {
         flash: function flash(data) {
             if (data) {
                 this.body = data.message;
-                this.level = data.level;
+                this.alertLevel = data.level;
             }
 
             this.show = true;
@@ -29596,6 +29597,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -29624,18 +29632,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        updateCompanyInfo: function updateCompanyInfo() {
-            var _this = this;
-
+        update: function update() {
             this.toggleLoader();
 
-            axios.put('/register/company', this.company).then(function () {
+            if (this.company.name.length === 0) {
+                this.updateAsSelf();
+            } else {
+                this.updateWithCompany();
+            }
+        },
+        updateWithCompany: function updateWithCompany() {
+            this.updateCompany(this.company);
+        },
+        updateAsSelf: function updateAsSelf() {
+            this.company.name = 'self';
+            this.updateCompany(this.company);
+        },
+        updateCompany: function updateCompany(company) {
+            var _this = this;
+
+            axios.put('/register/company', company).then(function () {
                 _this.toggleLoader();
                 _this.company = {};
-                flash('Félicitations! Votre compte a bien été mis à jour!');
+                flash({
+                    message: 'Félicitations! Votre compte a bien été mis à jour!',
+                    level: 'success'
+                });
                 setTimeout(function () {
                     window.location.pathname = '/';
-                }, 2000);
+                }, 2500);
             }).catch(function (error) {
                 _this.toggleLoader();
                 _this.errors = error.response.data.errors;
@@ -29877,7 +29902,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.put('/register/contact', this.contact).then(function () {
                 _this.toggleLoader();
                 _this.contact = {};
-                flash('Félicitations! Votre compte a bien été mis à jour!');
+                flash({
+                    message: 'Félicitations! Votre compte a bien été mis à jour!',
+                    level: 'success'
+                });
                 setTimeout(function () {
                     window.location.pathname = '/';
                 }, 2000);
@@ -30192,6 +30220,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -30221,12 +30250,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        updateCompanyInfo: function updateCompanyInfo() {
-            var _this = this;
-
+        update: function update() {
             this.toggleLoader();
 
-            axios.put('/register/company', this.company).then(function () {
+            if (this.company.name.length === 0) {
+                this.updateAsSelf();
+            } else {
+                this.updateWithCompany();
+            }
+        },
+        updateWithCompany: function updateWithCompany() {
+            this.updateCompany(this.company);
+        },
+        updateAsSelf: function updateAsSelf() {
+            this.company.name = 'self';
+            this.updateCompany(this.company);
+        },
+        updateCompany: function updateCompany(company) {
+            var _this = this;
+
+            axios.put('/register/company', company).then(function () {
                 _this.toggleLoader();
                 _this.company = {};
                 _this.$emit('companyWasUpdated');
@@ -34375,14 +34418,14 @@ exports.push([module.i, "\n.v-spinner .v-moon1\n{\n\n    -webkit-animation: v-mo
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
-exports.push([module.i, "\n.company-logo-container[data-v-59f3ce78] {\n    position: fixed;\n}\n", ""]);
+exports.push([module.i, "\na[data-v-59f3ce78] {\n    cursor: pointer;\n}\n.company-logo-container[data-v-59f3ce78] {\n    position: fixed;\n}\n", ""]);
 
 /***/ }),
 /* 180 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
-exports.push([module.i, "\n.company-logo-container[data-v-7d7c863d] {\n    position: fixed;\n}\n", ""]);
+exports.push([module.i, "\na[data-v-7d7c863d] {\n    cursor: pointer;\n}\n.company-logo-container[data-v-7d7c863d] {\n    position: fixed;\n}\n", ""]);
 
 /***/ }),
 /* 181 */
@@ -37742,9 +37785,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -37757,7 +37798,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "name",
       "name": "name",
       "placeholder": "e.g. Pantone SA",
-      "required": "",
       "autofocus": ""
     },
     domProps: {
@@ -37777,9 +37817,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e()]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-black btn-block mt-5",
     on: {
-      "click": _vm.updateCompanyInfo
+      "click": _vm.update
     }
-  }, [_vm._v("\n                    Mettre à jour\n                ")]), _vm._v(" "), _vm._m(1)])])])])
+  }, [_vm._v("\n                    Mettre à jour\n                ")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('p', {
+    staticClass: "text-small text-center mt-5"
+  }, [_c('a', {
+    on: {
+      "click": _vm.update
+    }
+  }, [_vm._v("\n                        Passer cette étape\n                    ")])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "d-flex flex-column justify-content-center checklist"
@@ -37806,12 +37852,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("4")]), _vm._v(" "), _c('span', [_vm._v("Prêt")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('p', {
-    staticClass: "text-small text-center mt-5"
-  }, [_c('a', {
-    attrs: {
-      "href": "/"
-    }
-  }, [_vm._v("\n                        Passer cette étape\n                    ")])])
+    staticClass: "mt-5 text-center"
+  }, [_c('small', [_vm._v("Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société et commandez en votre nom propre")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -38242,9 +38284,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -38257,7 +38297,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "name",
       "name": "name",
       "placeholder": "e.g. Pantone SA",
-      "required": "",
       "autofocus": ""
     },
     domProps: {
@@ -38277,9 +38316,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e()]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-black btn-block mt-5",
     on: {
-      "click": _vm.updateCompanyInfo
+      "click": _vm.update
     }
-  }, [_vm._v("\n                        Mettre à jour\n                    ")])])])])])])
+  }, [_vm._v("\n                        Mettre à jour\n                    ")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('p', {
+    staticClass: "text-small text-center mt-5"
+  }, [_c('a', {
+    on: {
+      "click": _vm.update
+    }
+  }, [_vm._v("\n                            Passer cette étape\n                        ")])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "d-flex flex-column justify-content-center checklist"
@@ -38304,6 +38349,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "badge badge-white mx-4"
   }, [_vm._v("4")]), _vm._v(" "), _c('span', [_vm._v("Prêt")])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('p', {
+    staticClass: "mt-5 text-center"
+  }, [_c('small', [_vm._v("Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société et commandez en votre nom propre")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

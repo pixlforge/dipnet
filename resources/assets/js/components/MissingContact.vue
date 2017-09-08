@@ -218,7 +218,10 @@
                     .then(() => {
                         this.toggleLoader();
                         this.contact = {};
-                        flash('Félicitations! Votre compte a bien été mis à jour!');
+                        flash({
+                            message: 'Félicitations! Votre compte a bien été mis à jour!',
+                            level: 'success'
+                        });
                         setTimeout(() => {
                             window.location.pathname = '/';
                         }, 2000);

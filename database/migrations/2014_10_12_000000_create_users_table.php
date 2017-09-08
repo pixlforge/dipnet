@@ -23,6 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('confirmation_token')->nullable();
 			$table->unsignedInteger('contact_id')->nullable();
             $table->unsignedInteger('company_id')->nullable();
+            $table->boolean('contact_confirmed')->default(false);
+            $table->boolean('company_confirmed')->default(false);
             $table->rememberToken();
             $table->timestamp('last_login_at')->nullable();
             $table->timestamps();
