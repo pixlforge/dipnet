@@ -40,18 +40,6 @@ class FormatsController extends Controller
     }
 
     /**
-     * Show the view responsible for the creation of a new Format.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create()
-    {
-        $this->authorize('create', Format::class);
-
-        return view('formats.create');
-    }
-
-    /**
      * Persist a new Format model.
      *
      * @param FormatRequest $request

@@ -31,7 +31,7 @@
     <div id="app">
         @yield('content')
 
-        <flash message="{{ session('flash') }}"></flash>
+        <flash message="{{ session('flash') }}" level="{{ session('level') }}"></flash>
 
     </div>
 

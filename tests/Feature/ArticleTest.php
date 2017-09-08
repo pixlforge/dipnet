@@ -33,19 +33,6 @@ class ArticleTest extends TestCase
         $this->get('/articles')
             ->assertViewIs('articles.index');
     }
-
-    /**
-     * Article create view is available
-     *
-     * @test
-     */
-    function article_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $this->get('/articles/create')
-            ->assertViewIs('articles.create');
-    }
     
     /**
      * Authorized users can create articles

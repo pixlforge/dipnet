@@ -1,8 +1,10 @@
-@include('layouts.nav')
+@extends ('layouts.app')
 
-@extends('layouts.app')
+@include ('layouts.nav')
 
-@section('content')
+@section ('title', 'Profile')
+
+@section ('content')
 
     <div class="container-fluid">
         <div class="row">
@@ -10,8 +12,19 @@
                 <h1 class="display-3 text-center my-5">Profil</h1>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-xs-12 col-md-6 col-lg-4">
+            @unless (auth()->user()->confirmed)
+                <div class="col-12 col-lg-6 mx-auto my-5">
+                    <div class="alert alert-danger text-center">
+                        <strong>Votre adresse e-mail n'est actuellement pas confirmée.</strong>
+                    </div>
+                </div>
+            @endunless
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
 
                 {{--Account--}}
                 <div class="card">

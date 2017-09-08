@@ -36,20 +36,6 @@ class BusinessTest extends TestCase
     }
 
     /**
-     * Business create view is available
-     *
-     * @test
-     */
-    function business_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/businesses/create');
-
-        $response->assertViewIs('businesses.create');
-    }
-
-    /**
      * Authorized users can create businesses
      *
      * @test

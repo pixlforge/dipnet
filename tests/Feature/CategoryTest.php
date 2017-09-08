@@ -35,20 +35,6 @@ class CategoryTest extends TestCase
     }
 
     /**
-     * Category create view is available
-     *
-     * @test
-     */
-    function category_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/categories/create');
-
-        $response->assertViewIs('categories.create');
-    }
-
-    /**
      * Authorized users can create categories
      *
      * @test

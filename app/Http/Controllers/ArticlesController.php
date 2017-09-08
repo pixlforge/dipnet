@@ -34,20 +34,6 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create()
-    {
-        $this->authorize('create', Article::class);
-
-        $categories = Category::all();
-
-        return view('articles.create', compact('categories'));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param ArticleRequest $request

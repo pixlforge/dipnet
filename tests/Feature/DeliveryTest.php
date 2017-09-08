@@ -36,20 +36,6 @@ class DeliveryTest extends TestCase
     }
 
     /**
-     * Delivery create view is available
-     *
-     * @test
-     */
-    function delivery_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/deliveries/create');
-
-        $response->assertViewIs('deliveries.create');
-    }
-
-    /**
      * Authorized users can create deliveries
      * 
      * @test

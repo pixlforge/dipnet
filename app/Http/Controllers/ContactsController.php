@@ -17,11 +17,12 @@ class ContactsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => 'index']);
         $this->middleware([
+            'auth',
             'user.account.contact',
             'user.account.company'
         ]);
+        $this->middleware('user.email.confirmed');
     }
 
     /**
@@ -58,20 +59,6 @@ class ContactsController extends Controller
 
         // Display view
         return view('contacts.index', compact('contacts'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create', Contact::class);
-
-        $companies = Company::all()->sortBy('name');
-
-        return view('contacts.create', compact('companies'));
     }
 
     /**

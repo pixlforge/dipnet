@@ -16,7 +16,7 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('erfgbn'),
             'role' => 'administrateur',
             'email' => 'celien@pixlforge.ch',
-            'email_validated' => 1
+            'confirmed' => 1
         ]);
 
         factory('App\User')->create([
@@ -24,7 +24,7 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('erfgbn'),
             'role' => 'utilisateur',
             'email' => 'c-boillat@hotmail.com',
-            'email_validated' => 1
+            'confirmed' => 1
         ]);
 
         factory('App\User')->create([
@@ -32,7 +32,7 @@ class AdminSeeder extends Seeder
             'password' => bcrypt('password'),
             'role' => 'administrateur',
             'email' => 'radu@bebold.ch',
-            'email_validated' => 1
+            'confirmed' => 1
         ]);
     }
 }

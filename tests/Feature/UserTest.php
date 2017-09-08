@@ -36,20 +36,6 @@ class UserTest extends TestCase
     }
 
     /**
-     * User create view is available
-     *
-     * @test
-     */
-    function user_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/users/create');
-
-        $response->assertViewIs('users.create');
-    }
-
-    /**
      * Authorized users can create users
      *
      * @test
@@ -75,7 +61,7 @@ class UserTest extends TestCase
 
         $user = factory('App\User')->create();
 
-        $user->username = 'Donald Trump';
+        $user->username = 'John Doe';
 
         $this->put("/users/{$user->id}", $user->toArray())
             ->assertRedirect('users');

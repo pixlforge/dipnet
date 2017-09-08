@@ -23,7 +23,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'email_validated', 'password', 'role', 'contact_id', 'company_id'
+        'username', 'email', 'email_validated', 'password', 'role', 'contact_id', 'company_id',
+        'confirmed', 'confirmation_token'
     ];
 
     /**
@@ -33,6 +34,13 @@ class User extends Authenticatable
      */
     protected $hidden = [
         'remember_token',
+    ];
+
+    /**
+     * The attributes that are cast into specific primitives.
+     */
+    protected $casts = [
+        'confirmed' => 'boolean'
     ];
 
     /**
@@ -73,5 +81,11 @@ class User extends Authenticatable
     public function contact()
     {
         return $this->belongsTo(Contact::class);
+    }
+
+    public function confirm()
+    {
+        $this->confirmed = true;
+        $this->save();
     }
 }

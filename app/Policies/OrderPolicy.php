@@ -28,7 +28,7 @@ class OrderPolicy
      */
     public function create()
     {
-        return auth()->user()->role == 'administrateur';
+        return Auth::check();
     }
 
     /**

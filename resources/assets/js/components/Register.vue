@@ -185,7 +185,10 @@
                 this.showContactForm = !this.showContactForm;
             },
             redirectToHome() {
-                flash('Félicitations! Votre compte est fin prêt!');
+                flash({
+                    message: 'Félicitations! Votre compte est fin prêt!',
+                    level: 'success'
+                });
                 setTimeout(() => {
                     window.location.pathname = '/';
                 }, 2000);

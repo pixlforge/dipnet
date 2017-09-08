@@ -36,20 +36,6 @@ class OrderTest extends TestCase
     }
 
     /**
-     * Order create view is available
-     *
-     * @test
-     */
-    function order_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/orders/create');
-
-        $response->assertViewIs('orders.create');
-    }
-
-    /**
      * Authorized users can create orders
      *
      * @test

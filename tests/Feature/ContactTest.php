@@ -36,20 +36,6 @@ class ContactTest extends TestCase
     }
 
     /**
-     * Contact create view is available
-     *
-     * @test
-     */
-    function contact_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/contacts/create');
-
-        $response->assertViewIs('contacts.create');
-    }
-
-    /**
      * Authorized users can create contacts
      *
      * @test
@@ -121,6 +107,23 @@ class ContactTest extends TestCase
             ->assertRedirect('/contacts');
     }
 
+    /**
+     * Authenticated users must first confirm their email address before creating contacts
+     *
+     * @test
+     */
+    function authenticated_users_must_first_confirm_their_email_address_before_creating_contacts()
+    {
+        $this->signIn(factory('App\User')
+            ->states('not-confirmed')
+            ->create());
+
+        $contact = factory('App\Contact')->make();
+        $this->post(route('contacts'), $contact->toArray())
+            ->assertRedirect(route('profile'))
+            ->assertSessionHas('flash');
+
+    }
 }
 
 

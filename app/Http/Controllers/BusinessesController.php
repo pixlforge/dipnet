@@ -21,6 +21,7 @@ class BusinessesController extends Controller
             'user.account.contact',
             'user.account.company'
         ]);
+        $this->middleware('user.email.confirmed')->except('index');
     }
 
     /**
@@ -51,27 +52,6 @@ class BusinessesController extends Controller
 
         return view('businesses.index', compact([
             'businesses', 'companies'
-        ]));
-    }
-
-    /**
-     * Show the view responsible of the creation of a new Business
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create()
-    {
-        $this->authorize('create', Business::class);
-
-        $companies = Company::all()
-            ->sortBy('name');
-
-        $contacts = Contact::all()
-            ->sortBy('name')
-            ->sortBy('company.name');
-
-        return view('businesses.create', compact([
-            'companies', 'contacts'
         ]));
     }
 

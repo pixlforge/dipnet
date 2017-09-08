@@ -34,18 +34,6 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Show the view responsible for the creation of a new Category
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create()
-    {
-        $this->authorize('create', Category::class);
-
-        return view('categories.create');
-    }
-
-    /**
      * Persist a new Category model.
      *
      * @param CategoryRequest $request

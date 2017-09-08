@@ -58,7 +58,10 @@
         methods: {
             addContact(contact) {
                 this.contacts.unshift(contact);
-                flash('La création du contact a réussi.');
+                flash({
+                    message: 'La création du contact a réussi.',
+                    level: 'success'
+                });
             },
             updateContact(data) {
                 for (let contact of this.contacts) {

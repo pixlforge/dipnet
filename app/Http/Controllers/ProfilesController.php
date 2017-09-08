@@ -34,7 +34,7 @@ class ProfilesController extends Controller
 
         $user = User::where('id', auth()->id())
             ->firstOrFail([
-                'id', 'username', 'email', 'email_validated', 'contact_id',
+                'id', 'username', 'email', 'confirmed', 'contact_id',
                 'company_id', 'last_login_at', 'created_at'
             ]);
 

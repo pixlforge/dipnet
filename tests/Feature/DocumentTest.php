@@ -36,20 +36,6 @@ class DocumentTest extends TestCase
     }
 
     /**
-     * Document create view is available
-     *
-     * @test
-     */
-    function document_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/documents/create');
-
-        $response->assertViewIs('documents.create');
-    }
-
-    /**
      * Authorized users can create documents
      *
      * @test

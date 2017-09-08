@@ -12,7 +12,7 @@ class CompaniesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'user.email.confirmed']);
     }
 
     /**
@@ -28,18 +28,6 @@ class CompaniesController extends Controller
             ->get();
 
         return view('companies.index', compact('companies'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create', Company::class);
-
-        return view('companies.create');
     }
 
     /**

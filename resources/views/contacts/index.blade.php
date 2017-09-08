@@ -6,6 +6,6 @@
 
 @section ('content')
 
-    <contacts :data="{{ $contacts }}"></contacts>
+    <app-contacts :data="{{ $contacts }}"></app-contacts>
 
 @endsection

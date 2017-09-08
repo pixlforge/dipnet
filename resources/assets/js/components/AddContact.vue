@@ -157,6 +157,7 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
+    import mixins from '../mixins';
 
     export default {
         data() {
@@ -179,6 +180,7 @@
             }
         },
         components: { MoonLoader },
+        mixins: [mixins],
         methods: {
             toggleModal() {
                 this.showModal === false ? this.showModal = true : this.showModal = false;
@@ -199,21 +201,9 @@
                     .catch(error => {
                         this.loading = false;
                         this.errors = error.response.data;
+                        this.redirectIfNotConfirmed(error);
                     });
             }
-
-//            addContact() {
-//                this.loading = true;
-//
-//                this.form.post('/contacts')
-//                    .then(response => {
-//                        this.loading = false;
-//                        this.showModal = false;
-//
-//                        this.$emit('contactWasCreated', response);
-//                    })
-//                    .catch(this.loading = false);
-//            }
         }
     }
 </script>

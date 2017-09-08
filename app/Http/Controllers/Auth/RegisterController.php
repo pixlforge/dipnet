@@ -6,6 +6,7 @@ use App\User;
 use App\Contact;
 use App\Company;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Validator;
@@ -13,16 +14,6 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Register Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles the registration of new users as well as their
-    | validation and creation. By default this controller uses a trait to
-    | provide this functionality without requiring any additional code.
-    |
-    */
 
 //    use RegistersUsers;
 
@@ -64,6 +55,8 @@ class RegisterController extends Controller
         $contact = $this->createDefaultContact($company->id);
 
         $user = $this->createAccount($company, $contact);
+
+        event(new Registered($user));
 
         return Auth::login($user);
     }
@@ -110,7 +103,8 @@ class RegisterController extends Controller
             'role' => 'utilisateur',
             'email' => request('email'),
             'company_id' => $company->id,
-            'contact_id' => $contact->id
+            'contact_id' => $contact->id,
+            'confirmation_token' => str_random(25)
         ]);
     }
 

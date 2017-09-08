@@ -36,22 +36,6 @@ class DeliveriesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create', Delivery::class);
-
-        $orders = Order::all();
-
-        $contacts = Contact::all()->sortBy('company.name');
-
-        return view('deliveries.create', compact(['orders', 'contacts']));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param DeliveryRequest $request

@@ -36,20 +36,6 @@ class FormatTest extends TestCase
     }
 
     /**
-     * Format create view is available
-     *
-     * @test
-     */
-    function format_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/formats/create');
-
-        $response->assertViewIs('formats.create');
-    }
-
-    /**
      * Authorized users can create formats
      *
      * @test

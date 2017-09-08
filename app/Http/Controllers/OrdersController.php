@@ -19,6 +19,7 @@ class OrdersController extends Controller
             'user.account.contact',
             'user.account.company'
         ]);
+        $this->middleware('user.email.confirmed')->except('index');
     }
 
     /**
@@ -45,22 +46,6 @@ class OrdersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create', Order::class);
-
-        $businesses = Business::all()->sortBy('company.name');
-
-        $contacts = Contact::all()->sortBy('company.name');
-
-        return view('orders.create', compact(['businesses', 'contacts']));
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param OrderRequest $request
@@ -68,7 +53,7 @@ class OrdersController extends Controller
      */
     public function store(OrderRequest $request)
     {
-        $this->authorize('create', Order::class);
+//        $this->authorize('create', Order::class);
 
         $order = Order::create([
             'reference' => request('reference'),

@@ -2,9 +2,10 @@
 
 namespace App\Policies;
 
-use App\User;
 use App\Business;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class BusinessPolicy
 {
@@ -17,7 +18,7 @@ class BusinessPolicy
      */
     public function view()
     {
-        return auth()->user()->role == 'administrateur';
+        return Auth::check();
     }
 
     /**

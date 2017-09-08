@@ -34,20 +34,6 @@ class CompanyTest extends TestCase
 
         $response->assertViewIs('companies.index');
     }
-    
-    /**
-     * Company create view is available
-     * 
-     * @test
-     */
-    function company_create_view_is_available()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $response = $this->get('/companies/create');
-
-        $response->assertViewIs('companies.create');
-    }
 
     /**
      * Authorized users can create companies

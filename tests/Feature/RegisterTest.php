@@ -2,9 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Contact;
 use App\User;
+use App\Contact;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Auth\Events\Registered;
+use App\Mail\RegistrationEmailConfirmation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterTest extends TestCase
@@ -119,5 +122,45 @@ class RegisterTest extends TestCase
 //
 //        $this->get(route('index'))
 //            ->assertRedirect(route('missingCompany'));
+    }
+    
+    /**
+     * A confirmation email is sent upon registration
+     * 
+     * @test
+     */
+    function a_confirmation_email_is_sent_upon_registration()
+    {
+        Mail::fake();
+
+        event(new Registered(factory('App\User')->states('not-confirmed')->create()));
+
+        Mail::assertQueued(RegistrationEmailConfirmation::class);
+    }
+    
+    /**
+     * Users can fully confirm their email addresses
+     * 
+     * @test
+     */
+    function users_can_fully_confirm_their_email_addresses()
+    {
+        $this->post(route('register'), [
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret',
+        ]);
+
+        $user = User::whereEmail('johndoe@example.com')->firstOrFail();
+
+        $this->assertFalse($user->confirmed);
+        $this->assertNotNull($user->confirmation_token);
+
+        $response = $this->get(route('register.confirm', ['token' => $user->confirmation_token]));
+
+        $this->assertTrue($user->fresh()->confirmed);
+
+        $response->assertRedirect(route('profile'));
     }
 }

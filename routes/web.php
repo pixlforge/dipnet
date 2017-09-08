@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/', 'OrdersController@index')->name('index');
+
 /**
  * Auth routes
  */
@@ -8,146 +10,144 @@ Auth::routes();
 /**
  * Register
  */
-Route::get('/register',                         'Auth\RegisterController@create')
-    ->name('register');
-Route::post('/register',                        'Auth\RegisterController@store');
-Route::put('/register/contact',                 'Auth\RegisterController@updateContact');
-Route::put('/register/company',                 'Auth\RegisterController@updateCompany');
+Route::prefix('/register')->group(function () {
+    Route::get('/', 'Auth\RegisterController@create')->name('register');
+    Route::post('/', 'Auth\RegisterController@store');
+    Route::put('/contact', 'Auth\RegisterController@updateContact');
+    Route::put('/company', 'Auth\RegisterController@updateCompany');
+    Route::get('/confirm', 'Auth\RegisterConfirmationController@index')->name('register.confirm');
+});
 
-Route::get('/logout',                           'SessionsController@destroy');
-
-Route::get('/',                                 'OrdersController@index')
-    ->name('index');
+Route::get('/logout', 'LogoutController');
 
 /**
  * Company routes
  */
-Route::get('/companies',                        'CompaniesController@index')
-    ->name('companies');
-Route::get('/companies/create',                 'CompaniesController@create');
-Route::post('/companies',                       'CompaniesController@store');
-Route::get('/companies/{company}/edit',         'CompaniesController@edit');
-Route::put('/companies/{company}',              'CompaniesController@update');
-Route::delete('/companies/{company}',           'CompaniesController@destroy');
-Route::put('/companies/{company}/restore',      'CompaniesController@restore');
+Route::prefix('/companies')->group(function () {
+    Route::get('/', 'CompaniesController@index')->name('companies');
+    Route::post('/', 'CompaniesController@store');
+    Route::put('/{company}', 'CompaniesController@update');
+    Route::delete('/{company}', 'CompaniesController@destroy');
+    Route::put('/{company}/restore', 'CompaniesController@restore');
+});
 
 /**
  * Business routes
  */
-Route::get('/businesses',                       'BusinessesController@index')
-    ->name('businesses');
-Route::get('/businesses/create',                'BusinessesController@create');
-Route::post('/businesses',                      'BusinessesController@store');
-Route::get('/businesses/{business}/edit',       'BusinessesController@edit');
-Route::put('/businesses/{business}',            'BusinessesController@update');
-Route::delete('/businesses/{business}',         'BusinessesController@destroy');
-Route::put('/businesses/{business}/restore',    'BusinessesController@restore');
+Route::prefix('/businesses')->group(function () {
+    Route::get('/', 'BusinessesController@index')->name('businesses');
+    Route::post('/', 'BusinessesController@store');
+    Route::put('/{business}', 'BusinessesController@update');
+    Route::delete('/{business}', 'BusinessesController@destroy');
+    Route::put('/{business}/restore', 'BusinessesController@restore');
+});
 
 /**
  * Order routes
  */
-Route::get('/orders',                           'OrdersController@index')
-    ->name('orders');
-Route::get('/orders/create',                    'OrdersController@create');
-Route::post('/orders',                          'OrdersController@store');
-Route::get('/orders/{order}/edit',              'OrdersController@edit');
-Route::put('/orders/{order}',                   'OrdersController@update');
-Route::delete('/orders/{order}',                'OrdersController@destroy');
-Route::put('/orders/{order}/restore',           'OrdersController@restore');
+Route::prefix('/orders')->group(function () {
+    Route::get('/', 'OrdersController@index')->name('orders');
+    Route::post('/', 'OrdersController@store');
+    Route::put('/{order}', 'OrdersController@update');
+    Route::delete('/{order}', 'OrdersController@destroy');
+    Route::put('/{order}/restore', 'OrdersController@restore');
+});
 
 /**
  * Contact routes
  */
-Route::get('/contacts',                         'ContactsController@index')
-    ->name('contacts');
-Route::get('/contacts/create',                  'ContactsController@create');
-Route::post('/contacts',                        'ContactsController@store');
-Route::get('/contacts/{contact}/edit',          'ContactsController@edit');
-Route::put('/contacts/{contact}',               'ContactsController@update');
-Route::delete('/contacts/{contact}',            'ContactsController@destroy');
-Route::put('/contacts/{contact}/restore',       'ContactsController@restore');
+Route::prefix('/contacts')->group(function () {
+    Route::get('/', 'ContactsController@index')->name('contacts');
+    Route::post('/', 'ContactsController@store');
+    Route::put('/{contact}', 'ContactsController@update');
+    Route::delete('/{contact}', 'ContactsController@destroy');
+    Route::put('/{contact}/restore', 'ContactsController@restore');
+});
 
 /**
  * Delivery routes
  */
-Route::get('/deliveries',                       'DeliveriesController@index')
-    ->name('deliveries');
-Route::get('/deliveries/create',                'DeliveriesController@create');
-Route::post('/deliveries',                      'DeliveriesController@store');
-Route::get('/deliveries/{delivery}/edit',       'DeliveriesController@edit');
-Route::put('/deliveries/{delivery}',            'DeliveriesController@update');
-Route::delete('/deliveries/{delivery}',         'DeliveriesController@destroy');
-Route::put('/deliveries/{delivery}/restore',    'DeliveriesController@restore');
+Route::prefix('/deliveries')->group(function () {
+    Route::get('/', 'DeliveriesController@index')->name('deliveries');
+    Route::post('/', 'DeliveriesController@store');
+    Route::put('/{delivery}', 'DeliveriesController@update');
+    Route::delete('/{delivery}', 'DeliveriesController@destroy');
+    Route::put('/{delivery}/restore', 'DeliveriesController@restore');
+});
 
 /**
  * Document routes
  */
-Route::get('/documents',                        'DocumentsController@index')
-    ->name('documents');
-Route::get('/documents/create',                 'DocumentsController@create');
-Route::post('/documents',                       'DocumentsController@store');
-Route::get('/documents/{document}/edit',        'DocumentsController@edit');
-Route::put('/documents/{document}',             'DocumentsController@update');
+Route::prefix('/documents')->group(function () {
+    Route::get('/', 'DocumentsController@index')->name('documents');
+    Route::post('/', 'DocumentsController@store');
+    Route::put('/{document}', 'DocumentsController@update');
+});
 
 /**
  * Format routes
  */
-Route::get('/formats',                          'FormatsController@index')
-    ->name('formats');
-Route::get('/formats/create',                   'FormatsController@create');
-Route::post('/formats',                         'FormatsController@store');
-Route::get('/formats/{format}/edit',            'FormatsController@edit');
-Route::put('/formats/{format}',                 'FormatsController@update');
-Route::delete('/formats/{format}',              'FormatsController@destroy');
-Route::put('/formats/{format}/restore',         'FormatsController@restore');
+Route::prefix('/formats')->group(function () {
+    Route::get('/', 'FormatsController@index')->name('formats');
+    Route::post('/', 'FormatsController@store');
+    Route::put('/{format}', 'FormatsController@update');
+    Route::delete('/{format}', 'FormatsController@destroy');
+    Route::put('/{format}/restore', 'FormatsController@restore');
+});
 
 /**
  * Category routes
  */
-Route::get('/categories',                       'CategoriesController@index')
-    ->name('categories');
-Route::get('/categories/create',                'CategoriesController@create');
-Route::post('/categories',                      'CategoriesController@store');
-Route::get('/categories/{category}/edit',       'CategoriesController@edit');
-Route::put('/categories/{category}',            'CategoriesController@update');
-Route::delete('/categories/{category}',         'CategoriesController@destroy');
+Route::prefix('/categories')->group(function () {
+    Route::get('/', 'CategoriesController@index')->name('categories');
+    Route::post('/', 'CategoriesController@store');
+    Route::put('/{category}', 'CategoriesController@update');
+    Route::delete('/{category}', 'CategoriesController@destroy');
+});
 
 /**
  * Article routes
  */
-Route::get('/articles',                         'ArticlesController@index')
-    ->name('articles');
-Route::get('/articles/create',                  'ArticlesController@create');
-Route::post('/articles',                        'ArticlesController@store');
-Route::get('/articles/{article}/edit',          'ArticlesController@edit');
-Route::put('/articles/{article}',               'ArticlesController@update');
-Route::delete('/articles/{article}',            'ArticlesController@destroy');
-Route::put('/articles/{article}/restore',       'ArticlesController@restore');
+Route::prefix('/articles')->group(function () {
+    Route::get('/', 'ArticlesController@index')->name('articles');
+    Route::post('/', 'ArticlesController@store');
+    Route::put('/{article}', 'ArticlesController@update');
+    Route::delete('/{article}', 'ArticlesController@destroy');
+    Route::put('/{article}/restore', 'ArticlesController@restore');
+});
 
 /**
  * User routes
  */
-Route::get('/users',                            'UsersController@index')
-    ->name('users');
-Route::get('/users/create',                     'UsersController@create');
-Route::post('/users',                           'UsersController@store');
-Route::get('/users/{user}/edit',                'UsersController@edit');
-Route::put('/users/{user}',                     'UsersController@update');
-Route::delete('/users/{user}',                  'UsersController@destroy');
-Route::put('/users/{user}/restore',             'UsersController@restore');
+Route::prefix('/users')->group(function () {
+    Route::get('/', 'UsersController@index')->name('users');
+    Route::post('/', 'UsersController@store');
+    Route::put('/{user}', 'UsersController@update');
+    Route::delete('/{user}', 'UsersController@destroy');
+    Route::put('/{user}/restore', 'UsersController@restore');
+});
 
 /**
  * Profiles
  */
-Route::get('/profile',                          'ProfilesController@profile')
-    ->name('profile');
-Route::get('/profile/{user}/edit',              'ProfilesController@edit');
-Route::put('/profile/{user}',                   'ProfilesController@update');
+Route::prefix('/profile')->group(function () {
+    Route::get('/', 'ProfilesController@profile')->name('profile');
+    Route::get('/{user}/edit', 'ProfilesController@edit');
+    Route::put('/{user}', 'ProfilesController@update');
+});
 
 /**
  * Account
  */
-Route::get('/account/missing/contact',          'MissingContactInfoController@index')
-    ->name('missingContact');
-Route::get('/account/missing/company',          'MissingCompanyInfoController@index')
-    ->name('missingCompany');
+Route::prefix('/account')->group(function () {
+    Route::get('/missing/contact', 'MissingContactInfoController@index')->name('missingContact');
+    Route::get('/missing/company', 'MissingCompanyInfoController@index')->name('missingCompany');
+});
+
+/**
+ * Mailables
+ */
+Route::get('/mailable/registration', function () {
+    $user = factory('App\User')->make();
+    return new \App\Mail\RegistrationEmailConfirmation($user);
+});
