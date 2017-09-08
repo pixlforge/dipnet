@@ -149,22 +149,6 @@
                              v-text="errors.fax[0]"></div>
                     </div>
 
-                    <!--Email-->
-                    <div class="form-group my-5">
-                        <label for="email">Email</label>
-                        <span class="required">requis</span>
-                        <input type="text"
-                               id="email"
-                               name="email"
-                               v-model="contact.email"
-                               class="form-control"
-                               placeholder="e.g. votre@adresse.ch"
-                               required>
-                        <div class="help-block"
-                             v-if="errors.email"
-                             v-text="errors.email[0]"></div>
-                    </div>
-
                     <button class="btn btn-black btn-block mt-5"
                             @click="updateContactInfo">
                         Mettre à jour
@@ -189,8 +173,7 @@
                     zip: '',
                     city: '',
                     phone_number: '',
-                    fax: '',
-                    email: ''
+                    fax: ''
                 },
                 errors: {},
                 loader: {

@@ -22,7 +22,7 @@ class ContactsController extends Controller
             'user.account.contact',
             'user.account.company'
         ]);
-        $this->middleware('user.email.confirmed');
+        $this->middleware('user.email.confirmed')->except('index');
     }
 
     /**

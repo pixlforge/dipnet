@@ -143,7 +143,7 @@ class RegisterController extends Controller
             'city' => request('city'),
             'phone_number' => request('phone_number'),
             'fax' => request('fax'),
-            'email' => request('email'),
+            'email' => auth()->user()->email,
             'created_by_username' => auth()->user()->username
         ]);
 
@@ -182,7 +182,6 @@ class RegisterController extends Controller
             'city' => 'required|min:3|max:45',
             'phone_number' => 'nullable|max:45',
             'fax' => 'nullable|max:45',
-            'email' => 'required|max:45'
         ], [
             'name.required' => 'Veuillez entrer un nom.',
             'name.min' => 'Minimum 3 caractères.',
@@ -199,9 +198,7 @@ class RegisterController extends Controller
             'city.min' => 'Minimum 2 caractères.',
             'city.max' => 'Maximum 45 caractères.',
             'phone_number.max' => 'Le n° de téléphone doit être composé de 45 caractères au maximum.',
-            'fax.max' => 'Le n° de fax doit être composé de 45 caractères au maximum.',
-            'email.required' => 'Veuillez entrer une adresse e-mail pour le contact.',
-            'email.max' => 'Maximum 45 caractères.',
+            'fax.max' => 'Le n° de fax doit être composé de 45 caractères au maximum.'
         ]);
     }
 

@@ -30411,22 +30411,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -30441,8 +30425,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 zip: '',
                 city: '',
                 phone_number: '',
-                fax: '',
-                email: ''
+                fax: ''
             },
             errors: {},
             loader: {
@@ -36523,43 +36506,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "help-block",
     domProps: {
       "textContent": _vm._s(_vm.errors.fax[0])
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
-  }, [_c('label', {
-    attrs: {
-      "for": "email"
-    }
-  }, [_vm._v("Email")]), _vm._v(" "), _c('span', {
-    staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.contact.email),
-      expression: "contact.email"
-    }],
-    staticClass: "form-control",
-    attrs: {
-      "type": "text",
-      "id": "email",
-      "name": "email",
-      "placeholder": "e.g. votre@adresse.ch",
-      "required": ""
-    },
-    domProps: {
-      "value": (_vm.contact.email)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.contact.email = $event.target.value
-      }
-    }
-  }), _vm._v(" "), (_vm.errors.email) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.email[0])
     }
   }) : _vm._e()]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-black btn-block mt-5",
