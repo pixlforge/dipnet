@@ -114,7 +114,12 @@ class RegisterTest extends TestCase
     {
         Mail::fake();
 
-        event(new Registered(factory('App\User')->states('email-not-confirmed')->create()));
+        $this->post(route('register'), [
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret',
+        ]);
 
         Mail::assertQueued(RegistrationEmailConfirmation::class);
     }

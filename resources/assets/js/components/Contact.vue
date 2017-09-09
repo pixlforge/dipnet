@@ -23,10 +23,8 @@
             </div>
 
             <!--Zip & City-->
-            <div v-if="contact.zip || contact.city">
-                <span class="card-content" v-if="contact.zip" v-text="contact.zip"></span>
-                <span class="card-content" v-if="contact.city" v-text="contact.city"></span>
-            </div>
+            <span class="card-content" v-if="contact.zip" v-text="contact.zip"></span>
+            <span class="card-content" v-if="contact.city" v-text="contact.city"></span>
         </div>
 
         <div class="col-12 col-lg-3">
@@ -85,10 +83,6 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="dropdownMenuLink">
-                    <!--<a class="dropdown-item text-success" href="">-->
-                    <!--<i class="fa fa-refresh"></i>-->
-                    <!--<span class="ml-3">Restaurer</span>-->
-                    <!--</a>-->
 
                     <edit-contact :data="contact"></edit-contact>
 
@@ -122,7 +116,6 @@
 
                 this.$emit('contactWasDeleted', this.contact.id);
             },
-
             getDate(date) {
                 return moment(date).locale(this.locale).format(this.format);
             }

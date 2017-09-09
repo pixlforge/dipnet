@@ -28568,12 +28568,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -37887,7 +37881,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.contact.address_line2)
     }
-  })]) : _vm._e(), _vm._v(" "), (_vm.contact.zip || _vm.contact.city) ? _c('div', [(_vm.contact.zip) ? _c('span', {
+  })]) : _vm._e(), _vm._v(" "), (_vm.contact.zip) ? _c('span', {
     staticClass: "card-content",
     domProps: {
       "textContent": _vm._s(_vm.contact.zip)
@@ -37897,7 +37891,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.contact.city)
     }
-  }) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-12 col-lg-3"
   }, [(_vm.contact.phone_number) ? _c('div', [_vm._m(1), _vm._v(" "), _c('span', {
     staticClass: "card-content",

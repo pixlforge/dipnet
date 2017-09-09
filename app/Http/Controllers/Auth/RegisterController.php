@@ -3,14 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Contact;
 use App\Company;
+use App\Contact;
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\RegistrationEmailConfirmation;
 
 class RegisterController extends Controller
 {
@@ -46,7 +44,7 @@ class RegisterController extends Controller
 
         $user = $this->createAccount($company, $contact);
 
-        event(new Registered($user));
+        $this->sendConfirmationEmail($user);
 
         return Auth::login($user, true);
     }
@@ -147,7 +145,7 @@ class RegisterController extends Controller
             'created_by_username' => auth()->user()->username
         ]);
 
-        $this->confirmContact();
+        $this->confirmField('contact_confirmed');
     }
 
     /**
@@ -173,7 +171,7 @@ class RegisterController extends Controller
             ]);
         }
 
-        $this->confirmCompany();
+        $this->confirmField('company_confirmed');
     }
 
     /**
@@ -223,20 +221,22 @@ class RegisterController extends Controller
     }
 
     /**
-     * Update the authenticated user as having confirmed his contact details.
+     * Confirm the user has entered his contact and company information
+     *
+     * @param $field
      */
-    protected function confirmContact()
+    protected function confirmField($field)
     {
-        auth()->user()->contact_confirmed = true;
+        auth()->user()->$field = true;
         auth()->user()->save();
     }
 
     /**
-     * Update the authenticated user as having confirmed his contact details.
+     * @param $user
      */
-    protected function confirmCompany()
+    protected function sendConfirmationEmail($user)
     {
-        auth()->user()->company_confirmed = true;
-        auth()->user()->save();
+        Mail::to($user)
+            ->queue(new RegistrationEmailConfirmation($user));
     }
 }
