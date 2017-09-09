@@ -86,6 +86,11 @@ class User extends Authenticatable
     public function confirm()
     {
         $this->confirmed = true;
+        $this->confirmation_token = null;
         $this->save();
+    }
+
+    public static function generateConfirmationToken($field) {
+        return md5(request($field) . str_random(10));
     }
 }

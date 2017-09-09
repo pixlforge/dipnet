@@ -92,7 +92,7 @@ class RegisterController extends Controller
             'email' => request('email'),
             'company_id' => $company->id,
             'contact_id' => $contact->id,
-            'confirmation_token' => str_random(25)
+            'confirmation_token' => User::generateConfirmationToken(request('email'))
         ]);
     }
 

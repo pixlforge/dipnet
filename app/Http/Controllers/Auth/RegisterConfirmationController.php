@@ -9,16 +9,16 @@ class RegisterConfirmationController extends Controller
 {
     public function index()
     {
-        try {
-            User::where('confirmation_token', request('token'))
-                ->firstOrFail()
-                ->confirm();
-        } catch (\Exception $e) {
+        $user = User::where('confirmation_token', request('token'))->first();
+
+        if (! $user) {
             return redirect()
                 ->route('index')
                 ->with('flash', 'La confirmation de votre compte a échoué. Le code de confirmation est invalide.')
                 ->with('level', 'danger');
         }
+
+        $user->confirm();
 
         return redirect()
             ->route('profile')

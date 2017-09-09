@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->enum('role', ['utilisateur', 'administrateur'])->default('utilisateur');
             $table->string('email')->unique();
             $table->boolean('confirmed')->default(false);
-            $table->string('confirmation_token')->nullable();
+            $table->string('confirmation_token')->nullable()->unique();
 			$table->unsignedInteger('contact_id')->nullable();
             $table->unsignedInteger('company_id')->nullable();
             $table->boolean('contact_confirmed')->default(false);
