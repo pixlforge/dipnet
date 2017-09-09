@@ -108,11 +108,11 @@ class ContactTest extends TestCase
     }
 
     /**
-     * Authenticated users must first confirm their email address before creating contacts
+     * New users must first confirm their email address before creating contacts
      *
      * @test
      */
-    function authenticated_users_must_first_confirm_their_email_address_before_creating_contacts()
+    function new_users_must_first_confirm_their_email_address_before_creating_contacts()
     {
         $this->signIn(factory('App\User')
             ->states('email-not-confirmed')

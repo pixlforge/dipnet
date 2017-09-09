@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use App\User;
-use App\Contact;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Auth\Events\Registered;
 use App\Mail\RegistrationEmailConfirmation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -37,6 +35,8 @@ class RegisterTest extends TestCase
         // Given a guest registers a new account
         // Then, a default contact should be automatically created for this user,
         // Alongside a default company
+
+        Mail::fake();
 
         $user = factory('App\User')->make([
             'username' => 'JohnDoe',
@@ -131,6 +131,8 @@ class RegisterTest extends TestCase
      */
     function users_can_fully_confirm_their_email_addresses()
     {
+        Mail::fake();
+
         $this->post(route('register'), [
             'username' => 'John Doe',
             'email' => 'johndoe@example.com',
@@ -143,10 +145,21 @@ class RegisterTest extends TestCase
         $this->assertFalse($user->confirmed);
         $this->assertNotNull($user->confirmation_token);
 
-        $response = $this->get(route('register.confirm', ['token' => $user->confirmation_token]));
+        $this->get(route('register.confirm', ['token' => $user->confirmation_token]))
+            ->assertRedirect(route('profile'));
 
         $this->assertTrue($user->fresh()->confirmed);
-
-        $response->assertRedirect(route('profile'));
+    }
+    
+    /**
+     * Confirming an invalid token
+     * 
+     * @test
+     */
+    function confirming_an_invalid_token()
+    {
+        $this->get(route('register.confirm', ['token' => 'invalid']))
+            ->assertRedirect(route('index'))
+            ->assertSessionHas('flash');
     }
 }
