@@ -5268,10 +5268,20 @@ function applyToTag (styleElement, obj) {
                 color: '#fff',
                 size: '96px',
                 loading: false
-            }
+            },
+            showModal: false,
+            appName: Laravel.appName
         };
     },
 
+    computed: {
+        logo: function logo() {
+            return this.appName === 'Dipnet' ? 'company-logo-dip' : 'company-logo-multicop';
+        },
+        logoWhite: function logoWhite() {
+            return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
+        }
+    },
     methods: {
         redirectIfNotConfirmed: function redirectIfNotConfirmed(error) {
             if (error.response.status === 403) {
@@ -5286,6 +5296,9 @@ function applyToTag (styleElement, obj) {
         },
         toggleLoader: function toggleLoader() {
             this.loader.loading = !this.loader.loading;
+        },
+        toggleModal: function toggleModal() {
+            this.showModal === false ? this.showModal = true : this.showModal = false;
         }
     }
 });
@@ -27412,6 +27425,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -27492,6 +27506,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -27501,34 +27516,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             company: {
                 name: ''
             },
-            errors: {},
-            loader: {
-                color: '#fff',
-                size: '96px',
-                loading: false
-            },
-            appName: Laravel.appName
+            errors: {}
         };
     },
 
     components: {
         'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
     },
-    computed: {
-        logoWhite: function logoWhite() {
-            return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
-        }
-    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
     methods: {
-        //            update() {
-        //                this.toggleLoader();
-        //
-        //                if (this.company.name.length === 0) {
-        //                    this.updateAsSelf();
-        //                } else {
-        //                    this.updateWithCompany();
-        //                }
-        //            },
         updateWithCompany: function updateWithCompany() {
             this.updateCompany(this.company);
         },
@@ -27556,9 +27552,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.toggleLoader();
                 _this.errors = error.response.data.errors;
             });
-        },
-        toggleLoader: function toggleLoader() {
-            this.loader.loading = !this.loader.loading;
         }
     }
 });
@@ -27571,6 +27564,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -27734,6 +27728,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -27749,24 +27745,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 phone_number: '',
                 fax: ''
             },
-            errors: {},
-            loader: {
-                color: '#fff',
-                size: '96px',
-                loading: false
-            },
-            appName: Laravel.appName
+            errors: {}
         };
     },
 
     components: {
         'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
     },
-    computed: {
-        logoWhite: function logoWhite() {
-            return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
-        }
-    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
     methods: {
         updateContactInfo: function updateContactInfo() {
             var _this = this;
@@ -27787,9 +27773,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.toggleLoader();
                 _this.errors = error.response.data.errors;
             });
-        },
-        toggleLoader: function toggleLoader() {
-            this.loader.loading = !this.loader.loading;
         }
     }
 });
@@ -27903,8 +27886,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 password: '',
                 password_confirmation: ''
             },
-            errors: {},
-            appName: Laravel.appName
+            errors: {}
         };
     },
 
@@ -27913,11 +27895,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'app-moon-loader': __WEBPACK_IMPORTED_MODULE_1_vue_spinner_src_MoonLoader_vue___default.a
     },
     mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
-    computed: {
-        logo: function logo() {
-            return this.appName === 'Dipnet' ? 'company-logo-dip' : 'company-logo-multicop';
-        }
-    },
     methods: {
         updateAccount: function updateAccount() {
             var _this = this;
@@ -27950,6 +27927,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -28064,6 +28042,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -28078,15 +28057,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 company_id: 0,
                 contact_id: ''
             },
-            errors: {},
-            color: '#fff',
-            size: '96px',
-            loading: false,
-            showModal: false
+            errors: {}
         };
     },
 
-    components: { MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a },
+    components: {
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
     mounted: function mounted() {
         console.log(this.companies[this.business.company_id].contact);
     },
@@ -28097,23 +28075,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        toggleModal: function toggleModal() {
-            this.showModal === false ? this.showModal = true : this.showModal = false;
-        },
         addFormat: function addFormat() {
             var _this = this;
 
-            this.loading = true;
+            this.toggleLoader();
 
             axios.post('/businesses', this.business).then(function (response) {
                 _this.business.id = response.data;
                 _this.$emit('businessWasCreated', _this.business);
             }).then(function () {
-                _this.loading = false;
-                _this.showModal = false;
+                _this.toggleLoader();
+                _this.toggleModal();
                 _this.business = {};
             }).catch(function (error) {
-                _this.loading = false;
+                _this.toggleLoader();
                 _this.errors = error.response.data;
             });
         }
@@ -28128,6 +28103,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -28193,6 +28169,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -28202,33 +28180,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             category: {
                 name: ''
             },
-            errors: {},
-            color: '#fff',
-            size: '96px',
-            loading: false,
-            showModal: false
+            errors: {}
         };
     },
 
-    components: { MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a },
+    components: {
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+    },
     methods: {
-        toggleModal: function toggleModal() {
-            this.showModal === false ? this.showModal = true : this.showModal = false;
-        },
         addCategory: function addCategory() {
             var _this = this;
 
-            this.loading = true;
+            this.toggleLoader();
 
             axios.post('/categories', this.category).then(function (response) {
                 _this.category.id = response.data;
                 _this.$emit('categoryWasCreated', _this.category);
             }).then(function () {
-                _this.loading = false;
-                _this.showModal = false;
+                _this.toggleLoader();
+                _this.toggleModal();
                 _this.category = {};
             }).catch(function (error) {
-                _this.loading = false;
+                _this.toggleLoader();
                 _this.errors = error.response.data;
             });
         }
@@ -28418,8 +28391,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 fax: '',
                 email: ''
             },
-            errors: {},
-            showModal: false
+            errors: {}
         };
     },
 
@@ -28431,17 +28403,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         addContact: function addContact() {
             var _this = this;
 
-            this.loading = true;
+            this.toggleLoader();
 
             axios.post('/contacts', this.contact).then(function (response) {
                 _this.contact.id = response.data;
                 _this.$emit('contactWasCreated', _this.contact);
             }).then(function () {
-                _this.loading = false;
-                _this.showModal = false;
+                _this.toggleLoader();
+                _this.toggleModal();
                 _this.contact = {};
             }).catch(function (error) {
-                _this.loading = false;
+                _this.toggleLoader();
                 _this.errors = error.response.data;
                 _this.redirectIfNotConfirmed(error);
             });
@@ -28457,6 +28429,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -28562,6 +28535,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -28574,33 +28548,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 width: '',
                 surface: ''
             },
-            errors: {},
-            color: '#fff',
-            size: '96px',
-            loading: false,
-            showModal: false
+            errors: {}
         };
     },
 
-    components: { MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a },
+    components: {
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
     methods: {
-        toggleModal: function toggleModal() {
-            this.showModal === false ? this.showModal = true : this.showModal = false;
-        },
         addFormat: function addFormat() {
             var _this = this;
 
-            this.loading = true;
+            this.toggleLoader();
 
             axios.post('/formats', this.format).then(function (response) {
                 _this.format.id = response.data;
                 _this.$emit('formatWasCreated', _this.format);
             }).then(function () {
-                _this.loading = false;
-                _this.showModal = false;
+                _this.toggleLoader();
+                _this.toggleModal();
                 _this.format = {};
             }).catch(function (error) {
-                _this.loading = false;
+                _this.toggleLoader();
                 _this.errors = error.response.data;
             });
         }
@@ -28716,7 +28686,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         destroy: function destroy() {
             axios.delete('/businesses/' + this.business.id);
-
             this.$emit('businessWasDeleted', this.business.id);
         },
         getDate: function getDate(date) {
@@ -28738,6 +28707,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -28772,6 +28742,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -28783,20 +28755,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     data: function data() {
         return {
             businesses: this.businessesData,
-            companies: this.companiesData,
-            loader: {
-                color: '#fff',
-                size: '96px',
-                loading: false
-            }
+            companies: this.companiesData
         };
     },
 
     components: {
         'app-business': __WEBPACK_IMPORTED_MODULE_0__Business_vue___default.a,
         'app-add-business': __WEBPACK_IMPORTED_MODULE_1__AddBusiness_vue___default.a,
-        MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
     },
+    mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
     created: function created() {
         var _this = this;
 
@@ -28864,6 +28832,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -28896,6 +28865,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -28906,17 +28877,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['data'],
     data: function data() {
         return {
-            categories: this.data,
-            color: '#fff',
-            size: '96px',
-            loading: false
+            categories: this.data
         };
     },
 
+    mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
     components: {
         'app-category': __WEBPACK_IMPORTED_MODULE_0__Category_vue___default.a,
         'app-add-category': __WEBPACK_IMPORTED_MODULE_1__AddCategory_vue___default.a,
-        MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
     },
     created: function created() {
         var _this = this;
@@ -28978,6 +28947,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditCategory_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditCategory_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -29038,6 +29008,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -29058,7 +29029,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         destroy: function destroy() {
             axios.delete('/categories/' + this.category.id);
-
             this.$emit('categoryWasDeleted', this.category.id);
         },
         getDate: function getDate(date) {
@@ -29073,6 +29043,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -29116,6 +29087,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['member'],
@@ -29125,6 +29098,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
     methods: {
         destroy: function destroy() {}
     }
@@ -29140,6 +29114,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditContact_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditContact_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -29238,6 +29213,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -29252,11 +29228,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    components: { EditContact: __WEBPACK_IMPORTED_MODULE_0__EditContact_vue___default.a },
+    components: {
+        'app-edit-contact': __WEBPACK_IMPORTED_MODULE_0__EditContact_vue___default.a
+    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
     methods: {
         destroy: function destroy() {
             axios.delete('/contacts/' + this.contact.id);
-
             this.$emit('contactWasDeleted', this.contact.id);
         },
         getDate: function getDate(date) {
@@ -29278,6 +29256,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -29309,6 +29288,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -29319,18 +29300,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['data'],
     data: function data() {
         return {
-            contacts: this.data,
-            color: '#fff',
-            size: '96px',
-            loading: false
+            contacts: this.data
         };
     },
 
     components: {
         'app-contact': __WEBPACK_IMPORTED_MODULE_0__Contact_vue___default.a,
         'app-add-contact': __WEBPACK_IMPORTED_MODULE_1__AddContact_vue___default.a,
-        MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
     },
+    mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
     created: function created() {
         var _this = this;
 
@@ -29401,6 +29380,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -29465,6 +29445,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -29477,31 +29459,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 id: this.data.id,
                 name: this.data.name
             },
-            errors: {},
-            color: '#fff',
-            size: '96px',
-            loading: false,
-            showModal: false
+            errors: {}
         };
     },
 
-    components: { MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a },
+    components: {
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
     methods: {
-        toggleModal: function toggleModal() {
-            this.showModal === false ? this.showModal = true : this.showModal = false;
-        },
         updateCategory: function updateCategory() {
             var _this = this;
 
-            this.loading = true;
+            this.toggleLoader();
 
             axios.put('/categories/' + this.category.id, this.category).then(function () {
                 __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('categoryWasUpdated', _this.category);
             }).then(function () {
-                _this.loading = false;
-                _this.showModal = false;
+                _this.toggleLoader();
+                _this.toggleModal();
             }).catch(function (error) {
-                _this.loading = false;
+                _this.toggleLoader();
                 _this.errors = error.response.data;
             });
         }
@@ -29517,6 +29495,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -29673,6 +29652,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -29693,31 +29674,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 email: this.data.email,
                 company_id: this.data.company_id
             },
-            errors: {},
-            color: '#fff',
-            size: '96px',
-            loading: false,
-            showModal: false
+            errors: {}
         };
     },
 
-    components: { MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a },
+    components: {
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
     methods: {
-        toggleModal: function toggleModal() {
-            this.showModal === false ? this.showModal = true : this.showModal = false;
-        },
         updateContact: function updateContact() {
             var _this = this;
 
-            this.loading = true;
+            this.toggleLoader();
 
             axios.put('/contacts/' + this.contact.id, this.contact).then(function () {
                 __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('contactWasUpdated', _this.contact);
             }).then(function () {
-                _this.loading = false;
-                _this.showModal = false;
+                _this.toggleLoader();
+                _this.toggleModal();
             }).catch(function (error) {
-                _this.loading = false;
+                _this.toggleLoader();
                 _this.errors = error.response.data;
             });
         }
@@ -29733,6 +29710,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -29837,6 +29815,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -29852,31 +29832,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 width: this.data.width,
                 surface: this.data.surface
             },
-            errors: {},
-            color: '#fff',
-            size: '96px',
-            loading: false,
-            showModal: false
+            errors: {}
         };
     },
 
-    components: { MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a },
+    components: {
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
     methods: {
-        toggleModal: function toggleModal() {
-            this.showModal === false ? this.showModal = true : this.showModal = false;
-        },
         updateFormat: function updateFormat() {
             var _this = this;
 
-            this.loading = true;
+            this.toggleLoader();
 
             axios.put('/formats/' + this.format.id, this.format).then(function () {
                 __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('formatWasUpdated', _this.format);
             }).then(function () {
-                _this.loading = false;
-                _this.showModal = false;
+                _this.toggleLoader();
+                _this.toggleModal();
             }).catch(function (error) {
-                _this.loading = false;
+                _this.toggleLoader();
                 _this.errors = error.response.data;
             });
         }
@@ -29955,6 +29931,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditFormat_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditFormat_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -30031,6 +30008,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -30051,7 +30029,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         destroy: function destroy() {
             axios.delete('/formats/' + this.format.id);
-
             this.$emit('formatWasDeleted', this.format.id);
         },
         getDate: function getDate(date) {
@@ -30073,6 +30050,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -30105,6 +30083,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -30115,18 +30095,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['data'],
     data: function data() {
         return {
-            formats: this.data,
-            color: '#fff',
-            size: '96px',
-            loading: false
+            formats: this.data
         };
     },
 
     components: {
         'app-format': __WEBPACK_IMPORTED_MODULE_0__Format_vue___default.a,
         'app-add-format': __WEBPACK_IMPORTED_MODULE_1__AddFormat_vue___default.a,
-        MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
     },
+    mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
     created: function created() {
         var _this = this;
 
@@ -30189,6 +30167,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
+//
 //
 //
 //
@@ -30371,6 +30350,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -30494,6 +30474,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -30512,13 +30494,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             },
             errors: {},
             showAccountForm: true,
-            showContactForm: true,
-            loader: {
-                color: '#fff',
-                size: '96px',
-                loading: false
-            },
-            appName: Laravel.appName
+            showContactForm: true
         };
     },
 
@@ -30528,11 +30504,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'app-register-company': __WEBPACK_IMPORTED_MODULE_2__RegisterCompany_vue___default.a,
         'app-moon-loader': __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
     },
-    computed: {
-        logo: function logo() {
-            return this.appName === 'Dipnet' ? 'company-logo-dip' : 'company-logo-multicop';
-        }
-    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* default */]],
     methods: {
         registerAccount: function registerAccount() {
             var _this = this;
@@ -30548,12 +30520,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.toggleLoader();
                 _this.errors = error.response.data.errors;
             });
-        },
-        toggleModal: function toggleModal() {
-            this.showModal === false ? this.showModal = true : this.showModal = false;
-        },
-        toggleLoader: function toggleLoader() {
-            this.loader.loading = !this.loader.loading;
         },
         switchComponents: function switchComponents() {
             this.showContactForm = !this.showContactForm;
@@ -30579,6 +30545,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -30659,6 +30626,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -30669,24 +30638,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             company: {
                 name: ''
             },
-            errors: {},
-            loader: {
-                color: '#fff',
-                size: '96px',
-                loading: false
-            },
-            appName: Laravel.appName
+            errors: {}
         };
     },
 
     components: {
         'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
     },
-    computed: {
-        logoWhite: function logoWhite() {
-            return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
-        }
-    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
     methods: {
         update: function update() {
             this.toggleLoader();
@@ -30715,9 +30674,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.toggleLoader();
                 _this.errors = error.response.data.errors;
             });
-        },
-        toggleLoader: function toggleLoader() {
-            this.loader.loading = !this.loader.loading;
         }
     }
 });
@@ -30731,6 +30687,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -30892,6 +30849,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+
 
 
 
@@ -30908,24 +30867,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 phone_number: '',
                 fax: ''
             },
-            errors: {},
-            loader: {
-                color: '#fff',
-                size: '96px',
-                loading: false
-            },
-            appName: Laravel.appName
+            errors: {}
         };
     },
 
     components: {
         'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
     },
-    computed: {
-        logoWhite: function logoWhite() {
-            return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
-        }
-    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
     methods: {
         updateContactInfo: function updateContactInfo() {
             var _this = this;
@@ -30940,9 +30889,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this.toggleLoader();
                 _this.errors = error.response.data.errors;
             });
-        },
-        toggleLoader: function toggleLoader() {
-            this.loader.loading = !this.loader.loading;
         }
     }
 });
@@ -37111,11 +37057,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), _c('moon-loader', {
+  })), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
-      "loading": _vm.loading,
-      "color": _vm.color,
-      "size": _vm.size
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
     }
   })], 1)])])
 },staticRenderFns: []}
@@ -37960,11 +37906,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addFormat($event)
       }
     }
-  }, [_vm._v("\n                                        Ajouter\n                                    ")])])])])])])]), _vm._v(" "), _c('moon-loader', {
+  }, [_vm._v("\n                                        Ajouter\n                                    ")])])])])])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
-      "loading": _vm.loading,
-      "color": _vm.color,
-      "size": _vm.size
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
     }
   })], 1) : _vm._e()])], 1)
 },staticRenderFns: []}
@@ -38526,11 +38472,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.updateFormat($event)
       }
     }
-  }, [_vm._v("\n                                        Modifier\n                                    ")])])])])])])]), _vm._v(" "), _c('moon-loader', {
+  }, [_vm._v("\n                                        Modifier\n                                    ")])])])])])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
-      "loading": _vm.loading,
-      "color": _vm.color,
-      "size": _vm.size
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
     }
   })], 1) : _vm._e()])], 1)
 },staticRenderFns: []}
@@ -38759,11 +38705,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addCategory($event)
       }
     }
-  }, [_vm._v("\n                                        Ajouter\n                                    ")])])])])])])]), _vm._v(" "), _c('moon-loader', {
+  }, [_vm._v("\n                                        Ajouter\n                                    ")])])])])])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
-      "loading": _vm.loading,
-      "color": _vm.color,
-      "size": _vm.size
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
     }
   })], 1) : _vm._e()])], 1)
 },staticRenderFns: []}
@@ -39213,7 +39159,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-labelledby": "dropdownMenuLink"
     }
-  }, [_c('edit-contact', {
+  }, [_c('app-edit-contact', {
     attrs: {
       "data": _vm.contact
     }
@@ -39486,11 +39432,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.updateCategory($event)
       }
     }
-  }, [_vm._v("\n                                        Modifier\n                                    ")])])])])])])]), _vm._v(" "), _c('moon-loader', {
+  }, [_vm._v("\n                                        Modifier\n                                    ")])])])])])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
-      "loading": _vm.loading,
-      "color": _vm.color,
-      "size": _vm.size
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
     }
   })], 1) : _vm._e()])], 1)
 },staticRenderFns: []}
@@ -39549,7 +39495,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), _c('moon-loader', {
+  })), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loader.loading,
       "color": _vm.loader.color,
@@ -39609,11 +39555,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), _c('moon-loader', {
+  })), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
-      "loading": _vm.loading,
-      "color": _vm.color,
-      "size": _vm.size
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
     }
   })], 1)])])
 },staticRenderFns: []}
@@ -40074,11 +40020,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.updateContact($event)
       }
     }
-  }, [_vm._v("\n                                        Mettre à jour\n                                    ")])])])])])])]), _vm._v(" "), _c('moon-loader', {
+  }, [_vm._v("\n                                        Mettre à jour\n                                    ")])])])])])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
-      "loading": _vm.loading,
-      "color": _vm.color,
-      "size": _vm.size
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
     }
   })], 1) : _vm._e()])], 1)
 },staticRenderFns: []}
@@ -40538,11 +40484,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addBusiness($event)
       }
     }
-  }, [_vm._v("\n                                        Ajouter\n                                    ")])])])])])])]), _vm._v(" "), _c('moon-loader', {
+  }, [_vm._v("\n                                        Ajouter\n                                    ")])])])])])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
-      "loading": _vm.loading,
-      "color": _vm.color,
-      "size": _vm.size
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
     }
   })], 1) : _vm._e()])], 1)
 },staticRenderFns: []}
@@ -40598,11 +40544,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), _c('moon-loader', {
+  })), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
-      "loading": _vm.loading,
-      "color": _vm.color,
-      "size": _vm.size
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
     }
   })], 1)])])
 },staticRenderFns: []}

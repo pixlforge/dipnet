@@ -23,7 +23,8 @@
                                  :key="contact.id"
                                  @contactWasDeleted="removeContact(index)"></app-contact>
                 </transition-group>
-                <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
+                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
+                </app-moon-loader>
             </div>
         </div>
     </div>
@@ -34,22 +35,21 @@
     import AddContact from './AddContact.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import {eventBus} from '../app';
+    import mixins from '../mixins';
 
     export default {
         props: ['data'],
         data() {
             return {
-                contacts: this.data,
-                color: '#fff',
-                size: '96px',
-                loading: false
+                contacts: this.data
             }
         },
         components: {
             'app-contact': Contact,
             'app-add-contact': AddContact,
-            MoonLoader
+            'app-moon-loader': MoonLoader
         },
+        mixins: [mixins],
         created() {
             eventBus.$on('contactWasUpdated', (data) => {
                 this.updateContact(data);

@@ -24,7 +24,8 @@
                                 @categoryWasDeleted="removeCategory(index)">
                     </app-category>
                 </transition-group>
-                <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
+                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
+                </app-moon-loader>
             </div>
         </div>
     </div>
@@ -35,21 +36,20 @@
     import AddCategory from './AddCategory.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import {eventBus} from '../app';
+    import mixins from '../mixins';
 
     export default {
         props: ['data'],
         data() {
             return {
-                categories: this.data,
-                color: '#fff',
-                size: '96px',
-                loading: false
+                categories: this.data
             };
         },
+        mixins: [mixins],
         components: {
             'app-category': Category,
             'app-add-category': AddCategory,
-            MoonLoader
+            'app-moon-loader': MoonLoader
         },
         created() {
             eventBus.$on('categoryWasUpdated', (data) => {

@@ -61,6 +61,7 @@
 <script>
     import EditCategory from './EditCategory.vue';
     import moment from 'moment';
+    import mixins from '../mixins';
 
     export default {
         props: ['data'],
@@ -77,7 +78,6 @@
         methods: {
             destroy() {
                 axios.delete('/categories/' + this.category.id);
-
                 this.$emit('categoryWasDeleted', this.category.id);
             },
 

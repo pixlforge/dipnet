@@ -42,6 +42,8 @@
 </template>
 
 <script>
+    import mixins from '../mixins';
+
     export default {
         props: ['member'],
         data() {
@@ -49,6 +51,7 @@
                 user: this.member
             };
         },
+        mixins: [mixins],
         methods: {
             destroy() {
 

@@ -26,7 +26,8 @@
                                   @businessWasDeleted="removeBusiness(index)">
                     </app-business>
                 </transition-group>
-                <moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></moon-loader>
+                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
+                </app-moon-loader>
             </div>
         </div>
     </div>
@@ -37,25 +38,22 @@
     import AddBusiness from './AddBusiness.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import {eventBus} from '../app';
+    import mixins from '../mixins';
 
     export default {
         props: ['businesses-data', 'companies-data'],
         data() {
             return {
                 businesses: this.businessesData,
-                companies: this.companiesData,
-                loader: {
-                    color: '#fff',
-                    size: '96px',
-                    loading: false
-                }
+                companies: this.companiesData
             };
         },
         components: {
             'app-business': Business,
             'app-add-business': AddBusiness,
-            MoonLoader
+            'app-moon-loader': MoonLoader
         },
+        mixins: [mixins],
         created() {
             eventBus.$on('businessWasUpdated', (data) => {
                 this.updateBusiness(data);

@@ -11,7 +11,8 @@
                 <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
 
                 <div class="d-flex flex-column justify-content-center checklist">
                     <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
@@ -81,6 +82,7 @@
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import {eventBus} from '../app';
+    import mixins from '../mixins';
 
     export default {
         data() {
@@ -88,23 +90,13 @@
                 company: {
                     name: ''
                 },
-                errors: {},
-                loader: {
-                    color: '#fff',
-                    size: '96px',
-                    loading: false
-                },
-                appName: Laravel.appName
+                errors: {}
             };
         },
         components: {
             'app-moon-loader': MoonLoader
         },
-        computed: {
-            logoWhite() {
-                return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
-            }
-        },
+        mixins: [mixins],
         methods: {
             update() {
                 this.toggleLoader();
@@ -133,9 +125,6 @@
                         this.toggleLoader();
                         this.errors = error.response.data.errors;
                     });
-            },
-            toggleLoader() {
-                this.loader.loading = !this.loader.loading;
             }
         }
     }

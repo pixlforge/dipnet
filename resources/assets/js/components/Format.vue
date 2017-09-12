@@ -77,6 +77,7 @@
 <script>
     import EditFormat from './EditFormat.vue';
     import moment from 'moment';
+    import mixins from '../mixins';
 
     export default {
         props: ['data'],
@@ -93,7 +94,6 @@
         methods: {
             destroy() {
                 axios.delete('/formats/' + this.format.id);
-
                 this.$emit('formatWasDeleted', this.format.id);
             },
 

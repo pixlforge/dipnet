@@ -84,7 +84,7 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="dropdownMenuLink">
 
-                    <edit-contact :data="contact"></edit-contact>
+                    <app-edit-contact :data="contact"></app-edit-contact>
 
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fa fa-trash"></i>
@@ -99,6 +99,7 @@
 <script>
     import EditContact from './EditContact.vue';
     import moment from 'moment';
+    import mixins from '../mixins';
 
     export default {
         props: ['data'],
@@ -109,11 +110,13 @@
                 locale: 'fr'
             }
         },
-        components: { EditContact },
+        components: {
+            'app-edit-contact': EditContact
+        },
+        mixins: [mixins],
         methods: {
             destroy() {
                 axios.delete('/contacts/' + this.contact.id);
-
                 this.$emit('contactWasDeleted', this.contact.id);
             },
             getDate(date) {

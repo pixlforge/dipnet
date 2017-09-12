@@ -96,8 +96,7 @@
                     password: '',
                     password_confirmation: ''
                 },
-                errors: {},
-                appName: Laravel.appName
+                errors: {}
             };
         },
         components: {
@@ -105,11 +104,6 @@
             'app-moon-loader': MoonLoader
         },
         mixins: [mixins],
-        computed: {
-            logo() {
-                return this.appName === 'Dipnet' ? 'company-logo-dip' : 'company-logo-multicop';
-            }
-        },
         methods: {
             updateAccount() {
                 this.toggleLoader();

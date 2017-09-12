@@ -6,7 +6,17 @@ export default {
                 size: '96px',
                 loading: false
             },
+            showModal: false,
+            appName: Laravel.appName
         };
+    },
+    computed: {
+        logo() {
+            return this.appName === 'Dipnet' ? 'company-logo-dip' : 'company-logo-multicop';
+        },
+        logoWhite() {
+            return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
+        }
     },
     methods: {
         redirectIfNotConfirmed(error) {
@@ -22,6 +32,9 @@ export default {
         },
         toggleLoader() {
             this.loader.loading = !this.loader.loading;
+        },
+        toggleModal() {
+            this.showModal === false ? this.showModal = true : this.showModal = false;
         }
     }
 }

@@ -96,7 +96,6 @@
         methods: {
             destroy() {
                 axios.delete('/businesses/' + this.business.id);
-
                 this.$emit('businessWasDeleted', this.business.id);
             },
 

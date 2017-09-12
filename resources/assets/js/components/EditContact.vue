@@ -148,7 +148,8 @@
                         </div>
                     </div>
                 </div>
-                <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
+                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
@@ -157,6 +158,7 @@
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import {eventBus} from '../app';
+    import mixins from '../mixins';
 
     export default {
         props: ['data'],
@@ -174,31 +176,27 @@
                     email: this.data.email,
                     company_id: this.data.company_id
                 },
-                errors: {},
-                color: '#fff',
-                size: '96px',
-                loading: false,
-                showModal: false
+                errors: {}
             };
         },
-        components: { MoonLoader },
+        components: {
+            'app-moon-loader': MoonLoader
+        },
+        mixins: [mixins],
         methods: {
-            toggleModal() {
-                this.showModal === false ? this.showModal = true : this.showModal = false;
-            },
             updateContact() {
-                this.loading = true;
+                this.toggleLoader();
 
                 axios.put('/contacts/' + this.contact.id, this.contact)
                     .then(() => {
                         eventBus.$emit('contactWasUpdated', this.contact);
                     })
                     .then(() => {
-                        this.loading = false;
-                        this.showModal = false;
+                        this.toggleLoader();
+                        this.toggleModal();
                     })
                     .catch(error => {
-                        this.loading = false;
+                        this.toggleLoader();
                         this.errors = error.response.data;
                     });
             }

@@ -24,7 +24,8 @@
                                 @formatWasDeleted="removeFormat(index)">
                     </app-format>
                 </transition-group>
-                <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
+                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
+                </app-moon-loader>
             </div>
         </div>
     </div>
@@ -35,22 +36,21 @@
     import AddFormat from './AddFormat.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import {eventBus} from '../app';
+    import mixins from '../mixins';
 
     export default {
         props: ['data'],
         data() {
             return {
-                formats: this.data,
-                color: '#fff',
-                size: '96px',
-                loading: false
+                formats: this.data
             };
         },
         components: {
             'app-format': Format,
             'app-add-format': AddFormat,
-            MoonLoader
+            'app-moon-loader': MoonLoader
         },
+        mixins: [mixins],
         created() {
             eventBus.$on('formatWasUpdated', (data) => {
                 this.updateFormat(data);

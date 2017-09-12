@@ -172,8 +172,7 @@
                     fax: '',
                     email: '',
                 },
-                errors: {},
-                showModal: false
+                errors: {}
             }
         },
         components: {
@@ -182,7 +181,7 @@
         mixins: [mixins],
         methods: {
             addContact() {
-                this.loading = true;
+                this.toggleLoader();
 
                 axios.post('/contacts', this.contact)
                     .then(response => {
@@ -190,12 +189,12 @@
                         this.$emit('contactWasCreated', this.contact);
                     })
                     .then(() => {
-                        this.loading = false;
-                        this.showModal = false;
+                        this.toggleLoader();
+                        this.toggleModal();
                         this.contact = {};
                     })
                     .catch(error => {
-                        this.loading = false;
+                        this.toggleLoader();
                         this.errors = error.response.data;
                         this.redirectIfNotConfirmed(error);
                     });

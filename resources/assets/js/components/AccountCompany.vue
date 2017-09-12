@@ -80,6 +80,7 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
+    import mixins from '../mixins';
 
     export default {
         data() {
@@ -87,33 +88,14 @@
                 company: {
                     name: ''
                 },
-                errors: {},
-                loader: {
-                    color: '#fff',
-                    size: '96px',
-                    loading: false
-                },
-                appName: Laravel.appName
+                errors: {}
             };
         },
         components: {
             'app-moon-loader': MoonLoader
         },
-        computed: {
-            logoWhite() {
-                return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
-            }
-        },
+        mixins: [mixins],
         methods: {
-//            update() {
-//                this.toggleLoader();
-//
-//                if (this.company.name.length === 0) {
-//                    this.updateAsSelf();
-//                } else {
-//                    this.updateWithCompany();
-//                }
-//            },
             updateWithCompany() {
                 this.updateCompany(this.company);
             },
@@ -141,9 +123,6 @@
                         this.toggleLoader();
                         this.errors = error.response.data.errors;
                     });
-            },
-            toggleLoader() {
-                this.loader.loading = !this.loader.loading;
             }
         }
     }

@@ -17,7 +17,8 @@
                             <!--Loader-->
                             <app-moon-loader :loading="loader.loading"
                                          :color="loader.color"
-                                         :size="loader.size"></app-moon-loader>
+                                         :size="loader.size">
+                            </app-moon-loader>
 
                             <!--Register Account Form-->
                             <form role="form"
@@ -127,6 +128,7 @@
     import RegisterCompany from './RegisterCompany.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import {eventBus} from '../app';
+    import mixins from '../mixins';
 
     export default {
         data() {
@@ -139,13 +141,7 @@
                 },
                 errors: {},
                 showAccountForm: true,
-                showContactForm: true,
-                loader: {
-                    color: '#fff',
-                    size: '96px',
-                    loading: false
-                },
-                appName: Laravel.appName
+                showContactForm: true
             }
         },
         components: {
@@ -154,11 +150,7 @@
             'app-register-company': RegisterCompany,
             'app-moon-loader': MoonLoader
         },
-        computed: {
-            logo() {
-                return this.appName === 'Dipnet' ? 'company-logo-dip' : 'company-logo-multicop';
-            }
-        },
+        mixins: [mixins],
         methods: {
             registerAccount() {
                 this.toggleLoader();
@@ -174,12 +166,6 @@
                         this.toggleLoader();
                         this.errors = error.response.data.errors;
                     });
-            },
-            toggleModal() {
-                this.showModal === false ? this.showModal = true : this.showModal = false;
-            },
-            toggleLoader() {
-                this.loader.loading = !this.loader.loading;
             },
             switchComponents() {
                 this.showContactForm = !this.showContactForm;

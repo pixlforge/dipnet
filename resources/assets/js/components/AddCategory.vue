@@ -57,7 +57,8 @@
                         </div>
                     </div>
                 </div>
-                <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
+                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
@@ -65,6 +66,7 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
+    import mixins from '../mixins';
 
     export default {
         data() {
@@ -72,21 +74,15 @@
                 category: {
                     name: ''
                 },
-                errors: {},
-                color: '#fff',
-                size: '96px',
-                loading: false,
-                showModal: false
+                errors: {}
             }
         },
-        components: { MoonLoader },
+        components: {
+            'app-moon-loader': MoonLoader
+        },
         methods: {
-            toggleModal() {
-                this.showModal === false ? this.showModal = true : this.showModal = false;
-            },
-
             addCategory() {
-                this.loading = true;
+                this.toggleLoader();
 
                 axios.post('/categories', this.category)
                     .then(response => {
@@ -94,12 +90,12 @@
                         this.$emit('categoryWasCreated', this.category);
                     })
                     .then(() => {
-                        this.loading = false;
-                        this.showModal = false;
+                        this.toggleLoader();
+                        this.toggleModal();
                         this.category = {};
                     })
                     .catch(error => {
-                        this.loading = false;
+                        this.toggleLoader();
                         this.errors = error.response.data;
                     });
             }
