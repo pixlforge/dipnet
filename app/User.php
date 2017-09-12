@@ -24,7 +24,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'username', 'email', 'password', 'role', 'contact_id', 'company_id',
-        'confirmed', 'confirmation_token', 'contact_confirmed', 'company_confirmed'
+        'confirmed', 'confirmation_token', 'contact_confirmed', 'company_confirmed', 'was_invited'
     ];
 
     /**
@@ -90,7 +90,18 @@ class User extends Authenticatable
         $this->save();
     }
 
-    public static function generateConfirmationToken($field) {
+    public static function generateConfirmationToken($field)
+    {
         return md5(request($field) . str_random(10));
+    }
+
+    public function hasConfirmationToken()
+    {
+        return $this->confirmation_token;
+    }
+
+    public function wasInvited()
+    {
+        return $this->was_invited;
     }
 }

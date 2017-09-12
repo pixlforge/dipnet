@@ -4,6 +4,6 @@
 
 @section ('content')
 
-    <app-missing-contact></app-missing-contact>
+    <app-account-contact></app-account-contact>
 
 @endsection

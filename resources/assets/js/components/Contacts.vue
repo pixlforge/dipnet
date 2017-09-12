@@ -18,10 +18,10 @@
             <div class="col-10 mx-auto my-7">
                 <transition-group name="highlight">
                     <app-contact class="card card-custom center-on-small-only"
-                         v-for="(contact, index) in contacts"
-                         :data="contact"
-                         :key="contact.id"
-                         @contactWasDeleted="removeContact(index)"></app-contact>
+                                 v-for="(contact, index) in contacts"
+                                 :data="contact"
+                                 :key="contact.id"
+                                 @contactWasDeleted="removeContact(index)"></app-contact>
                 </transition-group>
                 <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
             </div>

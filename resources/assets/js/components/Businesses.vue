@@ -26,7 +26,7 @@
                                   @businessWasDeleted="removeBusiness(index)">
                     </app-business>
                 </transition-group>
-                <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
+                <moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></moon-loader>
             </div>
         </div>
     </div>
@@ -44,9 +44,11 @@
             return {
                 businesses: this.businessesData,
                 companies: this.companiesData,
-                color: '#fff',
-                size: '96px',
-                loading: false
+                loader: {
+                    color: '#fff',
+                    size: '96px',
+                    loading: false
+                }
             };
         },
         components: {

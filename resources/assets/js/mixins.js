@@ -1,4 +1,13 @@
 export default {
+    data() {
+        return {
+            loader: {
+                color: '#fff',
+                size: '96px',
+                loading: false
+            },
+        };
+    },
     methods: {
         redirectIfNotConfirmed(error) {
             if (error.response.status === 403) {
@@ -10,6 +19,9 @@ export default {
                     window.location.pathname = '/profile';
                 }, 2500);
             }
+        },
+        toggleLoader() {
+            this.loader.loading = !this.loader.loading;
         }
     }
 }

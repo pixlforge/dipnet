@@ -14,12 +14,14 @@ window.Vue = require('vue');
  */
 Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('app-register', require('./components/Register.vue'));
-Vue.component('app-missing-contact', require('./components/MissingContact.vue'));
-Vue.component('app-missing-company', require('./components/MissingCompany.vue'));
+Vue.component('app-account-details', require('./components/AccountDetails.vue'));
+Vue.component('app-account-contact', require('./components/AccountContact.vue'));
+Vue.component('app-account-company', require('./components/AccountCompany.vue'));
 Vue.component('app-contacts', require('./components/Contacts.vue'));
 Vue.component('app-formats', require('./components/Formats.vue'));
 Vue.component('app-categories', require('./components/Categories.vue'));
 Vue.component('app-businesses', require('./components/Businesses.vue'));
+Vue.component('app-show-company', require('./components/ShowCompany.vue'));
 
 export const eventBus = new Vue();
 

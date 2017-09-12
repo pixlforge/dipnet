@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class UserAccountCompanyInfo
+class UserAccountDetails
 {
     /**
      * Handle an incoming request.
@@ -15,10 +15,9 @@ class UserAccountCompanyInfo
      */
     public function handle($request, Closure $next)
     {
-        if (! auth()->user()->company_confirmed) {
-            return redirect()->route('account.company');
+        if (auth()->user()->wasInvited() && auth()->user()->hasConfirmationToken()) {
+            return redirect()->route('account');
         }
-
         return $next($request);
     }
 }

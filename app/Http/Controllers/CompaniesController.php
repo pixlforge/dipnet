@@ -55,10 +55,10 @@ class CompaniesController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Show the specified Company.
      *
      * @param Company $company
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(Company $company)
     {

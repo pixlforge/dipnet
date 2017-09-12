@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->unsignedInteger('company_id')->nullable();
             $table->boolean('contact_confirmed')->default(false);
             $table->boolean('company_confirmed')->default(false);
+            $table->boolean('was_invited')->default(false);
             $table->rememberToken();
             $table->timestamp('last_login_at')->nullable();
             $table->timestamps();

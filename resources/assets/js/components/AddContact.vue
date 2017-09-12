@@ -149,7 +149,7 @@
                         </div>
                     </div>
                 </div>
-                <moon-loader :loading="loading" :color="color" :size="size"></moon-loader>
+                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></app-moon-loader>
             </div>
         </transition>
     </div>
@@ -173,18 +173,14 @@
                     email: '',
                 },
                 errors: {},
-                color: '#fff',
-                size: '96px',
-                loading: false,
                 showModal: false
             }
         },
-        components: { MoonLoader },
+        components: {
+            'app-moon-loader': MoonLoader
+        },
         mixins: [mixins],
         methods: {
-            toggleModal() {
-                this.showModal === false ? this.showModal = true : this.showModal = false;
-            },
             addContact() {
                 this.loading = true;
 

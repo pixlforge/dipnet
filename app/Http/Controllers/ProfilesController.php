@@ -20,6 +20,7 @@ class ProfilesController extends Controller
     {
         $this->middleware([
             'auth',
+            'user.account.details',
             'user.account.contact',
             'user.account.company'
         ]);

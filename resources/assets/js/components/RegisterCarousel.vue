@@ -11,7 +11,7 @@
                 <!--First slide-->
                 <div class="carousel-item bg-red active">
                     <div class="carousel-slide carousel-slide-first d-flex flex-column justify-content-center align-items-center">
-                        <img src="img/register/macbook.png"
+                        <img src="/img/register/macbook.png"
                              alt=""
                              class="img-carousel mb-5">
                         <div class="carousel-slide-content text-center">
@@ -25,7 +25,7 @@
                 <!--Second slide-->
                 <div class="carousel-item bg-purple">
                     <div class="carousel-slide carousel-slide-second d-flex flex-column justify-content-center align-items-center">
-                        <img src="img/register/macbook.png"
+                        <img src="/img/register/macbook.png"
                              alt=""
                              class="img-carousel mb-5">
                         <div class="carousel-slide-content text-center">
@@ -39,7 +39,7 @@
                 <!--Third slide-->
                 <div class="carousel-item bg-orange">
                     <div class="carousel-slide carousel-slide-third d-flex flex-column justify-content-center align-items-center">
-                        <img src="img/register/macbook.png"
+                        <img src="/img/register/macbook.png"
                              alt=""
                              class="img-carousel mb-5">
                         <div class="carousel-slide-content text-center">

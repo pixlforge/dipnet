@@ -17,7 +17,7 @@ class UserAccountContactInfo
     public function handle($request, Closure $next)
     {
         if (! auth()->user()->contact_confirmed) {
-            return redirect()->route('missingContact');
+            return redirect()->route('account.contact');
         }
 
         return $next($request);

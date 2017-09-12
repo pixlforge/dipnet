@@ -70,7 +70,7 @@ class RegisterTest extends TestCase
         $this->actingAs($user);
 
         $this->get(route('index'))
-            ->assertRedirect(route('missingContact'));
+            ->assertRedirect(route('account.contact'));
 
         $user->update([
             'contact_confirmed' => true,
@@ -95,7 +95,7 @@ class RegisterTest extends TestCase
         $this->actingAs($user);
 
         $this->get(route('index'))
-            ->assertRedirect(route('missingCompany'));
+            ->assertRedirect(route('account.company'));
 
         $user->update([
             'company_confirmed' => true

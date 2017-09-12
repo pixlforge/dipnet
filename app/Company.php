@@ -17,7 +17,22 @@ class Company extends Model
     /**
      * Disable mass assignment for the following fields
      */
-    protected $fillable = ['name', 'status', 'description', 'created_by_username'];
+    protected $fillable = [
+        'name', 'status', 'description', 'created_by_username'
+    ];
+
+    /**
+     * Boot the model
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('user', function ($builder) {
+            $builder->with('user');
+        });
+    }
+
 
     /**
      * Relationship to Business

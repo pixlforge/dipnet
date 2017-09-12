@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\UserAccountDetails;
 use App\Http\Middleware\UserEmailConfirmed;
 use App\Http\Middleware\UserAccountCompanyInfo;
 use App\Http\Middleware\UserAccountContactInfo;
@@ -59,6 +60,7 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'user.account.details' => UserAccountDetails::class,
         'user.account.contact' => UserAccountContactInfo::class,
         'user.account.company' => UserAccountCompanyInfo::class,
         'user.email.confirmed' => UserEmailConfirmed::class
