@@ -27519,15 +27519,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
     },
     methods: {
-        update: function update() {
-            this.toggleLoader();
-
-            if (this.company.name.length === 0) {
-                this.updateAsSelf();
-            } else {
-                this.updateWithCompany();
-            }
-        },
+        //            update() {
+        //                this.toggleLoader();
+        //
+        //                if (this.company.name.length === 0) {
+        //                    this.updateAsSelf();
+        //                } else {
+        //                    this.updateWithCompany();
+        //                }
+        //            },
         updateWithCompany: function updateWithCompany() {
             this.updateCompany(this.company);
         },
@@ -27538,9 +27538,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         updateCompany: function updateCompany(company) {
             var _this = this;
 
+            this.toggleLoader();
+
             axios.put('/register/company', company).then(function () {
                 _this.toggleLoader();
                 _this.company = {};
+                _this.errors = {};
                 flash({
                     message: 'Félicitations! Votre compte a bien été mis à jour!',
                     level: 'success'
@@ -30483,6 +30486,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(3);
+//
+//
 //
 //
 //
@@ -34830,7 +34835,7 @@ exports.push([module.i, "\n.v-spinner .v-moon1\n{\n\n    -webkit-animation: v-mo
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(5)();
-exports.push([module.i, "\na[data-v-46ebe9d4] {\n    cursor: pointer;\n}\n.company-logo-container[data-v-46ebe9d4] {\n    position: fixed;\n}\n", ""]);
+exports.push([module.i, "\n.help-block[data-v-46ebe9d4] {\n    position: relative;\n}\na[data-v-46ebe9d4] {\n    cursor: pointer;\n}\n.company-logo-container[data-v-46ebe9d4] {\n    position: fixed;\n}\n", ""]);
 
 /***/ }),
 /* 186 */
@@ -38016,13 +38021,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e()]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-black btn-block mt-5",
     on: {
-      "click": _vm.update
+      "click": _vm.updateWithCompany
     }
   }, [_vm._v("\n                        Mettre à jour\n                    ")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('p', {
     staticClass: "text-small text-center mt-5"
   }, [_c('a', {
     on: {
-      "click": _vm.update
+      "click": _vm.updateAsSelf
     }
   }, [_vm._v("\n                            Passer cette étape\n                        ")])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -38950,7 +38955,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.errors.name[0])
     }
-  }) : _vm._e()]), _vm._v(" "), _c('button', {
+  }) : _vm._e()]), _vm._v(" "), (_vm.errors.name) ? _c('div', [_vm._v(_vm._s(_vm.errors.name))]) : _vm._e(), _vm._v(" "), _c('button', {
     staticClass: "btn btn-black btn-block mt-5",
     on: {
       "click": _vm.update

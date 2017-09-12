@@ -57,6 +57,8 @@
                              v-if="errors.name"
                              v-text="errors.name[0]"></div>
                     </div>
+                    
+                    <div v-if="errors.name">{{ errors.name }}</div>
 
                     <button class="btn btn-black btn-block mt-5"
                             @click="update">

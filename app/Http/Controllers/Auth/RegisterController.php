@@ -213,10 +213,11 @@ class RegisterController extends Controller
     protected function validateCompany()
     {
         request()->validate([
-            'name' => 'nullable|min:3|max:45'
+            'name' => 'nullable|min:3|max:45|unique:companies,name'
         ], [
             'name.min' => 'Minimum 3 caractères.',
-            'name.max' => 'Maximum 45 caractères.'
+            'name.max' => 'Maximum 45 caractères.',
+            'name.unique' => 'Cette société existe déjà. Demandez une invitation à une personne possédant un compte valide associé à cette société.'
         ]);
     }
 

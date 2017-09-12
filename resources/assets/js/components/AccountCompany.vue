@@ -60,14 +60,14 @@
                         </div>
 
                         <button class="btn btn-black btn-block mt-5"
-                                @click="update">
+                                @click="updateWithCompany">
                             Mettre à jour
                         </button>
 
                         <p class="mt-5 text-center"><small>Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société et commandez en votre nom propre</small></p>
 
                         <p class="text-small text-center mt-5">
-                            <a @click="update">
+                            <a @click="updateAsSelf">
                                 Passer cette étape
                             </a>
                         </p>
@@ -105,15 +105,15 @@
             }
         },
         methods: {
-            update() {
-                this.toggleLoader();
-
-                if (this.company.name.length === 0) {
-                    this.updateAsSelf();
-                } else {
-                    this.updateWithCompany();
-                }
-            },
+//            update() {
+//                this.toggleLoader();
+//
+//                if (this.company.name.length === 0) {
+//                    this.updateAsSelf();
+//                } else {
+//                    this.updateWithCompany();
+//                }
+//            },
             updateWithCompany() {
                 this.updateCompany(this.company);
             },
@@ -122,10 +122,13 @@
                 this.updateCompany(this.company);
             },
             updateCompany(company) {
+                this.toggleLoader();
+
                 axios.put('/register/company', company)
                     .then(() => {
                         this.toggleLoader();
                         this.company = {};
+                        this.errors = {};
                         flash({
                             message: 'Félicitations! Votre compte a bien été mis à jour!',
                             level: 'success'
@@ -147,6 +150,10 @@
 </script>
 
 <style scoped>
+    .help-block {
+        position: relative;
+    }
+
     a {
         cursor: pointer;
     }

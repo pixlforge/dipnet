@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Company;
 use App\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
@@ -164,5 +165,56 @@ class RegisterTest extends TestCase
         $this->get(route('register.confirm', ['token' => 'invalid']))
             ->assertRedirect(route('index'))
             ->assertSessionHas('flash');
+    }
+
+    /**
+     * Registering using an existing company name should fail
+     *
+     * @test
+     */
+    function registering_using_an_existing_company_name_should_fail()
+    {
+        Mail::fake();
+
+        // First user creates an account and sets his company name to Xerox.
+        $this->post(route('register'), [
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com',
+        ]);
+
+        $firstUser = User::whereEmail('johndoe@example.com')->firstOrFail();
+        $firstUserCompany = Company::whereId($firstUser->company_id)->firstOrFail();
+        $firstUserCompany->name = 'Xerox';
+        $firstUserCompany->save();
+
+        // Log out so we can create another account.
+        $this->get('/logout');
+
+        // Second user creates an account and tries to his company name to Xerox.
+        $this->post(route('register'), [
+            'username' => 'Jane Doe',
+            'email' => 'janedoe@example.com',
+            'password' => 'secret',
+            'password_confirmation' => 'secret'
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'username' => 'Jane Doe',
+            'email' => 'janedoe@example.com',
+        ]);
+
+        $secondUser = User::whereEmail('janedoe@example.com')->firstOrFail();
+        $secondUserCompany = Company::whereId($secondUser->company_id)->firstOrFail();
+        $secondUserCompany->name = 'Xerox';
+        $secondUserCompany->save();
+
+//        $this->assertFalse($secondUserCompany->save());
     }
 }
