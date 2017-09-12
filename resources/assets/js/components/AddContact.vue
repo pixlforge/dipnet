@@ -2,7 +2,7 @@
     <div>
 
         <!--Button-->
-        <a @click="toggleModal" class="btn btn-lg btn-black mt-5" role="button">
+        <a @click="toggleModal" class="btn btn-lg btn-black light mt-5" role="button">
             Nouveau contact
         </a>
 
@@ -149,7 +149,8 @@
                         </div>
                     </div>
                 </div>
-                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></app-moon-loader>
+                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
@@ -195,7 +196,7 @@
                     })
                     .catch(error => {
                         this.toggleLoader();
-                        this.errors = error.response.data;
+                        this.errors = error.response.data.errors;
                         this.redirectIfNotConfirmed(error);
                     });
             }
