@@ -86,17 +86,10 @@
                             <div class="divider mx-3"></div>
 
                             <li class="nav-item{{ Route::is('companies.show') ? ' active' : '' }}">
-                                @if (auth()->user()->role === 'administrateur')
-                                    <a href="{{ route('companies') }}" class="nav-link">
-                                        {{ auth()->user()->company->name }}
-                                    </a>
-                                @endif
 
-                                @if (auth()->user()->role === 'utilisateur')
-                                    <a href="{{ route('companies.show', ['id' => auth()->user()->company_id]) }}" class="nav-link">
-                                        {{ auth()->user()->company->name }}
-                                    </a>
-                                @endif
+                                <a href="{{ route('companies.show', ['id' => auth()->user()->company_id]) }}" class="nav-link">
+                                    {{ auth()->user()->company->name }}
+                                </a>
 
                                 @if (Route::is('companies.show'))
                                     <span class="sr-only">(current)</span>
