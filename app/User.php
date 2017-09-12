@@ -100,6 +100,16 @@ class User extends Authenticatable
         return $this->confirmation_token;
     }
 
+    /**
+     * Check wether the user has confirmed his account registration.
+     *
+     * @return mixed
+     */
+    public function isConfirmed()
+    {
+        return $this->confirmed;
+    }
+
     public function wasInvited()
     {
         return $this->was_invited;

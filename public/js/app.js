@@ -30270,6 +30270,43 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SendConfirmationEmailAgain_vue__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SendConfirmationEmailAgain_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SendConfirmationEmailAgain_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -30299,6 +30336,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: ['user-data'],
     data: function data() {
@@ -30308,6 +30348,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     created: function created() {
         console.log(this.user);
+    },
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
+    components: {
+        'app-send-confirmation-email-again': __WEBPACK_IMPORTED_MODULE_0__SendConfirmationEmailAgain_vue___default.a
     }
 });
 
@@ -39268,22 +39313,44 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only"
   }, [_c('div', [_c('h1', {
     staticClass: "mt-5 mb-0"
-  }, [_vm._v(_vm._s(_vm.user.username))]), _vm._v(" "), _c('h5', {
+  }, [_vm._v("\n                            " + _vm._s(_vm.user.username) + "\n                            "), (_vm.user.confirmed) ? _c('span', {
+    staticClass: "profile-icon ml-3",
+    attrs: {
+      "title": "Compte vérifié"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-check-circle text-info"
+  })]) : _c('span', {
+    staticClass: "profile-icon ml-3",
+    attrs: {
+      "title": "Compte non vérifié"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-exclamation-circle text-warning"
+  })])]), _vm._v(" "), _c('h5', {
     staticClass: "text-muted light ml-1"
-  }, [_vm._v("Votre profil")])])])])])]), _vm._v(" "), _vm._m(0)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  }, [_vm._v("Votre profil")])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "row bg-grey-light"
   }, [_c('div', {
-    staticClass: "col-5 offset-1 my-7"
+    staticClass: "col-10 mx-auto my-7"
   }, [_c('div', {
-    staticClass: "card card-custom"
-  }, [_vm._v("\n                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae, voluptas.\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "col-5 my-7"
+    staticClass: "card card-custom flex-column px-5"
   }, [_c('div', {
-    staticClass: "card card-custom"
-  })])])
-}]}
+    staticClass: "profile-card-content"
+  }, [_vm._v("\n                    " + _vm._s(_vm.user.email) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "profile-card-content"
+  }, [_vm._v("\n                    État du compte\n                    "), (_vm.user.confirmed) ? _c('span', {
+    staticClass: "text-info"
+  }, [_vm._v("\n                        vérifié\n                    ")]) : _c('span', [_c('span', {
+    staticClass: "text-warning"
+  }, [_vm._v("\n                            e-mail envoyé\n                        ")]), _vm._v(" "), _c('app-send-confirmation-email-again', {
+    staticClass: "mt-3"
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "profile-card-content"
+  }, [_vm._v("\n                    Membre de " + _vm._s(_vm.user.company.name) + "\n                ")]), _vm._v(" "), _c('div', {
+    staticClass: "profile-card-content"
+  })])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -40971,6 +41038,104 @@ __webpack_require__(132);
 __webpack_require__(133);
 module.exports = __webpack_require__(131);
 
+
+/***/ }),
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    methods: {
+        sendConfirmationAgain: function sendConfirmationAgain() {
+            alert('TODO: re-send confirmation email');
+        }
+    }
+});
+
+/***/ }),
+/* 276 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(275),
+  /* template */
+  __webpack_require__(277),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/Heyoka/Webdev/Projects/dipnet/resources/assets/js/components/SendConfirmationEmailAgain.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] SendConfirmationEmailAgain.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3031fe32", Component.options)
+  } else {
+    hotAPI.reload("data-v-3031fe32", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 277 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn-block btn-black",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.sendConfirmationAgain($event)
+      }
+    }
+  }, [_vm._v("\n    Renvoyer l'email de confirmation\n")])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3031fe32", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
