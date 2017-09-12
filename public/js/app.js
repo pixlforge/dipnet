@@ -29087,6 +29087,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -29099,6 +29104,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
+    created: function created() {
+        console.log(this.user);
+    },
+
     methods: {
         destroy: function destroy() {}
     }
@@ -38146,13 +38155,20 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-8"
+    staticClass: "col-12 col-lg-4"
   }, [_c('h5', {
     staticClass: "mb-0",
     domProps: {
       "textContent": _vm._s(_vm.user.username)
     }
   })]), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-4"
+  }, [(_vm.user.was_invited && !_vm.user.confirmed) ? _c('span', {
+    staticClass: "badge badge-custom badge-warning",
+    domProps: {
+      "textContent": _vm._s('Invitation envoyée')
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-12 col-lg-2"
   }, [_c('span', {
     staticClass: "card-content",

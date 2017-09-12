@@ -4,10 +4,18 @@
             <img src="/img/placeholders/contact-bullet.jpg" alt="Bullet" class="img-bullet">
         </div>
 
-        <div class="col-12 col-lg-8">
+        <div class="col-12 col-lg-4">
 
             <!--Username-->
             <h5 class="mb-0" v-text="user.username"></h5>
+        </div>
+
+        <div class="col-12 col-lg-4">
+
+            <span class="badge badge-custom badge-warning"
+                  v-if="user.was_invited && ! user.confirmed"
+                  v-text="'Invitation envoyée'">
+            </span>
         </div>
 
         <div class="col-12 col-lg-2">
@@ -35,9 +43,6 @@
                 </div>
             </div>
         </div>
-
-
-
     </div>
 </template>
 
@@ -52,6 +57,9 @@
             };
         },
         mixins: [mixins],
+        created() {
+            console.log(this.user);
+        },
         methods: {
             destroy() {
 
