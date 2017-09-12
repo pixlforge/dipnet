@@ -1,7 +1,9 @@
 <template>
-    <button class="btn btn-block btn-black"
+    <button class="btn btn-block btn-sm btn-black light"
             @click.prevent="sendConfirmationAgain">
-        Renvoyer l'email de confirmation
+        <slot>
+            Renvoyer l'email de confirmation
+        </slot>
     </button>
 </template>
 
