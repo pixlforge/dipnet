@@ -4,24 +4,32 @@
             <img src="/img/placeholders/contact-bullet.jpg" alt="Bullet" class="img-bullet">
         </div>
 
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-3">
 
             <!--Username-->
             <h5 class="mb-0" v-text="user.username"></h5>
         </div>
 
-        <div class="col-12 col-lg-4">
+        <div class="col-12 col-lg-2">
 
+            <!--Invitation was sent-->
             <span class="badge badge-custom badge-warning"
                   v-if="user.was_invited && ! user.confirmed"
                   v-text="'Invitation envoyée'">
             </span>
         </div>
 
-        <div class="col-12 col-lg-2">
+        <div class="col-12 col-lg-3">
 
             <!--Email-->
             <span class="card-content" v-text="user.email"></span>
+        </div>
+
+        <div class="col-12 col-lg-2">
+
+            <app-send-confirmation-email-again v-if="user.was_invited && ! user.confirmed">
+                Renvoyer
+            </app-send-confirmation-email-again>
         </div>
 
         <!--Controls-->
@@ -34,8 +42,6 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="dropdownMenuLink">
 
-                    <!--<edit-contact :data="contact"></edit-contact>-->
-
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fa fa-trash"></i>
                         <span class="ml-3">Supprimer</span>
@@ -47,6 +53,7 @@
 </template>
 
 <script>
+    import SendConfirmationEmailAgain from './SendConfirmationEmailAgain.vue';
     import mixins from '../mixins';
 
     export default {
@@ -55,6 +62,9 @@
             return {
                 user: this.member
             };
+        },
+        components: {
+            'app-send-confirmation-email-again': SendConfirmationEmailAgain
         },
         mixins: [mixins],
         created() {

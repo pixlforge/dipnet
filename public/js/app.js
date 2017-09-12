@@ -29043,7 +29043,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SendConfirmationEmailAgain_vue__ = __webpack_require__(276);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__SendConfirmationEmailAgain_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__SendConfirmationEmailAgain_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
 //
 //
 //
@@ -29092,6 +29094,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -29103,7 +29112,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
-    mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
+    components: {
+        'app-send-confirmation-email-again': __WEBPACK_IMPORTED_MODULE_0__SendConfirmationEmailAgain_vue___default.a
+    },
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
     created: function created() {
         console.log(this.user);
     },
@@ -38155,27 +38167,29 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-4"
+    staticClass: "col-12 col-lg-3"
   }, [_c('h5', {
     staticClass: "mb-0",
     domProps: {
       "textContent": _vm._s(_vm.user.username)
     }
   })]), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-4"
+    staticClass: "col-12 col-lg-2"
   }, [(_vm.user.was_invited && !_vm.user.confirmed) ? _c('span', {
     staticClass: "badge badge-custom badge-warning",
     domProps: {
       "textContent": _vm._s('Invitation envoyée')
     }
   }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-2"
+    staticClass: "col-12 col-lg-3"
   }, [_c('span', {
     staticClass: "card-content",
     domProps: {
       "textContent": _vm._s(_vm.user.email)
     }
   })]), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-2"
+  }, [(_vm.user.was_invited && !_vm.user.confirmed) ? _c('app-send-confirmation-email-again', [_vm._v("\n            Renvoyer\n        ")]) : _vm._e()], 1), _vm._v(" "), _c('div', {
     staticClass: "col-12 col-lg-1 center-on-small-only text-lg-right"
   }, [_c('div', {
     staticClass: "dropdown"
@@ -41033,6 +41047,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     methods: {
@@ -41082,14 +41098,14 @@ module.exports = Component.exports
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
-    staticClass: "btn btn-block btn-black",
+    staticClass: "btn btn-block btn-sm btn-black light",
     on: {
       "click": function($event) {
         $event.preventDefault();
         _vm.sendConfirmationAgain($event)
       }
     }
-  }, [_vm._v("\n    Renvoyer l'email de confirmation\n")])
+  }, [_vm._t("default", [_vm._v("\n        Renvoyer l'email de confirmation\n    ")])], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
