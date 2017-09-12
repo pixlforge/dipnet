@@ -10,6 +10,17 @@ button {
   }
 }
 
+.dropdown-menu {
+  border: none;
+  border-radius: 3px;
+  box-shadow: 0 12px 22px 0 rgba(0, 0, 0, 0.09);
+}
+
+.dropdown-item {
+  line-height: 2;
+  font-size: 14px;
+}
+
 .dropdown-item.active, .dropdown-item:active {
   background: $tundora;
 }

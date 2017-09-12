@@ -17,6 +17,7 @@ Vue.component('app-register', require('./components/Register.vue'));
 Vue.component('app-account-details', require('./components/AccountDetails.vue'));
 Vue.component('app-account-contact', require('./components/AccountContact.vue'));
 Vue.component('app-account-company', require('./components/AccountCompany.vue'));
+Vue.component('app-profile', require('./components/Profile.vue'));
 Vue.component('app-contacts', require('./components/Contacts.vue'));
 Vue.component('app-formats', require('./components/Formats.vue'));
 Vue.component('app-categories', require('./components/Categories.vue'));
