@@ -52,7 +52,6 @@
                                    name="name"
                                    v-model="company.name"
                                    class="form-control"
-                                   placeholder="e.g. Pantone SA"
                                    autofocus>
                             <div class="help-block"
                                  v-if="errors.name"

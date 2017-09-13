@@ -29,13 +29,12 @@
                                 <!--Username-->
                                 <div class="form-group my-5">
                                     <label for="username">Nom d'utilisateur</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="text"
                                            id="username"
                                            name="username"
                                            v-model="account.username"
                                            class="form-control"
-                                           placeholder="e.g. John Doe"
                                            required autofocus>
                                     <div class="help-block"
                                          v-if="errors.username"
@@ -45,13 +44,12 @@
                                 <!--Email-->
                                 <div class="form-group my-5">
                                     <label for="email">E-mail</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="email"
                                            id="email"
                                            name="email"
                                            v-model="account.email"
                                            class="form-control"
-                                           placeholder="e.g. votre@email.ch"
                                            required>
                                     <div class="help-block"
                                          v-if="errors.email"
@@ -61,13 +59,12 @@
                                 <!--Password-->
                                 <div class="form-group my-5">
                                     <label for="password">Mot de passe</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="password"
                                            id="password"
                                            name="password"
                                            v-model="account.password"
                                            class="form-control"
-                                           placeholder="Entre 6 et 45 caractères"
                                            required>
                                     <div class="help-block"
                                          v-if="errors.password"
@@ -77,13 +74,12 @@
                                 <!--Password confirm-->
                                 <div class="form-group my-5">
                                     <label for="password-confirm">Confirmation du mot de passe</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="password"
                                            id="password-confirm"
                                            name="password_confirmation"
                                            v-model="account.password_confirmation"
                                            class="form-control"
-                                           placeholder="Répétez votre mot de passe"
                                            required>
                                 </div>
 

@@ -27,12 +27,11 @@
                                 <!--Name-->
                                 <div class="form-group">
                                     <label for="name">Nom</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="text"
                                            id="name"
                                            name="name"
                                            class="form-control"
-                                           placeholder="e.g. Fête Nationale"
                                            v-model.trim="business.name"
                                            required autofocus>
                                     <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
@@ -58,7 +57,6 @@
                                            id="description"
                                            name="description"
                                            class="form-control"
-                                           placeholder="e.g. Courte description"
                                            v-model.trim="business.description">
                                     <div class="help-block" v-if="errors.description" v-text="errors.description[0]"></div>
                                 </div>

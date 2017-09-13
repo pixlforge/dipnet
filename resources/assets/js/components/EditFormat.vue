@@ -26,12 +26,11 @@
                                 <!--Name-->
                                 <div class="form-group">
                                     <label for="name">Nom</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="text"
                                            id="name"
                                            name="name"
                                            class="form-control"
-                                           placeholder="e.g. A4"
                                            v-model.trim="format.name"
                                            required autofocus>
                                     <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
@@ -40,12 +39,11 @@
                                 <!--Height-->
                                 <div class="form-group my-5">
                                     <label for="height">Hauteur</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="number"
                                            id="height"
                                            name="height"
                                            class="form-control"
-                                           placeholder="e.g. 297mm"
                                            v-model.trim="format.height"
                                            required>
                                     <div class="help-block" v-if="errors.height" v-text="errors.height[0]"></div>
@@ -54,12 +52,11 @@
                                 <!--Width-->
                                 <div class="form-group my-5">
                                     <label for="width">Largeur</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="number"
                                            id="width"
                                            name="width"
                                            class="form-control"
-                                           placeholder="e.g. 210mm"
                                            v-model.trim="format.width"
                                            required>
                                     <div class="help-block" v-if="errors.width" v-text="errors.width[0]"></div>
@@ -72,7 +69,6 @@
                                            id="surface"
                                            name="surface"
                                            class="form-control"
-                                           placeholder="e.g. 62'500mm2"
                                            v-model.trim="format.surface">
                                     <div class="help-block" v-if="errors.surface" v-text="errors.surface[0]"></div>
                                 </div>

@@ -52,7 +52,6 @@
                                name="name"
                                v-model="company.name"
                                class="form-control"
-                               placeholder="e.g. Pantone SA"
                                autofocus>
                         <div class="help-block"
                              v-if="errors.name"
@@ -66,7 +65,11 @@
                         Mettre à jour
                     </button>
 
-                    <p class="mt-5 text-center"><small>Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société et commandez en votre nom propre</small></p>
+                    <p class="mt-5 text-center">
+                        <small>
+                            Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société et commandez en votre nom propre
+                        </small>
+                    </p>
 
                     <p class="text-small text-center mt-5">
                         <a @click="update">

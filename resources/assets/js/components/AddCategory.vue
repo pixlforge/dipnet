@@ -27,12 +27,11 @@
                                 <!--Name-->
                                 <div class="form-group">
                                     <label for="name">Nom</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="text"
                                            id="name"
                                            name="name"
                                            class="form-control"
-                                           placeholder="e.g. A4"
                                            v-model.trim="category.name"
                                            required autofocus>
                                     <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>

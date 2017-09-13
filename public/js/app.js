@@ -27505,7 +27505,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -27565,13 +27564,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -27870,9 +27862,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -27928,8 +27917,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
-//
-//
 //
 //
 //
@@ -28104,7 +28091,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
-//
 //
 //
 //
@@ -28367,14 +28353,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -28431,10 +28409,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(7);
-//
-//
-//
-//
 //
 //
 //
@@ -29467,7 +29441,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -29518,14 +29491,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -29733,10 +29698,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
-//
-//
-//
-//
 //
 //
 //
@@ -30227,7 +30188,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -30373,10 +30333,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins__ = __webpack_require__(7);
-//
-//
-//
-//
 //
 //
 //
@@ -30649,6 +30605,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -30710,13 +30669,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(7);
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -36330,7 +36282,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -36342,7 +36294,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. Mon contact principal",
       "required": "",
       "autofocus": ""
     },
@@ -36368,7 +36319,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Adresse ligne 1")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -36380,7 +36331,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "address_line1",
       "name": "address_line1",
-      "placeholder": "e.g. Rue, n°",
       "required": ""
     },
     domProps: {
@@ -36401,7 +36351,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-group my-5"
   }, [_c('label', {
     attrs: {
-      "for": "address_line1"
+      "for": "address_line2"
     }
   }, [_vm._v("Adresse ligne 2")]), _vm._v(" "), _c('input', {
     directives: [{
@@ -36414,8 +36364,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "address_line2",
-      "name": "address_line2",
-      "placeholder": "e.g. App, suite"
+      "name": "address_line2"
     },
     domProps: {
       "value": (_vm.contact.address_line2)
@@ -36439,7 +36388,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("NPA")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -36451,7 +36400,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "zip",
       "name": "zip",
-      "placeholder": "e.g. 1002",
       "required": ""
     },
     domProps: {
@@ -36476,7 +36424,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Ville")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -36488,7 +36436,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "city",
       "name": "city",
-      "placeholder": "e.g. Lausanne",
       "required": ""
     },
     domProps: {
@@ -36522,8 +36469,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "phone_number",
-      "name": "phone_number",
-      "placeholder": "e.g. +41 (0)12 34 56"
+      "name": "phone_number"
     },
     domProps: {
       "value": (_vm.contact.phone_number)
@@ -36556,8 +36502,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "fax",
-      "name": "fax",
-      "placeholder": "e.g. +41 (0)12 34 57"
+      "name": "fax"
     },
     domProps: {
       "value": (_vm.contact.fax)
@@ -36669,7 +36614,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -36684,7 +36629,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. Principal",
       "required": "",
       "autofocus": ""
     },
@@ -36713,7 +36657,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Adresse ligne 1")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -36728,7 +36672,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "address_line1",
       "name": "address_line1",
-      "placeholder": "e.g. Rue, n°",
       "required": ""
     },
     domProps: {
@@ -36768,8 +36711,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "address_line2",
-      "name": "address_line2",
-      "placeholder": "e.g. Appartement, suite"
+      "name": "address_line2"
     },
     domProps: {
       "value": (_vm.contact.address_line2)
@@ -36796,7 +36738,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Code postal")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -36811,7 +36753,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "zip",
       "name": "zip",
-      "placeholder": "e.g. 1002",
       "required": ""
     },
     domProps: {
@@ -36839,7 +36780,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Ville")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -36854,7 +36795,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "city",
       "name": "city",
-      "placeholder": "e.g. Lausanne",
       "required": ""
     },
     domProps: {
@@ -36894,8 +36834,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "phone_number",
-      "name": "phone_number",
-      "placeholder": "e.g. +41 (0)12 345 67 89"
+      "name": "phone_number"
     },
     domProps: {
       "value": (_vm.contact.phone_number)
@@ -36934,8 +36873,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "fax",
-      "name": "fax",
-      "placeholder": "e.g. +41 (0)12 345 67 90"
+      "name": "fax"
     },
     domProps: {
       "value": (_vm.contact.fax)
@@ -36962,7 +36900,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("E-mail")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -36977,7 +36915,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "email",
       "name": "email",
-      "placeholder": "e.g. votre@email.ch",
       "required": ""
     },
     domProps: {
@@ -37246,7 +37183,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -37258,7 +37195,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. Mon contact principal",
       "required": "",
       "autofocus": ""
     },
@@ -37284,7 +37220,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Adresse ligne 1")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -37296,7 +37232,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "address_line1",
       "name": "address_line1",
-      "placeholder": "e.g. Rue, n°",
       "required": ""
     },
     domProps: {
@@ -37330,8 +37265,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "address_line2",
-      "name": "address_line2",
-      "placeholder": "e.g. App, suite"
+      "name": "address_line2"
     },
     domProps: {
       "value": (_vm.contact.address_line2)
@@ -37355,7 +37289,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("NPA")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -37367,7 +37301,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "zip",
       "name": "zip",
-      "placeholder": "e.g. 1002",
       "required": ""
     },
     domProps: {
@@ -37392,7 +37325,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Ville")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -37404,7 +37337,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "city",
       "name": "city",
-      "placeholder": "e.g. Lausanne",
       "required": ""
     },
     domProps: {
@@ -37438,8 +37370,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "phone_number",
-      "name": "phone_number",
-      "placeholder": "e.g. +41 (0)12 34 56"
+      "name": "phone_number"
     },
     domProps: {
       "value": (_vm.contact.phone_number)
@@ -37472,8 +37403,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "fax",
-      "name": "fax",
-      "placeholder": "e.g. +41 (0)12 34 57"
+      "name": "fax"
     },
     domProps: {
       "value": (_vm.contact.fax)
@@ -37744,7 +37674,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -37759,7 +37689,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. A4",
       "required": "",
       "autofocus": ""
     },
@@ -37788,7 +37717,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Hauteur")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -37803,7 +37732,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "id": "height",
       "name": "height",
-      "placeholder": "e.g. 297mm",
       "required": ""
     },
     domProps: {
@@ -37831,7 +37759,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Largeur")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -37846,7 +37774,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "id": "width",
       "name": "width",
-      "placeholder": "e.g. 210mm",
       "required": ""
     },
     domProps: {
@@ -37886,8 +37813,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "surface",
-      "name": "surface",
-      "placeholder": "e.g. 62'500mm2"
+      "name": "surface"
     },
     domProps: {
       "value": (_vm.format.surface)
@@ -37977,8 +37903,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "email",
-      "name": "user.email",
-      "placeholder": "e.g. adresse@email.com"
+      "name": "user.email"
     },
     domProps: {
       "value": (_vm.user.email)
@@ -38096,7 +38021,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. Pantone SA",
       "autofocus": ""
     },
     domProps: {
@@ -38319,7 +38243,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -38334,7 +38258,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. A4",
       "required": "",
       "autofocus": ""
     },
@@ -38363,7 +38286,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Hauteur")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -38378,7 +38301,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "id": "height",
       "name": "height",
-      "placeholder": "e.g. 297mm",
       "required": ""
     },
     domProps: {
@@ -38406,7 +38328,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Largeur")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -38421,7 +38343,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number",
       "id": "width",
       "name": "width",
-      "placeholder": "e.g. 210mm",
       "required": ""
     },
     domProps: {
@@ -38461,8 +38382,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "surface",
-      "name": "surface",
-      "placeholder": "e.g. 62'500mm2"
+      "name": "surface"
     },
     domProps: {
       "value": (_vm.format.surface)
@@ -38678,7 +38598,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -38693,7 +38613,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. A4",
       "required": "",
       "autofocus": ""
     },
@@ -38807,7 +38726,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom d'utilisateur")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -38819,7 +38738,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "username",
       "name": "username",
-      "placeholder": "e.g. John Doe",
       "required": "",
       "autofocus": ""
     },
@@ -38845,7 +38763,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("E-mail")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -38857,7 +38775,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "email",
       "id": "email",
       "name": "email",
-      "placeholder": "e.g. votre@email.ch",
       "required": ""
     },
     domProps: {
@@ -38882,7 +38799,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Mot de passe")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -38894,7 +38811,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "password",
       "id": "password",
       "name": "password",
-      "placeholder": "Entre 6 et 45 caractères",
       "required": ""
     },
     domProps: {
@@ -38919,7 +38835,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Confirmation du mot de passe")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -38931,7 +38847,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "password",
       "id": "password-confirm",
       "name": "password_confirmation",
-      "placeholder": "Répétez votre mot de passe",
       "required": ""
     },
     domProps: {
@@ -39042,7 +38957,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. Pantone SA",
       "autofocus": ""
     },
     domProps: {
@@ -39098,7 +39012,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('p', {
     staticClass: "mt-5 text-center"
-  }, [_c('small', [_vm._v("Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société et commandez en votre nom propre")])])
+  }, [_c('small', [_vm._v("\n                        Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société et commandez en votre nom propre\n                    ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -39405,7 +39319,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -39420,7 +39334,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. A4",
       "required": "",
       "autofocus": ""
     },
@@ -39701,7 +39614,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -39716,7 +39629,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. Principal",
       "required": "",
       "autofocus": ""
     },
@@ -39745,7 +39657,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Adresse ligne 1")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -39760,7 +39672,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "address_line1",
       "name": "address_line1",
-      "placeholder": "e.g. Rue, n°",
       "required": ""
     },
     domProps: {
@@ -39800,8 +39711,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "address_line2",
-      "name": "address_line2",
-      "placeholder": "e.g. Appartement, suite"
+      "name": "address_line2"
     },
     domProps: {
       "value": (_vm.contact.address_line2)
@@ -39828,7 +39738,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Code postal")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -39843,7 +39753,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "zip",
       "name": "zip",
-      "placeholder": "e.g. 1002",
       "required": ""
     },
     domProps: {
@@ -39871,7 +39780,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Ville")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -39886,7 +39795,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "city",
       "name": "city",
-      "placeholder": "e.g. Lausanne",
       "required": ""
     },
     domProps: {
@@ -39926,8 +39834,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "phone_number",
-      "name": "phone_number",
-      "placeholder": "e.g. +41 (0)12 345 67 89"
+      "name": "phone_number"
     },
     domProps: {
       "value": (_vm.contact.phone_number)
@@ -39966,8 +39873,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "fax",
-      "name": "fax",
-      "placeholder": "e.g. +41 (0)12 345 67 90"
+      "name": "fax"
     },
     domProps: {
       "value": (_vm.contact.fax)
@@ -39994,7 +39900,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("E-mail")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -40009,7 +39915,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "email",
       "name": "email",
-      "placeholder": "e.g. votre@email.ch",
       "required": ""
     },
     domProps: {
@@ -40285,7 +40190,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model.trim",
@@ -40300,7 +40205,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "name",
       "name": "name",
-      "placeholder": "e.g. Fête Nationale",
       "required": "",
       "autofocus": ""
     },
@@ -40385,8 +40289,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "text",
       "id": "description",
-      "name": "description",
-      "placeholder": "e.g. Courte description"
+      "name": "description"
     },
     domProps: {
       "value": (_vm.business.description)
@@ -40639,7 +40542,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Nom d'utilisateur")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -40651,7 +40554,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "text",
       "id": "username",
       "name": "username",
-      "placeholder": "e.g. John Doe",
       "required": "",
       "autofocus": ""
     },
@@ -40677,7 +40579,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Mot de passe")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -40689,7 +40591,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "password",
       "id": "password",
       "name": "password",
-      "placeholder": "Entre 6 et 45 caractères",
       "required": ""
     },
     domProps: {
@@ -40714,7 +40615,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Confirmation du mot de passe")]), _vm._v(" "), _c('span', {
     staticClass: "required"
-  }, [_vm._v("requis")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -40726,7 +40627,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "password",
       "id": "password-confirm",
       "name": "password_confirmation",
-      "placeholder": "Répétez votre mot de passe",
       "required": ""
     },
     domProps: {

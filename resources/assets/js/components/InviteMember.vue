@@ -14,7 +14,6 @@
                             <input type="email"
                                    name="user.email"
                                    v-model="user.email"
-                                   placeholder="e.g. adresse@email.com"
                                    class="form-control" @keyup.enter="sendInvitation">
                             <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
                         </div>

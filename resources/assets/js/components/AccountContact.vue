@@ -48,13 +48,12 @@
                         <!--Name-->
                         <div class="form-group my-5">
                             <label for="name">Nom</label>
-                            <span class="required">requis</span>
+                            <span class="required">*</span>
                             <input type="text"
                                    id="name"
                                    name="name"
                                    v-model="contact.name"
                                    class="form-control"
-                                   placeholder="e.g. Mon contact principal"
                                    required autofocus>
                             <div class="help-block"
                                  v-if="errors.name"
@@ -64,13 +63,12 @@
                         <!--Address Line 1-->
                         <div class="form-group my-5">
                             <label for="address_line1">Adresse ligne 1</label>
-                            <span class="required">requis</span>
+                            <span class="required">*</span>
                             <input type="text"
                                    id="address_line1"
                                    name="address_line1"
                                    v-model="contact.address_line1"
                                    class="form-control"
-                                   placeholder="e.g. Rue, n°"
                                    required>
                             <div class="help-block"
                                  v-if="errors.address_line1"
@@ -79,13 +77,12 @@
 
                         <!--Address Line 2-->
                         <div class="form-group my-5">
-                            <label for="address_line1">Adresse ligne 2</label>
+                            <label for="address_line2">Adresse ligne 2</label>
                             <input type="text"
                                    id="address_line2"
                                    name="address_line2"
                                    v-model="contact.address_line2"
-                                   class="form-control"
-                                   placeholder="e.g. App, suite">
+                                   class="form-control">
                             <div class="help-block"
                                  v-if="errors.address_line2"
                                  v-text="errors.address_line2[0]"></div>
@@ -94,13 +91,12 @@
                         <!--Zip-->
                         <div class="form-group my-5">
                             <label for="zip">NPA</label>
-                            <span class="required">requis</span>
+                            <span class="required">*</span>
                             <input type="text"
                                    id="zip"
                                    name="zip"
                                    v-model="contact.zip"
                                    class="form-control"
-                                   placeholder="e.g. 1002"
                                    required>
                             <div class="help-block"
                                  v-if="errors.zip"
@@ -110,13 +106,12 @@
                         <!--City-->
                         <div class="form-group my-5">
                             <label for="city">Ville</label>
-                            <span class="required">requis</span>
+                            <span class="required">*</span>
                             <input type="text"
                                    id="city"
                                    name="city"
                                    v-model="contact.city"
                                    class="form-control"
-                                   placeholder="e.g. Lausanne"
                                    required>
                             <div class="help-block"
                                  v-if="errors.city"
@@ -130,8 +125,7 @@
                                    id="phone_number"
                                    name="phone_number"
                                    v-model="contact.phone_number"
-                                   class="form-control"
-                                   placeholder="e.g. +41 (0)12 34 56">
+                                   class="form-control">
                             <div class="help-block"
                                  v-if="errors.phone_number"
                                  v-text="errors.phone_number[0]"></div>
@@ -144,8 +138,7 @@
                                    id="fax"
                                    name="fax"
                                    v-model="contact.fax"
-                                   class="form-control"
-                                   placeholder="e.g. +41 (0)12 34 57">
+                                   class="form-control">
                             <div class="help-block"
                                  v-if="errors.fax"
                                  v-text="errors.fax[0]"></div>

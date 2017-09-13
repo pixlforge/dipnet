@@ -27,12 +27,11 @@
                                 <!--Name-->
                                 <div class="form-group">
                                     <label for="name">Nom</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="text"
                                            id="name"
                                            name="name"
                                            class="form-control"
-                                           placeholder="e.g. Principal"
                                            v-model.trim="contact.name"
                                            required autofocus>
                                     <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
@@ -41,12 +40,11 @@
                                 <!--Address line 1-->
                                 <div class="form-group my-5">
                                     <label for="address_line1">Adresse ligne 1</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="text"
                                            id="address_line1"
                                            name="address_line1"
                                            class="form-control"
-                                           placeholder="e.g. Rue, n°"
                                            v-model.trim="contact.address_line1"
                                            required>
                                     <div class="help-block" v-if="errors.address_line1" v-text="errors.address_line1[0]"></div>
@@ -59,7 +57,6 @@
                                            id="address_line2"
                                            name="address_line2"
                                            class="form-control"
-                                           placeholder="e.g. Appartement, suite"
                                            v-model.trim="contact.address_line2">
                                     <div class="help-block" v-if="errors.address_line2" v-text="errors.address_line2[0]"></div>
                                 </div>
@@ -67,12 +64,11 @@
                                 <!--Zip-->
                                 <div class="form-group my-5">
                                     <label for="zip">Code postal</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="text"
                                            id="zip"
                                            name="zip"
                                            class="form-control"
-                                           placeholder="e.g. 1002"
                                            v-model.trim="contact.zip"
                                            required>
                                     <div class="help-block" v-if="errors.zip" v-text="errors.zip[0]"></div>
@@ -81,12 +77,11 @@
                                 <!--City-->
                                 <div class="form-group my-5">
                                     <label for="city">Ville</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="text"
                                            id="city"
                                            name="city"
                                            class="form-control"
-                                           placeholder="e.g. Lausanne"
                                            v-model.trim="contact.city"
                                            required>
                                     <div class="help-block" v-if="errors.city" v-text="errors.city[0]"></div>
@@ -99,7 +94,6 @@
                                            id="phone_number"
                                            name="phone_number"
                                            class="form-control"
-                                           placeholder="e.g. +41 (0)12 345 67 89"
                                            v-model.trim="contact.phone_number">
                                     <div class="help-block" v-if="errors.phone_number" v-text="errors.phone_number[0]"></div>
                                 </div>
@@ -111,7 +105,6 @@
                                            id="fax"
                                            name="fax"
                                            class="form-control"
-                                           placeholder="e.g. +41 (0)12 345 67 90"
                                            v-model.trim="contact.fax">
                                     <div class="help-block" v-if="errors.fax" v-text="errors.fax[0]"></div>
                                 </div>
@@ -119,12 +112,11 @@
                                 <!--Email-->
                                 <div class="form-group my-5">
                                     <label for="email">E-mail</label>
-                                    <span class="required">requis</span>
+                                    <span class="required">*</span>
                                     <input type="text"
                                            id="email"
                                            name="email"
                                            class="form-control"
-                                           placeholder="e.g. votre@email.ch"
                                            v-model.trim="contact.email"
                                            required>
                                     <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
