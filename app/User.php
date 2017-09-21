@@ -114,4 +114,14 @@ class User extends Authenticatable
     {
         return $this->was_invited;
     }
+
+    /**
+     * Check wether the user is an admin.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->role === 'administrateur';
+    }
 }
