@@ -21,11 +21,7 @@ class CompanyTest extends TestCase
         return $this->company = factory('App\Company')->create();
     }
 
-    /**
-     * Company index view is available
-     *
-     * @test
-     */
+    /** @test */
     function company_index_view_is_available()
     {
         $this->signIn(null, 'administrateur');
@@ -35,11 +31,7 @@ class CompanyTest extends TestCase
         $response->assertViewIs('companies.index');
     }
 
-    /**
-     * Authorized users can create companies
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_create_companies()
     {
         $this->signIn(null, 'administrateur');
@@ -50,11 +42,7 @@ class CompanyTest extends TestCase
             ->assertRedirect('/companies');
     }
 
-    /**
-     * Authorized users can update companies
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_update_companies()
     {
         $this->signIn(null, 'administrateur');
@@ -70,11 +58,7 @@ class CompanyTest extends TestCase
             ->assertRedirect('/companies');
     }
 
-    /**
-     * Authorized users can delete companies
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_delete_companies()
     {
         $this->signIn(null, 'administrateur');
@@ -87,11 +71,7 @@ class CompanyTest extends TestCase
             ->assertRedirect('/companies');
     }
 
-    /**
-     * Authorized users can restore companies
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_restore_companies()
     {
         $this->signIn(null, 'administrateur');

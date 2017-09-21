@@ -21,11 +21,7 @@ class ArticleTest extends TestCase
         return $this->article = factory('App\Article')->create();
     }
 
-    /**
-     * Article index view is available
-     *
-     * @test
-     */
+    /** @test */
     function article_index_view_is_available()
     {
         $this->signIn(null, 'administrateur');
@@ -33,12 +29,8 @@ class ArticleTest extends TestCase
         $this->get('/articles')
             ->assertViewIs('articles.index');
     }
-    
-    /**
-     * Authorized users can create articles
-     * 
-     * @test
-     */
+
+    /** @test */
     function authorized_users_can_create_articles()
     {
         $this->signIn(null, 'administrateur');
@@ -51,11 +43,7 @@ class ArticleTest extends TestCase
             ->assertRedirect('/articles');
     }
 
-    /**
-     * Authorized users can update articles
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_update_articles()
     {
         $this->signIn(null, 'administrateur');
@@ -73,11 +61,7 @@ class ArticleTest extends TestCase
             ->assertRedirect('/articles');
     }
 
-    /**
-     * Authorized users can delete articles
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_delete_articles()
     {
         $this->signIn(null, 'administrateur');
@@ -90,11 +74,7 @@ class ArticleTest extends TestCase
             ->assertRedirect('articles');
     }
 
-    /**
-     * Authorized users can restore artices
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_restore_articles()
     {
         $this->signIn(null, 'administrateur');
@@ -109,7 +89,6 @@ class ArticleTest extends TestCase
         $this->put("/articles/{$article->reference}/restore", [$article])
             ->assertRedirect('articles');
     }
-
 }
 
 

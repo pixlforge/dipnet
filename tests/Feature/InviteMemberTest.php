@@ -12,11 +12,7 @@ class InviteMemberTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Members of a company can send invitations by email
-     *
-     * @test
-     */
+    /** @test */
     function members_of_a_company_can_send_invitations_by_email()
     {
         Mail::fake();
@@ -35,11 +31,7 @@ class InviteMemberTest extends TestCase
         Mail::assertQueued(InvitationEmail::class);
     }
 
-    /**
-     * Invited users can fully confirm their email addresses
-     *
-     * @test
-     */
+    /** @test */
     function invited_users_can_fully_confirm_their_email_addresses()
     {
         Mail::fake();

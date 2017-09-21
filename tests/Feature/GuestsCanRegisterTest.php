@@ -2,41 +2,28 @@
 
 namespace Tests\Feature;
 
-use App\Company;
 use App\User;
+use App\Company;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistrationEmailConfirmation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class RegisterTest extends TestCase
+class GuestsCanRegisterTest extends TestCase
 {
     use RefreshDatabase;
-    
-    /**
-     * Guests can reach the register view.
-     * 
-     * @test
-     */
+
+    /** @test */
     function guests_can_reach_the_register_view()
     {
-        // Guests can reach the register view
         $this->get(route('register'))
             ->assertStatus(200)
             ->assertViewIs('auth.register');
     }
 
-    /**
-     * Guests can register a new account
-     *
-     * @test
-     */
+    /** @test */
     function guests_can_register_a_new_account()
     {
-        // Given a guest registers a new account
-        // Then, a default contact should be automatically created for this user,
-        // Alongside a default company
-
         Mail::fake();
 
         $user = factory('App\User')->make([
@@ -59,11 +46,7 @@ class RegisterTest extends TestCase
         ]);
     }
 
-    /**
-     * It redirects the user if account contact information is not confirmed
-     *
-     * @test
-     */
+    /** @test */
     function it_redirects_the_user_if_account_contact_is_not_confirmed()
     {
         $user = factory('App\User')->states('contact-not-confirmed')->create();
@@ -82,11 +65,7 @@ class RegisterTest extends TestCase
             ->assertStatus(200);
     }
 
-    /**
-     * It redirects the user if account company information is not confirmed
-     *
-     * @test
-     */
+    /** @test */
     function it_redirects_the_user_if_account_company_is_not_confirmed()
     {
         $user = factory('App\User')->states('company-not-confirmed')->create([
@@ -105,12 +84,8 @@ class RegisterTest extends TestCase
         $this->get(route('index'))
             ->assertStatus(200);
     }
-    
-    /**
-     * A confirmation email is sent upon registration
-     * 
-     * @test
-     */
+
+    /** @test */
     function a_confirmation_email_is_sent_upon_registration()
     {
         Mail::fake();
@@ -124,12 +99,8 @@ class RegisterTest extends TestCase
 
         Mail::assertQueued(RegistrationEmailConfirmation::class);
     }
-    
-    /**
-     * Users can fully confirm their email addresses
-     * 
-     * @test
-     */
+
+    /** @test */
     function users_can_fully_confirm_their_email_addresses()
     {
         Mail::fake();
@@ -154,24 +125,8 @@ class RegisterTest extends TestCase
             $this->assertNull($user->confirmation_token);
         });
     }
-    
-    /**
-     * Confirming an invalid token
-     * 
-     * @test
-     */
-    function confirming_an_invalid_token()
-    {
-        $this->get(route('register.confirm', ['token' => 'invalid']))
-            ->assertRedirect(route('index'))
-            ->assertSessionHas('flash');
-    }
 
-    /**
-     * Registering using an existing company name should fail
-     *
-     * @test
-     */
+    /** @test */
     function registering_using_an_existing_company_name_should_fail()
     {
         Mail::fake();
@@ -214,7 +169,5 @@ class RegisterTest extends TestCase
         $secondUserCompany = Company::whereId($secondUser->company_id)->firstOrFail();
         $secondUserCompany->name = 'Xerox';
         $secondUserCompany->save();
-
-//        $this->assertFalse($secondUserCompany->save());
     }
 }

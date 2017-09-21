@@ -21,11 +21,7 @@ class DeliveryTest extends TestCase
         return $this->delivery = factory('App\Delivery')->create();
     }
 
-    /**
-     * Delivery index view is available
-     *
-     * @test
-     */
+    /** @test */
     function delivery_index_view_is_available()
     {
         $this->signIn(null, 'administrateur');
@@ -35,11 +31,7 @@ class DeliveryTest extends TestCase
         $response->assertViewIs('deliveries.index');
     }
 
-    /**
-     * Authorized users can create deliveries
-     * 
-     * @test
-     */
+    /** @test */
     function authorized_users_can_create_deliveries()
     {
         $this->signIn(null, 'administrateur');
@@ -50,11 +42,7 @@ class DeliveryTest extends TestCase
             ->assertRedirect('/deliveries');
     }
 
-    /**
-     * Authorized users can update deliveries
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_update_deliveries()
     {
         $this->signIn(null, 'administrateur');
@@ -67,11 +55,7 @@ class DeliveryTest extends TestCase
             ->assertRedirect('/deliveries');
     }
 
-    /**
-     * Authorized users can delete deliveries
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_delete_deliveries()
     {
         $this->signIn(null, 'administrateur');
@@ -81,12 +65,8 @@ class DeliveryTest extends TestCase
         $this->delete("/deliveries/{$delivery}")
             ->assertRedirect('/deliveries');
     }
-    
-    /**
-     * Authorized users can restore a delivery
-     * 
-     * @test
-     */
+
+    /** @test */
     function authorized_users_can_restore_a_delivery()
     {
         $this->signIn(null, 'administrateur');
@@ -99,6 +79,4 @@ class DeliveryTest extends TestCase
         $this->put("/deliveries/{$delivery->id}/restore", $delivery->toArray())
             ->assertRedirect('/deliveries');
     }
-
-
 }

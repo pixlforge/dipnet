@@ -9,11 +9,7 @@ class ProfileTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Authenticated users have a profile
-     * 
-     * @test
-     */
+    /** @test */
     function authenticated_users_have_a_profile()
     {
         $this->signIn();
@@ -22,11 +18,7 @@ class ProfileTest extends TestCase
             ->assertViewIs('profiles.profile');
     }
 
-    /**
-     * An authenticated user can modify his profile
-     *
-     * @test
-     */
+    /** @test */
     function an_authenticated_user_can_modify_his_profile()
     {
         $this->signIn();

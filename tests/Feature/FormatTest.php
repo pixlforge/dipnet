@@ -21,11 +21,7 @@ class FormatTest extends TestCase
         return $this->format = factory('App\Format')->create();
     }
 
-    /**
-     * Format index view is available
-     *
-     * @test
-     */
+    /** @test */
     function format_index_view_is_available()
     {
         $this->signIn(null, 'administrateur');
@@ -35,11 +31,7 @@ class FormatTest extends TestCase
         $response->assertViewIs('formats.index');
     }
 
-    /**
-     * Authorized users can create formats
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_create_formats()
     {
         $this->signIn(null, 'administrateur');
@@ -49,12 +41,8 @@ class FormatTest extends TestCase
         $this->post('/formats', $format->toArray())
             ->assertRedirect('/formats');
     }
-    
-    /**
-     * Authorized users can update formats
-     * 
-     * @test
-     */
+
+    /** @test */
     function authorized_users_can_update_formats()
     {
         $this->signIn(null, 'administrateur');
@@ -67,11 +55,7 @@ class FormatTest extends TestCase
             ->assertRedirect('/formats');
     }
 
-    /**
-     * Authorized users can delete formats
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_delete_formats()
     {
         $this->signIn(null, 'administrateur');
@@ -82,11 +66,7 @@ class FormatTest extends TestCase
             ->assertRedirect('formats');
     }
 
-    /**
-     * Authorized users can restore formats
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_restore_formats()
     {
         $this->signIn(null, 'administrateur');

@@ -21,11 +21,7 @@ class OrderTest extends TestCase
         return $this->order = factory('App\Order')->create();
     }
 
-    /**
-     * Order index view is available
-     *
-     * @test
-     */
+    /** @test */
     function order_index_view_available()
     {
         $this->signIn(null, 'administrateur');
@@ -35,11 +31,7 @@ class OrderTest extends TestCase
         $response->assertViewIs('orders.index');
     }
 
-    /**
-     * Authorized users can create orders
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_create_orders()
     {
         $this->signIn(null, 'administrateur');
@@ -50,11 +42,7 @@ class OrderTest extends TestCase
             ->assertRedirect('/orders');
     }
 
-    /**
-     * Authorized users can update order
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_update_orders()
     {
         $this->signIn(null, 'administrateur');
@@ -67,11 +55,7 @@ class OrderTest extends TestCase
             ->assertRedirect('/orders');
     }
 
-    /**
-     * Authorized users can delete orders
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_delete_orders()
     {
         $this->signIn(null, 'administrateur');
@@ -84,11 +68,7 @@ class OrderTest extends TestCase
             ->assertRedirect('/orders');
     }
 
-    /**
-     * Authorized users can restore orders
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_restore_orders()
     {
         $this->signIn(null, 'administrateur');

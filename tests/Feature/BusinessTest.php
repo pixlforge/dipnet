@@ -21,11 +21,7 @@ class BusinessTest extends TestCase
         return $this->business = factory('App\Business')->create();
     }
 
-    /**
-     * Business index view is available
-     *
-     * @test
-     */
+    /** @test */
     function business_index_view_is_available()
     {
         $this->signIn(null, 'administrateur');
@@ -35,11 +31,7 @@ class BusinessTest extends TestCase
         $response->assertViewIs('businesses.index');
     }
 
-    /**
-     * Authorized users can create businesses
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_create_businesses()
     {
         $this->signIn(null, 'administrateur');
@@ -50,11 +42,7 @@ class BusinessTest extends TestCase
             ->assertRedirect('/businesses');
     }
 
-    /**
-     * Authorized users can update businesses
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_update_businesses()
     {
         $this->signIn(null, 'administrateur');
@@ -67,11 +55,7 @@ class BusinessTest extends TestCase
             ->assertRedirect('/businesses');
     }
 
-    /**
-     * Authorized users can delete businesses
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_delete_businesses()
     {
         $this->signIn(null, 'administrateur');
@@ -84,11 +68,7 @@ class BusinessTest extends TestCase
             ->assertRedirect('/businesses');
     }
 
-    /**
-     * Authorized users can restore businesses
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_restore_businesses()
     {
         $this->signIn(null, 'administrateur');

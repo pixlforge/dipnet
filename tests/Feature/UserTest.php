@@ -21,11 +21,7 @@ class UserTest extends TestCase
         return $this->user = factory('App\User')->create();
     }
 
-    /**
-     * User index view is available
-     *
-     * @test
-     */
+    /** @test */
     function user_index_view_is_available()
     {
         $this->signIn(null, 'administrateur');
@@ -35,11 +31,7 @@ class UserTest extends TestCase
         $response->assertViewIs('users.index');
     }
 
-    /**
-     * Authorized users can create users
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_create_users()
     {
         $this->signIn(null, 'administrateur');
@@ -50,11 +42,7 @@ class UserTest extends TestCase
             ->assertStatus(200);
     }
 
-    /**
-     * Authorized users can update users
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_update_users()
     {
         $this->signIn(null, 'administrateur');
@@ -67,11 +55,7 @@ class UserTest extends TestCase
             ->assertRedirect('users');
     }
 
-    /**
-     * Authorized users can delete users
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_delete_users()
     {
         $this->signIn(null, 'administrateur');
@@ -86,11 +70,7 @@ class UserTest extends TestCase
             ->assertRedirect('/users');
     }
 
-    /**
-     * Authorized users can restore users
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_restore_users()
     {
         $this->signIn(null, 'administrateur');

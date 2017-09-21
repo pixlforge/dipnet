@@ -21,11 +21,7 @@ class ContactTest extends TestCase
         return $this->contact = factory('App\Contact')->create();
     }
 
-    /**
-     * Contact index view is available
-     *
-     * @test
-     */
+    /** @test */
     function contact_index_view_is_available()
     {
         $this->signIn(null, 'administrateur');
@@ -35,11 +31,7 @@ class ContactTest extends TestCase
         $response->assertViewIs('contacts.index');
     }
 
-    /**
-     * Authorized users can create contacts
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_create_contacts()
     {
         $this->signIn(null, 'administrateur');
@@ -50,11 +42,7 @@ class ContactTest extends TestCase
             ->assertRedirect('/contacts');
     }
 
-    /**
-     * Authorized users can update contacts
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_update_contacts()
     {
         $this->signIn(null, 'administrateur');
@@ -70,11 +58,7 @@ class ContactTest extends TestCase
             ->assertRedirect('/contacts');
     }
 
-    /**
-     * Authorized users can delete contacts
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_delete_contacts()
     {
         $this->signIn(null, 'administrateur');
@@ -87,11 +71,7 @@ class ContactTest extends TestCase
             ->assertRedirect('/contacts');
     }
 
-    /**
-     * Authorized users can restore contacts
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_restore_contacts()
     {
         $this->signIn(null, 'administrateur');
@@ -107,11 +87,7 @@ class ContactTest extends TestCase
             ->assertRedirect('/contacts');
     }
 
-    /**
-     * New users must first confirm their email address before creating contacts
-     *
-     * @test
-     */
+    /** @test */
     function new_users_must_first_confirm_their_email_address_before_creating_contacts()
     {
         $this->signIn(factory('App\User')
@@ -122,7 +98,6 @@ class ContactTest extends TestCase
         $this->post(route('contacts'), $contact->toArray())
             ->assertRedirect(route('profile'))
             ->assertSessionHas('flash');
-
     }
 }
 

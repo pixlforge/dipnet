@@ -21,11 +21,7 @@ class CategoryTest extends TestCase
         return $this->category = factory('App\Category')->create();
     }
 
-    /**
-     * Category index view is available
-     *
-     * @test
-     */
+    /** @test */
     function category_index_view_is_available()
     {
         $this->signIn(null, 'administrateur');
@@ -34,11 +30,7 @@ class CategoryTest extends TestCase
             ->assertStatus(200);
     }
 
-    /**
-     * Authorized users can create categories
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_create_categories()
     {
         $this->signIn(null, 'administrateur');
@@ -49,11 +41,7 @@ class CategoryTest extends TestCase
             ->assertRedirect('/categories');
     }
 
-    /**
-     * Authorized users can update categories
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_update_categories()
     {
         $this->signIn(null, 'administrateur');
@@ -68,11 +56,7 @@ class CategoryTest extends TestCase
             ->assertRedirect('/categories');
     }
 
-    /**
-     * Authorized users can delete a category
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_delete_a_category()
     {
         $this->signIn(null, 'administrateur');

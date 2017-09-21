@@ -21,11 +21,7 @@ class DocumentTest extends TestCase
         return $this->document = factory('App\Document')->create();
     }
 
-    /**
-     * Document index view is available
-     *
-     * @test
-     */
+    /** @test */
     function document_index_view_is_available()
     {
         $this->signIn(null, 'administrateur');
@@ -35,11 +31,7 @@ class DocumentTest extends TestCase
         $response->assertViewIs('documents.index');
     }
 
-    /**
-     * Authorized users can create documents
-     *
-     * @test
-     */
+    /** @test */
     function authorized_users_can_create_documents()
     {
         $this->signIn(null, 'administrateur');
@@ -49,5 +41,4 @@ class DocumentTest extends TestCase
         $this->post('/documents', $document->toArray())
             ->assertRedirect('/documents');
     }
-
 }

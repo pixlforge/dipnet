@@ -6,47 +6,31 @@ use Tests\TestCase;
 
 class PageTest extends TestCase
 {
-    /**
-     * Login view is available
-     *
-     * @test
-     */
+    /** @test */
     function login_view_is_available()
     {
         $response = $this->get('/login');
 
         $response->assertViewIs('auth.login');
     }
-    
-    /**
-     * Register view is available
-     * 
-     * @test
-     */
+
+    /** @test */
     function register_view_is_available()
     {
         $response = $this->get('/register');
 
         $response->assertViewIs('auth.register');
     }
-    
-    /**
-     * Password reset request view is available
-     * 
-     * @test
-     */
+
+    /** @test */
     function password_reset_request_view_is_available()
     {
         $response = $this->get('/password/reset');
 
         $response->assertViewIs('auth.passwords.email');
     }
-    
-    /**
-     * Password reset change view is available
-     * 
-     * @test
-     */
+
+    /** @test */
     function password_reset_change_view_is_available()
     {
         $response = $this->get('/password/reset/{token}');
