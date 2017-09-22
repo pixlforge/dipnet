@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
-    use SoftDeletes, Searchable;
+    use SoftDeletes;
 
     /**
      * Carbon dates.
