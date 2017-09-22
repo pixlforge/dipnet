@@ -21,7 +21,12 @@ button {
   font-size: 14px;
 }
 
+.dropdown-item:focus, .dropdown-item:hover {
+  background: $alabaster;
+}
+
 .dropdown-item.active, .dropdown-item:active {
+  color: $white;
   background: $tundora;
 }
 

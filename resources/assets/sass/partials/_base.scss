@@ -5,17 +5,8 @@ body {
 }
 
 .container {
-  @media (min-width: $grid-sm) {
-  }
-
-  @media (min-width: $grid-md) {
-  }
-
   @media (min-width: $grid-lg) {
     width: 90%;
-  }
-
-  @media (min-width: $grid-xl) {
   }
 }
 
@@ -118,6 +109,3 @@ body {
 .pr-8 {
   padding-right: 6rem !important;
 }
-
-//[v-cloak] > * { display:none }
-//[v-cloak]::before { content: "loading…" }

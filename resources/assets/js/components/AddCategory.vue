@@ -76,6 +76,7 @@
                 errors: {}
             }
         },
+        mixins: [mixins],
         components: {
             'app-moon-loader': MoonLoader
         },

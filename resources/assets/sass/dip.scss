@@ -27,3 +27,7 @@
 .badge-white {
   color: $primary;
 }
+
+.algolia-autocomplete .aa-dropdown-menu .aa-suggestion em {
+  background-color: $primary;
+}

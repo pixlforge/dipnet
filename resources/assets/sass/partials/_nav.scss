@@ -60,12 +60,6 @@
     background-size: contain;
   }
 
-  @media (min-width: $grid-sm) {
-  }
-
-  @media (min-width: $grid-md) {
-  }
-
   @media (min-width: $grid-lg) {
     top: 1%;
     left: 8%;
@@ -101,8 +95,5 @@
       -o-background-size: contain;
       background-size: contain;
     }
-  }
-
-  @media (min-width: $grid-xl) {
   }
 }
