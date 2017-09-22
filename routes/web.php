@@ -4,6 +4,9 @@
  * Root
  */
 Route::get('/', 'OrdersController@index')->name('index');
+Route::fallback(function () {
+    return response()->view('errors.notfound', [], 404);
+});
 
 /**
  * Auth
