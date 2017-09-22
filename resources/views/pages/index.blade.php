@@ -1,8 +1,8 @@
-@include('layouts.nav')
-
 @extends('layouts.app')
 
 @section('content')
+
+    @include ('layouts.nav')
 
     <div class="container-fluid">
         <div class="row">

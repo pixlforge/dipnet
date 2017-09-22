@@ -12,10 +12,12 @@ class Contact extends Model
     /**
      * Carbon dates
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at'
+    ];
 
     /**
-     * Disable mass assignment protection for the following fields
+     * Disable mass assignment protection for the following attributes
      */
     protected $fillable = [
         'name',
@@ -31,7 +33,9 @@ class Contact extends Model
     ];
 
     /**
-     * Relationship to Business
+     * Business relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function business()
     {
@@ -39,7 +43,9 @@ class Contact extends Model
     }
 
     /**
-     * Relationship to Company
+     * Company relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company()
     {
@@ -47,7 +53,9 @@ class Contact extends Model
     }
 
     /**
-     * Relationship to Delivery
+     * Delivery relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function delivery()
     {
@@ -55,7 +63,9 @@ class Contact extends Model
     }
 
     /**
-     * Relationship to Order
+     * Order relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function order()
     {
@@ -63,7 +73,9 @@ class Contact extends Model
     }
 
     /**
-     * Relationship to User
+     * User relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function user()
     {

@@ -1,10 +1,10 @@
 @extends ('layouts.app')
 
-@include ('layouts.nav')
-
 @section ('title', 'Documents')
 
 @section ('content')
+
+    @include ('layouts.nav')
 
     {{--<div class="container-fluid">--}}
         {{--<div class="row">--}}

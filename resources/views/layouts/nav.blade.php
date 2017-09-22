@@ -1,12 +1,12 @@
 <header>
-
     <div class="container-fluid">
         <div class="col-10 mx-auto px-1">
-
             <nav class="navbar navbar-toggleable-md navbar-light">
-
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
-                        data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                <button class="navbar-toggler navbar-toggler-right"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent"
                         aria-expanded="false"
                         aria-label="Balancer la navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -22,17 +22,11 @@
                              class="nav-logo">
                     @endif
                 </a>
-
-
                 <div class="collapse navbar-collapse pt-3 justify-content-between" id="navbarSupportedContent">
 
                     {{--Search form--}}
                     <div class="menu-item ml-lg-5">
-                        <form method="POST" action="" class="form-inline form-nav">
-                            {{ csrf_field() }}
-                            <i class="fa fa-search "></i>
-                            <input type="text" class="form-control" placeholder="Rechercher">
-                        </form>
+                        <app-searchbar></app-searchbar>
                     </div>
 
                     {{--Links--}}
@@ -95,8 +89,6 @@
                                     <span class="sr-only">(current)</span>
                                 @endif
                             </li>
-
-
                         </ul>
                     </div>
                 </div>

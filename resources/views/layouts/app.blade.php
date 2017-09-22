@@ -30,9 +30,9 @@
 
     <div id="app">
         @yield('content')
-
-        <flash message="{{ session('flash') }}" level="{{ session('level') }}"></flash>
-
+        <flash message="{{ session('flash') }}"
+               level="{{ session('level') }}">
+        </flash>
     </div>
 
     {{--Scripts--}}

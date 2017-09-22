@@ -10,17 +10,36 @@ class Article extends Model
     use SoftDeletes;
 
     /**
-     * Carbon instances
+     * Carbon instances.
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at'
+    ];
     
     /**
-     * Fillable fields
+     * Fillable fields.
      */
-    protected $fillable = ['reference', 'description', 'type', 'category_id'];
+    protected $fillable = [
+        'reference',
+        'description',
+        'type',
+        'category_id'
+    ];
 
     /**
-     * Relationship to Category
+     * Use the reference attribute in routes.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'reference';
+    }
+
+    /**
+     * Category relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function category()
     {
@@ -28,7 +47,9 @@ class Article extends Model
     }
 
     /**
-     * Relationship to Document
+     * Document relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function document()
     {
@@ -36,22 +57,12 @@ class Article extends Model
     }
 
     /**
-     * Relationship to Company
+     * Company relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company()
     {
         return $this->belongsTo(Company::class);
-    }
-
-    /**
-     * Get the reference as a key route 
-     * 
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'reference';
     }
 }

@@ -10,17 +10,25 @@ class Delivery extends Model
     use SoftDeletes;
 
     /**
-     * Carbon dates
+     * Carbon dates.
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at'
+    ];
 
     /**
-     * Disable mass assignment protection on declared fields
+     * Disable mass assignment protection for the following attributes
      */
-    protected $fillable = ['order_id', 'contact_id', 'internal_comment'];
+    protected $fillable = [
+        'order_id',
+        'contact_id',
+        'internal_comment'
+    ];
 
     /**
-     * Relationship to Contact
+     * Contact relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contact()
     {
@@ -28,7 +36,9 @@ class Delivery extends Model
     }
 
     /**
-     * Relationship to DeliveryComment
+     * DeliveryComment relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function deliveryComment()
     {
@@ -36,7 +46,9 @@ class Delivery extends Model
     }
 
     /**
-     * Relationship to Document
+     * Document relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function document()
     {
@@ -44,7 +56,9 @@ class Delivery extends Model
     }
 
     /**
-     * Relationship to Order
+     * Order relationship.
+     *
+     * @return mixed
      */
     public function order()
     {

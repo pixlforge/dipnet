@@ -7,15 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     /**
-     * Disable mass assignment protection for the following fields
+     * Disable mass assignment protection for the following attributes.
      */
     protected $fillable = [
-        'file_name', 'file_path', 'mime_type', 'quantity', 'rolled_folded_flat',
-        'length', 'width', 'nb_orig', 'free', 'format_id', 'delivery_id', 'article_id'
+        'file_name',
+        'file_path',
+        'mime_type',
+        'quantity',
+        'rolled_folded_flat',
+        'length',
+        'width',
+        'nb_orig',
+        'free',
+        'format_id',
+        'delivery_id',
+        'article_id'
     ];
 
     /**
-     * Relationships to Article
+     * Article relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function article()
     {
@@ -23,7 +35,9 @@ class Document extends Model
     }
 
     /**
-     * Relationship to Delivery
+     * Delivery relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function delivery()
     {
@@ -31,7 +45,9 @@ class Document extends Model
     }
 
     /**
-     * Relationship to Format
+     * Format relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function format()
     {

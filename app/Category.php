@@ -9,10 +9,17 @@ class Category extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['name'];
+    /**
+     * Disable mass assignment protection for those fields.
+     */
+    protected $fillable = [
+        'name'
+    ];
 
     /**
-     * Relationship to Article
+     * Article relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function article()
     {

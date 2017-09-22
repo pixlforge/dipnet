@@ -10,17 +10,26 @@ class Format extends Model
     use SoftDeletes;
 
     /**
-     * Carbon instances
+     * Carbon dates.
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at'
+    ];
 
     /**
-     * Fillable fields
+     * Disable mass assignment protection for the following attributes.
      */
-    protected $fillable = ['name', 'height', 'width', 'surface'];
+    protected $fillable = [
+        'name',
+        'height',
+        'width',
+        'surface'
+    ];
 
     /**
-     * Relationship to Document
+     * Document relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function document()
     {

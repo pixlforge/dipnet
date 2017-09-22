@@ -10,17 +10,28 @@ class Business extends Model
     use SoftDeletes;
 
     /**
-     * Carbon dates
+     * Carbon dates.
      */
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at'
+    ];
 
     /**
      * Disable mass assignment protection for the following fields
      */
-    protected $fillable = ['name', 'reference', 'description', 'company_id', 'contact_id', 'created_by_username'];
+    protected $fillable = [
+        'name',
+        'reference',
+        'description',
+        'company_id',
+        'contact_id',
+        'created_by_username'
+    ];
 
     /**
-     * Relationship to BusinessComment
+     * BusinessComment relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function businessComment()
     {
@@ -28,7 +39,9 @@ class Business extends Model
     }
 
     /**
-     * Relationship to Contact
+     * Contact relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contact()
     {
@@ -36,7 +49,9 @@ class Business extends Model
     }
 
     /**
-     * Relationship to Company
+     * Company relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company()
     {
@@ -44,7 +59,9 @@ class Business extends Model
     }
 
     /**
-     * Relationship to Order
+     * Order relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function order()
     {

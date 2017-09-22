@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class DeliveryComment extends Model
 {
     /**
-     * Relationship to Delivery
+     * Delivery relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function delivery()
     {
@@ -15,7 +17,9 @@ class DeliveryComment extends Model
     }
 
     /**
-     * Relationship to User
+     * User relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {

@@ -23,8 +23,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'username', 'email', 'password', 'role', 'contact_id', 'company_id',
-        'confirmed', 'confirmation_token', 'contact_confirmed', 'company_confirmed', 'was_invited'
+        'username',
+        'email',
+        'password',
+        'role',
+        'contact_id',
+        'company_id',
+        'confirmed',
+        'confirmation_token',
+        'contact_confirmed',
+        'company_confirmed',
+        'was_invited'
     ];
 
     /**
@@ -44,7 +53,9 @@ class User extends Authenticatable
     ];
 
     /**
-     * Relationship to Business
+     * Business relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function business()
     {
@@ -52,7 +63,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Relationship to Company
+     * Company relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company()
     {
@@ -60,7 +73,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Relationship to DeliveryComment
+     * DeliveryComment relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function deliveryComment()
     {
@@ -68,7 +83,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Relationship to Order
+     * Order relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function order()
     {
@@ -76,13 +93,18 @@ class User extends Authenticatable
     }
 
     /**
-     * Relationship to Contact
+     * Contact relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contact()
     {
         return $this->belongsTo(Contact::class);
     }
 
+    /**
+     * Update and confirm the user account.
+     */
     public function confirm()
     {
         $this->confirmed = true;
@@ -90,11 +112,22 @@ class User extends Authenticatable
         $this->save();
     }
 
+    /**
+     * Generate a confirmation token.
+     *
+     * @param $field
+     * @return string
+     */
     public static function generateConfirmationToken($field)
     {
         return md5(request($field) . str_random(10));
     }
 
+    /**
+     * Checks wether the user has an unused confirmation token.
+     *
+     * @return mixed|null|string
+     */
     public function hasConfirmationToken()
     {
         return $this->confirmation_token;
@@ -110,6 +143,11 @@ class User extends Authenticatable
         return $this->confirmed;
     }
 
+    /**
+     * Check wether the user was invited.
+     *
+     * @return int|mixed
+     */
     public function wasInvited()
     {
         return $this->was_invited;

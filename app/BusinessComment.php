@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class BusinessComment extends Model
 {
     /**
-     * Relationship to Business
+     * Business relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function business()
     {
@@ -15,7 +17,9 @@ class BusinessComment extends Model
     }
 
     /**
-     * Relationship to User
+     * User relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
