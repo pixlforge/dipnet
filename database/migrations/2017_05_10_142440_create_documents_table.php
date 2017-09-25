@@ -28,6 +28,10 @@ class CreateDocumentsTable extends Migration
             $table->unsignedInteger('delivery_id')->nullable();
             $table->unsignedInteger('article_id');
             $table->timestamps();
+
+            $table->foreign('format_id')->references('id')->on('formats');
+            $table->foreign('delivery_id')->references('id')->on('deliveries');
+            $table->foreign('article_id')->references('id')->on('articles');
         });
     }
 

@@ -27,6 +27,8 @@ class CreateContactsTable extends Migration
             $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

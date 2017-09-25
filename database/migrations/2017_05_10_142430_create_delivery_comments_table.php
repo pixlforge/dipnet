@@ -19,6 +19,9 @@ class CreateDeliveryCommentsTable extends Migration
             $table->unsignedInteger('delivery_id');
             $table->unsignedInteger('created_by_user_id');
             $table->timestamps();
+
+            $table->foreign('delivery_id')->references('id')->on('deliveries');
+            $table->foreign('created_by_user_id')->references('id')->on('users');
         });
     }
 

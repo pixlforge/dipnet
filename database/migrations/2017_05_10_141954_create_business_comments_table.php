@@ -15,10 +15,13 @@ class CreateBusinessCommentsTable extends Migration
     {
         Schema::create('business_comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('content', 1024);
+            $table->text('content');
             $table->unsignedInteger('business_id');
             $table->unsignedInteger('created_by_user_id');
             $table->timestamps();
+
+            $table->foreign('business_id')->references('id')->on('businesses');
+            $table->foreign('created_by_user_id')->references('id')->on('users');
         });
     }
 

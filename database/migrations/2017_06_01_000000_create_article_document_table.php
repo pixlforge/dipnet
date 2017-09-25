@@ -17,6 +17,9 @@ class CreateArticleDocumentTable extends Migration
             $table->increments('id');
 			$table->unsignedInteger('document_id');
 			$table->unsignedInteger('article_id');
+
+            $table->foreign('document_id')->references('id')->on('documents');
+            $table->foreign('article_id')->references('id')->on('articles');
         });
     }
 

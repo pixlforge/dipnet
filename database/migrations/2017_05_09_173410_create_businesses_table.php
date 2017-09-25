@@ -18,11 +18,14 @@ class CreateBusinessesTable extends Migration
             $table->string('name', 45);
             $table->string('reference', 45)->unique();
             $table->string('description')->nullable();
-            $table->unsignedInteger('company_id');
+            $table->unsignedInteger('company_id')->nullable();
             $table->unsignedInteger('contact_id')->nullable();
             $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('company_id')->references('id')->on('companies');
+            $table->foreign('contact_id')->references('id')->on('contacts');
         });
     }
 

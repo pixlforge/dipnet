@@ -30,6 +30,9 @@ class CreateUsersTable extends Migration
             $table->timestamp('last_login_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('contact_id')->references('id')->on('contacts');
+            $table->foreign('company_id')->references('id')->on('companies');
         });
     }
 

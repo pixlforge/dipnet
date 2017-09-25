@@ -22,6 +22,10 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('user_id');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->foreign('business_id')->references('id')->on('businesses');
+            $table->foreign('contact_id')->references('id')->on('contacts');
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
