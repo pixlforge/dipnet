@@ -9,6 +9,14 @@ Route::fallback(function () {
 });
 
 /**
+ * Search
+ */
+Route::prefix('/search')->namespace('Search')->group(function () {
+    Route::post('/', 'SearchController@search')->name('search');
+    Route::get('/testing', 'SearchController@testing')->name('testing');
+});
+
+/**
  * Auth
  */
 Auth::routes();

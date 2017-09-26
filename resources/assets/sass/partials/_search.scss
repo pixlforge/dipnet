@@ -1,0 +1,14 @@
+.search-dropdown {
+  z-index: 1;
+  position: absolute;
+  top: 50px;
+  left: 114px;
+  width: 28.9%;
+  padding: 10px 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: $white;
+  color: $dark-grey;
+  box-shadow: 0 6px 14px 0 rgba(200, 200, 200, 0.5);
+}

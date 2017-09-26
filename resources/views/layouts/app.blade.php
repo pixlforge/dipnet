@@ -12,7 +12,8 @@
 
     {{--Styles--}}
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    @if (env('APP_NAME') == 'Dipnet')
+
+    @if (env('APP_NAME') === 'Dipnet')
         <link href="{{ mix('css/dip.css') }}" rel="stylesheet">
     @else
         <link href="{{ mix('css/multicop.css') }}" rel="stylesheet">
@@ -29,7 +30,7 @@
 <body>
 
     <div id="app">
-        @yield('content')
+        @yield ('content')
         <flash message="{{ session('flash') }}"
                level="{{ session('level') }}">
         </flash>
