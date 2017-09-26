@@ -15,7 +15,7 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('file_name');
+            $table->string('file_name')->index();
             $table->string('file_path');
             $table->string('mime_type');
             $table->integer('quantity');

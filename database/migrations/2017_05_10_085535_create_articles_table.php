@@ -15,7 +15,7 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('reference', 45)->unique();
+            $table->string('reference', 45)->unique()->index();
             $table->string('description', 45)->nullable();
 			$table->enum('type', ['impression', 'option']);
             $table->unsignedInteger('category_id')->nullable();
