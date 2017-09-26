@@ -30929,6 +30929,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -36319,13 +36346,17 @@ module.exports = Component.exports
 /* 220 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/* styles */
+__webpack_require__(282)
+
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(179),
   /* template */
   __webpack_require__(225),
   /* scopeId */
-  null,
+  "data-v-1163ea56",
   /* cssModules */
   null
 )
@@ -37206,7 +37237,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.search.query),
       expression: "search.query"
     }],
-    staticClass: "form-control",
+    staticClass: "form-control searchbar",
     attrs: {
       "type": "text",
       "placeholder": "Rechercher"
@@ -37221,21 +37252,41 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.search.query = $event.target.value
       }
     }
-  }), _vm._v(" "), (_vm.results.companies.length || _vm.results.orders.length) ? _c('div', {
-    staticClass: "search-dropdown"
-  }, [_vm._l((_vm.results.orders), function(result, index) {
-    return _c('li', {
-      domProps: {
-        "textContent": _vm._s(result.reference)
+  }), _vm._v(" "), (_vm.search.query) ? _c('div', {
+    staticClass: "search-dropdown list-unstyled"
+  }, [(_vm.results.orders.length) ? _c('div', [_c('h6', {
+    staticClass: "search-title"
+  }, [_vm._v("Orders")]), _vm._v(" "), _vm._l((_vm.results.orders), function(result, index) {
+    return _c('li', [_c('a', {
+      attrs: {
+        "href": '/orders/' + result.id
       }
-    })
-  }), _vm._v(" "), _vm._l((_vm.results.companies), function(result, index) {
-    return _c('li', {
-      domProps: {
-        "textContent": _vm._s(result.name)
+    }, [_vm._v(_vm._s(result.reference))])])
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.results.companies.length) ? _c('div', [(_vm.results.orders.length) ? _c('hr') : _vm._e(), _vm._v(" "), _c('h6', {
+    staticClass: "search-title"
+  }, [_vm._v("Companies")]), _vm._v(" "), _vm._l((_vm.results.companies), function(result, index) {
+    return _c('li', [_c('a', {
+      attrs: {
+        "href": '/companies/' + result.id
       }
-    })
-  }), _vm._v(" "), (_vm.results.length === 0) ? _c('li', [_vm._v("Aucun résultat")]) : _vm._e()], 2) : _vm._e()])
+    }, [_vm._v(_vm._s(result.name))])])
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.results.businesses.length) ? _c('div', [(_vm.results.orders.length || _vm.results.companies.length) ? _c('hr') : _vm._e(), _vm._v(" "), _c('h6', {
+    staticClass: "search-title"
+  }, [_vm._v("Businesses")]), _vm._v(" "), _vm._l((_vm.results.businesses), function(result, index) {
+    return _c('li', [_c('a', {
+      attrs: {
+        "href": '/businesses/' + result.id
+      }
+    }, [_vm._v(_vm._s(result.name))])])
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.results.deliveries.length) ? _c('div', [(_vm.results.orders.length || _vm.results.companies.length || _vm.results.businesses.length) ? _c('hr') : _vm._e(), _vm._v(" "), _c('h6', {
+    staticClass: "search-title"
+  }, [_vm._v("Deliveries")]), _vm._v(" "), _vm._l((_vm.results.deliveries), function(result, index) {
+    return _c('li', [_c('a', {
+      attrs: {
+        "href": '/deliveries/' + result.id
+      }
+    }, [_vm._v(_vm._s(result.reference))])])
+  })], 2) : _vm._e(), _vm._v(" "), (!_vm.results.orders.length && !_vm.results.companies.length && !_vm.results.businesses.length && !_vm.results.deliveries.length) ? _c('li', [_vm._v("Aucun résultat")]) : _vm._e()]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -41152,6 +41203,58 @@ __webpack_require__(133);
 __webpack_require__(134);
 module.exports = __webpack_require__(132);
 
+
+/***/ }),
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(6)();
+exports.push([module.i, "\na[data-v-1163ea56] {\n    display: block;\n    color: inherit;\n    text-decoration: none;\n}\n", ""]);
+
+/***/ }),
+/* 282 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(281);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(7)("5e1b02b0", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-1163ea56\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Searchbar.vue", function() {
+     var newContent = require("!!../../../../node_modules/css-loader/index.js!../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-1163ea56\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./Searchbar.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

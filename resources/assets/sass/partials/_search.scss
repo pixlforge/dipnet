@@ -1,14 +1,38 @@
+.searchbar {
+  background-color: $white !important;
+  box-shadow: 0 6px 14px 0 rgba(200, 200, 200, 0.5);
+}
+
 .search-dropdown {
   z-index: 1;
   position: absolute;
-  top: 50px;
+  top: 48px;
   left: 114px;
   width: 28.9%;
-  padding: 10px 20px;
+  padding: 10px 0;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   background-color: $white;
   color: $dark-grey;
+  border-top: 1px solid $concrete;
   box-shadow: 0 6px 14px 0 rgba(200, 200, 200, 0.5);
+
+  li {
+    cursor: pointer;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+
+    &:hover {
+      background-color: $alabaster;
+    }
+  }
+}
+
+.search-title {
+  padding-top: 5px;
+  padding-left: 20px;
+  font-size: .75rem;
+  color: $scorpion;
 }

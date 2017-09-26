@@ -3,18 +3,45 @@
           @submit.prevent>
         <i class="fa fa-search"></i>
         <input type="text"
-               class="form-control"
+               class="form-control searchbar"
                placeholder="Rechercher"
                v-model="search.query"
                @keyup="research">
-        <div class="search-dropdown"
-             v-if="results.companies.length || results.orders.length">
-            <li v-for="(result, index) in results.orders"
-                v-text="result.reference"></li>
-            <li v-for="(result, index) in results.companies"
-                v-text="result.name"></li>
+        <div class="search-dropdown list-unstyled"
+             v-if="search.query">
 
-            <li v-if="results.length === 0">Aucun résultat</li>
+            <div v-if="results.orders.length">
+                <h6 class="search-title">Orders</h6>
+                <li v-for="(result, index) in results.orders">
+                    <a :href="'/orders/' + result.id">{{ result.reference }}</a>
+                </li>
+            </div>
+
+            <div v-if="results.companies.length">
+                <hr v-if="results.orders.length">
+                <h6 class="search-title">Companies</h6>
+                <li v-for="(result, index) in results.companies">
+                    <a :href="'/companies/' + result.id">{{ result.name }}</a>
+                </li>
+            </div>
+
+            <div v-if="results.businesses.length">
+                <hr v-if="results.orders.length || results.companies.length">
+                <h6 class="search-title">Businesses</h6>
+                <li v-for="(result, index) in results.businesses">
+                    <a :href="'/businesses/' + result.id">{{ result.name }}</a>
+                </li>
+            </div>
+
+            <div v-if="results.deliveries.length">
+                <hr v-if="results.orders.length || results.companies.length || results.businesses.length">
+                <h6 class="search-title">Deliveries</h6>
+                <li v-for="(result, index) in results.deliveries">
+                    <a :href="'/deliveries/' + result.id">{{ result.reference }}</a>
+                </li>
+            </div>
+
+            <li v-if="!results.orders.length && !results.companies.length && !results.businesses.length && !results.deliveries.length">Aucun résultat</li>
         </div>
     </form>
 </template>
@@ -51,3 +78,11 @@
         }
     }
 </script>
+
+<style scoped>
+    a {
+        display: block;
+        color: inherit;
+        text-decoration: none;
+    }
+</style>
