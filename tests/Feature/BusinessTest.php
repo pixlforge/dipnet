@@ -67,37 +67,4 @@ class BusinessTest extends TestCase
         $this->delete("/businesses/{$business->id}")
             ->assertRedirect('/businesses');
     }
-
-    /** @test */
-    function authorized_users_can_restore_businesses()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $business = factory('App\Business')->create();
-
-        $this->assertDatabaseHas('businesses', ['id' => $business->id]);
-
-        $this->delete("/businesses/{$business->id}")
-            ->assertRedirect('/businesses');
-
-        $this->put("/businesses/{$business->id}/restore", $business->toArray())
-            ->assertRedirect('/businesses');
-    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

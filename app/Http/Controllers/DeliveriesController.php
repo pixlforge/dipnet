@@ -46,12 +46,13 @@ class DeliveriesController extends Controller
         $this->authorize('create', Delivery::class);
 
         Delivery::create([
+            'reference' => $request->reference,
             'order_id' => request('order_id'),
             'contact_id' => request('contact_id'),
             'internal_comment' => request('internal_comment')
         ]);
 
-        return redirect()->route('deliveries');
+        return redirect()->route('deliveries.index');
     }
 
     /**
@@ -84,7 +85,7 @@ class DeliveriesController extends Controller
             'internal_comment' => request('internal_comment')
         ]);
 
-        return redirect()->route('deliveries');
+        return redirect()->route('deliveries.index');
     }
 
     /**
@@ -99,21 +100,6 @@ class DeliveriesController extends Controller
 
         $delivery->delete();
 
-        return redirect()->route('deliveries');
-    }
-
-    /**
-     * Restores a previously soft deleted model.
-     *
-     * @param $delivery
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function restore($delivery)
-    {
-        $this->authorize('restore', Delivery::class);
-
-        Delivery::onlyTrashed()->where('id', $delivery)->restore();
-
-        return redirect()->route('deliveries');
+        return redirect()->route('deliveries.index');
     }
 }

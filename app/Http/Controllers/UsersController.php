@@ -71,7 +71,7 @@ class UsersController extends Controller
             return $user->id;
         }
 
-        return redirect()->route('users');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -107,7 +107,7 @@ class UsersController extends Controller
             'company_id' => request('company_id')
         ]);
 
-        return redirect()->route('users');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -120,22 +120,7 @@ class UsersController extends Controller
     {
         $user->delete();
 
-        return redirect()->route('users');
-    }
-
-    /**
-     * Restores a previously soft deleted model.
-     *
-     * @param $user
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function restore($user)
-    {
-        $this->authorize('restore', User::class);
-
-        User::onlyTrashed()->where('id', $user)->restore();
-
-        return redirect()->route('users');
+        return redirect()->route('users.index');
     }
 
     /**

@@ -68,7 +68,7 @@ class OrdersController extends Controller
             return $order->id;
         }
 
-        return redirect()->route('orders');
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -102,7 +102,7 @@ class OrdersController extends Controller
             'contact_id' => request('contact_id')
         ]);
 
-        return redirect()->route('orders');
+        return redirect()->route('orders.index');
     }
 
     /**
@@ -117,21 +117,6 @@ class OrdersController extends Controller
 
         $order->delete();
 
-        return redirect()->route('orders');
-    }
-
-    /**
-     * Restores a previously soft deleted model.
-     *
-     * @param $order
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function restore($order)
-    {
-        $this->authorize('restore', Order::class);
-
-        Order::onlyTrashed()->where('id', $order)->restore();
-
-        return redirect()->route('orders');
+        return redirect()->route('orders.index');
     }
 }

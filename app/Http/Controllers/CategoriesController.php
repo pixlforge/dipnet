@@ -52,7 +52,7 @@ class CategoriesController extends Controller
             return $category->id;
         }
 
-        return redirect()->route('categories');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -87,7 +87,7 @@ class CategoriesController extends Controller
             return response([], 204);
         }
 
-        return redirect()->route('categories');
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -106,6 +106,6 @@ class CategoriesController extends Controller
             return response([], 204);
         }
 
-        return redirect()->route('categories');
+        return redirect()->route('categories.index');
     }
 }

@@ -64,6 +64,6 @@ class CategoryTest extends TestCase
         $category = factory('App\Category')->create();
 
         $this->delete("/categories/{$category->id}")
-            ->assertRedirect('categories');
+            ->assertRedirect(route('categories.index'));
     }
 }

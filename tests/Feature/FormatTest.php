@@ -65,18 +65,4 @@ class FormatTest extends TestCase
         $this->delete("/formats/{$format->id}")
             ->assertRedirect('formats');
     }
-
-    /** @test */
-    function authorized_users_can_restore_formats()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $format = factory('App\Format')->create();
-
-        $this->delete("/formats/{$format->id}")
-            ->assertRedirect('formats');
-
-        $this->put("/formats/{$format->id}/restore", [$format])
-            ->assertRedirect('formats');
-    }
 }

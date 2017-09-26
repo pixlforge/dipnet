@@ -69,7 +69,7 @@ class DocumentsController extends Controller
             'article_id' => request('article_id')
         ]);
 
-        return redirect()->route('documents');
+        return redirect()->route('documents.index');
     }
 
     /**

@@ -72,22 +72,6 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_restore_contacts()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $contact = factory('App\Contact')->create();
-
-        $this->assertDatabaseHas('contacts', ['id' => $contact->id]);
-
-        $this->delete("/contacts/{$contact->id}")
-            ->assertRedirect('/contacts');
-
-        $this->put("/contacts/{$contact->id}/restore", [$contact])
-            ->assertRedirect('/contacts');
-    }
-
-    /** @test */
     function new_users_must_first_confirm_their_email_address_before_creating_contacts()
     {
         $this->signIn(factory('App\User')
@@ -95,7 +79,7 @@ class ContactTest extends TestCase
             ->create());
 
         $contact = factory('App\Contact')->make();
-        $this->post(route('contacts'), $contact->toArray())
+        $this->post(route('contacts.index'), $contact->toArray())
             ->assertRedirect(route('profile'))
             ->assertSessionHas('flash');
     }

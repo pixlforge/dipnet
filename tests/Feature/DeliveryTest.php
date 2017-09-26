@@ -38,8 +38,10 @@ class DeliveryTest extends TestCase
 
         $delivery = factory('App\Delivery')->make();
 
-        $this->post("/deliveries", $delivery->toArray())
-            ->assertRedirect('/deliveries');
+//        dd($delivery->toArray());
+
+        $this->post(route('deliveries.store'), $delivery->toArray())
+            ->assertRedirect(route('deliveries.index'));
     }
 
     /** @test */
@@ -63,20 +65,6 @@ class DeliveryTest extends TestCase
         $delivery = factory('App\Delivery')->create()->id;
 
         $this->delete("/deliveries/{$delivery}")
-            ->assertRedirect('/deliveries');
-    }
-
-    /** @test */
-    function authorized_users_can_restore_a_delivery()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $delivery = factory('App\Delivery')->create();
-
-        $this->delete("/deliveries/{$delivery->id}")
-            ->assertRedirect('/deliveries');
-
-        $this->put("/deliveries/{$delivery->id}/restore", $delivery->toArray())
             ->assertRedirect('/deliveries');
     }
 }

@@ -20,7 +20,7 @@ class InviteMemberTest extends TestCase
         $firstMember = factory('App\User')->create();
         $this->actingAs($firstMember);
 
-        $this->post(route('invite'), [
+        $this->post(route('invite.store'), [
             'email' => 'johndoe@example.com'
         ]);
 
@@ -39,7 +39,7 @@ class InviteMemberTest extends TestCase
         $firstMember = factory('App\User')->create();
         $this->actingAs($firstMember);
 
-        $this->post(route('invite'), [
+        $this->post(route('invite.store'), [
             'email' => 'johndoe@example.com'
         ]);
 

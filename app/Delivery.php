@@ -20,6 +20,7 @@ class Delivery extends Model
      * Disable mass assignment protection for the following attributes
      */
     protected $fillable = [
+        'reference',
         'order_id',
         'contact_id',
         'internal_comment'

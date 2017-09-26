@@ -70,20 +70,4 @@ class CompanyTest extends TestCase
         $this->delete("/companies/{$company->id}")
             ->assertRedirect('/companies');
     }
-
-    /** @test */
-    function authorized_users_can_restore_companies()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $company = factory('App\Company')->create();
-
-        $this->assertDatabaseHas('companies', ['id' => $company->id]);
-
-        $this->delete("/companies/{$company->id}")
-            ->assertRedirect('/companies');
-
-        $this->put("/companies/{$company->id}/restore", [$company])
-            ->assertRedirect('/companies');
-    }
 }

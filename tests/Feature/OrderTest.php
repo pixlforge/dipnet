@@ -67,20 +67,4 @@ class OrderTest extends TestCase
         $this->delete("/orders/{$order->id}")
             ->assertRedirect('/orders');
     }
-
-    /** @test */
-    function authorized_users_can_restore_orders()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $order = factory('App\Order')->create();
-
-        $this->assertDatabaseHas('orders', ['id' => $order->id]);
-
-        $this->delete("/orders/{$order->id}")
-            ->assertRedirect('/orders');
-
-        $this->put("/orders/{$order->id}/restore", [$order])
-            ->assertRedirect('/orders');
-    }
 }

@@ -54,7 +54,7 @@ class ArticlesController extends Controller
             return $article->id;
         }
 
-        return redirect()->route('articles');
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -88,7 +88,7 @@ class ArticlesController extends Controller
             'category_id' => request('category')
         ]);
 
-        return redirect()->route('articles');
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -103,21 +103,6 @@ class ArticlesController extends Controller
 
         $article->delete();
 
-        return redirect()->route('articles');
-    }
-
-    /**
-     * Restores a previously soft deleted model.
-     *
-     * @param $article
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function restore($article)
-    {
-        $this->authorize('restore', Article::class);
-
-        Article::onlyTrashed()->where('reference', $article)->restore();
-
-        return redirect()->route('articles');
+        return redirect()->route('articles.index');
     }
 }

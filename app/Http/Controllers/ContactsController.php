@@ -88,7 +88,7 @@ class ContactsController extends Controller
             return $contact->id;
         }
 
-        return redirect()->route('contacts');
+        return redirect()->route('contacts.index');
     }
 
     /**
@@ -131,7 +131,7 @@ class ContactsController extends Controller
             return response([], 204);
         }
 
-        return redirect()->route('contacts');
+        return redirect()->route('contacts.index');
     }
 
     /**
@@ -150,21 +150,6 @@ class ContactsController extends Controller
             return response([], 204);
         }
 
-        return redirect()->route('contacts');
-    }
-
-    /**
-     * Restores a previously soft deleted model.
-     *
-     * @param $contact
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function restore($contact)
-    {
-        $this->authorize('restore', Contact::class);
-
-        Contact::onlyTrashed()->where('id', $contact)->restore();
-
-        return redirect()->route('contacts');
+        return redirect()->route('contacts.index');
     }
 }

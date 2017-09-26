@@ -83,7 +83,7 @@ class BusinessesController extends Controller
             return $business->id;
         }
 
-        return redirect()->route('businesses');
+        return redirect()->route('businesses.index');
     }
 
     /**
@@ -118,8 +118,7 @@ class BusinessesController extends Controller
             'contact_id' => request('contact_id')
         ]);
 
-        return redirect()
-            ->route('businesses');
+        return redirect()->route('businesses.index');
     }
 
     /**
@@ -134,21 +133,6 @@ class BusinessesController extends Controller
 
         $business->delete();
 
-        return redirect()->route('businesses');
-    }
-
-    /**
-     * Restores a previously soft deleted model.
-     *
-     * @param $business
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function restore($business)
-    {
-        $this->authorize('restore', Business::class);
-
-        Business::onlyTrashed()->where('id', $business)->restore();
-
-        return redirect()->route('businesses');
+        return redirect()->route('businesses.index');
     }
 }

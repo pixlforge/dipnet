@@ -45,7 +45,7 @@
 
                             {{--Businesses--}}
                             <li class="nav-item mx-2{{ Route::is('businesses') ? ' active' : '' }}">
-                                <a href="{{ route('businesses') }}" class="nav-link">
+                                <a href="{{ route('businesses.index') }}" class="nav-link">
                                     Affaires
                                     @if (Route::is('businesses'))
                                         <span class="sr-only">(current)</span>
@@ -55,7 +55,7 @@
 
                             {{--Contacts--}}
                             <li class="nav-item{{ Route::is('contacts') ? ' active' : '' }}">
-                                <a href="{{ route('contacts') }}" class="nav-link">
+                                <a href="{{ route('contacts.index') }}" class="nav-link">
                                     Contacts
                                     @if (Route::is('contacts'))
                                         <span class="sr-only">(current)</span>

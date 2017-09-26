@@ -61,7 +61,7 @@ class FormatsController extends Controller
             return $format->id;
         }
 
-        return redirect()->route('formats');
+        return redirect()->route('formats.index');
     }
 
     /**
@@ -99,7 +99,7 @@ class FormatsController extends Controller
             return response([], 204);
         }
 
-        return redirect()->route('formats');
+        return redirect()->route('formats.index');
     }
 
     /**
@@ -118,21 +118,6 @@ class FormatsController extends Controller
             return response([], 204);
         }
 
-        return redirect()->route('formats');
-    }
-
-    /**
-     * Restores a previously soft deleted model.
-     *
-     * @param $format
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function restore($format)
-    {
-        $this->authorize('restore', Format::class);
-
-        Format::onlyTrashed()->where('id', $format)->restore();
-
-        return redirect()->route('formats');
+        return redirect()->route('formats.index');
     }
 }

@@ -69,20 +69,4 @@ class UserTest extends TestCase
         $this->delete("/users/{$user->id}")
             ->assertRedirect('/users');
     }
-
-    /** @test */
-    function authorized_users_can_restore_users()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $user = factory('App\User')->create();
-
-        $this->assertDatabaseHas('users', ['id' => $user->id]);
-
-        $this->delete("/users/{$user->id}")
-            ->assertRedirect('/users');
-
-        $this->put("/users/{$user->id}/restore", $user->toArray())
-            ->assertRedirect('/users');
-    }
 }

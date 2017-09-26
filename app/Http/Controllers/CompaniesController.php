@@ -51,7 +51,7 @@ class CompaniesController extends Controller
             return $company->id;
         }
 
-        return redirect()->route('companies');
+        return redirect()->route('companies.index');
     }
 
     /**
@@ -82,7 +82,7 @@ class CompaniesController extends Controller
             'description' => request('description')
         ]);
 
-        return redirect()->route('companies');
+        return redirect()->route('companies.index');
     }
 
     /**
@@ -97,21 +97,6 @@ class CompaniesController extends Controller
 
         $company->delete();
 
-        return redirect()->route('companies');
-    }
-
-    /**
-     * Restores a previously soft deleted model.
-     *
-     * @param $company
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function restore($company)
-    {
-        $this->authorize('restore', Company::class);
-
-        Company::onlyTrashed()->where('id', $company)->restore();
-
-        return redirect()->route('companies');
+        return redirect()->route('companies.index');
     }
 }

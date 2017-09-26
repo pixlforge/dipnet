@@ -26,7 +26,7 @@ class ArticleTest extends TestCase
     {
         $this->signIn(null, 'administrateur');
 
-        $this->get('/articles')
+        $this->get(route('articles.index'))
             ->assertViewIs('articles.index');
     }
 
@@ -39,8 +39,8 @@ class ArticleTest extends TestCase
 
         $article = factory('App\Article')->make(['category' => $category->id]);
 
-        $this->post('/articles', $article->toArray())
-            ->assertRedirect('/articles');
+        $this->post(route('articles.store'), $article->toArray())
+            ->assertRedirect(route('articles.index'));
     }
 
     /** @test */
@@ -52,13 +52,13 @@ class ArticleTest extends TestCase
 
         $article = factory('App\Article')->make(['category' => $category->id]);
 
-        $this->post('/articles', $article->toArray())
-            ->assertRedirect('/articles');
+        $this->post(route('articles.store'), $article->toArray())
+            ->assertRedirect(route('articles.index'));
 
         $article->description = 'Lorem Ipsum dolor sit amet';
 
         $this->put("/articles/{$article->reference}", $article->toArray())
-            ->assertRedirect('/articles');
+            ->assertRedirect(route('articles.index'));
     }
 
     /** @test */
@@ -71,41 +71,6 @@ class ArticleTest extends TestCase
         $this->assertDatabaseHas('articles', ['reference' => $article->reference]);
 
         $this->delete("/articles/{$article->reference}")
-            ->assertRedirect('articles');
-    }
-
-    /** @test */
-    function authorized_users_can_restore_articles()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $article = factory('App\Article')->create();
-
-        $this->assertDatabaseHas('articles', ['reference' => $article->reference]);
-
-        $this->delete("/articles/{$article->reference}")
-            ->assertRedirect('articles');
-
-        $this->put("/articles/{$article->reference}/restore", [$article])
-            ->assertRedirect('articles');
+            ->assertRedirect(route('articles.index'));
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
