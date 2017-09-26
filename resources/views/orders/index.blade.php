@@ -4,7 +4,7 @@
 
 @section ('content')
 
-    @include ('layouts.nav')
+    @include ('layouts.partials._nav')
 
     <div class="container-fluid my-5">
         <div class="row">

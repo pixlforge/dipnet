@@ -30224,6 +30224,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -30342,9 +30344,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             user: this.userData
         };
-    },
-    created: function created() {
-        console.log(this.user);
     },
 
     mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
@@ -30917,8 +30916,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            search: {
+                query: ''
+            },
+            results: {
+                orders: [],
+                companies: [],
+                businesses: [],
+                deliveries: []
+            }
+        };
+    },
+
+    methods: {
+        research: function research() {
+            var _this = this;
+
+            axios.post('/search', this.search).then(function (response) {
+                console.log(response.data);
+                _this.results.orders = response.data[0];
+                _this.results.companies = response.data[1];
+                _this.results.businesses = response.data[2];
+                _this.results.deliveries = response.data[3];
+            }).catch(function (error) {
+                console.log(error.response.data);
+            });
+        }
+    }
+});
 
 /***/ }),
 /* 180 */
@@ -37158,12 +37200,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fa fa-search"
   }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.search.query),
+      expression: "search.query"
+    }],
     staticClass: "form-control",
     attrs: {
       "type": "text",
       "placeholder": "Rechercher"
+    },
+    domProps: {
+      "value": (_vm.search.query)
+    },
+    on: {
+      "keyup": _vm.research,
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.search.query = $event.target.value
+      }
     }
-  })])
+  }), _vm._v(" "), (_vm.results.companies.length || _vm.results.orders.length) ? _c('div', {
+    staticClass: "search-dropdown"
+  }, [_vm._l((_vm.results.orders), function(result, index) {
+    return _c('li', {
+      domProps: {
+        "textContent": _vm._s(result.reference)
+      }
+    })
+  }), _vm._v(" "), _vm._l((_vm.results.companies), function(result, index) {
+    return _c('li', {
+      domProps: {
+        "textContent": _vm._s(result.name)
+      }
+    })
+  }), _vm._v(" "), (_vm.results.length === 0) ? _c('li', [_vm._v("Aucun résultat")]) : _vm._e()], 2) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -38067,7 +38139,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "form-control",
     attrs: {
       "type": "email",
-      "name": "user.email"
+      "name": "user.email",
+      "placeholder": "e.g. adresse@email.com"
     },
     domProps: {
       "value": (_vm.user.email)

@@ -13,8 +13,10 @@
                         <div class="form-group">
                             <input type="email"
                                    name="user.email"
+                                   class="form-control"
+                                   placeholder="e.g. adresse@email.com"
                                    v-model="user.email"
-                                   class="form-control" @keyup.enter="sendInvitation">
+                                   @keyup.enter="sendInvitation">
                             <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
                         </div>
                     </form>

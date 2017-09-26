@@ -3,7 +3,8 @@
 @section ('title', 'Profile')
 
 @section ('content')
-    @include ('layouts.nav')
+
+    @include ('layouts.partials._nav')
 
     <app-profile :user-data="{{ $user }}"></app-profile>
 

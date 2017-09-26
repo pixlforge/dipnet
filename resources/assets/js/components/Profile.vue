@@ -71,9 +71,6 @@
                 user: this.userData
             };
         },
-        created() {
-            console.log(this.user);
-        },
         mixins: [mixins],
         components: {
             'app-send-confirmation-email-again': SendConfirmationEmailAgain

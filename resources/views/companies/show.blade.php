@@ -4,7 +4,7 @@
 
 @section ('content')
 
-    @include ('layouts.nav')
+    @include ('layouts.partials._nav')
 
     <app-show-company :data="{{ $company }}"></app-show-company>
 
