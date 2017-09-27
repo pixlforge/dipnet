@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Search;
 
-use App\Business;
-use App\Company;
-use App\Delivery;
 use App\Order;
+use App\Company;
+use App\Business;
+use App\Delivery;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,6 +13,7 @@ class SearchController extends Controller
 {
     public function search()
     {
+        // TODO: ordonner par created_at
         $orders = Order::where('reference', 'like', request('query') . '%')
             ->limit(5)
             ->get();

@@ -1,48 +1,53 @@
 <template>
-    <form class="form-inline form-nav"
-          @submit.prevent>
+    <form class="form-inline form-nav" @submit.prevent>
         <i class="fa fa-search"></i>
         <input type="text"
                class="form-control searchbar"
                placeholder="Rechercher"
                v-model="search.query"
                @keyup="research">
-        <div class="search-dropdown list-unstyled"
-             v-if="search.query">
+        <transition name="fade">
+            <div class="search-dropdown list-unstyled"
+                 v-if="search.query.length > 1">
 
-            <div v-if="results.orders.length">
-                <h6 class="search-title">Orders</h6>
-                <li v-for="(result, index) in results.orders">
-                    <a :href="'/orders/' + result.id">{{ result.reference }}</a>
+                <li v-if="searching">Recherche en cours...</li>
+
+                <div v-if="containsOrders">
+                    <h6 class="search-title">Commandes</h6>
+                    <li v-for="(result, index) in results.orders">
+                        <a :href="'/orders/' + result.id">{{ result.reference }}</a>
+                    </li>
+                </div>
+
+                <div v-if="containsCompanies">
+                    <hr v-if="containsOrders">
+                    <h6 class="search-title">Sociétés</h6>
+                    <li v-for="(result, index) in results.companies">
+                        <a :href="'/companies/' + result.id">{{ result.name }}</a>
+                    </li>
+                </div>
+
+                <div v-if="containsBusinesses">
+                    <hr v-if="containsOrders || containsCompanies">
+                    <h6 class="search-title">Affaires</h6>
+                    <li v-for="(result, index) in results.businesses">
+                        <a :href="'/businesses/' + result.id">{{ result.name }}</a>
+                    </li>
+                </div>
+
+                <div v-if="containsDeliveries">
+                    <hr v-if="containsOrders || containsCompanies || containsBusinesses">
+                    <h6 class="search-title">Livraisons</h6>
+                    <li v-for="(result, index) in results.deliveries">
+                        <a :href="'/deliveries/' + result.id">{{ result.reference }}</a>
+                    </li>
+                </div>
+
+                <li v-if="search.query.length > 1 && !searching && !containsOrders && !containsCompanies && !containsBusinesses && !containsDeliveries">
+                    Aucun résultat
                 </li>
             </div>
-
-            <div v-if="results.companies.length">
-                <hr v-if="results.orders.length">
-                <h6 class="search-title">Companies</h6>
-                <li v-for="(result, index) in results.companies">
-                    <a :href="'/companies/' + result.id">{{ result.name }}</a>
-                </li>
-            </div>
-
-            <div v-if="results.businesses.length">
-                <hr v-if="results.orders.length || results.companies.length">
-                <h6 class="search-title">Businesses</h6>
-                <li v-for="(result, index) in results.businesses">
-                    <a :href="'/businesses/' + result.id">{{ result.name }}</a>
-                </li>
-            </div>
-
-            <div v-if="results.deliveries.length">
-                <hr v-if="results.orders.length || results.companies.length || results.businesses.length">
-                <h6 class="search-title">Deliveries</h6>
-                <li v-for="(result, index) in results.deliveries">
-                    <a :href="'/deliveries/' + result.id">{{ result.reference }}</a>
-                </li>
-            </div>
-
-            <li v-if="!results.orders.length && !results.companies.length && !results.businesses.length && !results.deliveries.length">Aucun résultat</li>
-        </div>
+        </transition>
     </form>
 </template>
 
@@ -58,22 +63,41 @@
                     companies: [],
                     businesses: [],
                     deliveries: []
-                }
+                },
+                searching: false
             }
+        },
+        computed: {
+            containsOrders() {
+                return this.results.orders.length;
+            },
+            containsCompanies() {
+                return this.results.companies.length;
+            },
+            containsBusinesses() {
+                return this.results.businesses.length;
+            },
+            containsDeliveries() {
+                return this.results.deliveries.length;
+            },
         },
         methods: {
             research() {
-                axios.post('/search', this.search)
-                    .then(response => {
-                        console.log(response.data);
-                        this.results.orders = response.data[0];
-                        this.results.companies = response.data[1];
-                        this.results.businesses = response.data[2];
-                        this.results.deliveries = response.data[3];
-                    })
-                    .catch(error => {
-                        console.log(error.response.data);
-                    });
+                if (this.search.query.length > 1) {
+                    this.searching = true;
+                    axios.post('/search', this.search)
+                        .then(response => {
+                            this.results.orders = response.data[0];
+                            this.results.companies = response.data[1];
+                            this.results.businesses = response.data[2];
+                            this.results.deliveries = response.data[3];
+                            this.searching = false;
+                        })
+                        .catch(error => {
+                            this.searching = false;
+                            console.log(error.response.data);
+                        });
+                }
             }
         }
     }
