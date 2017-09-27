@@ -11,6 +11,11 @@ use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
+    /**
+     * Search in models
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function search()
     {
         // TODO: ordonner par created_at
@@ -38,14 +43,5 @@ class SearchController extends Controller
                 $deliveries->toArray(),
             ]);
         }
-    }
-
-    public function testing()
-    {
-        $companies = Company::where('name', 'like', '%Sau%')
-            ->limit(5)
-            ->get();
-
-        return $companies;
     }
 }

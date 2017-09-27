@@ -61,7 +61,6 @@ Route::prefix('/profile')->group(function () {
  */
 Route::prefix('/search')->namespace('Search')->group(function () {
     Route::post('/', 'SearchController@search')->name('search.query');
-    Route::get('/testing', 'SearchController@testing')->name('search.testing');
 });
 
 /**

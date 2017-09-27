@@ -168,8 +168,6 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
-        Laravel\Scout\ScoutServiceProvider::class,
-//        Laravel\Dusk\DuskServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -180,7 +178,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
-        App\Providers\ViewComposerProvider::class,
 
     ],
 
