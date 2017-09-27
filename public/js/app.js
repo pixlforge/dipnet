@@ -30997,18 +30997,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             if (this.search.query.length > 1) {
-                this.searching = true;
+                this.toggleSearch();
+
                 axios.post('/search', this.search).then(function (response) {
                     _this.results.orders = response.data[0];
                     _this.results.companies = response.data[1];
                     _this.results.businesses = response.data[2];
                     _this.results.deliveries = response.data[3];
-                    _this.searching = false;
+                    _this.toggleSearch();
                 }).catch(function (error) {
-                    _this.searching = false;
+                    _this.toggleSearch();
                     console.log(error.response.data);
                 });
             }
+        },
+        toggleSearch: function toggleSearch() {
+            this.searching = !this.searching;
         }
     }
 });

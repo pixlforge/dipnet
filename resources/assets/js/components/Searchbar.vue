@@ -84,20 +84,24 @@
         methods: {
             research() {
                 if (this.search.query.length > 1) {
-                    this.searching = true;
+                    this.toggleSearch();
+                    
                     axios.post('/search', this.search)
                         .then(response => {
                             this.results.orders = response.data[0];
                             this.results.companies = response.data[1];
                             this.results.businesses = response.data[2];
                             this.results.deliveries = response.data[3];
-                            this.searching = false;
+                            this.toggleSearch();
                         })
                         .catch(error => {
-                            this.searching = false;
+                            this.toggleSearch();
                             console.log(error.response.data);
                         });
                 }
+            },
+            toggleSearch() {
+                this.searching = !this.searching;
             }
         }
     }
