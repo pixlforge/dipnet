@@ -30961,6 +30961,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -30972,7 +30981,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 orders: [],
                 companies: [],
                 businesses: [],
-                deliveries: []
+                deliveries: [],
+                contacts: []
             },
             searching: false
         };
@@ -30990,6 +31000,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         containsDeliveries: function containsDeliveries() {
             return this.results.deliveries.length;
+        },
+        containsContacts: function containsContacts() {
+            return this.results.contacts.length;
         }
     },
     methods: {
@@ -31004,10 +31017,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     _this.results.companies = response.data[1];
                     _this.results.businesses = response.data[2];
                     _this.results.deliveries = response.data[3];
+                    _this.results.contacts = response.data[4];
                     _this.toggleSearch();
                 }).catch(function (error) {
                     _this.toggleSearch();
-                    console.log(error.response.data);
                 });
             }
         },
@@ -37325,7 +37338,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/deliveries/' + result.id
       }
     }, [_vm._v(_vm._s(result.reference))])])
-  })], 2) : _vm._e(), _vm._v(" "), (_vm.search.query.length > 1 && !_vm.searching && !_vm.containsOrders && !_vm.containsCompanies && !_vm.containsBusinesses && !_vm.containsDeliveries) ? _c('li', [_vm._v("\n                Aucun résultat\n            ")]) : _vm._e()]) : _vm._e()])], 1)
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.containsContacts) ? _c('div', [(_vm.containsOrders || _vm.containsCompanies || _vm.containsBusinesses || _vm.containsDeliveries) ? _c('hr') : _vm._e(), _vm._v(" "), _c('h6', {
+    staticClass: "search-title"
+  }, [_vm._v("Contacts")]), _vm._v(" "), _vm._l((_vm.results.contacts), function(result, index) {
+    return _c('li', [_c('a', {
+      attrs: {
+        "href": '/contacts/' + result.id
+      }
+    }, [_vm._v(_vm._s(result.name))])])
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.search.query.length > 1 && !_vm.searching && !_vm.containsOrders && !_vm.containsCompanies && !_vm.containsBusinesses && !_vm.containsDeliveries && !_vm.containsContacts) ? _c('li', [_vm._v("\n                Aucun résultat\n            ")]) : _vm._e()]) : _vm._e()])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

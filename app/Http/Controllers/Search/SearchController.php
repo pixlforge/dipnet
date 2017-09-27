@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Search;
 
 use App\Order;
 use App\Company;
+use App\Contact;
 use App\Business;
 use App\Delivery;
 use Illuminate\Http\Request;
@@ -35,12 +36,17 @@ class SearchController extends Controller
             ->limit(5)
             ->get();
 
+        $contacts = Contact::where('name', 'like', request('query') . '%')
+            ->limit(5)
+            ->get();
+
         if (request()->wantsJson()) {
             return response([
                 $orders->toArray(),
                 $companies->toArray(),
                 $businesses->toArray(),
                 $deliveries->toArray(),
+                $contacts->toArray(),
             ]);
         }
     }

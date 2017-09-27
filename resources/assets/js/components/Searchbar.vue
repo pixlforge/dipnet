@@ -6,6 +6,7 @@
                placeholder="Rechercher"
                v-model="search.query"
                @keyup="research">
+        
         <transition name="fade">
             <div class="search-dropdown list-unstyled"
                  v-if="search.query.length > 1">
@@ -43,7 +44,15 @@
                     </li>
                 </div>
 
-                <li v-if="search.query.length > 1 && !searching && !containsOrders && !containsCompanies && !containsBusinesses && !containsDeliveries">
+                <div v-if="containsContacts">
+                    <hr v-if="containsOrders || containsCompanies || containsBusinesses || containsDeliveries">
+                    <h6 class="search-title">Contacts</h6>
+                    <li v-for="(result, index) in results.contacts">
+                        <a :href="'/contacts/' + result.id">{{ result.name }}</a>
+                    </li>
+                </div>
+
+                <li v-if="search.query.length > 1 && !searching && !containsOrders && !containsCompanies && !containsBusinesses && !containsDeliveries && !containsContacts">
                     Aucun résultat
                 </li>
             </div>
@@ -62,7 +71,8 @@
                     orders: [],
                     companies: [],
                     businesses: [],
-                    deliveries: []
+                    deliveries: [],
+                    contacts: []
                 },
                 searching: false
             }
@@ -80,23 +90,26 @@
             containsDeliveries() {
                 return this.results.deliveries.length;
             },
+            containsContacts() {
+                return this.results.contacts.length;
+            },
         },
         methods: {
             research() {
                 if (this.search.query.length > 1) {
                     this.toggleSearch();
-                    
+
                     axios.post('/search', this.search)
                         .then(response => {
                             this.results.orders = response.data[0];
                             this.results.companies = response.data[1];
                             this.results.businesses = response.data[2];
                             this.results.deliveries = response.data[3];
+                            this.results.contacts = response.data[4];
                             this.toggleSearch();
                         })
                         .catch(error => {
                             this.toggleSearch();
-                            console.log(error.response.data);
                         });
                 }
             },
