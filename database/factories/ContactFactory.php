@@ -12,8 +12,8 @@ $factory->define(App\Contact::class, function (Faker $faker) {
         'phone_number' => $faker->e164PhoneNumber,
         'fax' => $faker->e164PhoneNumber,
         'email' => $faker->companyEmail,
+        'user_id' => null,
         'company_id' => null,
-        'created_by_username' => $faker->userName,
     ];
 });
 
@@ -26,6 +26,6 @@ $factory->state(App\Contact::class, 'default', [
     'phone_number' => null,
     'fax' => null,
     'email' => 'default',
+    'user_id' => null,
     'company_id' => null,
-    'created_by_username' => 'default',
 ]);

@@ -13,41 +13,119 @@ use App\Http\Controllers\Controller;
 class SearchController extends Controller
 {
     /**
-     * Search in models
+     * Return search results.
      *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function search()
     {
-        // TODO: ordonner par created_at
-        $orders = Order::where('reference', 'like', request('query') . '%')
-            ->limit(5)
-            ->get();
+        if (auth()->user()->isAdmin()) {
+            $orders = Order::select(['id', 'reference'])
+                ->where('reference', 'like', request('query') . '%')
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
 
-        $companies = Company::where('name', 'like', request('query') . '%')
-            ->limit(5)
-            ->get();
+            $companies = Company::select(['id', 'name'])
+                ->where('name', 'like', request('query') . '%')
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
 
-        $businesses = Business::where('name', 'like', request('query') . '%')
-            ->limit(5)
-            ->get();
+            $businesses = Business::select(['id', 'name'])
+                ->where('name', 'like', request('query') . '%')
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
 
-        $deliveries = Delivery::where('reference', 'like', request('query') . '%')
-            ->limit(5)
-            ->get();
+            $deliveries = Delivery::select(['id', 'reference'])
+                ->where('reference', 'like', request('query') . '%')
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
 
-        $contacts = Contact::where('name', 'like', request('query') . '%')
-            ->limit(5)
-            ->get();
-
-        if (request()->wantsJson()) {
-            return response([
-                $orders->toArray(),
-                $companies->toArray(),
-                $businesses->toArray(),
-                $deliveries->toArray(),
-                $contacts->toArray(),
-            ]);
+            $contacts = Contact::select(['id', 'name'])
+                ->where('name', 'like', request('query') . '%')
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
         }
+
+        if (! auth()->user()->isAdmin()) {
+            $orders = Order::select(['id', 'reference'])
+                ->where([
+                    ['user_id', auth()->id()],
+                    ['reference', 'like', request('query') . '%']
+                ])
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
+
+            $companies = Company::select(['id', 'name'])
+                ->where([
+                    ['id', auth()->user()->company_id],
+                    ['name', 'like', request('query') . '%']
+                ])
+                ->get()
+                ->toArray();
+
+            $businesses = Business::select(['id', 'name'])
+                ->where([
+                    ['company_id', auth()->user()->company_id],
+                    ['name', 'like', request('query') . '%']
+                ])
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
+
+            $deliveries = Delivery::select(['id', 'reference'])
+                ->where([
+                    // ['contact_id', auth()->user()->contacts],
+                    ['reference', 'like', request('query') . '%']
+                ])
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
+
+            $contacts = Contact::select(['id', 'name'])
+                ->where('name', 'like', request('query') . '%')
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
+        }
+
+        return response([
+            $orders,
+            $companies,
+            $businesses,
+            $deliveries,
+            $contacts,
+        ]);
+    }
+
+    public function testing()
+    {
+        $deliveries = Delivery::select(['id', 'reference'])
+            ->where([
+                ['contact_id', auth()->user()->contacts],
+                ['reference', 'like', request('query') . '%']
+            ])
+            ->latest()
+            ->limit(5)
+            ->get()
+            ->toArray();
+
+//        $contacts = auth()->user()->contacts;
+
+        return $deliveries;
     }
 }

@@ -15,6 +15,8 @@ class InviteMemberTest extends TestCase
     /** @test */
     function members_of_a_company_can_send_invitations_by_email()
     {
+        $this->withExceptionHandling();
+
         Mail::fake();
 
         $firstMember = factory('App\User')->create();
@@ -49,15 +51,7 @@ class InviteMemberTest extends TestCase
 
         $user = User::whereEmail('johndoe@example.com')->firstOrFail();
 
-        $this->assertFalse($user->confirmed);
+        $this->assertFalse($user->isConfirmed());
         $this->assertNotNull($user->confirmation_token);
-
-//        $this->get(route('invite.confirm', ['token' => $user->confirmation_token]))
-//            ->assertRedirect(route('profile'));
-//
-//        tap($user->fresh(), function ($user) {
-//            $this->assertTrue($user->confirmed);
-//            $this->assertNull($user->confirmation_token);
-//        });
     }
 }

@@ -1,6 +1,5 @@
 <template>
-    <div class="container-fluid">
-
+    <div>
         <a href="/">
             <div class="company-logo-container" :class="logo" aria-hidden="true"></div>
         </a>
@@ -17,10 +16,9 @@
                                      :size="loader.size"></app-moon-loader>
 
                     <!--Register Account Form-->
-                    <form role="form"
-                          @submit.prevent>
+                    <form role="form" @submit.prevent>
 
-                        <h4 class="text-center">Votre Compte</h4>
+                        <h4 class="text-center">Enregistrement</h4>
 
                         <!--Username-->
                         <div class="form-group my-5">
@@ -35,6 +33,21 @@
                             <div class="help-block"
                                  v-if="errors.username"
                                  v-text="errors.username[0]"></div>
+                        </div>
+
+                        <!--Email-->
+                        <div class="form-group my-5">
+                            <label for="email">E-mail</label>
+                            <span class="required">*</span>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   v-model="account.email"
+                                   class="form-control"
+                                   required>
+                            <div class="help-block"
+                                 v-if="errors.email"
+                                 v-text="errors.email[0]"></div>
                         </div>
 
                         <!--Password-->
@@ -65,7 +78,7 @@
                         </div>
 
                         <button class="btn btn-black btn-block mt-5"
-                                @click="updateAccount">
+                                @click="registerAccount">
                             Créer le compte
                         </button>
 
@@ -81,20 +94,21 @@
 </template>
 
 <script>
-    import RegisterCarousel from './register/RegisterCarousel.vue';
+    import RegisterCarousel from './RegisterCarousel.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../mixins';
+    import mixins from '../../mixins';
 
     export default {
         data() {
             return {
                 account: {
                     username: '',
+                    email: '',
                     password: '',
                     password_confirmation: ''
                 },
                 errors: {}
-            };
+            }
         },
         components: {
             'app-register-carousel': RegisterCarousel,
@@ -102,26 +116,21 @@
         },
         mixins: [mixins],
         methods: {
-            updateAccount() {
+            registerAccount() {
                 this.toggleLoader();
 
-                axios.put('/invite/confirm', this.account)
+                axios.post('/register', this.account)
                     .then(() => {
                         this.toggleLoader();
+                        this.toggleModal();
                         this.account = {};
-                        flash({
-                            message: 'Félicitations! Votre compte a bien été mis à jour!',
-                            level: 'success'
-                        });
-                        setTimeout(() => {
-                            window.location.pathname = '/';
-                        }, 2000);
+                        this.$emit('accountCreated');
                     })
                     .catch(error => {
                         this.toggleLoader();
                         this.errors = error.response.data.errors;
                     });
-            },
+            }
         }
     }
 </script>

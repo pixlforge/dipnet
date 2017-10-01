@@ -38,8 +38,7 @@ class UserTest extends TestCase
 
         $user = factory('App\User')->create();
 
-        $this->get('/users')
-            ->assertStatus(200);
+        $this->get('/users')->assertStatus(200);
     }
 
     /** @test */
@@ -51,8 +50,7 @@ class UserTest extends TestCase
 
         $user->username = 'John Doe';
 
-        $this->put("/users/{$user->id}", $user->toArray())
-            ->assertRedirect('users');
+        $this->put("/users/{$user->id}", $user->toArray())->assertRedirect('users');
     }
 
     /** @test */
@@ -66,7 +64,6 @@ class UserTest extends TestCase
             'email' => $user->email,
         ]);
 
-        $this->delete("/users/{$user->id}")
-            ->assertRedirect('/users');
+        $this->delete("/users/{$user->id}")->assertRedirect('/users');
     }
 }

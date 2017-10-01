@@ -56,6 +56,40 @@
 }
 
 .profile-card-content {
-  padding: 10px 0;
   font-size: 24px;
+  padding: 10px 0;
+}
+
+.card-title-white {
+  font-weight: 100;
+  text-align: center;
+  color: $white;
+  margin-bottom: 0;
+}
+
+.hoverable {
+  cursor: pointer;
+  transition: all .3s ease-out;
+
+  &:hover {
+    box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15) !important;
+  }
+}
+
+.hoverable-red {
+  &:hover {
+    background-color: $bg-red-lighter-5;
+  }
+}
+
+.hoverable-purple {
+  &:hover {
+    background-color: $bg-purple-lighter-5;
+  }
+}
+
+.hoverable-orange {
+  &:hover {
+    background-color: $bg-orange-lighter-5;
+  }
 }

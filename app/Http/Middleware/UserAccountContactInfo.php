@@ -16,7 +16,7 @@ class UserAccountContactInfo
      */
     public function handle($request, Closure $next)
     {
-        if (! auth()->user()->contact_confirmed) {
+        if (! auth()->user()->hasConfirmedContact()) {
             return redirect()->route('account.contact');
         }
 

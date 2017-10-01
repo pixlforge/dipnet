@@ -28,7 +28,7 @@ class UsersController extends Controller
     {
         $this->authorize('view', User::class);
 
-        $users = User::with(['contact', 'company'])
+        $users = User::with('company')
             ->orderBy('username')
             ->get();
 
@@ -58,13 +58,12 @@ class UsersController extends Controller
         $this->authorize('create', User::class);
 
         $user = User::create([
-            'username' => request('username'),
-            'password' => bcrypt(request('password')),
-            'role' => request('role'),
-            'email' => request('email'),
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+            'role' => $request->role,
+            'email' => $request->email,
             'confirmed' => $this->getEmailStatus(),
-            'contact_id' => request('contact_id'),
-            'company_id' => request('company_id')
+            'company_id' => $request->company_id
         ]);
 
         if (request()->expectsJson()) {
@@ -99,12 +98,11 @@ class UsersController extends Controller
         $this->authorize('update', $user);
 
         $user->update([
-            'username' => request('username'),
-            'role' => request('role'),
-            'email' => request('email'),
-            'confirmed' => $this->getEmailStatus(),
-            'contact_id' => request('contact_id'),
-            'company_id' => request('company_id')
+            'username' => $request->username,
+            'role' => $request->role,
+            'email' => $request->email,
+            'email_confirmed' => $this->getEmailStatus(),
+            'company_id' => $request->company_id
         ]);
 
         return redirect()->route('users.index');
@@ -128,7 +126,7 @@ class UsersController extends Controller
      */
     protected function getEmailStatus(): int
     {
-        if (empty(request('confirmed'))) {
+        if (empty($request->email_confirmed)) {
             $emailStatus = 0;
         } else {
             $emailStatus = 1;

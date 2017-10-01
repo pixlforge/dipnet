@@ -39,7 +39,6 @@ class InviteMemberController extends Controller
                 'name' => request('email'),
                 'email' => request('email'),
                 'company_id' => auth()->user()->company_id,
-                'created_by_username' => auth()->user()->username
             ]);
 
         $user = User::create([
@@ -47,9 +46,8 @@ class InviteMemberController extends Controller
             'password' => bcrypt(request('secret')),
             'role' => 'utilisateur',
             'email' => request('email'),
-            'confirmed' => false,
+            'email_confirmed' => false,
             'confirmation_token' => User::generateConfirmationToken(request('email')),
-            'contact_id' => $contact->id,
             'company_id' => auth()->user()->company_id,
             'contact_confirmed' => false,
             'company_confirmed' => true,
@@ -104,7 +102,7 @@ class InviteMemberController extends Controller
             'password.confirmed' => 'Les mots de passe ne concordent pas.'
         ]);
 
-        $user = User::where('id', auth()->user()->id)->first();
+        $user = User::where('id', auth()->id())->first();
 
         $user->update([
             'username' => request('username'),

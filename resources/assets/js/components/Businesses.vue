@@ -10,8 +10,7 @@
                             {{ businesses.length == 0 || businesses.length == 1 ? 'résultat' : 'résultats' }}
                         </span>
                         <app-add-business @businessWasCreated="addBusiness"
-                                          :companies="companies">
-                        </app-add-business>
+                                          :companies="companies"></app-add-business>
                     </div>
                 </div>
             </div>

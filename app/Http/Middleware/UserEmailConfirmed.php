@@ -15,7 +15,7 @@ class UserEmailConfirmed
      */
     public function handle($request, Closure $next)
     {
-        if (! $request->user()->confirmed) {
+        if (! $request->user()->isConfirmed()) {
 
             if (request()->wantsJson()) {
                 return response("Vous devez d'abord confirmer votre adresse e-mail.", 403);

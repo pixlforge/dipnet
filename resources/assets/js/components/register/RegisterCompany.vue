@@ -1,18 +1,15 @@
 <template>
     <div class="row">
-
         <a href="/">
             <div class="company-logo-container" :class="logoWhite" aria-hidden="true"></div>
         </a>
-
         <div class="col-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding">
             <div class="col-12 col-md-5 offset-md-5 mt-md-checklist no-padding">
 
                 <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size">
-                </app-moon-loader>
+                                 :size="loader.size"></app-moon-loader>
 
                 <div class="d-flex flex-column justify-content-center checklist">
                     <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
@@ -38,9 +35,7 @@
         <div class="col-12 col-lg-6 push-lg-6 vh-100 d-flex align-items-center">
             <div class="col-12 col-lg-8 mx-auto py-5">
 
-                <!--Company Info Form-->
-                <form role="form"
-                      @submit.prevent>
+                <form role="form" @submit.prevent>
 
                     <h4 class="text-center">Société</h4>
 
@@ -61,21 +56,9 @@
                     <div v-if="errors.name">{{ errors.name }}</div>
 
                     <button class="btn btn-black btn-block mt-5"
-                            @click="update">
-                        Mettre à jour
+                            @click="createCompany">
+                        Terminer
                     </button>
-
-                    <p class="mt-5 text-center">
-                        <small>
-                            Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société et commandez en votre nom propre
-                        </small>
-                    </p>
-
-                    <p class="text-small text-center mt-5">
-                        <a @click="update">
-                            Passer cette étape
-                        </a>
-                    </p>
                 </form>
             </div>
         </div>
@@ -84,8 +67,7 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../app';
-    import mixins from '../mixins';
+    import mixins from '../../mixins';
 
     export default {
         data() {
@@ -101,28 +83,23 @@
         },
         mixins: [mixins],
         methods: {
-            update() {
+            createCompany() {
                 this.toggleLoader();
 
-                if (this.company.name.length === 0) {
-                    this.updateAsSelf();
-                } else {
-                    this.updateWithCompany();
-                }
-            },
-            updateWithCompany() {
-                this.updateCompany(this.company);
-            },
-            updateAsSelf() {
-                this.company.name = 'self';
-                this.updateCompany(this.company);
-            },
-            updateCompany(company) {
-                axios.put('/register/company', company)
+                axios.post('/register/company', this.company)
                     .then(() => {
                         this.toggleLoader();
                         this.company = {};
-                        this.$emit('companyWasUpdated');
+                        this.$emit('companyCreated');
+                    })
+                    .then(() => {
+                        flash({
+                            message: 'Félicitations! Votre compte est fin prêt!',
+                            level: 'success'
+                        });
+                        setTimeout(() => {
+                            window.location.pathname = '/';
+                        }, 2500);
                     })
                     .catch(error => {
                         this.toggleLoader();

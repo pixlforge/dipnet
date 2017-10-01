@@ -28,8 +28,8 @@ class Contact extends Model
         'phone_number',
         'fax',
         'email',
-        'company_id',
-        'created_by_username'
+        'user_id',
+        'company_id'
     ];
 
     /**
@@ -75,10 +75,10 @@ class Contact extends Model
     /**
      * User relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(User::class);
     }
 }

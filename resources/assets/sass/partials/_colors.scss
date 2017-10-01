@@ -14,6 +14,10 @@ $bg-red: #e84949;
 $bg-purple: #795691;
 $bg-orange: #ef9067;
 
+$bg-red-lighter-5: lighten($bg-red, 5%);
+$bg-purple-lighter-5: lighten($bg-purple, 5%);
+$bg-orange-lighter-5: lighten($bg-orange, 5%);
+
 $bg-success: #13c964;
 $bg-warning: #e6aa82;
 

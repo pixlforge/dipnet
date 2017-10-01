@@ -13,26 +13,26 @@ class AdminSeeder extends Seeder
     {
         factory('App\User')->create([
             'username' => 'Pixlforge',
-            'password' => bcrypt('erfgbn'),
+            'password' => bcrypt('secret'),
             'role' => 'administrateur',
             'email' => 'celien@pixlforge.ch',
-            'confirmed' => 1
+            'email_confirmed' => 1
         ]);
 
         factory('App\User')->create([
             'username' => 'Célien',
-            'password' => bcrypt('erfgbn'),
+            'password' => bcrypt('secret'),
             'role' => 'utilisateur',
             'email' => 'c-boillat@hotmail.com',
-            'confirmed' => 1
+            'email_confirmed' => 1
         ]);
 
         factory('App\User')->create([
             'username' => 'Radu',
-            'password' => bcrypt('password'),
+            'password' => bcrypt('secret'),
             'role' => 'administrateur',
             'email' => 'radu@bebold.ch',
-            'confirmed' => 1
+            'email_confirmed' => 1
         ]);
     }
 }

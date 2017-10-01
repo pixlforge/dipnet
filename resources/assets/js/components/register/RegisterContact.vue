@@ -1,18 +1,15 @@
 <template>
     <div class="row">
-
         <a href="/">
             <div class="company-logo-container" :class="logoWhite" aria-hidden="true"></div>
         </a>
-
         <div class="col-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding">
             <div class="col-12 col-md-5 offset-md-5 mt-md-checklist no-padding">
 
                 <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size">
-                </app-moon-loader>
+                                 :size="loader.size"></app-moon-loader>
 
                 <div class="d-flex flex-column justify-content-center checklist">
                     <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
@@ -38,9 +35,7 @@
         <div class="col-12 col-lg-6 push-lg-6 vh-100 d-flex align-items-center">
             <div class="col-12 col-lg-8 mx-auto py-5">
 
-                <!--Contact Info Form-->
-                <form role="form"
-                      @submit.prevent>
+                <form role="form" @submit.prevent>
 
                     <h4 class="text-center">Contact</h4>
 
@@ -144,8 +139,8 @@
                     </div>
 
                     <button class="btn btn-black btn-block mt-5"
-                            @click="updateContactInfo">
-                        Mettre à jour
+                            @click="createContact">
+                        Suivant
                     </button>
                 </form>
             </div>
@@ -155,8 +150,7 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../app';
-    import mixins from '../mixins';
+    import mixins from '../../mixins';
 
     export default {
         data() {
@@ -178,14 +172,14 @@
         },
         mixins: [mixins],
         methods: {
-            updateContactInfo() {
+            createContact() {
                 this.toggleLoader();
 
-                axios.put('/register/contact', this.contact)
+                axios.post('/register/contact', this.contact)
                     .then(() => {
                         this.toggleLoader();
                         this.contact = {};
-                        this.$emit('contactWasUpdated');
+                        this.$emit('contactCreated');
                     })
                     .catch(error => {
                         this.toggleLoader();

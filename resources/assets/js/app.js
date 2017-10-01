@@ -14,7 +14,7 @@ window.Vue = require('vue');
  */
 Vue.component('flash', require('./components/Flash.vue'));
 Vue.component('app-searchbar', require('./components/Searchbar.vue'));
-Vue.component('app-register', require('./components/Register.vue'));
+Vue.component('app-register', require('./components/register/Register.vue'));
 Vue.component('app-account-details', require('./components/AccountDetails.vue'));
 Vue.component('app-account-contact', require('./components/AccountContact.vue'));
 Vue.component('app-account-company', require('./components/AccountCompany.vue'));

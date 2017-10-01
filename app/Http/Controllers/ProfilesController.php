@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use App\Company;
 use App\Contact;
-use App\Http\Requests\CompanyDetailRequest;
-use App\Http\Requests\ContactDetailsRequest;
-use App\Http\Requests\UpdateProfileRequest;
-use App\User;
 use App\Profile;
-use Illuminate\Http\Request;
+use App\Http\Requests\UpdateProfileRequest;
 
 class ProfilesController extends Controller
 {
@@ -33,11 +30,15 @@ class ProfilesController extends Controller
     {
         $this->authorize('view', Profile::class);
 
-        $user = User::where('id', auth()->id())
-            ->firstOrFail([
-                'id', 'username', 'email', 'confirmed', 'contact_id',
-                'company_id', 'last_login_at', 'created_at'
-            ]);
+        $user = User::select([
+            'id',
+            'username',
+            'email',
+            'email_confirmed',
+            'company_id',
+            'created_at'
+        ])->where('id', auth()->id())
+            ->firstOrFail();
 
         $users = User::where('company_id', $user->company->id)
             ->get()
@@ -48,7 +49,9 @@ class ProfilesController extends Controller
             ->sortBy('name');
 
         return view('profiles.profile', compact([
-            'user', 'users', 'contacts'
+            'user',
+            'users',
+            'contacts'
         ]));
     }
 
@@ -65,7 +68,9 @@ class ProfilesController extends Controller
             ->sortBy('name');
 
         return view('profiles.edit', compact([
-            'user', 'contacts', 'companies'
+            'user',
+            'contacts',
+            'companies'
         ]));
     }
 
@@ -80,7 +85,7 @@ class ProfilesController extends Controller
             abort(403, "Vous n'êtes pas autorisé à faire cela");
         }
 
-        if(empty(request('password'))) {
+        if (empty(request('password'))) {
             $this->updateUserWithoutPassword($user);
         } else {
             $this->updateUserWithPassword($user);
@@ -97,7 +102,6 @@ class ProfilesController extends Controller
         $user->update([
             'username' => request('username'),
             'email' => request('email'),
-            'contact_id' => request('contact_id'),
             'company_id' => request('company_id')
         ]);
     }
@@ -111,7 +115,6 @@ class ProfilesController extends Controller
             'username' => request('username'),
             'email' => request('email'),
             'password' => bcrypt(request('password')),
-            'contact_id' => request('contact_id'),
             'company_id' => request('company_id')
         ]);
     }

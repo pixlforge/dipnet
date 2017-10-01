@@ -72,16 +72,16 @@ class ContactsController extends Controller
         $this->authorize('create', Contact::class);
 
         $contact = Contact::create([
-            'name' => request('name'),
-            'address_line1' => request('address_line1'),
-            'address_line2' => request('address_line2'),
-            'zip' => request('zip'),
-            'city' => request('city'),
-            'phone_number' => request('phone_number'),
-            'fax' => request('fax'),
-            'email' => request('email'),
-            'company_id' => auth()->user()->company_id,
-            'created_by_username' => auth()->user()->username
+            'name' => $request->name,
+            'address_line1' => $request->address_line1,
+            'address_line2' => $request->address_line2,
+            'zip' => $request->zip,
+            'city' => $request->city,
+            'phone_number' => $request->phone_number,
+            'fax' => $request->fax,
+            'email' => $request->email,
+            'user_id' => auth()->id(),
+            'company_id' => auth()->user()->company_id
         ]);
 
         if (request()->expectsJson()) {

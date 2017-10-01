@@ -29,7 +29,7 @@ class User extends Authenticatable
         'role',
         'contact_id',
         'company_id',
-        'confirmed',
+        'email_confirmed',
         'confirmation_token',
         'contact_confirmed',
         'company_confirmed',
@@ -49,8 +49,122 @@ class User extends Authenticatable
      * The attributes that are cast into specific primitives.
      */
     protected $casts = [
-        'confirmed' => 'boolean'
+        'email_confirmed' => 'boolean'
     ];
+
+    /**
+     * Update and confirm the user account.
+     */
+    public function confirm()
+    {
+        $this->email_confirmed = true;
+        $this->confirmation_token = null;
+        $this->save();
+    }
+
+    /**
+     * Generate a confirmation token.
+     *
+     * @param $field
+     * @return string
+     */
+    public static function generateConfirmationToken($field)
+    {
+        return md5(request($field) . str_random(10));
+    }
+
+    /**
+     * Checks wether the user has an unused confirmation token.
+     *
+     * @return mixed|null|string
+     */
+    public function hasConfirmationToken()
+    {
+        return $this->confirmation_token;
+    }
+
+    /**
+     * Check wether the user has confirmed his account registration.
+     *
+     * @return mixed
+     */
+    public function isConfirmed()
+    {
+        return $this->email_confirmed;
+    }
+
+    /**
+     * Checks wether the user has entered at least one contact.
+     *
+     * @return int|mixed
+     */
+    public function hasConfirmedContact()
+    {
+        return $this->contact_confirmed;
+    }
+
+    /**
+     * Checks wether the user has confirmed his associated company status.
+     *
+     * @return int|mixed
+     */
+    public function hasConfirmedCompany()
+    {
+        return $this->company_confirmed;
+    }
+
+    /**
+     * Associate the user with his newly created company.
+     *
+     * @param $id
+     */
+    public function associateModels($id)
+    {
+        $this->company_id = $id;
+        $this->save();
+
+        $contact = Contact::where('user_id', auth()->id())->first();
+        $contact->company_id = $id;
+        $contact->save();
+    }
+
+    /**
+     * Check wether the user was invited.
+     *
+     * @return int|mixed
+     */
+    public function wasInvited()
+    {
+        return $this->was_invited;
+    }
+
+    /**
+     * Check wether the user is an admin.
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->role === 'administrateur';
+    }
+
+    /**
+     * Confirm that the user has entered his contact infos.
+     */
+    public function confirmContact()
+    {
+        $this->contact_confirmed = true;
+        $this->save();
+    }
+
+    /**
+     * Confirm that the user has entered his company infos.
+     */
+    public function confirmCompany()
+    {
+        $this->company_confirmed = true;
+        $this->save();
+    }
 
     /**
      * Business relationship.
@@ -95,71 +209,10 @@ class User extends Authenticatable
     /**
      * Contact relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function contact()
+    public function contacts()
     {
-        return $this->belongsTo(Contact::class);
-    }
-
-    /**
-     * Update and confirm the user account.
-     */
-    public function confirm()
-    {
-        $this->confirmed = true;
-        $this->confirmation_token = null;
-        $this->save();
-    }
-
-    /**
-     * Generate a confirmation token.
-     *
-     * @param $field
-     * @return string
-     */
-    public static function generateConfirmationToken($field)
-    {
-        return md5(request($field) . str_random(10));
-    }
-
-    /**
-     * Checks wether the user has an unused confirmation token.
-     *
-     * @return mixed|null|string
-     */
-    public function hasConfirmationToken()
-    {
-        return $this->confirmation_token;
-    }
-
-    /**
-     * Check wether the user has confirmed his account registration.
-     *
-     * @return mixed
-     */
-    public function isConfirmed()
-    {
-        return $this->confirmed;
-    }
-
-    /**
-     * Check wether the user was invited.
-     *
-     * @return int|mixed
-     */
-    public function wasInvited()
-    {
-        return $this->was_invited;
-    }
-
-    /**
-     * Check wether the user is an admin.
-     *
-     * @return bool
-     */
-    public function isAdmin()
-    {
-        return $this->role === 'administrateur';
+        return $this->hasMany(Contact::class);
     }
 }

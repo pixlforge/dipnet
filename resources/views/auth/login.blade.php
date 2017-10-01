@@ -57,7 +57,7 @@
                             <p class="text-small text-center mt-5"><a href="{{ route('password.request') }}" class="ml-3">Mot de passe oublié?</a></p>
 
                             {{--Register CTA--}}
-                            <p class="text-small text-center">Pas encore enregistré? <a href="{{ route('register') }}" class="ml-3">Enregistrez-vous</a></p>
+                            <p class="text-small text-center">Pas encore enregistré? <a href="{{ route('register.index') }}" class="ml-3">Enregistrez-vous</a></p>
                         </div>
                     </form>
                 </div>

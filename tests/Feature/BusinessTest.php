@@ -34,7 +34,8 @@ class BusinessTest extends TestCase
     /** @test */
     function authorized_users_can_create_businesses()
     {
-        $this->signIn(null, 'administrateur');
+        $user = factory('App\User')->create(['role' => 'administrateur']);
+        $this->signIn($user);
 
         $business = factory('App\Business')->make();
 

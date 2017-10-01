@@ -16,7 +16,7 @@ class CreateCompaniesTable extends Migration
         Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 45)->index();
-            $table->enum('status', ['temporaire', 'permanent']);
+            $table->enum('status', ['temporaire', 'permanent'])->default('temporaire');
             $table->string('description')->nullable();
             $table->string('created_by_username', 45);
             $table->timestamps();

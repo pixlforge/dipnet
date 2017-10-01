@@ -17,10 +17,12 @@ Auth::routes();
  * Register
  */
 Route::prefix('/register')->namespace('Auth')->group(function () {
-    Route::get('/', 'RegisterController@create')->name('register');
-    Route::post('/', 'RegisterController@store');
-    Route::put('/contact', 'RegisterController@updateContact');
-    Route::put('/company', 'RegisterController@updateCompany');
+    Route::get('/', 'RegisterController@index')->name('register.index');
+    Route::post('/', 'RegisterController@store')->name('register.store');
+
+    Route::post('/contact', 'RegisterContactController@store')->name('register.contact.store');
+    Route::post('/company', 'RegisterCompanyController@store')->name('register.company.store');
+
     Route::get('/confirm', 'RegisterConfirmationController@index')->name('register.confirm');
 });
 
@@ -61,6 +63,7 @@ Route::prefix('/profile')->group(function () {
  */
 Route::prefix('/search')->namespace('Search')->group(function () {
     Route::post('/', 'SearchController@search')->name('search.query');
+    Route::get('/testing', 'SearchController@testing')->name('search.testing');
 });
 
 /**
