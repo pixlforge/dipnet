@@ -34,8 +34,8 @@
     import Contact from './Contact.vue';
     import AddContact from './AddContact.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../app';
-    import mixins from '../mixins';
+    import {eventBus} from '../../app';
+    import mixins from '../../mixins';
 
     export default {
         props: ['data'],

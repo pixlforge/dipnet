@@ -36,8 +36,8 @@
     import Business from './Business.vue';
     import AddBusiness from './AddBusiness.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../app';
-    import mixins from '../mixins';
+    import {eventBus} from '../../app';
+    import mixins from '../../mixins';
 
     export default {
         props: ['businesses-data', 'companies-data'],

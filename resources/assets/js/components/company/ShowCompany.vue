@@ -38,9 +38,9 @@
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import CompanyMember from './CompanyMember.vue';
-    import InviteMember from './InviteMember.vue';
-    import {eventBus} from '../app';
-    import mixins from '../mixins';
+    import InviteMember from '../register/InviteMember.vue';
+    import {eventBus} from '../../app';
+    import mixins from '../../mixins';
 
     export default {
         props: ['data'],

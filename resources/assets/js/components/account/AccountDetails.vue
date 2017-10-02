@@ -81,9 +81,9 @@
 </template>
 
 <script>
-    import RegisterCarousel from './register/RegisterCarousel.vue';
+    import RegisterCarousel from '../register/RegisterCarousel.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../mixins';
+    import mixins from '../../mixins';
 
     export default {
         data() {

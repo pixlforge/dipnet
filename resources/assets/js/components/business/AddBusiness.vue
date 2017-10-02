@@ -112,7 +112,7 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../mixins';
+    import mixins from '../../mixins';
 
     export default {
         props: ['companies'],

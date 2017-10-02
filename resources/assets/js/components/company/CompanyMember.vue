@@ -53,8 +53,8 @@
 </template>
 
 <script>
-    import SendConfirmationEmailAgain from './SendConfirmationEmailAgain.vue';
-    import mixins from '../mixins';
+    import SendConfirmationEmailAgain from '../register/SendConfirmationEmailAgain.vue';
+    import mixins from '../../mixins';
 
     export default {
         props: ['member'],

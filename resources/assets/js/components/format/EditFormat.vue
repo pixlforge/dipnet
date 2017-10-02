@@ -12,13 +12,13 @@
 
         <!--Modal Panel-->
         <transition name="slide">
-            <div class="modal-panel" v-if="showModal" @keyup.esc="toggleModal" @keyup.enter="updateCategory">
+            <div class="modal-panel" v-if="showModal" @keyup.esc="toggleModal" @keyup.enter="updateFormat">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-10 col-lg-8 offset-lg-1">
 
                             <!--Title-->
-                            <h3 class="mt-7 mb-5">Modifier la catégorie</h3>
+                            <h3 class="mt-7 mb-5">Modifier le format</h3>
 
                             <!--Form-->
                             <form @submit.prevent>
@@ -31,9 +31,46 @@
                                            id="name"
                                            name="name"
                                            class="form-control"
-                                           v-model.trim="category.name"
+                                           v-model.trim="format.name"
                                            required autofocus>
                                     <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
+                                </div>
+
+                                <!--Height-->
+                                <div class="form-group my-5">
+                                    <label for="height">Hauteur</label>
+                                    <span class="required">*</span>
+                                    <input type="number"
+                                           id="height"
+                                           name="height"
+                                           class="form-control"
+                                           v-model.trim="format.height"
+                                           required>
+                                    <div class="help-block" v-if="errors.height" v-text="errors.height[0]"></div>
+                                </div>
+
+                                <!--Width-->
+                                <div class="form-group my-5">
+                                    <label for="width">Largeur</label>
+                                    <span class="required">*</span>
+                                    <input type="number"
+                                           id="width"
+                                           name="width"
+                                           class="form-control"
+                                           v-model.trim="format.width"
+                                           required>
+                                    <div class="help-block" v-if="errors.width" v-text="errors.width[0]"></div>
+                                </div>
+
+                                <!--Surface-->
+                                <div class="form-group my-5">
+                                    <label for="surface">Surface</label>
+                                    <input type="text"
+                                           id="surface"
+                                           name="surface"
+                                           class="form-control"
+                                           v-model.trim="format.surface">
+                                    <div class="help-block" v-if="errors.surface" v-text="errors.surface[0]"></div>
                                 </div>
 
                                 <!--Buttons-->
@@ -46,7 +83,7 @@
                                     </div>
                                     <div class="col-12 col-lg-7 px-0 pl-lg-2">
                                         <button class="btn btn-block btn-lg btn-black"
-                                                @click.prevent="updateCategory">
+                                                @click.prevent="updateFormat">
                                             Modifier
                                         </button>
                                     </div>
@@ -64,16 +101,19 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../app';
-    import mixins from '../mixins';
+    import {eventBus} from '../../app';
+    import mixins from '../../mixins';
 
     export default {
         props: ['data'],
         data() {
             return {
-                category: {
+                format: {
                     id: this.data.id,
-                    name: this.data.name
+                    name: this.data.name,
+                    height: this.data.height,
+                    width: this.data.width,
+                    surface: this.data.surface
                 },
                 errors: {}
             };
@@ -83,12 +123,12 @@
         },
         mixins: [mixins],
         methods: {
-            updateCategory() {
+            updateFormat() {
                 this.toggleLoader();
 
-                axios.put('/categories/' + this.category.id, this.category)
+                axios.put('/formats/' + this.format.id, this.format)
                     .then(() => {
-                        eventBus.$emit('categoryWasUpdated', this.category);
+                        eventBus.$emit('formatWasUpdated', this.format);
                     })
                     .then(() => {
                         this.toggleLoader();

@@ -1,25 +1,24 @@
 <template>
     <div>
-
-        <!--Button-->
-        <a @click="toggleModal" class="btn btn-lg btn-black light mt-5" role="button">
-            Nouveau contact
+        <a class="dropdown-item" role="link" @click.stop="toggleModal">
+            <i class="fa fa-pencil"></i>
+            <span class="ml-3">Modifier</span>
         </a>
 
         <!--Background-->
         <transition name="fade">
-            <div class="modal-background" v-if="showModal" @click="toggleModal"></div>
+            <div class="modal-background" v-if="showModal" @click.stop="toggleModal"></div>
         </transition>
 
         <!--Modal Panel-->
         <transition name="slide">
-            <div class="modal-panel" v-if="showModal" @keyup.esc="toggleModal" @keyup.enter="addContact">
+            <div class="modal-panel" v-if="showModal" @keyup.esc="toggleModal" @keyup.enter="updateContact">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-10 col-lg-8 offset-lg-1">
 
                             <!--Title-->
-                            <h3 class="mt-7 mb-5">Nouveau contact</h3>
+                            <h3 class="mt-7 mb-5">Modifier un contact</h3>
 
                             <!--Form-->
                             <form @submit.prevent>
@@ -132,8 +131,8 @@
                                     </div>
                                     <div class="col-12 col-lg-7 px-0 pl-lg-2">
                                         <button class="btn btn-block btn-lg btn-black"
-                                                @click.prevent="addContact">
-                                            Ajouter
+                                                @click.prevent="updateContact">
+                                            Mettre à jour
                                         </button>
                                     </div>
                                 </div>
@@ -150,46 +149,47 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../mixins';
+    import {eventBus} from '../../app';
+    import mixins from '../../mixins';
 
     export default {
+        props: ['data'],
         data() {
             return {
                 contact: {
-                    name: '',
-                    address_line1: '',
-                    address_line2: '',
-                    zip: '',
-                    city: '',
-                    phone_number: '',
-                    fax: '',
-                    email: '',
+                    id: this.data.id,
+                    name: this.data.name,
+                    address_line1: this.data.address_line1,
+                    address_line2: this.data.address_line2,
+                    zip: this.data.zip,
+                    city: this.data.city,
+                    phone_number: this.data.phone_number,
+                    fax: this.data.fax,
+                    email: this.data.email,
+                    company_id: this.data.company_id
                 },
                 errors: {}
-            }
+            };
         },
         components: {
             'app-moon-loader': MoonLoader
         },
         mixins: [mixins],
         methods: {
-            addContact() {
+            updateContact() {
                 this.toggleLoader();
 
-                axios.post('/contacts', this.contact)
-                    .then(response => {
-                        this.contact.id = response.data;
-                        this.$emit('contactWasCreated', this.contact);
+                axios.put('/contacts/' + this.contact.id, this.contact)
+                    .then(() => {
+                        eventBus.$emit('contactWasUpdated', this.contact);
                     })
                     .then(() => {
                         this.toggleLoader();
                         this.toggleModal();
-                        this.contact = {};
                     })
                     .catch(error => {
                         this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                        this.redirectIfNotConfirmed(error);
+                        this.errors = error.response.data;
                     });
             }
         }

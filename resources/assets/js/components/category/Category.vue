@@ -7,31 +7,15 @@
         <div class="col-12 col-lg-2">
 
             <!--Name-->
-            <h5 class="mb-0" v-text="format.name"></h5>
+            <h5 class="mb-0" v-text="category.name"></h5>
         </div>
 
         <div class="col-12 col-lg-2">
 
-            <!--Height-->
-            <div v-if="format.height">
-                <span class="card-content"><em>Hauteur:</em></span>
-                <span class="card-content" v-text="format.height"></span>
-            </div>
-
-            <!--Width-->
-            <div v-if="format.width">
-                <span class="card-content"><em>Largeur:</em></span>
-                <span class="card-content" v-text="format.width"></span>
-            </div>
         </div>
 
         <div class="col-12 col-lg-3">
 
-            <!--Surface-->
-            <div v-if="format.surface">
-                <span class="card-content"><em>Surface:</em></span>
-                <span class="card-content" v-if="format.surface" v-text="format.surface"></span>
-            </div>
         </div>
 
         <div class="col-12 col-lg-3">
@@ -39,13 +23,13 @@
             <!--Created at-->
             <div>
                 <span class="card-content"><em>Créé:</em></span>
-                <span class="card-content ml-1" v-text="getDate(format.created_at)"></span>
+                <span class="card-content ml-1" v-text="getDate(category.created_at)"></span>
             </div>
 
             <!--Modified at-->
             <div>
                 <span class="card-content"><em>Modifié:</em></span>
-                <span class="card-content ml-1" v-text="getDate(format.updated_at)"></span>
+                <span class="card-content ml-1" v-text="getDate(category.updated_at)"></span>
             </div>
         </div>
 
@@ -62,7 +46,7 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="Dropdown menu link">
 
-                    <app-edit-format :data="format"></app-edit-format>
+                    <app-edit-category :data="category"></app-edit-category>
 
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fa fa-trash"></i>
@@ -75,26 +59,26 @@
 </template>
 
 <script>
-    import EditFormat from './EditFormat.vue';
+    import EditCategory from './EditCategory.vue';
     import moment from 'moment';
-    import mixins from '../mixins';
+    import mixins from '../../mixins';
 
     export default {
         props: ['data'],
         data() {
             return {
-                format: this.data,
+                category: this.data,
                 momentFormat: 'LLL',
                 momentLocale: 'fr'
             };
         },
         components: {
-            'app-edit-format': EditFormat
+            'app-edit-category': EditCategory
         },
         methods: {
             destroy() {
-                axios.delete('/formats/' + this.format.id);
-                this.$emit('formatWasDeleted', this.format.id);
+                axios.delete('/categories/' + this.category.id);
+                this.$emit('categoryWasDeleted', this.category.id);
             },
 
             getDate(date) {

@@ -35,8 +35,8 @@
     import Format from './Format.vue';
     import AddFormat from './AddFormat.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../app';
-    import mixins from '../mixins';
+    import {eventBus} from '../../app';
+    import mixins from '../../mixins';
 
     export default {
         props: ['data'],

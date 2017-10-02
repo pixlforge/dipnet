@@ -99,7 +99,7 @@
 <script>
     import EditContact from './EditContact.vue';
     import moment from 'moment';
-    import mixins from '../mixins';
+    import mixins from '../../mixins';
 
     export default {
         props: ['data'],
