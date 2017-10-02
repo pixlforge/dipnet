@@ -1,4 +1,4 @@
-<div class="col-xs-12 col-lg-6 push-lg-6 fixed-lg-right no-padding">
+<div class="col-xs-12 col-lg-6 push-lg-6 fixed-lg-right pr-0">
     <div id="carouselIndicators" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
             <li data-target="#carouselIndicators" data-slide-to="0" class="active"></li>
