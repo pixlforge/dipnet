@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Documents;
 
 use App\Document;
-use App\Http\Requests\DocumentRequest;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\DocumentRequest;
 
 class DocumentsController extends Controller
 {

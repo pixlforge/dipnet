@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Orders;
 
 use App\Order;
-use App\Contact;
-use App\Business;
 use App\Http\Requests\OrderRequest;
+use App\Http\Controllers\Controller;
 
 class OrdersController extends Controller
 {

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Deliveries;
 
-use App\Contact;
 use App\Delivery;
-use App\Http\Requests\DeliveryRequest;
-use App\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\DeliveryRequest;
 
 class DeliveriesController extends Controller
 {

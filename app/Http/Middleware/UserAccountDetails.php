@@ -16,7 +16,7 @@ class UserAccountDetails
     public function handle($request, Closure $next)
     {
         if (auth()->user()->wasInvited() && auth()->user()->hasConfirmationToken()) {
-            return redirect()->route('account');
+            return redirect()->route('account.account');
         }
         return $next($request);
     }

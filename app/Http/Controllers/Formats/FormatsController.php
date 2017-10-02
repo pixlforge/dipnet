@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Formats;
 
 use App\Format;
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Requests\FormatRequest;
+use App\Http\Controllers\Controller;
 
 class FormatsController extends Controller
 {

@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Articles;
 
 use App\Article;
 use App\Category;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ArticleRequest;
 
 class ArticlesController extends Controller

@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Businesses;
 
 use App\Company;
-use App\Contact;
 use App\Business;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\BusinessRequest;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 
 class BusinessesController extends Controller
 {

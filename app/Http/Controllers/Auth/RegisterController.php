@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
-use App\Company;
-use App\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -18,7 +16,6 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('guest')->except('updateContact', 'updateCompany');
         $this->middleware('guest');
     }
 
@@ -52,6 +49,8 @@ class RegisterController extends Controller
     }
 
     /**
+     * Send a confirmation email to a newly registered user.
+     *
      * @param $user
      */
     protected function sendConfirmationEmail($user)

@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Contacts;
 
-use App\Company;
 use App\Contact;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Http\Request;
 
 class ContactsController extends Controller
 {

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Profiles;
 
 use App\User;
 use App\Company;
 use App\Contact;
 use App\Profile;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
 
 class ProfilesController extends Controller

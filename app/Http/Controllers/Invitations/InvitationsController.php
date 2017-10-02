@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Invitations;
 
 use App\User;
-use App\Contact;
 use App\Mail\InvitationEmail;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Controller;
 
-class InviteMemberController extends Controller
+class InvitationsController extends Controller
 {
     /**
      * InviteMemberController constructor.
