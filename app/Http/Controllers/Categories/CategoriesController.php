@@ -44,7 +44,7 @@ class CategoriesController extends Controller
         $this->authorize('create', Category::class);
 
         $category = Category::create([
-            'name' => request('name'),
+            'name' => $request->name,
         ]);
 
         // Process the Axios http request and return the model's id.
@@ -80,10 +80,10 @@ class CategoriesController extends Controller
         $this->authorize('update', $category);
 
         $category->update([
-            'name' => request('name')
+            'name' => $request->name
         ]);
 
-        if (request()->expectsJson()) {
+        if (request()->wantsJson()) {
             return response([], 204);
         }
 

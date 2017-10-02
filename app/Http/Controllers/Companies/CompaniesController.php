@@ -25,8 +25,7 @@ class CompaniesController extends Controller
     {
         $this->authorize('view', Company::class);
 
-        $companies = Company::orderBy('name')
-            ->get();
+        $companies = Company::orderBy('name')->get();
 
         return view('companies.index', compact('companies'));
     }
@@ -42,9 +41,9 @@ class CompaniesController extends Controller
         $this->authorize('create', Company::class);
 
         $company = Company::create([
-            'name' => request('name'),
-            'status' => request('status'),
-            'description' => request('description'),
+            'name' => $request->name,
+            'status' => $request->status,
+            'description' => $request->description,
             'created_by_username' => auth()->user()->username
         ]);
 
@@ -78,9 +77,9 @@ class CompaniesController extends Controller
         $this->authorize('update', $company);
 
         $company->update([
-            'name' => request('name'),
-            'status' => request('status'),
-            'description' => request('description')
+            'name' => $request->name,
+            'status' => $request->status,
+            'description' => $request->description
         ]);
 
         return redirect()->route('companies.index');

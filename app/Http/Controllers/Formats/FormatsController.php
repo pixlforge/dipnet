@@ -17,7 +17,7 @@ class FormatsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Format models.
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,7 +30,6 @@ class FormatsController extends Controller
             ->get()
             ->toJson();
 
-        // Models are requested through Axios
         if (request()->wantsJson()) {
             return $formats;
         }
@@ -39,7 +38,7 @@ class FormatsController extends Controller
     }
 
     /**
-     * Persist a new Format model.
+     * Save a new Format model.
      *
      * @param FormatRequest $request
      * @return \Illuminate\Http\RedirectResponse
@@ -49,31 +48,17 @@ class FormatsController extends Controller
         $this->authorize('create', Format::class);
 
         $format = Format::create([
-            'name' => request('name'),
-            'height' => request('height'),
-            'width' => request('width'),
-            'surface' => request('surface'),
+            'name' => $request->name,
+            'height' => $request->height,
+            'width' => $request->width,
+            'surface' => $request->surface,
         ]);
 
-        // Process the Axios http request and return the model's id.
         if (request()->expectsJson()) {
             return $format->id;
         }
 
         return redirect()->route('formats.index');
-    }
-
-    /**
-     * Display the specified Format.
-     *
-     * @param Format $format
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Format $format)
-    {
-        $this->authorize('view', $format);
-
-        return view('formats.show', compact('format'));
     }
 
     /**
@@ -88,10 +73,10 @@ class FormatsController extends Controller
         $this->authorize('update', $format);
 
         $format = $format->update([
-            'name' => request('name'),
-            'height' => request('height'),
-            'width' => request('width'),
-            'surface' => request('surface')
+            'name' => $request->name,
+            'height' => $request->height,
+            'width' => $request->width,
+            'surface' => $request->surface
         ]);
 
         if (request()->expectsJson()) {
@@ -102,7 +87,7 @@ class FormatsController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the Format model.
      *
      * @param Format $format
      * @return \Illuminate\Http\Response

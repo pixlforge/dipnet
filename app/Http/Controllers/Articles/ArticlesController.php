@@ -45,10 +45,10 @@ class ArticlesController extends Controller
         $this->authorize('create', Article::class);
 
         $article = Article::create([
-            'reference' => request('reference'),
-            'description' => request('description'),
-            'type' => request('type'),
-            'category_id' => request('category')
+            'reference' => $request->reference,
+            'description' => $request->description,
+            'type' => $request->type,
+            'category_id' => $request->categor
         ]);
 
         if (request()->expectsJson()) {
@@ -83,10 +83,10 @@ class ArticlesController extends Controller
         $this->authorize('update', $article);
 
         $article->update([
-            'reference' => request('reference'),
-            'description' => request('description'),
-            'type' => request('type'),
-            'category_id' => request('category')
+            'reference' => $request->reference,
+            'description' => $request->description,
+            'type' => $request->type,
+            'category_id' => $request->category
         ]);
 
         return redirect()->route('articles.index');

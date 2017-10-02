@@ -65,18 +65,18 @@ class BusinessesController extends Controller
 
         if (auth()->user()->role == 'administrateur') {
             $business = Business::create([
-                'name' => request('name'),
-                'reference' => request('reference'),
-                'description' => request('description'),
-                'company_id' => request('company_id'),
-                'contact_id' => request('contact_id'),
+                'name' => $request->name,
+                'reference' => $request->reference,
+                'description' => $request->description,
+                'company_id' => $request->company_id,
+                'contact_id' => $request->contact_id,
                 'created_by_username' => auth()->user()->username
             ]);
         } else {
+            // TODO business for non admins
             $business = 'TODO';
         }
 
-        // Process the Axios http request and return the model's id.
         if (request()->wantsJson()) {
             return $business->id;
         }
@@ -109,11 +109,11 @@ class BusinessesController extends Controller
         $this->authorize('update', $business);
 
         $business->update([
-            'name' => request('name'),
-            'reference' => request('reference'),
-            'description' => request('description'),
-            'company_id' => request('company_id'),
-            'contact_id' => request('contact_id')
+            'name' => $request->name,
+            'reference' => $request->reference,
+            'description' => $request->description,
+            'company_id' => $request->company_id,
+            'contact_id' => $request->contact_id
         ]);
 
         return redirect()->route('businesses.index');

@@ -8,6 +8,7 @@ use App\Contact;
 use App\Profile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
+use Illuminate\Http\Request;
 
 class ProfilesController extends Controller
 {
@@ -86,7 +87,7 @@ class ProfilesController extends Controller
             abort(403, "Vous n'êtes pas autorisé à faire cela");
         }
 
-        if (empty(request('password'))) {
+        if (empty($request->password)) {
             $this->updateUserWithoutPassword($user);
         } else {
             $this->updateUserWithPassword($user);
@@ -96,27 +97,28 @@ class ProfilesController extends Controller
     }
 
     /**
+     * @param Request $request
      * @param User $user
      */
-    protected function updateUserWithoutPassword(User $user)
+    protected function updateUserWithoutPassword(Request $request, User $user)
     {
         $user->update([
-            'username' => request('username'),
-            'email' => request('email'),
-            'company_id' => request('company_id')
+            'username' => $request->username,
+            'email' => $request->email,
+            'company_id' => $request->company_id
         ]);
     }
 
     /**
      * @param User $user
      */
-    protected function updateUserWithPassword(User $user)
+    protected function updateUserWithPassword(Request $request, User $user)
     {
         $user->update([
-            'username' => request('username'),
-            'email' => request('email'),
-            'password' => bcrypt(request('password')),
-            'company_id' => request('company_id')
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'company_id' => $request->company_id
         ]);
     }
 }

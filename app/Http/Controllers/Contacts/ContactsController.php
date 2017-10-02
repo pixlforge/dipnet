@@ -25,18 +25,15 @@ class ContactsController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
+     * Display a listing of the Contat model.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        // User is authorized to access this resource
         $this->authorize('view', Contact::class);
 
-        // Request every model if the user is an admin,
-        // request only the related models otherwise.
-        if (auth()->user()->role == 'administrateur') {
+        if (auth()->user()->isAdmin()) {
             $contacts = Contact::latest()
                 ->with('company')
                 ->orderBy('name')
@@ -51,17 +48,15 @@ class ContactsController extends Controller
                 ->toJson();
         }
 
-        // Models are requested through Axios
         if (request()->wantsJson()) {
             return $contacts;
         }
 
-        // Display view
         return view('contacts.index', compact('contacts'));
     }
 
     /**
-     * Persist a new Contact model.
+     * Save a new Contact model.
      *
      * @param ContactRequest $request
      * @return \Illuminate\Http\RedirectResponse
@@ -91,7 +86,7 @@ class ContactsController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified Contact.
      *
      * @param Contact $contact
      * @return \Illuminate\Http\Response
@@ -104,7 +99,7 @@ class ContactsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified Contact.
      *
      * @param ContactRequest $request
      * @param Contact $contact
@@ -115,15 +110,15 @@ class ContactsController extends Controller
         $this->authorize('update', $contact);
 
         $contact->update([
-            'name' => request('name'),
-            'address_line1' => request('address_line1'),
-            'address_line2' => request('address_line2'),
-            'zip' => request('zip'),
-            'city' => request('city'),
-            'phone_number' => request('phone_number'),
-            'fax' => request('fax'),
-            'email' => request('email'),
-            'company_id' => request('company_id')
+            'name' => $request->name,
+            'address_line1' => $request->address_line1,
+            'address_line2' => $request->address_line2,
+            'zip' => $request->zip,
+            'city' => $request->city,
+            'phone_number' => $request->phone_number,
+            'fax' => $request->fax,
+            'email' => $request->email,
+            'company_id' => $request->company_id
         ]);
 
         if (request()->expectsJson()) {

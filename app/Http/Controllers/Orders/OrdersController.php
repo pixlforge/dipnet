@@ -56,10 +56,10 @@ class OrdersController extends Controller
 //        $this->authorize('create', Order::class);
 
         $order = Order::create([
-            'reference' => request('reference'),
-            'status' => request('status'),
-            'business_id' => request('business_id'),
-            'contact_id' => request('contact_id'),
+            'reference' => $request->reference,
+            'status' => $request->status,
+            'business_id' => $request->business_id,
+            'contact_id' => $request->contact_id,
             'user_id' => auth()->id()
         ]);
 
@@ -95,10 +95,10 @@ class OrdersController extends Controller
         $this->authorize('update', $order);
 
         $order->update([
-            'reference' => request('reference'),
-            'status' => request('status'),
-            'business_id' => request('business_id'),
-            'contact_id' => request('contact_id')
+            'reference' => $request->reference,
+            'status' => $request->status,
+            'business_id' => $request->business_id,
+            'contact_id' => $request->contact_id
         ]);
 
         return redirect()->route('orders.index');

@@ -34,18 +34,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $this->authorize('create', User::class);
-
-        return view('users.create');
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param UserRequest $request

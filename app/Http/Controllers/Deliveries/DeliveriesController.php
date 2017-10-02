@@ -46,9 +46,9 @@ class DeliveriesController extends Controller
 
         Delivery::create([
             'reference' => $request->reference,
-            'order_id' => request('order_id'),
-            'contact_id' => request('contact_id'),
-            'internal_comment' => request('internal_comment')
+            'order_id' => $request->order_id,
+            'contact_id' => $request->contact_id,
+            'internal_comment' => $request->internal_comment
         ]);
 
         return redirect()->route('deliveries.index');
@@ -79,9 +79,9 @@ class DeliveriesController extends Controller
         $this->authorize('update', $delivery);
 
         $delivery->update([
-            'order_id' => request('order_id'),
-            'contact_id' => request('contact_id'),
-            'internal_comment' => request('internal_comment')
+            'order_id' => $request->order_id,
+            'contact_id' => $request->contact_id,
+            'internal_comment' => $request->internal_comment
         ]);
 
         return redirect()->route('deliveries.index');
