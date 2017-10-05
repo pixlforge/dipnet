@@ -7,6 +7,12 @@ form {
   color: $dark-grey;
 }
 
+.form-control:disabled,
+.form-control[readonly] {
+  color: $lighter-grey;
+  background-color: $white;
+}
+
 .form-control {
   border-top:none;
   border-left:none;

@@ -67,12 +67,9 @@
             'app-send-confirmation-email-again': SendConfirmationEmailAgain
         },
         mixins: [mixins],
-        created() {
-            console.log(this.user);
-        },
         methods: {
             destroy() {
-
+                alert('delete member');
             }
         }
     }

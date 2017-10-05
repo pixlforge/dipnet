@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Companies;
 use App\Company;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
+use App\Invitation;
 
 class CompaniesController extends Controller
 {
@@ -62,7 +63,12 @@ class CompaniesController extends Controller
      */
     public function show(Company $company)
     {
-        return view('companies.show', compact('company'));
+        $invitations = Invitation::where('company_id', $company->id)->get();
+
+        return view('companies.show', [
+            'company' => $company,
+            'invitations' => $invitations
+        ]);
     }
 
     /**

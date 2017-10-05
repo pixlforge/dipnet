@@ -14,16 +14,16 @@ class InvitationEmail extends Mailable implements ShouldQueue
     /**
      * @var $user
      */
-    public $user;
+    public $invitation;
 
     /**
      * Create a new message instance.
      *
-     * @param $user
+     * @param $invitation
      */
-    public function __construct($user)
+    public function __construct($invitation)
     {
-        $this->user = $user;
+        $this->invitation = $invitation;
     }
 
     /**

@@ -79,8 +79,8 @@ class ContactTest extends TestCase
             ->create());
 
         $contact = factory('App\Contact')->make();
-        $this->post(route('contacts.index'), $contact->toArray())
-            ->assertRedirect(route('profile'))
+        $this->post(route('contacts.store'), $contact->toArray())
+            ->assertRedirect(route('profile.index'))
             ->assertSessionHas('flash');
     }
 }

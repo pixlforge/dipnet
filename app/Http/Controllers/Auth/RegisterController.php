@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Invitation;
 use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\RegistrationEmailConfirmation;
@@ -23,10 +25,13 @@ class RegisterController extends Controller
      * Show the registration view.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @internal param Request $request
      */
     public function index()
     {
-        return view('auth.register');
+        return view('auth.register', [
+            'token' => request()->query('token')
+        ]);
     }
 
     /**
@@ -42,6 +47,13 @@ class RegisterController extends Controller
             'email' => $request->email,
             'confirmation_token' => User::generateConfirmationToken($request->email)
         ]);
+
+        $invitation = Invitation::where('email', $request->email)->first();
+
+        if ($invitation) {
+            $invitation->delete();
+            return Auth::login($user, true);
+        }
 
         $this->sendConfirmationEmail($user);
 

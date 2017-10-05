@@ -182,7 +182,7 @@
             updateContactInfo() {
                 this.toggleLoader();
 
-                axios.put('/register/contact', this.contact)
+                axios.post('/register/contact', this.contact)
                     .then(() => {
                         this.toggleLoader();
                         this.contact = {};

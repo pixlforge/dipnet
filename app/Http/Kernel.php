@@ -60,7 +60,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
-        'user.account.details' => UserAccountDetails::class,
         'user.account.contact' => UserAccountContactInfo::class,
         'user.account.company' => UserAccountCompanyInfo::class,
         'user.email.confirmed' => UserEmailConfirmed::class

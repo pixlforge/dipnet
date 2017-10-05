@@ -10,13 +10,12 @@ $factory->define(App\User::class, function (Faker $faker) {
         'password' => $password ?: $password = bcrypt('secret'),
         'role' => 'utilisateur',
         'email' => $faker->unique()->safeEmail,
-        'email_confirmed' => true,
         'company_id' => function () {
             return factory(App\Company::class)->create()->id;
         },
+        'email_confirmed' => true,
         'contact_confirmed' => true,
         'company_confirmed' => true,
-        'was_invited' => false,
         'remember_token' => str_random(10),
     ];
 });

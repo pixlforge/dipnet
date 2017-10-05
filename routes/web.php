@@ -97,10 +97,10 @@ Route::prefix('/formats')->namespace('Formats')->group(function () {
 /**
  * Invitations
  */
-Route::prefix('/invite')->namespace('Invitations')->group(function () {
-    Route::post('/', 'InvitationsController@store')->name('invite.store');
-    Route::get('/confirm', 'InvitationsController@confirm')->name('invite.confirm');
-    Route::put('/confirm', 'InvitationsController@update')->name('invite.update');
+Route::prefix('/invitation')->namespace('Invitations')->group(function () {
+    Route::post('/', 'InvitationsController@store')->name('invitation.store');
+    Route::post('/confirm', 'InvitationsController@confirm')->name('invitation.confirm');
+    Route::delete('/', 'InvitationsController@destroy')->name('invitation.destroy');
 });
 
 /**
@@ -134,7 +134,7 @@ Route::prefix('/orders')->namespace('Orders')->group(function () {
  * Profiles
  */
 Route::prefix('/profile')->namespace('Profiles')->group(function () {
-    Route::get('/', 'ProfilesController@profile')->name('profile');
+    Route::get('/', 'ProfilesController@profile')->name('profile.index');
     Route::get('/{user}/edit', 'ProfilesController@edit');
     Route::put('/{user}', 'ProfilesController@update');
 });
@@ -147,6 +147,7 @@ Route::prefix('/register')->namespace('Auth')->group(function () {
     Route::post('/', 'RegisterController@store')->name('register.store');
 
     Route::post('/contact', 'RegisterContactController@store')->name('register.contact.store');
+    Route::post('/contact-only', 'RegisterContactOnlyController@store')->name('register.contact-only.store');
     Route::post('/company', 'RegisterCompanyController@store')->name('register.company.store');
 
     Route::get('/confirm', 'RegisterConfirmationController@index')->name('register.confirm');

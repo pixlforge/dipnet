@@ -5,6 +5,10 @@
         </a>
         <div class="row">
 
+            <app-moon-loader :loading="loader.loading"
+                             :color="loader.color"
+                             :size="loader.size"></app-moon-loader>
+
             <app-register-carousel></app-register-carousel>
 
             <div class="col-12 col-lg-6 vh-100 d-flex align-items-center">
@@ -45,11 +49,13 @@
 
 <script>
     import RegisterCarousel from './RegisterCarousel.vue';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import mixins from '../../mixins';
 
     export default {
         components: {
-            'app-register-carousel': RegisterCarousel
+            'app-register-carousel': RegisterCarousel,
+            'app-moon-loader': MoonLoader
         },
         mixins: [mixins],
         methods: {

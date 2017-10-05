@@ -81,9 +81,15 @@
 
                             <li class="nav-item{{ Route::is('companies.show') ? ' active' : '' }}">
 
-                                <a href="{{ route('companies.show', ['id' => auth()->user()->company_id]) }}" class="nav-link">
-                                    {{ auth()->user()->company->name }}
-                                </a>
+                                @if (auth()->user()->hasCompany())
+                                    <a href="{{ route('companies.show', ['id' => auth()->user()->company_id]) }}" class="nav-link">
+                                            {{ auth()->user()->company->name }}
+                                    </a>
+                                @else
+                                    <a href="{{ route('profile.index') }}" class="nav-link">
+                                        {{ auth()->user()->company->name }}
+                                    </a>
+                                @endif
 
                                 @if (Route::is('companies.show'))
                                     <span class="sr-only">(current)</span>

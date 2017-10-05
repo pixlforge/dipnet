@@ -31,6 +31,7 @@ class RegisterCompanyController extends Controller
         ]);
 
         auth()->user()->confirmCompany();
-        auth()->user()->associateModels($company->id);
+        auth()->user()->associateWithCompany($company->id);
+        auth()->user()->associateContactWithCompany($company->id);
     }
 }

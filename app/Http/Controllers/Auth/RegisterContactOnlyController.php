@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Contact;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Register\RegisterContactRequest;
-use App\Invitation;
 
-class RegisterContactController extends Controller
+class RegisterContactOnlyController extends Controller
 {
     /**
      * RegisterContactController constructor.
@@ -18,10 +18,9 @@ class RegisterContactController extends Controller
     }
 
     /**
-     * Create a new Contact model.
+     * Create a new contact and associate a newly created user with it.
      *
      * @param RegisterContactRequest $request
-     * @internal param null $registrationType
      */
     public function store(RegisterContactRequest $request)
     {
@@ -37,13 +36,7 @@ class RegisterContactController extends Controller
             'user_id' => auth()->id()
         ]);
 
-        if ($request->invitation_company) {
-            auth()->user()->associateWithCompany($request->invitation_company);
-            auth()->user()->associateContactWithCompany($request->invitation_company);
-            auth()->user()->confirm();
-        }
-
-        auth()->user()->confirmCompany();
         auth()->user()->confirmContact();
+        auth()->user()->confirmCompany();
     }
 }

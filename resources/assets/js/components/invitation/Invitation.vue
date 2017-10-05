@@ -15,7 +15,7 @@
                                    name="user.email"
                                    class="form-control"
                                    placeholder="e.g. adresse@email.com"
-                                   v-model="user.email"
+                                   v-model="invitation.email"
                                    @keyup.enter="sendInvitation">
                             <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
                         </div>
@@ -45,7 +45,7 @@
     export default {
         data() {
             return {
-                user: {
+                invitation: {
                     email: ''
                 },
                 errors: {}
@@ -59,13 +59,13 @@
             sendInvitation() {
                 this.toggleLoader();
 
-                axios.post('/invite', this.user)
+                axios.post('/invitation', this.invitation)
                     .then(response => {
                         this.toggleLoader();
-                        this.$emit('memberWasAdded', response.data);
+                        this.$emit('invitationWasAdded', response.data);
                     })
                     .then(() => {
-                        this.user = {};
+                        this.invitation = {};
                     })
                     .catch(error => {
                         this.toggleLoader();

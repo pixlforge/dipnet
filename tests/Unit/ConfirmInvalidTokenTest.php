@@ -12,6 +12,8 @@ class ConfirmInvalidTokenTest extends TestCase
     /** @test */
     function confirming_an_invalid_token()
     {
+        $this->signIn();
+
         $this->get(route('register.confirm', ['token' => 'invalid']))
             ->assertRedirect(route('index'))
             ->assertSessionHas('flash');

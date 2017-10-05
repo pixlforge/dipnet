@@ -21,7 +21,7 @@ class UserEmailConfirmed
                 return response("Vous devez d'abord confirmer votre adresse e-mail.", 403);
             }
 
-            return redirect(route('profile'))
+            return redirect(route('profile.index'))
                 ->with('flash', "Vous devez d'abord confirmer votre adresse e-mail.")
                 ->with('level', 'danger');
         }

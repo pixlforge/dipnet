@@ -7,6 +7,19 @@ use App\Http\Controllers\Controller;
 
 class RegisterConfirmationController extends Controller
 {
+    /**
+     * RegisterConfirmationController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    /**
+     * Confirm the user registration.
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function index()
     {
         $user = User::where('confirmation_token', request('token'))->first();
@@ -21,7 +34,7 @@ class RegisterConfirmationController extends Controller
         $user->confirm();
 
         return redirect()
-            ->route('profile')
+            ->route('profile.index')
             ->with('flash', 'Votre compte est maintenant confirmé! Vous pouvez dès à présent effectuer des commandes!')
             ->with('level', 'success');
     }

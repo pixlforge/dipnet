@@ -77,4 +77,14 @@ class Company extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    /**
+     * Invitations relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
+    }
 }

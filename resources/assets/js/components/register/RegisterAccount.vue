@@ -44,6 +44,7 @@
                                    name="email"
                                    v-model="account.email"
                                    class="form-control"
+                                   :disabled="invitation.data.email"
                                    required>
                             <div class="help-block"
                                  v-if="errors.email"
@@ -99,6 +100,7 @@
     import mixins from '../../mixins';
 
     export default {
+        props: ['data-invitation'],
         data() {
             return {
                 account: {
@@ -107,12 +109,20 @@
                     password: '',
                     password_confirmation: ''
                 },
-                errors: {}
+                errors: {},
+                invitation: {
+                    data: this.dataInvitation
+                }
             }
         },
         components: {
             'app-register-carousel': RegisterCarousel,
             'app-moon-loader': MoonLoader
+        },
+        created() {
+            if (this.invitation.data) {
+                this.account.email = this.invitation.data.email;
+            }
         },
         mixins: [mixins],
         methods: {

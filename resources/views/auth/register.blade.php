@@ -4,6 +4,6 @@
 
 @section ('content')
 
-    <app-register></app-register>
+    <app-register token-data="{{ $token }}"></app-register>
 
 @endsection

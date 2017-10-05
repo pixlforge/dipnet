@@ -57,6 +57,22 @@ h6 {
   font-weight: 400;
 }
 
+.info {
+  font-size: 18px;
+  font-weight: 100;
+  text-align: center;
+}
+
+.back-arrow {
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 1rem;
+
+  &:hover {
+    color: $tundora;
+  }
+}
+
 .light {
   font-weight: 100;
 }

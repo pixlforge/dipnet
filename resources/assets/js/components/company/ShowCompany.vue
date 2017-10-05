@@ -11,7 +11,7 @@
                         </span>
                     </div>
 
-                    <app-invite-member @memberWasAdded="addMember"></app-invite-member>
+                    <app-invite-member @invitationWasAdded="addInvitation"></app-invite-member>
 
                 </div>
             </div>
@@ -29,7 +29,26 @@
                                         @memberWasDeleted="removeMember(index)">
                     </app-company-member>
                 </transition-group>
-                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></app-moon-loader>
+
+                <h3 class="light mt-7 mb-5">Invitations</h3>
+
+                <h5 class="text-center light my-6"
+                    v-if="!invitations.length">
+                    Invitez vos collègues à rejoindre {{ appName }} et vos invitations s'afficheront ici.
+                </h5>
+
+                <transition-group name="highlight">
+                    <app-invited-member class="card card-custom center-on-small-only"
+                                        v-for="(invitation, index) in invitations"
+                                        :invitation="invitation"
+                                        :key="invitation.id"
+                                        @invitationWasDeleted="removeInvitation(index)">
+                    </app-invited-member>
+                </transition-group>
+
+                <app-moon-loader :loading="loader.loading"
+                                 :color="loader.color"
+                                 :size="loader.size"></app-moon-loader>
             </div>
         </div>
     </div>
@@ -38,33 +57,39 @@
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import CompanyMember from './CompanyMember.vue';
-    import InviteMember from '../register/InviteMember.vue';
+    import InviteMember from '../invitation/Invitation.vue';
+    import InvitedMember from '../invitation/InvitedMember.vue';
     import {eventBus} from '../../app';
     import mixins from '../../mixins';
 
     export default {
-        props: ['data'],
+        props: ['data', 'invitations-data'],
         data() {
             return {
-                company: this.data
+                company: this.data,
+                invitations: this.invitationsData
             };
         },
         components: {
             'app-company-member': CompanyMember,
             'app-invite-member': InviteMember,
+            'app-invited-member': InvitedMember,
             'app-moon-loader': MoonLoader
         },
         mixins: [mixins],
         methods: {
-            addMember(member) {
-                this.company.user.unshift(member);
+            addInvitation(member) {
+                this.invitations.unshift(member);
                 flash({
                     message: `L'invitation à ${member.email} a bien été envoyée!`,
                     level: 'success'
                 });
             },
             removeMember() {
-                console.log('remove a member');
+                alert('removed a member');
+            },
+            removeInvitation() {
+                alert('removed an invitation');
             }
         }
     }

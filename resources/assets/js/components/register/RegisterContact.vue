@@ -20,12 +20,16 @@
                         <span class="badge badge-white mx-4">2</span>
                         <span>Contact</span>
                     </a>
-                    <a class="d-flex align-items-center checklist-item link-unstyled">
+                    <a class="d-flex align-items-center checklist-item link-unstyled"
+                       v-if="dataRegistrationType === 'add'">
                         <span class="badge badge-white mx-4">3</span>
                         <span>Société</span>
                     </a>
                     <a class="d-flex align-items-center checklist-item link-unstyled">
-                        <span class="badge badge-white mx-4">4</span>
+                        <span class="badge badge-white mx-4"
+                              v-if="dataRegistrationType === 'add'">4</span>
+                        <span class="badge badge-white mx-4"
+                              v-else>3</span>
                         <span>Prêt</span>
                     </a>
                 </div>
@@ -153,6 +157,10 @@
     import mixins from '../../mixins';
 
     export default {
+        props: [
+            'data-registration-type',
+            'data-invitation'
+        ],
         data() {
             return {
                 contact: {
@@ -162,7 +170,8 @@
                     zip: '',
                     city: '',
                     phone_number: '',
-                    fax: ''
+                    fax: '',
+                    invitation_company: this.dataInvitation.data.company_id
                 },
                 errors: {}
             };

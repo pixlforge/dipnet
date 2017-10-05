@@ -7,7 +7,7 @@
 </a>
 <div class="dropdown-menu">
     @auth
-        <a href="{{ route('profile') }}" class="dropdown-item">
+        <a href="{{ route('profile.index') }}" class="dropdown-item">
             Profil
         </a>
         <a href="{{ route('logout') }}" class="dropdown-item">

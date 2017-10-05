@@ -35,6 +35,21 @@ export default {
         },
         toggleModal() {
             this.showModal === false ? this.showModal = true : this.showModal = false;
+        },
+        finishRegistration() {
+            this.congratulateUponRegistration();
+            this.redirectUser();
+        },
+        congratulateUponRegistration() {
+            flash({
+                message: 'Félicitations! Votre compte est fin prêt!',
+                level: 'success'
+            });
+        },
+        redirectUser() {
+            setTimeout(() => {
+                window.location = '/';
+            }, 2500);
         }
     }
 }

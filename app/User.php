@@ -118,11 +118,14 @@ class User extends Authenticatable
      *
      * @param $id
      */
-    public function associateModels($id)
+    public function associateWithCompany($id)
     {
         $this->company_id = $id;
         $this->save();
+    }
 
+    public function associateContactWithCompany($id)
+    {
         $contact = Contact::where('user_id', auth()->id())->first();
         $contact->company_id = $id;
         $contact->save();
@@ -167,6 +170,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Check wether the authenticated user has an associated company.
+     *
+     * @return int|mixed|null
+     */
+    public function hasCompany()
+    {
+        return $this->company_id;
+    }
+
+    /**
      * Business relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -183,7 +196,7 @@ class User extends Authenticatable
      */
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withDefault(['name' => 'Particulier']);
     }
 
     /**

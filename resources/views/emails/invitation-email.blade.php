@@ -1,10 +1,10 @@
 @component('mail::message')
-# Invitation à rejoindre {{ $user->company->name }} sur {{ config('app.name') }}
+# Invitation à rejoindre {{ $invitation->company->name }} sur {{ config('app.name') }}
 
-Vous avez été invité à créer un compte sur la plateforme {{ config('app.name') }} et rejoindre {{ $user->company->name }}.
+Vous avez été invité par {{ $invitation->created_by }} à créer un compte sur la plateforme {{ config('app.name') }} et rejoindre {{ $invitation->company->name }}.
 
-@component('mail::button', ['url' => url('/invite/confirm?token=' . $user->confirmation_token), 'color' => 'red'])
-    Rejoindre {{ $user->company->name }}
+@component('mail::button', ['url' => url('/register?token=' . $invitation->token), 'color' => 'red'])
+    Rejoindre {{ $invitation->company->name }}
 @endcomponent
 
 Veuillez ignorer ce message dans le cas où cela ne vous concerne pas.

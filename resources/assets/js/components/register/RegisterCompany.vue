@@ -92,15 +92,6 @@
                         this.company = {};
                         this.$emit('companyCreated');
                     })
-                    .then(() => {
-                        flash({
-                            message: 'Félicitations! Votre compte est fin prêt!',
-                            level: 'success'
-                        });
-                        setTimeout(() => {
-                            window.location.pathname = '/';
-                        }, 2500);
-                    })
                     .catch(error => {
                         this.toggleLoader();
                         this.errors = error.response.data.errors;
