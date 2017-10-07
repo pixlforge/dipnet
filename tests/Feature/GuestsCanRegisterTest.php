@@ -275,39 +275,6 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function a_user_without_any_associated_company_can_add_a_company()
-    {
-        $user = factory('App\User')
-            ->states(['company-not-confirmed', 'no-company'])
-            ->create(['email' => 'johndoe@example.com']);
-        $this->signIn($user);
-
-        $this->json('POST', route('register.contact.store'), [
-            'name' => 'Castle Black',
-            'address_line1' => 'Castle Black, The Wall',
-            'zip' => '10100',
-            'city' => 'Castle Black',
-        ])->assertStatus(200);
-
-        $this->assertDatabaseHas('contacts', [
-            'name' => 'Castle Black',
-            'address_line1' => 'Castle Black, The Wall',
-            'zip' => '10100',
-            'city' => 'Castle Black',
-            'email' => 'johndoe@example.com',
-            'user_id' => 1
-        ]);
-
-        $this->get(route('index'))->assertRedirect(route('account.company'));
-
-        $this->json('POST', route('register.company.store'), [
-            'name' => 'Pantone'
-        ])->assertStatus(200);
-
-        $this->assertEquals(1, $user->company_id);
-    }
-
-    /** @test */
     function a_user_can_register_as_self()
     {
         $this->json('POST', route('register.store'), [

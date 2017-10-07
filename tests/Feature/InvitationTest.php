@@ -73,4 +73,30 @@ class InvitationTest extends TestCase
             'created_by' => 'John Doe'
         ]);
     }
+
+    /** @test */
+    function it_can_resend_invitations()
+    {
+        Mail::fake();
+
+        $user = factory('App\User')->create();
+        $this->actingAs($user);
+
+        $this->json('POST', route('invitation.store'), [
+            'email' => 'johndoe@example.com'
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('invitations', [
+            'email' => 'johndoe@example.com',
+            'company_id' => $user->company_id
+        ]);
+
+        $invitation = Invitation::where('email', 'johndoe@example.com')->first();
+
+        $this->json('PUT', route('invitation.update'), [
+            'email' => $invitation->email
+        ])->assertStatus(200);
+
+        Mail::assertQueued(InvitationEmail::class);
+    }
 }

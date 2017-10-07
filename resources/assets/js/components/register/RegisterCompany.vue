@@ -88,7 +88,6 @@
 
                 axios.post('/register/company', this.company)
                     .then(() => {
-                        this.toggleLoader();
                         this.company = {};
                         this.$emit('companyCreated');
                     })

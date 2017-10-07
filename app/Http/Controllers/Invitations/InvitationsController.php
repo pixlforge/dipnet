@@ -41,6 +41,18 @@ class InvitationsController extends Controller
         }
     }
 
+    public function update(Request $request)
+    {
+        $invitation = Invitation::whereEmail($request->email)->first();
+
+        $invitation->update([
+            'token' => Invitation::generateConfirmationToken($request->email)
+        ]);
+
+        Mail::to($invitation)
+            ->queue(new InvitationEmail($invitation));
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response

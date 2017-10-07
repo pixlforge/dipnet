@@ -186,7 +186,6 @@
 
                 axios.post('/register/contact', this.contact)
                     .then(() => {
-                        this.toggleLoader();
                         this.contact = {};
                         this.$emit('contactCreated');
                     })
