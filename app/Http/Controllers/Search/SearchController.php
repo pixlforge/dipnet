@@ -57,6 +57,8 @@ class SearchController extends Controller
         }
 
         if (! auth()->user()->isAdmin()) {
+
+            // Search for the orders placed by the user.
             $orders = Order::select(['id', 'reference'])
                 ->where([
                     ['user_id', auth()->id()],
@@ -67,6 +69,7 @@ class SearchController extends Controller
                 ->get()
                 ->toArray();
 
+            // Search for the user's own company.
             $companies = Company::select(['id', 'name'])
                 ->where([
                     ['id', auth()->user()->company_id],
@@ -75,6 +78,7 @@ class SearchController extends Controller
                 ->get()
                 ->toArray();
 
+            // Show the businesses related the user's company
             $businesses = Business::select(['id', 'name'])
                 ->where([
                     ['company_id', auth()->user()->company_id],
@@ -85,18 +89,20 @@ class SearchController extends Controller
                 ->get()
                 ->toArray();
 
-            $deliveries = Delivery::select(['id', 'reference'])
-                ->where([
-                    // ['contact_id', auth()->user()->contacts],
-                    ['reference', 'like', request('query') . '%']
-                ])
+            // Search for the deliveries related to the user's company.
+            $deliveries = auth()->user()->deliveries()
+                ->where('reference', 'like', request('query') . '%')
                 ->latest()
                 ->limit(5)
                 ->get()
                 ->toArray();
 
+            // Search for the contacts related to the user.
             $contacts = Contact::select(['id', 'name'])
-                ->where('name', 'like', request('query') . '%')
+                ->where([
+                    ['user_id', auth()->id()],
+                    ['name', 'like', request('query') . '%']
+                ])
                 ->latest()
                 ->limit(5)
                 ->get()
@@ -110,22 +116,5 @@ class SearchController extends Controller
             $deliveries,
             $contacts,
         ]);
-    }
-
-    public function testing()
-    {
-        $deliveries = Delivery::select(['id', 'reference'])
-            ->where([
-                ['contact_id', auth()->user()->contacts],
-                ['reference', 'like', request('query') . '%']
-            ])
-            ->latest()
-            ->limit(5)
-            ->get()
-            ->toArray();
-
-//        $contacts = auth()->user()->contacts;
-
-        return $deliveries;
     }
 }

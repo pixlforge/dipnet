@@ -228,4 +228,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Contact::class);
     }
+
+    /**
+     * Deliveries through Contact relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function deliveries()
+    {
+        return $this->hasManyThrough('App\Delivery', 'App\Contact');
+    }
 }
