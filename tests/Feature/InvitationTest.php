@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Invitation;
 use App\User;
 use Tests\TestCase;
+use App\Invitation;
 use App\Mail\InvitationEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -80,9 +80,9 @@ class InvitationTest extends TestCase
         Mail::fake();
 
         $user = factory('App\User')->create();
-        $this->actingAs($user);
+        $this->signIn($user);
 
-        $this->json('POST', route('invitation.store'), [
+        $this->postJson(route('invitation.store'), [
             'email' => 'johndoe@example.com'
         ])->assertStatus(200);
 
@@ -93,7 +93,7 @@ class InvitationTest extends TestCase
 
         $invitation = Invitation::where('email', 'johndoe@example.com')->first();
 
-        $this->json('PUT', route('invitation.update'), [
+        $this->putJson(route('invitation.update'), [
             'email' => $invitation->email
         ])->assertStatus(200);
 
@@ -111,7 +111,7 @@ class InvitationTest extends TestCase
         ]);
         $this->signIn($user);
 
-        $response = $this->json('POST', route('invitation.store'), [
+        $response = $this->postJson(route('invitation.store'), [
             'email' => 'janedoe@example.com'
         ]);
 
@@ -123,9 +123,9 @@ class InvitationTest extends TestCase
 
         $invitation = Invitation::whereEmail('janedoe@example.com')->first();
 
-        $response = $this->json('DELETE', route('invitation.destroy', $invitation));
+        $this->deleteJson(route('invitation.destroy', $invitation))
+            ->assertStatus(204);
 
-        $response->assertStatus(204);
         $this->assertDatabaseMissing('invitations', [
             'email' => 'janedoe@example.com'
         ]);

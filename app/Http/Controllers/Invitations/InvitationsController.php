@@ -20,6 +20,8 @@ class InvitationsController extends Controller
     }
 
     /**
+     * Store a new Invitation.
+     *
      * @param InvitationRequest $request
      * @return $this|\Illuminate\Database\Eloquent\Model
      */
@@ -40,7 +42,7 @@ class InvitationsController extends Controller
     }
 
     /**
-     * Update an invitation and send it again.
+     * Update an Invitation model and send it again.
      *
      * @param Request $request
      */
@@ -56,6 +58,8 @@ class InvitationsController extends Controller
     }
 
     /**
+     * Confirm an invitation.
+     *
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -70,8 +74,16 @@ class InvitationsController extends Controller
         return response($invitation, 200);
     }
 
+    /**
+     * Delete an Invitation model.
+     *
+     * @param Invitation $invitation
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function destroy(Invitation $invitation)
     {
+        $this->authorize('delete', $invitation);
+
         $invitation->delete();
 
         if (request()->wantsJson()) {

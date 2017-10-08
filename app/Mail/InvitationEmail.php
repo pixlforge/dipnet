@@ -33,6 +33,7 @@ class InvitationEmail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->markdown('emails.invitation-email');
+        return $this->subject('Invitation à rejoindre ' . config('app.name'))
+            ->markdown('emails.invitation-email');
     }
 }
