@@ -26,14 +26,14 @@
             <div class="col-lg-3 text-lg-right pr-0">
 
                 <!--Button-->
-                <a @click="sendInvitation" class="btn btn-lg btn-black light" role="button">
+                <a @click="sendInvitation" class="btn btn-lg btn-black" role="button">
                     Envoyer une invitation
                 </a>
             </div>
 
-            <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
-            </app-moon-loader>
-
+            <app-moon-loader :loading="loader.loading"
+                             :color="loader.color"
+                             :size="loader.size"></app-moon-loader>
         </div>
     </div>
 </template>

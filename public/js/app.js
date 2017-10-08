@@ -39782,7 +39782,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }) : _vm._e()])])])]), _vm._v(" "), _c('div', {
     staticClass: "col-lg-3 text-lg-right pr-0"
   }, [_c('a', {
-    staticClass: "btn btn-lg btn-black light",
+    staticClass: "btn btn-lg btn-black",
     attrs: {
       "role": "button"
     },
@@ -42043,6 +42043,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.put('/invitation', { email: this.dataEmail }).then(function () {
                 _this.toggleLoader();
+                flash({
+                    message: 'L\'invitation a bien \xE9t\xE9 renvoy\xE9e \xE0 l\'adresse ' + _this.dataEmail,
+                    level: 'success'
+                });
             }).catch(function () {
                 _this.toggleLoader();
             });

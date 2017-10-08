@@ -25,6 +25,10 @@
                 axios.put('/invitation', { email: this.dataEmail })
                     .then(() => {
                         this.toggleLoader();
+                        flash({
+                            message: `L'invitation a bien été renvoyée à l'adresse ${this.dataEmail}`,
+                            level: 'success'
+                        });
                     })
                     .catch(() => {
                         this.toggleLoader();

@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers\Invitations;
 
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Invitation\InvitationRequest;
 use App\Invitation;
 use App\Mail\InvitationEmail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Invitation\InvitationRequest;
-use Illuminate\Validation\Rules\In;
 
 class InvitationsController extends Controller
 {
@@ -33,14 +32,18 @@ class InvitationsController extends Controller
             'created_by' => auth()->user()->username
         ]);
 
-        Mail::to($invitation)
-            ->queue(new InvitationEmail($invitation));
+        Mail::to($invitation)->queue(new InvitationEmail($invitation));
 
         if (request()->wantsJson()) {
             return $invitation;
         }
     }
 
+    /**
+     * Update an invitation and send it again.
+     *
+     * @param Request $request
+     */
     public function update(Request $request)
     {
         $invitation = Invitation::whereEmail($request->email)->first();
@@ -49,8 +52,7 @@ class InvitationsController extends Controller
             'token' => Invitation::generateConfirmationToken($request->email)
         ]);
 
-        Mail::to($invitation)
-            ->queue(new InvitationEmail($invitation));
+        Mail::to($invitation)->queue(new InvitationEmail($invitation));
     }
 
     /**
