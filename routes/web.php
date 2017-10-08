@@ -101,7 +101,7 @@ Route::prefix('/invitation')->namespace('Invitations')->group(function () {
     Route::post('/', 'InvitationsController@store')->name('invitation.store');
     Route::put('/', 'InvitationsController@update')->name('invitation.update');
     Route::post('/confirm', 'InvitationsController@confirm')->name('invitation.confirm');
-    Route::delete('/', 'InvitationsController@destroy')->name('invitation.destroy');
+    Route::delete('/{invitation}', 'InvitationsController@destroy')->name('invitation.destroy');
 });
 
 /**

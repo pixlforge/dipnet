@@ -69,4 +69,13 @@ class InvitationsController extends Controller
 
         return response($invitation, 200);
     }
+
+    public function destroy(Invitation $invitation)
+    {
+        $invitation->delete();
+
+        if (request()->wantsJson()) {
+            return response([], 204);
+        }
+    }
 }

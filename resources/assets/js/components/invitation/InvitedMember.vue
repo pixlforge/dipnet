@@ -11,7 +11,7 @@
         </div>
 
         <div class="col-12 col-lg-3">
-            <app-resend-invitation :data-email="invitation.email"></app-resend-invitation>
+            <app-resend-invitation :data-invitation="invitation"></app-resend-invitation>
         </div>
 
         <!--Controls-->
@@ -31,7 +31,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </template>
 
@@ -47,7 +46,24 @@
         mixins: [mixins],
         methods: {
             destroy() {
-                this.$emit('invitationWasDeleted', this.invitation);
+                this.toggleLoader();
+
+                axios.delete('/invitation/' + this.invitation.id)
+                    .then(() => {
+                        this.toggleLoader();
+                        this.$emit('invitationWasDeleted', this.invitation.id);
+                        flash({
+                            message: "L'invitation a bien été annulée.",
+                            level: 'success'
+                        });
+                    })
+                    .catch(() => {
+                        this.toggleLoader();
+                        flash({
+                            message: "L'invitation n'a pas été annulée. Une erreur s'est produite.",
+                            level: 'danger'
+                        });
+                    })
             }
         }
     }

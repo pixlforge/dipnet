@@ -29011,8 +29011,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         removeMember: function removeMember() {
             alert('removed a member');
         },
-        removeInvitation: function removeInvitation() {
-            alert('removed an invitation');
+        removeInvitation: function removeInvitation(index) {
+            this.invitations.splice(index, 1);
         }
     }
 });
@@ -30433,7 +30433,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 
 
@@ -30446,7 +30445,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
     methods: {
         destroy: function destroy() {
-            this.$emit('invitationWasDeleted', this.invitation);
+            var _this = this;
+
+            this.toggleLoader();
+
+            axios.delete('/invitation/' + this.invitation.id).then(function () {
+                _this.toggleLoader();
+                _this.$emit('invitationWasDeleted', _this.invitation.id);
+                flash({
+                    message: "L'invitation a bien été annulée.",
+                    level: 'success'
+                });
+            }).catch(function () {
+                _this.toggleLoader();
+                flash({
+                    message: "L'invitation n'a pas été annulée. Une erreur s'est produite.",
+                    level: 'danger'
+                });
+            });
         }
     }
 });
@@ -40850,7 +40866,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-12 col-lg-3"
   }, [_c('app-resend-invitation', {
     attrs: {
-      "data-email": _vm.invitation.email
+      "data-invitation": _vm.invitation
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "col-12 col-lg-3 center-on-small-only text-lg-right"
@@ -42030,7 +42046,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['data-email'],
+    props: ['data-invitation'],
+    data: function data() {
+        return {
+            invitation: this.dataInvitation
+        };
+    },
+
     components: {
         'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
     },
@@ -42041,10 +42063,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             this.toggleLoader();
 
-            axios.put('/invitation', { email: this.dataEmail }).then(function () {
+            axios.put('/invitation', this.invitation).then(function () {
                 _this.toggleLoader();
                 flash({
-                    message: 'L\'invitation a bien \xE9t\xE9 renvoy\xE9e \xE0 l\'adresse ' + _this.dataEmail,
+                    message: 'L\'invitation a bien \xE9t\xE9 renvoy\xE9e \xE0 l\'adresse ' + _this.invitation.email,
                     level: 'success'
                 });
             }).catch(function () {

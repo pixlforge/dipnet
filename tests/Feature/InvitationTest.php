@@ -99,4 +99,36 @@ class InvitationTest extends TestCase
 
         Mail::assertQueued(InvitationEmail::class);
     }
+
+    /** @test */
+    function an_invitation_can_be_cancelled()
+    {
+        Mail::fake();
+
+        $user = factory('App\User')->create([
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com'
+        ]);
+        $this->signIn($user);
+
+        $response = $this->json('POST', route('invitation.store'), [
+            'email' => 'janedoe@example.com'
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('invitations', [
+            'email' => 'janedoe@example.com'
+        ]);
+        Mail::assertQueued(InvitationEmail::class);
+
+        $invitation = Invitation::whereEmail('janedoe@example.com')->first();
+
+        $response = $this->json('DELETE', route('invitation.destroy', $invitation));
+
+        $response->assertStatus(204);
+        $this->assertDatabaseMissing('invitations', [
+            'email' => 'janedoe@example.com'
+        ]);
+        $this->assertEquals(0, Invitation::all()->count());
+    }
 }

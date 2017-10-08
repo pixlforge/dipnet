@@ -13,7 +13,12 @@
     import mixins from '../../mixins';
 
     export default {
-        props: ['data-email'],
+        props: ['data-invitation'],
+        data() {
+            return {
+                invitation: this.dataInvitation
+            };
+        },
         components: {
             'app-moon-loader': MoonLoader
         },
@@ -22,11 +27,11 @@
             resend() {
                 this.toggleLoader();
 
-                axios.put('/invitation', { email: this.dataEmail })
+                axios.put('/invitation', this.invitation)
                     .then(() => {
                         this.toggleLoader();
                         flash({
-                            message: `L'invitation a bien été renvoyée à l'adresse ${this.dataEmail}`,
+                            message: `L'invitation a bien été renvoyée à l'adresse ${this.invitation.email}`,
                             level: 'success'
                         });
                     })

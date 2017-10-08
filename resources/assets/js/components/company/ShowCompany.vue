@@ -88,8 +88,8 @@
             removeMember() {
                 alert('removed a member');
             },
-            removeInvitation() {
-                alert('removed an invitation');
+            removeInvitation(index) {
+                this.invitations.splice(index, 1);
             }
         }
     }
