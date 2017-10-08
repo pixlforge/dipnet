@@ -31402,6 +31402,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -35350,7 +35351,7 @@ exports.push([module.i, "\n.alert-flash {\n    z-index: 99;\n    position: fixed
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\na[data-v-242c698a] {\n    display: block;\n    color: inherit;\n    text-decoration: none;\n}\n", ""]);
+exports.push([module.i, "\n.searchbar-not-empty[data-v-242c698a] {\n    background-color: white !important;\n    box-shadow: 0 6px 14px 0 rgba(200, 200, 200, 0.5);\n}\na[data-v-242c698a] {\n    display: block;\n    color: inherit;\n    text-decoration: none;\n}\n", ""]);
 
 /***/ }),
 /* 193 */
@@ -37365,6 +37366,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "search.query"
     }],
     staticClass: "form-control searchbar",
+    class: _vm.search.query.length ? 'searchbar-not-empty' : '',
     attrs: {
       "type": "text",
       "placeholder": "Rechercher"

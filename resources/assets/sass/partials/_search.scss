@@ -1,6 +1,6 @@
 .searchbar {
-  background-color: $white !important;
-  box-shadow: 0 6px 14px 0 rgba(200, 200, 200, 0.5);
+  background: $alabaster;
+  transition: all .3s ease-out;
 }
 
 .search-dropdown {
@@ -13,10 +13,10 @@
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  background-color: $white;
+  background: $white;
+  box-shadow: 0 6px 14px 0 rgba(200, 200, 200, 0.5);
   color: $dark-grey;
   border-top: 1px solid $concrete;
-  box-shadow: 0 6px 14px 0 rgba(200, 200, 200, 0.5);
 
   li {
     cursor: pointer;
@@ -28,6 +28,11 @@
       background-color: $alabaster;
     }
   }
+}
+
+.searchbar:focus {
+  background-color: $white !important;
+  box-shadow: 0 6px 14px 0 rgba(200, 200, 200, 0.5);
 }
 
 .search-title {

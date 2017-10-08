@@ -3,6 +3,7 @@
         <i class="fa fa-search"></i>
         <input type="text"
                class="form-control searchbar"
+               :class="search.query.length ? 'searchbar-not-empty' : ''"
                placeholder="Rechercher"
                v-model="search.query"
                @keyup="research">
@@ -121,6 +122,11 @@
 </script>
 
 <style scoped>
+    .searchbar-not-empty {
+        background-color: white !important;
+        box-shadow: 0 6px 14px 0 rgba(200, 200, 200, 0.5);
+    }
+
     a {
         display: block;
         color: inherit;
