@@ -152,6 +152,7 @@ Route::prefix('/register')->namespace('Auth')->group(function () {
     Route::post('/company', 'RegisterCompanyController@store')->name('register.company.store');
 
     Route::get('/confirm', 'RegisterConfirmationController@index')->name('register.confirm');
+    Route::put('/send-again', 'RegisterConfirmationController@update')->name('register.confirm.update');
 });
 
 /**

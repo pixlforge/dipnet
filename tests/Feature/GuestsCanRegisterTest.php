@@ -396,4 +396,26 @@ class GuestsCanRegisterTest extends TestCase
             'name' => 'The Night\'s Watch'
         ])->assertStatus(422);
     }
+
+    /** @test */
+    function confirmation_email_can_be_sent_again()
+    {
+        Mail::fake();
+
+        // Create the unconfirmed user
+        $user = factory('App\User')->states('email-not-confirmed')->create([
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com'
+        ]);
+        $this->signIn($user);
+
+        $tokenBefore = $user->confirmation_token;
+
+        // Send confirmation email again
+        $this->putJson(route('register.confirm.update'))->assertStatus(200);
+
+        // Assert confirmation token was updated
+        $this->assertNotEquals($tokenBefore, $user->fresh()->confirmation_token);
+        Mail::assertQueued(RegistrationEmailConfirmation::class);
+    }
 }

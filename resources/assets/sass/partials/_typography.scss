@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
 
 $font-stack: 'Lato', sans-serif;
 
@@ -57,6 +57,10 @@ h6 {
   font-weight: 400;
 }
 
+.bold {
+  font-weight: 700;
+}
+
 .info {
   font-size: 18px;
   font-weight: 100;
@@ -85,4 +89,12 @@ h6 {
 
 input {
   font-family: $font-stack;
+}
+
+.text-success {
+  color: $atlantis !important;
+}
+
+.profile-data {
+  color: $scorpion;
 }

@@ -7,7 +7,9 @@ export default {
                 loading: false
             },
             showModal: false,
-            appName: Laravel.appName
+            appName: Laravel.appName,
+            momentFormat: 'LLL',
+            momentLocale: 'fr'
         };
     },
     computed: {

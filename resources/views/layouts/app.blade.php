@@ -35,7 +35,7 @@
                level="{{ session('level') }}">
         </flash>
     </div>
-    
+
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>

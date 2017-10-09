@@ -36,16 +36,28 @@ a.link-unstyled {
   transition: all .1s ease-out;
 }
 
-.btn-black {
+.btn-black,
+.btn-orange {
   font-size: .875rem;
   font-weight: 100;
   color: $white !important;
-  background: $black;
   transition: background .2s ease-out;
   cursor: pointer;
+}
+
+.btn-black {
+  background: $black;
 
   &:hover {
     background: $tundora;
+  }
+}
+
+.btn-orange {
+  background: $yellowsea;
+
+  &:hover {
+    background: $sunglow;
   }
 }
 
@@ -65,7 +77,13 @@ a.link-unstyled {
 a.btn-transparent {
   -webkit-appearance: none;
 
-  .fa.fa-ellipsis-v {
-    color: $light-grey;
+  .fa-ellipsis-v {
+    color: $lighter-grey;
+  }
+
+  &:hover {
+    .fa-ellipsis-v {
+      color: $tundora;
+    }
   }
 }

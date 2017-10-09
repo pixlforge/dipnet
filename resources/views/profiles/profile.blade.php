@@ -6,6 +6,8 @@
 
     @include ('layouts.partials._nav')
 
-    <app-profile :user-data="{{ $user }}"></app-profile>
+    <app-profile :data-user="{{ $user }}"
+                 :data-orders="{{ $orders }}"
+                 :data-businesses="{{ $businesses }}"></app-profile>
 
 @endsection

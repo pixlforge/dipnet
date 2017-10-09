@@ -124,6 +124,11 @@ class User extends Authenticatable
         $this->save();
     }
 
+    /**
+     * Associate the user's Contact with Company model.
+     *
+     * @param $id
+     */
     public function associateContactWithCompany($id)
     {
         $contact = Contact::where('user_id', auth()->id())->first();
@@ -180,13 +185,18 @@ class User extends Authenticatable
     }
 
     /**
-     * Business relationship.
+     * Get the Orders count.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return int
      */
-    public function business()
+    public function getOrdersCountAttribute()
     {
-        return $this->hasMany(Business::class);
+        return $this->orders()->count();
+    }
+
+    public function getBusinessesCountAttribute()
+    {
+        return $this->businesses()->count();
     }
 
     /**
@@ -220,6 +230,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Orders relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
      * Contact relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -237,5 +257,15 @@ class User extends Authenticatable
     public function deliveries()
     {
         return $this->hasManyThrough('App\Delivery', 'App\Contact');
+    }
+
+    /**
+     * Businesses through Contact relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function businesses()
+    {
+        return $this->hasManyThrough('App\Business', 'App\Contact');
     }
 }

@@ -2,8 +2,10 @@
     <div class="alert alert-flash z-depth-1"
          :class="alertClass"
          role="alert"
-         v-show="show"
-         v-text="body">
+         v-show="show">
+        <i class="fal fa-check mr-3" v-if="alertLevel === 'success'"></i>
+        <i class="fal fa-times mr-3" v-if="alertLevel === 'danger'"></i>
+        {{ body }}
     </div>
 </template>
 

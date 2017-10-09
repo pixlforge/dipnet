@@ -49,11 +49,17 @@ class ProfilesController extends Controller
             ->get()
             ->sortBy('name');
 
-        return view('profiles.profile', compact([
-            'user',
-            'users',
-            'contacts'
-        ]));
+        $ordersCount = auth()->user()->orders_count;
+
+        $businessesCount = auth()->user()->businesses_count;
+
+        return view('profiles.profile', [
+            'user' => $user,
+            'users' => $users,
+            'contacts' => $contacts,
+            'orders' => $ordersCount,
+            'businesses' => $businessesCount
+        ]);
     }
 
     public function edit(User $user)

@@ -1,7 +1,7 @@
 <template>
     <div>
-        <a class="dropdown-item" role="link" @click.stop="toggleModal">
-            <i class="fa fa-pencil"></i>
+        <a class="dropdown-item" role="button" @click.stop="toggleModal">
+            <i class="fal fa-pencil"></i>
             <span class="ml-3">Modifier</span>
         </a>
 
@@ -140,8 +140,9 @@
                         </div>
                     </div>
                 </div>
-                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
-                </app-moon-loader>
+                <app-moon-loader :loading="loader.loading"
+                                 :color="loader.color"
+                                 :size="loader.size"></app-moon-loader>
             </div>
         </transition>
     </div>
