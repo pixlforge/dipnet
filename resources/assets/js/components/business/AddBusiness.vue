@@ -13,7 +13,10 @@
 
         <!--Modal Panel-->
         <transition name="slide">
-            <div class="modal-panel" v-if="showModal" @keyup.esc.prevent="toggleModal" @keyup.enter="addBusiness">
+            <div class="modal-panel"
+                 v-if="showModal"
+                 @keyup.esc.prevent="toggleModal"
+                 @keyup.enter="addBusiness">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-10 col-lg-8 offset-lg-1">
@@ -104,7 +107,9 @@
                         </div>
                     </div>
                 </div>
-                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size"></app-moon-loader>
+                <app-moon-loader :loading="loader.loading"
+                                 :color="loader.color"
+                                 :size="loader.size"></app-moon-loader>
             </div>
         </transition>
     </div>

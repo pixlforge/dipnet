@@ -27,6 +27,7 @@
 
                 <!--Button-->
                 <a @click="sendInvitation" class="btn btn-lg btn-black" role="button">
+                    <i class="fal fa-user-plus mr-2"></i>
                     Envoyer une invitation
                 </a>
             </div>

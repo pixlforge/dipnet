@@ -24,8 +24,9 @@
                                 @formatWasDeleted="removeFormat(index)">
                     </app-format>
                 </transition-group>
-                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
-                </app-moon-loader>
+                <app-moon-loader :loading="loader.loading"
+                                 :color="loader.color"
+                                 :size="loader.size"></app-moon-loader>
             </div>
         </div>
     </div>
@@ -59,7 +60,10 @@
         methods: {
             addFormat(format) {
                 this.formats.unshift(format);
-                flash('La création du format a réussi.');
+                flash({
+                    message: 'La création du format a réussi.',
+                    level: 'success'
+                });
             },
             updateFormat(data) {
                 for (let format of this.formats) {
@@ -70,11 +74,17 @@
                         format.surface = data.surface;
                     }
                 }
-                flash('Les modifications apportées au format ont été enregistrées.')
+                flash({
+                    message: 'Les modifications apportées au format ont été enregistrées.',
+                    level: 'success'
+                });
             },
             removeFormat(index) {
                 this.formats.splice(index, 1);
-                flash('Suppression du format réussie.');
+                flash({
+                    message: 'Suppression du format réussie.',
+                    level: 'success'
+                });
             }
         }
     }

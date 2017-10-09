@@ -1,6 +1,6 @@
 <template>
     <form class="form-inline form-nav" @submit.prevent>
-        <i class="fa fa-search"></i>
+        <i class="fal fa-search"></i>
         <input type="text"
                class="form-control searchbar"
                :class="search.query.length ? 'searchbar-not-empty' : ''"

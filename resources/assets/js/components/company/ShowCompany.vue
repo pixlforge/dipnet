@@ -6,6 +6,7 @@
                     <div class="col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only">
                         <h1 class="mt-5">{{ company.name }}</h1>
                         <span class="light mt-5 mr-3">
+                            <i class="fal fa-users mr-2"></i>
                             {{ data.user.length }}
                             {{ data.user.length == 0 || data.user.length == 1 ? 'membre' : 'membres' }}
                         </span>

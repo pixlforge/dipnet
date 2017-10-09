@@ -23,8 +23,9 @@
                                  :key="contact.id"
                                  @contactWasDeleted="removeContact(index)"></app-contact>
                 </transition-group>
-                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
-                </app-moon-loader>
+                <app-moon-loader :loading="loader.loading"
+                                 :color="loader.color"
+                                 :size="loader.size"></app-moon-loader>
             </div>
         </div>
     </div>

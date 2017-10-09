@@ -24,8 +24,9 @@
                                 @categoryWasDeleted="removeCategory(index)">
                     </app-category>
                 </transition-group>
-                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
-                </app-moon-loader>
+                <app-moon-loader :loading="loader.loading"
+                                 :color="loader.color"
+                                 :size="loader.size"></app-moon-loader>
             </div>
         </div>
     </div>
@@ -59,7 +60,10 @@
         methods: {
             addCategory(category) {
                 this.categories.unshift(category);
-                flash('La création de la catégorie a réussi.');
+                flash({
+                    message: "La création de la catégorie a réussi.",
+                    level: 'success'
+                });
             },
             updateCategory(data) {
                 for (let category of this.categories) {
@@ -67,11 +71,17 @@
                         category.name = data.name;
                     }
                 }
-                flash('Les modifications apportées à la catégorie ont été enregistrées.')
+                flash({
+                    message: "Les modifications apportées à la catégorie ont été enregistrées.",
+                    level: 'success'
+                });
             },
             removeCategory(index) {
                 this.categories.splice(index, 1);
-                flash('Suppression de la catégorie réussie.');
+                flash({
+                    message: "Suppression de la catégorie réussie.",
+                    level: 'success'
+                });
             }
         }
     }

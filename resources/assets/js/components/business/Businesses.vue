@@ -25,8 +25,9 @@
                                   @businessWasDeleted="removeBusiness(index)">
                     </app-business>
                 </transition-group>
-                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
-                </app-moon-loader>
+                <app-moon-loader :loading="loader.loading"
+                                 :color="loader.color"
+                                 :size="loader.size"></app-moon-loader>
             </div>
         </div>
     </div>

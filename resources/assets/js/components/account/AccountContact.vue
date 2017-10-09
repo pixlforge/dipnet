@@ -12,12 +12,11 @@
                     <!--Loader-->
                     <app-moon-loader :loading="loader.loading"
                                      :color="loader.color"
-                                     :size="loader.size">
-                    </app-moon-loader>
+                                     :size="loader.size"></app-moon-loader>
 
                     <div class="d-flex flex-column justify-content-center checklist">
                         <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
-                            <span class="badge badge-white mx-4"><i class="fa fa-check"></i></span>
+                            <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
                             <span>Enregistrement</span>
                         </a>
                         <a class="d-flex align-items-center checklist-item checklist-item-active link-unstyled">

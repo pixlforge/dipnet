@@ -4,7 +4,10 @@
                          :color="loader.color"
                          :size="loader.size"></app-moon-loader>
 
-        <button class="btn btn-black" @click="resend">Renvoyer</button>
+        <button class="btn btn-black" @click="resend">
+            <i class="fal fa-redo mr-2"></i>
+            Renvoyer
+        </button>
     </div>
 </template>
 

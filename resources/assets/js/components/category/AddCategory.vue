@@ -56,8 +56,9 @@
                         </div>
                     </div>
                 </div>
-                <app-moon-loader :loading="loader.loading" :color="loader.color" :size="loader.size">
-                </app-moon-loader>
+                <app-moon-loader :loading="loader.loading"
+                                 :color="loader.color"
+                                 :size="loader.size"></app-moon-loader>
             </div>
         </transition>
     </div>
@@ -97,6 +98,10 @@
                     .catch(error => {
                         this.toggleLoader();
                         this.errors = error.response.data;
+                        flash({
+                            message: "Une erreur s'est produite.",
+                            level: 'danger'
+                        })
                     });
             }
         }

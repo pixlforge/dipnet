@@ -57,7 +57,7 @@
                    data-toggle="dropdown"
                    aria-haspopup="true"
                    aria-expanded="false">
-                    <i class="fa fa-ellipsis-v fa-lg" aria-hidden="true"></i>
+                    <i class="fal fa-ellipsis-v fa-lg" aria-hidden="true"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="Dropdown menu link">
@@ -65,7 +65,7 @@
                     <app-edit-format :data="format"></app-edit-format>
 
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
-                        <i class="fa fa-trash"></i>
+                        <i class="fal fa-times"></i>
                         <span class="ml-3">Supprimer</span>
                     </a>
                 </div>
@@ -96,7 +96,6 @@
                 axios.delete('/formats/' + this.format.id);
                 this.$emit('formatWasDeleted', this.format.id);
             },
-
             getDate(date) {
                 return moment(date).locale(this.momentLocale).format(this.momentFormat);
             }
