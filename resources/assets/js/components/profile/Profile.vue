@@ -10,12 +10,12 @@
                                 <span class="profile-icon ml-3"
                                       title="Compte vérifié"
                                       v-if="user.confirmed">
-                                    <i class="fa fa-check-circle text-info"></i>
+                                    <i class="fa fal-check-circle text-info"></i>
                                 </span>
                                 <span class="profile-icon ml-3"
                                       title="Compte non vérifié"
                                       v-else>
-                                    <i class="fa fa-exclamation-circle text-warning"></i>
+                                    <i class="fal fa-times-circle text-warning"></i>
                                 </span>
                             </h1>
                             <h5 class="text-muted light ml-1">Votre profil</h5>

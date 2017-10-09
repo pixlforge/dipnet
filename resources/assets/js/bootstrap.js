@@ -11,7 +11,7 @@ window.Vue = require('vue');
  */
 
 try {
-    // window.$ = window.jQuery = require('jquery');
+    window.$ = window.jQuery = require('./jquery-3.2.1');
 
     require('bootstrap');
 
