@@ -22,7 +22,8 @@
 
                         <div class="d-flex">
                             <app-send-confirmation-email-again v-if="!user.email_confirmed"></app-send-confirmation-email-again>
-                            <app-update-profile></app-update-profile>
+                            <app-update-profile :data-user="user"
+                                                :data-avatar="avatar"></app-update-profile>
                         </div>
 
                     </div>
@@ -34,8 +35,10 @@
                 <div class="card card-custom">
 
                     <div class="row w-100">
-                        <div class="col-12 col-lg-4">
-                            Profile image
+                        <div class="col-12 col-lg-4 py-4 px-6">
+                            <img :src="avatar"
+                                 class="img-fluid"
+                                 alt="Avatar">
                         </div>
 
                         <div class="col-12 col-lg-4">
@@ -98,10 +101,12 @@
         props: [
             'data-user',
             'data-orders',
-            'data-businesses'
+            'data-businesses',
+            'data-avatar'
         ],
         data() {
             return {
+                avatar: this.dataAvatar,
                 user: this.dataUser,
                 orders: this.dataOrders,
                 businesses: this.dataBusinesses

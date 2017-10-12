@@ -7,6 +7,7 @@ Route::prefix('/account')->namespace('Account')->group(function () {
     Route::get('/', 'AccountController@account')->name('account.account');
     Route::get('/contact', 'AccountController@contact')->name('account.contact');
     Route::get('/company', 'AccountController@company')->name('account.company');
+    Route::patch('/update', 'AccountController@update')->name('account.update');
 });
 
 /**
@@ -135,9 +136,10 @@ Route::prefix('/orders')->namespace('Orders')->group(function () {
  * Profiles
  */
 Route::prefix('/profile')->namespace('Profiles')->group(function () {
-    Route::get('/', 'ProfilesController@profile')->name('profile.index');
-    Route::get('/{user}/edit', 'ProfilesController@edit');
-    Route::put('/{user}', 'ProfilesController@update');
+    Route::get('/', 'ProfileController@index')->name('profile.index');
+    Route::patch('/{user}', 'ProfileController@update')->name('profile.update');
+
+    Route::post('/avatar', 'AvatarController@store')->name('profile.avatar.store');
 });
 
 /**

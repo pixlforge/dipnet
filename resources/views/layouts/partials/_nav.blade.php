@@ -69,7 +69,7 @@
                     <div class="menu-item">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <img src="{{ asset('img/avatars/placeholder-girl.jpg') }}" alt="Avatar"
+                                <img src="{{ asset(auth()->user()->avatarPath()) }}" alt="Avatar"
                                      class="menu-avatar"
                                      aria-hidden="true">
                             </li>

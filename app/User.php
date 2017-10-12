@@ -33,7 +33,7 @@ class User extends Authenticatable
         'confirmation_token',
         'contact_confirmed',
         'company_confirmed',
-        'was_invited'
+        'avatar_id'
     ];
 
     /**
@@ -267,5 +267,29 @@ class User extends Authenticatable
     public function businesses()
     {
         return $this->hasManyThrough('App\Business', 'App\Contact');
+    }
+
+    /**
+     * Avatar relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function avatar()
+    {
+        return $this->belongsTo(Avatar::class);
+    }
+
+    /**
+     * Get the path of the avatar.
+     *
+     * @return null
+     */
+    public function avatarPath()
+    {
+        if (! $this->avatar_id) {
+            return null;
+        }
+
+        return $this->avatar->path();
     }
 }

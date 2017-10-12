@@ -8,6 +8,7 @@
 
     <app-profile :data-user="{{ $user }}"
                  :data-orders="{{ $orders }}"
-                 :data-businesses="{{ $businesses }}"></app-profile>
+                 :data-businesses="{{ $businesses }}"
+                 data-avatar="{{ auth()->user()->avatarPath() }}"></app-profile>
 
 @endsection

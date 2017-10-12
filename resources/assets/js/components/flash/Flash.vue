@@ -3,8 +3,7 @@
          :class="alertClass"
          role="alert"
          v-show="show">
-        <i class="fal fa-check mr-3" v-if="alertLevel === 'success'"></i>
-        <i class="fal fa-times mr-3" v-if="alertLevel === 'danger'"></i>
+        <i class="fal fa-info-circle mr-3"></i>
         {{ body }}
     </div>
 </template>
@@ -28,7 +27,7 @@
         computed: {
             alertClass() {
                 return 'alert-' + this.alertLevel;
-            }
+            },
         },
         methods: {
             flash(data) {

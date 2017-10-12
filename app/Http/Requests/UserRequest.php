@@ -28,7 +28,6 @@ class UserRequest extends FormRequest
             'password' => 'required|string|min:6|confirmed',
             'role' => 'required|in:utilisateur,administrateur',
             'email' => 'required|string|email|unique:users,id,:id|max:255',
-            'contact_id' => 'nullable|exists:contacts,id',
             'company_id' => 'nullable|exists:companies,id'
         ];
     }
@@ -56,7 +55,6 @@ class UserRequest extends FormRequest
             'email.email' => 'L\'e-mail doit correspondre au format compte@fournisseur.tld.',
             'email.unique' => 'Cette adresse est déjà utilisée.',
             'email.max' => 'Maximum 255 caractères.',
-            'contact_id.exists' => 'Veuillez sélectionner un contact parmi ceux proposés.',
             'company_id.exists' => 'Veuillez sélectionner une société parmi celles proposées.'
         ];
     }
