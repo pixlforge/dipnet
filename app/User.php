@@ -292,4 +292,22 @@ class User extends Authenticatable
 
         return $this->avatar->path();
     }
+
+    public function randomAvatar()
+    {
+        $avatars = collect([
+            'avatar-boy',
+            'avatar-fat-boy',
+            'avatar-happy-woman',
+            'avatar-hipster-smiling',
+            'avatar-perplexed-man',
+            'avatar-smiling-girl'
+        ]);
+
+        $randomAvatar = $avatars->random() . '.png';
+
+        session(['randomAvatar' => $randomAvatar]);
+
+        return $randomAvatar;
+    }
 }

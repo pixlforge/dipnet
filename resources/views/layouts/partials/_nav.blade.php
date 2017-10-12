@@ -69,9 +69,17 @@
                     <div class="menu-item">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <img src="{{ asset(auth()->user()->avatarPath()) }}" alt="Avatar"
-                                     class="menu-avatar"
-                                     aria-hidden="true">
+                                @avatar
+                                    <img src="{{ asset(auth()->user()->avatarPath()) }}"
+                                         alt="Avatar"
+                                         class="menu-avatar"
+                                         aria-hidden="true">
+                                @else
+                                    <img src="{{ asset('img/placeholders/' . auth()->user()->randomAvatar()) }}"
+                                         alt="Avatar"
+                                         class="menu-avatar"
+                                         aria-hidden="true">
+                                @endavatar
                             </li>
                             <li class="nav-item dropdown">
                                 @include ('layouts.partials._nav-links-dropdown')

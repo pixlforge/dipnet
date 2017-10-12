@@ -15,8 +15,20 @@
         </div>
 
         <div class="form-group my-5">
-            <img :src="avatar.path" class="avatar-upload" alt="Avatar à modifier" v-if="avatar.path">
-            <img :src="currentAvatar" class="avatar-upload" alt="Avatar actuel" v-else>
+            <img :src="avatar.path"
+                 class="avatar-upload"
+                 alt="Avatar à modifier"
+                 v-if="avatar.path">
+
+            <img :src="currentAvatar"
+                 class="avatar-upload"
+                 alt="Avatar actuel"
+                 v-if="currentAvatar">
+
+            <img :src="randomAvatarPath"
+                 alt="Avatar par défaut"
+                 v-if="!avatar.path && !currentAvatar"
+                 style="width: 200px;">
         </div>
 
         <div class="form-group my-5" v-if="avatar.path">
@@ -37,7 +49,10 @@
     import mixins from '../../mixins';
 
     export default {
-        props: ['data-avatar'],
+        props: [
+            'data-avatar',
+            'data-random-avatar'
+        ],
         data() {
             return {
                 currentAvatar: this.dataAvatar,
@@ -49,6 +64,11 @@
                 errors: {},
                 sendAs: 'avatar'
             };
+        },
+        computed: {
+            randomAvatarPath() {
+                return 'img/placeholders/' + this.dataRandomAvatar;
+            }
         },
         mixins: [mixins],
         components: {
@@ -119,7 +139,7 @@
     }
 </script>
 
-<style>
+<style scoped>
     label {
         font-size: .875rem !important;
     }

@@ -30638,12 +30638,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['data-avatar'],
+    props: ['data-avatar', 'data-random-avatar'],
     data: function data() {
         return {
             currentAvatar: this.dataAvatar,
@@ -30657,6 +30669,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+    computed: {
+        randomAvatarPath: function randomAvatarPath() {
+            return 'img/placeholders/' + this.dataRandomAvatar;
+        }
+    },
     mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
     components: {
         'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
@@ -30831,6 +30848,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -30838,7 +30862,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['data-user', 'data-orders', 'data-businesses', 'data-avatar'],
+    props: ['data-user', 'data-orders', 'data-businesses', 'data-avatar', 'data-random-avatar'],
     data: function data() {
         return {
             avatar: this.dataAvatar,
@@ -30848,6 +30872,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
 
+    computed: {
+        randomAvatarPath: function randomAvatarPath() {
+            return 'img/placeholders/' + this.dataRandomAvatar;
+        }
+    },
     mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
     components: {
         'app-send-confirmation-email-again': __WEBPACK_IMPORTED_MODULE_0__register_SendConfirmationEmailAgain_vue___default.a,
@@ -30978,13 +31007,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['data-user', 'data-avatar'],
+    props: ['data-user', 'data-avatar', 'data-random-avatar'],
     data: function data() {
         return {
             avatar: this.dataAvatar,
@@ -49246,7 +49276,7 @@ module.exports = Component.exports
 
 
 /* styles */
-__webpack_require__(302)
+__webpack_require__(304)
 
 var Component = __webpack_require__(1)(
   /* script */
@@ -49254,7 +49284,7 @@ var Component = __webpack_require__(1)(
   /* template */
   __webpack_require__(256),
   /* scopeId */
-  null,
+  "data-v-39173b34",
   /* cssModules */
   null
 )
@@ -49952,7 +49982,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-10 col-lg-8 offset-lg-1"
   }, [_c('app-avatar-upload', {
     attrs: {
-      "data-avatar": _vm.avatar
+      "data-avatar": _vm.avatar,
+      "data-random-avatar": _vm.dataRandomAvatar
     }
   }), _vm._v(" "), _c('h3', {
     staticClass: "mt-7 mb-5"
@@ -50150,7 +50181,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-check mr-2"
-  }), _vm._v("\n                                        Modifier\n                                    ")])])])])], 1)])]), _vm._v(" "), _c('app-moon-loader', {
+  }), _vm._v("\n                                        Sauvegarder\n                                    ")])])])])], 1)])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loader.loading,
       "color": _vm.loader.color,
@@ -51374,13 +51405,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.avatar.path,
       "alt": "Avatar à modifier"
     }
-  }) : _c('img', {
+  }) : _vm._e(), _vm._v(" "), (_vm.currentAvatar) ? _c('img', {
     staticClass: "avatar-upload",
     attrs: {
       "src": _vm.currentAvatar,
       "alt": "Avatar actuel"
     }
-  })]), _vm._v(" "), (_vm.avatar.path) ? _c('div', {
+  }) : _vm._e(), _vm._v(" "), (!_vm.avatar.path && !_vm.currentAvatar) ? _c('img', {
+    staticStyle: {
+      "width": "200px"
+    },
+    attrs: {
+      "src": _vm.randomAvatarPath,
+      "alt": "Avatar par défaut"
+    }
+  }) : _vm._e()]), _vm._v(" "), (_vm.avatar.path) ? _c('div', {
     staticClass: "form-group my-5"
   }, [_c('button', {
     staticClass: "btn btn-lg btn-black",
@@ -52327,7 +52366,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(!_vm.user.email_confirmed) ? _c('app-send-confirmation-email-again') : _vm._e(), _vm._v(" "), _c('app-update-profile', {
     attrs: {
       "data-user": _vm.user,
-      "data-avatar": _vm.avatar
+      "data-avatar": _vm.avatar,
+      "data-random-avatar": _vm.dataRandomAvatar
     }
   })], 1)])])])]), _vm._v(" "), _c('div', {
     staticClass: "row bg-grey-light"
@@ -52339,10 +52379,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "row w-100"
   }, [_c('div', {
     staticClass: "col-12 col-lg-4 py-4 px-6"
-  }, [_c('img', {
+  }, [(_vm.avatar) ? _c('img', {
     staticClass: "img-fluid",
     attrs: {
       "src": _vm.avatar,
+      "alt": "Avatar"
+    }
+  }) : _c('img', {
+    staticClass: "img-fluid",
+    attrs: {
+      "src": _vm.randomAvatarPath,
       "alt": "Avatar"
     }
   })]), _vm._v(" "), _c('div', {
@@ -55068,30 +55114,32 @@ module.exports = __webpack_require__(133);
 /* 298 */,
 /* 299 */,
 /* 300 */,
-/* 301 */
+/* 301 */,
+/* 302 */,
+/* 303 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(6)();
-exports.push([module.i, "\nlabel {\n    font-size: .875rem !important;\n}\ninput {\n    display: none;\n}\n", ""]);
+exports.push([module.i, "\nlabel[data-v-39173b34] {\n    font-size: .875rem !important;\n}\ninput[data-v-39173b34] {\n    display: none;\n}\n", ""]);
 
 /***/ }),
-/* 302 */
+/* 304 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(301);
+var content = __webpack_require__(303);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(7)("7fc8a362", content, false);
+var update = __webpack_require__(7)("e2cda56c", content, false);
 // Hot Module Replacement
 if(false) {
  // When the styles change, update the <style> tags
  if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-39173b34\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AvatarUpload.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-39173b34\",\"scoped\":false,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AvatarUpload.vue");
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-39173b34\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AvatarUpload.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-39173b34\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AvatarUpload.vue");
      if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
      update(newContent);
    });

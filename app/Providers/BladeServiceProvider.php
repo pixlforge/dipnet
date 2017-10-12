@@ -17,6 +17,10 @@ class BladeServiceProvider extends ServiceProvider
         Blade::if ('admin', function () {
             return auth()->check() && auth()->user()->isAdmin();
         });
+
+        Blade::if ('avatar', function () {
+            return auth()->user()->avatarPath();
+        });
     }
 
     /**

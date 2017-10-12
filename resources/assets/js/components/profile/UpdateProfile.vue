@@ -19,7 +19,8 @@
                     <div class="row">
                         <div class="col-10 col-lg-8 offset-lg-1">
 
-                            <app-avatar-upload :data-avatar="avatar"></app-avatar-upload>
+                            <app-avatar-upload :data-avatar="avatar"
+                                               :data-random-avatar="dataRandomAvatar"></app-avatar-upload>
 
                             <!--Title-->
                             <h3 class="mt-7 mb-5">Informations de votre compte</h3>
@@ -88,7 +89,7 @@
                                         <button class="btn btn-block btn-lg btn-black"
                                                 @click.prevent="updateProfile">
                                             <i class="fal fa-check mr-2"></i>
-                                            Modifier
+                                            Sauvegarder
                                         </button>
                                     </div>
                                 </div>
@@ -113,7 +114,8 @@
     export default {
         props: [
             'data-user',
-            'data-avatar'
+            'data-avatar',
+            'data-random-avatar'
         ],
         data() {
             return {

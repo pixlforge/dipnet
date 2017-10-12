@@ -10,9 +10,18 @@ class AddAvatarTest extends TestCase
     use RefreshDatabase;
     
     /** @test */
-//    function only_members_can_add_avatars()
-//    {
-//        $this->postJson(route(''))
-//            ->assertStatus(401);
-//    }
+    function members_without_an_avatar_are_assigned_a_random_one()
+    {
+        $user = factory('App\User')->create([
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com'
+        ]);
+        $this->signIn($user);
+
+        if (!auth()->user()->avatarPath()) {
+            $avatar = auth()->user()->randomAvatar();
+        }
+
+        $this->assertNotNull($avatar);
+    }
 }

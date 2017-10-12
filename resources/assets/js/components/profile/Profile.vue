@@ -23,7 +23,8 @@
                         <div class="d-flex">
                             <app-send-confirmation-email-again v-if="!user.email_confirmed"></app-send-confirmation-email-again>
                             <app-update-profile :data-user="user"
-                                                :data-avatar="avatar"></app-update-profile>
+                                                :data-avatar="avatar"
+                                                :data-random-avatar="dataRandomAvatar"></app-update-profile>
                         </div>
 
                     </div>
@@ -38,7 +39,13 @@
                         <div class="col-12 col-lg-4 py-4 px-6">
                             <img :src="avatar"
                                  class="img-fluid"
-                                 alt="Avatar">
+                                 alt="Avatar"
+                                 v-if="avatar">
+
+                            <img :src="randomAvatarPath"
+                                 class="img-fluid"
+                                 alt="Avatar"
+                                 v-else>
                         </div>
 
                         <div class="col-12 col-lg-4">
@@ -102,7 +109,8 @@
             'data-user',
             'data-orders',
             'data-businesses',
-            'data-avatar'
+            'data-avatar',
+            'data-random-avatar'
         ],
         data() {
             return {
@@ -111,6 +119,11 @@
                 orders: this.dataOrders,
                 businesses: this.dataBusinesses
             };
+        },
+        computed: {
+            randomAvatarPath() {
+                return 'img/placeholders/' + this.dataRandomAvatar;
+            }
         },
         mixins: [mixins],
         components: {

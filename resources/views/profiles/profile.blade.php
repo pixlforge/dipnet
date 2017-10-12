@@ -9,6 +9,7 @@
     <app-profile :data-user="{{ $user }}"
                  :data-orders="{{ $orders }}"
                  :data-businesses="{{ $businesses }}"
-                 data-avatar="{{ auth()->user()->avatarPath() }}"></app-profile>
+                 data-avatar="{{ auth()->user()->avatarPath() }}"
+                 data-random-avatar="{{ session('randomAvatar') }}"></app-profile>
 
 @endsection
