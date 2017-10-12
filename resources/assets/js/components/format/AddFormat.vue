@@ -2,7 +2,8 @@
     <div>
 
         <!--Button-->
-        <a @click="toggleModal" class="btn btn-lg btn-black mt-5" role="button">
+        <a class="btn btn-lg btn-black mt-5" role="button" @click="toggleModal">
+            <i class="fal fa-plus-circle mr-2"></i>
             Nouveau format
         </a>
 
@@ -79,12 +80,14 @@
                                     <div class="col-12 col-lg-5 px-0 pr-lg-2">
                                         <button class="btn btn-block btn-lg btn-white"
                                                 @click.stop="toggleModal">
+                                            <i class="fal fa-times mr-2"></i>
                                             Annuler
                                         </button>
                                     </div>
                                     <div class="col-12 col-lg-7 px-0 pl-lg-2">
                                         <button class="btn btn-block btn-lg btn-black"
                                                 @click.prevent="addFormat">
+                                            <i class="fal fa-check mr-2"></i>
                                             Ajouter
                                         </button>
                                     </div>

@@ -142,8 +142,9 @@
                              v-text="errors.fax[0]"></div>
                     </div>
 
-                    <button class="btn btn-black btn-block mt-5"
+                    <button class="btn btn-lg btn-black btn-block mt-5"
                             @click="createContact">
+                        <i class="fal fa-check mr-2"></i>
                         Suivant
                     </button>
                 </form>

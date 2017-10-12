@@ -55,8 +55,9 @@
                     
                     <div v-if="errors.name">{{ errors.name }}</div>
 
-                    <button class="btn btn-black btn-block mt-5"
+                    <button class="btn btn-lg btn-black btn-block mt-5"
                             @click="createCompany">
+                        <i class="fal fa-check mr-2"></i>
                         Terminer
                     </button>
                 </form>

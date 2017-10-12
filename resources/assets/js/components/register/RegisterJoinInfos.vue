@@ -16,7 +16,9 @@
                     </p>
 
                     <p class="text-center">
-                        <i class="fal fa-arrow-left fa-2x back-arrow" @click="backToMenu"></i>
+                        <span @click="backToMenu">
+                            <i class="fal fa-arrow-left fa-2x back-arrow"></i>
+                        </span>
                     </p>
 
                     <p class="text-small text-center mt-5">

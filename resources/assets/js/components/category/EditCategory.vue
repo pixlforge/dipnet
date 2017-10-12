@@ -41,12 +41,14 @@
                                     <div class="col-12 col-lg-5 px-0 pr-lg-2">
                                         <button class="btn btn-block btn-lg btn-white"
                                                 @click.stop="toggleModal">
+                                            <i class="fal fa-times mr-2"></i>
                                             Annuler
                                         </button>
                                     </div>
                                     <div class="col-12 col-lg-7 px-0 pl-lg-2">
                                         <button class="btn btn-block btn-lg btn-black"
                                                 @click.prevent="updateCategory">
+                                            <i class="fal fa-check mr-2"></i>
                                             Modifier
                                         </button>
                                     </div>

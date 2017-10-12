@@ -51,7 +51,10 @@
                         <div class="form-group">
 
                             {{--Submit--}}
-                            <button type="submit" class="btn btn-black btn-block mt-5">Connexion</button>
+                            <button type="submit" class="btn btn-lg btn-black btn-block mt-5">
+                                <i class="fal fa-key mr-2"></i>
+                                Connexion
+                            </button>
 
                             {{--Forgot password--}}
                             <p class="text-small text-center mt-5"><a href="{{ route('password.request') }}" class="ml-3">Mot de passe oublié?</a></p>
