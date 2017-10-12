@@ -33,8 +33,6 @@ class AccountController extends Controller
      */
     public function update(Request $request)
     {
-//        return response($request->all(), 200);
-
         if ($request->password === null) {
             $request->validate([
                 'username' => 'required|string|min:3|max:255',
