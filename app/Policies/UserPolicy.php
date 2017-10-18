@@ -48,16 +48,6 @@ class UserPolicy
      */
     public function delete(User $user)
     {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can restore the user.
-     *
-     * @return bool
-     */
-    public function restore()
-    {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 }

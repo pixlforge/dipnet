@@ -49,7 +49,9 @@ class User extends Authenticatable
      * The attributes that are cast into specific primitives.
      */
     protected $casts = [
-        'email_confirmed' => 'boolean'
+        'email_confirmed' => 'boolean',
+        'contact_confirmed' => 'boolean',
+        'company_confirmed' => 'boolean'
     ];
 
     /**

@@ -6,6 +6,7 @@
 
     @include ('layouts.partials._nav')
 
-    <h1>Users</h1>
+    <app-users :data-users="{{ $users }}"
+               :data-companies="{{ $companies }}"></app-users>
 
 @endsection

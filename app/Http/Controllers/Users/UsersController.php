@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Company;
 use App\User;
 use App\Http\Requests\UserRequest;
 use App\Http\Controllers\Controller;
@@ -14,7 +15,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
 
     /**
@@ -28,9 +29,17 @@ class UsersController extends Controller
 
         $users = User::with('company')
             ->orderBy('username')
-            ->get();
+            ->get()
+            ->toJson();
 
-        return view('users.index', compact('users'));
+        $companies = Company::orderBy('name')
+            ->get()
+            ->toJson();
+
+        return view('users.index', [
+            'users' => $users,
+            'companies' => $companies
+        ]);
     }
 
     /**
@@ -91,7 +100,7 @@ class UsersController extends Controller
             'company_id' => $request->company_id
         ]);
 
-        return redirect()->route('users.index');
+        return response($user, 200);
     }
 
     /**
@@ -102,9 +111,11 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
+
         $user->delete();
 
-        return redirect()->route('users.index');
+        return response(null, 204);
     }
 
     /**

@@ -28,6 +28,7 @@ Vue.component('app-businesses', require('./components/business/Businesses.vue'))
 Vue.component('app-show-company', require('./components/company/ShowCompany.vue'));
 
 Vue.component('app-articles', require('./components/articles/Articles.vue'));
+Vue.component('app-users', require('./components/users/Users.vue'));
 
 export const eventBus = new Vue();
 
