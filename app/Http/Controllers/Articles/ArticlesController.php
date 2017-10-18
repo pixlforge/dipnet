@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Articles;
 use App\Article;
 use App\Category;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ArticleRequest;
+use App\Http\Requests\Article\StoreArticleRequest;
 
 class ArticlesController extends Controller
 {
@@ -18,7 +18,7 @@ class ArticlesController extends Controller
     }
 
     /**
-     * Display a listing of the articles.
+     * Display a listing of all the articles.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -27,20 +27,28 @@ class ArticlesController extends Controller
         $this->authorize('view', Article::class);
 
         $articles = Article::with('category')
+            ->latest()
             ->orderBy('reference')
             ->get()
             ->toJson();
 
-        return view('articles.index', compact('articles'));
+        $categories = Category::orderBy('name')
+            ->get()
+            ->toJson();
+
+        return view('articles.index', [
+            'articles' => $articles,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param ArticleRequest $request
-     * @return \Illuminate\Http\Response
+     * @param StoreArticleRequest $request
+     * @return Article|\Illuminate\Database\Eloquent\Model
      */
-    public function store(ArticleRequest $request)
+    public function store(StoreArticleRequest $request)
     {
         $this->authorize('create', Article::class);
 
@@ -48,14 +56,10 @@ class ArticlesController extends Controller
             'reference' => $request->reference,
             'description' => $request->description,
             'type' => $request->type,
-            'category_id' => $request->categor
+            'category_id' => $request->category_id
         ]);
 
-        if (request()->expectsJson()) {
-            return $article->id;
-        }
-
-        return redirect()->route('articles.index');
+        return $article;
     }
 
     /**
@@ -74,11 +78,11 @@ class ArticlesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ArticleRequest $request
+     * @param StoreArticleRequest $request
      * @param Article $article
      * @return \Illuminate\Http\Response
      */
-    public function update(ArticleRequest $request, Article $article)
+    public function update(StoreArticleRequest $request, Article $article)
     {
         $this->authorize('update', $article);
 
@@ -86,10 +90,10 @@ class ArticlesController extends Controller
             'reference' => $request->reference,
             'description' => $request->description,
             'type' => $request->type,
-            'category_id' => $request->category
+            'category_id' => $request->category_id
         ]);
 
-        return redirect()->route('articles.index');
+        return response($article, 200);
     }
 
     /**
@@ -104,6 +108,6 @@ class ArticlesController extends Controller
 
         $article->delete();
 
-        return redirect()->route('articles.index');
+        return response(null, 204);
     }
 }

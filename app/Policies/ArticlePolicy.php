@@ -11,13 +11,13 @@ class ArticlePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the article.
+     * Determine whether the user can view the articles.
      *
      * @return mixed
      */
     public function view()
     {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -27,11 +27,11 @@ class ArticlePolicy
      */
     public function create()
     {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 
     /**
-     * Determine whether the user can update the article.
+     * Determine whether the user can update the articles.
      *
      * @param  \App\User  $user
      * @param  \App\Article  $article
@@ -39,11 +39,11 @@ class ArticlePolicy
      */
     public function update(User $user, Article $article)
     {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 
     /**
-     * Determine whether the user can delete the article.
+     * Determine whether the user can delete the articles.
      *
      * @param  \App\User  $user
      * @param  \App\Article  $article
@@ -51,16 +51,6 @@ class ArticlePolicy
      */
     public function delete(User $user, Article $article)
     {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can restore the article.
-     *
-     * @return bool
-     */
-    public function restore()
-    {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 }

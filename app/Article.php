@@ -27,16 +27,6 @@ class Article extends Model
     ];
 
     /**
-     * Use the reference attribute in routes.
-     *
-     * @return string
-     */
-    public function getRouteKeyName()
-    {
-        return 'reference';
-    }
-
-    /**
      * Category relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

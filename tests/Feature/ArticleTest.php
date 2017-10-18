@@ -2,75 +2,103 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use App\Article;
+use App\Category;
+use App\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class ArticleTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Create an Article for all tests to use.
-     *
-     * @return mixed
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        return $this->article = factory('App\Article')->create();
-    }
-
     /** @test */
-    function article_index_view_is_available()
+    function an_admin_can_view_all_articles()
     {
-        $this->signIn(null, 'administrateur');
+        $user = factory(User::class)->create(['role' => 'administrateur']);
+        $this->signIn($user);
+
+        $article = factory(Article::class)->create(['reference' => '85erfgbn']);
 
         $this->get(route('articles.index'))
-            ->assertViewIs('articles.index');
+            ->assertStatus(200)
+            ->assertSee('85erfgbn');
     }
 
     /** @test */
-    function authorized_users_can_create_articles()
+    function an_admin_can_create_new_articles()
     {
-        $this->signIn(null, 'administrateur');
+        $user = factory(User::class)->create(['role' => 'administrateur']);
+        $this->signIn($user);
 
-        $category = factory('App\Category')->create();
+        $category = factory(Category::class)->create();
 
-        $article = factory('App\Article')->make(['category' => $category->id]);
+        $this->postJson(route('articles.store'), [
+            'reference' => '85erfgbn',
+            'description' => 'Lorem isum dolor sit amet',
+            'type' => 'impression',
+            'category_id' => $category->id
+        ])->assertStatus(200);
 
-        $this->post(route('articles.store'), $article->toArray())
-            ->assertRedirect(route('articles.index'));
+        $this->assertDatabaseHas('articles', [
+            'reference' => '85erfgbn',
+            'description' => 'Lorem isum dolor sit amet',
+            'type' => 'impression',
+            'category_id' => $category->id
+        ]);
     }
 
     /** @test */
-    function authorized_users_can_update_articles()
+    function an_article_can_be_updated()
     {
-        $this->signIn(null, 'administrateur');
+        $user = factory(User::class)->states(['admin'])->create();
+        $this->signIn($user);
 
-        $category = factory('App\Category')->create();
+        $category = factory(Category::class)->create();
 
-        $article = factory('App\Article')->make(['category' => $category->id]);
+        $this->postJson(route('articles.store'), [
+            'reference' => '85erfgbn',
+            'description' => 'Lorem isum dolor sit amet',
+            'type' => 'impression',
+            'category_id' => $category->id
+        ])->assertStatus(200);
 
-        $this->post(route('articles.store'), $article->toArray())
-            ->assertRedirect(route('articles.index'));
+        $article = Article::whereReference('85erfgbn')->first();
 
-        $article->description = 'Lorem Ipsum dolor sit amet';
+        $this->putJson(route('articles.update', $article), [
+            'reference' => '85ERFGBN',
+            'description' => 'Lorem isum dolor sit amet',
+            'type' => 'option',
+            'category_id' => $category->id
+        ])->assertStatus(200);
 
-        $this->put("/articles/{$article->reference}", $article->toArray())
-            ->assertRedirect(route('articles.index'));
+        $this->assertDatabaseHas('articles', [
+            'reference' => '85ERFGBN',
+            'description' => 'Lorem isum dolor sit amet',
+            'type' => 'option',
+            'category_id' => $category->id
+        ]);
     }
 
     /** @test */
-    function authorized_users_can_delete_articles()
+    function an_article_can_be_deleted()
     {
-        $this->signIn(null, 'administrateur');
+        $user = factory(User::class)->states(['admin'])->create();
+        $this->signIn($user);
 
-        $article = factory('App\Article')->create();
+        $category = factory(Category::class)->create();
 
-        $this->assertDatabaseHas('articles', ['reference' => $article->reference]);
+        $this->postJson(route('articles.store'), [
+            'reference' => '85erfgbn',
+            'description' => 'Lorem isum dolor sit amet',
+            'type' => 'impression',
+            'category_id' => $category->id
+        ])->assertStatus(200);
 
-        $this->delete("/articles/{$article->reference}")
-            ->assertRedirect(route('articles.index'));
+        $article = Article::whereReference('85erfgbn')->first();
+
+        $this->deleteJson(route('articles.destroy', $article))
+            ->assertStatus(204);
+        $this->assertNotNull($article->fresh()->deleted_at);
     }
 }

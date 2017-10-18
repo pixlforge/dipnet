@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ArticleRequest extends FormRequest
+class StoreArticleRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class ArticleRequest extends FormRequest
             'reference' => 'required|unique:articles,id,:id|min:3|max:45',
             'description' => 'nullable|string|max:45',
             'type' => 'required|in:impression,option',
-            'category' => 'required|exists:categories,id'
+            'category_id' => 'required|exists:categories,id'
         ];
     }
 
