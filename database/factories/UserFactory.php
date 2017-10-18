@@ -46,3 +46,7 @@ $factory->state(App\User::class, 'mailable-tests-only', [
 $factory->state(App\User::class, 'no-company', [
     'company_id' => null,
 ]);
+
+$factory->state(App\User::class, 'admin', [
+    'role' => 'administrateur'
+]);
