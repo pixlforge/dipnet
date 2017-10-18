@@ -20,6 +20,14 @@ export default {
             return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
         }
     },
+    filters: {
+        capitalize(value) {
+            if (!value) return ''
+
+            value = value.toString();
+            return value.charAt(0).toUpperCase() + value.slice(1);
+        }
+    },
     methods: {
         redirectIfNotConfirmed(error) {
             if (error.response.status === 403) {
