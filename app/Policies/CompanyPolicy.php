@@ -10,6 +10,11 @@ class CompanyPolicy
 {
     use HandlesAuthorization;
 
+    public function touch()
+    {
+        return auth()->user()->isAdmin();
+    }
+
     /**
      * Determine whether the user can view the company.
      *
@@ -17,7 +22,7 @@ class CompanyPolicy
      */
     public function view()
     {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -27,7 +32,7 @@ class CompanyPolicy
      */
     public function create()
     {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -39,7 +44,7 @@ class CompanyPolicy
      */
     public function update(User $user, Company $company)
     {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -51,16 +56,6 @@ class CompanyPolicy
      */
     public function delete(User $user, Company $company)
     {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can restore the company.
-     *
-     * @return bool
-     */
-    public function restore()
-    {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 }

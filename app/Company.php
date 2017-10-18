@@ -12,9 +12,7 @@ class Company extends Model
     /**
      * Carbon dates.
      */
-    protected $dates = [
-        'deleted_at'
-    ];
+    protected $dates = ['deleted_at'];
 
     /**
      * Disable mass assignment for the following fields

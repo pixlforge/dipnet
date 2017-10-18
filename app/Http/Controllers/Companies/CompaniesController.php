@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Companies;
 
 use App\Company;
+use App\Invitation;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CompanyRequest;
-use App\Invitation;
 
 class CompaniesController extends Controller
 {
@@ -24,11 +24,15 @@ class CompaniesController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', Company::class);
+        $this->authorize('touch', Company::class);
 
-        $companies = Company::orderBy('name')->get();
+        $companies = Company::orderBy('name')
+            ->get()
+            ->toJson();
 
-        return view('companies.index', compact('companies'));
+        return view('companies.index', [
+            'companies' => $companies
+        ]);
     }
 
     /**
@@ -48,11 +52,7 @@ class CompaniesController extends Controller
             'created_by_username' => auth()->user()->username
         ]);
 
-        if (request()->expectsJson()) {
-            return $company->id;
-        }
-
-        return redirect()->route('companies.index');
+        return response($company, 200);
     }
 
     /**
@@ -88,7 +88,7 @@ class CompaniesController extends Controller
             'description' => $request->description
         ]);
 
-        return redirect()->route('companies.index');
+        return response($company, 200);
     }
 
     /**
@@ -103,6 +103,6 @@ class CompaniesController extends Controller
 
         $company->delete();
 
-        return redirect()->route('companies.index');
+        return response(null, 204);
     }
 }

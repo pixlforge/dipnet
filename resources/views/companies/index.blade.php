@@ -6,6 +6,6 @@
 
     @include ('layouts.partials._nav')
 
-    <h1>Companies</h1>
+    <app-companies :data-companies="{{ $companies }}"></app-companies>
 
 @endsection

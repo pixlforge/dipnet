@@ -5047,6 +5047,7 @@ Vue.component('app-show-company', __webpack_require__(226));
 
 Vue.component('app-articles', __webpack_require__(215));
 Vue.component('app-users', __webpack_require__(315));
+Vue.component('app-companies', __webpack_require__(327));
 
 var eventBus = new Vue();
 
@@ -57626,6 +57627,1281 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-018836bc", module.exports)
+  }
+}
+
+/***/ }),
+/* 326 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Company_vue__ = __webpack_require__(330);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Company_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Company_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddCompany_vue__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddCompany_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AddCompany_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(2);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['data-companies'],
+    data: function data() {
+        return {
+            companies: this.dataCompanies
+        };
+    },
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
+    components: {
+        'app-company': __WEBPACK_IMPORTED_MODULE_0__Company_vue___default.a,
+        'app-add-company': __WEBPACK_IMPORTED_MODULE_1__AddCompany_vue___default.a,
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+    },
+    created: function created() {
+        var _this = this;
+
+        __WEBPACK_IMPORTED_MODULE_3__app__["eventBus"].$on('companyWasUpdated', function (data) {
+            _this.updateCompany(data);
+        });
+    },
+
+    methods: {
+        addCompany: function addCompany(company) {
+            this.companies.unshift(company);
+            flash({
+                message: 'La création de la société a réussi.',
+                level: 'success'
+            });
+        },
+        updateCompany: function updateCompany(data) {
+            var _iteratorNormalCompletion = true;
+            var _didIteratorError = false;
+            var _iteratorError = undefined;
+
+            try {
+                for (var _iterator = this.companies[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+                    var company = _step.value;
+
+                    if (data.id === company.id) {
+                        company.name = data.name;
+                        company.status = data.status;
+                        company.description = data.description;
+                    }
+                }
+            } catch (err) {
+                _didIteratorError = true;
+                _iteratorError = err;
+            } finally {
+                try {
+                    if (!_iteratorNormalCompletion && _iterator.return) {
+                        _iterator.return();
+                    }
+                } finally {
+                    if (_didIteratorError) {
+                        throw _iteratorError;
+                    }
+                }
+            }
+
+            flash({
+                message: 'Les modifications apportées à la société ont été enregistrées.',
+                level: 'success'
+            });
+        },
+        removeCompany: function removeCompany(index) {
+            this.companies.splice(index, 1);
+            flash({
+                message: 'Suppression de la société réussie.',
+                level: 'success'
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 327 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(326),
+  /* template */
+  __webpack_require__(328),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/Heyoka/Webdev/Projects/dipnet/resources/assets/js/components/company/Companies.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Companies.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-40416f33", Component.options)
+  } else {
+    hotAPI.reload("data-v-40416f33", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 328 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "container-fluid"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-10 my-5 mx-auto"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only"
+  }, [_c('h1', {
+    staticClass: "mt-5"
+  }, [_vm._v("Sociétés")]), _vm._v(" "), _c('span', {
+    staticClass: "mt-5"
+  }, [_vm._v("\n                        " + _vm._s(_vm.companies.length) + "\n                        " + _vm._s(_vm.companies.length == 0 || _vm.companies.length == 1 ? 'société' : 'sociétés') + "\n                    ")]), _vm._v(" "), _c('app-add-company', {
+    on: {
+      "companyWasCreated": _vm.addCompany
+    }
+  })], 1)])])]), _vm._v(" "), _c('div', {
+    staticClass: "row bg-grey-light"
+  }, [_c('div', {
+    staticClass: "col-10 mx-auto my-7"
+  }, [_c('transition-group', {
+    attrs: {
+      "name": "highlight"
+    }
+  }, _vm._l((_vm.companies), function(company, index) {
+    return _c('app-company', {
+      key: company.id,
+      staticClass: "card card-custom center-on-small-only",
+      attrs: {
+        "data-company": company
+      },
+      on: {
+        "companyWasDeleted": function($event) {
+          _vm.removeCompany(index)
+        }
+      }
+    })
+  })), _vm._v(" "), _c('app-moon-loader', {
+    attrs: {
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
+    }
+  })], 1)])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-40416f33", module.exports)
+  }
+}
+
+/***/ }),
+/* 329 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditCompany_vue__ = __webpack_require__(336);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditCompany_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditCompany_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(2);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['data-company'],
+    data: function data() {
+        return {
+            company: this.dataCompany
+        };
+    },
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
+    components: {
+        'app-edit-company': __WEBPACK_IMPORTED_MODULE_0__EditCompany_vue___default.a
+    },
+    methods: {
+        destroy: function destroy() {
+            axios.delete('/companies/' + this.company.id);
+            this.$emit('companyWasDeleted', this.company.id);
+        },
+        getDate: function getDate(date) {
+            return __WEBPACK_IMPORTED_MODULE_1_moment___default()(date).locale(this.momentLocale).format(this.momentFormat);
+        }
+    }
+});
+
+/***/ }),
+/* 330 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(329),
+  /* template */
+  __webpack_require__(331),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/Heyoka/Webdev/Projects/dipnet/resources/assets/js/components/company/Company.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Company.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3a1fb8d5", Component.options)
+  } else {
+    hotAPI.reload("data-v-3a1fb8d5", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 331 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-2"
+  }, [_c('h5', {
+    staticClass: "mb-0",
+    domProps: {
+      "textContent": _vm._s(_vm.company.name)
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-3"
+  }, [_c('span', {
+    staticClass: "card-content",
+    domProps: {
+      "textContent": _vm._s(_vm.company.description)
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-2"
+  }, [_c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-label"
+  }, [_vm._v("Statut:")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.status)))])])]), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-3"
+  }, [_c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-label"
+  }, [_vm._v("Créé:")]), _vm._v(" "), _c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.getDate(_vm.company.created_at))
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-label"
+  }, [_vm._v("Modifié:")]), _vm._v(" "), _c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.getDate(_vm.company.updated_at))
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-1 center-on-small-only text-lg-right"
+  }, [_c('div', {
+    staticClass: "dropdown"
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "dropdown-menu dropdown-menu-right",
+    attrs: {
+      "aria-labelledby": "dropdownMenuLink"
+    }
+  }, [_c('app-edit-company', {
+    attrs: {
+      "data-company": _vm.company
+    }
+  }), _vm._v(" "), _c('a', {
+    staticClass: "dropdown-item text-danger",
+    attrs: {
+      "role": "button"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.destroy($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-times"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v("Supprimer")])])], 1)])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col col-lg-1 hidden-md-down"
+  }, [_c('img', {
+    staticClass: "img-bullet",
+    attrs: {
+      "src": "/img/placeholders/contact-bullet.jpg",
+      "alt": "Bullet"
+    }
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "btn btn-transparent btn-sm",
+    attrs: {
+      "type": "button",
+      "id": "dropdownMenuLink",
+      "data-toggle": "dropdown",
+      "aria-haspopup": "true",
+      "aria-expanded": "false"
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-ellipsis-v fa-lg",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3a1fb8d5", module.exports)
+  }
+}
+
+/***/ }),
+/* 332 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(2);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            company: {
+                name: '',
+                status: '',
+                description: ''
+            },
+            errors: {}
+        };
+    },
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
+    components: {
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+    },
+    methods: {
+        addCompany: function addCompany() {
+            var _this = this;
+
+            this.toggleLoader();
+
+            axios.post('/companies', this.company).then(function (response) {
+                _this.company.id = response.data;
+                _this.$emit('companyWasCreated', _this.company);
+            }).then(function () {
+                _this.toggleLoader();
+                _this.toggleModal();
+                _this.company = {};
+            }).catch(function (error) {
+                _this.toggleLoader();
+                _this.errors = error.response.data.errors;
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 333 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(332),
+  /* template */
+  __webpack_require__(334),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/Heyoka/Webdev/Projects/dipnet/resources/assets/js/components/company/AddCompany.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AddCompany.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-19e460f4", Component.options)
+  } else {
+    hotAPI.reload("data-v-19e460f4", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 334 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('a', {
+    staticClass: "btn btn-lg btn-black light mt-5",
+    attrs: {
+      "role": "button"
+    },
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-plus-circle mr-2"
+  }), _vm._v("\n        Nouvelle société\n    ")]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal-background",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal-panel",
+    on: {
+      "keyup": [function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27)) { return null; }
+        _vm.toggleModal($event)
+      }, function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.addCompany($event)
+      }]
+    }
+  }, [_c('div', {
+    staticClass: "container-fluid"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-10 col-lg-8 offset-lg-1"
+  }, [_c('h3', {
+    staticClass: "mt-7 mb-5"
+  }, [_vm._v("Nouvelle société")]), _vm._v(" "), _c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.company.name),
+      expression: "company.name",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "name",
+      "name": "name",
+      "required": "",
+      "autofocus": ""
+    },
+    domProps: {
+      "value": (_vm.company.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.company.name = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
+    staticClass: "help-block",
+    domProps: {
+      "textContent": _vm._s(_vm.errors.name[0])
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form-group my-5"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v("Statut")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.company.status),
+      expression: "company.status",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "form-control custom-select",
+    attrs: {
+      "name": "status",
+      "id": "status"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.company.status = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Sélectionnez un statut")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "temporaire"
+    }
+  }, [_vm._v("Temporaire")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "permanent"
+    }
+  }, [_vm._v("Permanent")])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group my-5"
+  }, [_c('label', {
+    attrs: {
+      "for": "description"
+    }
+  }, [_vm._v("Description")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.company.description),
+      expression: "company.description",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "description",
+      "name": "description"
+    },
+    domProps: {
+      "value": (_vm.company.description)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.company.description = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.description) ? _c('div', {
+    staticClass: "help-block",
+    domProps: {
+      "textContent": _vm._s(_vm.errors.description[0])
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form-group d-flex flex-column flex-lg-row my-6"
+  }, [_c('div', {
+    staticClass: "col-12 col-lg-5 px-0 pr-lg-2"
+  }, [_c('button', {
+    staticClass: "btn btn-block btn-lg btn-white",
+    on: {
+      "click": function($event) {
+        $event.stopPropagation();
+        _vm.toggleModal($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-times mr-2"
+  }), _vm._v("\n                                        Annuler\n                                    ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-7 px-0 pl-lg-2"
+  }, [_c('button', {
+    staticClass: "btn btn-block btn-lg btn-black",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.addCompany($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-check mr-2"
+  }), _vm._v("\n                                        Ajouter\n                                    ")])])])])])])]), _vm._v(" "), _c('app-moon-loader', {
+    attrs: {
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
+    }
+  })], 1) : _vm._e()])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-19e460f4", module.exports)
+  }
+}
+
+/***/ }),
+/* 335 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(2);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    props: ['data-company'],
+    data: function data() {
+        return {
+            company: this.dataCompany,
+            errors: {}
+        };
+    },
+
+    mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
+    components: {
+        'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+    },
+    methods: {
+        updateCompany: function updateCompany() {
+            var _this = this;
+
+            this.toggleLoader();
+
+            axios.put('/companies/' + this.company.id, this.company).then(function () {
+                __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('companyWasUpdated', _this.company);
+            }).then(function () {
+                _this.toggleLoader();
+                _this.toggleModal();
+            }).catch(function (error) {
+                _this.toggleLoader();
+                if (error.response.status === 422) {
+                    flash({
+                        message: "Erreur. La validation a échoué.",
+                        level: 'danger'
+                    });
+
+                    return;
+                }
+                flash({
+                    message: "Erreur. Veuillez réessayer plus tard.",
+                    level: 'danger'
+                });
+            });
+        }
+    }
+});
+
+/***/ }),
+/* 336 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(335),
+  /* template */
+  __webpack_require__(337),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/Heyoka/Webdev/Projects/dipnet/resources/assets/js/components/company/EditCompany.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] EditCompany.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-d050ef2a", Component.options)
+  } else {
+    hotAPI.reload("data-v-d050ef2a", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 337 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('a', {
+    staticClass: "dropdown-item",
+    attrs: {
+      "role": "button"
+    },
+    on: {
+      "click": function($event) {
+        $event.stopPropagation();
+        _vm.toggleModal($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-pencil"
+  }), _vm._v(" "), _c('span', {
+    staticClass: "ml-3"
+  }, [_vm._v("Modifier")])]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal-background",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal-panel",
+    on: {
+      "keyup": [function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27)) { return null; }
+        _vm.toggleModal($event)
+      }, function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.updateCompany($event)
+      }]
+    }
+  }, [_c('div', {
+    staticClass: "container-fluid"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-10 col-lg-8 offset-lg-1"
+  }, [_c('h3', {
+    staticClass: "mt-7 mb-5"
+  }, [_vm._v("Modifier la société")]), _vm._v(" "), _c('form', {
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+      }
+    }
+  }, [_c('div', {
+    staticClass: "form-group"
+  }, [_c('label', {
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
+    staticClass: "required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.company.name),
+      expression: "company.name",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "name",
+      "name": "name",
+      "required": "",
+      "autofocus": ""
+    },
+    domProps: {
+      "value": (_vm.company.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.company.name = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
+    staticClass: "help-block",
+    domProps: {
+      "textContent": _vm._s(_vm.errors.name[0])
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form-group my-5"
+  }, [_c('label', {
+    attrs: {
+      "for": "status"
+    }
+  }, [_vm._v("Statut")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.company.status),
+      expression: "company.status",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "form-control custom-select",
+    attrs: {
+      "name": "status",
+      "id": "status"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.company.status = $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Sélectionnez un statut")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "temporaire"
+    }
+  }, [_vm._v("Temporaire")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "permanent"
+    }
+  }, [_vm._v("Permanent")])])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group my-5"
+  }, [_c('label', {
+    attrs: {
+      "for": "description"
+    }
+  }, [_vm._v("Description")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.company.description),
+      expression: "company.description",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "id": "description",
+      "name": "description"
+    },
+    domProps: {
+      "value": (_vm.company.description)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.company.description = $event.target.value.trim()
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.description) ? _c('div', {
+    staticClass: "help-block",
+    domProps: {
+      "textContent": _vm._s(_vm.errors.description[0])
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form-group d-flex flex-column flex-lg-row my-6"
+  }, [_c('div', {
+    staticClass: "col-12 col-lg-5 px-0 pr-lg-2"
+  }, [_c('button', {
+    staticClass: "btn btn-block btn-lg btn-white",
+    on: {
+      "click": function($event) {
+        $event.stopPropagation();
+        _vm.toggleModal($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-times mr-2"
+  }), _vm._v("\n                                        Annuler\n                                    ")])]), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-7 px-0 pl-lg-2"
+  }, [_c('button', {
+    staticClass: "btn btn-block btn-lg btn-black",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.updateCompany($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-check mr-2"
+  }), _vm._v("\n                                        Modifier\n                                    ")])])])])])])]), _vm._v(" "), _c('app-moon-loader', {
+    attrs: {
+      "loading": _vm.loader.loading,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
+    }
+  })], 1) : _vm._e()])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d050ef2a", module.exports)
   }
 }
 

@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Company;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -9,65 +11,98 @@ class CompanyTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Create a Company for all tests to use.
-     *
-     * @return mixed
-     */
-    public function setUp()
+    /** @test */
+    function an_admin_can_view_all_companies()
     {
-        parent::setUp();
+        $user = factory(User::class)->states('admin')->create([
+            'username' => 'John Doe'
+        ]);
+        $this->signIn($user);
 
-        return $this->company = factory('App\Company')->create();
+        $this->get(route('companies.index'))
+            ->assertStatus(200)
+            ->assertSee('John Doe');
     }
 
     /** @test */
-    function company_index_view_is_available()
+    function an_admin_can_create_new_companies()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $response = $this->get('/companies');
+        $this->postJson(route('companies.store'), [
+            'name' => 'Pixlforge',
+            'status' => 'permanent',
+            'description' => 'Lorem ipsum dolor sit amet.'
+        ])->assertStatus(200);
 
-        $response->assertViewIs('companies.index');
+        $this->assertDatabaseHas('companies', [
+            'name' => 'Pixlforge',
+            'status' => 'permanent',
+            'description' => 'Lorem ipsum dolor sit amet.'
+        ]);
     }
 
     /** @test */
-    function authorized_users_can_create_companies()
+    function a_company_can_be_updated()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $company = factory('App\Company')->create();
+        $this->postJson(route('companies.store'), [
+            'name' => 'Pixlforge',
+            'status' => 'permanent',
+            'description' => 'Lorem ipsium dolor sit amet.'
+        ])->assertStatus(200);
 
-        $this->post("/companies", $company->toArray())
-            ->assertRedirect('/companies');
+        $this->assertDatabaseHas('companies', [
+            'name' => 'Pixlforge',
+            'status' => 'permanent',
+            'description' => 'Lorem ipsium dolor sit amet.'
+        ]);
+
+        $company = Company::whereName('Pixlforge')->first();
+
+        $this->putJson(route('companies.update', $company), [
+            'name' => 'Bebold',
+            'status' => 'permanent',
+            'description' => 'Lorem ipsium dolor sit amet.'
+        ])->assertStatus(200);
+
+        $this->assertDatabaseMissing('companies', [
+            'name' => 'Pixlforge',
+            'status' => 'permanent',
+            'description' => 'Lorem ipsium dolor sit amet.'
+        ]);
+
+        $this->assertDatabaseHas('companies', [
+            'name' => 'Bebold',
+            'status' => 'permanent',
+            'description' => 'Lorem ipsium dolor sit amet.'
+        ]);
     }
 
     /** @test */
-    function authorized_users_can_update_companies()
+    function a_company_can_be_deleted()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $company = factory('App\Company')->create();
+        $this->postJson(route('companies.store'), [
+            'name' => 'Pixlforge',
+            'status' => 'permanent',
+            'description' => 'Lorem ipsium dolor sit amet.'
+        ])->assertStatus(200);
 
-        $this->post("/companies", $company->toArray())
-            ->assertRedirect('/companies');
+        $this->assertDatabaseHas('companies', [
+            'name' => 'Pixlforge',
+            'status' => 'permanent',
+            'description' => 'Lorem ipsium dolor sit amet.'
+        ]);
 
-        $company->city = 'Courgenay';
+        $company = Company::whereName('Pixlforge')->first();
 
-        $this->put("/companies/{$company->id}", $company->toArray())
-            ->assertRedirect('/companies');
-    }
-
-    /** @test */
-    function authorized_users_can_delete_companies()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $company = factory('App\Company')->create();
-
-        $this->assertDatabaseHas('companies', ['id' => $company->id]);
-
-        $this->delete("/companies/{$company->id}")
-            ->assertRedirect('/companies');
+        $this->deleteJson(route('companies.destroy', $company))->assertStatus(204);
+        $this->assertNotNull($company->fresh()->deleted_at);
     }
 }
