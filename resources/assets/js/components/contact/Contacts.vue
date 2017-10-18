@@ -45,12 +45,12 @@
                 contacts: this.data
             }
         },
+        mixins: [mixins],
         components: {
             'app-contact': Contact,
             'app-add-contact': AddContact,
             'app-moon-loader': MoonLoader
         },
-        mixins: [mixins],
         created() {
             eventBus.$on('contactWasUpdated', (data) => {
                 this.updateContact(data);

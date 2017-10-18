@@ -108,7 +108,7 @@ namespace App{
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property string|null $deleted_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $article
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Article[] $articles
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Query\Builder|\App\Category onlyTrashed()
  * @method static bool|null restore()
@@ -274,7 +274,7 @@ namespace App{
  * @property int $article_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property-read \App\Article $article
+ * @property-read \App\Article $articles
  * @property-read \App\Delivery|null $delivery
  * @property-read \App\Format $format
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Document whereArticleId($value)

@@ -110,10 +110,10 @@
                 locale: 'fr'
             }
         },
+        mixins: [mixins],
         components: {
             'app-edit-contact': EditContact
         },
-        mixins: [mixins],
         methods: {
             destroy() {
                 axios.delete('/contacts/' + this.contact.id);

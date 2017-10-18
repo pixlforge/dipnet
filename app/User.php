@@ -185,7 +185,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the Orders count.
+     * OrdersCount Attribute
      *
      * @return int
      */
@@ -194,6 +194,10 @@ class User extends Authenticatable
         return $this->orders()->count();
     }
 
+    /**
+     * BusinessCount Attribute
+     * @return int
+     */
     public function getBusinessesCountAttribute()
     {
         return $this->businesses()->count();
