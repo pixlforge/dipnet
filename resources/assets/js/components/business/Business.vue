@@ -10,7 +10,7 @@
             <h5 class="mb-0" v-text="business.name"></h5>
         </div>
 
-        <div class="col-12 col-lg-3 px-0">
+        <div class="col-12 col-lg-3 pl-0">
 
             <!--Reference-->
             <div class="card-content">
@@ -19,13 +19,13 @@
             </div>
 
             <!--Description-->
-            <div class="card-content">
+            <div class="card-content" v-if="business.description">
                 <span class="card-label">Description:</span>
                 <span v-text="business.description"></span>
             </div>
         </div>
 
-        <div class="col-12 col-lg-2">
+        <div class="col-12 col-lg-2 pl-0">
 
             <!--Company-->
             <div class="card-content">

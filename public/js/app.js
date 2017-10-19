@@ -58714,7 +58714,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "textContent": _vm._s(_vm.business.name)
     }
   })]), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-3 px-0"
+    staticClass: "col-12 col-lg-3 pl-0"
   }, [_c('div', {
     staticClass: "card-content"
   }, [_c('span', {
@@ -58723,7 +58723,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.business.reference)
     }
-  })]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), (_vm.business.description) ? _c('div', {
     staticClass: "card-content"
   }, [_c('span', {
     staticClass: "card-label"
@@ -58731,8 +58731,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.business.description)
     }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-2"
+  })]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col-12 col-lg-2 pl-0"
   }, [_c('div', {
     staticClass: "card-content"
   }, [_c('span', {
@@ -59109,32 +59109,47 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "col-12 col-lg-2"
-  }, [(_vm.format.height) ? _c('div', [_vm._m(1), _vm._v(" "), _c('span', {
-    staticClass: "card-content",
+  }, [_c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-label"
+  }, [_vm._v("Hauteur:")]), _vm._v(" "), _c('span', {
     domProps: {
       "textContent": _vm._s(_vm.format.height)
     }
-  })]) : _vm._e(), _vm._v(" "), (_vm.format.width) ? _c('div', [_vm._m(2), _vm._v(" "), _c('span', {
-    staticClass: "card-content",
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-label"
+  }, [_vm._v("Largeur:")]), _vm._v(" "), _c('span', {
     domProps: {
       "textContent": _vm._s(_vm.format.width)
     }
-  })]) : _vm._e()]), _vm._v(" "), _c('div', {
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "col-12 col-lg-3"
-  }, [(_vm.format.surface) ? _c('div', [_vm._m(3), _vm._v(" "), (_vm.format.surface) ? _c('span', {
-    staticClass: "card-content",
+  }, [(_vm.format.surface) ? _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-label"
+  }, [_vm._v("Surface:")]), _vm._v(" "), _c('span', {
     domProps: {
       "textContent": _vm._s(_vm.format.surface)
     }
-  }) : _vm._e()]) : _vm._e()]), _vm._v(" "), _c('div', {
+  })]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "col-12 col-lg-3"
-  }, [_c('div', [_vm._m(4), _vm._v(" "), _c('span', {
-    staticClass: "card-content ml-1",
+  }, [_c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-label"
+  }, [_vm._v("Créé:")]), _vm._v(" "), _c('span', {
     domProps: {
       "textContent": _vm._s(_vm.getDate(_vm.format.created_at))
     }
-  })]), _vm._v(" "), _c('div', [_vm._m(5), _vm._v(" "), _c('span', {
-    staticClass: "card-content ml-1",
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-label"
+  }, [_vm._v("Modifié:")]), _vm._v(" "), _c('span', {
     domProps: {
       "textContent": _vm._s(_vm.getDate(_vm.format.updated_at))
     }
@@ -59142,7 +59157,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-12 col-lg-1 center-on-small-only text-lg-right"
   }, [_c('div', {
     staticClass: "dropdown"
-  }, [_vm._m(6), _vm._v(" "), _c('div', {
+  }, [_vm._m(1), _vm._v(" "), _c('div', {
     staticClass: "dropdown-menu dropdown-menu-right",
     attrs: {
       "aria-labelledby": "Dropdown menu link"
@@ -59177,26 +59192,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": "Bullet"
     }
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "card-content"
-  }, [_c('em', [_vm._v("Hauteur:")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "card-content"
-  }, [_c('em', [_vm._v("Largeur:")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "card-content"
-  }, [_c('em', [_vm._v("Surface:")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "card-content"
-  }, [_c('em', [_vm._v("Créé:")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "card-content"
-  }, [_c('em', [_vm._v("Modifié:")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "btn btn-transparent btn-sm",

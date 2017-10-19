@@ -13,39 +13,39 @@
         <div class="col-12 col-lg-2">
 
             <!--Height-->
-            <div v-if="format.height">
-                <span class="card-content"><em>Hauteur:</em></span>
-                <span class="card-content" v-text="format.height"></span>
+            <div class="card-content">
+                <span class="card-label">Hauteur:</span>
+                <span v-text="format.height"></span>
             </div>
 
             <!--Width-->
-            <div v-if="format.width">
-                <span class="card-content"><em>Largeur:</em></span>
-                <span class="card-content" v-text="format.width"></span>
+            <div class="card-content">
+                <span class="card-label">Largeur:</span>
+                <span v-text="format.width"></span>
             </div>
         </div>
 
         <div class="col-12 col-lg-3">
 
             <!--Surface-->
-            <div v-if="format.surface">
-                <span class="card-content"><em>Surface:</em></span>
-                <span class="card-content" v-if="format.surface" v-text="format.surface"></span>
+            <div class="card-content" v-if="format.surface">
+                <span class="card-label">Surface:</span>
+                <span v-text="format.surface"></span>
             </div>
         </div>
 
         <div class="col-12 col-lg-3">
 
             <!--Created at-->
-            <div>
-                <span class="card-content"><em>Créé:</em></span>
-                <span class="card-content ml-1" v-text="getDate(format.created_at)"></span>
+            <div class="card-content">
+                <span class="card-label">Créé:</span>
+                <span v-text="getDate(format.created_at)"></span>
             </div>
 
             <!--Modified at-->
-            <div>
-                <span class="card-content"><em>Modifié:</em></span>
-                <span class="card-content ml-1" v-text="getDate(format.updated_at)"></span>
+            <div class="card-content">
+                <span class="card-label">Modifié:</span>
+                <span v-text="getDate(format.updated_at)"></span>
             </div>
         </div>
 
