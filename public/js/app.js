@@ -32074,6 +32074,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     message: "Votre avatar a bien été mis à jour.",
                     level: 'success'
                 });
+                setTimeout(function () {
+                    window.location.pathname = '/profile';
+                }, 2500);
             }).catch(function () {
                 _this2.toggleLoader();
                 flash({
@@ -54192,7 +54195,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.avatar.path,
       "alt": "Avatar à modifier"
     }
-  }) : _vm._e(), _vm._v(" "), (_vm.currentAvatar) ? _c('img', {
+  }) : _vm._e(), _vm._v(" "), (_vm.currentAvatar && !_vm.avatar.path) ? _c('img', {
     staticClass: "avatar-upload",
     attrs: {
       "src": _vm.currentAvatar,

@@ -23,7 +23,7 @@
             <img :src="currentAvatar"
                  class="avatar-upload"
                  alt="Avatar actuel"
-                 v-if="currentAvatar">
+                 v-if="currentAvatar && !avatar.path">
 
             <img :src="randomAvatarPath"
                  alt="Avatar par défaut"
@@ -126,6 +126,9 @@
                             message: "Votre avatar a bien été mis à jour.",
                             level: 'success'
                         });
+                        setTimeout(function () {
+                            window.location.pathname = '/profile';
+                        }, 2500);
                     })
                     .catch(() => {
                         this.toggleLoader();
