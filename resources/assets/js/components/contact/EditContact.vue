@@ -156,21 +156,10 @@
     import mixins from '../../mixins';
 
     export default {
-        props: ['data'],
+        props: ['data-contact'],
         data() {
             return {
-                contact: {
-                    id: this.data.id,
-                    name: this.data.name,
-                    address_line1: this.data.address_line1,
-                    address_line2: this.data.address_line2,
-                    zip: this.data.zip,
-                    city: this.data.city,
-                    phone_number: this.data.phone_number,
-                    fax: this.data.fax,
-                    email: this.data.email,
-                    company_id: this.data.company_id
-                },
+                contact: this.dataContact,
                 errors: {}
             };
         },

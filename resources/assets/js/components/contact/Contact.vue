@@ -10,68 +10,72 @@
             <h5 class="mb-0" v-text="contact.name"></h5>
         </div>
 
-        <div class="col-12 col-lg-2">
+        <div class="col-12 col-lg-3">
 
             <!--Address line 1-->
-            <div v-if="contact.address_line1">
-                <span class="card-content" v-text="contact.address_line1"></span>
+            <div class="card-content">
+                <span class="card-label">Adresse:</span>
+                <span v-text="contact.address_line1"></span>
             </div>
 
             <!--Address line 2-->
-            <div v-if="contact.address_line2">
-                <span class="card-content" v-text="contact.address_line2"></span>
+            <div class="card-content">
+                <span v-text="contact.address_line2"></span>
             </div>
 
-            <!--Zip & City-->
-            <span class="card-content" v-if="contact.zip" v-text="contact.zip"></span>
-            <span class="card-content" v-if="contact.city" v-text="contact.city"></span>
+            <!--Zip-->
+            <div class="card-content">
+                <span class="card-label">NPA:</span>
+                <span v-text="contact.zip"></span>
+            </div>
+
+            <!--City-->
+            <div class="card-content">
+                <span class="card-label">Ville:</span>
+                <span v-text="contact.city"></span>
+            </div>
+
         </div>
 
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-2 pl-0">
 
             <!--Phone-->
-            <div v-if="contact.phone_number">
-                <span class="card-content"><em>Tel:</em></span>
-                <span class="card-content" v-text="contact.phone_number"></span>
+            <div class="card-content" v-if="contact.phone_number">
+                <span class="card-label">Tel:</span>
+                <span v-text="contact.phone_number"></span>
             </div>
 
             <!--Fax-->
-            <div v-if="contact.fax">
-                <span class="card-content"><em>Fax:</em></span>
-                <span class="card-content" v-text="contact.fax"></span>
+            <div class="card-content" v-if="contact.fax">
+                <span class="card-label">Fax:</span>
+                <span v-text="contact.fax"></span>
             </div>
 
             <!--Email-->
-            <div v-if="contact.email">
-                <span class="card-content"><em>Email:</em></span>
-                <span class="card-content" v-text="contact.email"></span>
+            <div class="card-content">
+                <span class="card-label">Email:</span>
+                <span v-text="contact.email"></span>
             </div>
         </div>
 
         <div class="col-12 col-lg-3">
 
             <!--Company-->
-            <div v-if="contact.company">
-                <span class="card-content"><em>Société:</em></span>
-                <span class="card-content" v-text="contact.company.name"></span>
+            <div class="card-content">
+                <span class="card-label">Société:</span>
+                <span v-text="contact.company.name"></span>
             </div>
 
             <!--Created at-->
-            <div>
-                <span class="card-content"><em>Créé:</em></span>
-                <span class="card-content ml-1" v-text="getDate(contact.created_at)"></span>
+            <div class="card-content">
+                <span class="card-label">Créé:</span>
+                <span v-text="getDate(contact.created_at)"></span>
             </div>
 
             <!--Modified at-->
-            <div>
-                <span class="card-content"><em>Modifié:</em></span>
-                <span class="card-content ml-1" v-text="getDate(contact.updated_at)"></span>
-            </div>
-
-            <!--Created by-->
-            <div v-if="contact.created_by_username">
-                <span class="card-content"><em>Par:</em></span>
-                <span class="card-content ml-1" v-text="contact.created_by_username"></span>
+            <div class="card-content">
+                <span class="card-label">Modifié:</span>
+                <span v-text="getDate(contact.updated_at)"></span>
             </div>
         </div>
 
@@ -84,7 +88,7 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="dropdownMenuLink">
 
-                    <app-edit-contact :data="contact"></app-edit-contact>
+                    <app-edit-contact :data-contact="contact"></app-edit-contact>
 
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fal fa-times"></i>
@@ -102,12 +106,10 @@
     import mixins from '../../mixins';
 
     export default {
-        props: ['data'],
+        props: ['data-contact'],
         data() {
             return {
-                contact: this.data,
-                format: 'LLL',
-                locale: 'fr'
+                contact: this.dataContact,
             }
         },
         mixins: [mixins],
@@ -120,7 +122,7 @@
                 this.$emit('contactWasDeleted', this.contact.id);
             },
             getDate(date) {
-                return moment(date).locale(this.locale).format(this.format);
+                return moment(date).locale(this.momentLocale).format(this.momentFormat);
             }
         }
     }

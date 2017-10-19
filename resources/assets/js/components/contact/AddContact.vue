@@ -182,7 +182,7 @@
 
                 axios.post('/contacts', this.contact)
                     .then(response => {
-                        this.contact.id = response.data;
+                        this.contact = response.data;
                         this.$emit('contactWasCreated', this.contact);
                     })
                     .then(() => {

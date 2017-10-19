@@ -6,6 +6,6 @@
 
     @include ('layouts.partials._nav')
 
-    <app-contacts :data="{{ $contacts }}"></app-contacts>
+    <app-contacts :data-contacts="{{ $contacts }}"></app-contacts>
 
 @endsection

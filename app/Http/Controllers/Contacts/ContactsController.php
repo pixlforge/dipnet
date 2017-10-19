@@ -78,11 +78,9 @@ class ContactsController extends Controller
             'company_id' => auth()->user()->company_id
         ]);
 
-        if (request()->expectsJson()) {
-            return $contact->id;
-        }
+        $contact = $contact->with('company')->first();
 
-        return redirect()->route('contacts.index');
+        return response($contact, 200);
     }
 
     /**

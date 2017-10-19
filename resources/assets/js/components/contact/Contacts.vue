@@ -7,7 +7,7 @@
                         <h1 class="mt-5">Contacts</h1>
                         <span class="mt-5">
                             {{ contacts.length }}
-                            {{ contacts.length == 0 || contacts.length == 1 ? 'résultat' : 'résultats' }}
+                            {{ contacts.length == 0 || contacts.length == 1 ? 'contact' : 'contacts' }}
                         </span>
                         <app-add-contact @contactWasCreated="addContact"></app-add-contact>
                     </div>
@@ -19,7 +19,7 @@
                 <transition-group name="highlight">
                     <app-contact class="card card-custom center-on-small-only"
                                  v-for="(contact, index) in contacts"
-                                 :data="contact"
+                                 :data-contact="contact"
                                  :key="contact.id"
                                  @contactWasDeleted="removeContact(index)"></app-contact>
                 </transition-group>
@@ -39,10 +39,10 @@
     import mixins from '../../mixins';
 
     export default {
-        props: ['data'],
+        props: ['data-contacts'],
         data() {
             return {
-                contacts: this.data
+                contacts: this.dataContacts
             }
         },
         mixins: [mixins],
@@ -78,11 +78,17 @@
                         contact.company_id = data.company_id;
                     }
                 }
-                flash('Les modifications apportées au contact ont été enregistrées.')
+                flash({
+                    message: 'Les modifications apportées au contact ont été enregistrées.',
+                    level: 'success'
+                });
             },
             removeContact(index) {
                 this.contacts.splice(index, 1);
-                flash('Suppression du contact réussie.');
+                flash({
+                    message: 'Suppression du contact réussie.',
+                    level: 'success'
+                });
             }
         }
     }
