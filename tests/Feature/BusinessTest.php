@@ -2,6 +2,10 @@
 
 namespace Tests\Feature;
 
+use App\Business;
+use App\Company;
+use App\Contact;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -9,63 +13,77 @@ class BusinessTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Create a Business for all tests to use.
-     *
-     * @return mixed
-     */
-    public function setUp()
+    /** @test */
+    function an_admin_can_view_all_businesses()
     {
-        parent::setUp();
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        return $this->business = factory('App\Business')->create();
+        $this->get(route('businesses.index'))
+            ->assertStatus(200)
+            ->assertSee('John Doe');
     }
 
     /** @test */
-    function business_index_view_is_available()
+    function an_admin_can_create_new_businesses()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $response = $this->get('/businesses');
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create();
 
-        $response->assertViewIs('businesses.index');
+        $this->postJson(route('businesses.store'), [
+            'name' => 'Braderie',
+            'reference' => '85erfgbn',
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'company_id' => $company->id,
+            'contact_id' => $contact->id
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('businesses', [
+            'name' => 'Braderie',
+            'reference' => '85erfgbn',
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'company_id' => $company->id,
+            'contact_id' => $contact->id
+        ]);
     }
 
     /** @test */
-    function authorized_users_can_create_businesses()
+    function an_admin_can_update_a_business()
     {
-        $user = factory('App\User')->create(['role' => 'administrateur']);
-        $this->signIn($user);
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $business = factory('App\Business')->make();
+        $business = factory(Business::class)->create();
 
-        $this->post('/businesses', $business->toArray())
-            ->assertRedirect('/businesses');
+        $this->putJson(route('businesses.update', $business), [
+            'name' => 'Braderie',
+            'reference' => '85erfgbn',
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'company_id' => $business->company_id,
+            'contact_id' => $business->contact_id
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('businesses', [
+            'name' => 'Braderie',
+            'reference' => '85erfgbn',
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'company_id' => $business->company_id,
+            'contact_id' => $business->contact_id
+        ]);
     }
 
     /** @test */
-    function authorized_users_can_update_businesses()
+    function an_admin_can_delete_a_business()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $business = factory('App\Business')->create();
+        $business = factory(Business::class)->create();
 
-        $business->description = 'Thank you Mario.';
-
-        $this->put("/businesses/{$business->id}", $business->toArray())
-            ->assertRedirect('/businesses');
-    }
-
-    /** @test */
-    function authorized_users_can_delete_businesses()
-    {
-        $this->signIn(null, 'administrateur');
-
-        $business = factory('App\Business')->create();
-
-        $this->assertDatabaseHas('businesses', ['id' => $business->id]);
-
-        $this->delete("/businesses/{$business->id}")
-            ->assertRedirect('/businesses');
+        $this->deleteJson(route('businesses.destroy', $business))->assertStatus(204);
+        $this->assertNotNull($business->fresh()->deleted_at);
     }
 }

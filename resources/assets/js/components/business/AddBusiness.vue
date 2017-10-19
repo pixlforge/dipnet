@@ -2,7 +2,8 @@
     <div>
 
         <!--Button-->
-        <a @click="toggleModal" class="btn btn-lg btn-black mt-5" role="button">
+        <a @click="toggleModal" class="btn btn-lg btn-black light mt-5" role="button">
+            <i class="fal fa-plus-circle mr-2"></i>
             Nouvelle affaire
         </a>
 
@@ -39,18 +40,18 @@
                                            required autofocus>
                                     <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
                                 </div>
-                                
-                                <!--Status-->
+
+                                <!--Reference-->
                                 <div class="form-group my-5">
-                                    <label for="status">Statut</label>
-                                    <select name="status"
-                                            id="status"
-                                            class="form-control custom-select"
-                                            v-model.trim="business.status">
-                                        <option disabled>Sélectionnez un statut</option>
-                                        <option value="temporaire">Temporaire</option>
-                                        <option value="permanent">Permanent</option>
-                                    </select>
+                                    <label for="reference">Référence</label>
+                                    <span class="required">*</span>
+                                    <input type="text"
+                                           id="reference"
+                                           name="reference"
+                                           class="form-control"
+                                           v-model.trim="business.reference"
+                                           required>
+                                    <div class="help-block" v-if="errors.reference" v-text="errors.reference[0]"></div>
                                 </div>
 
                                 <!--Description-->
@@ -64,18 +65,21 @@
                                     <div class="help-block" v-if="errors.description" v-text="errors.description[0]"></div>
                                 </div>
 
+                                <!--Company-->
                                 <div class="form-group my-5">
                                     <label for="company_id">Société</label>
                                     <select name="company_id"
                                             id="company_id"
                                             class="form-control custom-select"
-                                            v-model.trim="business.company_id">
+                                            v-model.number.trim="business.company_id">
                                         <option disabled>Sélectionnez une société</option>
-                                        <option v-for="company in companies">{{ company.name }}</option>
+                                        <option v-for="company in companies"
+                                                :value="company.id">{{ company.name }}</option>
                                     </select>
                                     <div class="help-block" v-if="errors.company_id" v-text="errors.company_id[0]"></div>
                                 </div>
 
+                                <!--Contact-->
                                 <div class="form-group my-5">
                                     <label for="contact_id">Contact</label>
                                     <select name="contact_id"
@@ -83,7 +87,8 @@
                                             class="form-control custom-select"
                                             v-model.number.trim="business.contact_id">
                                         <option disabled>Sélectionnez un contact</option>
-                                        <option v-for="contact in contacts">{{ contact.name }}</option>
+                                        <option v-for="(contact, index) in contacts"
+                                                :value="contact.contact[index].id">{{ contact.contact[index].name }}</option>
                                     </select>
                                     <div class="help-block" v-if="errors.contact_id" v-text="errors.contact_id[0]"></div>
                                 </div>
@@ -93,12 +98,14 @@
                                     <div class="col-12 col-lg-5 px-0 pr-lg-2">
                                         <button class="btn btn-block btn-lg btn-white"
                                                 @click.prevent.stop="toggleModal">
+                                            <i class="fal fa-times mr-2"></i>
                                             Annuler
                                         </button>
                                     </div>
                                     <div class="col-12 col-lg-7 px-0 pl-lg-2">
                                         <button class="btn btn-block btn-lg btn-black"
                                                 @click.prevent="addBusiness">
+                                            <i class="fal fa-check mr-2"></i>
                                             Ajouter
                                         </button>
                                     </div>
@@ -120,48 +127,56 @@
     import mixins from '../../mixins';
 
     export default {
-        props: ['companies'],
+        props: ['data-companies'],
         data() {
             return {
                 business: {
                     name: '',
-                    status: '',
+                    reference: '',
                     description: '',
-                    company_id: 0,
+                    company_id: '',
                     contact_id: ''
                 },
+                companies: this.dataCompanies,
                 errors: {}
             }
         },
+        mixins: [mixins],
         components: {
             'app-moon-loader': MoonLoader
         },
-        mixins: [mixins],
-        mounted() {
-            console.log(this.companies[this.business.company_id].contact);
-        },
         computed: {
             contacts() {
-                return this.companies[this.business.company_id].contact;
+                if (this.business.company_id !== '') {
+                    return this.companies.filter((company) => {
+                        return company.id === this.business.company_id;
+                    });
+                }
             }
         },
         methods: {
-            addFormat() {
+            addBusiness() {
                 this.toggleLoader();
 
                 axios.post('/businesses', this.business)
                     .then(response => {
-                        this.business.id = response.data;
+                        this.business = response.data;
                         this.$emit('businessWasCreated', this.business);
+                        this.business = {
+                            name: '',
+                            reference: '',
+                            description: '',
+                            company_id: '',
+                            contact_id: ''
+                        };
                     })
                     .then(() => {
                         this.toggleLoader();
                         this.toggleModal();
-                        this.business = {};
                     })
                     .catch(error => {
                         this.toggleLoader();
-                        this.errors = error.response.data;
+                        this.errors = error.response.data.errors;
                     });
             }
         }

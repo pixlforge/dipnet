@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Businesses;
 use App\Company;
 use App\Business;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\BusinessRequest;
+use App\Http\Requests\StoreBusinessRequest;
 
 class BusinessesController extends Controller
 {
@@ -14,12 +14,7 @@ class BusinessesController extends Controller
      */
     public function __construct()
     {
-        $this->middleware([
-            'auth',
-            'user.account.contact',
-            'user.account.company'
-        ]);
-        $this->middleware('user.email.confirmed')->except('index');
+        $this->middleware(['auth']);
     }
 
     /**
@@ -31,57 +26,44 @@ class BusinessesController extends Controller
     {
         $this->authorize('view', Business::class);
 
-        if (auth()->user()->role === 'administrateur') {
-            $businesses = Business::with('company', 'contact')
-                ->orderBy('name')
-                ->get()
-                ->toJson();
+        $businesses = Business::with('company', 'contact')
+            ->orderBy('name')
+            ->get()
+            ->toJson();
 
-            $companies = Company::with('contact')
-                ->orderBy('name')
-                ->get()
-                ->toJson();
-        } else {
-            $businesses = Business::with('company', 'contact')
-                ->orderBy('name')
-                ->get()
-                ->toJson();
-        }
+        $companies = Company::with('contact')
+            ->orderBy('name')
+            ->get()
+            ->toJson();
 
-        return view('businesses.index', compact([
-            'businesses', 'companies'
-        ]));
+        return view('businesses.index', [
+            'businesses' => $businesses,
+            'companies' => $companies
+        ]);
     }
 
     /**
      * Persist a new Business model.
      *
-     * @param BusinessRequest $request
+     * @param StoreBusinessRequest $request
      * @return \Illuminate\Http\RedirectResponse|string
      */
-    public function store(BusinessRequest $request)
+    public function store(StoreBusinessRequest $request)
     {
         $this->authorize('create', Business::class);
 
-        if (auth()->user()->role == 'administrateur') {
-            $business = Business::create([
-                'name' => $request->name,
-                'reference' => $request->reference,
-                'description' => $request->description,
-                'company_id' => $request->company_id,
-                'contact_id' => $request->contact_id,
-                'created_by_username' => auth()->user()->username
-            ]);
-        } else {
-            // TODO business for non admins
-            $business = 'TODO';
-        }
+        $business = Business::create([
+            'name' => $request->name,
+            'reference' => $request->reference,
+            'description' => $request->description,
+            'company_id' => $request->company_id,
+            'contact_id' => $request->contact_id,
+            'created_by_username' => auth()->user()->username
+        ]);
 
-        if (request()->wantsJson()) {
-            return $business->id;
-        }
+        $business = $business->with('company', 'contact')->first();
 
-        return redirect()->route('businesses.index');
+        return response($business, 200);
     }
 
     /**
@@ -100,11 +82,11 @@ class BusinessesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param BusinessRequest $request
+     * @param StoreBusinessRequest $request
      * @param Business $business
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(BusinessRequest $request, Business $business)
+    public function update(StoreBusinessRequest $request, Business $business)
     {
         $this->authorize('update', $business);
 
@@ -116,7 +98,7 @@ class BusinessesController extends Controller
             'contact_id' => $request->contact_id
         ]);
 
-        return redirect()->route('businesses.index');
+        return response($business, 200);
     }
 
     /**
@@ -131,6 +113,6 @@ class BusinessesController extends Controller
 
         $business->delete();
 
-        return redirect()->route('businesses.index');
+        return response(null, 204);
     }
 }

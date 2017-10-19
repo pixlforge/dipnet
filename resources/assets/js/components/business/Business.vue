@@ -10,42 +10,54 @@
             <h5 class="mb-0" v-text="business.name"></h5>
         </div>
 
-        <div class="col-12 col-lg-2">
+        <div class="col-12 col-lg-3 px-0">
 
-            <!--Height-->
-            <!--<div v-if="format.height">-->
-                <!--<span class="card-content"><em>Hauteur:</em></span>-->
-                <!--<span class="card-content" v-text="format.height"></span>-->
-            <!--</div>-->
+            <!--Reference-->
+            <div class="card-content">
+                <span class="card-label">Référence:</span>
+                <span v-text="business.reference"></span>
+            </div>
 
-            <!--Width-->
-            <!--<div v-if="format.width">-->
-                <!--<span class="card-content"><em>Largeur:</em></span>-->
-                <!--<span class="card-content" v-text="format.width"></span>-->
-            <!--</div>-->
+            <!--Description-->
+            <div class="card-content">
+                <span class="card-label">Description:</span>
+                <span v-text="business.description"></span>
+            </div>
         </div>
 
-        <div class="col-12 col-lg-3">
+        <div class="col-12 col-lg-2">
 
-            <!--Surface-->
-            <!--<div v-if="format.surface">-->
-                <!--<span class="card-content"><em>Surface:</em></span>-->
-                <!--<span class="card-content" v-if="format.surface" v-text="format.surface"></span>-->
-            <!--</div>-->
+            <!--Company-->
+            <div class="card-content">
+                <span class="card-label">Société:</span>
+                <span v-text="business.company.name"></span>
+            </div>
+
+            <!--Contact-->
+            <div class="card-content">
+                <span class="card-label">Contact:</span>
+                <span v-text="business.contact.name"></span>
+            </div>
+
+            <!--Created by username-->
+            <div class="card-content">
+                <span class="card-label">Créé par:</span>
+                <span v-text="business.created_by_username"></span>
+            </div>
         </div>
 
         <div class="col-12 col-lg-3">
 
             <!--Created at-->
-            <div>
-                <span class="card-content"><em>Créé:</em></span>
-                <span class="card-content ml-1" v-text="getDate(business.created_at)"></span>
+            <div class="card-content">
+                <span class="card-label">Créé:</span>
+                <span v-text="getDate(business.created_at)"></span>
             </div>
 
             <!--Modified at-->
-            <div>
-                <span class="card-content"><em>Modifié:</em></span>
-                <span class="card-content ml-1" v-text="getDate(business.updated_at)"></span>
+            <div class="card-content">
+                <span class="card-label">Modifié:</span>
+                <span v-text="getDate(business.updated_at)"></span>
             </div>
         </div>
 
@@ -62,8 +74,8 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="Dropdown menu link">
 
-                    <app-edit-business :business="business"
-                                       :companies="companies"></app-edit-business>
+                    <app-edit-business :data-business="business"
+                                       :data-companies="companies"></app-edit-business>
 
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fal fa-times"></i>
@@ -77,18 +89,21 @@
 
 <script>
     import EditBusiness from './EditBusiness.vue';
+    import mixins from '../../mixins';
     import moment from 'moment';
 
     export default {
-        props: ['business', 'companies'],
+        props: [
+            'data-business',
+            'data-companies'
+        ],
         data() {
             return {
-                business: this.business,
-                companies: this.companies,
-                momentFormat: 'LLL',
-                momentLocale: 'fr'
+                business: this.dataBusiness,
+                companies: this.dataCompanies
             };
         },
+        mixins: [mixins],
         components: {
             'app-edit-business': EditBusiness
         },

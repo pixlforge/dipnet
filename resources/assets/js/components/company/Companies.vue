@@ -18,10 +18,10 @@
             <div class="col-10 mx-auto my-7">
                 <transition-group name="highlight">
                     <app-company class="card card-custom center-on-small-only"
-                              v-for="(company, index) in companies"
-                              :data-company="company"
-                              :key="company.id"
-                              @companyWasDeleted="removeCompany(index)"></app-company>
+                                 v-for="(company, index) in companies"
+                                 :data-company="company"
+                                 :key="company.id"
+                                 @companyWasDeleted="removeCompany(index)"></app-company>
                 </transition-group>
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"

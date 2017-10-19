@@ -4,8 +4,8 @@ namespace App\Policies;
 
 use App\Business;
 use App\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BusinessPolicy
 {
@@ -18,7 +18,7 @@ class BusinessPolicy
      */
     public function view()
     {
-        return Auth::check();
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -28,7 +28,7 @@ class BusinessPolicy
      */
     public function create()
     {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -40,7 +40,7 @@ class BusinessPolicy
      */
     public function update(User $user, Business $business)
     {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -52,16 +52,6 @@ class BusinessPolicy
      */
     public function delete(User $user, Business $business)
     {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can restore the business.
-     *
-     * @return bool
-     */
-    public function restore()
-    {
-        return auth()->user()->role == 'administrateur';
+        return auth()->user()->isAdmin();
     }
 }

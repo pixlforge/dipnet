@@ -7,10 +7,10 @@
                         <h1 class="mt-5">Affaires</h1>
                         <span class="mt-5">
                             {{ businesses.length }}
-                            {{ businesses.length == 0 || businesses.length == 1 ? 'résultat' : 'résultats' }}
+                            {{ businesses.length == 0 || businesses.length == 1 ? 'affaire' : 'affaires' }}
                         </span>
                         <app-add-business @businessWasCreated="addBusiness"
-                                          :companies="companies"></app-add-business>
+                                          :data-companies="companies"></app-add-business>
                     </div>
                 </div>
             </div>
@@ -20,10 +20,10 @@
                 <transition-group name="highlight">
                     <app-business class="card card-custom center-on-small-only"
                                   v-for="(business, index) in businesses"
-                                  :business="business"
-                                  :key="business"
-                                  @businessWasDeleted="removeBusiness(index)">
-                    </app-business>
+                                  :data-business="business"
+                                  :data-companies="companies"
+                                  :key="business.id"
+                                  @businessWasDeleted="removeBusiness(index)"></app-business>
                 </transition-group>
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
@@ -41,19 +41,22 @@
     import mixins from '../../mixins';
 
     export default {
-        props: ['businesses-data', 'companies-data'],
+        props: [
+            'data-businesses',
+            'data-companies'
+        ],
         data() {
             return {
-                businesses: this.businessesData,
-                companies: this.companiesData
+                businesses: this.dataBusinesses,
+                companies: this.dataCompanies
             };
         },
+        mixins: [mixins],
         components: {
             'app-business': Business,
             'app-add-business': AddBusiness,
             'app-moon-loader': MoonLoader
         },
-        mixins: [mixins],
         created() {
             eventBus.$on('businessWasUpdated', (data) => {
                 this.updateBusiness(data);
@@ -62,7 +65,10 @@
         methods: {
             addBusiness(business) {
                 this.businesses.unshift(business);
-                flash('La création du format a réussi.');
+                flash({
+                    message: 'La création de l\'affaire a réussi.',
+                    level: 'success'
+                });
             },
             updateBusiness(data) {
                 for (let business of this.businesses) {
@@ -74,11 +80,17 @@
                         business.contact_id = data.contact_id;
                     }
                 }
-                flash('Les modifications apportées au format ont été enregistrées.')
+                flash({
+                    message: 'Les modifications apportées à l\'affaire ont été enregistrées.',
+                    level: 'success'
+                });
             },
             removeBusiness(index) {
                 this.businesses.splice(index, 1);
-                flash('Suppression du format réussie.');
+                flash({
+                    message: 'Suppression de l\'affaire réussie.',
+                    level: 'success'
+                });
             }
         }
     }

@@ -6,7 +6,7 @@
 
     @include ('layouts.partials._nav')
 
-    <app-businesses :businesses-data="{{ $businesses }}"
-                    :companies-data="{{ $companies }}"></app-businesses>
+    <app-businesses :data-businesses="{{ $businesses }}"
+                    :data-companies="{{ $companies }}"></app-businesses>
 
 @endsection
