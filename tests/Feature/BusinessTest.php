@@ -14,17 +14,6 @@ class BusinessTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function an_admin_can_view_all_businesses()
-    {
-        $admin = factory(User::class)->states('admin')->create();
-        $this->signIn($admin);
-
-        $this->get(route('businesses.index'))
-            ->assertStatus(200)
-            ->assertSee('John Doe');
-    }
-
-    /** @test */
     function an_admin_can_create_new_businesses()
     {
         $admin = factory(User::class)->states('admin')->create();
