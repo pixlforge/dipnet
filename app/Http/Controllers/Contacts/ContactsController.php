@@ -78,7 +78,7 @@ class ContactsController extends Controller
             'company_id' => auth()->user()->company_id
         ]);
 
-        $contact = $contact->with('company')->first();
+        $contact = $contact->with('company')->find($contact->id);
 
         return response($contact, 200);
     }

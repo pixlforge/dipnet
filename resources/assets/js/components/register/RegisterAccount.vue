@@ -22,7 +22,7 @@
 
                         <!--Username-->
                         <div class="form-group my-5">
-                            <label for="username">Nom d'utilisateur</label>
+                            <label for="username">Nom d'utilisateur / Pseudo</label>
                             <span class="required">*</span>
                             <input type="text"
                                    id="username"

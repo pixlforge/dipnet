@@ -61,7 +61,7 @@ class BusinessesController extends Controller
             'created_by_username' => auth()->user()->username
         ]);
 
-        $business = $business->with('company', 'contact')->first();
+        $business = $business->with('company', 'contact')->find($business->id);
 
         return response($business, 200);
     }

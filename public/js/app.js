@@ -55051,7 +55051,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("Titre")]), _vm._v(" "), _c('span', {
     staticClass: "required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
@@ -58884,7 +58884,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "username"
     }
-  }, [_vm._v("Nom d'utilisateur")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("Nom d'utilisateur / Pseudo")]), _vm._v(" "), _c('span', {
     staticClass: "required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{

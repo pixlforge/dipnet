@@ -45,7 +45,7 @@
 
                     <!--Name-->
                     <div class="form-group my-5">
-                        <label for="name">Nom</label>
+                        <label for="name">Titre</label>
                         <span class="required">*</span>
                         <input type="text"
                                id="name"
