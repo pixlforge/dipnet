@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Businesses;
+namespace App\Http\Controllers\Business;
 
 use App\Company;
 use App\Business;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreBusinessRequest;
+use App\Http\Requests\Business\StoreBusinessRequest;
+use App\Http\Requests\Business\UpdateBusinessRequest;
 
-class BusinessesController extends Controller
+class BusinessController extends Controller
 {
     /**
-     * BusinessesController constructor.
+     * BusinessController constructor.
      */
     public function __construct()
     {
@@ -18,7 +19,7 @@ class BusinessesController extends Controller
     }
 
     /**
-     * Display a listing of the Businesses.
+     * Display a listing of all Businesses.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -43,15 +44,13 @@ class BusinessesController extends Controller
     }
 
     /**
-     * Persist a new Business model.
+     * Store a Business.
      *
      * @param StoreBusinessRequest $request
-     * @return \Illuminate\Http\RedirectResponse|string
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function store(StoreBusinessRequest $request)
     {
-        $this->authorize('create', Business::class);
-
         $business = Business::create([
             'name' => $request->name,
             'reference' => $request->reference,
@@ -80,16 +79,14 @@ class BusinessesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the Business.
      *
-     * @param StoreBusinessRequest $request
+     * @param UpdateBusinessRequest $request
      * @param Business $business
-     * @return \Illuminate\Http\RedirectResponse
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function update(StoreBusinessRequest $request, Business $business)
+    public function update(UpdateBusinessRequest $request, Business $business)
     {
-        $this->authorize('update', $business);
-
         $business->update([
             'name' => $request->name,
             'reference' => $request->reference,

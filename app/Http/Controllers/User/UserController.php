@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Users;
+namespace App\Http\Controllers\User;
 
-use App\Company;
 use App\User;
-use App\Http\Requests\UserRequest;
+use App\Company;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
     /**
-     * UsersController constructor.
+     * UserController constructor.
      */
     public function __construct()
     {
@@ -42,16 +42,8 @@ class UsersController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param UserRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(UserRequest $request)
+    public function store(StoreUserRequest $request)
     {
-        $this->authorize('create', User::class);
-
         $user = User::create([
             'username' => $request->username,
             'password' => bcrypt($request->password),
@@ -61,11 +53,7 @@ class UsersController extends Controller
             'company_id' => $request->company_id
         ]);
 
-        if (request()->expectsJson()) {
-            return $user->id;
-        }
-
-        return redirect()->route('users.index');
+        return response($user, 200);
     }
 
     /**
@@ -81,17 +69,8 @@ class UsersController extends Controller
         return view('users.show', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param UpdateUserRequest $request
-     * @param User $user
-     * @return \Illuminate\Http\Response
-     */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $this->authorize('update', $user);
-
         $user->update([
             'username' => $request->username,
             'role' => $request->role,
@@ -104,10 +83,10 @@ class UsersController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the User.
      *
      * @param User $user
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function destroy(User $user)
     {

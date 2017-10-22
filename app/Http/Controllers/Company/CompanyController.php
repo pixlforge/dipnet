@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Http\Controllers\Companies;
+namespace App\Http\Controllers\Company;
 
 use App\Company;
 use App\Invitation;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CompanyRequest;
+use App\Http\Requests\Company\StoreCompanyRequest;
+use App\Http\Requests\Company\UpdateCompanyRequest;
 
-class CompaniesController extends Controller
+class CompanyController extends Controller
 {
     /**
-     * CompaniesController constructor.
+     * CompanyController constructor.
      */
     public function __construct()
     {
@@ -36,15 +37,13 @@ class CompaniesController extends Controller
     }
 
     /**
-     * Persist a new Company model.
+     * Store a new Company.
      *
-     * @param CompanyRequest $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCompanyRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function store(CompanyRequest $request)
+    public function store(StoreCompanyRequest $request)
     {
-        $this->authorize('create', Company::class);
-
         $company = Company::create([
             'name' => $request->name,
             'status' => $request->status,
@@ -72,16 +71,14 @@ class CompaniesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the Company.
      *
-     * @param CompanyRequest $request
+     * @param UpdateCompanyRequest $request
      * @param Company $company
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function update(CompanyRequest $request, Company $company)
+    public function update(UpdateCompanyRequest $request, Company $company)
     {
-        $this->authorize('update', $company);
-
         $company->update([
             'name' => $request->name,
             'status' => $request->status,
@@ -92,10 +89,10 @@ class CompaniesController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the Company.
      *
      * @param Company $company
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function destroy(Company $company)
     {

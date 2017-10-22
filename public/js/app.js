@@ -31297,7 +31297,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.toggleLoader();
 
             axios.post('/formats', this.format).then(function (response) {
-                _this.format.id = response.data;
+                _this.format = response.data;
                 _this.$emit('formatWasCreated', _this.format);
             }).then(function () {
                 _this.toggleLoader();
@@ -53890,7 +53890,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "mt-5"
   }, [_vm._v("Formats")]), _vm._v(" "), _c('span', {
     staticClass: "mt-5"
-  }, [_vm._v("\n                        " + _vm._s(_vm.formats.length) + "\n                        " + _vm._s(_vm.formats.length == 0 || _vm.formats.length == 1 ? 'résultat' : 'résultats') + "\n                    ")]), _vm._v(" "), _c('app-add-format', {
+  }, [_vm._v("\n                        " + _vm._s(_vm.formats.length) + "\n                        " + _vm._s(_vm.formats.length == 0 || _vm.formats.length == 1 ? 'format' : 'formats') + "\n                    ")]), _vm._v(" "), _c('app-add-format', {
     on: {
       "formatWasCreated": _vm.addFormat
     }

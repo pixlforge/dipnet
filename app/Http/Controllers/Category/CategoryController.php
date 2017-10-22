@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Categories;
+namespace App\Http\Controllers\Category;
 
 use App\Category;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CategoryRequest;
+use App\Http\Requests\Category\StoreCategoryRequest;
+use App\Http\Requests\Category\UpdateCategoryRequest;
 
-class CategoriesController extends Controller
+class CategoryController extends Controller
 {
     /**
-     * CategoriesController constructor.
+     * CategoryController constructor.
      */
     public function __construct()
     {
@@ -34,25 +35,18 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Persist a new Category model.
+     * Store a new Category.
      *
-     * @param CategoryRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreCategoryRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function store(CategoryRequest $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $this->authorize('create', Category::class);
-
         $category = Category::create([
             'name' => $request->name,
         ]);
 
-        // Process the Axios http request and return the model's id.
-        if (request()->wantsJson()) {
-            return $category->id;
-        }
-
-        return redirect()->route('categories.index');
+        return response($category, 200);
     }
 
     /**
@@ -69,32 +63,26 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a Category.
      *
-     * @param CategoryRequest $request
+     * @param UpdateCategoryRequest $request
      * @param Category $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $this->authorize('update', $category);
-
         $category->update([
             'name' => $request->name
         ]);
 
-        if (request()->wantsJson()) {
-            return response([], 204);
-        }
-
-        return redirect()->route('categories.index');
+        return response($category, 200);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Delete the Category.
      *
      * @param Category $category
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function destroy(Category $category)
     {
@@ -102,10 +90,6 @@ class CategoriesController extends Controller
 
         $category->delete();
 
-        if (request()->wantsJson()) {
-            return response([], 204);
-        }
-
-        return redirect()->route('categories.index');
+        return response(null, 204);
     }
 }

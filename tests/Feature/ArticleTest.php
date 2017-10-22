@@ -2,11 +2,11 @@
 
 namespace Tests\Feature;
 
+use App\User;
 use App\Article;
 use App\Category;
-use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArticleTest extends TestCase
 {

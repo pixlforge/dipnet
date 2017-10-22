@@ -1,20 +1,21 @@
 <?php
 
-namespace App\Http\Controllers\Articles;
+namespace App\Http\Controllers\Article;
 
 use App\Article;
 use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\StoreArticleRequest;
+use App\Http\Requests\Article\UpdateArticleRequest;
 
-class ArticlesController extends Controller
+class ArticleController extends Controller
 {
     /**
-     * ArticlesController constructor.
+     * ArticleController constructor.
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth']);
     }
 
     /**
@@ -50,8 +51,6 @@ class ArticlesController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        $this->authorize('create', Article::class);
-
         $article = Article::create([
             'reference' => $request->reference,
             'description' => $request->description,
@@ -70,7 +69,7 @@ class ArticlesController extends Controller
      */
     public function show(Article $article)
     {
-        $this->authorize('view', $article);
+        $this->authorize('view', Article::class);
 
         return view('articles.show', compact('article'));
     }
@@ -78,14 +77,12 @@ class ArticlesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param StoreArticleRequest $request
+     * @param UpdateArticleRequest $request
      * @param Article $article
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreArticleRequest $request, Article $article)
+    public function update(UpdateArticleRequest $request, Article $article)
     {
-        $this->authorize('update', $article);
-
         $article->update([
             'reference' => $request->reference,
             'description' => $request->description,

@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Formats;
+namespace App\Http\Controllers\Format;
 
 use App\Format;
-use App\Http\Requests\FormatRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Format\StoreFormatRequest;
+use App\Http\Requests\Format\UpdateFormatRequest;
 
-class FormatsController extends Controller
+class FormatController extends Controller
 {
     /**
-     * FormatsController constructor.
+     * FormatController constructor.
      */
     public function __construct()
     {
@@ -38,15 +39,13 @@ class FormatsController extends Controller
     }
 
     /**
-     * Save a new Format model.
+     * Store a new Format.
      *
-     * @param FormatRequest $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreFormatRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function store(FormatRequest $request)
+    public function store(StoreFormatRequest $request)
     {
-        $this->authorize('create', Format::class);
-
         $format = Format::create([
             'name' => $request->name,
             'height' => $request->height,
@@ -54,43 +53,33 @@ class FormatsController extends Controller
             'surface' => $request->surface,
         ]);
 
-        if (request()->expectsJson()) {
-            return $format->id;
-        }
-
-        return redirect()->route('formats.index');
+        return response($format, 200);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update a Format.
      *
-     * @param FormatRequest $request
+     * @param UpdateFormatRequest $request
      * @param Format $format
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function update(FormatRequest $request, Format $format)
+    public function update(UpdateFormatRequest $request, Format $format)
     {
-        $this->authorize('update', $format);
-
-        $format = $format->update([
+        $format->update([
             'name' => $request->name,
             'height' => $request->height,
             'width' => $request->width,
             'surface' => $request->surface
         ]);
 
-        if (request()->expectsJson()) {
-            return response([], 204);
-        }
-
-        return redirect()->route('formats.index');
+        return response($format, 200);
     }
 
     /**
-     * Delete the Format model.
+     * Delete the Format.
      *
      * @param Format $format
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function destroy(Format $format)
     {
@@ -98,10 +87,6 @@ class FormatsController extends Controller
 
         $format->delete();
 
-        if (request()->wantsJson()) {
-            return response([], 204);
-        }
-
-        return redirect()->route('formats.index');
+        return response(null, 204);
     }
 }

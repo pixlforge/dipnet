@@ -11,13 +11,13 @@ Route::prefix('/account')->namespace('Account')->group(function () {
 });
 
 /**
- * Articles
+ * Article
  */
-Route::prefix('/articles')->namespace('Articles')->group(function () {
-    Route::get('/', 'ArticlesController@index')->name('articles.index');
-    Route::post('/', 'ArticlesController@store')->name('articles.store');
-    Route::put('/{article}', 'ArticlesController@update')->name('articles.update');
-    Route::delete('/{article}', 'ArticlesController@destroy')->name('articles.destroy');
+Route::prefix('/articles')->namespace('Article')->group(function () {
+    Route::get('/', 'ArticleController@index')->name('articles.index');
+    Route::post('/', 'ArticleController@store')->name('articles.store');
+    Route::put('/{article}', 'ArticleController@update')->name('articles.update');
+    Route::delete('/{article}', 'ArticleController@destroy')->name('articles.destroy');
 });
 
 /**
@@ -26,44 +26,44 @@ Route::prefix('/articles')->namespace('Articles')->group(function () {
 Auth::routes();
 
 /**
- * Businesses
+ * Business
  */
-Route::prefix('/businesses')->namespace('Businesses')->group(function () {
-    Route::get('/', 'BusinessesController@index')->name('businesses.index');
-    Route::post('/', 'BusinessesController@store')->name('businesses.store');
-    Route::put('/{business}', 'BusinessesController@update')->name('businesses.update');
-    Route::delete('/{business}', 'BusinessesController@destroy')->name('businesses.destroy');
+Route::prefix('/businesses')->namespace('Business')->group(function () {
+    Route::get('/', 'BusinessController@index')->name('businesses.index');
+    Route::post('/', 'BusinessController@store')->name('businesses.store');
+    Route::put('/{business}', 'BusinessController@update')->name('businesses.update');
+    Route::delete('/{business}', 'BusinessController@destroy')->name('businesses.destroy');
 });
 
 /**
- * Categories
+ * Category
  */
-Route::prefix('/categories')->namespace('Categories')->group(function () {
-    Route::get('/', 'CategoriesController@index')->name('categories.index');
-    Route::post('/', 'CategoriesController@store')->name('categories.store');
-    Route::put('/{category}', 'CategoriesController@update')->name('categories.update');
-    Route::delete('/{category}', 'CategoriesController@destroy')->name('categories.destroy');
+Route::prefix('/categories')->namespace('Category')->group(function () {
+    Route::get('/', 'CategoryController@index')->name('categories.index');
+    Route::post('/', 'CategoryController@store')->name('categories.store');
+    Route::put('/{category}', 'CategoryController@update')->name('categories.update');
+    Route::delete('/{category}', 'CategoryController@destroy')->name('categories.destroy');
 });
 
 /**
- * Companies
+ * Company
  */
-Route::prefix('/companies')->namespace('Companies')->group(function () {
-    Route::get('/', 'CompaniesController@index')->name('companies.index');
-    Route::post('/', 'CompaniesController@store')->name('companies.store');
-    Route::get('/{company}', 'CompaniesController@show')->name('companies.show');
-    Route::put('/{company}', 'CompaniesController@update')->name('companies.update');
-    Route::delete('/{company}', 'CompaniesController@destroy')->name('companies.destroy');
+Route::prefix('/companies')->namespace('Company')->group(function () {
+    Route::get('/', 'CompanyController@index')->name('companies.index');
+    Route::post('/', 'CompanyController@store')->name('companies.store');
+    Route::get('/{company}', 'CompanyController@show')->name('companies.show');
+    Route::put('/{company}', 'CompanyController@update')->name('companies.update');
+    Route::delete('/{company}', 'CompanyController@destroy')->name('companies.destroy');
 });
 
 /**
- * Contacts
+ * Contact
  */
-Route::prefix('/contacts')->namespace('Contacts')->group(function () {
-    Route::get('/', 'ContactsController@index')->name('contacts.index');
-    Route::post('/', 'ContactsController@store')->name('contacts.store');
-    Route::put('/{contact}', 'ContactsController@update')->name('contacts.update');
-    Route::delete('/{contact}', 'ContactsController@destroy')->name('contacts.destroy');
+Route::prefix('/contacts')->namespace('Contact')->group(function () {
+    Route::get('/', 'ContactController@index')->name('contacts.index');
+    Route::post('/', 'ContactController@store')->name('contacts.store');
+    Route::put('/{contact}', 'ContactController@update')->name('contacts.update');
+    Route::delete('/{contact}', 'ContactController@destroy')->name('contacts.destroy');
 });
 
 /**
@@ -88,11 +88,11 @@ Route::prefix('/documents')->namespace('Documents')->group(function () {
 /**
  * Formats
  */
-Route::prefix('/formats')->namespace('Formats')->group(function () {
-    Route::get('/', 'FormatsController@index')->name('formats.index');
-    Route::post('/', 'FormatsController@store')->name('formats.store');
-    Route::put('/{format}', 'FormatsController@update')->name('formats.update');
-    Route::delete('/{format}', 'FormatsController@destroy')->name('formats.destroy');
+Route::prefix('/formats')->namespace('Format')->group(function () {
+    Route::get('/', 'FormatController@index')->name('formats.index');
+    Route::post('/', 'FormatController@store')->name('formats.store');
+    Route::put('/{format}', 'FormatController@update')->name('formats.update');
+    Route::delete('/{format}', 'FormatController@destroy')->name('formats.destroy');
 });
 
 /**
@@ -173,11 +173,11 @@ Route::prefix('/search')->namespace('Search')->group(function () {
 /**
  * User
  */
-Route::prefix('/users')->namespace('Users')->group(function () {
-    Route::get('/', 'UsersController@index')->name('users.index');
-    Route::post('/', 'UsersController@store')->name('users.store');
-    Route::put('/{user}', 'UsersController@update')->name('users.update');
-    Route::delete('/{user}', 'UsersController@destroy')->name('users.destroy');
+Route::prefix('/users')->namespace('User')->group(function () {
+    Route::get('/', 'UserController@index')->name('users.index');
+    Route::post('/', 'UserController@store')->name('users.store');
+    Route::put('/{user}', 'UserController@update')->name('users.update');
+    Route::delete('/{user}', 'UserController@destroy')->name('users.destroy');
 });
 
 /**

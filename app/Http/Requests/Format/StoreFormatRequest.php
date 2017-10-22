@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\Format;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class StoreFormatRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class CategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return auth()->user()->isAdmin();
     }
 
     /**
@@ -24,7 +24,9 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:categories,id,:id|min:2|max:45'
+            'name' => 'required|unique:formats,id,:id|min:2|max:45',
+            'height' => 'required',
+            'width' => 'required',
         ];
     }
 
@@ -37,9 +39,11 @@ class CategoryRequest extends FormRequest
     {
         return [
             'name.required' => 'Veuillez entrer un nom, entre 2 et 45 caractères.',
-            'name.unique' => 'Une catégorie portant ce nom existe déjà.',
+            'name.unique' => 'Un format portant ce nom existe déjà.',
             'name.min' => 'Minimum 2 caractères.',
-            'name.max' => 'Maximum 45 caractères.'
+            'name.max' => 'Maximum 45 caractères.',
+            'height.required' => 'Veuillez entrer une hauteur.',
+            'width.required' => 'Veuillez entrer une largeur.'
         ];
     }
 }

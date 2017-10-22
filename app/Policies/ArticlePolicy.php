@@ -11,7 +11,7 @@ class ArticlePolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the articles.
+     * Determine whether the user can view articles.
      *
      * @return mixed
      */
@@ -21,35 +21,11 @@ class ArticlePolicy
     }
 
     /**
-     * Determine whether the user can create articles.
+     * Check wether the user has permission to delete articles.
      *
      * @return mixed
      */
-    public function create()
-    {
-        return auth()->user()->isAdmin();
-    }
-
-    /**
-     * Determine whether the user can update the articles.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Article  $article
-     * @return mixed
-     */
-    public function update(User $user, Article $article)
-    {
-        return auth()->user()->isAdmin();
-    }
-
-    /**
-     * Determine whether the user can delete the articles.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Article  $article
-     * @return mixed
-     */
-    public function delete(User $user, Article $article)
+    public function delete()
     {
         return auth()->user()->isAdmin();
     }

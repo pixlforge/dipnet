@@ -130,7 +130,7 @@
 
                 axios.post('/formats', this.format)
                     .then(response => {
-                        this.format.id = response.data;
+                        this.format = response.data;
                         this.$emit('formatWasCreated', this.format);
                     })
                     .then(() => {

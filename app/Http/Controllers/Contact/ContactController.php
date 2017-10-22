@@ -1,18 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Contacts;
+namespace App\Http\Controllers\Contact;
 
 use App\Contact;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ContactRequest;
+use App\Http\Requests\Contact\UpdateContactRequest;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Http\Requests\Contact\StoreContactRequest;
 
-class ContactsController extends Controller
+class ContactController extends Controller
 {
     use SoftDeletes;
 
     /**
-     * ContactsController constructor.
+     * ContactController constructor.
      */
     public function __construct()
     {
@@ -31,8 +32,6 @@ class ContactsController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', Contact::class);
-
         if (auth()->user()->isAdmin()) {
             $contacts = Contact::latest()
                 ->with('company')
@@ -58,13 +57,11 @@ class ContactsController extends Controller
     /**
      * Save a new Contact model.
      *
-     * @param ContactRequest $request
+     * @param StoreContactRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(ContactRequest $request)
+    public function store(StoreContactRequest $request)
     {
-        $this->authorize('create', Contact::class);
-
         $contact = Contact::create([
             'name' => $request->name,
             'address_line1' => $request->address_line1,
@@ -97,16 +94,14 @@ class ContactsController extends Controller
     }
 
     /**
-     * Update the specified Contact.
+     * Update the Contact.
      *
-     * @param ContactRequest $request
+     * @param UpdateContactRequest $request
      * @param Contact $contact
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function update(ContactRequest $request, Contact $contact)
+    public function update(UpdateContactRequest $request, Contact $contact)
     {
-        $this->authorize('update', $contact);
-
         $contact->update([
             'name' => $request->name,
             'address_line1' => $request->address_line1,
@@ -119,11 +114,7 @@ class ContactsController extends Controller
             'company_id' => $request->company_id
         ]);
 
-        if (request()->expectsJson()) {
-            return response([], 204);
-        }
-
-        return redirect()->route('contacts.index');
+        return response($contact, 200);
     }
 
     /**
@@ -138,10 +129,6 @@ class ContactsController extends Controller
 
         $contact->delete();
 
-        if (request()->wantsJson()) {
-            return response([], 204);
-        }
-
-        return redirect()->route('contacts.index');
+        return response(null, 204);
     }
 }

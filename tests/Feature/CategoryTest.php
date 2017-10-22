@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Category;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -9,61 +11,66 @@ class CategoryTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Create a Category for all tests to use.
-     *
-     * @return mixed
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        return $this->category = factory('App\Category')->create();
-    }
-
     /** @test */
     function category_index_view_is_available()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $this->get('/categories')
+        $this->get(route('categories.index'))
             ->assertStatus(200);
     }
 
     /** @test */
     function authorized_users_can_create_categories()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $category = factory('App\Category')->make();
+        $category = factory(Category::class)->make();
 
-        $this->post('/categories', $category->toArray())
-            ->assertRedirect('/categories');
+        $this->postJson(route('categories.store'), $category->toArray())
+            ->assertStatus(200);
+
+        $this->assertDatabaseHas('categories', [
+            'name' => $category->name
+        ]);
     }
 
     /** @test */
     function authorized_users_can_update_categories()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $category = factory('App\Category')->create();
+        $category = factory(Category::class)->create();
 
-        $categoryUpdated = [
-            'name' => 'SuperCool'
-        ];
+        $category = Category::whereName($category->name)->first();
 
-        $this->put("/categories/{$category->id}", $categoryUpdated)
-            ->assertRedirect('/categories');
+        $this->putJson(route('categories.update', $category), [
+            'name' => 'Super cool name'
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('categories', [
+            'name' => 'Super cool name'
+        ]);
     }
 
     /** @test */
     function authorized_users_can_delete_a_category()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $category = factory('App\Category')->create();
+        $category = factory(Category::class)->create();
 
-        $this->delete("/categories/{$category->id}")
-            ->assertRedirect(route('categories.index'));
+        $category = Category::whereName($category->name)->first();
+
+        $this->assertNull($category->deleted_at);
+
+        $this->deleteJson(route('categories.destroy', $category))
+            ->assertStatus(204);
+
+        $this->assertNotNull($category->fresh()->deleted_at);
     }
 }

@@ -12,7 +12,7 @@ class BusinessPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the business.
+     * User has permission to view every Business.
      *
      * @return mixed
      */
@@ -22,35 +22,11 @@ class BusinessPolicy
     }
 
     /**
-     * Determine whether the user can create businesses.
+     * User has permission to delete the Business.
      *
      * @return mixed
      */
-    public function create()
-    {
-        return auth()->user()->isAdmin();
-    }
-
-    /**
-     * Determine whether the user can update the business.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Business  $business
-     * @return mixed
-     */
-    public function update(User $user, Business $business)
-    {
-        return auth()->user()->isAdmin();
-    }
-
-    /**
-     * Determine whether the user can delete the business.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Business  $business
-     * @return mixed
-     */
-    public function delete(User $user, Business $business)
+    public function delete()
     {
         return auth()->user()->isAdmin();
     }

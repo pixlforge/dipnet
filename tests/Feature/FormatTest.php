@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Format;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -9,60 +11,101 @@ class FormatTest extends TestCase
 {
     use RefreshDatabase;
 
-    /**
-     * Create a Format for all tests to use.
-     *
-     * @return mixed
-     */
-    public function setUp()
-    {
-        parent::setUp();
-
-        return $this->format = factory('App\Format')->create();
-    }
-
     /** @test */
     function format_index_view_is_available()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $response = $this->get('/formats');
-
-        $response->assertViewIs('formats.index');
+        $this->get(route('formats.index'))
+            ->assertStatus(200);
     }
 
     /** @test */
-    function authorized_users_can_create_formats()
+    function an_admin_can_create_formats()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $format = factory('App\Format')->make();
+        $this->postJson(route('formats.store'), [
+            'name' => 'A4',
+            'height' => 297,
+            'width' => 210,
+            'surface' => 62500
+        ])->assertStatus(200);
 
-        $this->post('/formats', $format->toArray())
-            ->assertRedirect('/formats');
+        $this->assertDatabaseHas('formats', [
+            'name' => 'A4',
+            'height' => 297,
+            'width' => 210,
+            'surface' => 62500
+        ]);
     }
 
     /** @test */
-    function authorized_users_can_update_formats()
+    function an_admin_can_update_formats()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $format = factory('App\Format')->create();
+        $this->postJson(route('formats.store'), [
+            'name' => 'A4',
+            'height' => 297,
+            'width' => 210,
+            'surface' => 62500
+        ])->assertStatus(200);
 
-        $format->name = 'Super Format';
+        $this->assertDatabaseHas('formats', [
+            'name' => 'A4',
+            'height' => 297,
+            'width' => 210,
+            'surface' => 62500
+        ]);
 
-        $this->put("/formats/{$format->id}", $format->toArray())
-            ->assertRedirect('/formats');
+        $format = Format::whereName('A4')->first();
+
+        $this->putJson(route('formats.update', $format), [
+            'name' => 'A5',
+            'height' => 210,
+            'width' => 148,
+            'surface' => 31250
+        ])->assertStatus(200);
+
+        $this->assertDatabaseHas('formats', [
+            'name' => 'A5',
+            'height' => 210,
+            'width' => 148,
+            'surface' => 31250
+        ]);
     }
 
     /** @test */
-    function authorized_users_can_delete_formats()
+    function an_admin_can_delete_formats()
     {
-        $this->signIn(null, 'administrateur');
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
 
-        $format = factory('App\Format')->create();
+        $this->postJson(route('formats.store'), [
+            'name' => 'A4',
+            'height' => 297,
+            'width' => 210,
+            'surface' => 62500
+        ])->assertStatus(200);
 
-        $this->delete("/formats/{$format->id}")
-            ->assertRedirect('formats');
+        $this->assertDatabaseHas('formats', [
+            'name' => 'A4',
+            'height' => 297,
+            'width' => 210,
+            'surface' => 62500
+        ]);
+
+        $format = Format::whereName('A4')->first();
+
+        $this->assertNull($format->deleted_at);
+
+        $this->deleteJson(route('formats.destroy', $format))
+            ->assertStatus(204);
+
+        $this->assertNotNull($format->fresh()->deleted_at);
     }
 }

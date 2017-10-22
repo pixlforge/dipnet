@@ -7,7 +7,7 @@
                         <h1 class="mt-5">Formats</h1>
                         <span class="mt-5">
                             {{ formats.length }}
-                            {{ formats.length == 0 || formats.length == 1 ? 'résultat' : 'résultats' }}
+                            {{ formats.length == 0 || formats.length == 1 ? 'format' : 'formats' }}
                         </span>
                         <app-add-format @formatWasCreated="addFormat"></app-add-format>
                     </div>
