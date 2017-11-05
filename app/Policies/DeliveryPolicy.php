@@ -2,8 +2,6 @@
 
 namespace App\Policies;
 
-use App\User;
-use App\Delivery;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DeliveryPolicy
@@ -11,56 +9,22 @@ class DeliveryPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the delivery.
-     *
-     * @return mixed
-     */
-    public function view()
-    {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can create deliveries.
-     *
-     * @return mixed
-     */
-    public function create()
-    {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can update the delivery.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Delivery  $delivery
-     * @return mixed
-     */
-    public function update(User $user, Delivery $delivery)
-    {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can delete the delivery.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Delivery  $delivery
-     * @return mixed
-     */
-    public function delete(User $user, Delivery $delivery)
-    {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can restore the delivery.
+     * User has permission to view the Delivery.
      *
      * @return bool
      */
-    public function restore()
+    public function view()
     {
-        return auth()->user()->role == 'administrateur';
+        return true;
+    }
+
+    /**
+     * User has permission to delete the Delivery.
+     *
+     * @return bool
+     */
+    public function delete()
+    {
+        return true;
     }
 }

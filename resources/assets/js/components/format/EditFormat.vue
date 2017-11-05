@@ -96,7 +96,8 @@
                 </div>
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
@@ -104,7 +105,7 @@
 
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
+    import { eventBus } from '../../app';
     import mixins from '../../mixins';
 
     export default {

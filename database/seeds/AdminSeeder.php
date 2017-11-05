@@ -1,5 +1,7 @@
 <?php
 
+use App\Company;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder
@@ -11,28 +13,36 @@ class AdminSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\User')->create([
-            'username' => 'Pixlforge',
+        factory(User::class)->create([
+            'username' => 'Célien',
             'password' => bcrypt('secret'),
             'role' => 'administrateur',
             'email' => 'celien@pixlforge.ch',
-            'email_confirmed' => 1
+            'email_confirmed' => 1,
+            'company_id' => function () {
+                return factory(Company::class)->create([
+                    'name' => 'Pixlforge',
+                    'status' => 'permanent',
+                    'description' => 'Agence de développement web',
+                    'created_by_username' => 'Célien'
+                ])->id;
+            }
         ]);
 
-        factory('App\User')->create([
-            'username' => 'Célien',
-            'password' => bcrypt('secret'),
-            'role' => 'utilisateur',
-            'email' => 'c-boillat@hotmail.com',
-            'email_confirmed' => 1
-        ]);
-
-        factory('App\User')->create([
+        factory(User::class)->create([
             'username' => 'Radu',
             'password' => bcrypt('secret'),
             'role' => 'administrateur',
             'email' => 'radu@bebold.ch',
-            'email_confirmed' => 1
+            'email_confirmed' => 1,
+            'company_id' => function () {
+                return factory(Company::class)->create([
+                    'name' => 'Bebold',
+                    'status' => 'permanent',
+                    'description' => 'Agence de développement Web',
+                    'created_by_username' => 'Radu'
+                ])->id;
+            }
         ]);
     }
 }

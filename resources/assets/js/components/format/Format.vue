@@ -83,11 +83,10 @@
         props: ['data'],
         data() {
             return {
-                format: this.data,
-                momentFormat: 'LLL',
-                momentLocale: 'fr'
+                format: this.data
             };
         },
+        mixins: [mixins],
         components: {
             'app-edit-format': EditFormat
         },

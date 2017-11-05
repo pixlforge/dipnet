@@ -36,11 +36,21 @@ h5 {
   @media (min-width: $grid-lg) { font-size: 1rem; }
 }
 
-h6 {
-  font-size: 1rem;
-  @media (min-width: $grid-lg) { font-size: 1rem; }
+.h4-responsive {
+  font-size: 1.25rem;
+  @media (min-width: $grid-lg) { font-size: 1.25rem; }
 }
 
+.h6-responsive {
+  font-size: 1rem;
+  @media (min-width: $grid-lg) { font-size: .75rem; }
+}
+
+.select-label {
+  font-weight: 300;
+  color: $scorpion;
+  margin-left: 10px;
+}
 
 .text-small {
   font-size: 12px;
@@ -103,4 +113,8 @@ input {
   font-size: 12px;
   margin-right: 5px;
   text-transform: uppercase;
+}
+
+.file-type-icon {
+  color: $lighter-grey;
 }

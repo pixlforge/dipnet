@@ -12,9 +12,7 @@ class Order extends Model
     /**
      * Carbon dates.
      */
-    protected $dates = [
-        'deleted_at'
-    ];
+    protected $dates = ['deleted_at'];
 
     /**
      * Disable mass assignment protection for the following attributes.
@@ -26,6 +24,16 @@ class Order extends Model
         'contact_id',
         'user_id'
     ];
+
+    /**
+     * Route key name.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'reference';
+    }
 
     /**
      * Business relationship.
@@ -48,11 +56,11 @@ class Order extends Model
     }
 
     /**
-     * Delivery relationship.
+     * Deliveries relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function delivery()
+    public function deliveries()
     {
         return $this->hasMany(Delivery::class);
     }
@@ -65,5 +73,15 @@ class Order extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Documents relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     */
+    public function documents()
+    {
+        return $this->hasManyThrough(Document::class, Delivery::class);
     }
 }

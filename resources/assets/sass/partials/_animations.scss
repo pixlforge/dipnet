@@ -13,6 +13,10 @@
   opacity: 0;
 }
 
+/**
+ * Highlight
+ */
+
 .highlight-enter {
   //background: rgba(255, 245, 157, 1);
 }
@@ -39,5 +43,38 @@
 }
 
 .highlight-move {
+  transition: transform .5s;
+}
+
+/**
+ * Order
+ */
+
+.order-enter {
+  opacity: 0;
+}
+
+.order-enter-to {
+  opacity: 1;
+}
+
+.order-enter-active {
+  transition: opacity .5s;
+}
+
+.order-leave {
+  opacity: 1;
+}
+
+.order-leave-to {
+  opacity: 0;
+}
+
+.order-leave-active {
+  position: absolute;
+  transition: opacity .5s;
+}
+
+.order-move {
   transition: transform .5s;
 }

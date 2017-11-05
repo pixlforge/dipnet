@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers\Documents;
 
+use App\Order;
+use App\Delivery;
 use App\Document;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DocumentRequest;
+use Illuminate\Support\Facades\Storage;
 
 class DocumentsController extends Controller
 {
@@ -39,25 +43,55 @@ class DocumentsController extends Controller
      * @param DocumentRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(DocumentRequest $request)
+    public function store(Order $order, Delivery $delivery, Request $request)
     {
-        $this->authorize('create', Document::class);
+        $this->authorize('touch', $order);
 
-        Document::create([
-            'file_name' => $request->file_name,
-            'file_path' => $request->file_path,
-            'mime_type' => $request->mime_type,
-            'quantity' => $request->quantity,
-            'rolled_folded_flat' => $request->rolled_folded_flat,
-            'length' => $request->length,
-            'width' => $request->width,
-            'nb_orig' => $request->nb_orig,
-            'free' => $request->free,
-            'format_id' => $request->format_id,
-            'delivery_id' => $request->delivery_id,
-            'article_id' => $request->article_id
+        $uploadedFile = $request->file('file');
+
+        $document = $this->storeDocument($order, $delivery, $uploadedFile);
+
+        Storage::disk('local')->putFileAs(
+            'orders/' . $order->reference . '/' . $delivery->reference,
+            $uploadedFile,
+            $document->filename
+        );
+
+        return response($document, 200);
+    }
+
+    /**
+     * Store a new Document model.
+     *
+     * @param Order $order
+     * @param Delivery $delivery
+     * @param UploadedFile $uploadedFile
+     * @return Document
+     */
+    protected function storeDocument(Order $order, Delivery $delivery, UploadedFile $uploadedFile)
+    {
+        $document = new Document;
+
+        $document->fill([
+            'filename' => $uploadedFile->getClientOriginalName(),
+            'mime_type' => $uploadedFile->getClientMimeType(),
+            'size' => $uploadedFile->getSize(),
+            'finish' => 'roulé',
+            'delivery_id' => $delivery->id,
         ]);
 
-        return redirect()->route('documents.index');
+        $document->delivery()->associate($delivery);
+        $document->save();
+
+        return $document;
+    }
+
+    public function destroy(Order $order, Delivery $delivery, Document $document)
+    {
+        $this->authorize('touch', $order);
+
+        $document->delete();
+
+        return response(null, 204);
     }
 }

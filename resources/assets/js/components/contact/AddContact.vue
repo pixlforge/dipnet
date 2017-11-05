@@ -48,7 +48,8 @@
                                            class="form-control"
                                            v-model.trim="contact.address_line1"
                                            required>
-                                    <div class="help-block" v-if="errors.address_line1" v-text="errors.address_line1[0]"></div>
+                                    <div class="help-block" v-if="errors.address_line1"
+                                         v-text="errors.address_line1[0]"></div>
                                 </div>
 
                                 <!--Address line 2-->
@@ -59,7 +60,8 @@
                                            name="address_line2"
                                            class="form-control"
                                            v-model.trim="contact.address_line2">
-                                    <div class="help-block" v-if="errors.address_line2" v-text="errors.address_line2[0]"></div>
+                                    <div class="help-block" v-if="errors.address_line2"
+                                         v-text="errors.address_line2[0]"></div>
                                 </div>
 
                                 <!--Zip-->
@@ -96,7 +98,8 @@
                                            name="phone_number"
                                            class="form-control"
                                            v-model.trim="contact.phone_number">
-                                    <div class="help-block" v-if="errors.phone_number" v-text="errors.phone_number[0]"></div>
+                                    <div class="help-block" v-if="errors.phone_number"
+                                         v-text="errors.phone_number[0]"></div>
                                 </div>
 
                                 <!--Fax-->
@@ -155,6 +158,7 @@
 <script>
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
     import mixins from '../../mixins';
+    import { eventBus } from '../../app';
 
     export default {
         data() {
@@ -172,10 +176,15 @@
                 errors: {}
             }
         },
+        mixins: [mixins],
         components: {
             'app-moon-loader': MoonLoader
         },
-        mixins: [mixins],
+        created() {
+            eventBus.$on('dropdownAddContact', () => {
+                this.toggleModal();
+            });
+        },
         methods: {
             addContact() {
                 this.toggleLoader();

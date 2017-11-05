@@ -30,6 +30,16 @@
   background: $white;
 }
 
+.badge-order {
+  width: 40px;
+  height: 40px;
+  padding-top: 13px;
+  margin-right: 3rem;
+  border-radius: 50%;
+  background: $bg-red;
+  font-size: 14px;
+}
+
 .bg-shapes-red {
   background: url('../img/register/art-red-pattern-login-1@3x.png') no-repeat bottom center,
   $bg-red;
@@ -46,6 +56,7 @@
 
 .badge-custom {
   font-size: .75rem;
+  font-weight: 300;
   padding: .5rem 1rem;
   text-transform: capitalize;
 }
@@ -110,4 +121,9 @@ a.btn-transparent .fa.fa-ellipsis-v {
 
 .mt-md-checklist {
   @media (min-width: $grid-md) { margin-top: 15%; }
+}
+
+.v-hidden {
+  position: absolute;
+  top: -10000px;
 }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Article;
 use Illuminate\Database\Seeder;
 
 class ArticlesTableSeeder extends Seeder
@@ -11,6 +12,19 @@ class ArticlesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Article::class, 10)->create();
+        factory(Article::class)->create([
+            'description' => 'NB - A4 - Papier',
+            'type' => 'impression'
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Vernis UV',
+            'type' => 'option'
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Reliure Wiro',
+            'type' => 'option'
+        ]);
     }
 }

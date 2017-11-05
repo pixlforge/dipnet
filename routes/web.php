@@ -69,11 +69,17 @@ Route::prefix('/contacts')->namespace('Contact')->group(function () {
 /**
  * Deliveries
  */
-Route::prefix('/deliveries')->namespace('Deliveries')->group(function () {
-    Route::get('/', 'DeliveriesController@index')->name('deliveries.index');
-    Route::post('/', 'DeliveriesController@store')->name('deliveries.store');
-    Route::put('/{delivery}', 'DeliveriesController@update')->name('deliveries.update');
-    Route::delete('/{delivery}', 'DeliveriesController@destroy')->name('deliveries.destroy');
+Route::prefix('/deliveries')->namespace('Delivery')->group(function () {
+    Route::get('/', 'DeliveryController@index')->name('deliveries.index');
+    Route::post('/', 'DeliveryController@store')->name('deliveries.store');
+    Route::put('/{delivery}', 'DeliveryController@update')->name('deliveries.update');
+    Route::delete('/{delivery}', 'DeliveryController@destroy')->name('deliveries.destroy');
+
+    /**
+     * Note
+     */
+    Route::put('/{delivery}/note', 'DeliveryNoteController@update')->name('deliveries.note.update');
+    Route::delete('/{delivery}/note', 'DeliveryNoteController@destroy')->name('deliveries.note.destroy');
 });
 
 /**
@@ -81,9 +87,14 @@ Route::prefix('/deliveries')->namespace('Deliveries')->group(function () {
  */
 Route::prefix('/documents')->namespace('Documents')->group(function () {
     Route::get('/', 'DocumentsController@index')->name('documents.index');
-    Route::post('/', 'DocumentsController@store')->name('documents.store');
     Route::put('/{document}', 'DocumentsController@update')->name('documents.update');
 });
+
+Route::prefix('/orders')->namespace('Documents')->group(function () {
+    Route::post('/{order}/{delivery}', 'DocumentsController@store')->name('documents.store');
+    Route::delete('/{order}/{delivery}/{document}', 'DocumentsController@destroy')->name('documents.destroy');
+});
+
 
 /**
  * Formats
@@ -125,11 +136,12 @@ Route::get('/mailable/invitation', function () {
 /**
  * Orders
  */
-Route::prefix('/orders')->namespace('Orders')->group(function () {
-    Route::get('/', 'OrdersController@index')->name('orders.index');
-    Route::post('/', 'OrdersController@store')->name('orders.store');
-    Route::put('/{order}', 'OrdersController@update')->name('orders.update');
-    Route::delete('/{order}', 'OrdersController@destroy')->name('orders.destroy');
+Route::prefix('/orders')->namespace('Order')->group(function () {
+    Route::get('/', 'OrderController@index')->name('orders.index');
+    Route::get('/create', 'OrderController@create')->name('orders.create.start');
+    Route::get('/{order}/create', 'OrderController@create')->name('orders.create.end');
+    Route::put('/{order}', 'OrderController@update')->name('orders.update');
+    Route::delete('/{order}', 'OrderController@destroy')->name('orders.destroy');
 });
 
 /**
@@ -160,7 +172,7 @@ Route::prefix('/register')->namespace('Auth')->group(function () {
 /**
  * Root
  */
-Route::get('/', 'Orders\OrdersController@index')->name('index');
+Route::get('/', 'Order\OrderController@index')->name('index');
 
 /**
  * Search

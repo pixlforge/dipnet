@@ -21,11 +21,13 @@
                                  v-for="(contact, index) in contacts"
                                  :data-contact="contact"
                                  :key="contact.id"
-                                 @contactWasDeleted="removeContact(index)"></app-contact>
+                                 @contactWasDeleted="removeContact(index)">
+                    </app-contact>
                 </transition-group>
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </div>
     </div>
@@ -35,7 +37,7 @@
     import Contact from './Contact.vue';
     import AddContact from './AddContact.vue';
     import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
+    import { eventBus } from '../../app';
     import mixins from '../../mixins';
 
     export default {

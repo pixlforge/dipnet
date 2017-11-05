@@ -2,27 +2,33 @@
     <div class="container-fluid">
         <transition name="fade" mode="out-in">
             <app-register-menu v-if="showRegistrationMenu"
-                               @registrationSelection="selection"></app-register-menu>
+                               @registrationSelection="selection">
+            </app-register-menu>
 
             <app-register-join-infos v-if="showJoinInfos"
-                                     @backToMenu="backToMenu"></app-register-join-infos>
+                                     @backToMenu="backToMenu">
+            </app-register-join-infos>
 
             <app-register-account v-if="showAccountForm"
                                   @accountCreated="accountCreated"
-                                  :data-invitation="invitation.data"></app-register-account>
+                                  :data-invitation="invitation.data">
+            </app-register-account>
 
             <app-register-contact v-if="showContactForm"
                                   :data-registration-type="registrationType"
                                   :data-invitation="invitation"
-                                  @contactCreated="contactCreated"></app-register-contact>
+                                  @contactCreated="contactCreated">
+            </app-register-contact>
 
             <app-register-company v-if="showCompanyForm"
-                                  @companyCreated="companyCreated"></app-register-company>
+                                  @companyCreated="companyCreated">
+            </app-register-company>
         </transition>
 
         <app-moon-loader :loading="loader.loading"
                          :color="loader.color"
-                         :size="loader.size"></app-moon-loader>
+                         :size="loader.size">
+        </app-moon-loader>
     </div>
 </template>
 

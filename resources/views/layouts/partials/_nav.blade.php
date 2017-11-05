@@ -44,20 +44,20 @@
                             </li>
 
                             {{--Businesses--}}
-                            <li class="nav-item mx-2{{ Route::is('businesses') ? ' active' : '' }}">
+                            <li class="nav-item mx-2{{ Route::is('businesses.index') ? ' active' : '' }}">
                                 <a href="{{ route('businesses.index') }}" class="nav-link">
                                     Affaires
-                                    @if (Route::is('businesses'))
+                                    @if (Route::is('businesses.index'))
                                         <span class="sr-only">(current)</span>
                                     @endif
                                 </a>
                             </li>
 
                             {{--Contacts--}}
-                            <li class="nav-item{{ Route::is('contacts') ? ' active' : '' }}">
+                            <li class="nav-item{{ Route::is('contacts.index') ? ' active' : '' }}">
                                 <a href="{{ route('contacts.index') }}" class="nav-link">
                                     Contacts
-                                    @if (Route::is('contacts'))
+                                    @if (Route::is('contacts.index'))
                                         <span class="sr-only">(current)</span>
                                     @endif
                                 </a>

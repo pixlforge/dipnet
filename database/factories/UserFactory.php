@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Faker\Generator as Faker;
 
 $factory->define(App\User::class, function (Faker $faker) {
@@ -16,7 +17,7 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email_confirmed' => true,
         'contact_confirmed' => true,
         'company_confirmed' => true,
-        'confirmation_token' => \App\User::generateConfirmationToken($faker->safeEmail),
+        'confirmation_token' => User::generateConfirmationToken($faker->safeEmail),
         'remember_token' => str_random(10),
     ];
 });

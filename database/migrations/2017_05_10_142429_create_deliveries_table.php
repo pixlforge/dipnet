@@ -16,14 +16,14 @@ class CreateDeliveriesTable extends Migration
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('reference')->unique()->index();
-            $table->unsignedInteger('order_id');
-            $table->unsignedInteger('contact_id');
-			$table->text('internal_comment')->nullable();
+            $table->text('note')->nullable();
+            $table->unsignedInteger('order_id')->nullable();
+            $table->unsignedInteger('contact_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('order_id')->references('id')->on('orders');
-            $table->foreign('contact_id')->references('id')->on('contacts');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('set null');
+            $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('set null');
         });
     }
 

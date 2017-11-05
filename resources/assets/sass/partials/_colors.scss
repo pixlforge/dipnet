@@ -4,11 +4,14 @@ $tundora: #424242;
 $scorpion: #606060;
 $light-grey: #949494;
 $lighter-grey: #ccc;
+$mercury: #e2e1e1;
 $concrete: #f2f2f2;
 $alabaster: #f9f9f9;
 $slight-grey: #efefef;
 $white: #ffffff;
 $light-accent: #ff6f6f;
+
+$pink: #ffbcbc;
 
 $atlantis: #83d64b;
 $yellowsea: #f7a702;
@@ -41,6 +44,14 @@ $error: #ff7e81;
 
 .bg-grey-light {
   background: $alabaster;
+}
+
+.bg-grey-light-hoverable {
+  transition: background .3s;
+
+  &:hover {
+    background: $slight-grey;
+  }
 }
 
 .transparent {

@@ -8,15 +8,11 @@ $factory->define(App\Document::class, function (Faker $faker) {
     } while(strlen($mimeType) > 45);
 
     return [
-        'file_name' => $fileName = $faker->isbn13 . '.' . $faker->fileExtension,
-        'file_path' => '/path/to/file/',
+        'filename' => $fileName = $faker->isbn13 . '.' . $faker->fileExtension,
         'mime_type' => $mimeType,
+        'size' => $faker->randomNumber(6, false),
         'quantity' => $faker->numberBetween($min = 1, $max = 100),
-        'rolled_folded_flat' => $faker->randomElement(['roulé', 'plié']),
-        'length' => $faker->numberBetween($min = 1, $max = 100),
-        'width' => $faker->numberBetween($min = 1, $max = 100),
-        'nb_orig' => $faker->numberBetween($min = 1, $max = 6),
-        'free' => $faker->randomElement([0, 1]),
+        'finish' => $faker->randomElement(['roulé', 'plié']),
         'format_id' => function() {
             return factory(App\Format::class)->create()->id;
         },

@@ -3,6 +3,9 @@
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 @import "node_modules/bootstrap/scss/bootstrap-grid.scss";
 
+// Dropzone
+@import "node_modules/dropzone/dist/dropzone";
+
 // Custom
 @import "partials/grid.scss";
 @import "partials/colors.scss";
@@ -20,3 +23,5 @@
 @import "partials/spinners.scss";
 @import "partials/autocomplete.scss";
 @import "partials/search.scss";
+@import "partials/dropzone.scss";
+@import "partials/dropdown.scss";

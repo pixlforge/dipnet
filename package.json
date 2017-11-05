@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
+    "dropzone": "^5.2.0",
     "moment": "^2.18.1",
     "vue-spinner": "^1.0.2"
   }

@@ -15,23 +15,20 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('file_name')->index();
-            $table->string('file_path');
+            $table->string('filename')->index();
             $table->string('mime_type');
-            $table->integer('quantity');
-            $table->enum('rolled_folded_flat', ['roulé', 'plié']);
-            $table->integer('length');
-            $table->integer('width');
-            $table->integer('nb_orig');
-            $table->tinyInteger('free');
-            $table->unsignedInteger('format_id');
+            $table->bigInteger('size');
+            $table->integer('quantity')->nullable();
+            $table->enum('finish', ['roulé', 'plié']);
+            $table->unsignedInteger('format_id')->nullable();
             $table->unsignedInteger('delivery_id')->nullable();
-            $table->unsignedInteger('article_id');
+            $table->unsignedInteger('article_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreign('format_id')->references('id')->on('formats');
-            $table->foreign('delivery_id')->references('id')->on('deliveries');
-            $table->foreign('article_id')->references('id')->on('articles');
+            $table->foreign('format_id')->references('id')->on('formats')->onDelete('set null');
+            $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('set null');
+            $table->foreign('article_id')->references('id')->on('articles')->onDelete('set null');
         });
     }
 

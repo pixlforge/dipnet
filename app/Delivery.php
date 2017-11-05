@@ -27,6 +27,16 @@ class Delivery extends Model
     ];
 
     /**
+     * Route key name.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'reference';
+    }
+
+    /**
      * Contact relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -51,7 +61,7 @@ class Delivery extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function document()
+    public function documents()
     {
         return $this->hasMany(Document::class);
     }

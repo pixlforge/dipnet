@@ -96,9 +96,68 @@ form {
 
 .custom-select {
   border-radius: 0;
+  background: $white;
+}
+
+.order-select {
+  border: none;
+}
+
+.delivery-select {
+  position: relative;
+  top: -7px;
+  border: none;
+  background: $alabaster;
+  font-size: 1.5rem;
+  font-weight: 400;
 }
 
 .fa-select {
   position: relative;
   left: 60px;
+}
+
+.icon-destroy {
+  cursor: pointer;
+
+  .fa-times {
+    color: $lighter-grey;
+  }
+
+  &:hover {
+    .fa-times {
+      color: $bg-red;
+    }
+  }
+}
+
+.select-caret {
+  position: relative;
+  top: 2px;
+  right: 20px;
+}
+
+.v-order-textarea {
+  width: 100%;
+  border: none;
+  padding: 50px;
+  margin-top: 10px;
+  resize: none;
+  box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
+}
+
+.v-order-textarea::-webkit-input-placeholder {
+  color: $lighter-grey;
+}
+
+.v-order-textarea::-moz-placeholder {
+  color: $lighter-grey;
+}
+
+.v-order-textarea:-ms-input-placeholder {
+  color: $lighter-grey;
+}
+
+.v-order-textarea:-moz-placeholder {
+  color: $lighter-grey;
 }

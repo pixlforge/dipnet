@@ -1,0 +1,79 @@
+.dropzone {
+  padding-top: 0;
+  padding-left: 0;
+  padding-bottom: 0;
+  padding-right: 0;
+  margin-top: 30px;
+  border: 1px dashed $mercury;
+  background: $alabaster;
+}
+
+.dz-default .dz-message {
+  padding-top: 107px;
+  padding-bottom: 100px;
+}
+
+.dropzone .dz-message,
+.dropzone.dz-started .dz-message {
+  display: block;
+  padding-top: 37px;
+  padding-bottom: 30px;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.dropzone .dz-preview {
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 11px;
+  margin-left: 0;
+  margin-right: 0;
+  box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
+
+  .dz-image {
+    width: 100%;
+    border-radius: 0;
+  }
+
+  &.dz-file-preview .dz-image {
+    height: 186px;
+    border-radius: 0;
+    background: $white;
+  }
+
+  .dz-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    bottom: 0;
+  }
+}
+
+.dz-hidden {
+  display: none !important;
+}
+
+// Progress bar
+.dz-progress {
+  position: relative !important;
+  width: 100% !important;
+  height: 3px !important;
+  left: 40px !important;
+  bottom: 0 !important;
+  margin-top: 0 !important;
+  background: $pink !important;
+  border-radius: 0 !important;
+}
+
+.dz-upload {
+  background: $bg-red !important;
+}
+
+.dz-success-mark #Oval-2 {
+  fill-opacity: 1;
+}
+
+.dropzone .dz-preview .dz-success-mark {
+  border-radius: 100%;
+  background: $atlantis;
+}

@@ -3,22 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Document extends Model
 {
+    use SoftDeletes;
+
     /**
      * Disable mass assignment protection for the following attributes.
      */
     protected $fillable = [
-        'file_name',
-        'file_path',
+        'filename',
         'mime_type',
+        'size',
         'quantity',
-        'rolled_folded_flat',
-        'length',
-        'width',
-        'nb_orig',
-        'free',
+        'finish',
         'format_id',
         'delivery_id',
         'article_id'

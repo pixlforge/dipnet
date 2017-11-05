@@ -57,7 +57,7 @@ class Contact extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function delivery()
+    public function deliveries()
     {
         return $this->hasMany(Delivery::class);
     }

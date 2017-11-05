@@ -12,56 +12,25 @@ class OrderPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the order.
+     * User has permission to touch the Order model.
      *
-     * @return mixed
-     */
-    public function view()
-    {
-        return Auth::check();
-    }
-
-    /**
-     * Determine whether the user can create orders.
-     *
-     * @return mixed
-     */
-    public function create()
-    {
-        return Auth::check();
-    }
-
-    /**
-     * Determine whether the user can update the order.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Order  $order
-     * @return mixed
-     */
-    public function update(User $user, Order $order)
-    {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can delete the order.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Order  $order
-     * @return mixed
-     */
-    public function delete(User $user, Order $order)
-    {
-        return auth()->user()->role == 'administrateur';
-    }
-
-    /**
-     * Determine whether the user can restore the order.
-     *
+     * @param User $user
+     * @param Order $order
      * @return bool
      */
-    public function restore()
+    public function touch(User $user, Order $order)
     {
-        return auth()->user()->role == 'administrateur';
+        return $user->id == $order->user_id;
+    }
+
+    /**
+     * User has permission to delete the Order.
+     *
+     * @param Order $order
+     * @return bool
+     */
+    public function delete(Order $order)
+    {
+        return auth()->id() == $order->user_id;
     }
 }

@@ -8,6 +8,7 @@
 require('./bootstrap');
 require('./fontawesome');
 require('./packs/light');
+require('./packs/solid');
 
 window.Vue = require('vue');
 
@@ -15,6 +16,7 @@ window.Vue = require('vue');
  * Vue components
  */
 Vue.component('flash', require('./components/flash/Flash.vue'));
+Vue.component('app-dropdown', require('./components/dropdown/Dropdown.vue'));
 Vue.component('app-searchbar', require('./components/search/Searchbar.vue'));
 Vue.component('app-register', require('./components/register/Register.vue'));
 Vue.component('app-account-details', require('./components/account/AccountDetails.vue'));
@@ -30,6 +32,8 @@ Vue.component('app-show-company', require('./components/company/ShowCompany.vue'
 Vue.component('app-articles', require('./components/articles/Articles.vue'));
 Vue.component('app-users', require('./components/users/Users.vue'));
 Vue.component('app-companies', require('./components/company/Companies.vue'));
+Vue.component('app-orders', require('./components/order/Orders.vue'));
+Vue.component('app-create-order', require('./components/order/CreateOrder.vue'));
 
 export const eventBus = new Vue();
 
