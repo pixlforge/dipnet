@@ -93,6 +93,10 @@
         ],
         data() {
             return {
+
+                /**
+                 * Component data.
+                 */
                 order: this.dataOrder,
                 delivery: this.dataDelivery,
                 deliveryNumber: this.dataDeliveryNumber,
@@ -102,6 +106,10 @@
                 articles: this.dataArticles,
                 selectedContact: 'Contact',
                 showNote: false,
+
+                /**
+                 * Datepicker data.
+                 */
                 startTime: {
                     time: ''
                 },
@@ -143,19 +151,33 @@
             };
         },
         created() {
+
+            /**
+             * Preselect the delivery's delivery dropdown contact.
+             */
             if (this.dataDelivery.contact) {
                 this.selectedContact = this.dataDelivery.contact.name;
             }
 
+            /**
+             * Set the datepicker placeholder as the current to_deliver_at attribute.
+             */
             if (this.delivery.to_deliver_at) {
                 this.option.placeholder = moment(this.delivery.to_deliver_at).format('LL');
             }
 
+            /**
+             * Set the visibility of the note textarea if it exists.
+             */
             if (this.dataDelivery.note) {
                 this.showNote = true;
             }
         },
         mounted() {
+
+            /**
+             * Dropzone
+             */
             Dropzone.autoDiscover = false;
 
             let drop = new Dropzone('#delivery-file-upload-' + this.delivery.id, {
@@ -170,6 +192,9 @@
                 dictFallbackMessage: "Votre navigateur est trop ancien ou incompatible. Changez-le ou mettez-le à jour.",
             });
 
+            /**
+             * Dropzone on successful file upload hook.
+             */
             drop.on('success', (file, response) => {
                 file.id = response.id;
                 this.documents.push(response);
@@ -180,6 +205,9 @@
                 });
             });
 
+            /**
+             * Dropzone on removed file hook.
+             */
             drop.on('removedfile', file => {
                 axios.delete('/orders/' + this.order.reference + '/' + this.delivery.reference + '/' + file.id)
                     .catch(error => {
@@ -198,24 +226,44 @@
             'app-datepicker': Datepicker
         },
         computed: {
+
+            /**
+             * Filter the document models for the current delivery.
+             */
             deliveryDocuments() {
                 return this.documents.filter(document => {
                     return document.delivery_id == this.delivery.id;
                 });
             },
+
+            /**
+             * Get the count of deliveries associated to the current order.
+             */
             deliveryCount() {
                 return this.dataDeliveryCount > 1 ? true : false;
             }
         },
         methods: {
+
+            /**
+             * Select and update the delivery contact.
+             */
             selectContact(contact) {
                 this.selectedContact = contact.name;
                 this.delivery.contact_id = contact.id;
                 this.update();
             },
+
+            /**
+             * Update the delivery.
+             */
             update() {
                 axios.put('/deliveries/' + this.delivery.reference, this.delivery);
             },
+
+            /**
+             * Remove a delivery from the list of deliveries for the current Order model.
+             */
             removeDelivery() {
                 axios.delete('/deliveries/' + this.delivery.reference, this.delivery)
                     .then(() => {
@@ -226,12 +274,24 @@
                         });
                     });
             },
+
+            /**
+             * Toggle the visibility of the note textarea.
+             */
             toggleNote() {
                 this.showNote = !this.showNote;
             },
+
+            /**
+             * Update the delivery note.
+             */
             updateNote() {
                 axios.put('/deliveries/' + this.delivery.reference + '/note', this.delivery);
             },
+
+            /**
+             * Remove an existing note.
+             */
             removeNote() {
                 axios.delete('/deliveries/' + this.delivery.reference + '/note', this.delivery);
                 this.delivery.note = '';
@@ -241,6 +301,10 @@
                     level: 'success'
                 });
             },
+
+            /**
+             * Update the delivery date
+             */
             updateDeliveryDate(date) {
                 this.delivery.to_deliver_at = moment(date, "LL").format("YYYY-MM-DD HH:mm:ss");
                 this.update();

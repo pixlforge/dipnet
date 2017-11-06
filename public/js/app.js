@@ -32176,6 +32176,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     props: ['data-order', 'data-delivery', 'data-delivery-number', 'data-delivery-count', 'data-contacts', 'data-documents', 'data-formats', 'data-articles'],
     data: function data() {
         return {
+
+            /**
+             * Component data.
+             */
             order: this.dataOrder,
             delivery: this.dataDelivery,
             deliveryNumber: this.dataDeliveryNumber,
@@ -32185,6 +32189,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             articles: this.dataArticles,
             selectedContact: 'Contact',
             showNote: false,
+
+            /**
+             * Datepicker data.
+             */
             startTime: {
                 time: ''
             },
@@ -32224,14 +32232,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         };
     },
     created: function created() {
+
+        /**
+         * Preselect the delivery's delivery dropdown contact.
+         */
         if (this.dataDelivery.contact) {
             this.selectedContact = this.dataDelivery.contact.name;
         }
 
+        /**
+         * Set the datepicker placeholder as the current to_deliver_at attribute.
+         */
         if (this.delivery.to_deliver_at) {
             this.option.placeholder = __WEBPACK_IMPORTED_MODULE_4_moment___default()(this.delivery.to_deliver_at).format('LL');
         }
 
+        /**
+         * Set the visibility of the note textarea if it exists.
+         */
         if (this.dataDelivery.note) {
             this.showNote = true;
         }
@@ -32239,6 +32257,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {
         var _this = this;
 
+        /**
+         * Dropzone
+         */
         __WEBPACK_IMPORTED_MODULE_2_dropzone___default.a.autoDiscover = false;
 
         var drop = new __WEBPACK_IMPORTED_MODULE_2_dropzone___default.a('#delivery-file-upload-' + this.delivery.id, {
@@ -32253,6 +32274,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             dictFallbackMessage: "Votre navigateur est trop ancien ou incompatible. Changez-le ou mettez-le à jour."
         });
 
+        /**
+         * Dropzone on successful file upload hook.
+         */
         drop.on('success', function (file, response) {
             file.id = response.id;
             _this.documents.push(response);
@@ -32263,6 +32287,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         });
 
+        /**
+         * Dropzone on removed file hook.
+         */
         drop.on('removedfile', function (file) {
             axios.delete('/orders/' + _this.order.reference + '/' + _this.delivery.reference + '/' + file.id).catch(function (error) {
                 drop.emit('addedfile', {
@@ -32281,6 +32308,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         'app-datepicker': __WEBPACK_IMPORTED_MODULE_3_vue_datepicker___default.a
     },
     computed: {
+
+        /**
+         * Filter the document models for the current delivery.
+         */
         deliveryDocuments: function deliveryDocuments() {
             var _this2 = this;
 
@@ -32288,19 +32319,38 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return document.delivery_id == _this2.delivery.id;
             });
         },
+
+
+        /**
+         * Get the count of deliveries associated to the current order.
+         */
         deliveryCount: function deliveryCount() {
             return this.dataDeliveryCount > 1 ? true : false;
         }
     },
     methods: {
+
+        /**
+         * Select and update the delivery contact.
+         */
         selectContact: function selectContact(contact) {
             this.selectedContact = contact.name;
             this.delivery.contact_id = contact.id;
             this.update();
         },
+
+
+        /**
+         * Update the delivery.
+         */
         update: function update() {
             axios.put('/deliveries/' + this.delivery.reference, this.delivery);
         },
+
+
+        /**
+         * Remove a delivery from the list of deliveries for the current Order model.
+         */
         removeDelivery: function removeDelivery() {
             var _this3 = this;
 
@@ -32312,12 +32362,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             });
         },
+
+
+        /**
+         * Toggle the visibility of the note textarea.
+         */
         toggleNote: function toggleNote() {
             this.showNote = !this.showNote;
         },
+
+
+        /**
+         * Update the delivery note.
+         */
         updateNote: function updateNote() {
             axios.put('/deliveries/' + this.delivery.reference + '/note', this.delivery);
         },
+
+
+        /**
+         * Remove an existing note.
+         */
         removeNote: function removeNote() {
             axios.delete('/deliveries/' + this.delivery.reference + '/note', this.delivery);
             this.delivery.note = '';
@@ -32327,6 +32392,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 level: 'success'
             });
         },
+
+
+        /**
+         * Update the delivery date
+         */
         updateDeliveryDate: function updateDeliveryDate(date) {
             this.delivery.to_deliver_at = __WEBPACK_IMPORTED_MODULE_4_moment___default()(date, "LL").format("YYYY-MM-DD HH:mm:ss");
             this.update();
