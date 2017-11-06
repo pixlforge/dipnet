@@ -154,10 +154,10 @@ form {
   color: $lighter-grey;
 }
 
-.v-order-textarea:-ms-input-placeholder {
+.v-order-textarea::-ms-input-placeholder {
   color: $lighter-grey;
 }
 
-.v-order-textarea:-moz-placeholder {
+.v-order-textarea::-moz-placeholder {
   color: $lighter-grey;
 }

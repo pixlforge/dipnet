@@ -13,6 +13,7 @@ class Delivery extends Model
      * Carbon dates.
      */
     protected $dates = [
+        'to_deliver_at',
         'deleted_at'
     ];
 
@@ -23,8 +24,17 @@ class Delivery extends Model
         'reference',
         'order_id',
         'contact_id',
-        'internal_comment'
+        'to_deliver_at'
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($delivery) {
+            $delivery->documents()->delete();
+        });
+    }
 
     /**
      * Route key name.

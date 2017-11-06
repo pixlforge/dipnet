@@ -34,11 +34,10 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', auth()->user()->id)
+        $orders = Order::where('user_id', auth()->id())
             ->with(['business', 'contact', 'user'])
             ->orderBy('created_at')
-            ->get()
-            ->toJson();
+            ->get();
 
         return view('orders.index', compact('orders'));
     }
@@ -72,14 +71,17 @@ class OrderController extends Controller
             // contacts created by the user
         }
 
+        $deliveries = $this->getOrderDeliveries($order);
+        $order = $order->load('business', 'contact');
+
         $formats = Format::all();
         $articles = Article::all();
 
         return view('orders.create', [
-            'order' => $order->with('business', 'contact')->first(),
+            'order' => $order,
             'businesses' => $businesses,
             'contacts' => $contacts,
-            'deliveries' => $order->deliveries()->with('contact')->where('order_id', $order->id)->get(),
+            'deliveries' => $deliveries,
             'documents' => $order->documents,
             'formats' => $formats,
             'articles' => $articles
@@ -155,5 +157,18 @@ class OrderController extends Controller
             'reference' => uniqid(true),
             'user_id' => auth()->id()
         ]);
+    }
+
+    /**
+     * Get the deliveries associated with the Order model.
+     *
+     * @param Order $order
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    protected function getOrderDeliveries(Order $order)
+    {
+        $deliveries = $order->deliveries()->with('contact')->where('order_id', $order->id)->get();
+
+        return $deliveries;
     }
 }

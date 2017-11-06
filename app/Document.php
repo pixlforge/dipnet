@@ -23,6 +23,8 @@ class Document extends Model
         'article_id'
     ];
 
+    protected $dates = ['deleted_at'];
+
     /**
      * Article relationship.
      *

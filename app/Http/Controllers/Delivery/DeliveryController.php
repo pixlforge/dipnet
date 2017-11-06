@@ -77,6 +77,7 @@ class DeliveryController extends Controller
     public function update(UpdateDeliveryRequest $request, Delivery $delivery)
     {
         $delivery->contact_id = $request->contact_id;
+        $delivery->to_deliver_at = $request->to_deliver_at;
         $delivery->save();
 
         return response($delivery, 200);
@@ -94,6 +95,6 @@ class DeliveryController extends Controller
 
         $delivery->delete();
 
-        return redirect()->route('deliveries.index');
+        return response(null, 204);
     }
 }

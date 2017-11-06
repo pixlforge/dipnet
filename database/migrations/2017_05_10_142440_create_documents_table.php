@@ -27,7 +27,7 @@ class CreateDocumentsTable extends Migration
             $table->softDeletes();
 
             $table->foreign('format_id')->references('id')->on('formats')->onDelete('set null');
-            $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('set null');
+            $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('cascade');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('set null');
         });
     }

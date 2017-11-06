@@ -54,10 +54,12 @@
                     <app-create-delivery :data-order="order"
                                          :data-delivery="delivery"
                                          :data-delivery-number="index + 1"
+                                         :data-delivery-count="deliveries.length"
                                          :data-contacts="contacts"
                                          :data-documents="documents"
                                          :data-formats="formats"
-                                         :data-articles="articles">
+                                         :data-articles="articles"
+                                         @deliveryWasRemoved="removeDelivery">
                     </app-create-delivery>
                 </div>
             </div>
@@ -163,6 +165,17 @@
                 for (let document of this.documents) {
                     if (document.id === id) {
                         this.documents.splice(index, 1);
+                    } else {
+                        index++;
+                    }
+                }
+            },
+            removeDelivery(id) {
+                let index = 0;
+
+                for (let delivery of this.deliveries) {
+                    if (delivery.id === id) {
+                        this.deliveries.splice(index, 1);
                     } else {
                         index++;
                     }
