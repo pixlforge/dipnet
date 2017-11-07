@@ -10,7 +10,10 @@
 
 <script>
     export default {
-        props: ['message', 'level'],
+        props: [
+            'message',
+            'level'
+        ],
         data() {
             return {
                 body: this.message,
@@ -20,9 +23,9 @@
         },
         created() {
             if (this.message) {
-                this.flash();
+                this.flash()
             }
-            window.events.$on('flash', data => this.flash(data));
+            window.events.$on('flash', data => this.flash(data))
         },
         computed: {
             alertClass() {
@@ -30,20 +33,26 @@
             },
         },
         methods: {
+
+            /**
+             * Flash the alert.
+             */
             flash(data) {
                 if (data) {
-                    this.body = data.message;
-                    this.alertLevel = data.level;
+                    this.body = data.message
+                    this.alertLevel = data.level
                 }
-
-                this.show = true;
-
-                this.hide();
+                this.show = true
+                this.hide()
             },
+
+            /**
+             * Hide the alert.
+             */
             hide() {
                 setTimeout(() => {
                     this.show = false;
-                }, 3500);
+                }, 3500)
             }
         }
     }

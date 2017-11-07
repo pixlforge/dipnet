@@ -5,6 +5,7 @@
         </a>
         <div class="row">
 
+            <!--Show the carousel-->
             <app-register-carousel></app-register-carousel>
 
             <div class="col-12 col-lg-6 vh-100 d-flex align-items-center">
@@ -32,8 +33,8 @@
 </template>
 
 <script>
-    import RegisterCarousel from './RegisterCarousel.vue';
-    import mixins from '../../mixins';
+    import RegisterCarousel from './RegisterCarousel.vue'
+    import mixins from '../../mixins'
 
     export default {
         components: {
@@ -41,8 +42,12 @@
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Send the user back to the menu.
+             */
             backToMenu() {
-                this.$emit('backToMenu');
+                this.$emit('backToMenu')
             }
         }
     }

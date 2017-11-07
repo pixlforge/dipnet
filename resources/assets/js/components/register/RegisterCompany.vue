@@ -9,7 +9,8 @@
                 <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
 
                 <div class="d-flex flex-column justify-content-center checklist">
                     <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
@@ -50,10 +51,9 @@
                                autofocus>
                         <div class="help-block"
                              v-if="errors.name"
-                             v-text="errors.name[0]"></div>
+                             v-text="errors.name[0]">
+                        </div>
                     </div>
-                    
-                    <div v-if="errors.name">{{ errors.name }}</div>
 
                     <button class="btn btn-lg btn-black btn-block mt-5"
                             @click="createCompany">
@@ -67,8 +67,8 @@
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         data() {
@@ -77,25 +77,29 @@
                     name: ''
                 },
                 errors: {}
-            };
+            }
         },
         components: {
             'app-moon-loader': MoonLoader
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Create a new company.
+             */
             createCompany() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.post('/register/company', this.company)
                     .then(() => {
-                        this.company = {};
-                        this.$emit('companyCreated');
+                        this.company = {}
+                        this.$emit('companyCreated')
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
+                    })
             }
         }
     }

@@ -14,7 +14,8 @@
                     <!--Loader-->
                     <app-moon-loader :loading="loader.loading"
                                      :color="loader.color"
-                                     :size="loader.size"></app-moon-loader>
+                                     :size="loader.size">
+                    </app-moon-loader>
 
                     <!--Register Account Form-->
                     <form role="form"
@@ -34,7 +35,8 @@
                                    required autofocus>
                             <div class="help-block"
                                  v-if="errors.username"
-                                 v-text="errors.username[0]"></div>
+                                 v-text="errors.username[0]">
+                            </div>
                         </div>
 
                         <!--Password-->
@@ -49,7 +51,8 @@
                                    required>
                             <div class="help-block"
                                  v-if="errors.password"
-                                 v-text="errors.password[0]"></div>
+                                 v-text="errors.password[0]">
+                            </div>
                         </div>
 
                         <!--Password confirm-->
@@ -81,9 +84,9 @@
 </template>
 
 <script>
-    import RegisterCarousel from '../register/RegisterCarousel.vue';
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import RegisterCarousel from '../register/RegisterCarousel.vue'
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         data() {
@@ -94,7 +97,7 @@
                     password_confirmation: ''
                 },
                 errors: {}
-            };
+            }
         },
         components: {
             'app-register-carousel': RegisterCarousel,
@@ -102,25 +105,29 @@
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Update the User's account information.
+             */
             updateAccount() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.put('/invite/confirm', this.account)
                     .then(() => {
-                        this.toggleLoader();
-                        this.account = {};
+                        this.toggleLoader()
+                        this.account = {}
                         flash({
                             message: 'Félicitations! Votre compte a bien été mis à jour!',
                             level: 'success'
-                        });
+                        })
                         setTimeout(() => {
-                            window.location.pathname = '/';
-                        }, 2000);
+                            window.location.pathname = '/'
+                        }, 2000)
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
+                    })
             },
         }
     }

@@ -35,7 +35,10 @@
                                            class="form-control"
                                            v-model.trim="company.name"
                                            required autofocus>
-                                    <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.name"
+                                         v-text="errors.name[0]">
+                                    </div>
                                 </div>
 
                                 <!--Status-->
@@ -59,7 +62,10 @@
                                            name="description"
                                            class="form-control"
                                            v-model.trim="company.description">
-                                    <div class="help-block" v-if="errors.description" v-text="errors.description[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.description"
+                                         v-text="errors.description[0]">
+                                    </div>
                                 </div>
 
                                 <!--Buttons-->
@@ -83,18 +89,21 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import { eventBus } from '../../app'
+    import mixins from '../../mixins'
 
     export default {
         props: ['data-company'],
@@ -102,7 +111,7 @@
             return {
                 company: this.dataCompany,
                 errors: {}
-            };
+            }
         },
         mixins: [mixins],
         components: {
@@ -110,30 +119,27 @@
         },
         methods: {
             updateCompany() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.put('/companies/' + this.company.id, this.company)
                     .then(() => {
-                        eventBus.$emit('companyWasUpdated', this.company);
+                        eventBus.$emit('companyWasUpdated', this.company)
+                        this.toggleLoader()
+                        this.toggleModal()
                     })
-                    .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
-                    })
-                    .catch((error) => {
-                        this.toggleLoader();
+                    .catch(error => {
+                        this.toggleLoader()
                         if (error.response.status === 422) {
                             flash({
                                 message: "Erreur. La validation a échoué.",
                                 level: 'danger'
-                            });
-
-                            return;
+                            })
+                            return
                         }
                         flash({
                             message: "Erreur. Veuillez réessayer plus tard.",
                             level: 'danger'
-                        });
+                        })
                     })
             }
         }

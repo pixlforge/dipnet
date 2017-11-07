@@ -33,7 +33,10 @@
                                            class="form-control"
                                            v-model.trim="contact.name"
                                            required autofocus>
-                                    <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.name"
+                                         v-text="errors.name[0]">
+                                    </div>
                                 </div>
 
                                 <!--Address line 1-->
@@ -46,7 +49,10 @@
                                            class="form-control"
                                            v-model.trim="contact.address_line1"
                                            required>
-                                    <div class="help-block" v-if="errors.address_line1" v-text="errors.address_line1[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.address_line1"
+                                         v-text="errors.address_line1[0]">
+                                    </div>
                                 </div>
 
                                 <!--Address line 2-->
@@ -57,7 +63,10 @@
                                            name="address_line2"
                                            class="form-control"
                                            v-model.trim="contact.address_line2">
-                                    <div class="help-block" v-if="errors.address_line2" v-text="errors.address_line2[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.address_line2"
+                                         v-text="errors.address_line2[0]">
+                                    </div>
                                 </div>
 
                                 <!--Zip-->
@@ -70,7 +79,10 @@
                                            class="form-control"
                                            v-model.trim="contact.zip"
                                            required>
-                                    <div class="help-block" v-if="errors.zip" v-text="errors.zip[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.zip"
+                                         v-text="errors.zip[0]">
+                                    </div>
                                 </div>
 
                                 <!--City-->
@@ -83,7 +95,10 @@
                                            class="form-control"
                                            v-model.trim="contact.city"
                                            required>
-                                    <div class="help-block" v-if="errors.city" v-text="errors.city[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.city"
+                                         v-text="errors.city[0]">
+                                    </div>
                                 </div>
 
                                 <!--Phone-->
@@ -94,7 +109,10 @@
                                            name="phone_number"
                                            class="form-control"
                                            v-model.trim="contact.phone_number">
-                                    <div class="help-block" v-if="errors.phone_number" v-text="errors.phone_number[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.phone_number"
+                                         v-text="errors.phone_number[0]">
+                                    </div>
                                 </div>
 
                                 <!--Fax-->
@@ -105,7 +123,10 @@
                                            name="fax"
                                            class="form-control"
                                            v-model.trim="contact.fax">
-                                    <div class="help-block" v-if="errors.fax" v-text="errors.fax[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.fax"
+                                         v-text="errors.fax[0]">
+                                    </div>
                                 </div>
 
                                 <!--Email-->
@@ -118,7 +139,10 @@
                                            class="form-control"
                                            v-model.trim="contact.email"
                                            required>
-                                    <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.email"
+                                         v-text="errors.email[0]">
+                                    </div>
                                 </div>
 
                                 <!--Buttons-->
@@ -142,18 +166,21 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import {eventBus} from '../../app'
+    import mixins from '../../mixins'
 
     export default {
         props: ['data-contact'],
@@ -161,28 +188,30 @@
             return {
                 contact: this.dataContact,
                 errors: {}
-            };
+            }
         },
         components: {
             'app-moon-loader': MoonLoader
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Update a contact.
+             */
             updateContact() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.put('/contacts/' + this.contact.id, this.contact)
                     .then(() => {
-                        eventBus.$emit('contactWasUpdated', this.contact);
-                    })
-                    .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
+                        eventBus.$emit('contactWasUpdated', this.contact)
+                        this.toggleLoader()
+                        this.toggleModal()
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data
+                    })
             }
         }
     }

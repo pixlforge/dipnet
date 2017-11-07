@@ -35,7 +35,10 @@
                                            class="form-control"
                                            v-model.trim="article.reference"
                                            required autofocus>
-                                    <div class="help-block" v-if="errors.reference" v-text="errors.reference[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.reference"
+                                         v-text="errors.reference[0]">
+                                    </div>
                                 </div>
 
                                 <!--Description-->
@@ -46,7 +49,10 @@
                                            name="description"
                                            class="form-control"
                                            v-model.trim="article.description">
-                                    <div class="help-block" v-if="errors.description" v-text="errors.description[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.description"
+                                         v-text="errors.description[0]">
+                                    </div>
                                 </div>
 
                                 <!--Type-->
@@ -59,18 +65,6 @@
                                         <option disabled>Sélectionnez un type</option>
                                         <option value="option">Option</option>
                                         <option value="impression">Impression</option>
-                                    </select>
-                                </div>
-
-                                <!--Category-->
-                                <div class="form-group my-5">
-                                    <label for="category_id">Catégorie</label>
-                                    <select name="category_id"
-                                            id="category_id"
-                                            class="form-control custom-select"
-                                            v-model.trim="article.category_id">
-                                        <option disabled>Sélectionnez une catégorie</option>
-                                        <option v-for="category in categories" :value="category.id" v-text="category.name"></option>
                                     </select>
                                 </div>
 
@@ -97,15 +91,16 @@
                 </div>
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         props: ['data-categories'],
@@ -114,35 +109,37 @@
                 article: {
                     reference: '',
                     description: '',
-                    type: '',
-                    category_id: ''
+                    type: ''
                 },
-                categories: this.dataCategories,
                 errors: {}
-            };
+            }
         },
         mixins: [mixins],
         components: {
             'app-moon-loader': MoonLoader
         },
         methods: {
+
+            /**
+             * Add an article.
+             */
             addArticle() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.post('/articles', this.article)
                     .then(response => {
-                        this.article.id = response.data;
-                        this.$emit('articleWasCreated', this.article);
+                        this.article.id = response.data
+                        this.$emit('articleWasCreated', this.article)
                     })
                     .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
-                        this.article = {};
+                        this.toggleLoader()
+                        this.toggleModal()
+                        this.article = {}
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
+                    })
             }
         }
     }

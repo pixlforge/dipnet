@@ -74,9 +74,12 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="Dropdown menu link">
 
+                    <!--Edit-->
                     <app-edit-business :data-business="business"
-                                       :data-companies="companies"></app-edit-business>
+                                       :data-companies="companies">
+                    </app-edit-business>
 
+                    <!--Delete-->
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fal fa-times"></i>
                         <span class="ml-3">Supprimer</span>
@@ -88,9 +91,9 @@
 </template>
 
 <script>
-    import EditBusiness from './EditBusiness.vue';
-    import mixins from '../../mixins';
-    import moment from 'moment';
+    import EditBusiness from './EditBusiness.vue'
+    import mixins from '../../mixins'
+    import moment from 'moment'
 
     export default {
         props: [
@@ -101,20 +104,27 @@
             return {
                 business: this.dataBusiness,
                 companies: this.dataCompanies
-            };
+            }
         },
         mixins: [mixins],
         components: {
             'app-edit-business': EditBusiness
         },
         methods: {
+
+            /**
+             * Delete a business.
+             */
             destroy() {
-                axios.delete('/businesses/' + this.business.id);
-                this.$emit('businessWasDeleted', this.business.id);
+                axios.delete('/businesses/' + this.business.id)
+                this.$emit('businessWasDeleted', this.business.id)
             },
 
+            /**
+             * Get the formatted dates.
+             */
             getDate(date) {
-                return moment(date).locale(this.momentLocale).format(this.momentFormat);
+                return moment(date).locale(this.momentLocale).format(this.momentFormat)
             }
         }
     }

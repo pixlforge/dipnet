@@ -17,7 +17,10 @@
                                    placeholder="e.g. adresse@email.com"
                                    v-model="invitation.email"
                                    @keyup.enter="sendInvitation">
-                            <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
+                            <div class="help-block"
+                                 v-if="errors.email"
+                                 v-text="errors.email[0]">
+                            </div>
                         </div>
                     </form>
                 </div>
@@ -32,16 +35,18 @@
                 </a>
             </div>
 
+            <!--Loader-->
             <app-moon-loader :loading="loader.loading"
                              :color="loader.color"
-                             :size="loader.size"></app-moon-loader>
+                             :size="loader.size">
+            </app-moon-loader>
         </div>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         data() {
@@ -57,21 +62,25 @@
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Add an invitation.
+             */
             sendInvitation() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.post('/invitation', this.invitation)
                     .then(response => {
-                        this.toggleLoader();
-                        this.$emit('invitationWasAdded', response.data);
+                        this.toggleLoader()
+                        this.$emit('invitationWasAdded', response.data)
                     })
                     .then(() => {
-                        this.invitation = {};
+                        this.invitation = {}
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
+                    })
             }
         }
     }

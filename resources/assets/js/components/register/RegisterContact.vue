@@ -9,7 +9,8 @@
                 <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
 
                 <div class="d-flex flex-column justify-content-center checklist">
                     <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
@@ -55,7 +56,8 @@
                                required autofocus>
                         <div class="help-block"
                              v-if="errors.name"
-                             v-text="errors.name[0]"></div>
+                             v-text="errors.name[0]">
+                        </div>
                     </div>
 
                     <!--Address Line 1-->
@@ -70,7 +72,8 @@
                                required>
                         <div class="help-block"
                              v-if="errors.address_line1"
-                             v-text="errors.address_line1[0]"></div>
+                             v-text="errors.address_line1[0]">
+                        </div>
                     </div>
 
                     <!--Address Line 2-->
@@ -83,7 +86,8 @@
                                class="form-control">
                         <div class="help-block"
                              v-if="errors.address_line2"
-                             v-text="errors.address_line2[0]"></div>
+                             v-text="errors.address_line2[0]">
+                        </div>
                     </div>
 
                     <!--Zip-->
@@ -98,7 +102,8 @@
                                required>
                         <div class="help-block"
                              v-if="errors.zip"
-                             v-text="errors.zip[0]"></div>
+                             v-text="errors.zip[0]">
+                        </div>
                     </div>
 
                     <!--City-->
@@ -113,7 +118,8 @@
                                required>
                         <div class="help-block"
                              v-if="errors.city"
-                             v-text="errors.city[0]"></div>
+                             v-text="errors.city[0]">
+                        </div>
                     </div>
 
                     <!--Phone Number-->
@@ -126,7 +132,8 @@
                                class="form-control">
                         <div class="help-block"
                              v-if="errors.phone_number"
-                             v-text="errors.phone_number[0]"></div>
+                             v-text="errors.phone_number[0]">
+                        </div>
                     </div>
 
                     <!--Fax-->
@@ -139,7 +146,8 @@
                                class="form-control">
                         <div class="help-block"
                              v-if="errors.fax"
-                             v-text="errors.fax[0]"></div>
+                             v-text="errors.fax[0]">
+                        </div>
                     </div>
 
                     <button class="btn btn-lg btn-black btn-block mt-5"
@@ -154,8 +162,8 @@
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -175,25 +183,29 @@
                     invitation_company: this.dataInvitation.data.company_id
                 },
                 errors: {}
-            };
+            }
         },
         components: {
             'app-moon-loader': MoonLoader
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Create the contact.
+             */
             createContact() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.post('/register/contact', this.contact)
                     .then(() => {
-                        this.contact = {};
-                        this.$emit('contactCreated');
+                        this.contact = {}
+                        this.$emit('contactCreated')
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
+                    })
             }
         }
     }

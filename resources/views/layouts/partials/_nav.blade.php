@@ -34,20 +34,20 @@
                         <ul class="navbar-nav">
 
                             {{--Orders--}}
-                            <li class="nav-item{{ Route::is('index') ? ' active' : '' }}">
+                            <li class="nav-item{{ Route::is(['index', 'orders.*']) ? ' active' : '' }}">
                                 <a href="{{ route('index') }}" class="nav-link">
                                     Commandes
-                                    @if (Route::is('index'))
+                                    @if (Route::is(['index', 'orders.*']))
                                         <span class="sr-only">(current)</span>
                                     @endif
                                 </a>
                             </li>
 
                             {{--Businesses--}}
-                            <li class="nav-item mx-2{{ Route::is('businesses.index') ? ' active' : '' }}">
+                            <li class="nav-item mx-2{{ Route::is('businesses.*') ? ' active' : '' }}">
                                 <a href="{{ route('businesses.index') }}" class="nav-link">
                                     Affaires
-                                    @if (Route::is('businesses.index'))
+                                    @if (Route::is('businesses.*'))
                                         <span class="sr-only">(current)</span>
                                     @endif
                                 </a>

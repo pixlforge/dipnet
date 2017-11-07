@@ -24,6 +24,7 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="dropdownMenuLink">
 
+                    <!--Delete-->
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fal fa-times"></i>
                         <span class="ml-3">Supprimer</span>
@@ -35,8 +36,8 @@
 </template>
 
 <script>
-    import ResendInvitation from './ResendInvitation.vue';
-    import mixins from '../../mixins';
+    import ResendInvitation from './ResendInvitation.vue'
+    import mixins from '../../mixins'
 
     export default {
         props: ['invitation'],
@@ -45,24 +46,28 @@
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Delete an invitation.
+             */
             destroy() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.delete('/invitation/' + this.invitation.id)
                     .then(() => {
-                        this.toggleLoader();
-                        this.$emit('invitationWasDeleted', this.invitation.id);
+                        this.toggleLoader()
+                        this.$emit('invitationWasDeleted', this.invitation.id)
                         flash({
                             message: "L'invitation a bien été annulée.",
                             level: 'success'
-                        });
+                        })
                     })
                     .catch(() => {
-                        this.toggleLoader();
+                        this.toggleLoader()
                         flash({
                             message: "L'invitation n'a pas été annulée. Une erreur s'est produite.",
                             level: 'danger'
-                        });
+                        })
                     })
             }
         }

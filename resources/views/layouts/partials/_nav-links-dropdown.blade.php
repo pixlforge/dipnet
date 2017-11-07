@@ -24,7 +24,6 @@
             <a href="{{ route('documents.index') }}" class="dropdown-item">Documents</a>
             <hr>
             <a href="{{ route('formats.index') }}" class="dropdown-item">Formats</a>
-            <a href="{{ route('categories.index') }}" class="dropdown-item">Catégories</a>
             <a href="{{ route('articles.index') }}" class="dropdown-item">Articles</a>
             <a href="{{ route('users.index') }}" class="dropdown-item">Utilisateurs</a>
         @endadmin

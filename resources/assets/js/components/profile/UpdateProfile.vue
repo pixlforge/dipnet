@@ -38,7 +38,10 @@
                                            class="form-control"
                                            v-model.trim="user.username"
                                            required>
-                                    <div class="help-block" v-if="errors.username" v-text="errors.username[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.username"
+                                         v-text="errors.username[0]">
+                                    </div>
                                 </div>
 
                                 <!--Email-->
@@ -51,7 +54,10 @@
                                            class="form-control"
                                            v-model.trim="user.email"
                                            required>
-                                    <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.email"
+                                         v-text="errors.email[0]">
+                                    </div>
                                 </div>
 
                                 <!--Password-->
@@ -62,7 +68,10 @@
                                            id="password"
                                            class="form-control"
                                            v-model.trim="user.password">
-                                    <div class="help-block" v-if="errors.password" v-text="errors.password[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.password"
+                                         v-text="errors.password[0]">
+                                    </div>
                                 </div>
 
                                 <!--Password Confirmation-->
@@ -73,7 +82,10 @@
                                            id="password_confirmation"
                                            class="form-control"
                                            v-model.trim="user.password_confirmation">
-                                    <div class="help-block" v-if="errors.password_confirmation" v-text="errors.password_confirmation[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.password_confirmation"
+                                         v-text="errors.password_confirmation[0]">
+                                    </div>
                                 </div>
 
                                 <!--Buttons-->
@@ -97,19 +109,21 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
-
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import AvatarUpload from './AvatarUpload.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import AvatarUpload from './AvatarUpload.vue'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -127,7 +141,7 @@
                     password_confirmation: ''
                 },
                 errors: {}
-            };
+            }
         },
         mixins: [mixins],
         components: {
@@ -135,37 +149,40 @@
             'app-avatar-upload': AvatarUpload
         },
         methods: {
+
+            /**
+             * Update the user's profile.
+             */
             updateProfile() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.patch('/account/update', this.user)
-                    .then((response) => {
-                        this.toggleLoader();
-                        this.errors = {};
-                        this.user.password = '';
-                        this.user.password_confirmation = '';
-                        this.toggleModal();
+                    .then(response => {
+                        this.toggleLoader()
+                        this.errors = {}
+                        this.user.password = ''
+                        this.user.password_confirmation = ''
+                        this.toggleModal()
                         flash({
                             message: "Votre compte a été mis à jour avec succès!",
                             level: 'success'
-                        });
+                        })
                     })
-                    .catch((error) => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-
+                    .catch(error => {
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
                         if (error.response.status === 422) {
                             flash({
                                 message: "La mise à jour de votre compte a échoué, veuillez vérifiez qu'il n'existe aucune erreur.",
                                 level: 'danger'
-                            });
-                            return;
+                            })
+                            return
                         }
                         flash({
                             message: "La mise à jour de votre compte a échoué, veuillez réessayer plus tard.",
                             level: 'danger'
-                        });
-                    });
+                        })
+                    })
             }
         }
     }

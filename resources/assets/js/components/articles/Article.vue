@@ -23,12 +23,6 @@
                 <span class="card-label">Type:</span>
                 <span>{{ article.type | capitalize }}</span>
             </div>
-
-            <!--Category-->
-            <div class="card-content">
-                <span class="card-label">Catégorie:</span>
-                <span v-text="article.category.name"></span>
-            </div>
         </div>
 
         <div class="col-12 col-lg-3">
@@ -46,6 +40,7 @@
             </div>
         </div>
 
+        <!--Dropdown-->
         <div class="col-12 col-lg-1 center-on-small-only text-lg-right">
             <div class="dropdown">
                 <a class="btn btn-transparent btn-sm" type="button" id="dropdownMenuLink"
@@ -55,10 +50,13 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="dropdownMenuLink">
 
-                    <app-edit-article :data-article="article"
-                                      :data-categories="categories"></app-edit-article>
+                    <!--Edit-->
+                    <app-edit-article :data-article="article"></app-edit-article>
 
-                    <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
+                    <!--Delete-->
+                    <a class="dropdown-item text-danger"
+                       role="button"
+                       @click.prevent="destroy">
                         <i class="fal fa-times"></i>
                         <span class="ml-3">Supprimer</span>
                     </a>
@@ -69,9 +67,9 @@
 </template>
 
 <script>
-    import EditArticle from './EditArticle.vue';
-    import moment from 'moment';
-    import mixins from '../../mixins';
+    import EditArticle from './EditArticle.vue'
+    import moment from 'moment'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -82,19 +80,27 @@
             return {
                 article: this.dataArticle,
                 categories: this.dataCategories
-            };
+            }
         },
         mixins: [mixins],
         components: {
             'app-edit-article': EditArticle
         },
         methods: {
+
+            /**
+             * Delete the article.
+             */
             destroy() {
-                axios.delete('/articles/' + this.article.id);
-                this.$emit('articleWasDeleted', this.article.id);
+                axios.delete('/articles/' + this.article.id)
+                this.$emit('articleWasDeleted', this.article.id)
             },
+
+            /**
+             * Get the formatted dates.
+             */
             getDate(date) {
-                return moment(date).locale(this.momentLocale).format(this.momentFormat);
+                return moment(date).locale(this.momentLocale).format(this.momentFormat)
             }
         }
     }

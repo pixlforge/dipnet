@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\User;
 use App\Article;
-use App\Category;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -31,20 +30,16 @@ class ArticleTest extends TestCase
         $user = factory(User::class)->create(['role' => 'administrateur']);
         $this->signIn($user);
 
-        $category = factory(Category::class)->create();
-
         $this->postJson(route('articles.store'), [
             'reference' => '85erfgbn',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'impression',
-            'category_id' => $category->id
+            'type' => 'impression'
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('articles', [
             'reference' => '85erfgbn',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'impression',
-            'category_id' => $category->id
+            'type' => 'impression'
         ]);
     }
 
@@ -54,13 +49,10 @@ class ArticleTest extends TestCase
         $user = factory(User::class)->states(['admin'])->create();
         $this->signIn($user);
 
-        $category = factory(Category::class)->create();
-
         $this->postJson(route('articles.store'), [
             'reference' => '85erfgbn',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'impression',
-            'category_id' => $category->id
+            'type' => 'impression'
         ])->assertStatus(200);
 
         $article = Article::whereReference('85erfgbn')->first();
@@ -68,15 +60,13 @@ class ArticleTest extends TestCase
         $this->putJson(route('articles.update', $article), [
             'reference' => '85ERFGBN',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'option',
-            'category_id' => $category->id
+            'type' => 'option'
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('articles', [
             'reference' => '85ERFGBN',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'option',
-            'category_id' => $category->id
+            'type' => 'option'
         ]);
     }
 
@@ -86,13 +76,10 @@ class ArticleTest extends TestCase
         $user = factory(User::class)->states(['admin'])->create();
         $this->signIn($user);
 
-        $category = factory(Category::class)->create();
-
         $this->postJson(route('articles.store'), [
             'reference' => '85erfgbn',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'impression',
-            'category_id' => $category->id
+            'type' => 'impression'
         ])->assertStatus(200);
 
         $article = Article::whereReference('85erfgbn')->first();

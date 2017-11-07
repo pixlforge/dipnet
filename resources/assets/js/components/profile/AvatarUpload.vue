@@ -11,7 +11,10 @@
                    name="avatar"
                    id="avatar"
                    @change="fileChange">
-            <div class="help-block" v-if="errors.length" v-text="errors[0]"></div>
+            <div class="help-block"
+                 v-if="errors.length"
+                 v-text="errors[0]">
+            </div>
         </div>
 
         <div class="form-group my-5">
@@ -38,15 +41,17 @@
             </button>
         </div>
 
+        <!--Loader-->
         <app-moon-loader :loading="loader.loading"
                          :color="loader.color"
-                         :size="loader.size"></app-moon-loader>
+                         :size="loader.size">
+        </app-moon-loader>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -63,11 +68,15 @@
                 endpoint: '/profile/avatar',
                 errors: {},
                 sendAs: 'avatar'
-            };
+            }
         },
         computed: {
+
+            /**
+             * Get a random avatar's path.
+             */
             randomAvatarPath() {
-                return 'img/placeholders/' + this.dataRandomAvatar;
+                return 'img/placeholders/' + this.dataRandomAvatar
             }
         },
         mixins: [mixins],
@@ -75,45 +84,57 @@
             'app-moon-loader': MoonLoader
         },
         methods: {
+
+            /**
+             * Upload on file change.
+             */
             fileChange(event) {
-                this.upload(event);
+                this.upload(event)
             },
+
+            /**
+             * Upload an avatar.
+             */
             upload(event) {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.post(this.endpoint, this.packageUploads(event))
                     .then((response) => {
-                        this.toggleLoader();
-                        this.avatar = response.data;
+                        this.toggleLoader()
+                        this.avatar = response.data
                         flash({
                             message: "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
                             level: 'success'
-                        });
+                        })
                     })
                     .catch((error) => {
-                        this.toggleLoader();
-
+                        this.toggleLoader()
                         if (error.response.status === 422) {
-                            this.errors = error.response.data.errors.avatar;
+                            this.errors = error.response.data.errors.avatar
                             flash({
                                 message: this.errors[0],
                                 level: 'danger'
-                            });
-                            return;
+                            })
+                            return
                         }
-
-                        this.errors = "Une erreur est survenue. Veuillez réessayer plus tard.";
+                        this.errors = "Une erreur est survenue. Veuillez réessayer plus tard."
                     })
             },
+
+            /**
+             * Get the file data.
+             */
             packageUploads(event) {
-                let fileData = new FormData();
-
-                fileData.append(this.sendAs, event.target.files[0]);
-
-                return fileData;
+                let fileData = new FormData()
+                fileData.append(this.sendAs, event.target.files[0])
+                return fileData
             },
+
+            /**
+             * Update the avatar.
+             */
             update() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.patch('/profile/avatar', {
                     avatar: {
@@ -121,17 +142,17 @@
                     }
                 })
                     .then(() => {
-                        this.toggleLoader();
+                        this.toggleLoader()
                         flash({
                             message: "Votre avatar a bien été mis à jour.",
                             level: 'success'
-                        });
+                        })
                         setTimeout(function () {
                             window.location.pathname = '/profile';
-                        }, 2500);
+                        }, 2500)
                     })
                     .catch(() => {
-                        this.toggleLoader();
+                        this.toggleLoader()
                         flash({
                             message: "Il y a eu un problème, votre compte n'a pas été mis à jour.",
                             level: 'danger'

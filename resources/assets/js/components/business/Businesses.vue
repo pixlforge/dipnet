@@ -9,36 +9,45 @@
                             {{ businesses.length }}
                             {{ businesses.length == 0 || businesses.length == 1 ? 'affaire' : 'affaires' }}
                         </span>
+
+                        <!--Add-->
                         <app-add-business @businessWasCreated="addBusiness"
-                                          :data-companies="companies"></app-add-business>
+                                          :data-companies="companies">
+                        </app-add-business>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row bg-grey-light">
             <div class="col-10 mx-auto my-7">
+
+                <!--Business-->
                 <transition-group name="highlight">
                     <app-business class="card card-custom center-on-small-only"
                                   v-for="(business, index) in businesses"
                                   :data-business="business"
                                   :data-companies="companies"
                                   :key="business.id"
-                                  @businessWasDeleted="removeBusiness(index)"></app-business>
+                                  @businessWasDeleted="removeBusiness(index)">
+                    </app-business>
                 </transition-group>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Business from './Business.vue';
-    import AddBusiness from './AddBusiness.vue';
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
-    import mixins from '../../mixins';
+    import Business from './Business.vue'
+    import AddBusiness from './AddBusiness.vue'
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import { eventBus } from '../../app'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -49,7 +58,7 @@
             return {
                 businesses: this.dataBusinesses,
                 companies: this.dataCompanies
-            };
+            }
         },
         mixins: [mixins],
         components: {
@@ -59,38 +68,50 @@
         },
         created() {
             eventBus.$on('businessWasUpdated', (data) => {
-                this.updateBusiness(data);
+                this.updateBusiness(data)
             })
         },
         methods: {
+
+            /**
+             * Add a new business to the list.
+             */
             addBusiness(business) {
-                this.businesses.unshift(business);
+                this.businesses.unshift(business)
                 flash({
-                    message: 'La création de l\'affaire a réussi.',
+                    message: "La création de l'affaire a réussi.",
                     level: 'success'
-                });
+                })
             },
+
+            /**
+             * Update a business details.
+             */
             updateBusiness(data) {
                 for (let business of this.businesses) {
                     if (data.id === business.id) {
-                        business.name = data.name;
-                        business.reference = data.reference;
-                        business.description = data.description;
-                        business.company_id = data.company_id;
-                        business.contact_id = data.contact_id;
+                        business.name = data.name
+                        business.reference = data.reference
+                        business.description = data.description
+                        business.company_id = data.company_id
+                        business.contact_id = data.contact_id
                     }
                 }
                 flash({
-                    message: 'Les modifications apportées à l\'affaire ont été enregistrées.',
+                    message: "Les modifications apportées à l'affaire ont été enregistrées.",
                     level: 'success'
-                });
+                })
             },
+
+            /**
+             * Remove a business from the list.
+             */
             removeBusiness(index) {
-                this.businesses.splice(index, 1);
+                this.businesses.splice(index, 1)
                 flash({
                     message: 'Suppression de l\'affaire réussie.',
                     level: 'success'
-                });
+                })
             }
         }
     }

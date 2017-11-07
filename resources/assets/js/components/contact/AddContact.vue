@@ -35,7 +35,10 @@
                                            class="form-control"
                                            v-model.trim="contact.name"
                                            required autofocus>
-                                    <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.name"
+                                         v-text="errors.name[0]">
+                                    </div>
                                 </div>
 
                                 <!--Address line 1-->
@@ -48,8 +51,10 @@
                                            class="form-control"
                                            v-model.trim="contact.address_line1"
                                            required>
-                                    <div class="help-block" v-if="errors.address_line1"
-                                         v-text="errors.address_line1[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.address_line1"
+                                         v-text="errors.address_line1[0]">
+                                    </div>
                                 </div>
 
                                 <!--Address line 2-->
@@ -60,8 +65,10 @@
                                            name="address_line2"
                                            class="form-control"
                                            v-model.trim="contact.address_line2">
-                                    <div class="help-block" v-if="errors.address_line2"
-                                         v-text="errors.address_line2[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.address_line2"
+                                         v-text="errors.address_line2[0]">
+                                    </div>
                                 </div>
 
                                 <!--Zip-->
@@ -74,7 +81,10 @@
                                            class="form-control"
                                            v-model.trim="contact.zip"
                                            required>
-                                    <div class="help-block" v-if="errors.zip" v-text="errors.zip[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.zip"
+                                         v-text="errors.zip[0]">
+                                    </div>
                                 </div>
 
                                 <!--City-->
@@ -87,7 +97,10 @@
                                            class="form-control"
                                            v-model.trim="contact.city"
                                            required>
-                                    <div class="help-block" v-if="errors.city" v-text="errors.city[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.city"
+                                         v-text="errors.city[0]">
+                                    </div>
                                 </div>
 
                                 <!--Phone-->
@@ -98,8 +111,10 @@
                                            name="phone_number"
                                            class="form-control"
                                            v-model.trim="contact.phone_number">
-                                    <div class="help-block" v-if="errors.phone_number"
-                                         v-text="errors.phone_number[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.phone_number"
+                                         v-text="errors.phone_number[0]">
+                                    </div>
                                 </div>
 
                                 <!--Fax-->
@@ -110,7 +125,10 @@
                                            name="fax"
                                            class="form-control"
                                            v-model.trim="contact.fax">
-                                    <div class="help-block" v-if="errors.fax" v-text="errors.fax[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.fax"
+                                         v-text="errors.fax[0]">
+                                    </div>
                                 </div>
 
                                 <!--Email-->
@@ -123,7 +141,10 @@
                                            class="form-control"
                                            v-model.trim="contact.email"
                                            required>
-                                    <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.email"
+                                         v-text="errors.email[0]">
+                                    </div>
                                 </div>
 
                                 <!--Buttons-->
@@ -147,18 +168,21 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
-    import { eventBus } from '../../app';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
+    import { eventBus } from '../../app'
 
     export default {
         data() {
@@ -183,27 +207,29 @@
         created() {
             eventBus.$on('dropdownAddContact', () => {
                 this.toggleModal();
-            });
+            })
         },
         methods: {
+
+            /**
+             * Add a new contact.
+             */
             addContact() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.post('/contacts', this.contact)
                     .then(response => {
-                        this.contact = response.data;
-                        this.$emit('contactWasCreated', this.contact);
-                    })
-                    .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
-                        this.contact = {};
+                        this.contact = response.data
+                        this.$emit('contactWasCreated', this.contact)
+                        this.toggleLoader()
+                        this.toggleModal()
+                        this.contact = {}
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                        this.redirectIfNotConfirmed(error);
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
+                        this.redirectIfNotConfirmed(error)
+                    })
             }
         }
     }

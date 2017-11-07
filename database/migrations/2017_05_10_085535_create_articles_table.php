@@ -18,11 +18,9 @@ class CreateArticlesTable extends Migration
             $table->string('reference', 45)->unique()->index();
             $table->string('description', 45)->nullable();
 			$table->enum('type', ['impression', 'option']);
-            $table->unsignedInteger('category_id')->nullable();
+			$table->boolean('greyscale')->default(false);
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

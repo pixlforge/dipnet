@@ -12,7 +12,8 @@
                     <!--Loader-->
                     <app-moon-loader :loading="loader.loading"
                                      :color="loader.color"
-                                     :size="loader.size"></app-moon-loader>
+                                     :size="loader.size">
+                    </app-moon-loader>
 
                     <div class="d-flex flex-column justify-content-center checklist">
                         <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
@@ -55,7 +56,8 @@
                                    autofocus>
                             <div class="help-block"
                                  v-if="errors.name"
-                                 v-text="errors.name[0]"></div>
+                                 v-text="errors.name[0]">
+                            </div>
                         </div>
 
                         <button class="btn btn-black btn-block mt-5"
@@ -78,8 +80,8 @@
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         data() {
@@ -88,40 +90,52 @@
                     name: ''
                 },
                 errors: {}
-            };
+            }
         },
         components: {
             'app-moon-loader': MoonLoader
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Update the User when associated with a Company.
+             */
             updateWithCompany() {
-                this.updateCompany(this.company);
+                this.updateCompany(this.company)
             },
+
+            /**
+             * Update the User when not associated with a Company.
+             */
             updateAsSelf() {
-                this.company.name = 'self';
-                this.updateCompany(this.company);
+                this.company.name = 'self'
+                this.updateCompany(this.company)
             },
+
+            /**
+             * Update Company.
+             */
             updateCompany(company) {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.put('/register/company', company)
                     .then(() => {
-                        this.toggleLoader();
-                        this.company = {};
-                        this.errors = {};
+                        this.toggleLoader()
+                        this.company = {}
+                        this.errors = {}
                         flash({
                             message: 'Félicitations! Votre compte a bien été mis à jour!',
                             level: 'success'
-                        });
+                        })
                         setTimeout(() => {
-                            window.location.pathname = '/';
-                        }, 2500);
+                            window.location.pathname = '/'
+                        }, 2500)
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
+                    })
             }
         }
     }

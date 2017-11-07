@@ -10,22 +10,22 @@ export default {
             appName: Laravel.appName,
             momentFormat: 'LLL',
             momentLocale: 'fr'
-        };
+        }
     },
     computed: {
         logo() {
-            return this.appName === 'Dipnet' ? 'company-logo-dip' : 'company-logo-multicop';
+            return this.appName === 'Dipnet' ? 'company-logo-dip' : 'company-logo-multicop'
         },
         logoWhite() {
-            return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
+            return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white'
         }
     },
     filters: {
         capitalize(value) {
             if (!value) return ''
 
-            value = value.toString();
-            return value.charAt(0).toUpperCase() + value.slice(1);
+            value = value.toString()
+            return value.charAt(0).toUpperCase() + value.slice(1)
         }
     },
     methods: {
@@ -34,32 +34,32 @@ export default {
                 flash({
                     message: "Vous devez d'abord confirmer votre adresse e-mail.",
                     level: 'danger'
-                });
+                })
                 setTimeout(function () {
                     window.location.pathname = '/profile';
-                }, 2500);
+                }, 2500)
             }
         },
         toggleLoader() {
-            this.loader.loading = !this.loader.loading;
+            this.loader.loading = !this.loader.loading
         },
         toggleModal() {
-            this.showModal === false ? this.showModal = true : this.showModal = false;
+            this.showModal === false ? this.showModal = true : this.showModal = false
         },
         finishRegistration() {
-            this.congratulateUponRegistration();
-            this.redirectUser();
+            this.congratulateUponRegistration()
+            this.redirectUser()
         },
         congratulateUponRegistration() {
             flash({
                 message: 'Félicitations! Votre compte est fin prêt!',
                 level: 'success'
-            });
+            })
         },
         redirectUser() {
             setTimeout(() => {
-                window.location = '/';
-            }, 2500);
+                window.location = '/'
+            }, 2500)
         }
     }
 }

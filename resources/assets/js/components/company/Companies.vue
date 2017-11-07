@@ -9,13 +9,18 @@
                             {{ companies.length }}
                             {{ companies.length == 0 || companies.length == 1 ? 'société' : 'sociétés' }}
                         </span>
-                        <app-add-company @companyWasCreated="addCompany"></app-add-company>
+
+                        <!--Add-->
+                        <app-add-company @companyWasCreated="addCompany">
+                        </app-add-company>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row bg-grey-light">
             <div class="col-10 mx-auto my-7">
+
+                <!--Company-->
                 <transition-group name="highlight">
                     <app-company class="card card-custom center-on-small-only"
                                  v-for="(company, index) in companies"
@@ -23,27 +28,30 @@
                                  :key="company.id"
                                  @companyWasDeleted="removeCompany(index)"></app-company>
                 </transition-group>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import Company from './Company.vue';
-    import AddCompany from './AddCompany.vue';
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
-    import mixins from '../../mixins';
+    import Company from './Company.vue'
+    import AddCompany from './AddCompany.vue'
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import { eventBus } from '../../app'
+    import mixins from '../../mixins'
 
     export default {
         props: ['data-companies'],
         data() {
             return {
                 companies: this.dataCompanies
-            };
+            }
         },
         mixins: [mixins],
         components: {
@@ -53,36 +61,48 @@
         },
         created() {
             eventBus.$on('companyWasUpdated', (data) => {
-                this.updateCompany(data);
+                this.updateCompany(data)
             })
         },
         methods: {
+
+            /**
+             * Add a new company to the list.
+             */
             addCompany(company) {
-                this.companies.unshift(company);
+                this.companies.unshift(company)
                 flash({
                     message: 'La création de la société a réussi.',
                     level: 'success'
-                });
+                })
             },
+
+            /**
+             * Update a company details.
+             */
             updateCompany(data) {
                 for (let company of this.companies) {
                     if (data.id === company.id) {
-                        company.name = data.name;
-                        company.status = data.status;
-                        company.description = data.description;
+                        company.name = data.name
+                        company.status = data.status
+                        company.description = data.description
                     }
                 }
                 flash({
                     message: 'Les modifications apportées à la société ont été enregistrées.',
                     level: 'success'
-                });
+                })
             },
+
+            /**
+             * Remove a company from the list.
+             */
             removeCompany(index) {
-                this.companies.splice(index, 1);
+                this.companies.splice(index, 1)
                 flash({
                     message: 'Suppression de la société réussie.',
                     level: 'success'
-                });
+                })
             }
         }
     }

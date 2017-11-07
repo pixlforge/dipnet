@@ -22,19 +22,8 @@ class Article extends Model
     protected $fillable = [
         'reference',
         'description',
-        'type',
-        'category_id'
+        'type'
     ];
-
-    /**
-     * Category relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function category()
-    {
-        return $this->belongsTo(Category::class);
-    }
 
     /**
      * Document relationship.

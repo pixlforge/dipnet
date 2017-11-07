@@ -21,10 +21,16 @@
                         </div>
 
                         <div class="d-flex">
-                            <app-send-confirmation-email-again v-if="!user.email_confirmed"></app-send-confirmation-email-again>
+
+                            <!--Send confirmation email again-->
+                            <app-send-confirmation-email-again v-if="!user.email_confirmed">
+                            </app-send-confirmation-email-again>
+
+                            <!--Update profile-->
                             <app-update-profile :data-user="user"
                                                 :data-avatar="avatar"
-                                                :data-random-avatar="dataRandomAvatar"></app-update-profile>
+                                                :data-random-avatar="dataRandomAvatar">
+                            </app-update-profile>
                         </div>
 
                     </div>
@@ -51,8 +57,7 @@
                         <div class="col-12 col-lg-4">
                             <div class="my-4">
                                 <h3 class="bold">Adresse e-mail</h3>
-                                <p class="profile-data">
-                                    {{ user.email }}
+                                <p class="profile-data" v-text="user.email">
                                 </p>
                             </div>
 
@@ -67,8 +72,7 @@
                         <div class="col-12 col-lg-4">
                             <div class="my-4">
                                 <h3 class="bold">Membre de</h3>
-                                <p class="profile-data">
-                                    {{ user.company.name }}
+                                <p class="profile-data" v-text="user.company.name">
                                 </p>
                             </div>
 
@@ -91,7 +95,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -99,10 +102,10 @@
 </template>
 
 <script>
-    import SendConfirmationEmailAgain from '../register/SendConfirmationEmailAgain.vue';
-    import UpdateProfile from './UpdateProfile.vue';
-    import moment from 'moment';
-    import mixins from '../../mixins';
+    import SendConfirmationEmailAgain from '../register/SendConfirmationEmailAgain.vue'
+    import UpdateProfile from './UpdateProfile.vue'
+    import moment from 'moment'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -118,11 +121,15 @@
                 user: this.dataUser,
                 orders: this.dataOrders,
                 businesses: this.dataBusinesses
-            };
+            }
         },
         computed: {
+
+            /**
+             * Get a random avatar's path.
+             */
             randomAvatarPath() {
-                return 'img/placeholders/' + this.dataRandomAvatar;
+                return 'img/placeholders/' + this.dataRandomAvatar
             }
         },
         mixins: [mixins],
@@ -131,8 +138,12 @@
             'app-update-profile': UpdateProfile
         },
         methods: {
+
+            /**
+             * Get the formatted dates.
+             */
             getDate(date) {
-                return moment(date).locale(this.momentLocale).format(this.momentFormat);
+                return moment(date).locale(this.momentLocale).format(this.momentFormat)
             }
         }
     }

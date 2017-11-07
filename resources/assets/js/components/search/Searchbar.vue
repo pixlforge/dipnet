@@ -80,42 +80,50 @@
         },
         computed: {
             containsOrders() {
-                return this.results.orders.length;
+                return this.results.orders.length
             },
             containsCompanies() {
-                return this.results.companies.length;
+                return this.results.companies.length
             },
             containsBusinesses() {
-                return this.results.businesses.length;
+                return this.results.businesses.length
             },
             containsDeliveries() {
-                return this.results.deliveries.length;
+                return this.results.deliveries.length
             },
             containsContacts() {
-                return this.results.contacts.length;
+                return this.results.contacts.length
             },
         },
         methods: {
+
+            /**
+             * Search
+             */
             research() {
                 if (this.search.query.length > 1) {
-                    this.toggleSearch();
+                    this.toggleSearch()
 
                     axios.post('/search', this.search)
                         .then(response => {
-                            this.results.orders = response.data[0];
-                            this.results.companies = response.data[1];
-                            this.results.businesses = response.data[2];
-                            this.results.deliveries = response.data[3];
-                            this.results.contacts = response.data[4];
-                            this.toggleSearch();
+                            this.results.orders = response.data[0]
+                            this.results.companies = response.data[1]
+                            this.results.businesses = response.data[2]
+                            this.results.deliveries = response.data[3]
+                            this.results.contacts = response.data[4]
+                            this.toggleSearch()
                         })
                         .catch(error => {
-                            this.toggleSearch();
-                        });
+                            this.toggleSearch()
+                        })
                 }
             },
+
+            /**
+             * Toggle searching state.
+             */
             toggleSearch() {
-                this.searching = !this.searching;
+                this.searching = !this.searching
             }
         }
     }

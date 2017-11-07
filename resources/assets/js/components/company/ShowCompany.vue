@@ -12,6 +12,7 @@
                         </span>
                     </div>
 
+                    <!--Invite-->
                     <app-invite-member @invitationWasAdded="addInvitation"></app-invite-member>
 
                 </div>
@@ -22,6 +23,7 @@
 
                 <h3 class="light mb-5">Membres de {{ company.name }}</h3>
 
+                <!--Member-->
                 <transition-group name="highlight">
                     <app-company-member class="card card-custom center-on-small-only"
                                         v-for="(member, index) in data.user"
@@ -38,6 +40,7 @@
                     Invitez vos collègues à rejoindre {{ appName }} et vos invitations s'afficheront ici.
                 </h5>
 
+                <!--Invitation-->
                 <transition-group name="highlight">
                     <app-invited-member class="card card-custom center-on-small-only"
                                         v-for="(invitation, index) in invitations"
@@ -47,21 +50,23 @@
                     </app-invited-member>
                 </transition-group>
 
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import CompanyMember from './CompanyMember.vue';
-    import InviteMember from '../invitation/Invitation.vue';
-    import InvitedMember from '../invitation/InvitedMember.vue';
-    import {eventBus} from '../../app';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import CompanyMember from './CompanyMember.vue'
+    import InviteMember from '../invitation/Invitation.vue'
+    import InvitedMember from '../invitation/InvitedMember.vue'
+    import { eventBus } from '../../app'
+    import mixins from '../../mixins'
 
     export default {
         props: ['data', 'invitations-data'],
@@ -69,7 +74,7 @@
             return {
                 company: this.data,
                 invitations: this.invitationsData
-            };
+            }
         },
         components: {
             'app-company-member': CompanyMember,
@@ -79,18 +84,30 @@
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Add a new invitation to the list.
+             */
             addInvitation(member) {
-                this.invitations.unshift(member);
+                this.invitations.unshift(member)
                 flash({
                     message: `L'invitation à ${member.email} a bien été envoyée!`,
                     level: 'success'
-                });
+                })
             },
+
+            /**
+             * Remove a member from the company.
+             */
             removeMember() {
-                alert('removed a member');
+                alert('removed a member')
             },
+
+            /**
+             * Remove an invitation.
+             */
             removeInvitation(index) {
-                this.invitations.splice(index, 1);
+                this.invitations.splice(index, 1)
             }
         }
     }

@@ -42,6 +42,7 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="dropdownMenuLink">
 
+                    <!--Delete-->
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fal fa-times"></i>
                         <span class="ml-3">Supprimer</span>
@@ -53,15 +54,15 @@
 </template>
 
 <script>
-    import SendConfirmationEmailAgain from '../register/SendConfirmationEmailAgain.vue';
-    import mixins from '../../mixins';
+    import SendConfirmationEmailAgain from '../register/SendConfirmationEmailAgain.vue'
+    import mixins from '../../mixins'
 
     export default {
         props: ['member'],
         data() {
             return {
                 user: this.member
-            };
+            }
         },
         components: {
             'app-send-confirmation-email-again': SendConfirmationEmailAgain
@@ -69,7 +70,7 @@
         mixins: [mixins],
         methods: {
             destroy() {
-                alert('delete member');
+                alert('delete member')
             }
         }
     }

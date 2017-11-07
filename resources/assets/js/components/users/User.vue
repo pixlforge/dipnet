@@ -92,9 +92,12 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="dropdownMenuLink">
 
+                    <!--Edit-->
                     <app-edit-user :data-user="user"
-                                   :data-companies="companies"></app-edit-user>
+                                   :data-companies="companies">
+                    </app-edit-user>
 
+                    <!--Delete-->
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fal fa-times"></i>
                         <span class="ml-3">Supprimer</span>
@@ -106,9 +109,9 @@
 </template>
 
 <script>
-    import EditUser from './EditUser.vue';
-    import moment from 'moment';
-    import mixins from '../../mixins';
+    import EditUser from './EditUser.vue'
+    import moment from 'moment'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -126,12 +129,20 @@
             'app-edit-user': EditUser
         },
         methods: {
+
+            /**
+             * Delete a user.
+             */
             destroy() {
-                axios.delete('/users/' + this.user.id);
-                this.$emit('userWasDeleted', this.user.id);
+                axios.delete('/users/' + this.user.id)
+                this.$emit('userWasDeleted', this.user.id)
             },
+
+            /**
+             * Get the formatted dates.
+             */
             getDate(date) {
-                return moment(date).locale(this.momentLocale).format(this.momentFormat);
+                return moment(date).locale(this.momentLocale).format(this.momentFormat)
             }
         }
     }

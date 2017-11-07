@@ -35,7 +35,10 @@
                                            class="form-control"
                                            v-model.trim="format.name"
                                            required autofocus>
-                                    <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.name"
+                                         v-text="errors.name[0]">
+                                    </div>
                                 </div>
 
                                 <!--Height-->
@@ -48,7 +51,10 @@
                                            class="form-control"
                                            v-model.trim="format.height"
                                            required>
-                                    <div class="help-block" v-if="errors.height" v-text="errors.height[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.height"
+                                         v-text="errors.height[0]">
+                                    </div>
                                 </div>
 
                                 <!--Width-->
@@ -61,7 +67,10 @@
                                            class="form-control"
                                            v-model.trim="format.width"
                                            required>
-                                    <div class="help-block" v-if="errors.width" v-text="errors.width[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.width"
+                                         v-text="errors.width[0]">
+                                    </div>
                                 </div>
 
                                 <!--Surface-->
@@ -72,7 +81,10 @@
                                            name="surface"
                                            class="form-control"
                                            v-model.trim="format.surface">
-                                    <div class="help-block" v-if="errors.surface" v-text="errors.surface[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.surface"
+                                         v-text="errors.surface[0]">
+                                    </div>
                                 </div>
 
                                 <!--Buttons-->
@@ -96,17 +108,20 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         data() {
@@ -125,23 +140,25 @@
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Add a format.
+             */
             addFormat() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.post('/formats', this.format)
                     .then(response => {
-                        this.format = response.data;
-                        this.$emit('formatWasCreated', this.format);
-                    })
-                    .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
-                        this.format = {};
+                        this.format = response.data
+                        this.$emit('formatWasCreated', this.format)
+                        this.toggleLoader()
+                        this.toggleModal()
+                        this.format = {}
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data
+                    })
             }
         }
     }

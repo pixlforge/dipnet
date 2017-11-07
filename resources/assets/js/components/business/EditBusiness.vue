@@ -35,7 +35,10 @@
                                            class="form-control"
                                            v-model.trim="business.name"
                                            required autofocus>
-                                    <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.name"
+                                         v-text="errors.name[0]">
+                                    </div>
                                 </div>
 
                                 <!--Reference-->
@@ -48,7 +51,10 @@
                                            class="form-control"
                                            v-model.trim="business.reference"
                                            required>
-                                    <div class="help-block" v-if="errors.reference" v-text="errors.reference[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.reference"
+                                         v-text="errors.reference[0]">
+                                    </div>
                                 </div>
 
                                 <!--Description-->
@@ -59,7 +65,10 @@
                                            name="description"
                                            class="form-control"
                                            v-model.trim="business.description">
-                                    <div class="help-block" v-if="errors.description" v-text="errors.description[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.description"
+                                         v-text="errors.description[0]">
+                                    </div>
                                 </div>
 
                                 <!--Company-->
@@ -71,9 +80,14 @@
                                             v-model.number.trim="business.company_id">
                                         <option disabled>Sélectionnez une société</option>
                                         <option v-for="company in companies"
-                                                :value="company.id">{{ company.name }}</option>
+                                                :value="company.id"
+                                                v-text="company.name">
+                                        </option>
                                     </select>
-                                    <div class="help-block" v-if="errors.company_id" v-text="errors.company_id[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.company_id"
+                                         v-text="errors.company_id[0]">
+                                    </div>
                                 </div>
 
                                 <!--Contact-->
@@ -85,9 +99,14 @@
                                             v-model.number.trim="business.contact_id">
                                         <option disabled>Sélectionnez un contact</option>
                                         <option v-for="(contact, index) in contacts"
-                                                :value="contact.contact[index].id">{{ contact.contact[index].name }}</option>
+                                                :value="contact.contact[index].id"
+                                                v-text="contact.contact[index].name">
+                                        </option>
                                     </select>
-                                    <div class="help-block" v-if="errors.contact_id" v-text="errors.contact_id[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.contact_id"
+                                         v-text="errors.contact_id[0]">
+                                    </div>
                                 </div>
 
                                 <!--Buttons-->
@@ -111,18 +130,21 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import { eventBus } from '../../app'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -134,47 +156,52 @@
                 business: this.dataBusiness,
                 companies: this.dataCompanies,
                 errors: {}
-            };
+            }
         },
         mixins: [mixins],
         components: {
             'app-moon-loader': MoonLoader
         },
         computed: {
+
+            /**
+             * Get the contacts associated with the company.
+             */
             contacts() {
                 if (this.business.company_id !== '') {
                     return this.companies.filter((company) => {
-                        return company.id === this.business.company_id;
-                    });
+                        return company.id === this.business.company_id
+                    })
                 }
             }
         },
         methods: {
+
+            /**
+             * Update a business.
+             */
             updateBusiness() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.put('/businesses/' + this.business.id, this.business)
                     .then(() => {
-                        eventBus.$emit('businessWasUpdated', this.business);
-                    })
-                    .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
+                        eventBus.$emit('businessWasUpdated', this.business)
+                        this.toggleLoader()
+                        this.toggleModal()
                     })
                     .catch((error) => {
-                        this.toggleLoader();
+                        this.toggleLoader()
                         if (error.response.status === 422) {
                             flash({
                                 message: "Erreur. La validation a échoué.",
                                 level: 'danger'
-                            });
-
-                            return;
+                            })
+                            return
                         }
                         flash({
                             message: "Erreur. Veuillez réessayer plus tard.",
                             level: 'danger'
-                        });
+                        })
                     })
             }
         }

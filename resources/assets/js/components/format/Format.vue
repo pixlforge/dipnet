@@ -62,8 +62,10 @@
                 <div class="dropdown-menu dropdown-menu-right"
                      aria-labelledby="Dropdown menu link">
 
+                    <!--Edit-->
                     <app-edit-format :data="format"></app-edit-format>
 
+                    <!--Delete-->
                     <a class="dropdown-item text-danger" role="button" @click.prevent="destroy">
                         <i class="fal fa-times"></i>
                         <span class="ml-3">Supprimer</span>
@@ -75,28 +77,36 @@
 </template>
 
 <script>
-    import EditFormat from './EditFormat.vue';
-    import moment from 'moment';
-    import mixins from '../../mixins';
+    import EditFormat from './EditFormat.vue'
+    import moment from 'moment'
+    import mixins from '../../mixins'
 
     export default {
         props: ['data'],
         data() {
             return {
                 format: this.data
-            };
+            }
         },
         mixins: [mixins],
         components: {
             'app-edit-format': EditFormat
         },
         methods: {
+
+            /**
+             * Delete a format.
+             */
             destroy() {
-                axios.delete('/formats/' + this.format.id);
-                this.$emit('formatWasDeleted', this.format.id);
+                axios.delete('/formats/' + this.format.id)
+                this.$emit('formatWasDeleted', this.format.id)
             },
+
+            /**
+             * Get the formatted dates.
+             */
             getDate(date) {
-                return moment(date).locale(this.momentLocale).format(this.momentFormat);
+                return moment(date).locale(this.momentLocale).format(this.momentFormat)
             }
         }
     }

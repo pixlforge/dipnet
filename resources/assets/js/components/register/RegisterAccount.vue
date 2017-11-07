@@ -5,6 +5,7 @@
         </a>
         <div class="row">
 
+            <!--Show the carousel-->
             <app-register-carousel></app-register-carousel>
 
             <div class="col-12 col-lg-6 vh-100 d-flex align-items-center">
@@ -13,7 +14,8 @@
                     <!--Loader-->
                     <app-moon-loader :loading="loader.loading"
                                      :color="loader.color"
-                                     :size="loader.size"></app-moon-loader>
+                                     :size="loader.size">
+                    </app-moon-loader>
 
                     <!--Register Account Form-->
                     <form role="form" @submit.prevent>
@@ -32,7 +34,8 @@
                                    required autofocus>
                             <div class="help-block"
                                  v-if="errors.username"
-                                 v-text="errors.username[0]"></div>
+                                 v-text="errors.username[0]">
+                            </div>
                         </div>
 
                         <!--Email-->
@@ -48,7 +51,8 @@
                                    required>
                             <div class="help-block"
                                  v-if="errors.email"
-                                 v-text="errors.email[0]"></div>
+                                 v-text="errors.email[0]">
+                            </div>
                         </div>
 
                         <!--Password-->
@@ -63,7 +67,8 @@
                                    required>
                             <div class="help-block"
                                  v-if="errors.password"
-                                 v-text="errors.password[0]"></div>
+                                 v-text="errors.password[0]">
+                            </div>
                         </div>
 
                         <!--Password confirm-->
@@ -96,9 +101,9 @@
 </template>
 
 <script>
-    import RegisterCarousel from './RegisterCarousel.vue';
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import RegisterCarousel from './RegisterCarousel.vue'
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         props: ['data-invitation'],
@@ -122,25 +127,29 @@
         },
         created() {
             if (this.invitation.data) {
-                this.account.email = this.invitation.data.email;
+                this.account.email = this.invitation.data.email
             }
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Register the account.
+             */
             registerAccount() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.post('/register', this.account)
                     .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
-                        this.account = {};
-                        this.$emit('accountCreated');
+                        this.toggleLoader()
+                        this.toggleModal()
+                        this.account = {}
+                        this.$emit('accountCreated')
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
+                    })
             }
         }
     }

@@ -13,9 +13,6 @@ $factory->define(App\Document::class, function (Faker $faker) {
         'size' => $faker->randomNumber(6, false),
         'quantity' => $faker->numberBetween($min = 1, $max = 100),
         'finish' => $faker->randomElement(['roulé', 'plié']),
-        'format_id' => function() {
-            return factory(App\Format::class)->create()->id;
-        },
         'delivery_id' => function() {
             return factory(App\Delivery::class)->create()->id;
         },

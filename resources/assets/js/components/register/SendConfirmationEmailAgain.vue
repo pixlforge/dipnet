@@ -5,15 +5,17 @@
             Renvoyer l'email de confirmation
         </a>
 
+        <!--Loader-->
         <app-moon-loader :loading="loader.loading"
                          :color="loader.color"
-                         :size="loader.size"></app-moon-loader>
+                         :size="loader.size">
+        </app-moon-loader>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         components: {
@@ -21,24 +23,28 @@
         },
         mixins: [mixins],
         methods: {
+
+            /**
+             * Send the confirmation email again.
+             */
             sendConfirmationAgain() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.put('/register/send-again')
                     .then(() => {
-                        this.toggleLoader();
+                        this.toggleLoader()
                         flash({
                             message: "L'email de confirmation vous a été envoyé à nouveau.",
                             level: 'success'
-                        });
+                        })
                     })
                     .catch(() => {
-                        this.toggleLoader();
+                        this.toggleLoader()
                         flash({
                             message: "Il y a eu un problème avec le renvoi de l'email de confirmation",
                             level: 'danger'
-                        });
-                    });
+                        })
+                    })
             }
         }
     }

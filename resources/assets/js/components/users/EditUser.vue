@@ -29,13 +29,16 @@
                                 <div class="form-group">
                                     <label for="username">Nom d'utilisateur</label>
                                     <span class="required">*</span>
-                                    <input role="text"
+                                    <input type="text"
                                            id="username"
                                            name="username"
                                            class="form-control"
                                            v-model.trim="user.username"
                                            required autofocus>
-                                    <div class="help-block" v-if="errors.username" v-text="errors.username[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.username"
+                                         v-text="errors.username[0]">
+                                    </div>
                                 </div>
 
                                 <!--Email-->
@@ -46,7 +49,10 @@
                                            name="email"
                                            class="form-control"
                                            v-model.trim="user.email">
-                                    <div class="help-block" v-if="errors.email" v-text="errors.email[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.email"
+                                         v-text="errors.email[0]">
+                                    </div>
                                 </div>
 
                                 <!--Role-->
@@ -70,7 +76,10 @@
                                             class="form-control custom-select"
                                             v-model.trim="user.company_id">
                                         <option disabled>Sélectionnez une société</option>
-                                        <option v-for="company in companies" :value="company.id" v-text="company.name"></option>
+                                        <option v-for="company in companies"
+                                                :value="company.id"
+                                                v-text="company.name">
+                                        </option>
                                     </select>
                                 </div>
 
@@ -95,18 +104,21 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import { eventBus } from '../../app'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -118,38 +130,41 @@
                 user: this.dataUser,
                 companies: this.dataCompanies,
                 errors: {}
-            };
+            }
         },
         mixins: [mixins],
         components: {
             'app-moon-loader': MoonLoader
         },
         methods: {
+
+            /**
+             * Update the user.
+             */
             updateUser() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.put('/users/' + this.user.id, this.user)
                     .then(() => {
-                        eventBus.$emit('userWasUpdated', this.user);
+                        eventBus.$emit('userWasUpdated', this.user)
                     })
                     .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
+                        this.toggleLoader()
+                        this.toggleModal()
                     })
                     .catch((error) => {
-                        this.toggleLoader();
+                        this.toggleLoader()
                         if (error.response.status === 422) {
                             flash({
                                 message: "Erreur. La validation a échoué.",
                                 level: 'danger'
-                            });
-
-                            return;
+                            })
+                            return
                         }
                         flash({
                             message: "Erreur. Veuillez réessayer plus tard.",
                             level: 'danger'
-                        });
+                        })
                     })
             }
         }

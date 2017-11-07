@@ -15,27 +15,32 @@
         </div>
         <div class="row bg-grey-light">
             <div class="col-10 mx-auto my-7">
+
+                <!--User-->
                 <transition-group name="highlight">
                     <app-user class="card card-custom center-on-small-only"
-                                 v-for="(user, index) in users"
-                                 :data-user="user"
-                                 :data-companies="companies"
-                                 :key="user.id"
-                                 @userWasDeleted="removeUser(index)"></app-user>
+                              v-for="(user, index) in users"
+                              :data-user="user"
+                              :data-companies="companies"
+                              :key="user.id"
+                              @userWasDeleted="removeUser(index)"></app-user>
                 </transition-group>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </div>
     </div>
 </template>
 
 <script>
-    import User from './User.vue';
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
-    import mixins from '../../mixins';
+    import User from './User.vue'
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import { eventBus } from '../../app'
+    import mixins from '../../mixins'
 
     export default {
         props: [
@@ -46,7 +51,7 @@
             return {
                 users: this.dataUsers,
                 companies: this.dataCompanies
-            };
+            }
         },
         mixins: [mixins],
         components: {
@@ -55,27 +60,35 @@
         },
         created() {
             eventBus.$on('userWasUpdated', (data) => {
-                this.updateUser(data);
+                this.updateUser(data)
             })
         },
         methods: {
+
+            /**
+             * Update the user details.
+             */
             updateUser(data) {
                 for (let user of this.users) {
                     if (data.id === user.id) {
-                        user.username = data.username;
+                        user.username = data.username
                     }
                 }
                 flash({
                     message: 'Les modifications apportées à l\'utilisateur ont été enregistrées.',
                     level: 'success'
-                });
+                })
             },
+
+            /**
+             * Remove a user from the list.
+             */
             removeUser(index) {
-                this.users.splice(index, 1);
+                this.users.splice(index, 1)
                 flash({
                     message: 'Suppression de l\'utilisateur réussie.',
                     level: 'success'
-                });
+                })
             }
         }
     }

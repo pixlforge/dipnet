@@ -35,7 +35,10 @@
                                            class="form-control"
                                            v-model.trim="article.reference"
                                            required autofocus>
-                                    <div class="help-block" v-if="errors.reference" v-text="errors.reference[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.reference"
+                                         v-text="errors.reference[0]">
+                                    </div>
                                 </div>
 
                                 <!--Description-->
@@ -46,7 +49,10 @@
                                            name="description"
                                            class="form-control"
                                            v-model.trim="article.description">
-                                    <div class="help-block" v-if="errors.description" v-text="errors.description[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.description"
+                                         v-text="errors.description[0]">
+                                    </div>
                                 </div>
 
                                 <!--Type-->
@@ -59,18 +65,6 @@
                                         <option disabled>Sélectionnez un type</option>
                                         <option value="option">Option</option>
                                         <option value="impression">Impression</option>
-                                    </select>
-                                </div>
-
-                                <!--Category-->
-                                <div class="form-group my-5">
-                                    <label for="category_id">Catégorie</label>
-                                    <select name="category_id"
-                                            id="category_id"
-                                            class="form-control custom-select"
-                                            v-model.trim="article.category_id">
-                                        <option disabled>Sélectionnez une catégorie</option>
-                                        <option v-for="category in categories" :value="category.id" v-text="category.name"></option>
                                     </select>
                                 </div>
 
@@ -95,61 +89,62 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import {eventBus} from '../../app';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import { eventBus } from '../../app'
+    import mixins from '../../mixins'
 
     export default {
-        props: [
-            'data-article',
-            'data-categories'
-        ],
+        props: ['data-article'],
         data() {
             return {
                 article: this.dataArticle,
                 categories: this.dataCategories,
                 errors: {}
-            };
+            }
         },
         mixins: [mixins],
         components: {
             'app-moon-loader': MoonLoader
         },
         methods: {
+
+            /**
+             * Update an article.
+             */
             updateArticle() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.put('/articles/' + this.article.id, this.article)
                     .then(() => {
-                        eventBus.$emit('articleWasUpdated', this.article);
-                    })
-                    .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
+                        eventBus.$emit('articleWasUpdated', this.article)
+                        this.toggleLoader()
+                        this.toggleModal()
                     })
                     .catch((error) => {
-                        this.toggleLoader();
+                        this.toggleLoader()
                         if (error.response.status === 422) {
                             flash({
                                 message: "Erreur. La validation a échoué.",
                                 level: 'danger'
-                            });
-
+                            })
                             return;
                         }
                         flash({
                             message: "Erreur. Veuillez réessayer plus tard.",
                             level: 'danger'
-                        });
+                        })
                     })
             }
         }

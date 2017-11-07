@@ -35,7 +35,10 @@
                                            class="form-control"
                                            v-model.trim="company.name"
                                            required autofocus>
-                                    <div class="help-block" v-if="errors.name" v-text="errors.name[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.name"
+                                         v-text="errors.name[0]">
+                                    </div>
                                 </div>
 
                                 <!--Status-->
@@ -59,7 +62,10 @@
                                            name="description"
                                            class="form-control"
                                            v-model.trim="company.description">
-                                    <div class="help-block" v-if="errors.description" v-text="errors.description[0]"></div>
+                                    <div class="help-block"
+                                         v-if="errors.description"
+                                         v-text="errors.description[0]">
+                                    </div>
                                 </div>
 
                                 <!--Buttons-->
@@ -83,17 +89,20 @@
                         </div>
                     </div>
                 </div>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
-                                 :size="loader.size"></app-moon-loader>
+                                 :size="loader.size">
+                </app-moon-loader>
             </div>
         </transition>
     </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import mixins from '../../mixins';
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import mixins from '../../mixins'
 
     export default {
         data() {
@@ -104,30 +113,32 @@
                     description: '',
                 },
                 errors: {}
-            };
+            }
         },
         mixins: [mixins],
         components: {
             'app-moon-loader': MoonLoader
         },
         methods: {
+
+            /**
+             * Add a company.
+             */
             addCompany() {
-                this.toggleLoader();
+                this.toggleLoader()
 
                 axios.post('/companies', this.company)
                     .then(response => {
-                        this.company.id = response.data;
-                        this.$emit('companyWasCreated', this.company);
-                    })
-                    .then(() => {
-                        this.toggleLoader();
-                        this.toggleModal();
-                        this.company = {};
+                        this.company.id = response.data
+                        this.$emit('companyWasCreated', this.company)
+                        this.toggleLoader()
+                        this.toggleModal()
+                        this.company = {}
                     })
                     .catch(error => {
-                        this.toggleLoader();
-                        this.errors = error.response.data.errors;
-                    });
+                        this.toggleLoader()
+                        this.errors = error.response.data.errors
+                    })
             }
         }
     }

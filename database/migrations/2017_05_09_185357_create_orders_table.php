@@ -16,7 +16,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('reference', 45)->unique()->index();
-            $table->enum('status', ['incomplete', 'pending', 'shipped', 'completed'])->default('incomplete');
+            $table->enum('status', ['incomplète', 'réceptionnée', 'traitement', 'envoyée', 'terminé'])->default('incomplete');
             $table->unsignedInteger('business_id')->nullable();
             $table->unsignedInteger('contact_id')->nullable();
             $table->unsignedInteger('user_id');

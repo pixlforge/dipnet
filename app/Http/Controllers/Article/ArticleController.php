@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Article;
 
 use App\Article;
-use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
@@ -27,19 +26,13 @@ class ArticleController extends Controller
     {
         $this->authorize('view', Article::class);
 
-        $articles = Article::with('category')
-            ->latest()
+        $articles = Article::latest()
             ->orderBy('reference')
             ->get()
             ->toJson();
 
-        $categories = Category::orderBy('name')
-            ->get()
-            ->toJson();
-
         return view('articles.index', [
-            'articles' => $articles,
-            'categories' => $categories
+            'articles' => $articles
         ]);
     }
 
@@ -54,8 +47,7 @@ class ArticleController extends Controller
         $article = Article::create([
             'reference' => $request->reference,
             'description' => $request->description,
-            'type' => $request->type,
-            'category_id' => $request->category_id
+            'type' => $request->type
         ]);
 
         return $article;
@@ -86,8 +78,7 @@ class ArticleController extends Controller
         $article->update([
             'reference' => $request->reference,
             'description' => $request->description,
-            'type' => $request->type,
-            'category_id' => $request->category_id
+            'type' => $request->type
         ]);
 
         return response($article, 200);

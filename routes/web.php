@@ -36,16 +36,6 @@ Route::prefix('/businesses')->namespace('Business')->group(function () {
 });
 
 /**
- * Category
- */
-Route::prefix('/categories')->namespace('Category')->group(function () {
-    Route::get('/', 'CategoryController@index')->name('categories.index');
-    Route::post('/', 'CategoryController@store')->name('categories.store');
-    Route::put('/{category}', 'CategoryController@update')->name('categories.update');
-    Route::delete('/{category}', 'CategoryController@destroy')->name('categories.destroy');
-});
-
-/**
  * Company
  */
 Route::prefix('/companies')->namespace('Company')->group(function () {

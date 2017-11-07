@@ -26,8 +26,7 @@ class StoreArticleRequest extends FormRequest
         return [
             'reference' => 'required|unique:articles,id,:id|min:3|max:45',
             'description' => 'nullable|string|max:45',
-            'type' => 'required|in:impression,option',
-            'category_id' => 'required|exists:categories,id'
+            'type' => 'required|in:impression,option'
         ];
     }
 
@@ -46,9 +45,7 @@ class StoreArticleRequest extends FormRequest
             'description.string' => 'La description doit être du texte.',
             'description.max' => 'Maximum 45 caractères.',
             'type.required' => 'Veuillez sélectionner un type.',
-            'type.in' => 'Veuillez sélectionner un type parmi ceux proposés.',
-            'category.required' => 'Veuillez sélectionner une catégorie.',
-            'category.exists' => 'Veuillez sélectionner une catégorie parmi celles proposées.'
+            'type.in' => 'Veuillez sélectionner un type parmi ceux proposés.'
         ];
     }
 }

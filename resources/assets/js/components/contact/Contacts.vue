@@ -9,6 +9,8 @@
                             {{ contacts.length }}
                             {{ contacts.length == 0 || contacts.length == 1 ? 'contact' : 'contacts' }}
                         </span>
+
+                        <!--Add-->
                         <app-add-contact @contactWasCreated="addContact"></app-add-contact>
                     </div>
                 </div>
@@ -16,6 +18,8 @@
         </div>
         <div class="row bg-grey-light">
             <div class="col-10 mx-auto my-7">
+
+                <!--Contact-->
                 <transition-group name="highlight">
                     <app-contact class="card card-custom center-on-small-only"
                                  v-for="(contact, index) in contacts"
@@ -24,6 +28,8 @@
                                  @contactWasDeleted="removeContact(index)">
                     </app-contact>
                 </transition-group>
+
+                <!--Loader-->
                 <app-moon-loader :loading="loader.loading"
                                  :color="loader.color"
                                  :size="loader.size">
@@ -34,11 +40,11 @@
 </template>
 
 <script>
-    import Contact from './Contact.vue';
-    import AddContact from './AddContact.vue';
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue';
-    import { eventBus } from '../../app';
-    import mixins from '../../mixins';
+    import Contact from './Contact.vue'
+    import AddContact from './AddContact.vue'
+    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
+    import { eventBus } from '../../app'
+    import mixins from '../../mixins'
 
     export default {
         props: ['data-contacts'],
@@ -55,42 +61,54 @@
         },
         created() {
             eventBus.$on('contactWasUpdated', (data) => {
-                this.updateContact(data);
+                this.updateContact(data)
             })
         },
         methods: {
+
+            /**
+             * Add a new contact to the list.
+             */
             addContact(contact) {
-                this.contacts.unshift(contact);
+                this.contacts.unshift(contact)
                 flash({
                     message: 'La création du contact a réussi.',
                     level: 'success'
-                });
+                })
             },
+
+            /**
+             * Update a contact details.
+             */
             updateContact(data) {
                 for (let contact of this.contacts) {
                     if (data.id === contact.id) {
-                        contact.name = data.name;
-                        contact.address_line1 = data.address_line1;
-                        contact.address_line2 = data.address_line2;
-                        contact.zip = data.zip;
-                        contact.city = data.city;
-                        contact.phone_number = data.phone_number;
-                        contact.fax = data.fax;
-                        contact.email = data.email;
-                        contact.company_id = data.company_id;
+                        contact.name = data.name
+                        contact.address_line1 = data.address_line1
+                        contact.address_line2 = data.address_line2
+                        contact.zip = data.zip
+                        contact.city = data.city
+                        contact.phone_number = data.phone_number
+                        contact.fax = data.fax
+                        contact.email = data.email
+                        contact.company_id = data.company_id
                     }
                 }
                 flash({
                     message: 'Les modifications apportées au contact ont été enregistrées.',
                     level: 'success'
-                });
+                })
             },
+
+            /**
+             * Remove a contact from the list.
+             */
             removeContact(index) {
-                this.contacts.splice(index, 1);
+                this.contacts.splice(index, 1)
                 flash({
                     message: 'Suppression du contact réussie.',
                     level: 'success'
-                });
+                })
             }
         }
     }
