@@ -186,6 +186,8 @@
                 axios.put('/businesses/' + this.business.id, this.business)
                     .then(() => {
                         eventBus.$emit('businessWasUpdated', this.business)
+                    })
+                    .then(() => {
                         this.toggleLoader()
                         this.toggleModal()
                     })

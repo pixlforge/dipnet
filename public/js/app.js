@@ -29532,6 +29532,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.put('/articles/' + this.article.id, this.article).then(function () {
                 __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('articleWasUpdated', _this.article);
+            }).then(function () {
                 _this.toggleLoader();
                 _this.toggleModal();
             }).catch(function (error) {
@@ -30273,6 +30274,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.put('/businesses/' + this.business.id, this.business).then(function () {
                 __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('businessWasUpdated', _this2.business);
+            }).then(function () {
                 _this2.toggleLoader();
                 _this2.toggleModal();
             }).catch(function (error) {
@@ -30937,6 +30939,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.put('/companies/' + this.company.id, this.company).then(function () {
                 __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('companyWasUpdated', _this.company);
+            }).then(function () {
                 _this.toggleLoader();
                 _this.toggleModal();
             }).catch(function (error) {
@@ -31868,6 +31871,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.put('/contacts/' + this.contact.id, this.contact).then(function () {
                 __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('contactWasUpdated', _this.contact);
+            }).then(function () {
                 _this.toggleLoader();
                 _this.toggleModal();
             }).catch(function (error) {
@@ -32354,6 +32358,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.put('/formats/' + this.format.id, this.format).then(function () {
                 __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('formatWasUpdated', _this.format);
+            }).then(function () {
                 _this.toggleLoader();
                 _this.toggleModal();
             }).catch(function (error) {

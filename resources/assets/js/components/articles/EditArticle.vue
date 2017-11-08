@@ -129,6 +129,8 @@
                 axios.put('/articles/' + this.article.id, this.article)
                     .then(() => {
                         eventBus.$emit('articleWasUpdated', this.article)
+                    })
+                    .then(() => {
                         this.toggleLoader()
                         this.toggleModal()
                     })

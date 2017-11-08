@@ -151,6 +151,8 @@
                 axios.put('/formats/' + this.format.id, this.format)
                     .then(() => {
                         eventBus.$emit('formatWasUpdated', this.format);
+                    })
+                    .then(() => {
                         this.toggleLoader()
                         this.toggleModal()
                     })

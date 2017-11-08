@@ -205,6 +205,8 @@
                 axios.put('/contacts/' + this.contact.id, this.contact)
                     .then(() => {
                         eventBus.$emit('contactWasUpdated', this.contact)
+                    })
+                    .then(() => {
                         this.toggleLoader()
                         this.toggleModal()
                     })
