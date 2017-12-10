@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Register;
 
+use Dipnet\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -15,7 +16,7 @@ class RegistrationContactValidationTest extends TestCase
 
         $this->withExceptionHandling();
 
-        $user = factory('App\User')->states('not-confirmed')->create();
+        $user = factory(User::class)->states('not-confirmed')->create();
         $this->signIn($user);
     }
 

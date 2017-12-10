@@ -2,9 +2,9 @@
 
 namespace Tests\Unit\Delivery;
 
-use App\Delivery;
-use App\Order;
-use App\User;
+use Dipnet\Delivery;
+use Dipnet\Order;
+use Dipnet\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

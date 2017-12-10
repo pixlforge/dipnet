@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\User;
-use App\Contact;
-use App\Company;
+use Dipnet\User;
+use Dipnet\Contact;
+use Dipnet\Company;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\RegistrationEmailConfirmation;
+use Dipnet\Mail\RegistrationEmailConfirmation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class GuestsCanRegisterTest extends TestCase
@@ -66,7 +66,7 @@ class GuestsCanRegisterTest extends TestCase
     /** @test */
     function an_associated_contact_can_be_created_after_registering_a_new_account()
     {
-        $user = factory('App\User')
+        $user = factory(User::class)
             ->states('not-confirmed')
             ->create(['email' => 'johndoe@example.com']);
         $this->signIn($user);
@@ -98,7 +98,7 @@ class GuestsCanRegisterTest extends TestCase
     /** @test */
     function an_associated_company_can_be_created_after_registering_a_new_account()
     {
-        $user = factory('App\User')
+        $user = factory(User::class)
             ->states('not-confirmed')
             ->create(['email' => 'johndoe@example.com']);
         $this->signIn($user);
@@ -137,7 +137,7 @@ class GuestsCanRegisterTest extends TestCase
     /** @test */
     function a_newly_registered_user_should_be_associated_with_the_company_he_created()
     {
-        $user = factory('App\User')
+        $user = factory(User::class)
             ->states(['not-confirmed', 'no-company'])
             ->create(['email' => 'johndoe@example.com']);
         $this->signIn($user);
@@ -180,7 +180,7 @@ class GuestsCanRegisterTest extends TestCase
     /** @test */
     function a_newly_registered_users_contact_should_be_associated_with_the_company_he_created()
     {
-        $user = factory('App\User')
+        $user = factory(User::class)
             ->states(['not-confirmed', 'no-company'])
             ->create(['email' => 'johndoe@example.com']);
         $this->signIn($user);
@@ -227,7 +227,7 @@ class GuestsCanRegisterTest extends TestCase
     /** @test */
     function it_redirects_the_user_if_account_contact_is_not_confirmed()
     {
-        $user = factory('App\User')
+        $user = factory(User::class)
             ->states('contact-not-confirmed')
             ->create();
 
@@ -239,7 +239,7 @@ class GuestsCanRegisterTest extends TestCase
     /** @test */
     function a_user_without_any_associated_contact_can_add_a_contact()
     {
-        $user = factory('App\User')
+        $user = factory(User::class)
             ->states('contact-not-confirmed')
             ->create(['email' => 'johndoe@example.com']);
 
@@ -265,7 +265,7 @@ class GuestsCanRegisterTest extends TestCase
     /** @test */
     function it_redirects_the_user_if_account_company_is_not_confirmed()
     {
-        $user = factory('App\User')
+        $user = factory(User::class)
             ->states(['company-not-confirmed', 'no-company'])
             ->create(['email' => 'johndoe@example.com']);
 
@@ -403,7 +403,7 @@ class GuestsCanRegisterTest extends TestCase
         Mail::fake();
 
         // Create the unconfirmed user
-        $user = factory('App\User')->states('email-not-confirmed')->create([
+        $user = factory(User::class)->states('email-not-confirmed')->create([
             'username' => 'John Doe',
             'email' => 'johndoe@example.com'
         ]);

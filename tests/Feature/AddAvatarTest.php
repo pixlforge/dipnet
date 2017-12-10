@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Dipnet\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -12,7 +13,7 @@ class AddAvatarTest extends TestCase
     /** @test */
     function members_without_an_avatar_are_assigned_a_random_one()
     {
-        $user = factory('App\User')->create([
+        $user = factory(User::class)->create([
             'username' => 'John Doe',
             'email' => 'johndoe@example.com'
         ]);

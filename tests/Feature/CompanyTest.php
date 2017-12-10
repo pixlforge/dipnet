@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Company;
-use App\User;
+use Dipnet\Company;
+use Dipnet\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

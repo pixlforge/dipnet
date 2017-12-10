@@ -2,7 +2,8 @@
 
 namespace Tests;
 
-use App\Exceptions\Handler;
+use Dipnet\User;
+use Dipnet\Exceptions\Handler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 
@@ -18,7 +19,7 @@ abstract class TestCase extends BaseTestCase
 
     protected function signIn($user = null, $role = 'utilisateur')
     {
-        $user = $user ?: factory('App\User')->create(['role' => $role]);
+        $user = $user ?: factory(User::class)->create(['role' => $role]);
         $this->actingAs($user);
         return $this;
     }

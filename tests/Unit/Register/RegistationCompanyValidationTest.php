@@ -2,6 +2,8 @@
 
 namespace Tests\Unit\Register;
 
+use Dipnet\Company;
+use Dipnet\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -15,7 +17,7 @@ class RegistationCompanyValidationTest extends TestCase
 
         $this->withExceptionHandling();
 
-        $user = factory('App\User')->states('not-confirmed')->create();
+        $user = factory(User::class)->states('not-confirmed')->create();
         $this->signIn($user);
     }
 
@@ -39,7 +41,7 @@ class RegistationCompanyValidationTest extends TestCase
     /** @test */
     function it_fails_if_name_already_exists()
     {
-        factory('App\Company')->create(['name' => 'The Night\'s Watch']);
+        factory(Company::class)->create(['name' => 'The Night\'s Watch']);
 
         $this->json('POST', route('register.company.store'), [
             'name' => 'The Night\'s Watch'

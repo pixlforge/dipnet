@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\User;
+use Dipnet\User;
 use Tests\TestCase;
-use App\Invitation;
-use App\Mail\InvitationEmail;
+use Dipnet\Invitation;
+use Dipnet\Mail\InvitationEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -18,7 +18,7 @@ class InvitationTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory('App\User')->create();
+        $user = factory(User::class)->create();
         $this->actingAs($user);
 
         $this->json('POST', route('invitation.store'), [
@@ -40,7 +40,7 @@ class InvitationTest extends TestCase
 
         Mail::fake();
 
-        $user = factory('App\User')->create(['email' => 'johndoe@example.com']);
+        $user = factory(User::class)->create(['email' => 'johndoe@example.com']);
         $this->signIn($user);
 
         // Invite someone using the same email address
@@ -58,7 +58,7 @@ class InvitationTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory('App\User')->create([
+        $user = factory(User::class)->create([
             'username' => 'John Doe',
             'email' => 'johndoe@example.com'
         ]);
@@ -79,7 +79,7 @@ class InvitationTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory('App\User')->create();
+        $user = factory(User::class)->create();
         $this->signIn($user);
 
         $this->postJson(route('invitation.store'), [
@@ -105,7 +105,7 @@ class InvitationTest extends TestCase
     {
         Mail::fake();
 
-        $user = factory('App\User')->create([
+        $user = factory(User::class)->create([
             'username' => 'John Doe',
             'email' => 'johndoe@example.com'
         ]);

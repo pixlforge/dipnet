@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Business;
-use App\Company;
-use App\Contact;
-use App\User;
+use Dipnet\Business;
+use Dipnet\Company;
+use Dipnet\Contact;
+use Dipnet\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
