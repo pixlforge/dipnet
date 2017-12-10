@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Delivery;
+namespace Dipnet\Http\Controllers\Delivery;
 
-use App\Delivery;
-use App\Document;
+use Dipnet\Delivery;
+use Dipnet\Document;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\DeliveryRequest;
-use App\Http\Requests\Delivery\StoreDeliveryRequest;
-use App\Http\Requests\Delivery\UpdateDeliveryRequest;
+use Dipnet\Http\Controllers\Controller;
+use Dipnet\Http\Requests\DeliveryRequest;
+use Dipnet\Http\Requests\Delivery\StoreDeliveryRequest;
+use Dipnet\Http\Requests\Delivery\UpdateDeliveryRequest;
 
 class DeliveryController extends Controller
 {

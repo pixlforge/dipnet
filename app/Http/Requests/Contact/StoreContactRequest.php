@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Contact;
+namespace Dipnet\Http\Requests\Contact;
 
 use Illuminate\Foundation\Http\FormRequest;
 

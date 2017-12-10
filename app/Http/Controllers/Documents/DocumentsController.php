@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Documents;
+namespace Dipnet\Http\Controllers\Documents;
 
-use App\Order;
-use App\Delivery;
-use App\Document;
+use Dipnet\Order;
+use Dipnet\Delivery;
+use Dipnet\Document;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\DocumentRequest;
+use Dipnet\Http\Controllers\Controller;
+use Dipnet\Http\Requests\DocumentRequest;
 use Illuminate\Support\Facades\Storage;
 
 class DocumentsController extends Controller

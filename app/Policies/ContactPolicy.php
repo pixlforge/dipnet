@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Policies;
+namespace Dipnet\Policies;
 
-use App\Contact;
-use App\User;
+use Dipnet\Contact;
+use Dipnet\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ContactPolicy

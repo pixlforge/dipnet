@@ -173,12 +173,12 @@ return [
         /*
          * Application Service Providers...
          */
-        App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
-        // App\Providers\BroadcastServiceProvider::class,
-        App\Providers\EventServiceProvider::class,
-        App\Providers\RouteServiceProvider::class,
-        App\Providers\BladeServiceProvider::class,
+        Dipnet\Providers\AppServiceProvider::class,
+        Dipnet\Providers\AuthServiceProvider::class,
+        // Dipnet\Providers\BroadcastServiceProvider::class,
+        Dipnet\Providers\EventServiceProvider::class,
+        Dipnet\Providers\RouteServiceProvider::class,
+        Dipnet\Providers\BladeServiceProvider::class,
 
     ],
 

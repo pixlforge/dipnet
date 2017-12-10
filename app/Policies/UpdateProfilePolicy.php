@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Policies;
+namespace Dipnet\Policies;
 
-use App\User;
-use App\Profile;
+use Dipnet\User;
+use Dipnet\Profile;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 

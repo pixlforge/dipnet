@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Dipnet\Http\Controllers\Auth;
 
-use App\Contact;
+use Dipnet\Contact;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Register\RegisterContactRequest;
+use Dipnet\Http\Controllers\Controller;
+use Dipnet\Http\Requests\Register\RegisterContactRequest;
 
 class RegisterContactOnlyController extends Controller
 {

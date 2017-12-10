@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Format;
+namespace Dipnet\Http\Requests\Format;
 
 class UpdateFormatRequest extends StoreFormatRequest
 {

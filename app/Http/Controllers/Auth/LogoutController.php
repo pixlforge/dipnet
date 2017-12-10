@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Dipnet\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
+use Dipnet\Http\Controllers\Controller;
 
 class LogoutController extends Controller
 {

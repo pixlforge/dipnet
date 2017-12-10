@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Delivery;
+namespace Dipnet\Http\Controllers\Delivery;
 
-use App\Delivery;
+use Dipnet\Delivery;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Dipnet\Http\Controllers\Controller;
 
 class DeliveryNoteController extends Controller
 {

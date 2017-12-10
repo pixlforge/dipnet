@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Profiles;
+namespace Dipnet\Http\Controllers\Profiles;
 
-use App\User;
-use App\Company;
-use App\Contact;
-use App\Profile;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateProfileRequest;
+use Dipnet\User;
+use Dipnet\Company;
+use Dipnet\Contact;
+use Dipnet\Profile;
+use Dipnet\Http\Controllers\Controller;
+use Dipnet\Http\Requests\UpdateProfileRequest;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller

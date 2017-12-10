@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Policies;
+namespace Dipnet\Policies;
 
 use Illuminate\Auth\Access\HandlesAuthorization;
 

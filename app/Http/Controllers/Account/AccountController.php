@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Account;
+namespace Dipnet\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use Dipnet\Http\Controllers\Controller;
 
 class AccountController extends Controller
 {

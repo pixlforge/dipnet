@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events;
+namespace Dipnet\Events;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;

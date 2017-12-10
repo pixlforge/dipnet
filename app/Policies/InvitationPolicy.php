@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Policies;
+namespace Dipnet\Policies;
 
-use App\User;
-use App\Invitation;
+use Dipnet\User;
+use Dipnet\Invitation;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class InvitationPolicy

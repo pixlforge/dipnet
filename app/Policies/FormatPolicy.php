@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Policies;
+namespace Dipnet\Policies;
 
-use App\User;
-use App\Format;
+use Dipnet\User;
+use Dipnet\Format;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FormatPolicy

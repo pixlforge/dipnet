@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace Dipnet\Http\Controllers\Auth;
 
-use App\Company;
+use Dipnet\Company;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\Register\RegisterCompanyRequest;
+use Dipnet\Http\Controllers\Controller;
+use Dipnet\Http\Requests\Register\RegisterCompanyRequest;
 
 class RegisterCompanyController extends Controller
 {

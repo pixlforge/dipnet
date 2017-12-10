@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Dipnet;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
@@ -262,7 +262,7 @@ class User extends Authenticatable
      */
     public function deliveries()
     {
-        return $this->hasManyThrough('App\Delivery', 'App\Contact');
+        return $this->hasManyThrough('Dipnet\Delivery', 'Dipnet\Contact');
     }
 
     /**
@@ -272,7 +272,7 @@ class User extends Authenticatable
      */
     public function businesses()
     {
-        return $this->hasManyThrough('App\Business', 'App\Contact');
+        return $this->hasManyThrough('Dipnet\Business', 'Dipnet\Contact');
     }
 
     /**

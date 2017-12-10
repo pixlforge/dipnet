@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace Dipnet\Http\Controllers\User;
 
-use App\User;
-use App\Company;
-use App\Http\Controllers\Controller;
-use App\Http\Requests\User\StoreUserRequest;
-use App\Http\Requests\User\UpdateUserRequest;
+use Dipnet\User;
+use Dipnet\Company;
+use Dipnet\Http\Controllers\Controller;
+use Dipnet\Http\Requests\User\StoreUserRequest;
+use Dipnet\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {

@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Contact::class, function (Faker $faker) {
+$factory->define(Dipnet\Contact::class, function (Faker $faker) {
     return [
         'name' => $faker->domainWord,
         'address_line1' => $faker->streetName,
@@ -17,7 +17,7 @@ $factory->define(App\Contact::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(App\Contact::class, 'default', [
+$factory->state(Dipnet\Contact::class, 'default', [
     'name' => 'default',
     'address_line1' => 'default',
     'address_line2' => null,

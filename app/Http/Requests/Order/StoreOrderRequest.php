@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Order;
+namespace Dipnet\Http\Requests\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
 

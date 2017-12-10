@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Dipnet;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Dipnet\Providers;
 
 use Carbon\Carbon;
 use Illuminate\Support\ServiceProvider;

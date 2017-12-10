@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Policies;
+namespace Dipnet\Policies;
 
-use App\User;
-use App\Document;
+use Dipnet\User;
+use Dipnet\Document;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DocumentPolicy
@@ -33,8 +33,8 @@ class DocumentPolicy
     /**
      * Determine whether the user can update the document.
      *
-     * @param  \App\User  $user
-     * @param  \App\Document  $document
+     * @param  \Dipnet\User  $user
+     * @param  \Dipnet\Document  $document
      * @return mixed
      */
     public function update(User $user, Document $document)
@@ -45,8 +45,8 @@ class DocumentPolicy
     /**
      * Determine whether the user can delete the document.
      *
-     * @param  \App\User  $user
-     * @param  \App\Document  $document
+     * @param  \Dipnet\User  $user
+     * @param  \Dipnet\Document  $document
      * @return mixed
      */
     public function delete(User $user, Document $document)
