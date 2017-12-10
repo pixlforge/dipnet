@@ -61,12 +61,18 @@
   text-transform: capitalize;
 }
 
-.badge-success {
+.badge-success,
+.badge--success {
   background: $bg-success;
 }
 
-.badge-warning {
+.badge-warning,
+.badge--warning {
   background: $bg-warning;
+}
+
+.badge--danger {
+  background-color: $bg-red;
 }
 
 .center-on-small-only {

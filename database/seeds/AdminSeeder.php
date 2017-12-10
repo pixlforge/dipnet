@@ -26,7 +26,8 @@ class AdminSeeder extends Seeder
                     'description' => 'Agence de développement web',
                     'created_by_username' => 'Célien'
                 ])->id;
-            }
+            },
+            'confirmation_token' => null
         ]);
 
         factory(User::class)->create([
@@ -42,7 +43,8 @@ class AdminSeeder extends Seeder
                     'description' => 'Agence de développement Web',
                     'created_by_username' => 'Radu'
                 ])->id;
-            }
+            },
+            'confirmation_token' => null
         ]);
     }
 }

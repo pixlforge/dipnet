@@ -86,6 +86,16 @@ class DocumentsController extends Controller
         return $document;
     }
 
+    /**
+     * Delete a document.
+     *
+     * @param Order $order
+     * @param Delivery $delivery
+     * @param Document $document
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(Order $order, Delivery $delivery, Document $document)
     {
         $this->authorize('touch', $order);

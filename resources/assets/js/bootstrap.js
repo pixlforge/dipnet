@@ -11,11 +11,12 @@ window.Vue = require('vue');
  */
 
 try {
-    window.$ = window.jQuery = require('./jquery-3.2.1');
+  window.$ = window.jQuery = require('./jquery-3.2.1');
 
-    require('bootstrap');
+  require('bootstrap');
 
-} catch (e) {}
+} catch (e) {
+}
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -48,5 +49,5 @@ window.Form = Form;
 window.events = new Vue();
 
 window.flash = function (message) {
-    window.events.$emit('flash', message);
+  window.events.$emit('flash', message);
 };

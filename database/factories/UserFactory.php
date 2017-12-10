@@ -17,20 +17,27 @@ $factory->define(App\User::class, function (Faker $faker) {
         'email_confirmed' => true,
         'contact_confirmed' => true,
         'company_confirmed' => true,
-        'confirmation_token' => User::generateConfirmationToken($faker->safeEmail),
+//        'confirmation_token' => User::generateConfirmationToken($faker->safeEmail),
+        'confirmation_token' => null,
         'remember_token' => str_random(10),
     ];
 });
 
-$factory->state(App\User::class, 'not-confirmed', [
-    'email_confirmed' => false,
-    'contact_confirmed' => false,
-    'company_confirmed' => false
-]);
+$factory->state(App\User::class, 'not-confirmed', function (Faker $faker) {
+    return [
+        'email_confirmed' => false,
+        'contact_confirmed' => false,
+        'company_confirmed' => false,
+        'confirmation_token' => User::generateConfirmationToken($faker->safeEmail)
+    ];
+});
 
-$factory->state(App\User::class, 'email-not-confirmed', [
-    'email_confirmed' => false
-]);
+$factory->state(App\User::class, 'email-not-confirmed', function (Faker $faker) {
+    return [
+        'email_confirmed' => false,
+        'confirmation_token' => User::generateConfirmationToken($faker->safeEmail)
+    ];
+});
 
 $factory->state(App\User::class, 'contact-not-confirmed', [
     'contact_confirmed' => false

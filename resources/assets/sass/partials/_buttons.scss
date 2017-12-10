@@ -16,9 +16,15 @@ button {
   box-shadow: 0 12px 22px 0 rgba(0, 0, 0, 0.09);
 }
 
-.dropdown-item {
+.dropdown-menu .dropdown-item {
   line-height: 2;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+
+  & svg {
+    margin-left: 1rem;
+  }
 }
 
 .dropdown-item:focus, .dropdown-item:hover {

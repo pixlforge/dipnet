@@ -50,7 +50,7 @@ class OrderController extends Controller
      */
     public function create(Order $order)
     {
-        if (! $order->exists) {
+        if (!$order->exists) {
             $order = $this->createSkeletonOrder();
 
             return redirect()->route('orders.create.end', $order);
@@ -73,18 +73,16 @@ class OrderController extends Controller
 
         $deliveries = $this->getOrderDeliveries($order);
         $order = $order->load('business', 'contact');
-
-        $formats = Format::all();
+        
         $articles = Article::all();
 
         return view('orders.create', [
             'order' => $order,
-            'businesses' => $businesses,
-            'contacts' => $contacts,
+            'businesses' => $businesses, //ok
+            'contacts' => $contacts, //ok
             'deliveries' => $deliveries,
             'documents' => $order->documents,
-            'formats' => $formats,
-            'articles' => $articles
+            'articles' => $articles //ok
         ]);
     }
 

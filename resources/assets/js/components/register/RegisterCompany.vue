@@ -1,116 +1,113 @@
 <template>
-    <div class="row">
-        <a href="/">
-            <div class="company-logo-container" :class="logoWhite" aria-hidden="true"></div>
-        </a>
-        <div class="col-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding">
-            <div class="col-12 col-md-5 offset-md-5 mt-md-checklist no-padding">
+  <div class="row">
+    <a href="/">
+      <div class="company-logo-container"
+           :class="logoWhite"
+           aria-hidden="true">
+      </div>
+    </a>
+    <div class="col-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding">
+      <div class="col-12 col-md-5 offset-md-5 mt-md-checklist no-padding">
 
-                <!--Loader-->
-                <app-moon-loader :loading="loader.loading"
-                                 :color="loader.color"
-                                 :size="loader.size">
-                </app-moon-loader>
-
-                <div class="d-flex flex-column justify-content-center checklist">
-                    <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
-                        <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
-                        <span>Enregistrement</span>
-                    </a>
-                    <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
-                        <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
-                        <span>Contact</span>
-                    </a>
-                    <a class="d-flex align-items-center checklist-item checklist-item-active link-unstyled">
-                        <span class="badge badge-white mx-4">3</span>
-                        <span>Société</span>
-                    </a>
-                    <a class="d-flex align-items-center checklist-item link-unstyled">
-                        <span class="badge badge-white mx-4">4</span>
-                        <span>Prêt</span>
-                    </a>
-                </div>
-            </div>
+        <div class="d-flex flex-column justify-content-center checklist">
+          <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
+            <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
+            <span>Enregistrement</span>
+          </a>
+          <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
+            <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
+            <span>Contact</span>
+          </a>
+          <a class="d-flex align-items-center checklist-item checklist-item-active link-unstyled">
+            <span class="badge badge-white mx-4">3</span>
+            <span>Société</span>
+          </a>
+          <a class="d-flex align-items-center checklist-item link-unstyled">
+            <span class="badge badge-white mx-4">4</span>
+            <span>Prêt</span>
+          </a>
         </div>
-
-        <div class="col-12 col-lg-6 push-lg-6 vh-100 d-flex align-items-center">
-            <div class="col-12 col-lg-8 mx-auto py-5">
-
-                <form role="form" @submit.prevent>
-
-                    <h4 class="text-center">Société</h4>
-
-                    <!--Name-->
-                    <div class="form-group my-5">
-                        <label for="name">Nom</label>
-                        <input type="text"
-                               id="name"
-                               name="name"
-                               v-model="company.name"
-                               class="form-control"
-                               autofocus>
-                        <div class="help-block"
-                             v-if="errors.name"
-                             v-text="errors.name[0]">
-                        </div>
-                    </div>
-
-                    <button class="btn btn-lg btn-black btn-block mt-5"
-                            @click="createCompany">
-                        <i class="fal fa-check mr-2"></i>
-                        Terminer
-                    </button>
-                </form>
-            </div>
-        </div>
+      </div>
     </div>
+
+    <div class="col-12 col-lg-6 push-lg-6 vh-100 d-flex align-items-center">
+      <div class="col-12 col-lg-8 mx-auto py-5">
+
+        <form role="form" @submit.prevent>
+
+          <h4 class="text-center">Société</h4>
+
+          <!--Name-->
+          <div class="form-group my-5">
+            <label for="name">Nom</label>
+            <input type="text"
+                   id="name"
+                   name="name"
+                   v-model="company.name"
+                   class="form-control"
+                   autofocus>
+            <div class="help-block"
+                 v-if="errors.name"
+                 v-text="errors.name[0]">
+            </div>
+          </div>
+
+          <button class="btn btn-lg btn-black btn-block mt-5"
+                  @click="createCompany">
+            <i class="fal fa-check mr-2"></i>
+            Terminer
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-    import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
-    import mixins from '../../mixins'
+  import mixins from '../../mixins'
+  import { mapActions } from 'vuex'
 
-    export default {
-        data() {
-            return {
-                company: {
-                    name: ''
-                },
-                errors: {}
-            }
+  export default {
+    data() {
+      return {
+        company: {
+          name: ''
         },
-        components: {
-            'app-moon-loader': MoonLoader
-        },
-        mixins: [mixins],
-        methods: {
+        errors: {}
+      }
+    },
+    mixins: [mixins],
+    methods: {
+      ...mapActions([
+        'toggleLoader'
+      ]),
 
-            /**
-             * Create a new company.
-             */
-            createCompany() {
-                this.toggleLoader()
+      /**
+       * Create a new company.
+       */
+      createCompany() {
+        this.$store.dispatch('toggleLoader')
 
-                axios.post('/register/company', this.company)
-                    .then(() => {
-                        this.company = {}
-                        this.$emit('companyCreated')
-                    })
-                    .catch(error => {
-                        this.toggleLoader()
-                        this.errors = error.response.data.errors
-                    })
-            }
-        }
+        axios.post('/register/company', this.company)
+          .then(() => {
+            this.company = {}
+            this.$emit('companyCreated')
+          })
+          .catch(error => {
+            this.$store.dispatch('toggleLoader')
+            this.errors = error.response.data.errors
+          })
+      }
     }
+  }
 </script>
 
 <style scoped>
-    a {
-        cursor: pointer;
-    }
+  a {
+    cursor: pointer;
+  }
 
-    .company-logo-container {
-        position: fixed;
-    }
+  .company-logo-container {
+    position: fixed;
+  }
 </style>

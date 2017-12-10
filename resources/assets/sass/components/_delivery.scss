@@ -1,0 +1,44 @@
+.delivery {
+
+  &__controls-container {
+    text-align: right;
+  }
+
+  &__icon-destroy {
+    color: $tundora;
+    cursor: pointer;
+
+    &:hover {
+      .fa-times {
+        color: $bg-red;
+      }
+    }
+  }
+
+  &__date-label {
+    display: inline-block;
+    margin-right: 1rem;
+    margin-top: 6px;
+    font-weight: 100;
+  }
+
+  &__note-control {
+    cursor: pointer;
+    margin-top: 0.5rem;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.btn {
+
+  &__delivery {
+    display: flex;
+
+    &--white {
+      color: #fff;
+    }
+  }
+}

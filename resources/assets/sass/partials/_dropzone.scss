@@ -6,20 +6,31 @@
   margin-top: 30px;
   border: 1px dashed $mercury;
   background: $alabaster;
+  height: 450px;
 }
 
-.dz-default .dz-message {
-  padding-top: 107px;
-  padding-bottom: 100px;
+.dropzone--small {
+  height: auto;
 }
 
-.dropzone .dz-message,
+.dropzone.dz-clickable,
 .dropzone.dz-started .dz-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dz-started > .dz-default.dz-message::before,
+.dz-default.dz-message::before {
+  content: "";
+  background-image: url("../img/icons/drag-files-here-illustration.svg");
+  background-repeat: no-repeat;
+  margin: auto;
+  margin-bottom: 2rem;
   display: block;
-  padding-top: 37px;
-  padding-bottom: 30px;
-  padding-left: 0;
-  padding-right: 0;
+  width: 75px;
+  height: 57px;
 }
 
 .dropzone .dz-preview {

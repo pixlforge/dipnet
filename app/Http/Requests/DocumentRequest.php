@@ -71,8 +71,8 @@ class DocumentRequest extends FormRequest
             'format_id.required' => 'Veuillez sélectionner un format.',
             'format_id.exists' => 'Veuillez sélectionner un format parmi ceux proposés.',
             'delivery_id.exists' => 'Veuillez sélectionner une livraison parmi celles proposées.',
-            'article_id.required' => 'Veuillez sélectionner un articles.',
-            'article_id.exists' => 'Veuillez sélectionner un articles parmi ceux proposés.'
+            'article_id.required' => 'Veuillez sélectionner un article.',
+            'article_id.exists' => 'Veuillez sélectionner un article parmi ceux proposés.'
         ];
     }
 }

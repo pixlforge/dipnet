@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -24,6 +25,28 @@ class Article extends Model
         'description',
         'type'
     ];
+
+    /**
+     * Scope the query by print.
+     *
+     * @param Builder $builder
+     * @return $this
+     */
+    public function scopePrintTypes(Builder $builder)
+    {
+        return $builder->where('type', 'impression')->orderBy('description');
+    }
+
+    /**
+     * Scope the query by option.
+     *
+     * @param Builder $builder
+     * @return $this
+     */
+    public function scopeOptionTypes(Builder $builder)
+    {
+        return $builder->where('type', 'option')->orderBy('description');
+    }
 
     /**
      * Document relationship.

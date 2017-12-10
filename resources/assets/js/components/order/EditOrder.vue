@@ -1,9 +1,7 @@
 <template>
-    <span>Edit Order</span>
+  <span>Edit Order</span>
 </template>
 
 <script>
-    export default {
-
-    }
+  export default {}
 </script>

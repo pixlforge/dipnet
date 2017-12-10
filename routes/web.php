@@ -1,6 +1,11 @@
 <?php
 
 /**
+ * Auth
+ */
+Auth::routes();
+
+/**
  * Account
  */
 Route::prefix('/account')->namespace('Account')->group(function () {
@@ -19,11 +24,6 @@ Route::prefix('/articles')->namespace('Article')->group(function () {
     Route::put('/{article}', 'ArticleController@update')->name('articles.update');
     Route::delete('/{article}', 'ArticleController@destroy')->name('articles.destroy');
 });
-
-/**
- * Auth
- */
-Auth::routes();
 
 /**
  * Business
@@ -82,6 +82,7 @@ Route::prefix('/documents')->namespace('Documents')->group(function () {
 
 Route::prefix('/orders')->namespace('Documents')->group(function () {
     Route::post('/{order}/{delivery}', 'DocumentsController@store')->name('documents.store');
+//    Route::patch('/{order}/{delivery}/{document}', 'DocumentsController@update')->name('documents.update');
     Route::delete('/{order}/{delivery}/{document}', 'DocumentsController@destroy')->name('documents.destroy');
 });
 
