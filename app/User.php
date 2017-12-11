@@ -27,7 +27,6 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
-        'contact_id',
         'company_id',
         'email_confirmed',
         'confirmation_token',
