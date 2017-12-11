@@ -19,8 +19,6 @@ class DocumentPolicy
      */
     public function delete(User $user, Document $document)
     {
-//        dump($user->company_id);
-//        dd($document->delivery->order->business->company->id);
         return $user->company_id == $document->delivery->order->business->company->id;
     }
 }
