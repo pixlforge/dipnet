@@ -144,7 +144,7 @@
         this.registrationType = 'join'
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/invitation/confirm', this.token)
+        axios.post(route('invitation.confirm'), this.token)
           .then(response => {
             this.invitation.data = response.data
             this.showAccountForm = true

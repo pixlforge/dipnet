@@ -43,7 +43,6 @@
     },
     mixins: [mixins],
     methods: {
-
       /**
        * Send the user back to the menu.
        */

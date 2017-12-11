@@ -58,26 +58,6 @@
     </div>
 
     <div class="col-12 col-lg-1 center-on-small-only text-lg-right">
-      <!--<div class="dropdown">-->
-      <!--<a class="btn btn-transparent btn-sm"-->
-      <!--type="button"-->
-      <!--id="dropdownMenuLink"-->
-      <!--data-toggle="dropdown"-->
-      <!--aria-haspopup="true"-->
-      <!--aria-expanded="false">-->
-      <!--<i class="fal fa-ellipsis-v fa-lg" aria-hidden="true"></i>-->
-      <!--</a>-->
-      <!--<div class="dropdown-menu dropdown-menu-right"-->
-      <!--aria-labelledby="Dropdown menu link">-->
-
-      <!--<app-edit-format :data="format"></app-edit-format>-->
-
-      <!--<a class="dropdown-item text-danger" role="button" @click.prevent="destroy">-->
-      <!--<i class="fal fa-times"></i>-->
-      <!--<span class="ml-3">Supprimer</span>-->
-      <!--</a>-->
-      <!--</div>-->
-      <!--</div>-->
     </div>
   </div>
 </template>

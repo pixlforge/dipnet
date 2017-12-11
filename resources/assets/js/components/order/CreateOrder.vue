@@ -221,7 +221,8 @@
        * Update the order.
        */
       update() {
-        axios.put('/orders/' + this.order.reference, this.order)
+        axios.put(route('orders.update', [this.order.reference]), this.order)
+          .catch(error => this.errors.push(error))
       },
     },
     created() {

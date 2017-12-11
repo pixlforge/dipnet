@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!--Button-->
     <a @click="toggleModal"
        class="btn btn-lg btn-black light mt-5"
@@ -129,7 +128,7 @@
       addArticle() {
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/articles', this.article)
+        axios.post(route('articles.store'), this.article)
           .then(response => {
             this.article.id = response.data
             this.$emit('articleWasCreated', this.article)

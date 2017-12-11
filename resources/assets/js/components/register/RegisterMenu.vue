@@ -57,7 +57,6 @@
     },
     mixins: [mixins],
     methods: {
-
       /**
        * Create an account and join an existing company.
        */

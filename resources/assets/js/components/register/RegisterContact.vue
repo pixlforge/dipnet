@@ -192,7 +192,7 @@
       createContact() {
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/register/contact', this.contact)
+        axios.post(route('register.contact.store'), this.contact)
           .then(() => {
             this.contact = {}
             this.$emit('contactCreated')

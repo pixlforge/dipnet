@@ -101,7 +101,7 @@
        * Delete a format.
        */
       destroy() {
-        axios.delete('/formats/' + this.format.id)
+        axios.delete(route('formats.destroy', [this.format.id]))
         this.$emit('formatWasDeleted', this.format.id)
       },
 

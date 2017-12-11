@@ -77,6 +77,10 @@
           level: 'success'
         })
       },
+
+      /**
+       * Update the format.
+       */
       updateFormat(data) {
         for (let format of this.formats) {
           if (data.id === format.id) {

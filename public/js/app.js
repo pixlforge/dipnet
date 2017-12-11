@@ -29524,7 +29524,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     updateCompany(company) {
       this.$store.dispatch('toggleLoader');
 
-      axios.put('/register/company', company).then(() => {
+      axios.put(route('register.company.store'), company).then(() => {
         this.$store.dispatch('toggleLoader');
         this.company = {};
         this.errors = {};
@@ -29533,7 +29533,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           level: 'success'
         });
         setTimeout(() => {
-          window.location.pathname = '/';
+          window.location = route('index');
         }, 2500);
       }).catch(error => {
         this.$store.dispatch('toggleLoader');
@@ -29755,7 +29755,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     updateContactInfo() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/register/contact', this.contact).then(() => {
+      axios.post(route('register.contact.store'), this.contact).then(() => {
         this.$store.dispatch('toggleLoader');
         this.contact = {};
         flash({
@@ -29763,7 +29763,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           level: 'success'
         });
         setTimeout(() => {
-          window.location.pathname = '/';
+          window.location = route('index');
         }, 2000);
       }).catch(error => {
         this.$store.dispatch('toggleLoader');
@@ -29914,7 +29914,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           level: 'success'
         });
         setTimeout(() => {
-          window.location.pathname = '/';
+          window.location = '/';
         }, 2000);
       }).catch(error => {
         this.$store.dispatch('toggleLoader');
@@ -29934,7 +29934,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
 //
 //
 //
@@ -30062,7 +30061,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     addArticle() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/articles', this.article).then(response => {
+      axios.post(route('articles.store'), this.article).then(response => {
         this.article.id = response.data;
         this.$emit('articleWasCreated', this.article);
       }).then(() => {
@@ -30179,7 +30178,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * Delete the article.
      */
     destroy() {
-      axios.delete('/article/' + this.article.id);
+      axios.delete(route('articles.destroy', [this.article.id]));
       this.$emit('articleWasDeleted', this.article.id);
     },
 
@@ -30439,7 +30438,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -30463,7 +30461,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     updateArticle() {
       this.$store.dispatch('toggleLoader');
 
-      axios.put('/articles/' + this.article.id, this.article).then(() => {
+      axios.put(route('articles.update', [this.article.id]), this.article).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('articleWasUpdated', this.article);
       }).then(() => {
         this.$store.dispatch('toggleLoader');
@@ -30496,7 +30494,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
 //
 //
 //
@@ -30682,7 +30679,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     addBusiness() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/businesses', this.business).then(response => {
+      axios.post(route('businesses.store'), this.business).then(response => {
         this.business = response.data;
         this.$emit('businessWasCreated', this.business);
         this.$store.dispatch('toggleLoader');
@@ -30830,7 +30827,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * Delete a business.
      */
     destroy() {
-      axios.delete('/businesses/' + this.business.id);
+      axios.delete(route('businesses.destroy', [this.business.id]));
       this.$emit('businessWasDeleted', this.business.id);
     },
 
@@ -31132,7 +31129,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -31169,7 +31165,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     updateBusiness() {
       this.$store.dispatch('toggleLoader');
 
-      axios.put('/businesses/' + this.business.id, this.business).then(() => {
+      axios.put(route('businesses.update', [this.business.id]), this.business).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('businessWasUpdated', this.business);
       }).then(() => {
         this.$store.dispatch('toggleLoader');
@@ -31305,7 +31301,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -31330,7 +31325,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     addCompany() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/companies', this.company).then(response => {
+      axios.post(route('companies.store'), this.company).then(response => {
         this.company = response.data;
         this.$emit('companyWasCreated', this.company);
         this.$store.dispatch('toggleLoader');
@@ -31583,7 +31578,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * Delete a company.
      */
     destroy() {
-      axios.delete('/companies/' + this.company.id);
+      axios.delete(route('companies.destroy', [this.company.id]));
       this.$emit('companyWasDeleted', this.company.id);
     },
 
@@ -31808,7 +31803,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -31831,7 +31825,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     updateCompany() {
       this.$store.dispatch('toggleLoader');
 
-      axios.put('/companies/' + this.company.id, this.company).then(() => {
+      axios.put(route('companies.update', [this.company.id]), this.company).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('companyWasUpdated', this.company);
       }).then(() => {
         this.$store.dispatch('toggleLoader');
@@ -32184,7 +32178,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -32219,7 +32212,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     addContact() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/contacts', this.contact).then(response => {
+      axios.post(route('contacts.store'), this.contact).then(response => {
         this.contact = response.data;
         this.$emit('contactWasCreated', this.contact);
         this.$store.dispatch('toggleLoader');
@@ -32381,12 +32374,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'app-edit-contact': __WEBPACK_IMPORTED_MODULE_0__EditContact_vue___default.a
   },
   methods: {
-
     /**
      * Delete a contact.
      */
     destroy() {
-      axios.delete('/contacts/' + this.contact.id);
+      axios.delete(route('contacts.destroy', [this.contact.id]));
       this.$emit('contactWasDeleted', this.contact.id);
     },
 
@@ -32480,7 +32472,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
-
     /**
      * Add a new contact to the list.
      */
@@ -32753,7 +32744,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     updateContact() {
       this.$store.dispatch('toggleLoader');
 
-      axios.put('/contacts/' + this.contact.id, this.contact).then(() => {
+      axios.put(route('contacts.update', [this.contact.id]), this.contact).then(() => {
         __WEBPACK_IMPORTED_MODULE_2__app__["eventBus"].$emit('contactWasUpdated', this.contact);
       }).then(() => {
         this.$store.dispatch('toggleLoader');
@@ -32867,7 +32858,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
-
     /**
      * Flash the alert.
      */
@@ -33023,7 +33013,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -33049,7 +33038,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     addFormat() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/formats', this.format).then(response => {
+      axios.post(route('formats.store'), this.format).then(response => {
         this.format = response.data;
         this.$emit('formatWasCreated', this.format);
         this.$store.dispatch('toggleLoader');
@@ -33057,7 +33046,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.format = {};
       }).catch(error => {
         this.$store.dispatch('toggleLoader');
-        this.errors = error.response.data;
+        this.errors = error.response.data.errors;
       });
     }
   })
@@ -33204,13 +33193,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   props: ['data'],
   data() {
     return {
-      format: {
-        id: this.data.id,
-        name: this.data.name,
-        height: this.data.height,
-        width: this.data.width,
-        surface: this.data.surface
-      },
+      format: this.data,
       errors: {}
     };
   },
@@ -33223,7 +33206,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     updateFormat() {
       this.$store.dispatch('toggleLoader');
 
-      axios.put('/formats/' + this.format.id, this.format).then(() => {
+      axios.put(route('formats.update', [this.format.id]), this.format).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('formatWasUpdated', this.format);
       }).then(() => {
         this.$store.dispatch('toggleLoader');
@@ -33350,7 +33333,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * Delete a format.
      */
     destroy() {
-      axios.delete('/formats/' + this.format.id);
+      axios.delete(route('formats.destroy', [this.format.id]));
       this.$emit('formatWasDeleted', this.format.id);
     },
 
@@ -33455,6 +33438,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: 'success'
       });
     },
+
+    /**
+     * Update the format.
+     */
     updateFormat(data) {
       for (let format of this.formats) {
         if (data.id === format.id) {
@@ -33540,14 +33527,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
-// import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
 
 
 
@@ -33560,9 +33540,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       errors: {}
     };
   },
-  // components: {
-  //   'app-moon-loader': MoonLoader
-  // },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(['toggleLoader']), {
 
@@ -33572,7 +33549,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     sendInvitation() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/invitation', this.invitation).then(response => {
+      axios.post(route('invitation.store'), this.invitation).then(response => {
         this.$store.dispatch('toggleLoader');
         this.$emit('invitationWasAdded', response.data);
       }).then(() => {
@@ -33648,13 +33625,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   methods: {
-
     /**
      * Delete an invitation.
      */
     destroy() {
-
-      axios.delete('/invitation/' + this.invitation.id).then(() => {
+      axios.delete(route('invitation.destroy', [this.invitation.id])).then(() => {
         this.$emit('invitationWasDeleted', this.invitation.id);
         flash({
           message: "L'invitation a bien été annulée.",
@@ -33710,7 +33685,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     resend() {
       this.$store.dispatch('toggleLoader');
 
-      axios.put('/invitation', this.invitation).then(() => {
+      axios.put(route('invitation.update'), this.invitation).then(() => {
         this.$store.dispatch('toggleLoader');
         flash({
           message: `L'invitation a bien été renvoyée à l'adresse ${this.invitation.email}`,
@@ -33935,7 +33910,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   props: ['data-order', 'data-delivery', 'data-delivery-number', 'data-documents'],
   data() {
     return {
-
       /**
        * Component data.
        */
@@ -34042,7 +34016,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * Update the delivery.
      */
     update() {
-      axios.put('/deliveries/' + this.delivery.reference, this.delivery);
+      axios.put(route('deliveries.upate', [this.delivery.reference]), this.delivery);
     },
 
     /**
@@ -34063,14 +34037,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * Update the delivery note.
      */
     updateNote() {
-      axios.put('/deliveries/' + this.delivery.reference + '/note', this.delivery);
+      axios.put(route('deliveries.note.update', [this.delivery.reference]), this.delivery);
     },
 
     /**
      * Remove an existing note.
      */
     removeNote() {
-      axios.delete('/deliveries/' + this.delivery.reference + '/note', this.delivery);
+      axios.delete(route('deliveries.note.destroy', [this.delivery.reference]), this.delivery);
       this.delivery.note = '';
       this.showNote = false;
       flash({
@@ -34379,7 +34353,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * Update the order.
      */
     update() {
-      axios.put('/orders/' + this.order.reference, this.order);
+      axios.put(route('orders.update', [this.order.reference]), this.order).catch(error => this.errors.push(error));
     }
   }),
   created() {
@@ -34743,26 +34717,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -34873,12 +34827,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
-
     /**
      * Redirect to /orders/create route.
      */
     redirect() {
-      window.location.pathname = '/orders/create';
+      window.location = route('orders.create.start');
     },
 
     /**
@@ -35396,7 +35349,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     updateProfile() {
       this.$store.dispatch('toggleLoader');
 
-      axios.patch('/account/update', this.user).then(response => {
+      axios.patch(route('account.update'), this.user).then(response => {
         this.toggleModal();
         this.$store.dispatch('toggleLoader');
         this.errors = {};
@@ -35586,7 +35539,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.registrationType = 'join';
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/invitation/confirm', this.token).then(response => {
+      axios.post(route('invitation.confirm'), this.token).then(response => {
         this.invitation.data = response.data;
         this.showAccountForm = true;
         this.$store.dispatch('toggleLoader');
@@ -35743,7 +35696,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     registerAccount() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/register', this.account).then(() => {
+      axios.post(route('register.store'), this.account).then(() => {
         this.$store.dispatch('toggleLoader');
         this.toggleModal();
         this.account = {};
@@ -35858,7 +35811,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     createCompany() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/register/company', this.company).then(() => {
+      axios.post(route('register.company.store'), this.company).then(() => {
         this.company = {};
         this.$emit('companyCreated');
       }).catch(error => {
@@ -36067,7 +36020,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     createContact() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post('/register/contact', this.contact).then(() => {
+      axios.post(route('register.contact.store'), this.contact).then(() => {
         this.contact = {};
         this.$emit('contactCreated');
       }).catch(error => {
@@ -36132,7 +36085,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   methods: {
-
     /**
      * Send the user back to the menu.
      */
@@ -36210,7 +36162,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   methods: {
-
     /**
      * Create an account and join an existing company.
      */
@@ -36268,7 +36219,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     sendConfirmationAgain() {
       this.$store.dispatch('toggleLoader');
 
-      axios.put('/register/send-again').then(() => {
+      axios.put(route('register.confirm.update')).then(() => {
         this.$store.dispatch('toggleLoader');
         flash({
           message: "L'email de confirmation vous a été envoyé à nouveau.",
@@ -36398,7 +36349,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.search.query.length > 1) {
         this.toggleSearch();
 
-        axios.post('/search', this.search).then(response => {
+        axios.post(route('search.query'), this.search).then(response => {
           this.results.orders = response.data[0];
           this.results.companies = response.data[1];
           this.results.businesses = response.data[2];
@@ -36573,7 +36524,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     updateUser() {
       this.$store.dispatch('toggleLoader');
 
-      axios.put('/users/' + this.user.id, this.user).then(() => {
+      axios.put(route('users.update', [this.user.id]), this.user).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('userWasUpdated', this.user);
       }).then(() => {
         this.$store.dispatch('toggleLoader');
@@ -36733,12 +36684,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     'app-edit-user': __WEBPACK_IMPORTED_MODULE_0__EditUser_vue___default.a
   },
   methods: {
-
     /**
      * Delete a user.
      */
     destroy() {
-      axios.delete('/users/' + this.user.id);
+      axios.delete(route('users.destroy', [this.user.id]));
       this.$emit('userWasDeleted', this.user.id);
     },
 
@@ -50055,7 +50005,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     addDelivery: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
         commit('toggleLoader');
-        axios.post('/deliveries', payload).then(response => {
+        axios.post(route('deliveries.store'), payload).then(response => {
           commit('addDelivery', response.data);
           commit('toggleLoader');
           resolve();
@@ -50069,7 +50019,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     removeDelivery: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
         commit('toggleLoader');
-        axios.delete(`/deliveries/${payload.reference}`, payload).then(() => {
+        axios.delete(route('deliveries.destroy', [payload.reference]), payload).then(() => {
           commit('removeDelivery', payload);
           commit('toggleLoader');
           resolve();
@@ -50087,7 +50037,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     updateDocument: ({ commit }, payload) => {
       commit('updateDocument', payload.document);
       return new Promise((resolve, reject) => {
-        const endpoint = `/orders/${payload.orderReference}/${payload.deliveryReference}/${payload.document.id}`;
+        const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id]);
         axios.patch(endpoint, payload.document).then(() => {
           commit('updateDocument', payload.document);
           resolve();
@@ -50099,7 +50049,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
     removeDocument: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
-        const endpoint = `/orders/${payload.orderReference}/${payload.deliveryReference}/${payload.document.id}`;
+        const endpoint = route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id]);
         axios.delete(endpoint, payload.document).then(() => {
           commit('removeDocument', payload.document);
           resolve();

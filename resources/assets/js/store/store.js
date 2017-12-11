@@ -169,7 +169,7 @@ export const store = new Vuex.Store({
     addDelivery: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
         commit('toggleLoader')
-        axios.post('/deliveries', payload)
+        axios.post(route('deliveries.store'), payload)
           .then(response => {
             commit('addDelivery', response.data)
             commit('toggleLoader')
@@ -185,7 +185,7 @@ export const store = new Vuex.Store({
     removeDelivery: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
         commit('toggleLoader')
-        axios.delete(`/deliveries/${payload.reference}`, payload)
+        axios.delete(route('deliveries.destroy', [payload.reference]), payload)
           .then(() => {
             commit('removeDelivery', payload)
             commit('toggleLoader')
@@ -205,7 +205,7 @@ export const store = new Vuex.Store({
     updateDocument: ({ commit }, payload) => {
       commit('updateDocument', payload.document)
       return new Promise((resolve, reject) => {
-        const endpoint = `/orders/${payload.orderReference}/${payload.deliveryReference}/${payload.document.id}`
+        const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id])
         axios.patch(endpoint, payload.document)
           .then(() => {
             commit('updateDocument', payload.document)
@@ -219,7 +219,7 @@ export const store = new Vuex.Store({
 
     removeDocument: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
-        const endpoint = `/orders/${payload.orderReference}/${payload.deliveryReference}/${payload.document.id}`
+        const endpoint = route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id])
         axios.delete(endpoint, payload.document)
           .then(() => {
             commit('removeDocument', payload.document)

@@ -97,7 +97,7 @@
        * Delete a company.
        */
       destroy() {
-        axios.delete('/companies/' + this.company.id)
+        axios.delete(route('companies.destroy', [this.company.id]))
         this.$emit('companyWasDeleted', this.company.id)
       },
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!--Button-->
     <a class="btn btn-lg btn-black mt-5"
        role="button"
@@ -149,7 +148,7 @@
       addFormat() {
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/formats', this.format)
+        axios.post(route('formats.store'), this.format)
           .then(response => {
             this.format = response.data
             this.$emit('formatWasCreated', this.format)
@@ -159,7 +158,7 @@
           })
           .catch(error => {
             this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data
+            this.errors = error.response.data.errors
           })
       }
     }

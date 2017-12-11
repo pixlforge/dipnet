@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!--Button-->
     <a class="btn btn-lg btn-black light mt-5"
        role="button"
@@ -218,7 +217,7 @@
       addContact() {
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/contacts', this.contact)
+        axios.post(route('contacts.store'), this.contact)
           .then(response => {
             this.contact = response.data
             this.$emit('contactWasCreated', this.contact)

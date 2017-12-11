@@ -128,13 +128,7 @@
     props: ['data'],
     data() {
       return {
-        format: {
-          id: this.data.id,
-          name: this.data.name,
-          height: this.data.height,
-          width: this.data.width,
-          surface: this.data.surface
-        },
+        format: this.data,
         errors: {}
       }
     },
@@ -150,7 +144,7 @@
       updateFormat() {
         this.$store.dispatch('toggleLoader')
 
-        axios.put('/formats/' + this.format.id, this.format)
+        axios.put(route('formats.update', [this.format.id]), this.format)
           .then(() => {
             eventBus.$emit('formatWasUpdated', this.format);
           })

@@ -208,7 +208,7 @@
       updateContact() {
         this.$store.dispatch('toggleLoader')
 
-        axios.put('/contacts/' + this.contact.id, this.contact)
+        axios.put(route('contacts.update', [this.contact.id]), this.contact)
           .then(() => {
             eventBus.$emit('contactWasUpdated', this.contact)
           })

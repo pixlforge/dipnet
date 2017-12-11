@@ -124,7 +124,7 @@
        * Delete a business.
        */
       destroy() {
-        axios.delete('/businesses/' + this.business.id)
+        axios.delete(route('businesses.destroy', [this.business.id]))
         this.$emit('businessWasDeleted', this.business.id)
       },
 

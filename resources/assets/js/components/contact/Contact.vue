@@ -131,12 +131,11 @@
       'app-edit-contact': EditContact
     },
     methods: {
-
       /**
        * Delete a contact.
        */
       destroy() {
-        axios.delete('/contacts/' + this.contact.id)
+        axios.delete(route('contacts.destroy', [this.contact.id]))
         this.$emit('contactWasDeleted', this.contact.id)
       },
 

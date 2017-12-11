@@ -25,7 +25,7 @@
       sendConfirmationAgain() {
         this.$store.dispatch('toggleLoader')
 
-        axios.put('/register/send-again')
+        axios.put(route('register.confirm.update'))
           .then(() => {
             this.$store.dispatch('toggleLoader')
             flash({

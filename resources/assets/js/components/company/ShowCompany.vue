@@ -70,7 +70,10 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: ['data', 'invitations-data'],
+    props: [
+      'data',
+      'invitations-data'
+    ],
     data() {
       return {
         company: this.data,

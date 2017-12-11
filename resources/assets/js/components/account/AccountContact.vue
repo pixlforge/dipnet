@@ -205,7 +205,7 @@
       updateContactInfo() {
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/register/contact', this.contact)
+        axios.post(route('register.contact.store'), this.contact)
           .then(() => {
             this.$store.dispatch('toggleLoader')
             this.contact = {}
@@ -214,7 +214,7 @@
               level: 'success'
             })
             setTimeout(() => {
-              window.location.pathname = '/'
+              window.location = route('index')
             }, 2000)
           })
           .catch(error => {

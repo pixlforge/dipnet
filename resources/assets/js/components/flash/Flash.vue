@@ -33,7 +33,6 @@
       },
     },
     methods: {
-
       /**
        * Flash the alert.
        */

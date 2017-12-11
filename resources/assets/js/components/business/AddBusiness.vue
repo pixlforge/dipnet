@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!--Button-->
     <a @click="toggleModal"
        class="btn btn-lg btn-black light mt-5"
@@ -187,7 +186,7 @@
       addBusiness() {
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/businesses', this.business)
+        axios.post(route('businesses.store'), this.business)
           .then(response => {
             this.business = response.data
             this.$emit('businessWasCreated', this.business)

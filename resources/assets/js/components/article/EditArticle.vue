@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <!--Button-->
     <a class="dropdown-item"
        role="button"
@@ -127,7 +126,7 @@
       updateArticle() {
         this.$store.dispatch('toggleLoader')
 
-        axios.put('/articles/' + this.article.id, this.article)
+        axios.put(route('articles.update', [this.article.id]), this.article)
           .then(() => {
             eventBus.$emit('articleWasUpdated', this.article)
           })

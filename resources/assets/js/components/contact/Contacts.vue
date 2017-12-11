@@ -66,7 +66,6 @@
       ])
     },
     methods: {
-
       /**
        * Add a new contact to the list.
        */

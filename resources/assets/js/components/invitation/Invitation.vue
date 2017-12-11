@@ -36,18 +36,11 @@
           Envoyer une invitation
         </a>
       </div>
-
-      <!--Loader-->
-      <!--<app-moon-loader :loading="loader.loading"-->
-                       <!--:color="loader.color"-->
-                       <!--:size="loader.size">-->
-      <!--</app-moon-loader>-->
     </div>
   </div>
 </template>
 
 <script>
-  // import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
   import { mapActions } from 'vuex'
 
@@ -60,9 +53,6 @@
         errors: {}
       }
     },
-    // components: {
-    //   'app-moon-loader': MoonLoader
-    // },
     mixins: [mixins],
     methods: {
       ...mapActions([
@@ -75,7 +65,7 @@
       sendInvitation() {
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/invitation', this.invitation)
+        axios.post(route('invitation.store'), this.invitation)
           .then(response => {
             this.$store.dispatch('toggleLoader')
             this.$emit('invitationWasAdded', response.data)

@@ -135,7 +135,7 @@
       updateCompany(company) {
         this.$store.dispatch('toggleLoader')
 
-        axios.put('/register/company', company)
+        axios.put(route('register.company.store'), company)
           .then(() => {
             this.$store.dispatch('toggleLoader')
             this.company = {}
@@ -145,7 +145,7 @@
               level: 'success'
             })
             setTimeout(() => {
-              window.location.pathname = '/'
+              window.location = route('index')
             }, 2500)
           })
           .catch(error => {

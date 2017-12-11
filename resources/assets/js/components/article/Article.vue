@@ -92,7 +92,7 @@
        * Delete the article.
        */
       destroy() {
-        axios.delete('/article/' + this.article.id)
+        axios.delete(route('articles.destroy', [this.article.id]))
         this.$emit('articleWasDeleted', this.article.id)
       },
 

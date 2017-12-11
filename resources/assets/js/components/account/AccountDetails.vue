@@ -133,7 +133,7 @@
               level: 'success'
             })
             setTimeout(() => {
-              window.location.pathname = '/'
+              window.location = '/'
             }, 2000)
           })
           .catch(error => {

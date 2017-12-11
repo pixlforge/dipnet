@@ -146,7 +146,7 @@
       updateUser() {
         this.$store.dispatch('toggleLoader')
 
-        axios.put('/users/' + this.user.id, this.user)
+        axios.put(route('users.update', [this.user.id]), this.user)
           .then(() => {
             eventBus.$emit('userWasUpdated', this.user)
           })

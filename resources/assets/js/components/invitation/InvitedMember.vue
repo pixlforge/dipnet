@@ -52,13 +52,11 @@
     },
     mixins: [mixins],
     methods: {
-
       /**
        * Delete an invitation.
        */
       destroy() {
-
-        axios.delete('/invitation/' + this.invitation.id)
+        axios.delete(route('invitation.destroy', [this.invitation.id]))
           .then(() => {
             this.$emit('invitationWasDeleted', this.invitation.id)
             flash({

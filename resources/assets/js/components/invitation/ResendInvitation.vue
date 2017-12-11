@@ -31,7 +31,7 @@
       resend() {
         this.$store.dispatch('toggleLoader')
 
-        axios.put('/invitation', this.invitation)
+        axios.put(route('invitation.update'), this.invitation)
           .then(() => {
             this.$store.dispatch('toggleLoader')
             flash({

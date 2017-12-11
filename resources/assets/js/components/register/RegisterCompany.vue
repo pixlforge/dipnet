@@ -88,7 +88,7 @@
       createCompany() {
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/register/company', this.company)
+        axios.post(route('register.company.store'), this.company)
           .then(() => {
             this.company = {}
             this.$emit('companyCreated')

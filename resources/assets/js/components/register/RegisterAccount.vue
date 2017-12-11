@@ -133,7 +133,7 @@
       registerAccount() {
         this.$store.dispatch('toggleLoader')
 
-        axios.post('/register', this.account)
+        axios.post(route('register.store'), this.account)
           .then(() => {
             this.$store.dispatch('toggleLoader')
             this.toggleModal()

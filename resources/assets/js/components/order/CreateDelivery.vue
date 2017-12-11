@@ -104,7 +104,6 @@
     ],
     data() {
       return {
-
         /**
          * Component data.
          */
@@ -217,7 +216,7 @@
        * Update the delivery.
        */
       update() {
-        axios.put('/deliveries/' + this.delivery.reference, this.delivery)
+        axios.put(route('deliveries.upate', [this.delivery.reference]), this.delivery)
       },
 
       /**
@@ -238,14 +237,14 @@
        * Update the delivery note.
        */
       updateNote() {
-        axios.put('/deliveries/' + this.delivery.reference + '/note', this.delivery)
+        axios.put(route('deliveries.note.update', [this.delivery.reference]), this.delivery)
       },
 
       /**
        * Remove an existing note.
        */
       removeNote() {
-        axios.delete('/deliveries/' + this.delivery.reference + '/note', this.delivery)
+        axios.delete(route('deliveries.note.destroy', [this.delivery.reference]), this.delivery)
         this.delivery.note = ''
         this.showNote = false
         flash({

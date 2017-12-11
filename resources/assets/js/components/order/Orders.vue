@@ -69,12 +69,11 @@
       ])
     },
     methods: {
-
       /**
        * Redirect to /orders/create route.
        */
       redirect() {
-        window.location.pathname = '/orders/create'
+        window.location = route('orders.create.start')
       },
 
       /**

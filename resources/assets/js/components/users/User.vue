@@ -127,12 +127,11 @@
       'app-edit-user': EditUser
     },
     methods: {
-
       /**
        * Delete a user.
        */
       destroy() {
-        axios.delete('/users/' + this.user.id)
+        axios.delete(route('users.destroy', [this.user.id]))
         this.$emit('userWasDeleted', this.user.id)
       },
 

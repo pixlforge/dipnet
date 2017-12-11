@@ -105,7 +105,7 @@
         if (this.search.query.length > 1) {
           this.toggleSearch()
 
-          axios.post('/search', this.search)
+          axios.post(route('search.query'), this.search)
             .then(response => {
               this.results.orders = response.data[0]
               this.results.companies = response.data[1]

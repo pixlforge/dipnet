@@ -160,7 +160,7 @@
       updateProfile() {
         this.$store.dispatch('toggleLoader')
 
-        axios.patch('/account/update', this.user)
+        axios.patch(route('account.update'), this.user)
           .then(response => {
             this.toggleModal()
             this.$store.dispatch('toggleLoader')
