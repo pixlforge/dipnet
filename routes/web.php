@@ -77,7 +77,6 @@ Route::prefix('/deliveries')->namespace('Delivery')->group(function () {
  */
 Route::prefix('/documents')->namespace('Documents')->group(function () {
     Route::get('/', 'DocumentsController@index')->name('documents.index');
-    Route::put('/{document}', 'DocumentsController@update')->name('documents.update');
 });
 
 Route::prefix('/orders')->namespace('Documents')->group(function () {
