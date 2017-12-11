@@ -17,8 +17,10 @@ class DocumentPolicy
      * @param  \Dipnet\Document  $document
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user, Document $document)
     {
-        return true;
+//        dump($user->company_id);
+//        dd($document->delivery->order->business->company->id);
+        return $user->company_id == $document->delivery->order->business->company->id;
     }
 }

@@ -98,7 +98,7 @@ class DocumentController extends Controller
      */
     public function destroy(Order $order, Delivery $delivery, Document $document)
     {
-        $this->authorize('delete', Document::class);
+        $this->authorize('delete', $document);
 
         $document->delete();
 
