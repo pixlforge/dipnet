@@ -2,6 +2,7 @@
 
 namespace Dipnet\Http\Controllers\Document;
 
+use Dipnet\Http\Requests\Document\StoreDocumentRequest;
 use Dipnet\Order;
 use Dipnet\Delivery;
 use Dipnet\Document;
@@ -28,8 +29,6 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', Document::class);
-
         $documents = Document::orderBy('file_name')
             ->get()
             ->toJson();
@@ -37,16 +36,17 @@ class DocumentController extends Controller
         return view('documents.index', compact('documents'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param DocumentRequest $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Order $order, Delivery $delivery, Request $request)
-    {
-        $this->authorize('touch', $order);
 
+    /**
+     * Store a new document file.
+     *
+     * @param Order $order
+     * @param Delivery $delivery
+     * @param StoreDocumentRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
+    public function store(Order $order, Delivery $delivery, StoreDocumentRequest $request)
+    {
         $uploadedFile = $request->file('file');
 
         $document = $this->storeDocument($order, $delivery, $uploadedFile);
@@ -98,7 +98,7 @@ class DocumentController extends Controller
      */
     public function destroy(Order $order, Delivery $delivery, Document $document)
     {
-        $this->authorize('touch', $order);
+        $this->authorize('delete', Document::class);
 
         $document->delete();
 
