@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Format;
 
 use Dipnet\Format;
 use Dipnet\User;

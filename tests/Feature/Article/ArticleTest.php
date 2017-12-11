@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Article;
 
 use Dipnet\User;
 use Dipnet\Article;

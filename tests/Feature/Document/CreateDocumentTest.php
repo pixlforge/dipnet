@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Document;
 
+use Dipnet\User;
+use Dipnet\Order;
+use Tests\TestCase;
 use Dipnet\Contact;
 use Dipnet\Delivery;
-use Dipnet\Order;
-use Dipnet\User;
-use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class DocumentTest extends TestCase
+class CreateDocumentTest extends TestCase
 {
     use RefreshDatabase;
 
