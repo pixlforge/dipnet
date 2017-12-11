@@ -1,6 +1,6 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Documents;
+namespace Dipnet\Http\Controllers\Document;
 
 use Dipnet\Order;
 use Dipnet\Delivery;
@@ -11,10 +11,10 @@ use Dipnet\Http\Controllers\Controller;
 use Dipnet\Http\Requests\DocumentRequest;
 use Illuminate\Support\Facades\Storage;
 
-class DocumentsController extends Controller
+class DocumentController extends Controller
 {
     /**
-     * DocumentsController constructor.
+     * DocumentController constructor.
      */
     public function __construct()
     {

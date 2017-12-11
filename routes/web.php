@@ -75,14 +75,14 @@ Route::prefix('/deliveries')->namespace('Delivery')->group(function () {
 /**
  * Documents
  */
-Route::prefix('/documents')->namespace('Documents')->group(function () {
-    Route::get('/', 'DocumentsController@index')->name('documents.index');
+Route::prefix('/documents')->namespace('Document')->group(function () {
+    Route::get('/', 'DocumentController@index')->name('documents.index');
 });
 
-Route::prefix('/orders')->namespace('Documents')->group(function () {
-    Route::post('/{order}/{delivery}', 'DocumentsController@store')->name('documents.store');
-//    Route::patch('/{order}/{delivery}/{document}', 'DocumentsController@update')->name('documents.update');
-    Route::delete('/{order}/{delivery}/{document}', 'DocumentsController@destroy')->name('documents.destroy');
+Route::prefix('/orders')->namespace('Document')->group(function () {
+    Route::post('/{order}/{delivery}', 'DocumentController@store')->name('documents.store');
+//    Route::patch('/{order}/{delivery}/{document}', 'DocumentController@update')->name('documents.update');
+    Route::delete('/{order}/{delivery}/{document}', 'DocumentController@destroy')->name('documents.destroy');
 });
 
 
