@@ -1,41 +1,41 @@
 <!DOCTYPE html>
 <html lang="{{ config('app.locale') }}">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    {{--CSRF Token--}}
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  {{--CSRF Token--}}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ env('APP_NAME') }} | @yield('title')</title>
+  <title>{{ config('app.name') }} | @yield('title')</title>
 
-    {{--Styles--}}
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+  {{--Styles--}}
+  <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 
-    @if (env('APP_NAME') === 'Dipnet')
-        <link href="{{ mix('css/dip.css') }}" rel="stylesheet">
-    @else
-        <link href="{{ mix('css/multicop.css') }}" rel="stylesheet">
-    @endif
+  @if (config('app.name') === 'Dipnet')
+    <link href="{{ mix('css/dip.css') }}" rel="stylesheet">
+  @else
+    <link href="{{ mix('css/multicop.css') }}" rel="stylesheet">
+  @endif
 
-    {{--Scripts--}}
-    <script>
-        window.Laravel = {!! json_encode([
+  @routes
+
+  {{--Scripts--}}
+  <script>
+    window.Laravel = {!! json_encode([
             'csrfToken' => csrf_token(),
-            'appName' => env('APP_NAME')
+            'appName' => config('app.name')
         ]) !!};
-    </script>
+  </script>
+  <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 <body>
-
-    <div id="app">
-        @yield ('content')
-        <flash message="{{ session('flash') }}"
-               level="{{ session('level') }}">
-        </flash>
-    </div>
-
-    <script src="{{ mix('js/app.js') }}"></script>
+<div id="app">
+  @yield ('content')
+  <flash message="{{ session('flash') }}"
+         level="{{ session('level') }}">
+  </flash>
+</div>
 </body>
 </html>
