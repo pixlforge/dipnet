@@ -202,7 +202,6 @@
       }
     },
     methods: {
-
       /**
        * Select and update the delivery contact.
        */
@@ -275,7 +274,6 @@
       }
     },
     created() {
-
       /**
        * Preselect the delivery's delivery dropdown contact.
        */
@@ -298,7 +296,6 @@
       }
     },
     mounted() {
-
       /**
        * Dropzone
        */
@@ -306,7 +303,7 @@
 
       let drop = new Dropzone('#delivery-file-upload-' + this.delivery.id, {
         createImageThumbnails: false,
-        url: '/orders/' + this.order.reference + '/' + this.delivery.reference,
+        url: route('documents.store', [this.order.reference, this.delivery.reference]),
         headers: {
           'X-CSRF-TOKEN': window.Laravel.csrfToken
         },

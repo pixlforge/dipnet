@@ -34002,7 +34002,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   }),
   methods: {
-
     /**
      * Select and update the delivery contact.
      */
@@ -34075,7 +34074,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   },
   created() {
-
     /**
      * Preselect the delivery's delivery dropdown contact.
      */
@@ -34098,7 +34096,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   },
   mounted() {
-
     /**
      * Dropzone
      */
@@ -34106,7 +34103,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
     let drop = new __WEBPACK_IMPORTED_MODULE_2_dropzone___default.a('#delivery-file-upload-' + this.delivery.id, {
       createImageThumbnails: false,
-      url: '/orders/' + this.order.reference + '/' + this.delivery.reference,
+      url: route('documents.store', [this.order.reference, this.delivery.reference]),
       headers: {
         'X-CSRF-TOKEN': window.Laravel.csrfToken
       },
