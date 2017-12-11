@@ -34130,7 +34130,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * Dropzone on removed file hook.
      */
     );drop.on('removedfile', file => {
-      axios.delete('/orders/' + this.order.reference + '/' + this.delivery.reference + '/' + file.id).catch(error => {
+      axios.delete(route('documents.destroy', [this.order.reference, this.delivery.reference, file.id])).catch(error => {
         drop.emit('addedfile', {
           id: file.id,
           name: file.name,

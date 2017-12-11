@@ -330,7 +330,7 @@
        * Dropzone on removed file hook.
        */
       drop.on('removedfile', file => {
-        axios.delete('/orders/' + this.order.reference + '/' + this.delivery.reference + '/' + file.id)
+        axios.delete(route('documents.destroy', [this.order.reference, this.delivery.reference, file.id]))
           .catch(error => {
             drop.emit('addedfile', {
               id: file.id,
