@@ -179,6 +179,7 @@ return [
         Dipnet\Providers\EventServiceProvider::class,
         Dipnet\Providers\RouteServiceProvider::class,
         Dipnet\Providers\BladeServiceProvider::class,
+        Tightenco\Ziggy\ZiggyServiceProvider::class,
 
     ],
 
