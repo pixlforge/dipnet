@@ -4,6 +4,8 @@ namespace Tests\Feature\Document;
 
 use Dipnet\User;
 use Dipnet\Order;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 use Dipnet\Contact;
 use Dipnet\Delivery;
@@ -17,6 +19,8 @@ class CreateDocumentTest extends TestCase
     function users_can_add_a_new_document_to_a_delivery()
     {
         $this->withoutExceptionHandling();
+
+        Storage::fake('local');
 
         $user = factory(User::class)->create([
             'username' => 'John Doe',
@@ -32,9 +36,12 @@ class CreateDocumentTest extends TestCase
         ]);
         $this->assertCount(0, $delivery->documents);
 
-        $endpoint = "/{$order->reference}/{$delivery->reference}";
+        $endpoint = ['order' => $order->reference, 'delivery' => $delivery->reference];
         $this->postJson(route('documents.store', $endpoint), [
-
+            'file' => UploadedFile::fake()->create('flyer-2018.pdf')
         ]);
+
+        Storage::disk('local')
+            ->assertExists("orders/{$order->reference}/{$delivery->reference}/flyer-2018.pdf");
     }
 }
