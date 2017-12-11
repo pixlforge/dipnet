@@ -4603,8 +4603,7 @@ module.exports = function normalizeComponent (
     return {
       loader: {
         color: '#fff',
-        size: '96px',
-        loading: false
+        size: '96px'
       },
       showModal: false,
       appName: Laravel.appName,
@@ -4619,6 +4618,7 @@ module.exports = function normalizeComponent (
     logoWhite() {
       return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white';
     }
+
   },
   filters: {
     capitalize(value) {
