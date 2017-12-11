@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Dipnet\Order::class, function (Faker $faker) {
     return [
-        'reference' => $faker->randomNumber($nbDigits = 8, $strict = false),
+        'reference' => uniqid(),
         'status' => $faker->randomElement(['ok', 'nok']),
         'business_id' => function() {
             return factory(Dipnet\Business::class)->create()->id;
