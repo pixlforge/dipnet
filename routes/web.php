@@ -141,6 +141,9 @@ Route::prefix('/profile')->namespace('Profiles')->group(function () {
     Route::get('/', 'ProfileController@index')->name('profile.index');
     Route::patch('/{user}', 'ProfileController@update')->name('profile.update');
 
+    /**
+     * Avatar
+     */
     Route::post('/avatar', 'AvatarController@store')->name('profile.avatar.store');
 });
 

@@ -17,7 +17,6 @@ $factory->define(Dipnet\User::class, function (Faker $faker) {
         'email_confirmed' => true,
         'contact_confirmed' => true,
         'company_confirmed' => true,
-//        'confirmation_token' => User::generateConfirmationToken($faker->safeEmail),
         'confirmation_token' => null,
         'remember_token' => str_random(10),
     ];
