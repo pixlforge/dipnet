@@ -4,8 +4,8 @@ namespace Dipnet\Policies;
 
 use Dipnet\User;
 use Dipnet\Order;
-use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OrderPolicy
 {
@@ -29,8 +29,8 @@ class OrderPolicy
      * @param Order $order
      * @return bool
      */
-    public function delete(Order $order)
+    public function delete(User $user, Order $order)
     {
-        return auth()->id() == $order->user_id;
+        return $user->id === $order->business->company->id;
     }
 }
