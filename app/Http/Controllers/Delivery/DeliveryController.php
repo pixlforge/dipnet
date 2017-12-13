@@ -15,7 +15,7 @@ class DeliveryController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('admin');
+        $this->middleware('auth');
     }
 
     /**
@@ -54,28 +54,17 @@ class DeliveryController extends Controller
     }
 
     /**
-     * Display the specified Delivery.
-     *
-     * @param Delivery $delivery
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function show(Delivery $delivery)
-    {
-        $this->authorize('view', $delivery);
-
-        return view('deliveries.show');
-    }
-
-    /**
      * Update a delivery.
      *
      * @param UpdateDeliveryRequest $request
      * @param Delivery $delivery
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateDeliveryRequest $request, Delivery $delivery)
     {
+        $this->authorize('update', $delivery);
+
         $delivery->reference = $request->reference;
         $delivery->contact_id = $request->contact_id;
         $delivery->order_id = $request->order_id;
