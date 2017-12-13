@@ -35,8 +35,9 @@ class StoreDeliveryRequest extends FormRequest
      */
     public function messages()
     {
-        return [
-            //
-        ];
+        return array_merge(parent::messages(), [
+            'order_id.required' => "Veuillez ajouter une commande.",
+            'order_id.exists' => "Vous devez sélectionnez une commande parmi celles proposées."
+        ]);
     }
 }
