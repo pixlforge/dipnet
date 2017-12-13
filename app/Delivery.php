@@ -46,6 +46,11 @@ class Delivery extends Model
         return 'reference';
     }
 
+    public function belongsToUsersCompany()
+    {
+        return auth()->user()->company->id === $this->order->business->company->id;
+    }
+
     /**
      * Contact relationship.
      *
