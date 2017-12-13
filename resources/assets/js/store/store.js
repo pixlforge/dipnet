@@ -167,9 +167,13 @@ export const store = new Vuex.Store({
     },
 
     addDelivery: ({ commit }, payload) => {
+      const orderId = {
+        order_id: payload.id
+      }
+
       return new Promise((resolve, reject) => {
         commit('toggleLoader')
-        axios.post(route('deliveries.store'), payload)
+        axios.post(route('deliveries.store'), orderId)
           .then(response => {
             commit('addDelivery', response.data)
             commit('toggleLoader')

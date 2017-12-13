@@ -50000,9 +50000,13 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
 
     addDelivery: ({ commit }, payload) => {
+      const orderId = {
+        order_id: payload.id
+      };
+
       return new Promise((resolve, reject) => {
         commit('toggleLoader');
-        axios.post(route('deliveries.store'), payload).then(response => {
+        axios.post(route('deliveries.store'), orderId).then(response => {
           commit('addDelivery', response.data);
           commit('toggleLoader');
           resolve();
