@@ -76,8 +76,15 @@ class DeliveryController extends Controller
      */
     public function update(UpdateDeliveryRequest $request, Delivery $delivery)
     {
+        $delivery->reference = $request->reference;
         $delivery->contact_id = $request->contact_id;
+        $delivery->order_id = $request->order_id;
         $delivery->to_deliver_at = $request->to_deliver_at;
+
+        if ($request->has('note')) {
+            $delivery->note = $request->note;
+        }
+
         $delivery->save();
 
         return response($delivery, 200);
