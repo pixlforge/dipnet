@@ -3,12 +3,10 @@
 namespace Dipnet\Http\Controllers\Delivery;
 
 use Dipnet\Delivery;
-use Dipnet\Document;
-use Illuminate\Http\Request;
 use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\DeliveryRequest;
 use Dipnet\Http\Requests\Delivery\StoreDeliveryRequest;
 use Dipnet\Http\Requests\Delivery\UpdateDeliveryRequest;
+use Dipnet\Http\Requests\DeliveryRequest;
 
 class DeliveryController extends Controller
 {
@@ -24,6 +22,7 @@ class DeliveryController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -47,7 +46,7 @@ class DeliveryController extends Controller
     {
         $delivery = new Delivery;
         $delivery->reference = uniqid(true);
-        $delivery->order_id = $request->id;
+        $delivery->order_id = $request->order_id;
 
         $delivery->save();
 
@@ -59,6 +58,7 @@ class DeliveryController extends Controller
      *
      * @param Delivery $delivery
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Delivery $delivery)
     {
@@ -68,7 +68,7 @@ class DeliveryController extends Controller
     }
 
     /**
-     * Update the Delivery.
+     * Update a delivery.
      *
      * @param UpdateDeliveryRequest $request
      * @param Delivery $delivery
@@ -88,6 +88,8 @@ class DeliveryController extends Controller
      *
      * @param Delivery $delivery
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Delivery $delivery)
     {
