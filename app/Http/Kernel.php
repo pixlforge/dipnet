@@ -6,6 +6,7 @@ use Dipnet\Http\Middleware\UserAccountDetails;
 use Dipnet\Http\Middleware\UserEmailConfirmed;
 use Dipnet\Http\Middleware\UserAccountCompanyInfo;
 use Dipnet\Http\Middleware\UserAccountContactInfo;
+use Dipnet\Http\Middleware\UserIsAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -62,6 +63,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'user.account.contact' => UserAccountContactInfo::class,
         'user.account.company' => UserAccountCompanyInfo::class,
-        'user.email.confirmed' => UserEmailConfirmed::class
+        'user.email.confirmed' => UserEmailConfirmed::class,
+        'admin' => UserIsAdmin::class,
     ];
 }
