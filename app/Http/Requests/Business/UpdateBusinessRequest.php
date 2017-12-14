@@ -2,8 +2,6 @@
 
 namespace Dipnet\Http\Requests\Business;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 class UpdateBusinessRequest extends StoreBusinessRequest
 {
     /**
