@@ -179,7 +179,6 @@
       }
     },
     methods: {
-
       /**
        * Add a business.
        */
