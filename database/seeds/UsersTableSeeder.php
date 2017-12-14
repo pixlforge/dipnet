@@ -1,6 +1,8 @@
 <?php
 
-use App\User;
+use Dipnet\Company;
+use Dipnet\Contact;
+use Dipnet\User;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
@@ -12,24 +14,37 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(User::class)->create([
+        $johndoe = factory(User::class)->create([
             'username' => 'John Doe',
             'password' => bcrypt('secret'),
             'role' => 'utilisateur',
             'email' => 'johndoe@example.com',
             'email_confirmed' => 1,
-            'company_id' => 1,
-            'confirmation_token' => null
+            'company_id' => function () {
+                return factory(Company::class)->create([
+                    'name' => 'John Doe\'s company'
+                ])->id;
+            }
         ]);
 
-        factory(User::class)->create([
+        factory(Contact::class)->create([
+            'user_id' => $johndoe->id,
+            'company_id' => $johndoe->company->id
+        ]);
+
+        $janedoe = factory(User::class)->create([
             'username' => 'Jane Doe',
             'password' => bcrypt('secret'),
             'role' => 'utilisateur',
             'email' => 'janedoe@example.com',
             'email_confirmed' => 1,
-            'company_id' => 1,
-            'confirmation_token' => null
+            'company_id' => null,
+            'is_solo' => true
+        ]);
+
+        factory(Contact::class)->create([
+            'user_id' => $janedoe->id,
+            'company_id' => $janedoe->company->id
         ]);
     }
 }

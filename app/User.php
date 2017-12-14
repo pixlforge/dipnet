@@ -168,6 +168,46 @@ class User extends Authenticatable
     }
 
     /**
+     * User is registered as not linked to any company.
+     *
+     * @return bool
+     */
+    public function isSolo()
+    {
+        return $this->is_solo == true;
+    }
+
+    /**
+     * User is registered as part of a company.
+     *
+     * @return bool
+     */
+    public function isNotSolo()
+    {
+        return $this->is_solo == false;
+    }
+
+    /**
+     * User's company has a default business set up.
+     *
+     * @return bool
+     */
+    public function companyHasDefaultBusiness()
+    {
+        return $this->company->business_id !== null;
+    }
+
+    /**
+     * User's company doesn't have a default business set up.
+     *
+     * @return bool
+     */
+    public function companyHasNoDefaultBusiness()
+    {
+        return $this->company->business_id === null;
+    }
+
+    /**
      * Confirm that the user has entered his contact infos.
      */
     public function confirmContact()

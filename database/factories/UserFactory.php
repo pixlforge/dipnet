@@ -14,6 +14,7 @@ $factory->define(Dipnet\User::class, function (Faker $faker) {
         'company_id' => function () {
             return factory(Dipnet\Company::class)->create()->id;
         },
+        'is_solo' => false,
         'email_confirmed' => true,
         'contact_confirmed' => true,
         'company_confirmed' => true,
@@ -56,4 +57,8 @@ $factory->state(Dipnet\User::class, 'no-company', [
 
 $factory->state(Dipnet\User::class, 'admin', [
     'role' => 'administrateur'
+]);
+
+$factory->state(Dipnet\User::class, 'solo', [
+    'is_solo' => true,
 ]);
