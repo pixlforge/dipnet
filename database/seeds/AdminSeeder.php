@@ -1,7 +1,7 @@
 <?php
 
-use App\Company;
-use App\User;
+use Dipnet\Company;
+use Dipnet\User;
 use Illuminate\Database\Seeder;
 
 class AdminSeeder extends Seeder

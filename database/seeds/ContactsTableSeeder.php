@@ -1,6 +1,6 @@
 <?php
 
-use App\Contact;
+use Dipnet\Contact;
 use Illuminate\Database\Seeder;
 
 class ContactsTableSeeder extends Seeder

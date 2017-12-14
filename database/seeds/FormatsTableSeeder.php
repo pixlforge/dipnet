@@ -1,5 +1,6 @@
 <?php
 
+use Dipnet\Format;
 use Illuminate\Database\Seeder;
 
 class FormatsTableSeeder extends Seeder
@@ -11,6 +12,6 @@ class FormatsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Format::class, 10)->create();
+        factory(Format::class, 10)->create();
     }
 }
