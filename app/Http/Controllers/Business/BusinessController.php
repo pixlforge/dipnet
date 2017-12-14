@@ -4,6 +4,7 @@ namespace Dipnet\Http\Controllers\Business;
 
 use Dipnet\Company;
 use Dipnet\Business;
+use Dipnet\Contact;
 use Dipnet\Http\Controllers\Controller;
 use Dipnet\Http\Requests\Business\StoreBusinessRequest;
 use Dipnet\Http\Requests\Business\UpdateBusinessRequest;
@@ -22,6 +23,7 @@ class BusinessController extends Controller
      * Display a listing of all Businesses.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -44,6 +46,22 @@ class BusinessController extends Controller
     }
 
     /**
+     * Create business page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        $company = auth()->user()->company;
+        $contacts = Contact::where('company_id', auth()->user()->company_id)->get();
+
+        return view('businesses.create', [
+            'company' => $company,
+            'contacts' => $contacts
+        ]);
+    }
+
+    /**
      * Store a Business.
      *
      * @param StoreBusinessRequest $request
@@ -51,14 +69,26 @@ class BusinessController extends Controller
      */
     public function store(StoreBusinessRequest $request)
     {
-        $business = Business::create([
-            'name' => $request->name,
-            'reference' => $request->reference,
-            'description' => $request->description,
-            'company_id' => $request->company_id,
-            'contact_id' => $request->contact_id,
-            'created_by_username' => auth()->user()->username
-        ]);
+        $business = new Business;
+        $business->name = $request->name;
+        $business->description = $request->description;
+        $business->company_id = $request->company_id;
+        $business->contact_id = $request->contact_id;
+        $business->created_by_username = auth()->user()->username;
+
+        if ($request->has('reference')) {
+            $business->reference = $request->reference;
+        } else {
+            $business->reference = uniqid(true);
+        }
+
+        $business->save();
+
+        if ($request->has('setDefault')) {
+            $company = Company::find($request->company_id);
+            $company->business_id = $business->id;
+            $company->save();
+        }
 
         $business = $business->with('company', 'contact')->find($business->id);
 
@@ -70,6 +100,7 @@ class BusinessController extends Controller
      *
      * @param Business $business
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Business $business)
     {
@@ -103,6 +134,8 @@ class BusinessController extends Controller
      *
      * @param Business $business
      * @return \Illuminate\Http\Response
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Business $business)
     {
