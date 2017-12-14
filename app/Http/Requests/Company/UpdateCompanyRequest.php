@@ -13,7 +13,7 @@ class UpdateCompanyRequest extends StoreCompanyRequest
      */
     public function authorize()
     {
-        return parent::authorize();
+        return true;
     }
 
     /**
@@ -23,7 +23,9 @@ class UpdateCompanyRequest extends StoreCompanyRequest
      */
     public function rules()
     {
-        return array_merge(parent::rules(), []);
+        return array_merge(parent::rules(), [
+            'business_id' => 'required|exists:businesses,id'
+        ]);
     }
 
     /**
