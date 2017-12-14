@@ -49,14 +49,22 @@ class CreateOrderTest extends TestCase
     /** @test */
     function a_confirmed_user_can_create_a_new_order()
     {
-        $user = factory(User::class)->create();
+        $user = factory(User::class)->create([
+            'company_id' => function () {
+                return factory(Company::class)->create([
+                    'business_id' => function () {
+                        return factory(Business::class)->create()->id;
+                    }
+                ])->id;
+            }
+        ]);
         $this->actingAs($user);
 
         $order = factory(Order::class)->create([
             'user_id' => $user->id
         ]);
 
-        $response = $this->get(route('orders.create.end', $order))
+        $this->get(route('orders.create.end', $order))
             ->assertStatus(200)
             ->assertViewIs('orders.create');
     }

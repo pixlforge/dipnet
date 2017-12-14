@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Company;
 
+use Dipnet\Business;
 use Dipnet\Company;
 use Dipnet\User;
 use Tests\TestCase;
@@ -47,13 +48,14 @@ class CompanyTest extends TestCase
     function a_company_can_be_updated()
     {
         $admin = factory(User::class)->states('admin')->create();
-        $this->signIn($admin);
+        $this->actingAs($admin);
 
-        $this->postJson(route('companies.store'), [
+        factory(Company::class)->create([
             'name' => 'Pixlforge',
             'status' => 'permanent',
             'description' => 'Lorem ipsium dolor sit amet.'
-        ])->assertStatus(200);
+        ]);
+        $business = factory(Business::class)->create();
 
         $this->assertDatabaseHas('companies', [
             'name' => 'Pixlforge',
@@ -66,7 +68,8 @@ class CompanyTest extends TestCase
         $this->putJson(route('companies.update', $company), [
             'name' => 'Bebold',
             'status' => 'permanent',
-            'description' => 'Lorem ipsium dolor sit amet.'
+            'description' => 'Lorem ipsium dolor sit amet.',
+            'business_id' => $business->id
         ])->assertStatus(200);
 
         $this->assertDatabaseMissing('companies', [
