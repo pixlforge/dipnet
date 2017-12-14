@@ -86,11 +86,11 @@ class CompanyController extends Controller
     {
         $this->authorize('update', $company);
 
-        $company->update([
-            'name' => $request->name,
-            'status' => $request->status,
-            'description' => $request->description
-        ]);
+        $company->name = $request->name;
+        $company->status = $request->status;
+        $company->description = $request->description;
+        $company->business_id = $request->business_id;
+        $company->save();
 
         return response($company, 200);
     }

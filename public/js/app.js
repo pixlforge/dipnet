@@ -31948,6 +31948,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -31963,7 +31965,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   data() {
     return {
       company: this.data,
-      invitations: this.invitationsData
+      invitations: this.invitationsData,
+      selectedBusiness: 'Sélection'
     };
   },
   components: {
@@ -31976,7 +31979,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* default */]],
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
-
     /**
      * Add a new invitation to the list.
      */
@@ -32000,6 +32002,40 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     removeInvitation(index) {
       this.invitations.splice(index, 1);
+    },
+
+    /**
+     * Select a default business and update it.
+     */
+    selectBusiness(business) {
+      this.selectedBusiness = business.name;
+      this.company.business_id = business.id;
+      this.update(business);
+    },
+
+    /**
+     * Update the company's settings.
+     */
+    update(business) {
+      axios.put(route('companies.update', [this.company.id]), this.company).then(() => {
+        flash({
+          message: "Les paramètres de votre société ont bien été mis à jour!",
+          level: 'success'
+        });
+      }).catch(error => console.log(error));
+    }
+  },
+  mounted() {
+    /**
+     * Preselect the default business.
+     */
+    const businessId = this.data.business_id;
+
+    if (businessId !== null) {
+      const business = this.dataBusinesses.find(business => {
+        return business.id === businessId;
+      });
+      this.selectedBusiness = business.name;
     }
   }
 });
@@ -65243,10 +65279,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "settings__options"
   }, [_c('div', {
     staticClass: "settings__option"
-  }, [_c('label', [_vm._v("Affaire par défaut:")]), _vm._v(" "), _c('app-settings-dropdown', {
+  }, [_c('label', {
+    staticClass: "settings__label"
+  }, [_vm._v("Affaire par défaut :")]), _vm._v(" "), _c('app-settings-dropdown', {
     attrs: {
-      "label": "Sélection",
+      "label": _vm.selectedBusiness,
       "data": _vm.dataBusinesses
+    },
+    on: {
+      "itemSelected": _vm.selectBusiness
     }
   })], 1), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
@@ -65258,7 +65299,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "settings__option"
-  }, [_c('label', [_vm._v("Contact par défaut:")]), _vm._v("\n          Sélection\n        ")])
+  }, [_c('label', {
+    staticClass: "settings__label"
+  }, [_vm._v("Contact par défaut :")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -67640,6 +67683,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -67741,7 +67785,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "dropdown__container"
   }, [_c('ul', {
     staticClass: "dropdown__list"
-  }, _vm._l((_vm.data), function(business, index) {
+  }, [(_vm.data.length <= 0) ? _c('li', [_vm._v("Aucun contact")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.data), function(business, index) {
     return _c('li', {
       on: {
         "click": function($event) {
@@ -67749,7 +67793,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("\n        " + _vm._s(business.name) + "\n      ")])
-  }))]) : _vm._e()])
+  })], 2)]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -3,7 +3,8 @@
     <div class="row">
       <div class="col-10 my-5 mx-auto">
         <div class="row">
-          <div class="col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only">
+          <div
+            class="col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only">
             <h1 class="mt-5">{{ company.name }}</h1>
             <div class="light mt-5 mr-3">
               <i class="fal fa-users mr-2"></i>
@@ -57,13 +58,14 @@
         </p>
         <div class="settings__options">
           <div class="settings__option">
-            <label>Affaire par défaut:</label>
-            <app-settings-dropdown label="Sélection" :data="dataBusinesses">
+            <label class="settings__label">Affaire par défaut :</label>
+            <app-settings-dropdown :label="selectedBusiness"
+                                   :data="dataBusinesses"
+                                   @itemSelected="selectBusiness">
             </app-settings-dropdown>
           </div>
           <div class="settings__option">
-            <label>Contact par défaut:</label>
-            Sélection
+            <label class="settings__label">Contact par défaut :</label>
           </div>
         </div>
 
@@ -96,7 +98,8 @@
     data() {
       return {
         company: this.data,
-        invitations: this.invitationsData
+        invitations: this.invitationsData,
+        selectedBusiness: 'Sélection'
       }
     },
     components: {
@@ -113,7 +116,6 @@
       ])
     },
     methods: {
-
       /**
        * Add a new invitation to the list.
        */
@@ -137,6 +139,42 @@
        */
       removeInvitation(index) {
         this.invitations.splice(index, 1)
+      },
+
+      /**
+       * Select a default business and update it.
+       */
+      selectBusiness(business) {
+        this.selectedBusiness = business.name
+        this.company.business_id = business.id
+        this.update(business)
+      },
+
+      /**
+       * Update the company's settings.
+       */
+      update(business) {
+        axios.put(route('companies.update', [this.company.id]), this.company)
+          .then(() => {
+            flash({
+              message: "Les paramètres de votre société ont bien été mis à jour!",
+              level: 'success'
+            })
+          })
+          .catch(error => console.log(error))
+      }
+    },
+    mounted() {
+      /**
+       * Preselect the default business.
+       */
+      const businessId = this.data.business_id
+
+      if (businessId !== null) {
+        const business = this.dataBusinesses.find(business => {
+          return business.id === businessId
+        })
+        this.selectedBusiness = business.name
       }
     }
   }

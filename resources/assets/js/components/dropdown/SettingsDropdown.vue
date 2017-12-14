@@ -7,6 +7,7 @@
     </div>
     <div class="dropdown__container" v-if="open">
       <ul class="dropdown__list">
+        <li v-if="data.length <= 0">Aucun contact</li>
         <li v-for="(business, index) in data"
             @click="selectItem(business)">
           {{ business.name }}

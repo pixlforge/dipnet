@@ -14,6 +14,7 @@
     }
 
     .fa-caret-down {
+      margin-left: 1rem;
       margin-right: 1rem;
     }
   }
@@ -47,4 +48,12 @@
 
 .settings {
 
+  &__option {
+    display: flex;
+    align-items: baseline;
+  }
+
+  &__label {
+    margin-right: 1rem;
+  }
 }
