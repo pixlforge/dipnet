@@ -23,12 +23,28 @@ class StoreBusinessRequest extends FormRequest
      */
     public function rules()
     {
+//        if (request()->business) {
+//            return [
+//                'business.name' => 'required|min:3|max:45',
+//                'business.description' => 'nullable|max:45',
+//                'business.contact_id' => 'required|exists:contacts,id'
+//            ];
+//        } else {
+//            return [
+//                'name' => 'required|min:3|max:45',
+//                'reference' => 'required|unique:businesses,id,:id|min:3|max:45',
+//                'description' => 'nullable|max:45',
+//                'company_id' => 'required|exists:companies,id',
+//                'contact_id' => 'required|exists:contacts,id'
+//            ];
+//        }
+
         return [
             'name' => 'required|min:3|max:45',
-            'reference' => 'required|unique:businesses,id,:id|min:3|max:45',
+            'reference' => 'nullable|unique:businesses,id,:id|min:3|max:45',
             'description' => 'nullable|max:45',
             'company_id' => 'required|exists:companies,id',
-            'contact_id' => 'nullable|exists:contacts,id'
+            'contact_id' => 'required|exists:contacts,id'
         ];
     }
 
@@ -40,17 +56,18 @@ class StoreBusinessRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Veuillez entrer un nom pour l\'affaire.',
-            'name.min' => 'Minimum 3 caractères.',
-            'name.max' => 'Maximum 45 caractères.',
-            'reference.required' => 'Veuillez entrer une référence.',
-            'reference.unique' => 'Cette référence est déjà utilisée.',
-            'reference.min' => 'Minimum 3 caractères.',
-            'reference.max' => 'Maximum 45 caractères.',
-            'description.max' => 'Maximum 45 caractères.',
-            'company_id.required' => 'Veuillez sélectionner une société.',
-            'company_id.exists' => 'Veuillez sélectionner une société parmi celles proposées.',
-            'contact_id.exists' => 'Veuillez sélectionner un contact.'
+            'name.required' => "Veuillez entrer un nom pour l'affaire.",
+            'name.min' => "Minimum 3 caractères.",
+            'name.max' => "Maximum 45 caractères.",
+            'reference.required' => "Veuillez entrer une référence.",
+            'reference.unique' => "Cette référence est déjà utilisée.",
+            'reference.min' => "Minimum 3 caractères.",
+            'reference.max' => "Maximum 45 caractères.",
+            'description.max' => "Maximum 45 caractères.",
+            'company_id.required' => "Veuillez sélectionner une société.",
+            'company_id.exists' => "Veuillez sélectionner une société parmi celles proposées.",
+            'contact_id.required' => "Veuillez sélectionner un contact.",
+            'contact_id.exists' => "Veuillez sélectionner un contact."
         ];
     }
 }
