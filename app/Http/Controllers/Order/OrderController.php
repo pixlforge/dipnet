@@ -24,7 +24,8 @@ class OrderController extends Controller
             'user.account.contact',
             'user.account.company'
         ]);
-        $this->middleware('user.email.confirmed')->except('index');
+        $this->middleware('user.email.confirmed')->except(['index']);
+        $this->middleware('business')->only(['create']);
     }
 
     /**
@@ -47,6 +48,7 @@ class OrderController extends Controller
      *
      * @param Order $order
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create(Order $order)
     {
@@ -78,11 +80,11 @@ class OrderController extends Controller
 
         return view('orders.create', [
             'order' => $order,
-            'businesses' => $businesses, //ok
-            'contacts' => $contacts, //ok
+            'businesses' => $businesses,
+            'contacts' => $contacts,
             'deliveries' => $deliveries,
             'documents' => $order->documents,
-            'articles' => $articles //ok
+            'articles' => $articles
         ]);
     }
 
@@ -94,7 +96,7 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        $order = Order::create([
+        Order::create([
             'reference' => uniqid(true),
             'user_id' => auth()->id()
         ]);
@@ -107,6 +109,7 @@ class OrderController extends Controller
      *
      * @param Order $order
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Order $order)
     {
@@ -116,7 +119,7 @@ class OrderController extends Controller
     }
 
     /**
-     * @param UpdateOrderRequest $request
+     * @param Request $request
      * @param Order $order
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -132,8 +135,10 @@ class OrderController extends Controller
     /**
      * Delete an Order.
      *
-     * @param $order
+     * @param Order $order
      * @return \Illuminate\Http\Response
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Order $order)
     {
@@ -153,7 +158,8 @@ class OrderController extends Controller
     {
         return auth()->user()->orders()->create([
             'reference' => uniqid(true),
-            'user_id' => auth()->id()
+            'user_id' => auth()->id(),
+            'business_id' => auth()->user()->company->business_id
         ]);
     }
 
