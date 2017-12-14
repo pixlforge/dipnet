@@ -47,13 +47,13 @@ class Company extends Model
     }
 
     /**
-     * BusinessComment relationship.
+     * Default business relationship.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function businessComment()
+    public function defaultBusiness()
     {
-        return $this->belongsToMany(BusinessComment::class);
+        return $this->hasOne(Business::class, 'id', 'business_id');
     }
 
     /**
