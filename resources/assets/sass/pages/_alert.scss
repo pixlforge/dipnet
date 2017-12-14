@@ -1,0 +1,57 @@
+.alert-page {
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    background-color: $alabaster;
+  }
+
+  &__card {
+    max-width: 700px;
+    width: 40vw;
+    background-color: $white;
+    text-align: center;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    padding: 3rem 6rem;
+  }
+
+  &__card--large {
+    max-width: 700px;
+    width: 55vw;
+    background-color: $white;
+    text-align: center;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    padding: 3rem 6rem;
+  }
+
+  &__icon {
+    width: 80px;
+    margin-bottom: 2rem;
+  }
+
+  &__title {
+    font-size: 24px;
+  }
+
+  &__paragraph {
+    font-size: 14px;
+    margin-bottom: 2rem;
+  }
+
+  &__form {
+    margin-top: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  &__form-group {
+    margin: 3rem;
+  }
+
+  &__label {
+    display: block;
+    text-align: left;
+  }
+}

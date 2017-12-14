@@ -1,0 +1,29 @@
+.settings {
+
+  &__title {
+    font-size: 1.5rem;
+    font-weight: 300;
+    margin-top: 4rem;
+    margin-bottom: 3rem;
+  }
+
+  &__paragraph {
+    font-size: 1rem;
+    font-weight: 300;
+    text-align: center;
+    margin: 3rem 0;
+  }
+
+  &__options {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  &__option {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 300;
+  }
+}
