@@ -4,8 +4,11 @@
 
 @section ('content')
 
-    @include ('layouts.partials._nav')
+  @include ('layouts.partials._nav')
 
-    <app-show-company :data="{{ $company }}" :invitations-data="{{ $invitations }}"></app-show-company>
+  <app-show-company :data="{{ $company }}"
+                    :invitations-data="{{ $invitations }}"
+                    :data-businesses="{{ $businesses }}">
+  </app-show-company>
 
 @endsection
