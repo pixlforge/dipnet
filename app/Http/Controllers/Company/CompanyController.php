@@ -2,6 +2,7 @@
 
 namespace Dipnet\Http\Controllers\Company;
 
+use Dipnet\Business;
 use Dipnet\Company;
 use Dipnet\Invitation;
 use Dipnet\Http\Controllers\Controller;
@@ -22,6 +23,7 @@ class CompanyController extends Controller
      * Display a listing of the Companies.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -63,10 +65,12 @@ class CompanyController extends Controller
     public function show(Company $company)
     {
         $invitations = Invitation::where('company_id', $company->id)->get();
+        $businesses = Business::where('company_id', $company->id)->get();
 
         return view('companies.show', [
             'company' => $company,
-            'invitations' => $invitations
+            'invitations' => $invitations,
+            'businesses' => $businesses
         ]);
     }
 
@@ -76,9 +80,12 @@ class CompanyController extends Controller
      * @param UpdateCompanyRequest $request
      * @param Company $company
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
+        $this->authorize('update', $company);
+
         $company->update([
             'name' => $request->name,
             'status' => $request->status,
@@ -93,6 +100,8 @@ class CompanyController extends Controller
      *
      * @param Company $company
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Company $company)
     {
