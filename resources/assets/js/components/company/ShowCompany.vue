@@ -50,6 +50,23 @@
           </app-invited-member>
         </transition-group>
 
+        <!--Settings-->
+        <h3 class="settings__title">Paramètres</h3>
+        <p class="settings__paragraph">
+          Gérez les paramètres par défaut pour votre société.
+        </p>
+        <div class="settings__options">
+          <div class="settings__option">
+            <label>Affaire par défaut:</label>
+            <app-settings-dropdown label="Sélection" :data="dataBusinesses">
+            </app-settings-dropdown>
+          </div>
+          <div class="settings__option">
+            <label>Contact par défaut:</label>
+            Sélection
+          </div>
+        </div>
+
         <!--Loader-->
         <app-moon-loader :loading="loaderState"
                          :color="loader.color"
@@ -65,6 +82,7 @@
   import CompanyMember from './CompanyMember.vue'
   import InviteMember from '../invitation/Invitation.vue'
   import InvitedMember from '../invitation/InvitedMember.vue'
+  import SettingsDropdown from '../dropdown/SettingsDropdown'
   import mixins from '../../mixins'
   import { eventBus } from '../../app'
   import { mapGetters } from 'vuex'
@@ -72,7 +90,8 @@
   export default {
     props: [
       'data',
-      'invitations-data'
+      'invitations-data',
+      'data-businesses'
     ],
     data() {
       return {
@@ -84,7 +103,8 @@
       'app-company-member': CompanyMember,
       'app-invite-member': InviteMember,
       'app-invited-member': InvitedMember,
-      'app-moon-loader': MoonLoader
+      'app-moon-loader': MoonLoader,
+      'app-settings-dropdown': SettingsDropdown
     },
     mixins: [mixins],
     computed: {
