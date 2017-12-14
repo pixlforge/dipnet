@@ -30,6 +30,7 @@ Route::prefix('/articles')->namespace('Article')->group(function () {
  */
 Route::prefix('/businesses')->namespace('Business')->group(function () {
     Route::get('/', 'BusinessController@index')->name('businesses.index');
+    Route::get('/create', 'BusinessController@create')->name('businesses.create');
     Route::post('/', 'BusinessController@store')->name('businesses.store');
     Route::put('/{business}', 'BusinessController@update')->name('businesses.update');
     Route::delete('/{business}', 'BusinessController@destroy')->name('businesses.destroy');
