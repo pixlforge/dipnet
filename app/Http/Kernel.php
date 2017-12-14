@@ -2,6 +2,7 @@
 
 namespace Dipnet\Http;
 
+use Dipnet\Http\Middleware\CompanyHasDefaultBusiness;
 use Dipnet\Http\Middleware\UserAccountDetails;
 use Dipnet\Http\Middleware\UserEmailConfirmed;
 use Dipnet\Http\Middleware\UserAccountCompanyInfo;
@@ -65,5 +66,6 @@ class Kernel extends HttpKernel
         'user.account.company' => UserAccountCompanyInfo::class,
         'user.email.confirmed' => UserEmailConfirmed::class,
         'admin' => UserIsAdmin::class,
+        'business' => CompanyHasDefaultBusiness::class,
     ];
 }
