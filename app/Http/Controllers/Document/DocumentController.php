@@ -2,15 +2,15 @@
 
 namespace Dipnet\Http\Controllers\Document;
 
-use Dipnet\Http\Requests\Document\StoreDocumentRequest;
+use Dipnet\Http\Requests\Document\UpdateDocumentRequest;
 use Dipnet\Order;
 use Dipnet\Delivery;
 use Dipnet\Document;
-use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\DocumentRequest;
 use Illuminate\Support\Facades\Storage;
+use Dipnet\Http\Requests\DocumentRequest;
+use Dipnet\Http\Requests\Document\StoreDocumentRequest;
 
 class DocumentController extends Controller
 {
@@ -60,6 +60,36 @@ class DocumentController extends Controller
         return response($document, 200);
     }
 
+    public function update(Order $order, Delivery $delivery, Document $document, UpdateDocumentRequest $request)
+    {
+        $document->article_id = $request->article_id;
+        $document->finish = $request->finish;
+        $document->quantity = $request->quantity;
+        $document->articles()->sync($request->options);
+        $document->save();
+
+        return response(200);
+    }
+
+    /**
+     * Delete a document.
+     *
+     * @param Order $order
+     * @param Delivery $delivery
+     * @param Document $document
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function destroy(Order $order, Delivery $delivery, Document $document)
+    {
+        $this->authorize('delete', $document);
+
+        $document->delete();
+
+        return response(null, 204);
+    }
+
     /**
      * Store a new Document model.
      *
@@ -84,24 +114,5 @@ class DocumentController extends Controller
         $document->save();
 
         return $document;
-    }
-
-    /**
-     * Delete a document.
-     *
-     * @param Order $order
-     * @param Delivery $delivery
-     * @param Document $document
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function destroy(Order $order, Delivery $delivery, Document $document)
-    {
-        $this->authorize('delete', $document);
-
-        $document->delete();
-
-        return response(null, 204);
     }
 }

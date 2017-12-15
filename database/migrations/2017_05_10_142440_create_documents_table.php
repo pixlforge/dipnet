@@ -18,7 +18,7 @@ class CreateDocumentsTable extends Migration
             $table->string('filename')->index();
             $table->string('mime_type');
             $table->bigInteger('size');
-            $table->integer('quantity')->nullable();
+            $table->integer('quantity')->default(1);
             $table->enum('finish', ['roulé', 'plié']);
             $table->unsignedInteger('delivery_id')->nullable();
             $table->unsignedInteger('article_id')->nullable();

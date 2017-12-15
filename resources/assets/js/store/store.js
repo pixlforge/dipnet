@@ -61,9 +61,7 @@ export const store = new Vuex.Store({
 
     listDocuments: state => {
       return state.documents
-    },
-
-
+    }
   },
 
   /**
@@ -207,6 +205,7 @@ export const store = new Vuex.Store({
     },
 
     updateDocument: ({ commit }, payload) => {
+      // console.log(payload)
       commit('updateDocument', payload.document)
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id])

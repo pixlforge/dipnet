@@ -57,7 +57,7 @@
 
   &__option {
     min-height: 60px;
-    width: 160px;
+    width: 100%;
 
     &:not(:last-child) {
       border-right: 1px solid $concrete;

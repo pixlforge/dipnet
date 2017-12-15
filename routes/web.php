@@ -82,7 +82,7 @@ Route::prefix('/documents')->namespace('Document')->group(function () {
 
 Route::prefix('/orders')->namespace('Document')->group(function () {
     Route::post('/{order}/{delivery}', 'DocumentController@store')->name('documents.store');
-//    Route::patch('/{order}/{delivery}/{document}', 'DocumentController@update')->name('documents.update');
+    Route::patch('/{order}/{delivery}/{document}', 'DocumentController@update')->name('documents.update');
     Route::delete('/{order}/{delivery}/{document}', 'DocumentController@destroy')->name('documents.destroy');
 });
 

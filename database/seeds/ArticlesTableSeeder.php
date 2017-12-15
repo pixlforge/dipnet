@@ -18,6 +18,11 @@ class ArticlesTableSeeder extends Seeder
         ]);
 
         factory(Article::class)->create([
+            'description' => 'Couleur - A4 - Papier',
+            'type' => 'impression'
+        ]);
+
+        factory(Article::class)->create([
             'description' => 'Vernis UV',
             'type' => 'option'
         ]);

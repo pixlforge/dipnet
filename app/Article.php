@@ -59,6 +59,16 @@ class Article extends Model
     }
 
     /**
+     * Documents relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class);
+    }
+
+    /**
      * Company relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

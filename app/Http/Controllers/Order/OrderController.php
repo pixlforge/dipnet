@@ -2,6 +2,7 @@
 
 namespace Dipnet\Http\Controllers\Order;
 
+use Dipnet\Document;
 use Dipnet\Order;
 use Dipnet\Format;
 use Dipnet\Contact;
@@ -52,6 +53,7 @@ class OrderController extends Controller
      */
     public function create(Order $order)
     {
+        // Create an order if none exist and redirect along with the newly created order.
         if (!$order->exists) {
             $order = $this->createSkeletonOrder();
 
@@ -78,12 +80,17 @@ class OrderController extends Controller
         
         $articles = Article::all();
 
+        $documents = $order->documents()->with('articles')->get();
+//        $articlesDocuments = $documents->articles;
+//        dd($articlesDocuments);
+//        dd($documents);
+
         return view('orders.create', [
             'order' => $order,
             'businesses' => $businesses,
             'contacts' => $contacts,
             'deliveries' => $deliveries,
-            'documents' => $order->documents,
+            'documents' => $documents,
             'articles' => $articles
         ]);
     }

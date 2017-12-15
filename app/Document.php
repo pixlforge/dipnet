@@ -36,6 +36,16 @@ class Document extends Model
     }
 
     /**
+     * Articles relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function articles()
+    {
+        return $this->belongsToMany(Article::class);
+    }
+
+    /**
      * Delivery relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

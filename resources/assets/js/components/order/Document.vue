@@ -85,13 +85,13 @@
           mime_type: this.dataDocument.mime_type,
           size: this.dataDocument.size,
           quantity: 1,
-          finish: '',
+          finish: this.dataDocument.finish,
           delivery_id: this.dataDocument.delivery_id,
           article_id: '',
           options: []
         },
         selectedPrintType: 'Sélection',
-        selectedFinish: 'Sélection',
+        selectedFinish: this.dataDocument.finish,
         selectedOptions: [],
         oldQuantity: 1
       }
@@ -103,7 +103,7 @@
     computed: {
       ...mapGetters([
         'listArticlePrintTypes',
-        'listArticleOptionTypes'
+        'listArticleOptionTypes',
       ]),
 
       documentQuantity: {
@@ -221,7 +221,7 @@
 
         if (index === -1) {
           this.selectedOptions.unshift(newOption)
-          this.document.options.push(newOption)
+          this.document.options.push(newOption.id)
           this.update()
         } else {
           this.update()
@@ -236,6 +236,36 @@
         this.selectedOptions.splice(index, 1)
         this.update()
       },
+    },
+    created() {
+      /**
+       * Preselect the print type.
+       */
+      if (this.dataDocument.article_id !== null &&
+        typeof this.dataDocument.article_id !== 'undefined') {
+        const label = this.listArticlePrintTypes.find(article => {
+          return article.id === this.dataDocument.article_id
+        })
+        this.selectedPrintType = label.description
+      } else {
+        this.selectedPrintType = 'Sélection'
+      }
+
+      /**
+       * Preselect the quantity.
+       */
+      if (this.dataDocument.quantity > 1) {
+        this.document.quantity = this.dataDocument.quantity
+      }
+
+      /**
+       * Populate the selected options list.
+       */
+      if (typeof this.dataDocument.articles !== 'undefined') {
+        this.dataDocument.articles.forEach(article => {
+          this.selectedOptions.push(article)
+        })
+      }
     }
   }
 </script>
