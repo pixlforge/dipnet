@@ -37,7 +37,7 @@ class Contact extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function business()
+    public function businesses()
     {
         return $this->hasMany(Business::class);
     }
