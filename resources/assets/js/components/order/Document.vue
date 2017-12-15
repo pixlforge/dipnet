@@ -234,6 +234,7 @@
        */
       removeOption(index) {
         this.selectedOptions.splice(index, 1)
+        this.document.options.splice(index, 1)
         this.update()
       },
     },
@@ -264,6 +265,7 @@
       if (typeof this.dataDocument.articles !== 'undefined') {
         this.dataDocument.articles.forEach(article => {
           this.selectedOptions.push(article)
+          this.document.options.push(article.id)
         })
       }
     }

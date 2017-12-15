@@ -34914,6 +34914,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     removeOption(index) {
       this.selectedOptions.splice(index, 1);
+      this.document.options.splice(index, 1);
       this.update();
     }
   },
@@ -34943,6 +34944,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     if (typeof this.dataDocument.articles !== 'undefined') {
       this.dataDocument.articles.forEach(article => {
         this.selectedOptions.push(article);
+        this.document.options.push(article.id);
       });
     }
   }
