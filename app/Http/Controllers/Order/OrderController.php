@@ -54,7 +54,7 @@ class OrderController extends Controller
     public function create(Order $order)
     {
         // Create an order if none exist and redirect along with the newly created order.
-        if (!$order->exists) {
+        if (! $order->exists) {
             $order = $this->createSkeletonOrder();
 
             return redirect()->route('orders.create.end', $order);
@@ -71,19 +71,23 @@ class OrderController extends Controller
                 ->orderBy('name')
                 ->get();
         } else {
-            // businesses related to the user's contacts
-            // contacts created by the user
+            $contacts = auth()->user()->contacts;
+
+            $contactIds = [];
+
+            foreach ($contacts as $contact) {
+                array_push($contactIds, $contact->id);
+            }
+
+            $businesses = Business::whereIn('contact_id', $contactIds)->get();
         }
 
         $deliveries = $this->getOrderDeliveries($order);
         $order = $order->load('business', 'contact');
-        
+
         $articles = Article::all();
 
         $documents = $order->documents()->with('articles')->get();
-//        $articlesDocuments = $documents->articles;
-//        dd($articlesDocuments);
-//        dd($documents);
 
         return view('orders.create', [
             'order' => $order,

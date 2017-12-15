@@ -84,7 +84,7 @@ class BusinessController extends Controller
 
         $business->save();
 
-        if ($request->has('setDefault')) {
+        if ($request->has('setDefault') && auth()->user()->isNotSolo()) {
             $company = Company::find($request->company_id);
             $company->business_id = $business->id;
             $company->save();

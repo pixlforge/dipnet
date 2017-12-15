@@ -29,7 +29,11 @@ class DeliveryPolicy
      */
     public function update(User $user, Delivery $delivery)
     {
-        return $user->isAdmin() or $delivery->belongsToUsersCompany();
+        if ($user->isSolo()) {
+            return $delivery->orderBelongsToUser();
+        } else {
+            return $user->isAdmin() or $delivery->belongsToUsersCompany();
+        }
     }
 
     /**
@@ -41,6 +45,10 @@ class DeliveryPolicy
      */
     public function delete(User $user, Delivery $delivery)
     {
-        return $user->isAdmin() or $delivery->belongsToUsersCompany();
+        if ($user->isSolo()) {
+            return $delivery->orderBelongsToUser();
+        } else {
+            return $user->isAdmin() or $delivery->belongsToUsersCompany();
+        }
     }
 }
