@@ -5,7 +5,7 @@
         <img src="/img/icons/alert@3x.png" class="alert-page__icon" alt="Attention">
         <h1 class="alert-page__title">Définir une affaire</h1>
         <p class="alert-page__paragraph">
-          Votre société doit disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.
+          {{ context }} disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.
         </p>
         <button class="btn--black" @click="toggleAlert">Ajouter</button>
       </div>
@@ -100,7 +100,15 @@
     computed: {
       ...mapGetters([
         'loaderState'
-      ])
+      ]),
+
+      context() {
+        if (this.dataCompany.name === 'Particulier') {
+          return "Vous devez"
+        } else {
+          return "Votre société doit"
+        }
+      }
     },
     components: {
       'app-moon-loader': MoonLoader
@@ -117,7 +125,7 @@
         this.$store.dispatch('toggleLoader')
 
         axios.post(route('businesses.store'), this.business)
-          .then(response => {
+          .then(() => {
             flash({
               message: "Votre première affaire a bien été créée!",
               level: 'success'

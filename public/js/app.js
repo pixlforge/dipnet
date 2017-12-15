@@ -30801,7 +30801,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState'])),
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState']), {
+
+    context() {
+      if (this.dataCompany.name === 'Particulier') {
+        return "Vous devez";
+      } else {
+        return "Votre société doit";
+      }
+    }
+  }),
   components: {
     'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
   },
@@ -30813,7 +30822,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     addBusiness() {
       this.$store.dispatch('toggleLoader');
 
-      axios.post(route('businesses.store'), this.business).then(response => {
+      axios.post(route('businesses.store'), this.business).then(() => {
         flash({
           message: "Votre première affaire a bien été créée!",
           level: 'success'
@@ -50344,7 +50353,6 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
 
     updateDocument: ({ commit }, payload) => {
-      // console.log(payload)
       commit('updateDocument', payload.document);
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id]);
@@ -65861,7 +65869,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "alert-page__title"
   }, [_vm._v("Définir une affaire")]), _vm._v(" "), _c('p', {
     staticClass: "alert-page__paragraph"
-  }, [_vm._v("\n        Votre société doit disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.\n      ")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("\n        " + _vm._s(_vm.context) + " disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.\n      ")]), _vm._v(" "), _c('button', {
     staticClass: "btn--black",
     on: {
       "click": _vm.toggleAlert
