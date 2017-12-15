@@ -23,22 +23,6 @@ class StoreBusinessRequest extends FormRequest
      */
     public function rules()
     {
-//        if (request()->business) {
-//            return [
-//                'business.name' => 'required|min:3|max:45',
-//                'business.description' => 'nullable|max:45',
-//                'business.contact_id' => 'required|exists:contacts,id'
-//            ];
-//        } else {
-//            return [
-//                'name' => 'required|min:3|max:45',
-//                'reference' => 'required|unique:businesses,id,:id|min:3|max:45',
-//                'description' => 'nullable|max:45',
-//                'company_id' => 'required|exists:companies,id',
-//                'contact_id' => 'required|exists:contacts,id'
-//            ];
-//        }
-
         return [
             'name' => 'required|min:3|max:45',
             'reference' => 'nullable|unique:businesses,id,:id|min:3|max:45',
