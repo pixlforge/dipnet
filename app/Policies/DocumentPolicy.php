@@ -19,6 +19,10 @@ class DocumentPolicy
      */
     public function delete(User $user, Document $document)
     {
-        return $user->company_id == $document->delivery->order->business->company->id;
+        if ($user->isSolo()) {
+            return $document->belongsToUser();
+        } else {
+            return $document->belongsToUsersCompany();
+        }
     }
 }

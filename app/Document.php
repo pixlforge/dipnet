@@ -26,6 +26,26 @@ class Document extends Model
     protected $dates = ['deleted_at'];
 
     /**
+     * Check if the document's delivery's order belongs to the current user.
+     *
+     * @return bool
+     */
+    public function belongsToUser()
+    {
+        return $this->delivery->order->user_id === auth()->id();
+    }
+
+    /**
+     * Checks if the document belongs to the user's company.
+     *
+     * @return bool
+     */
+    public function belongsToUsersCompany()
+    {
+        return $this->delivery->order->business->company->id === auth()->user()->company_id;
+    }
+
+    /**
      * Article relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
