@@ -46,9 +46,24 @@ class Delivery extends Model
         return 'reference';
     }
 
+    /**
+     * Check of the delivery belongs to the user's company.
+     *
+     * @return bool
+     */
     public function belongsToUsersCompany()
     {
         return auth()->user()->company->id === $this->order->business->company->id;
+    }
+
+    /**
+     * Associated order belongs to current user.
+     *
+     * @return bool
+     */
+    public function orderBelongsToUser()
+    {
+        return $this->order->user_id === auth()->id();
     }
 
     /**
