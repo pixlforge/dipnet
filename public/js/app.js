@@ -34302,7 +34302,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * Update the delivery.
      */
     update() {
-      axios.put(route('deliveries.upate', [this.delivery.reference]), this.delivery);
+      axios.put(route('deliveries.update', [this.delivery.reference]), this.delivery);
     },
 
     /**
