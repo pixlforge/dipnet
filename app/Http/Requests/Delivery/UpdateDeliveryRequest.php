@@ -2,6 +2,8 @@
 
 namespace Dipnet\Http\Requests\Delivery;
 
+use Illuminate\Validation\Rule;
+
 class UpdateDeliveryRequest extends StoreDeliveryRequest
 {
     /**
@@ -22,7 +24,10 @@ class UpdateDeliveryRequest extends StoreDeliveryRequest
     public function rules()
     {
         return array_merge(parent::rules(), [
-            'reference' => 'required|unique:deliveries,reference',
+            'reference' => [
+                'required',
+                Rule::unique('deliveries')->ignore($this->reference, 'reference')
+            ],
             'note' => 'nullable|string|min:5|max:3000'
         ]);
     }
