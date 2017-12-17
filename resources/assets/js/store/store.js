@@ -225,11 +225,11 @@ export const store = new Vuex.Store({
     },
 
     removeDocument: ({ commit }, payload) => {
+      commit('removeDocument', payload.document)
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id])
         axios.delete(endpoint, payload.document)
           .then(() => {
-            commit('removeDocument', payload.document)
             resolve()
           })
           .catch(error => {
