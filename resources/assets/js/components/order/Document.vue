@@ -8,9 +8,6 @@
         <h2 class="document__title">
           {{ document.filename }}
         </h2>
-        <div class="document__icon-delete" @click="destroy">
-          <i class="fal fa-times fa-2x"></i>
-        </div>
       </div>
 
       <div class="document__options-container">
@@ -40,9 +37,9 @@
                                 @itemSelected="selectOption">
           </app-article-dropdown>
           <ul class="document__list">
-            <li v-for="(option, index) in selectedOptions"
+            <li v-for="(option, index) in listSelectedOptions"
                 :key="option.id"
-                @click="removeOption(index)">
+                @click="removeOption(option.id)">
               <i class="fal fa-plus"></i>
               <i class="fal fa-minus"></i>
               <span>{{ option.description }}</span>
@@ -58,6 +55,16 @@
                  v-model.number="documentQuantity"
                  @blur="updateQuantity()">
         </div>
+
+      </div>
+    </div>
+    <div class="document__controls">
+      <div class="document__icon-delete" @click="destroy">
+        <i class="fal fa-times"></i>
+      </div>
+
+      <div class="document__icon-clone" @click="clone">
+        <i class="fal fa-copy"></i>
       </div>
     </div>
   </div>
@@ -67,13 +74,14 @@
   import ArticleDropdown from './ArticleDropdown'
   import mixins from '../../mixins'
   import { eventBus } from '../../app'
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
     props: [
       'data-order',
       'data-delivery',
       'data-document',
+      'data-options'
     ],
     data() {
       return {
@@ -92,7 +100,7 @@
         },
         selectedPrintType: 'Sélection',
         selectedFinish: this.dataDocument.finish,
-        selectedOptions: [],
+        selectedOptions: this.dataOptions,
         oldQuantity: 1
       }
     },
@@ -105,6 +113,13 @@
         'listArticlePrintTypes',
         'listArticleOptionTypes',
       ]),
+
+      listSelectedOptions() {
+        const document = this.$store.getters.listDocuments.find(document => {
+          return document.id == this.document.id
+        })
+        return document.articles
+      },
 
       documentQuantity: {
         get() {
@@ -162,16 +177,39 @@
       }
     },
     methods: {
+      ...mapActions([
+        'cloneOptions'
+      ]),
+
+      /**
+       * Clone a document's option to all documents related to that delivery.
+       */
+      clone() {
+        this.$store.dispatch('cloneOptions', {
+          orderReference: this.order.reference,
+          deliveryReference: this.delivery.reference,
+          deliveryId: this.delivery.id,
+          options: this.document.options,
+          optionModels: this.selectedOptions
+        }).then(() => {
+          flash({
+            message: "Options copiées à tous les documents de la livraison!",
+            level: 'success'
+          })
+        }).catch(error => console.log(error))
+      },
+
       /**
        * Update a document's details
        */
-      update() {
+      update(options = null) {
         this.oldQuantity = this.document.quantity
 
         eventBus.$emit('updateDocument', {
           document: this.document,
           orderReference: this.order.reference,
-          deliveryReference: this.delivery.reference
+          deliveryReference: this.delivery.reference,
+          options: this.selectedOptions
         })
       },
 
@@ -216,7 +254,7 @@
        */
       selectOption(newOption) {
         const index = this.selectedOptions.findIndex(option => {
-          if (option.id === newOption.id) return true
+          return option.id === newOption.id
         })
 
         if (index === -1) {
@@ -232,9 +270,13 @@
       /**
        * Remove an option.
        */
-      removeOption(index) {
-        this.selectedOptions.splice(index, 1)
-        this.document.options.splice(index, 1)
+      removeOption(selectedOption) {
+        this.selectedOptions.splice(this.selectedOptions.find(option => {
+          return option.id === selectedOption.id
+        }), 1)
+        this.document.options.splice(this.document.options.findIndex(option => {
+          return option => selectedOption.id
+        }), 1)
         this.update()
       },
     },
@@ -260,14 +302,13 @@
       }
 
       /**
-       * Populate the selected options list.
+       * Populate the options array with the selected options.
        */
-      if (typeof this.dataDocument.articles !== 'undefined') {
-        this.dataDocument.articles.forEach(article => {
-          this.selectedOptions.push(article)
-          this.document.options.push(article.id)
+      if (typeof this.selectedOptions !== 'undefined') {
+        this.selectedOptions.forEach(option => {
+          this.document.options.push(option.id)
         })
       }
-    }
+    },
   }
 </script>

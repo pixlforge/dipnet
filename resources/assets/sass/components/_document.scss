@@ -28,22 +28,6 @@
     margin-top: 1rem;
   }
 
-  &__icon-delete {
-    height: 100%;
-    margin-right: 1.5rem;
-    cursor: pointer;
-
-    .fa-times {
-      color: $lighter-grey;
-    }
-
-    &:hover {
-      .fa-times {
-        color: $bg-red;
-      }
-    }
-  }
-
   &__options-container {
     display: flex;
     margin-top: 2rem;
@@ -120,6 +104,35 @@
     &:focus,
     &:active {
       border-bottom: 1px solid $bg-red;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__icon-delete,
+  &__icon-clone {
+    font-size: 2rem;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: color .2s;
+  }
+
+  &__icon-delete {
+    &:hover {
+      .fa-times {
+        color: $bg-red;
+      }
+    }
+  }
+
+  &__icon-clone {
+    &:hover {
+      .fa-copy {
+        color: $bg-red;
+      }
     }
   }
 }

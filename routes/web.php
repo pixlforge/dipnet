@@ -84,6 +84,7 @@ Route::prefix('/orders')->namespace('Document')->group(function () {
     Route::post('/{order}/{delivery}', 'DocumentController@store')->name('documents.store');
     Route::patch('/{order}/{delivery}/{document}', 'DocumentController@update')->name('documents.update');
     Route::delete('/{order}/{delivery}/{document}', 'DocumentController@destroy')->name('documents.destroy');
+    Route::post('/{order}/{delivery}/clone', 'DocumentOptionController@store')->name('documents.clone.options');
 });
 
 

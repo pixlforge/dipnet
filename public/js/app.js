@@ -34184,6 +34184,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -34764,6 +34765,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -34771,7 +34779,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-order', 'data-delivery', 'data-document'],
+  props: ['data-order', 'data-delivery', 'data-document', 'data-options'],
   data() {
     return {
       order: this.dataOrder,
@@ -34789,7 +34797,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       },
       selectedPrintType: 'Sélection',
       selectedFinish: this.dataDocument.finish,
-      selectedOptions: [],
+      selectedOptions: this.dataOptions,
       oldQuantity: 1
     };
   },
@@ -34798,6 +34806,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])(['listArticlePrintTypes', 'listArticleOptionTypes']), {
+
+    listSelectedOptions() {
+      const document = this.$store.getters.listDocuments.find(document => {
+        return document.id == this.document.id;
+      });
+      return document.articles;
+    },
 
     documentQuantity: {
       get() {
@@ -34850,17 +34865,37 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       return 'fa-file';
     }
   }),
-  methods: {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["c" /* mapActions */])(['cloneOptions']), {
+
+    /**
+     * Clone a document's option to all documents related to that delivery.
+     */
+    clone() {
+      this.$store.dispatch('cloneOptions', {
+        orderReference: this.order.reference,
+        deliveryReference: this.delivery.reference,
+        deliveryId: this.delivery.id,
+        options: this.document.options,
+        optionModels: this.selectedOptions
+      }).then(() => {
+        flash({
+          message: "Options copiées à tous les documents de la livraison!",
+          level: 'success'
+        });
+      }).catch(error => console.log(error));
+    },
+
     /**
      * Update a document's details
      */
-    update() {
+    update(options = null) {
       this.oldQuantity = this.document.quantity;
 
       __WEBPACK_IMPORTED_MODULE_2__app__["eventBus"].$emit('updateDocument', {
         document: this.document,
         orderReference: this.order.reference,
-        deliveryReference: this.delivery.reference
+        deliveryReference: this.delivery.reference,
+        options: this.selectedOptions
       });
     },
 
@@ -34905,7 +34940,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     selectOption(newOption) {
       const index = this.selectedOptions.findIndex(option => {
-        if (option.id === newOption.id) return true;
+        return option.id === newOption.id;
       });
 
       if (index === -1) {
@@ -34921,12 +34956,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     /**
      * Remove an option.
      */
-    removeOption(index) {
-      this.selectedOptions.splice(index, 1);
-      this.document.options.splice(index, 1);
+    removeOption(selectedOption) {
+      this.selectedOptions.splice(this.selectedOptions.find(option => {
+        return option.id === selectedOption.id;
+      }), 1);
+      this.document.options.splice(this.document.options.findIndex(option => {
+        return option => selectedOption.id;
+      }), 1);
       this.update();
     }
-  },
+  }),
   created() {
     /**
      * Preselect the print type.
@@ -34948,12 +34987,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
 
     /**
-     * Populate the selected options list.
+     * Populate the options array with the selected options.
      */
-    if (typeof this.dataDocument.articles !== 'undefined') {
-      this.dataDocument.articles.forEach(article => {
-        this.selectedOptions.push(article);
-        this.document.options.push(article.id);
+    if (typeof this.selectedOptions !== 'undefined') {
+      this.selectedOptions.forEach(option => {
+        this.document.options.push(option.id);
       });
     }
   }
@@ -50213,6 +50251,14 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
     listDocuments: state => {
       return state.documents;
+    },
+
+    listSelectedOptions: state => {
+      let articles = [];
+      state.documents.forEach(document => {
+        articles.push(document.articles);
+      });
+      return articles;
     }
   },
 
@@ -50269,15 +50315,6 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       state.documents = payload;
     },
 
-    updateDocument: (state, payload) => {
-      const index = state.documents.findIndex(document => {
-        if (document.id === payload.id) {
-          return true;
-        }
-      });
-      state.documents[index] = payload;
-    },
-
     removeDocument: (state, payload) => {
       const index = state.documents.findIndex(document => {
         if (document.id === payload.id) {
@@ -50285,6 +50322,14 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         }
       });
       state.documents.splice(index, 1);
+    },
+
+    cloneOptions: (state, payload) => {
+      state.documents.forEach(document => {
+        if (document.delivery_id === payload.deliveryId) {
+          document.articles = payload.optionModels;
+        }
+      });
     }
   },
 
@@ -50353,11 +50398,9 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
 
     updateDocument: ({ commit }, payload) => {
-      commit('updateDocument', payload.document);
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id]);
         axios.patch(endpoint, payload.document).then(() => {
-          commit('updateDocument', payload.document);
           resolve();
         }).catch(error => {
           reject(error);
@@ -50372,6 +50415,27 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
           commit('removeDocument', payload.document);
           resolve();
         }).catch(error => {
+          reject();
+        });
+      });
+    },
+
+    cloneOptions: ({ commit }, payload) => {
+      commit('toggleLoader');
+      return new Promise((resolve, reject) => {
+        const endpoint = route('documents.clone.options', [payload.orderReference, payload.deliveryReference]);
+        axios.post(endpoint, {
+          options: payload.options
+        }).then(() => {
+          commit('toggleLoader');
+          commit('cloneOptions', {
+            deliveryId: payload.deliveryId,
+            options: payload.options,
+            optionModels: payload.optionModels
+          });
+          resolve();
+        }).catch(error => {
+          commit('toggleLoader');
           reject();
         });
       });
@@ -61416,7 +61480,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "data-order": _vm.order,
         "data-delivery": _vm.delivery,
-        "data-document": document
+        "data-document": document,
+        "data-options": document.articles
       }
     })
   })), _vm._v(" "), _c('div', {
@@ -62269,14 +62334,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "document__header"
   }, [_c('h2', {
     staticClass: "document__title"
-  }, [_vm._v("\n        " + _vm._s(_vm.document.filename) + "\n      ")]), _vm._v(" "), _c('div', {
-    staticClass: "document__icon-delete",
-    on: {
-      "click": _vm.destroy
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-times fa-2x"
-  })])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n        " + _vm._s(_vm.document.filename) + "\n      ")])]), _vm._v(" "), _c('div', {
     staticClass: "document__options-container"
   }, [_c('div', {
     staticClass: "document__option"
@@ -62316,12 +62374,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('ul', {
     staticClass: "document__list"
-  }, _vm._l((_vm.selectedOptions), function(option, index) {
+  }, _vm._l((_vm.listSelectedOptions), function(option, index) {
     return _c('li', {
       key: option.id,
       on: {
         "click": function($event) {
-          _vm.removeOption(index)
+          _vm.removeOption(option.id)
         }
       }
     }, [_c('i', {
@@ -62361,7 +62419,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.documentQuantity = _vm._n($event.target.value)
       }
     }
-  })])])])])
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "document__controls"
+  }, [_c('div', {
+    staticClass: "document__icon-delete",
+    on: {
+      "click": _vm.destroy
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-times"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "document__icon-clone",
+    on: {
+      "click": _vm.clone
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-copy"
+  })])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -61,6 +61,14 @@ export const store = new Vuex.Store({
 
     listDocuments: state => {
       return state.documents
+    },
+
+    listSelectedOptions: state => {
+      let articles = []
+      state.documents.forEach(document => {
+        articles.push(document.articles)
+      })
+      return articles
     }
   },
 
@@ -117,15 +125,6 @@ export const store = new Vuex.Store({
       state.documents = payload
     },
 
-    updateDocument: (state, payload) => {
-      const index = state.documents.findIndex(document => {
-        if (document.id === payload.id) {
-          return true
-        }
-      })
-      state.documents[index] = payload
-    },
-
     removeDocument: (state, payload) => {
       const index = state.documents.findIndex(document => {
         if (document.id === payload.id) {
@@ -133,6 +132,14 @@ export const store = new Vuex.Store({
         }
       })
       state.documents.splice(index, 1)
+    },
+
+    cloneOptions: (state, payload) => {
+      state.documents.forEach(document => {
+        if (document.delivery_id === payload.deliveryId) {
+          document.articles = payload.optionModels
+        }
+      })
     },
   },
 
@@ -205,12 +212,10 @@ export const store = new Vuex.Store({
     },
 
     updateDocument: ({ commit }, payload) => {
-      commit('updateDocument', payload.document)
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id])
         axios.patch(endpoint, payload.document)
           .then(() => {
-            commit('updateDocument', payload.document)
             resolve()
           })
           .catch(error => {
@@ -230,6 +235,27 @@ export const store = new Vuex.Store({
           .catch(error => {
             reject()
           })
+      })
+    },
+
+    cloneOptions: ({ commit }, payload) => {
+      commit('toggleLoader')
+      return new Promise((resolve, reject) => {
+        const endpoint = route('documents.clone.options', [payload.orderReference, payload.deliveryReference])
+        axios.post(endpoint, {
+          options: payload.options
+        }).then(() => {
+          commit('toggleLoader')
+          commit('cloneOptions', {
+            deliveryId: payload.deliveryId,
+            options: payload.options,
+            optionModels: payload.optionModels
+          })
+          resolve()
+        }).catch(error => {
+          commit('toggleLoader')
+          reject()
+        })
       })
     },
   }

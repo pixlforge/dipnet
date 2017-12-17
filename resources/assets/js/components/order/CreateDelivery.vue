@@ -77,7 +77,8 @@
                     :key="document.id"
                     :data-order="order"
                     :data-delivery="delivery"
-                    :data-document="document">
+                    :data-document="document"
+                    :data-options="document.articles">
       </app-document>
     </transition-group>
 

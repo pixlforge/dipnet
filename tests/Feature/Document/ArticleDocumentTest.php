@@ -2,11 +2,13 @@
 
 namespace Tests\Feature\Document;
 
+use Dipnet\Delivery;
+use Dipnet\Order;
+use Dipnet\User;
+use Tests\TestCase;
 use Dipnet\Article;
 use Dipnet\Document;
-use Dipnet\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class ArticleDocumentTest extends TestCase
 {
@@ -43,5 +45,65 @@ class ArticleDocumentTest extends TestCase
         ])->assertStatus(200);
 
         $this->assertCount(2, $document->fresh()->articles);
+    }
+
+    /** @test */
+    function a_documents_options_can_be_cloned_to_those_related_to_the_same_delivery()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
+        $articleOne = factory(Article::class)->create([
+            'description' => 'Reliure Wiro',
+            'type' => 'option'
+        ]);
+        $articleTwo = factory(Article::class)->create([
+            'description' => 'Vernis UV',
+            'type' => 'option'
+        ]);
+
+        $order = factory(Order::class)->create();
+        $delivery = factory(Delivery::class)->create([
+            'order_id' => $order->id
+        ]);
+
+        $documentOne = factory(Document::class)->create([
+            'delivery_id' => $delivery->id
+        ]);
+        $documentTwo = factory(Document::class)->create([
+            'delivery_id' => $delivery->id
+        ]);
+        $documentThree = factory(Document::class)->create([
+            'delivery_id' => $delivery->id
+        ]);
+
+        $this->assertCount(0, $documentOne->articles);
+        $this->assertCount(0, $documentTwo->articles);
+        $this->assertCount(0, $documentThree->articles);
+
+        $this->patchJson(route('documents.update',[
+            $documentOne->delivery->order,
+            $documentOne->delivery,
+            $documentOne
+        ]), [
+            'finish' => 'plié',
+            'quantity' => 3,
+            'options' => [$articleOne->id, $articleTwo->id]
+        ])->assertStatus(200);
+
+        $this->assertCount(2, $documentOne->fresh()->articles);
+
+        // Cloning options
+        $this->postJson(route('documents.clone.options', [
+            $order,
+            $delivery
+        ]), [
+            'options' => [$articleOne->id, $articleTwo->id]
+        ])->assertStatus(200);
+
+        $this->assertCount(2, $documentTwo->fresh()->articles);
+        $this->assertCount(2, $documentThree->fresh()->articles);
     }
 }
