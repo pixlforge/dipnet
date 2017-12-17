@@ -61433,7 +61433,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.removeDelivery
     }
   }, [_c('i', {
-    staticClass: "fal fa-times fa-2x"
+    staticClass: "fal fa-times"
   })]) : _vm._e(), _vm._v(" "), (_vm.showNote) ? _c('p', {
     staticClass: "delivery__note-control",
     on: {

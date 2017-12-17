@@ -44,7 +44,7 @@
         <div class="delivery__icon-destroy"
              v-if="listDeliveries.length > 1"
              @click="removeDelivery">
-          <i class="fal fa-times fa-2x"></i>
+          <i class="fal fa-times"></i>
         </div>
 
         <!--Note label-->
