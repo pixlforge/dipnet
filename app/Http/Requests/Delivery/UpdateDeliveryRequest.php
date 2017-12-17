@@ -26,7 +26,7 @@ class UpdateDeliveryRequest extends StoreDeliveryRequest
         return array_merge(parent::rules(), [
             'reference' => [
                 'required',
-                Rule::unique('deliveries')->ignore($this->reference, 'reference')
+                Rule::unique('deliveries')->ignore($this->id)
             ],
             'note' => 'nullable|string|min:5|max:3000'
         ]);

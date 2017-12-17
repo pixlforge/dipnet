@@ -76,7 +76,7 @@ class DeliveryValidationTest extends TestCase
     }
 
     /** @test */
-    function update_delivery_validation_fails_if_no_reference_already_exists()
+    function update_delivery_validation_fails_if_reference_already_exists()
     {
         $this->withExceptionHandling();
 
