@@ -1,4 +1,46 @@
 .order {
+  &__container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1rem;
+  }
+
+  &__title {
+    margin-top: 2rem;
+  }
+
+  &__header {
+    display: flex;
+    margin-top: 2rem;
+  }
+
+  &__business {
+    margin-right: 3rem;
+  }
+
+  &__label {
+    font-size: .75rem;
+    font-weight: 300;
+    margin-right: .5rem;
+  }
+
+  &__controls {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 3rem;
+    margin: .5rem -15px;
+    background: $alabaster;
+    transition: background .3s;
+
+    &:hover {
+      background: $slight-grey;
+    }
+  }
+
   &__footer {
     display: flex;
     justify-content: center;

@@ -56,3 +56,14 @@
     margin-right: 1rem;
   }
 }
+
+.preview-dropdown {
+  &__label {
+    min-width: 220px;
+    display: flex;
+    justify-content: space-between;
+    user-select: none;
+    font-weight: 400;
+    color: $white;
+  }
+}
