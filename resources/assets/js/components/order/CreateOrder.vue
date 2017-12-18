@@ -1,97 +1,131 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-10 my-5 mx-auto">
-        <div class="row">
-          <div
-            class="col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only">
-
-            <h1 class="mt-5">Nouvelle commande</h1>
-
-            <div class="d-flex mt-5">
-              <!--Business-->
-              <div class="mr-5">
-                <!--Dropdown-->
-                <h6 class="h6-responsive light mr-2">Affaire</h6>
-                <app-dropdown :data="listBusinesses" @itemWasSelected="selectBusiness">
-                  <slot>
-                    <h6 class="light v-dropdown-label">
-                      <strong class="v-dropdown-label-content">{{ selectedBusiness }}</strong>
-                      <i class="fas fa-caret-down ml-3"></i>
-                    </h6>
-                  </slot>
-                </app-dropdown>
-              </div>
-
-              <!--Billing Contact-->
-              <div>
-                <!--Dropdown-->
-                <h6 class="h6-responsive light mr-2">Facturation</h6>
-                <app-dropdown :data="listContacts" @itemWasSelected="selectContact">
-                  <slot>
-                    <h6 class="light v-dropdown-label">
-                      <strong class="v-dropdown-label-content">{{ selectedContact }}</strong>
-                      <i class="fas fa-caret-down ml-3"></i>
-                    </h6>
-                  </slot>
-                </app-dropdown>
+  <div>
+    <transition name="fade" mode="out-in">
+      <!--Preview-->
+      <div key="preview" v-if="showPreview">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-10 my-5 mx-auto">
+              <div class="row">
+                <div class="order__container">
+                  <h1 class="order__title">Prévisualisation de la commande</h1>
+                  <div class="order__header"></div>
+                </div>
               </div>
             </div>
-
-            <!--Add Contact-->
-            <app-add-contact class="v-hidden"
-                             @contactWasCreated="addContact">
-            </app-add-contact>
           </div>
+          <transition-group name="order">
+            <div class="row bg-red my-2"
+                 v-for="(delivery, index) in listDeliveries"
+                 :key="delivery">
+              <div class="col-10 mx-auto my-6">
+                <app-preview-delivery :data-order="order"
+                                      :data-delivery="delivery"
+                                      :data-delivery-number="index + 1"
+                                      :data-documents="documents"
+                                      @removeDelivery="removeDelivery">
+                </app-preview-delivery>
+              </div>
+            </div>
+          </transition-group>
         </div>
       </div>
-    </div>
 
-    <transition-group name="order">
-      <div class="row bg-grey-light my-2"
-           v-for="(delivery, index) in listDeliveries"
-           :key="delivery">
-        <div class="col-10 mx-auto my-6">
-          <app-create-delivery :data-order="order"
-                               :data-delivery="delivery"
-                               :data-delivery-number="index + 1"
-                               :data-documents="documents"
-                               @removeDelivery="removeDelivery">
-          </app-create-delivery>
+      <!--Order-->
+      <div key="order" v-else>
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-10 my-5 mx-auto">
+              <div class="row">
+                <div class="order__container">
+                  <h1 class="order__title">Nouvelle commande</h1>
+                  <div class="order__header">
+                    <!--Business-->
+                    <div class="order__business">
+                      <!--Dropdown-->
+                      <h6 class="order__label">Affaire</h6>
+                      <app-dropdown :data="listBusinesses" @itemWasSelected="selectBusiness">
+                        <slot>
+                          <h6 class="light v-dropdown-label">
+                            <strong class="v-dropdown-label-content">{{ selectedBusiness }}</strong>
+                            <i class="fas fa-caret-down ml-3"></i>
+                          </h6>
+                        </slot>
+                      </app-dropdown>
+                    </div>
+
+                    <!--Billing Contact-->
+                    <div>
+                      <!--Dropdown-->
+                      <h6 class="order__label">Facturation</h6>
+                      <app-dropdown :data="listContacts" @itemWasSelected="selectContact">
+                        <slot>
+                          <h6 class="light v-dropdown-label">
+                            <strong class="v-dropdown-label-content">{{ selectedContact }}</strong>
+                            <i class="fas fa-caret-down ml-3"></i>
+                          </h6>
+                        </slot>
+                      </app-dropdown>
+                    </div>
+                  </div>
+
+                  <!--Add Contact-->
+                  <app-add-contact class="v-hidden"
+                                   @contactWasCreated="addContact">
+                  </app-add-contact>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <transition-group name="order">
+            <div class="row bg-grey-light my-2"
+                 v-for="(delivery, index) in listDeliveries"
+                 :key="delivery">
+              <div class="col-10 mx-auto my-6">
+                <app-create-delivery :data-order="order"
+                                     :data-delivery="delivery"
+                                     :data-delivery-number="index + 1"
+                                     :data-documents="documents"
+                                     @removeDelivery="removeDelivery">
+                </app-create-delivery>
+              </div>
+            </div>
+          </transition-group>
+
+          <div class="order__controls"
+               role="button"
+               @click="addDelivery">
+            <h4 class="order__controls-label">
+              <i class="fal fa-plus-circle mr-2"></i>
+              <span>Ajouter une livraison</span>
+            </h4>
+          </div>
+
+          <div class="order__errors" v-if="errors.length">
+            <i class="fal fa-exclamation-triangle"></i>
+            {{ errors[0].message }}
+          </div>
+
+          <div class="order__footer">
+            <button class="btn--black" @click="goToPreview()">Vers l'aperçu de la commande</button>
+          </div>
+
+          <!--Loader-->
+          <app-moon-loader :loading="loaderState"
+                           :color="loader.color"
+                           :size="loader.size">
+          </app-moon-loader>
         </div>
       </div>
-    </transition-group>
+    </transition>
 
-    <div class="row bg-grey-light bg-grey-light-hoverable my-2"
-         role="button"
-         @click="addDelivery">
-      <div class="col-10 mx-auto my-6">
-        <h4 class="text-center">
-          <i class="fal fa-plus-circle mr-2"></i>
-          <span class="light">Ajouter une livraison</span>
-        </h4>
-      </div>
-    </div>
-
-    <div class="order__errors" v-if="errors.length">
-      <i class="fal fa-exclamation-triangle"></i>
-      {{ errors[0].message }}
-    </div>
-
-    <div class="order__footer">
-      <button class="btn--black" @click="goToPreview()">Vers l'aperçu de la commande</button>
-    </div>
-
-    <!--Loader-->
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
   </div>
 </template>
 
 <script>
   import CreateDelivery from './CreateDelivery.vue'
+  import PreviewDelivery from './PreviewDelivery'
   import AddContact from '../contact/AddContact.vue'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
@@ -114,12 +148,14 @@
         business: 'Choisissez une affaire',
         selectedBusiness: 'Affaire',
         selectedContact: 'Contact',
-        errors: []
+        errors: [],
+        showPreview: false
       }
     },
     mixins: [mixins],
     components: {
       'app-create-delivery': CreateDelivery,
+      'app-preview-delivery': PreviewDelivery,
       'app-add-contact': AddContact,
       'app-moon-loader': MoonLoader
     },
@@ -238,16 +274,14 @@
        * Go to preview order page
        */
       goToPreview() {
-        console.log("Go to Preview page")
         this.$store.dispatch('toggleLoader')
         axios.post(route('orders.validation', [this.order.reference]), this.order)
           .then(() => {
-            console.log('Valid')
             this.errors = []
             this.$store.dispatch('toggleLoader')
+            this.showPreview = true
           })
           .catch(error => {
-            console.log('Invalid', error.response.data)
             this.errors = []
             this.errors.push(error.response.data)
             this.$store.dispatch('toggleLoader')
