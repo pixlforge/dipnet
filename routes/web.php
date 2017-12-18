@@ -74,6 +74,13 @@ Route::prefix('/deliveries')->namespace('Delivery')->group(function () {
 });
 
 /**
+ * Order validation
+ */
+Route::prefix('/orders')->namespace('Order')->group(function () {
+    Route::post('/{order}/validation', 'OrderValidationController@validation')->name('orders.validation');
+});
+
+/**
  * Documents
  */
 Route::prefix('/documents')->namespace('Document')->group(function () {

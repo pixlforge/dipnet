@@ -34531,6 +34531,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -34548,7 +34557,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       business: 'Choisissez une affaire',
       selectedBusiness: 'Affaire',
       selectedContact: 'Contact',
-      errors: {}
+      errors: []
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
@@ -34639,6 +34648,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     update() {
       axios.put(route('orders.update', [this.order.reference]), this.order).catch(error => this.errors.push(error));
+    },
+
+    /**
+     * Go to preview order page
+     */
+    goToPreview() {
+      console.log("Go to Preview page");
+      this.$store.dispatch('toggleLoader');
+      axios.post(route('orders.validation', [this.order.reference]), this.order).then(() => {
+        console.log('Valid');
+        this.errors = [];
+        this.$store.dispatch('toggleLoader');
+      }).catch(error => {
+        console.log('Invalid', error.response.data);
+        this.errors = [];
+        this.errors.push(error.response.data);
+        this.$store.dispatch('toggleLoader');
+      });
     }
   }),
   created() {
@@ -62292,7 +62319,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.addDelivery
     }
-  }, [_vm._m(0)]), _vm._v(" "), _c('app-moon-loader', {
+  }, [_vm._m(0)]), _vm._v(" "), (_vm.errors.length) ? _c('div', {
+    staticClass: "order__errors"
+  }, [_c('i', {
+    staticClass: "fal fa-exclamation-triangle"
+  }), _vm._v("\n    " + _vm._s(_vm.errors[0].message) + "\n  ")]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "order__footer"
+  }, [_c('button', {
+    staticClass: "btn--black",
+    on: {
+      "click": function($event) {
+        _vm.goToPreview()
+      }
+    }
+  }, [_vm._v("Vers l'aperçu de la commande")])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,

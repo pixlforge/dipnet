@@ -1,0 +1,21 @@
+.order {
+  &__footer {
+    display: flex;
+    justify-content: center;
+    margin-top: 4rem;
+  }
+
+  &__errors {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4rem;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: $bg-red;
+
+    .fa-exclamation-triangle {
+      margin-right: 2rem;
+    }
+  }
+}

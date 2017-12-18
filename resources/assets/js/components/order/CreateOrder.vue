@@ -73,6 +73,15 @@
       </div>
     </div>
 
+    <div class="order__errors" v-if="errors.length">
+      <i class="fal fa-exclamation-triangle"></i>
+      {{ errors[0].message }}
+    </div>
+
+    <div class="order__footer">
+      <button class="btn--black" @click="goToPreview()">Vers l'aperçu de la commande</button>
+    </div>
+
     <!--Loader-->
     <app-moon-loader :loading="loaderState"
                      :color="loader.color"
@@ -105,7 +114,7 @@
         business: 'Choisissez une affaire',
         selectedBusiness: 'Affaire',
         selectedContact: 'Contact',
-        errors: {}
+        errors: []
       }
     },
     mixins: [mixins],
@@ -224,6 +233,26 @@
         axios.put(route('orders.update', [this.order.reference]), this.order)
           .catch(error => this.errors.push(error))
       },
+
+      /**
+       * Go to preview order page
+       */
+      goToPreview() {
+        console.log("Go to Preview page")
+        this.$store.dispatch('toggleLoader')
+        axios.post(route('orders.validation', [this.order.reference]), this.order)
+          .then(() => {
+            console.log('Valid')
+            this.errors = []
+            this.$store.dispatch('toggleLoader')
+          })
+          .catch(error => {
+            console.log('Invalid', error.response.data)
+            this.errors = []
+            this.errors.push(error.response.data)
+            this.$store.dispatch('toggleLoader')
+          })
+      }
     },
     created() {
       /**

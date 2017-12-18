@@ -77,16 +77,6 @@ class Delivery extends Model
     }
 
     /**
-     * DeliveryComment relationship.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function deliveryComment()
-    {
-        return $this->hasMany(DeliveryComment::class);
-    }
-
-    /**
      * Document relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

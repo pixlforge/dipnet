@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 $factory->define(Dipnet\Order::class, function (Faker $faker) {
     return [
         'reference' => uniqid(),
-        'status' => $faker->randomElement(['ok', 'nok']),
+        'status' => 'incomplète',
         'business_id' => function() {
             return factory(Dipnet\Business::class)->create()->id;
         },
