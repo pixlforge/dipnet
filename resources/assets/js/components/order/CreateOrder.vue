@@ -17,7 +17,7 @@
           <transition-group name="order">
             <div class="row bg-red my-2"
                  v-for="(delivery, index) in listDeliveries"
-                 :key="delivery">
+                 :key="index">
               <div class="col-10 mx-auto my-6">
                 <app-preview-delivery :data-order="order"
                                       :data-delivery="delivery"
@@ -81,7 +81,7 @@
           <transition-group name="order">
             <div class="row bg-grey-light my-2"
                  v-for="(delivery, index) in listDeliveries"
-                 :key="delivery">
+                 :key="index">
               <div class="col-10 mx-auto my-6">
                 <app-create-delivery :data-order="order"
                                      :data-delivery="delivery"

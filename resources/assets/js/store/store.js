@@ -63,13 +63,13 @@ export const store = new Vuex.Store({
       return state.documents
     },
 
-    listSelectedOptions: state => {
-      let articles = []
-      state.documents.forEach(document => {
-        articles.push(document.articles)
-      })
-      return articles
-    }
+    // listSelectedOptions: state => {
+    //   let articles = []
+    //   state.documents.forEach(document => {
+    //     articles.push(document.articles)
+    //   })
+    //   return articles
+    // }
   },
 
   /**
@@ -123,6 +123,26 @@ export const store = new Vuex.Store({
 
     hydrateDocuments: (state, payload) => {
       state.documents = payload
+    },
+
+    addDocument: (state, payload) => {
+      state.documents.push(payload)
+      const index = state.documents.findIndex(document => {
+        if (document.id === payload.id) {
+          return true
+        }
+      })
+      Vue.set(state.documents[index], 'articles', [])
+    },
+
+    // TBD
+    updateDocument: (state, payload) => {
+      const index = state.documents.findIndex(document => {
+        if (document.id === payload.document.id) {
+          return true
+        }
+      })
+      state.documents[index].articles = payload.options
     },
 
     removeDocument: (state, payload) => {
@@ -211,11 +231,16 @@ export const store = new Vuex.Store({
       commit('hydrateDocuments', payload)
     },
 
+    addDocument: ({ commit }, payload) => {
+      commit('addDocument', payload)
+    },
+
     updateDocument: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id])
         axios.patch(endpoint, payload.document)
           .then(() => {
+            commit('updateDocument', payload)
             resolve()
           })
           .catch(error => {

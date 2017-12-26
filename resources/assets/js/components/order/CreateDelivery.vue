@@ -128,7 +128,7 @@
           type: 'min',
           week: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
           month: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
-          format: 'LL HH[h]mm',
+          format: 'LL [à] HH[h]mm',
           placeholder: 'Date de livraison',
           inputStyle: {
             'display': 'inline-block',
@@ -171,7 +171,6 @@
       'app-datepicker': Datepicker
     },
     watch: {
-
       /**
        * Watch for changes in the deliveryDocuments computed property
        * and update the dropzone classes list.
@@ -286,7 +285,7 @@
        * Set the datepicker placeholder as the current to_deliver_at attribute.
        */
       if (this.delivery.to_deliver_at) {
-        this.option.placeholder = moment(this.delivery.to_deliver_at).format('LL HH[h]mm')
+        this.option.placeholder = moment(this.delivery.to_deliver_at).format('LL [à] HH[h]mm')
       }
 
       /**
@@ -319,7 +318,7 @@
        */
       drop.on('success', (file, response) => {
         file.id = response.id
-        this.documents.push(response)
+        this.$store.dispatch('addDocument', response)
         file.previewElement.classList.add("dz-hidden")
         flash({
           message: "Votre document a bien été téléchargé!",

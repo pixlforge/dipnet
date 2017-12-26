@@ -108,17 +108,22 @@
       'app-article-dropdown': ArticleDropdown
     },
     mixins: [mixins],
+    watch: {
+      listSelectedOptions() {
+        console.log('listSelectedOptions')
+      }
+    },
     computed: {
       ...mapGetters([
         'listArticlePrintTypes',
         'listArticleOptionTypes',
+        'listDocuments'
       ]),
 
       listSelectedOptions() {
-        const document = this.$store.getters.listDocuments.find(document => {
+        return this.listDocuments.find(document => {
           return document.id == this.document.id
-        })
-        return document.articles
+        }).articles
       },
 
       documentQuantity: {
@@ -135,7 +140,6 @@
       },
 
       fileType() {
-
         /**
          * Images
          */
@@ -261,9 +265,6 @@
           this.selectedOptions.unshift(newOption)
           this.document.options.push(newOption.id)
           this.update()
-        } else {
-          this.update()
-          return
         }
       },
 
