@@ -291,6 +291,7 @@
           return article.id === this.dataDocument.article_id
         })
         this.selectedPrintType = label.description
+        this.document.article_id = this.dataDocument.article_id
       } else {
         this.selectedPrintType = 'Sélection'
       }

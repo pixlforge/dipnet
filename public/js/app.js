@@ -37060,6 +37060,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         return article.id === this.dataDocument.article_id;
       });
       this.selectedPrintType = label.description;
+      this.document.article_id = this.dataDocument.article_id;
     } else {
       this.selectedPrintType = 'Sélection';
     }
