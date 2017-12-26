@@ -211,14 +211,6 @@
       },
 
       /**
-       * Update a document's details.
-       */
-      updateDocument(payload) {
-        this.$store.dispatch('updateDocument', payload)
-          .catch(error => console.log(error))
-      },
-
-      /**
        * Remove a document from a delivery.
        */
       removeDocument(payload) {
@@ -289,13 +281,6 @@
       }
     },
     created() {
-      /**
-       * Update a document.
-       */
-      eventBus.$on('updateDocument', (document) => {
-        this.updateDocument(document)
-      })
-
       /**
        * Delete a document.
        */

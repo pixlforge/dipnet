@@ -36656,13 +36656,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
 
     /**
-     * Update a document's details.
-     */
-    updateDocument(payload) {
-      this.$store.dispatch('updateDocument', payload).catch(error => console.log(error));
-    },
-
-    /**
      * Remove a document from a delivery.
      */
     removeDocument(payload) {
@@ -36728,16 +36721,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   }),
   created() {
     /**
-     * Update a document.
-     */
-    __WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on('updateDocument', document => {
-      this.updateDocument(document);
-    }
-
-    /**
      * Delete a document.
      */
-    );__WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on('removeDocument', document => {
+    __WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on('removeDocument', document => {
       this.removeDocument(document);
     }
 
@@ -36874,7 +36860,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         filename: this.dataDocument.filename,
         mime_type: this.dataDocument.mime_type,
         size: this.dataDocument.size,
-        quantity: 1,
+        quantity: this.dataDocument.quantity,
         finish: this.dataDocument.finish,
         delivery_id: this.dataDocument.delivery_id,
         article_id: '',
@@ -36882,20 +36868,34 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       },
       selectedPrintType: 'Sélection',
       selectedFinish: this.dataDocument.finish,
-      selectedOptions: this.dataOptions,
-      oldQuantity: 1
+      selectedOptions: this.dataOptions
     };
   },
   components: {
     'app-article-dropdown': __WEBPACK_IMPORTED_MODULE_0__ArticleDropdown___default.a
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
-  watch: {
-    listSelectedOptions() {
-      console.log('listSelectedOptions');
-    }
-  },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])(['listArticlePrintTypes', 'listArticleOptionTypes', 'listDocuments']), {
+
+    listSelectedPrintType() {
+      let label = null;
+
+      if (this.dataDocument.article_id) {
+        label = this.listArticlePrintTypes.find(article => {
+          return article.id === this.dataDocument.article_id;
+        }).description;
+      } else {
+        label = 'Sélection';
+      }
+
+      return label;
+    },
+
+    listSelectedFinish() {
+      return this.listDocuments.find(document => {
+        return document.id == this.document.id;
+      }).finish;
+    },
 
     listSelectedOptions() {
       return this.listDocuments.find(document => {
@@ -36903,9 +36903,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }).articles;
     },
 
-    documentQuantity: {
+    listSelectedQuantity: {
       get() {
-        return this.document.quantity;
+        return this.listDocuments.find(document => {
+          return document.id == this.document.id;
+        }).quantity;
       },
       set(newValue) {
         if (newValue < 1) {
@@ -36963,6 +36965,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         orderReference: this.order.reference,
         deliveryReference: this.delivery.reference,
         deliveryId: this.delivery.id,
+        print: this.document.article_id,
+        finish: this.document.finish,
+        quantity: this.document.quantity,
         options: this.document.options,
         optionModels: this.selectedOptions
       }).then(() => {
@@ -36977,21 +36982,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      * Update a document's details
      */
     update(options = null) {
-      this.oldQuantity = this.document.quantity;
-
-      __WEBPACK_IMPORTED_MODULE_2__app__["eventBus"].$emit('updateDocument', {
+      this.$store.dispatch('updateDocument', {
         document: this.document,
         orderReference: this.order.reference,
         deliveryReference: this.delivery.reference,
         options: this.selectedOptions
-      });
-    },
-
-    /**
-     * Determine if the document's quantity should be updated.
-     */
-    updateQuantity() {
-      if (this.oldQuantity !== this.document.quantity) this.update();
+      }).catch(error => console.log(error));
     },
 
     /**
@@ -52862,14 +52858,6 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     listDocuments: state => {
       return state.documents;
     }
-
-    // listSelectedOptions: state => {
-    //   let articles = []
-    //   state.documents.forEach(document => {
-    //     articles.push(document.articles)
-    //   })
-    //   return articles
-    // }
   },
 
   /**
@@ -52932,16 +52920,20 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
           return true;
         }
       });
+      __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(state.documents[index], 'quantity', 1);
+      __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(state.documents[index], 'article_id', null);
       __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(state.documents[index], 'articles', []);
     },
 
-    // TBD
     updateDocument: (state, payload) => {
       const index = state.documents.findIndex(document => {
         if (document.id === payload.document.id) {
           return true;
         }
       });
+      state.documents[index].article_id = payload.document.article_id;
+      state.documents[index].finish = payload.document.finish;
+      state.documents[index].quantity = payload.document.quantity;
       state.documents[index].articles = payload.options;
     },
 
@@ -52957,6 +52949,9 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     cloneOptions: (state, payload) => {
       state.documents.forEach(document => {
         if (document.delivery_id === payload.deliveryId) {
+          document.article_id = payload.print;
+          document.finish = payload.finish;
+          document.quantity = payload.quantity;
           document.articles = payload.optionModels;
         }
       });
@@ -53032,10 +53027,10 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
 
     updateDocument: ({ commit }, payload) => {
+      commit('updateDocument', payload);
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id]);
         axios.patch(endpoint, payload.document).then(() => {
-          commit('updateDocument', payload);
           resolve();
         }).catch(error => {
           reject(error);
@@ -53060,11 +53055,17 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.clone.options', [payload.orderReference, payload.deliveryReference]);
         axios.post(endpoint, {
+          print: payload.print,
+          finish: payload.finish,
+          quantity: payload.quantity,
           options: payload.options
         }).then(() => {
           commit('toggleLoader');
           commit('cloneOptions', {
             deliveryId: payload.deliveryId,
+            print: payload.print,
+            finish: payload.finish,
+            quantity: payload.quantity,
             options: payload.options,
             optionModels: payload.optionModels
           });
@@ -65244,7 +65245,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Type d'impression")]), _vm._v(" "), _c('app-article-dropdown', {
     attrs: {
       "type": "print",
-      "label": _vm.selectedPrintType
+      "label": _vm.listSelectedPrintType
     },
     on: {
       "itemSelected": _vm.selectPrintType
@@ -65256,7 +65257,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Finition")]), _vm._v(" "), _c('app-article-dropdown', {
     attrs: {
       "type": "finish",
-      "label": _vm.selectedFinish
+      "label": _vm.listSelectedFinish
     },
     on: {
       "itemSelected": _vm.selectFinish
@@ -65296,8 +65297,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model.number",
-      value: (_vm.documentQuantity),
-      expression: "documentQuantity",
+      value: (_vm.listSelectedQuantity),
+      expression: "listSelectedQuantity",
       modifiers: {
         "number": true
       }
@@ -65307,17 +65308,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "number"
     },
     domProps: {
-      "value": (_vm.documentQuantity)
+      "value": (_vm.listSelectedQuantity)
     },
     on: {
       "blur": [function($event) {
-        _vm.updateQuantity()
+        _vm.update()
       }, function($event) {
         _vm.$forceUpdate()
       }],
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.documentQuantity = _vm._n($event.target.value)
+        _vm.listSelectedQuantity = _vm._n($event.target.value)
       }
     }
   })])])]), _vm._v(" "), _c('div', {

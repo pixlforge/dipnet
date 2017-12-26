@@ -23,6 +23,11 @@ class DocumentOptionController extends Controller
         $documents = Document::where('delivery_id', $delivery->id)->get();
 
         foreach ($documents as $document) {
+            $document->article_id = $request->print;
+            $document->finish = $request->finish;
+            $document->quantity = $request->quantity;
+            $document->save();
+
             $document->articles()->sync($request->options);
         }
 

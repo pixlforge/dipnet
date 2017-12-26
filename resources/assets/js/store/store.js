@@ -62,14 +62,6 @@ export const store = new Vuex.Store({
     listDocuments: state => {
       return state.documents
     },
-
-    // listSelectedOptions: state => {
-    //   let articles = []
-    //   state.documents.forEach(document => {
-    //     articles.push(document.articles)
-    //   })
-    //   return articles
-    // }
   },
 
   /**
@@ -132,16 +124,20 @@ export const store = new Vuex.Store({
           return true
         }
       })
+      Vue.set(state.documents[index], 'quantity', 1)
+      Vue.set(state.documents[index], 'article_id', null)
       Vue.set(state.documents[index], 'articles', [])
     },
 
-    // TBD
     updateDocument: (state, payload) => {
       const index = state.documents.findIndex(document => {
         if (document.id === payload.document.id) {
           return true
         }
       })
+      state.documents[index].article_id = payload.document.article_id
+      state.documents[index].finish = payload.document.finish
+      state.documents[index].quantity = payload.document.quantity
       state.documents[index].articles = payload.options
     },
 
@@ -157,6 +153,9 @@ export const store = new Vuex.Store({
     cloneOptions: (state, payload) => {
       state.documents.forEach(document => {
         if (document.delivery_id === payload.deliveryId) {
+          document.article_id = payload.print
+          document.finish = payload.finish
+          document.quantity = payload.quantity
           document.articles = payload.optionModels
         }
       })
@@ -236,11 +235,11 @@ export const store = new Vuex.Store({
     },
 
     updateDocument: ({ commit }, payload) => {
+      commit('updateDocument', payload)
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id])
         axios.patch(endpoint, payload.document)
           .then(() => {
-            commit('updateDocument', payload)
             resolve()
           })
           .catch(error => {
@@ -268,11 +267,17 @@ export const store = new Vuex.Store({
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.clone.options', [payload.orderReference, payload.deliveryReference])
         axios.post(endpoint, {
+          print: payload.print,
+          finish: payload.finish,
+          quantity: payload.quantity,
           options: payload.options
         }).then(() => {
           commit('toggleLoader')
           commit('cloneOptions', {
             deliveryId: payload.deliveryId,
+            print: payload.print,
+            finish: payload.finish,
+            quantity: payload.quantity,
             options: payload.options,
             optionModels: payload.optionModels
           })

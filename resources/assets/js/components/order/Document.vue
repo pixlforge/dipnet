@@ -15,7 +15,7 @@
         <div class="document__option">
           <h4 class="document__option-label">Type d'impression</h4>
           <app-article-dropdown type="print"
-                                :label="selectedPrintType"
+                                :label="listSelectedPrintType"
                                 @itemSelected="selectPrintType">
           </app-article-dropdown>
         </div>
@@ -24,7 +24,7 @@
         <div class="document__option">
           <h4 class="document__option-label">Finition</h4>
           <app-article-dropdown type="finish"
-                                :label="selectedFinish"
+                                :label="listSelectedFinish"
                                 @itemSelected="selectFinish">
           </app-article-dropdown>
         </div>
@@ -52,8 +52,8 @@
           <h4 class="document__option-label">Quantité</h4>
           <input type="number"
                  class="document__input"
-                 v-model.number="documentQuantity"
-                 @blur="updateQuantity()">
+                 v-model.number="listSelectedQuantity"
+                 @blur="update()">
         </div>
 
       </div>
@@ -92,7 +92,7 @@
           filename: this.dataDocument.filename,
           mime_type: this.dataDocument.mime_type,
           size: this.dataDocument.size,
-          quantity: 1,
+          quantity: this.dataDocument.quantity,
           finish: this.dataDocument.finish,
           delivery_id: this.dataDocument.delivery_id,
           article_id: '',
@@ -101,18 +101,12 @@
         selectedPrintType: 'Sélection',
         selectedFinish: this.dataDocument.finish,
         selectedOptions: this.dataOptions,
-        oldQuantity: 1
       }
     },
     components: {
       'app-article-dropdown': ArticleDropdown
     },
     mixins: [mixins],
-    watch: {
-      listSelectedOptions() {
-        console.log('listSelectedOptions')
-      }
-    },
     computed: {
       ...mapGetters([
         'listArticlePrintTypes',
@@ -120,15 +114,37 @@
         'listDocuments'
       ]),
 
+      listSelectedPrintType() {
+        let label = null
+
+        if (this.dataDocument.article_id) {
+          label = this.listArticlePrintTypes.find(article => {
+            return article.id === this.dataDocument.article_id
+          }).description
+        } else {
+          label = 'Sélection'
+        }
+
+        return label
+      },
+
+      listSelectedFinish() {
+        return this.listDocuments.find(document => {
+          return document.id == this.document.id
+        }).finish
+      },
+
       listSelectedOptions() {
         return this.listDocuments.find(document => {
           return document.id == this.document.id
         }).articles
       },
 
-      documentQuantity: {
+      listSelectedQuantity: {
         get() {
-          return this.document.quantity
+          return this.listDocuments.find(document => {
+            return document.id == this.document.id
+          }).quantity
         },
         set(newValue) {
           if (newValue < 1) {
@@ -193,6 +209,9 @@
           orderReference: this.order.reference,
           deliveryReference: this.delivery.reference,
           deliveryId: this.delivery.id,
+          print: this.document.article_id,
+          finish: this.document.finish,
+          quantity: this.document.quantity,
           options: this.document.options,
           optionModels: this.selectedOptions
         }).then(() => {
@@ -207,21 +226,12 @@
        * Update a document's details
        */
       update(options = null) {
-        this.oldQuantity = this.document.quantity
-
-        eventBus.$emit('updateDocument', {
+        this.$store.dispatch('updateDocument', {
           document: this.document,
           orderReference: this.order.reference,
           deliveryReference: this.delivery.reference,
           options: this.selectedOptions
-        })
-      },
-
-      /**
-       * Determine if the document's quantity should be updated.
-       */
-      updateQuantity() {
-        if (this.oldQuantity !== this.document.quantity) this.update()
+        }).catch(error => console.log(error))
       },
 
       /**
