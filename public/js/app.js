@@ -37237,6 +37237,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -68011,9 +68014,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col-12 col-lg-2"
   }, [_c('h5', {
     staticClass: "mb-0"
-  }, [_c('a', {
+  }, [(_vm.order.status === 'incomplète') ? _c('a', {
     attrs: {
       "href": ("/orders/" + (_vm.order.reference) + "/create")
+    }
+  }, [_vm._v("\n        " + _vm._s(_vm.order.reference) + "\n      ")]) : _c('a', {
+    attrs: {
+      "href": "javascript:;"
     }
   }, [_vm._v("\n        " + _vm._s(_vm.order.reference) + "\n      ")])])]), _vm._v(" "), _c('div', {
     staticClass: "col-12 col-lg-2"
@@ -69828,7 +69835,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, _vm._l((_vm.orders), function(order, index) {
     return _c('app-order', {
-      key: order,
+      key: order.id,
       staticClass: "card card-custom center-on-small-only",
       attrs: {
         "data-order": order

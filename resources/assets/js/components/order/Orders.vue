@@ -28,7 +28,7 @@
           <app-order class="card card-custom center-on-small-only"
                      v-for="(order, index) in orders"
                      :data-order="order"
-                     :key="order"
+                     :key="order.id"
                      @orderWasDeleted="removeOrder(index)"></app-order>
         </transition-group>
       </div>

@@ -10,7 +10,10 @@
 
       <!--Reference-->
       <h5 class="mb-0">
-        <a :href="`/orders/${order.reference}/create`">
+        <a :href="`/orders/${order.reference}/create`" v-if="order.status === 'incomplète'">
+          {{ order.reference }}
+        </a>
+        <a href="javascript:;" v-else>
           {{ order.reference }}
         </a>
       </h5>
