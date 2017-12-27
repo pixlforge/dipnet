@@ -208,6 +208,7 @@
       selectContact(contact) {
         this.selectedContact = contact.name
         this.delivery.contact_id = contact.id
+        this.delivery.contact = contact
         this.update()
       },
 

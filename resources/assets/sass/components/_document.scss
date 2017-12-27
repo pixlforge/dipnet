@@ -2,6 +2,7 @@
   &__container {
     display: flex;
     margin: 1rem 0;
+    padding-bottom: 1rem;
     background-color: $white;
     box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
   }
@@ -48,11 +49,15 @@
       border-right: 1px solid $concrete;
       margin-right: 20px;
     }
+
+    p {
+      margin-top: 1.3rem;
+    }
   }
 
   &__list {
     list-style: none;
-    padding: .75rem 0;
+    padding: 0;
 
     li {
       line-height: 2;
@@ -92,6 +97,26 @@
 
       span {
         user-select: none;
+      }
+    }
+
+    &--preview {
+      padding-top: 0;
+
+      li {
+        &:hover {
+          background: none;
+          color: currentColor;
+          cursor: text;
+
+          .fa-plus {
+            display: inline-block;
+          }
+        }
+
+        span {
+          user-select: initial;
+        }
       }
     }
   }

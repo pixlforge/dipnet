@@ -85,6 +85,7 @@ class ContactController extends Controller
      *
      * @param Contact $contact
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Contact $contact)
     {
@@ -122,6 +123,8 @@ class ContactController extends Controller
      *
      * @param Contact $contact
      * @return \Illuminate\Http\Response
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Contact $contact)
     {

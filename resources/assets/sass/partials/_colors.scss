@@ -21,6 +21,82 @@ $bg-red: #e84949;
 $bg-purple: #795691;
 $bg-orange: #ef9067;
 
+$bg-red-1: $bg-red;
+$bg-red-2: darken($bg-red-1, 10%);
+$bg-red-3: darken($bg-red-2, 10%);
+$bg-red-4: darken($bg-red-3, 10%);
+$bg-red-5: darken($bg-red-4, 10%);
+$bg-red-6: darken($bg-red-5, 10%);
+$bg-red-7: darken($bg-red-6, 10%);
+$bg-red-8: darken($bg-red-7, 10%);
+$bg-red-9: darken($bg-red-8, 10%);
+$bg-red-10: darken($bg-red-9, 10%);
+$bg-red-11: darken($bg-red-10, 10%);
+$bg-red-12: darken($bg-red-11, 10%);
+$bg-red-13: darken($bg-red-12, 10%);
+$bg-red-14: darken($bg-red-13, 10%);
+$bg-red-15: darken($bg-red-14, 10%);
+
+.bg-red-1 {
+  background-color: $bg-red-1;
+}
+
+.bg-red-2 {
+  background-color: $bg-red-2;
+}
+
+.bg-red-3 {
+  background-color: $bg-red-3;
+}
+
+.bg-red-4 {
+  background-color: $bg-red-4;
+}
+
+.bg-red-5 {
+  background-color: $bg-red-5;
+}
+
+.bg-red-6 {
+  background-color: $bg-red-6;
+}
+
+.bg-red-7 {
+  background-color: $bg-red-7;
+}
+
+.bg-red-8 {
+  background-color: $bg-red-8;
+}
+
+.bg-red-9 {
+  background-color: $bg-red-9;
+}
+
+.bg-red-10 {
+  background-color: $bg-red-10;
+}
+
+.bg-red-11 {
+  background-color: $bg-red-11;
+}
+
+.bg-red-12 {
+  background-color: $bg-red-12;
+}
+
+.bg-red-13 {
+  background-color: $bg-red-13;
+}
+
+.bg-red-14 {
+  background-color: $bg-red-14;
+}
+
+.bg-red-15 {
+  background-color: $bg-red-15;
+}
+
 $bg-red-lighter-5: lighten($bg-red, 5%);
 $bg-purple-lighter-5: lighten($bg-purple, 5%);
 $bg-orange-lighter-5: lighten($bg-orange, 5%);

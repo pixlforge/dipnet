@@ -1,6 +1,7 @@
 <template>
   <div>
     <transition name="fade" mode="out-in">
+
       <!--Preview-->
       <div key="preview" v-if="showPreview">
         <div class="container-fluid">
@@ -14,20 +15,67 @@
               </div>
             </div>
           </div>
-          <transition-group name="order">
-            <div class="row bg-red my-2"
-                 v-for="(delivery, index) in listDeliveries"
-                 :key="index">
-              <div class="col-10 mx-auto my-6">
-                <app-preview-delivery :data-order="order"
-                                      :data-delivery="delivery"
-                                      :data-delivery-number="index + 1"
-                                      :data-documents="documents"
-                                      @removeDelivery="removeDelivery">
-                </app-preview-delivery>
-              </div>
+          <div class="row"
+               v-for="(delivery, index) in listDeliveries"
+               :key="index"
+               :class="'bg-red-' + (index + 1)">
+            <div class="col-10 mx-auto my-6">
+              <app-preview-delivery :data-order="order"
+                                    :data-delivery="delivery"
+                                    :data-delivery-number="index + 1"
+                                    :data-documents="documents"
+                                    @removeDelivery="removeDelivery">
+              </app-preview-delivery>
             </div>
-          </transition-group>
+          </div>
+
+          <div class="preview__business">
+            <h2>
+              Associé à l'affaire
+              <strong>{{ order.business.name | capitalize }}</strong>
+            </h2>
+            <ul class="preview__list">
+              <li>{{ order.business.name }}</li>
+              <li>{{ order.business.reference }}</li>
+            </ul>
+          </div>
+          <hr>
+          <div class="preview__billed-to">
+            <h2>
+              Facturation à
+              <strong>{{ order.contact.name | capitalize }}</strong>
+            </h2>
+            <ul class="preview__list">
+              <li>{{ order.contact.name }}</li>
+              <li>{{ order.contact.address_line1 }}</li>
+              <li>{{ order.contact.address_line2 }}</li>
+              <li>{{ order.contact.zip }} {{ order.contact.city }}</li>
+              <li>{{ order.contact.phone_number }}</li>
+              <li>{{ order.contact.fax }}</li>
+              <li>{{ order.contact.email }}</li>
+            </ul>
+          </div>
+
+          <div class="preview__terms">
+            <label>
+              <input type="checkbox" v-model="terms">
+              <div>
+                J'ai lu et j'accepte les Conditions Générales de Vente (CGV)
+              </div>
+            </label>
+          </div>
+
+          <div class="order__footer">
+            <button class="btn btn--grey"
+                    @click="goToOrder()">
+              Retour
+            </button>
+            <button class="btn btn--black"
+                    @click="completeOrder()"
+                    :disabled="!terms">
+              Commander
+            </button>
+          </div>
         </div>
       </div>
 
@@ -108,18 +156,16 @@
           </div>
 
           <div class="order__footer">
-            <button class="btn--black" @click="goToPreview()">Vers l'aperçu de la commande</button>
+            <button class="btn btn--black" @click="goToPreview()">Aperçu de la commande</button>
           </div>
-
-          <!--Loader-->
-          <app-moon-loader :loading="loaderState"
-                           :color="loader.color"
-                           :size="loader.size">
-          </app-moon-loader>
         </div>
       </div>
     </transition>
-
+    <!--Loader-->
+    <app-moon-loader :loading="loaderState"
+                     :color="loader.color"
+                     :size="loader.size">
+    </app-moon-loader>
   </div>
 </template>
 
@@ -149,7 +195,8 @@
         selectedBusiness: 'Affaire',
         selectedContact: 'Contact',
         errors: [],
-        showPreview: false
+        showPreview: false,
+        terms: false
       }
     },
     mixins: [mixins],
@@ -263,7 +310,7 @@
       },
 
       /**
-       * Go to preview order page
+       * Go to the preview order page.
        */
       goToPreview() {
         this.$store.dispatch('toggleLoader')
@@ -272,6 +319,47 @@
             this.errors = []
             this.$store.dispatch('toggleLoader')
             this.showPreview = true
+            window.scroll({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+            });
+          })
+          .catch(error => {
+            this.errors = []
+            this.errors.push(error.response.data)
+            this.$store.dispatch('toggleLoader')
+          })
+      },
+
+      /**
+       * Go the the order page
+       */
+      goToOrder() {
+        this.showPreview = false
+      },
+
+      /**
+       * Order
+       */
+      completeOrder() {
+        this.$store.dispatch('toggleLoader')
+        axios.post(route('orders.validation', [this.order.reference]), this.order)
+          .then(() => {
+            axios.patch(route('orders.complete', [this.order.reference]), this.order)
+              .then(() => {
+                flash({
+                  message: "Votre commande a bien été envoyée!",
+                  level: 'success'
+                })
+                setTimeout(() => {
+                  window.location = route('orders.index')
+                }, 1500)
+              })
+              .catch(error => {
+                console.log(error)
+                this.$store.dispatch('toggleLoader')
+              })
           })
           .catch(error => {
             this.errors = []

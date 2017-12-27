@@ -47,7 +47,6 @@ class DeliveryController extends Controller
         $delivery = new Delivery;
         $delivery->reference = uniqid(true);
         $delivery->order_id = $request->order_id;
-
         $delivery->save();
 
         return response($delivery, 200);

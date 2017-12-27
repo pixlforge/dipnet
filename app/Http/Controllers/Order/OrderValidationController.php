@@ -59,10 +59,6 @@ class OrderValidationController extends Controller
             if ($document->article_id === null) {
                 abort(422, "Un document ne contient pas de type d'impression spécifié.");
             }
-
-            if ($document->articles->count() < 1) {
-                abort(422, "Un document ne contient aucune option d'impression.");
-            }
         }
 
         return response(200);

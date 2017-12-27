@@ -89,8 +89,8 @@ class ArticleDocumentTest extends TestCase
             $documentOne
         ]), [
             'finish' => 'plié',
-            'quantity' => 3,
-            'options' => [$articleOne->id, $articleTwo->id]
+            'options' => [$articleOne->id, $articleTwo->id],
+            'quantity' => 3
         ])->assertStatus(200);
 
         $this->assertCount(2, $documentOne->fresh()->articles);
@@ -100,7 +100,9 @@ class ArticleDocumentTest extends TestCase
             $order,
             $delivery
         ]), [
-            'options' => [$articleOne->id, $articleTwo->id]
+            'finish' => 'plié',
+            'options' => [$articleOne->id, $articleTwo->id],
+            'quantity' => 3
         ])->assertStatus(200);
 
         $this->assertCount(2, $documentTwo->fresh()->articles);

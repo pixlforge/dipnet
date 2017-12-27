@@ -209,4 +209,20 @@ class CreateOrderTest extends TestCase
             ->assertStatus(401);
         $this->assertNull($order->fresh()->deleted_at);
     }
+
+    /** @test */
+    function an_order_can_be_completed()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
+        $order = factory(Order::class)->create();
+
+        $this->patchJson(route('orders.complete', $order), $order->toArray())
+            ->assertStatus(200);
+
+        $this->assertEquals('réceptionnée', $order->fresh()->status);
+    }
 }

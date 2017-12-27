@@ -141,6 +141,7 @@ Route::prefix('/orders')->namespace('Order')->group(function () {
     Route::get('/{order}/create', 'OrderController@create')->name('orders.create.end');
     Route::put('/{order}', 'OrderController@update')->name('orders.update');
     Route::delete('/{order}', 'OrderController@destroy')->name('orders.destroy');
+    Route::patch('/{order}/complete', 'CompleteOrderController@update')->name('orders.complete');
 });
 
 /**

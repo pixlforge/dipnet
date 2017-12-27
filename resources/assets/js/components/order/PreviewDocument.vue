@@ -14,34 +14,22 @@
         <!--Print-->
         <div class="document__option">
           <h4 class="document__option-label">Type d'impression</h4>
-          <app-article-dropdown type="print"
-                                :label="selectedPrintType"
-                                @itemSelected="selectPrintType">
-          </app-article-dropdown>
+          <p>{{ selectedPrintType }}</p>
         </div>
 
         <!--Finish-->
         <div class="document__option">
           <h4 class="document__option-label">Finition</h4>
-          <app-article-dropdown type="finish"
-                                :label="selectedFinish"
-                                @itemSelected="selectFinish">
-          </app-article-dropdown>
+          <p>{{ selectedFinish | capitalize }}</p>
         </div>
 
         <!--Options-->
         <div class="document__option">
           <h4 class="document__option-label">Options</h4>
-          <app-article-dropdown type="option"
-                                label="Ajouter une option"
-                                @itemSelected="selectOption">
-          </app-article-dropdown>
-          <ul class="document__list">
+          <ul class="document__list document__list--preview">
             <li v-for="(option, index) in listSelectedOptions"
-                :key="option.id"
-                @click="removeOption(option.id)">
+                :key="option.id">
               <i class="fal fa-plus"></i>
-              <i class="fal fa-minus"></i>
               <span>{{ option.description }}</span>
             </li>
           </ul>
@@ -50,12 +38,8 @@
         <!--Quantity-->
         <div class="document__option">
           <h4 class="document__option-label">Quantité</h4>
-          <input type="number"
-                 class="document__input"
-                 v-model.number="documentQuantity"
-                 @blur="updateQuantity()">
+          <p>{{ documentQuantity }}</p>
         </div>
-
       </div>
     </div>
   </div>
