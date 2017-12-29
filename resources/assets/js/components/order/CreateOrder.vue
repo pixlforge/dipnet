@@ -55,7 +55,6 @@
               <li>{{ order.contact.email }}</li>
             </ul>
           </div>
-
           <div class="preview__terms">
             <label>
               <input type="checkbox" v-model="terms">
@@ -64,7 +63,6 @@
               </div>
             </label>
           </div>
-
           <div class="order__footer">
             <button class="btn btn--grey"
                     @click="goToOrder()">
@@ -298,6 +296,7 @@
       selectContact(contact) {
         this.selectedContact = contact.name
         this.order.contact_id = contact.id
+        this.order.contact = contact
         this.update()
       },
 
