@@ -22,20 +22,20 @@ $bg-purple: #795691;
 $bg-orange: #ef9067;
 
 $bg-red-1: $bg-red;
-$bg-red-2: darken($bg-red-1, 10%);
-$bg-red-3: darken($bg-red-2, 10%);
-$bg-red-4: darken($bg-red-3, 10%);
-$bg-red-5: darken($bg-red-4, 10%);
-$bg-red-6: darken($bg-red-5, 10%);
-$bg-red-7: darken($bg-red-6, 10%);
-$bg-red-8: darken($bg-red-7, 10%);
-$bg-red-9: darken($bg-red-8, 10%);
-$bg-red-10: darken($bg-red-9, 10%);
-$bg-red-11: darken($bg-red-10, 10%);
-$bg-red-12: darken($bg-red-11, 10%);
-$bg-red-13: darken($bg-red-12, 10%);
-$bg-red-14: darken($bg-red-13, 10%);
-$bg-red-15: darken($bg-red-14, 10%);
+$bg-red-2: #d84141;
+$bg-red-3: #c93535;
+$bg-red-4: #bc3131;
+$bg-red-5: darken($bg-red-4, 5%);
+$bg-red-6: darken($bg-red-5, 5%);
+$bg-red-7: darken($bg-red-6, 5%);
+$bg-red-8: darken($bg-red-7, 5%);
+$bg-red-9: darken($bg-red-8, 5%);
+$bg-red-10: darken($bg-red-9, 5%);
+$bg-red-11: darken($bg-red-10, 5%);
+$bg-red-12: darken($bg-red-11, 5%);
+$bg-red-13: darken($bg-red-12, 5%);
+$bg-red-14: darken($bg-red-13, 5%);
+$bg-red-15: darken($bg-red-14, 5%);
 
 .bg-red-1 {
   background-color: $bg-red-1;
