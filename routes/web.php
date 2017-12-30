@@ -137,6 +137,7 @@ Route::get('/mailable/invitation', function () {
  */
 Route::prefix('/orders')->namespace('Order')->group(function () {
     Route::get('/', 'OrderController@index')->name('orders.index');
+    Route::get('/{order}/show', 'OrderController@show')->name('orders.show');
     Route::get('/create', 'OrderController@create')->name('orders.create.start');
     Route::get('/{order}/create', 'OrderController@create')->name('orders.create.end');
     Route::put('/{order}', 'OrderController@update')->name('orders.update');

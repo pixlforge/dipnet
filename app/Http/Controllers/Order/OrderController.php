@@ -36,12 +36,20 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('user_id', auth()->id())
-            ->with(['business', 'contact', 'user'])
-            ->orderBy('created_at')
-            ->get();
+        if (auth()->user()->isAdmin()) {
+            $orders = Order::completed()->with(['business', 'contact', 'user'])
+                ->orderBy('created_at')
+                ->get();
+        } else {
+            $orders = Order::where('user_id', auth()->id())
+                ->with(['business', 'contact', 'user'])
+                ->orderBy('created_at')
+                ->get();
+        }
 
-        return view('orders.index', compact('orders'));
+        return view('orders.index', [
+            'orders' => $orders
+        ]);
     }
 
     /**
@@ -124,9 +132,25 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        $this->authorize('view', $order);
+        $this->authorize('view', Order::class);
 
-        return view('orders.show', compact('order'));
+        $order = Order::with(['business', 'contact'])->find($order->id);
+
+        $deliveries = $this->getOrderDeliveries($order);
+        $articles = Article::all();
+        $documents = $order->documents()->with('articles')->get();
+
+        $contacts = Contact::all();
+        $businesses = Business::all();
+
+        return view('orders.show', [
+            'order' => $order,
+            'deliveries' => $deliveries,
+            'articles' => $articles,
+            'documents' => $documents,
+            'businesses' => $businesses,
+            'contacts' => $contacts
+        ]);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Dipnet;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -33,6 +34,17 @@ class Order extends Model
     public function getRouteKeyName()
     {
         return 'reference';
+    }
+
+    /**
+     * Fetch all orders except those that are incomplete.
+     *
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeCompleted(Builder $builder)
+    {
+        return $builder->whereIn('status', ['réceptionnée', 'traitée', 'envoyée']);
     }
 
     /**
