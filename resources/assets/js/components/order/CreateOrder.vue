@@ -19,7 +19,7 @@
                v-for="(delivery, index) in listDeliveries"
                :key="index"
                :class="'bg-red-' + (index + 1)">
-            <app-preview-delivery class="preview__delivery"
+            <app-preview-delivery class="delivery__container"
                                   :data-order="order"
                                   :data-delivery="delivery"
                                   :data-delivery-number="index + 1"
@@ -28,23 +28,23 @@
             </app-preview-delivery>
           </div>
 
-          <div class="preview__business">
+          <div class="delivery__business">
             <h2>
               Associé à l'affaire
               <strong>{{ order.business.name | capitalize }}</strong>
             </h2>
-            <ul class="preview__list">
+            <ul class="delivery__list">
               <li>{{ order.business.name }}</li>
               <li>{{ order.business.reference }}</li>
             </ul>
           </div>
           <hr>
-          <div class="preview__billed-to">
+          <div class="delivery__billed-to">
             <h2>
               Facturation à
               <strong>{{ order.contact.name | capitalize }}</strong>
             </h2>
-            <ul class="preview__list">
+            <ul class="delivery__list">
               <li>{{ order.contact.name }}</li>
               <li>{{ order.contact.address_line1 }}</li>
               <li>{{ order.contact.address_line2 }}</li>
@@ -54,7 +54,7 @@
               <li>{{ order.contact.email }}</li>
             </ul>
           </div>
-          <div class="preview__terms">
+          <div class="delivery__terms">
             <label>
               <input type="checkbox" v-model="terms">
               <div>
@@ -62,7 +62,7 @@
               </div>
             </label>
           </div>
-          <div class="preview__terms-link">
+          <div class="delivery__terms-link">
             <p><a href="javascript:;">Conditions Générales de Vente</a></p>
           </div>
           <div class="order__footer">

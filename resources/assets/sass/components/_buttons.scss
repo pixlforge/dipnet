@@ -37,4 +37,12 @@
       border: 1px solid $mercury;
     }
   }
+
+  &__delivery {
+    display: flex;
+
+    &--white {
+      color: #fff;
+    }
+  }
 }

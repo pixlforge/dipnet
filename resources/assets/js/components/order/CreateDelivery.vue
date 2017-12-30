@@ -1,17 +1,13 @@
 <template>
   <div>
-    <div class="d-flex justify-content-between">
-
-      <div class="d-flex align-items-start">
-        <!--Delivery Number-->
-        <div class="badge badge-order"
-             v-text="dataDeliveryNumber">
-        </div>
-
-        <!--Contact-->
-        <div class="d-flex mt-2 mb-4">
-          <h3 class="light mr-3 d-flex justify-content-center align-items-center">
-            <span class="mr-2">Livraison à</span>
+    <div class="delivery__header">
+      <div class="delivery__header-box">
+        <div class="delivery__details">
+          <div class="badge badge-order"
+               v-text="dataDeliveryNumber">
+          </div>
+          <h3 class="delivery__label">Livraison à</h3>
+          <h3>
             <app-dropdown :label="selectedContact"
                           :list-items="listContacts"
                           add-contact-component="true"
@@ -21,18 +17,20 @@
         </div>
       </div>
 
-      <div>
-        <!--Datepicker-->
-        <h3 class="delivery__date-label">Le</h3>
-        <app-datepicker :date="startTime"
-                        :option="option"
-                        :limit="limit"
-                        :to-deliver-at="delivery.to_deliver_at"
-                        @change="updateDeliveryDate">
-        </app-datepicker>
+      <div class="delivery__header-box">
+        <div class="delivery__details">
+          <!--Datepicker-->
+          <h3 class="delivery__label">Le</h3>
+          <app-datepicker :date="startTime"
+                          :option="option"
+                          :limit="limit"
+                          :to-deliver-at="delivery.to_deliver_at"
+                          @change="updateDeliveryDate">
+          </app-datepicker>
+        </div>
       </div>
 
-      <div class="delivery__controls-container">
+      <div class="delivery__controls">
         <!--Delete delivery-->
         <div class="delivery__icon-destroy"
              v-if="listDeliveries.length > 1"
@@ -54,6 +52,8 @@
       </div>
     </div>
 
+
+
     <!--Note-->
     <transition name="fade">
       <textarea class="v-order-textarea"
@@ -74,9 +74,7 @@
                     :data-options="document.articles">
       </app-document>
     </transition-group>
-
     <div :id="'delivery-file-upload-' + delivery.id" class="dropzone"></div>
-
   </div>
 </template>
 

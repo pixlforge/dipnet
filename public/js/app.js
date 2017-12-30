@@ -36227,8 +36227,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
 
 
 
@@ -64104,21 +64102,19 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "d-flex justify-content-between"
+    staticClass: "delivery__header"
   }, [_c('div', {
-    staticClass: "d-flex align-items-start"
+    staticClass: "delivery__header-box"
+  }, [_c('div', {
+    staticClass: "delivery__details"
   }, [_c('div', {
     staticClass: "badge badge-order",
     domProps: {
       "textContent": _vm._s(_vm.dataDeliveryNumber)
     }
-  }), _vm._v(" "), _c('div', {
-    staticClass: "d-flex mt-2 mb-4"
-  }, [_c('h3', {
-    staticClass: "light mr-3 d-flex justify-content-center align-items-center"
-  }, [_c('span', {
-    staticClass: "mr-2"
-  }, [_vm._v("Livraison à")]), _vm._v(" "), _c('app-dropdown', {
+  }), _vm._v(" "), _c('h3', {
+    staticClass: "delivery__label"
+  }, [_vm._v("Livraison à")]), _vm._v(" "), _c('h3', [_c('app-dropdown', {
     attrs: {
       "label": _vm.selectedContact,
       "list-items": _vm.listContacts,
@@ -64127,8 +64123,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "itemSelected": _vm.selectContact
     }
-  })], 1)])]), _vm._v(" "), _c('div', [_c('h3', {
-    staticClass: "delivery__date-label"
+  })], 1)])]), _vm._v(" "), _c('div', {
+    staticClass: "delivery__header-box"
+  }, [_c('div', {
+    staticClass: "delivery__details"
+  }, [_c('h3', {
+    staticClass: "delivery__label"
   }, [_vm._v("Le")]), _vm._v(" "), _c('app-datepicker', {
     attrs: {
       "date": _vm.startTime,
@@ -64139,8 +64139,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "change": _vm.updateDeliveryDate
     }
-  })], 1), _vm._v(" "), _c('div', {
-    staticClass: "delivery__controls-container"
+  })], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "delivery__controls"
   }, [(_vm.listDeliveries.length > 1) ? _c('div', {
     staticClass: "delivery__icon-destroy",
     on: {
@@ -65005,7 +65005,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "row",
       class: 'bg-red-' + (index + 1)
     }, [_c('app-preview-delivery', {
-      staticClass: "preview__delivery",
+      staticClass: "delivery__container",
       attrs: {
         "data-order": _vm.order,
         "data-delivery": delivery,
@@ -65017,15 +65017,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })], 1)
   }), _vm._v(" "), _c('div', {
-    staticClass: "preview__business"
+    staticClass: "delivery__business"
   }, [_c('h2', [_vm._v("\n            Associé à l'affaire\n            "), _c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.order.business.name)))])]), _vm._v(" "), _c('ul', {
-    staticClass: "preview__list"
+    staticClass: "delivery__list"
   }, [_c('li', [_vm._v(_vm._s(_vm.order.business.name))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.business.reference))])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
-    staticClass: "preview__billed-to"
+    staticClass: "delivery__billed-to"
   }, [_c('h2', [_vm._v("\n            Facturation à\n            "), _c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.order.contact.name)))])]), _vm._v(" "), _c('ul', {
-    staticClass: "preview__list"
+    staticClass: "delivery__list"
   }, [_c('li', [_vm._v(_vm._s(_vm.order.contact.name))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.address_line1))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.address_line2))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.zip) + " " + _vm._s(_vm.order.contact.city))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.phone_number))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.fax))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.email))])])]), _vm._v(" "), _c('div', {
-    staticClass: "preview__terms"
+    staticClass: "delivery__terms"
   }, [_c('label', [_c('input', {
     directives: [{
       name: "model",
@@ -65058,7 +65058,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }), _vm._v(" "), _c('div', [_vm._v("\n              J'ai lu et j'accepte les Conditions Générales de Vente (CGV)\n            ")])])]), _vm._v(" "), _c('div', {
-    staticClass: "preview__terms-link"
+    staticClass: "delivery__terms-link"
   }, [_c('p', [_c('a', {
     attrs: {
       "href": "javascript:;"
@@ -68796,27 +68796,27 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "preview__header"
+    staticClass: "delivery__header"
   }, [_c('div', {
-    staticClass: "preview__delivery-details"
+    staticClass: "delivery__header-box delivery__header-box--white"
   }, [_c('div', {
-    staticClass: "preview__details"
+    staticClass: "delivery__details delivery__details--preview"
   }, [_c('h3', {
-    staticClass: "preview__label"
+    staticClass: "delivery__label delivery__label--white"
   }, [_vm._v("Livraison à")]), _vm._v(" "), _c('h3', {
-    staticClass: "preview__info"
+    staticClass: "delivery__info"
   }, [_vm._v(_vm._s(_vm._f("capitalize")(_vm.selectedContact)))])]), _vm._v(" "), _c('div', {
-    staticClass: "preview__details"
+    staticClass: "delivery__details delivery__details--preview"
   }, [_c('h3', {
-    staticClass: "preview__label"
+    staticClass: "delivery__label delivery__label--white"
   }, [_vm._v("Livraison prévue le")]), _vm._v(" "), _c('h3', {
-    staticClass: "preview__info"
+    staticClass: "delivery__info"
   }, [_vm._v(_vm._s(_vm.toDeliverAt))])])]), _vm._v(" "), _c('div', {
-    staticClass: "preview__delivery-details"
+    staticClass: "delivery__header-box delivery__header-box--white"
   }, [_c('ul', {
-    staticClass: "preview__list"
-  }, [_c('li', [_vm._v(_vm._s(_vm.delivery.contact.address_line1))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.address_line2))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.zip) + " " + _vm._s(_vm.delivery.contact.city))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.phone))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.fax))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.email))])])]), _vm._v(" "), (_vm.delivery.note) ? _c('div', {
-    staticClass: "preview__delivery-note"
+    staticClass: "delivery__list"
+  }, [_c('li', [_vm._v(_vm._s(_vm.delivery.contact.address_line1))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.address_line2))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.zip) + " " + _vm._s(_vm.delivery.contact.city))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.phone_number))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.fax))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.delivery.contact.email))])])]), _vm._v(" "), (_vm.delivery.note) ? _c('div', {
+    staticClass: "delivery__delivery-note"
   }, [_c('h5', [_vm._v("Note")]), _vm._v("\n      " + _vm._s(_vm.delivery.note) + "\n    ")]) : _vm._e()]), _vm._v(" "), _vm._l((_vm.deliveryDocuments), function(document, index) {
     return _c('app-preview-document', {
       key: document.id,

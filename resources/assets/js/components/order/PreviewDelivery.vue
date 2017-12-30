@@ -1,27 +1,27 @@
 <template>
   <div>
-    <div class="preview__header">
-      <div class="preview__delivery-details">
-        <div class="preview__details">
-          <h3 class="preview__label">Livraison à</h3>
-          <h3 class="preview__info">{{ selectedContact | capitalize }}</h3>
+    <div class="delivery__header">
+      <div class="delivery__header-box delivery__header-box--white">
+        <div class="delivery__details delivery__details--preview">
+          <h3 class="delivery__label delivery__label--white">Livraison à</h3>
+          <h3 class="delivery__info">{{ selectedContact | capitalize }}</h3>
         </div>
-        <div class="preview__details">
-          <h3 class="preview__label">Livraison prévue le</h3>
-          <h3 class="preview__info">{{ toDeliverAt }}</h3>
+        <div class="delivery__details delivery__details--preview">
+          <h3 class="delivery__label delivery__label--white">Livraison prévue le</h3>
+          <h3 class="delivery__info">{{ toDeliverAt }}</h3>
         </div>
       </div>
-      <div class="preview__delivery-details">
-        <ul class="preview__list">
+      <div class="delivery__header-box delivery__header-box--white">
+        <ul class="delivery__list">
           <li>{{ delivery.contact.address_line1 }}</li>
           <li>{{ delivery.contact.address_line2 }}</li>
           <li>{{ delivery.contact.zip }} {{ delivery.contact.city }}</li>
-          <li>{{ delivery.contact.phone }}</li>
+          <li>{{ delivery.contact.phone_number }}</li>
           <li>{{ delivery.contact.fax }}</li>
           <li>{{ delivery.contact.email }}</li>
         </ul>
       </div>
-      <div class="preview__delivery-note" v-if="delivery.note">
+      <div class="delivery__delivery-note" v-if="delivery.note">
         <h5>Note</h5>
         {{ delivery.note }}
       </div>

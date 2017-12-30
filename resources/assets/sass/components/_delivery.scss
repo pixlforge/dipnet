@@ -1,61 +1,121 @@
 .delivery {
   &__container {
-    width: 100%;
-    background-color: $white;
     display: flex;
-  }
-
-  &__content {
-    width: 100%;
-    margin-right: auto;
-    padding: 2rem;
-    border-right: 1px solid $concrete;
+    flex-direction: column;
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+    margin: auto;
+    padding-top: 4.5rem;
+    padding-bottom: 6.25rem;
   }
 
   &__header {
-    border-bottom: 1px solid $concrete;
-  }
-
-  &__row {
     display: flex;
   }
 
-  &__document {
-    padding: 2rem;
-  }
+  &__header-box {
+    margin-right: 12rem;
 
-  &__controls {
-    display: flex;
-    flex-direction: column;
-    margin-left: auto;
-    padding: 2rem;
-  }
+    &--white {
+      color: $white;
 
-  &__status {
-    ul {
-      list-style: none;
-      padding: 0;
     }
   }
 
-  &__contact-list {
-    display: block;
-    list-style: none;
-    width: 300px;
-    margin-left: 85px;
-    line-height: 1.5;
+  &__details {
+    display: flex;
+    align-items: center;
+    width: 400px;
+
+    &--preview {
+      width: 520px;
+    }
   }
 
+  &__label {
+    font-weight: 300;
+    margin-right: .5rem;
+
+    &--white {
+      color: $white;
+    }
+  }
+
+  &__info {
+    color: $white;
+    font-weight: 400;
+  }
+
+  &__list {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin: .25rem 0;
+    }
+  }
+
+  &__note,
   &__admin-note {
     line-height: 1.5;
   }
 
-  &__note {
+  &__delivery-note {
+    width: 25vw;
+    color: $white;
     line-height: 1.5;
+
+    h5 {
+      font-size: 1rem;
+      font-weight: 300;
+      color: currentColor;
+    }
   }
 
-  &__controls-container {
+  &__business,
+  &__billed-to {
+    width: 50vw;
+    margin: 5rem auto;
+    display: flex;
+
+    h2 {
+      width: 75%;
+      font-size: 24px;
+      font-weight: 300;
+    }
+  }
+
+  &__terms {
+    display: flex;
+    justify-content: center;
+
+    label {
+      display: flex;
+      align-items: center;
+    }
+
+    input {
+      margin-right: .75rem;
+      zoom: 1.5;
+    }
+
+    div {
+      user-select: none;
+    }
+  }
+
+  &__terms-link {
+    display: flex;
+    justify-content: center;
+
+    a:link {
+      color: $bg-red;
+    }
+  }
+
+  &__controls {
     text-align: right;
+    margin-left: auto;
     position: relative;
   }
 
@@ -73,41 +133,12 @@
     }
   }
 
-  &__label {
-    margin-right: 1rem;
-    margin-top: 6px;
-    font-weight: 100;
-    display: flex;
-    align-items: center;
-  }
-
-  &__date-label {
-    display: inline-block;
-    margin-top: 6px;
-    font-weight: 100;
-
-    &--white {
-      color: $white;
-    }
-  }
-
   &__note-control {
     cursor: pointer;
     margin-top: .75rem;
 
     &:hover {
       text-decoration: underline;
-    }
-  }
-}
-
-.btn {
-
-  &__delivery {
-    display: flex;
-
-    &--white {
-      color: #fff;
     }
   }
 }
