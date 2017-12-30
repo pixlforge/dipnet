@@ -32804,6 +32804,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -68865,11 +68871,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Définir une affaire")]), _vm._v(" "), _c('p', {
     staticClass: "alert-page__paragraph"
   }, [_vm._v("\n        " + _vm._s(_vm.context) + " disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn--black",
+    staticClass: "btn btn--black",
     on: {
       "click": _vm.toggleAlert
     }
-  }, [_vm._v("Ajouter")])]) : _c('div', {
+  }, [_c('i', {
+    staticClass: "fal fa-plus-circle"
+  }), _vm._v("\n        Ajouter\n      ")])]) : _c('div', {
     key: "end",
     staticClass: "alert-page__card--large"
   }, [_c('h1', {
@@ -69016,11 +69024,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "textContent": _vm._s(_vm.errors.contact_id[0])
     }
   }) : _vm._e()])]), _vm._v(" "), _c('button', {
-    staticClass: "btn--black",
+    staticClass: "btn btn--black",
     on: {
       "click": _vm.addBusiness
     }
-  }, [_vm._v("Terminer")])])]), _vm._v(" "), _c('app-moon-loader', {
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n        Terminer\n      ")])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
