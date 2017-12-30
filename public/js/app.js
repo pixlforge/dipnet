@@ -30941,25 +30941,33 @@ exports.default = {
     function hours() {
       var list = [];
       var hour = 24;
-      while (hour > 0) {
-        hour--;
+      // while (hour > 0) {
+      //   hour--;
+      //   list.push({
+      //     checked: false,
+      //     value: hour < 10 ? '0' + hour : hour
+      //   });
+      // }
+
+      for (var i = 5; i <= 22; i++) {
         list.push({
           checked: false,
-          value: hour < 10 ? '0' + hour : hour
+          value: i < 10 ? '0' + i : i
         });
       }
       return list;
     }
     function mins() {
-      var list = [];
-      var min = 60;
-      while (min > 0) {
-        min--;
-        list.push({
-          checked: false,
-          value: min < 10 ? '0' + min : min
-        });
-      }
+      var list = [{ checked: false, value: '00' }, { checked: false, value: '15' }, { checked: false, value: '30' }, { checked: false, value: '45' }];
+      // var list = [];
+      // var min = 60;
+      // while (min > 0) {
+      //   min--;
+      //   list.push({
+      //     checked: false,
+      //     value: min < 10 ? '0' + min : min
+      //   });
+      // }
       return list;
     }
     return {
