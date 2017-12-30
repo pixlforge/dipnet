@@ -15,7 +15,6 @@
 
     .fa-caret-down {
       margin-left: 1rem;
-      margin-right: 1rem;
     }
   }
 
@@ -25,6 +24,9 @@
   }
 
   &__list {
+    z-index: 20;
+    font-size: 14px;
+    font-weight: 400;
     position: absolute;
     width: 200px;
     padding: .75rem 0;
@@ -66,4 +68,8 @@
     font-weight: 400;
     color: $white;
   }
+}
+
+.delivery-contact-dropdown {
+  margin-left: 1rem;
 }

@@ -1,13 +1,21 @@
 .preview {
+  &__delivery {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    flex: 0 0 83.333333%;
+    max-width: 83.333333%;
+    padding-top: 4.5rem;
+    padding-bottom: 6.25rem;
+  }
+
   &__header {
     display: flex;
   }
 
   &__delivery-details {
     color: $white;
-    margin-top: 3rem;
-    margin-right: 4rem;
-    margin-bottom: 4rem;
+    margin-right: 12rem;
   }
 
   &__details {
@@ -17,7 +25,7 @@
   &__label {
     color: $white;
     font-weight: 300;
-    margin-right: 1rem;
+    margin-right: .5rem;
   }
 
   &__info {
@@ -37,7 +45,6 @@
   &__delivery-note {
     width: 20vw;
     color: $white;
-    margin-top: 3rem;
     margin-bottom: 5rem;
     line-height: 1.5;
 
@@ -77,6 +84,15 @@
 
     div {
       user-select: none;
+    }
+  }
+
+  &__terms-link {
+    display: flex;
+    justify-content: center;
+
+    a:link {
+      color: $bg-red;
     }
   }
 }

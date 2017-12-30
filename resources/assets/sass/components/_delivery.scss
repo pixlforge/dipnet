@@ -1,4 +1,59 @@
 .delivery {
+  &__container {
+    width: 100%;
+    background-color: $white;
+    display: flex;
+  }
+
+  &__content {
+    width: 100%;
+    margin-right: auto;
+    padding: 2rem;
+    border-right: 1px solid $concrete;
+  }
+
+  &__header {
+    border-bottom: 1px solid $concrete;
+  }
+
+  &__row {
+    display: flex;
+  }
+
+  &__document {
+    padding: 2rem;
+  }
+
+  &__controls {
+    display: flex;
+    flex-direction: column;
+    margin-left: auto;
+    padding: 2rem;
+  }
+
+  &__status {
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+  }
+
+  &__contact-list {
+    display: block;
+    list-style: none;
+    width: 300px;
+    margin-left: 85px;
+    line-height: 1.5;
+  }
+
+  &__admin-note {
+    line-height: 1.5;
+  }
+
+  &__note {
+    line-height: 1.5;
+  }
+
   &__controls-container {
     text-align: right;
     position: relative;
@@ -18,19 +73,22 @@
     }
   }
 
-  &__date-label {
-    display: inline-block;
+  &__label {
     margin-right: 1rem;
     margin-top: 6px;
     font-weight: 100;
+    display: flex;
+    align-items: center;
   }
 
-  &__date-label--white {
+  &__date-label {
     display: inline-block;
-    margin-right: 1rem;
     margin-top: 6px;
     font-weight: 100;
-    color: $white;
+
+    &--white {
+      color: $white;
+    }
   }
 
   &__note-control {

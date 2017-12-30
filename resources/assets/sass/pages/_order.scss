@@ -13,12 +13,19 @@
   }
 
   &__header {
-    display: flex;
+    width: 50%;
     margin-top: 2rem;
+    display: flex;
+    justify-content: flex-end;
   }
 
   &__business {
-    margin-right: 3rem;
+    width: 200px;
+    margin-right: 2rem;
+  }
+
+  &__billing {
+    width: 200px;
   }
 
   &__label {
