@@ -2,14 +2,24 @@
 
 namespace Dipnet\Policies;
 
-use Dipnet\User;
 use Dipnet\Order;
-use Illuminate\Support\Facades\Auth;
+use Dipnet\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OrderPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * User has permission to view the page.
+     *
+     * @param User $user
+     * @return bool
+     */
+    public function view(User $user)
+    {
+        return $user->isAdmin();
+    }
 
     /**
      * User has permission to touch the Order model.
