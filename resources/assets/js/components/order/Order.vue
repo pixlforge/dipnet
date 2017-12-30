@@ -10,10 +10,10 @@
 
       <!--Reference-->
       <h5 class="mb-0">
-        <a :href="`/orders/${order.reference}/create`" v-if="order.status === 'incomplète'">
+        <a :href="createRoute" v-if="order.status === 'incomplète'">
           {{ order.reference }}
         </a>
-        <a href="javascript:;" v-else>
+        <a :href="showRoute" v-else>
           {{ order.reference }}
         </a>
       </h5>
@@ -82,6 +82,14 @@
         if (this.order.status === 'incomplète') return 'badge--danger'
         if (this.order.status === 'réceptionnée') return 'badge--warning'
         if (this.order.status === 'traitée' || this.order.status === 'envoyée') return 'badge--success'
+      },
+
+      createRoute() {
+        return route('orders.create.end', [this.order.reference])
+      },
+
+      showRoute() {
+        return route('orders.show', [this.order.reference])
       }
     },
     methods: {

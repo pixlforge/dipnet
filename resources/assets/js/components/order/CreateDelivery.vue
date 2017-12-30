@@ -9,22 +9,15 @@
         </div>
 
         <!--Contact-->
-        <div class="d-flex align-items-top mt-2 mb-4">
-          <h3 class="light mr-3">Livraison à</h3>
-
-          <!--Dropdown-->
-          <app-dropdown :data="listContacts"
-                        :add-contact-component="true"
-                        @itemWasSelected="selectContact">
-            <slot>
-              <h3 class="light v-dropdown-label">
-                <strong class="v-dropdown-label-content">
-                  {{ selectedContact }}
-                </strong>
-                <i class="fas fa-caret-down ml-3"></i>
-              </h3>
-            </slot>
-          </app-dropdown>
+        <div class="d-flex mt-2 mb-4">
+          <h3 class="light mr-3 d-flex justify-content-center align-items-center">
+            <span class="mr-2">Livraison à</span>
+            <app-dropdown :label="selectedContact"
+                          :list-items="listContacts"
+                          add-contact-component="true"
+                          @itemSelected="selectContact">
+            </app-dropdown>
+          </h3>
         </div>
       </div>
 
@@ -116,7 +109,7 @@
         showNote: false,
 
         /**
-         * Datepicker data.
+         * Datepicker data. Moved to mixins, to delete.
          */
         startTime: {
           time: ''

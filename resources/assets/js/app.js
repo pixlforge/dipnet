@@ -33,6 +33,7 @@ Vue.component('app-users', require('./components/users/Users.vue'))
 Vue.component('app-companies', require('./components/company/Companies.vue'))
 Vue.component('app-orders', require('./components/order/Orders.vue'))
 Vue.component('app-create-order', require('./components/order/CreateOrder.vue'))
+Vue.component('app-order-admin', require('./components/order/AdminOrder'))
 Vue.component('app-add-default-business', require('./components/business/AddDefaultBusiness'))
 
 export const eventBus = new Vue()

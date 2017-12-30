@@ -29,7 +29,8 @@
                      v-for="(order, index) in orders"
                      :data-order="order"
                      :key="order.id"
-                     @orderWasDeleted="removeOrder(index)"></app-order>
+                     @orderWasDeleted="removeOrder(index)">
+          </app-order>
         </transition-group>
       </div>
     </div>

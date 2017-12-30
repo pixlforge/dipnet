@@ -19,14 +19,13 @@
                v-for="(delivery, index) in listDeliveries"
                :key="index"
                :class="'bg-red-' + (index + 1)">
-            <div class="col-10 mx-auto my-6">
-              <app-preview-delivery :data-order="order"
-                                    :data-delivery="delivery"
-                                    :data-delivery-number="index + 1"
-                                    :data-documents="documents"
-                                    @removeDelivery="removeDelivery">
-              </app-preview-delivery>
-            </div>
+            <app-preview-delivery class="preview__delivery"
+                                  :data-order="order"
+                                  :data-delivery="delivery"
+                                  :data-delivery-number="index + 1"
+                                  :data-documents="documents"
+                                  @removeDelivery="removeDelivery">
+            </app-preview-delivery>
           </div>
 
           <div class="preview__business">
@@ -63,6 +62,9 @@
               </div>
             </label>
           </div>
+          <div class="preview__terms-link">
+            <p><a href="javascript:;">Conditions Générales de Vente</a></p>
+          </div>
           <div class="order__footer">
             <button class="btn btn--grey"
                     @click="goToOrder()">
@@ -86,31 +88,23 @@
                 <div class="order__container">
                   <h1 class="order__title">Nouvelle commande</h1>
                   <div class="order__header">
+
                     <!--Business-->
                     <div class="order__business">
-                      <!--Dropdown-->
                       <h6 class="order__label">Affaire</h6>
-                      <app-dropdown :data="listBusinesses" @itemWasSelected="selectBusiness">
-                        <slot>
-                          <h6 class="light v-dropdown-label">
-                            <strong class="v-dropdown-label-content">{{ selectedBusiness }}</strong>
-                            <i class="fas fa-caret-down ml-3"></i>
-                          </h6>
-                        </slot>
+                      <app-dropdown :label="selectedBusiness"
+                                    :list-items="listBusinesses"
+                                    @itemSelected="selectBusiness">
                       </app-dropdown>
                     </div>
 
-                    <!--Billing Contact-->
-                    <div>
-                      <!--Dropdown-->
+                    <!--Billing-->
+                    <div class="order__billing">
                       <h6 class="order__label">Facturation</h6>
-                      <app-dropdown :data="listContacts" @itemWasSelected="selectContact">
-                        <slot>
-                          <h6 class="light v-dropdown-label">
-                            <strong class="v-dropdown-label-content">{{ selectedContact }}</strong>
-                            <i class="fas fa-caret-down ml-3"></i>
-                          </h6>
-                        </slot>
+                      <app-dropdown :label="selectedContact"
+                                    :list-items="listContacts"
+                                    add-contact-component="true"
+                                    @itemSelected="selectContact">
                       </app-dropdown>
                     </div>
                   </div>

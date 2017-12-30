@@ -1,16 +1,17 @@
 <template>
-  <div @click="toggle" class="v-dropdown">
-    <slot></slot>
-    <div class="v-dropdown-container" v-if="visible">
-      <div class="v-dropdown-triangle"></div>
-      <ul class="v-dropdown-list">
-        <li class="v-dropdown-list-item"
-            v-for="(item, index) in data"
-            v-text="item.name"
+  <div ref="dropdownMenu">
+    <div class="dropdown__label"
+         @click="toggleOpen">
+      <span><strong>{{ label | capitalize }}</strong></span>
+      <i class="fas fa-caret-down"></i>
+    </div>
+    <div class="dropdown__container" v-if="open">
+      <ul class="dropdown__list">
+        <li v-for="(item, index) in listItems"
             @click="selectItem(item)">
+          {{ item.name | capitalize }}
         </li>
-        <li class="v-dropdown-list-item"
-            v-if="addContactComponent"
+        <li v-if="addContactComponent"
             @click="addContact">
           Ajouter un contact
         </li>
@@ -20,32 +21,53 @@
 </template>
 
 <script>
+  import mixins from '../../mixins'
   import { eventBus } from '../../app'
+  import { mapGetters } from 'vuex'
 
   export default {
     props: [
-      'data',
+      'label',
+      'listItems',
       'addContactComponent'
     ],
     data() {
       return {
-        visible: false
+        open: false
       }
     },
+    mixins: [mixins],
+    computed: {
+      ...mapGetters([
+        'listContacts'
+      ])
+    },
     methods: {
-
       /**
-       * Toggle the dropdown visibility.
+       * Toggle the open state of the dropdown list.
        */
-      toggle() {
-        this.visible = !this.visible
+      toggleOpen() {
+        this.open = !this.open
       },
 
       /**
-       * Select an item from the list and send it to the parent component.
+       * Retrieve the reference of the active dropdown and close
+       * it if another element is clicked.
+       */
+      documentClick(event) {
+        let el = this.$refs.dropdownMenu
+        let target = event.target
+        if ((el !== target) && !el.contains(target)) {
+          this.open = false
+        }
+      },
+
+      /**
+       * Select an item from the list.
        */
       selectItem(item) {
-        this.$emit('itemWasSelected', item)
+        this.$emit('itemSelected', item)
+        this.toggleOpen()
       },
 
       /**
@@ -54,6 +76,12 @@
       addContact() {
         eventBus.$emit('dropdownAddContact')
       }
+    },
+    created() {
+      document.addEventListener('click', this.documentClick)
+    },
+    destroyed() {
+      document.removeEventListener('click', this.documentClick)
     }
   }
 </script>

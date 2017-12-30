@@ -28,7 +28,7 @@
     </div>
 
     <!--Document-->
-    <app-preview-document class="document__container"
+    <app-preview-document class="document__container document__container--preview"
                           v-for="(document, index) in deliveryDocuments"
                           :key="document.id"
                           :data-order="order"
