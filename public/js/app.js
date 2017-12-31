@@ -71460,7 +71460,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         article_id: '',
         options: []
       },
-      selectedPrintType: 'Sélection',
       selectedFinish: this.dataDocument.finish,
       selectedOptions: this.dataOptions
     };
@@ -71560,13 +71559,23 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         deliveryReference: this.delivery.reference,
         deliveryId: this.delivery.id,
         print: this.document.article_id,
+        selectedPrintType: this.selectedPrintType,
         finish: this.document.finish,
         quantity: this.document.quantity,
         options: this.document.options,
         optionModels: this.selectedOptions
       }).then(() => {
+        __WEBPACK_IMPORTED_MODULE_2__app__["eventBus"].$emit('clone', {
+          deliveryId: this.delivery.id,
+          article_id: this.document.article_id,
+          selectedPrintType: this.selectedPrintType,
+          finish: this.document.finish,
+          quantity: this.document.quantity,
+          options: this.document.options,
+          optionModels: this.selectedOptions
+        });
         flash({
-          message: "Options copiées à tous les documents de la livraison!",
+          message: "Propriétés du document copiées à tous les autres documents de la livraison!",
           level: 'success'
         });
       }).catch(error => console.log(error));
@@ -71643,9 +71652,23 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   }),
   created() {
     /**
+     * Fetch and copy cloned properties into this component's data.
+     */
+    __WEBPACK_IMPORTED_MODULE_2__app__["eventBus"].$on('clone', payload => {
+      if (payload.deliveryId === this.document.delivery_id) {
+        this.document.article_id = payload.article_id;
+        this.selectedPrintType = payload.selectedPrintType;
+        this.document.finish = payload.finish;
+        this.document.quantity = payload.quantity;
+        this.document.options = payload.options;
+        this.selectedOptions = payload.optionModels;
+      }
+    }
+
+    /**
      * Preselect the print type.
      */
-    if (this.dataDocument.article_id !== null && typeof this.dataDocument.article_id !== 'undefined') {
+    );if (this.dataDocument.article_id !== null && typeof this.dataDocument.article_id !== 'undefined') {
       const label = this.listArticlePrintTypes.find(article => {
         return article.id === this.dataDocument.article_id;
       });
