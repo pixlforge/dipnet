@@ -16,10 +16,8 @@
           </h3>
         </div>
       </div>
-
       <div class="delivery__header-box">
         <div class="delivery__details">
-          <!--Datepicker-->
           <h3 class="delivery__label">Le</h3>
           <app-datepicker :date="startTime"
                           :option="option"
@@ -29,16 +27,12 @@
           </app-datepicker>
         </div>
       </div>
-
       <div class="delivery__controls">
-        <!--Delete delivery-->
         <div class="delivery__icon-destroy"
              v-if="listDeliveries.length > 1"
              @click="removeDelivery">
           <i class="fal fa-times"></i>
         </div>
-
-        <!--Note label-->
         <p class="delivery__note-control"
            @click="removeNote"
            v-if="showNote">
@@ -51,10 +45,6 @@
         </p>
       </div>
     </div>
-
-
-
-    <!--Note-->
     <transition name="fade">
       <textarea class="v-order-textarea"
                 placeholder="Faîtes nous part de vos commentaires pour cette livraison ici."
@@ -62,8 +52,6 @@
                 v-model="delivery.note"
                 v-if="showNote"></textarea>
     </transition>
-
-    <!--Document-->
     <transition-group name="order">
       <app-document class="document__container"
                     v-for="(document, index) in deliveryDocuments"

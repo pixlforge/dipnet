@@ -7,6 +7,27 @@
     margin: auto;
     padding-top: 4.5rem;
     padding-bottom: 6.25rem;
+
+    &--white {
+      background-color: $white;
+      margin-top: 33px;
+      box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.1);
+
+      &:first-child {
+        margin-top: 80px;
+      }
+    }
+
+    &--admin {
+      background-color: $white;
+      padding: 2.5rem 3rem;
+      box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.1);
+      margin-bottom: 2rem;
+
+      &:first-child {
+        margin-top: 5.5rem;
+      }
+    }
   }
 
   &__header {
@@ -30,6 +51,22 @@
     &--preview {
       width: 520px;
     }
+
+    &--admin {
+      width: 100%;
+    }
+
+    &--secondary {
+      width: 100%;
+      display: flex;
+      align-items: flex-start;
+    }
+  }
+
+  &__first-label {
+    width: 20.5rem;
+    display: flex;
+    align-items: center;
   }
 
   &__label {
@@ -38,6 +75,10 @@
 
     &--white {
       color: $white;
+    }
+
+    &--light-grey {
+      color: $light-grey;
     }
   }
 
@@ -53,11 +94,21 @@
     li {
       margin: .25rem 0;
     }
+
+    &--admin {
+      display: block;
+      width: 20rem;
+      margin-left: 7.2rem;
+    }
   }
 
   &__note,
   &__admin-note {
     line-height: 1.5;
+  }
+
+  &__note {
+    margin-left: 3rem;
   }
 
   &__delivery-note {
@@ -117,6 +168,15 @@
     text-align: right;
     margin-left: auto;
     position: relative;
+
+    &--admin {
+      display: flex;
+      flex-direction: column;
+
+      & > button {
+        margin-bottom: .95rem;
+      }
+    }
   }
 
   &__icon-destroy {
@@ -140,5 +200,10 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+
+  &__document-container {
+    margin-top: 2rem;
+    border-top: 1px solid $concrete;
   }
 }

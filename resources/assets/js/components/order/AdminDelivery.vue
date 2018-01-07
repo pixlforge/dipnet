@@ -1,35 +1,34 @@
 <template>
-  <div class="delivery__container">
-    <div class="delivery__content">
-      <div class="delivery__header">
-        <div class="delivery__row">
-          <h5 class="delivery__label">
+  <div>
+    <div class="delivery__header">
+      <div class="delivery__header-box">
+        <div class="delivery__details">
+          <h5 class="delivery__label delivery__label--light-grey">
             Référence
-            <strong>{{ delivery.reference }}</strong>
+            {{ delivery.reference }}
           </h5>
         </div>
-        <div class="delivery__row">
-          <h3 class="delivery__label">
-            Livraison à
-            <app-contact-dropdown class="delivery-contact-dropdown"
-                                  :label="selectedDeliveryContact"
-                                  @itemSelected="selectDeliveryContact">
-            </app-contact-dropdown>
-          </h3>
-          <h3 class="delivery__label">
-            Le
-            <app-datepicker class="datepicker-light"
-                            :date="startTime"
-                            :option="option"
-                            :limit="limit"
-                            :to-deliver-at="delivery.to_deliver_at"
-                            :style=""
-                            @change="updateDeliveryDate">
-            </app-datepicker>
-          </h3>
+        <div class="delivery__details delivery__details--admin">
+          <div class="delivery__first-label">
+            <h3 class="delivery__label">Livraison à</h3>
+            <h3>
+              <app-contact-dropdown :label="selectedDeliveryContact"
+                                    @itemSelected="selectDeliveryContact">
+              </app-contact-dropdown>
+            </h3>
+          </div>
+          <h3 class="delivery__label">Le</h3>
+          <app-datepicker class="datepicker-light"
+                          :date="startTime"
+                          :option="option"
+                          :limit="limit"
+                          :to-deliver-at="delivery.to_deliver_at"
+                          :style=""
+                          @change="updateDeliveryDate">
+          </app-datepicker>
         </div>
-        <div class="delivery__row my-2">
-          <ul class="delivery__contact-list">
+        <div class="delivery__details delivery__details--secondary">
+          <ul class="delivery__list delivery__list--admin">
             <li>{{ delivery.contact.address_line1 }}</li>
             <li>{{ delivery.contact.address_line2 }}</li>
             <li>{{ delivery.contact.zip }} {{ delivery.contact.city }}</li>
@@ -37,12 +36,22 @@
             <li>{{ delivery.contact.fax }}</li>
             <li>{{ delivery.contact.email }}</li>
           </ul>
-          <div class="delivery__admin-note" v-if="delivery.note">
+          <div class="delivery__note">
             <h5>Note</h5>
-            <p>{{ delivery.note }}</p>
+            {{ delivery.note }}
           </div>
         </div>
       </div>
+      <div class="delivery__controls delivery__controls--admin">
+        <button class="btn btn--black">Bulletin de livraison</button>
+        <input type="text"
+               class="form__input"
+               v-model="adminNote"
+               placeholder="Commentaires pour admins seulement">
+      </div>
+    </div>
+
+    <div class="delivery__document-container">
       <app-admin-document class="document__admin"
                           v-for="(document, index) in deliveryDocuments"
                           :key="document.id"
@@ -51,23 +60,6 @@
                           :data-document="document"
                           :data-options="document.articles">
       </app-admin-document>
-    </div>
-    <div class="delivery__controls">
-      <div class="delivery__status">
-        <h5>Status</h5>
-        <ul>
-          <li>Réceptionnée</li>
-          <li>Traitée</li>
-          <li>Envoyée</li>
-        </ul>
-      </div>
-      <div class="delivery__admin-note">
-        <!--TODO-->
-      </div>
-      <button class="btn btn--black"
-              @click="goToDeliveryNote()">
-        Bulletin de livraison
-      </button>
     </div>
   </div>
 </template>
@@ -92,6 +84,7 @@
         delivery: this.dataDelivery,
         documents: this.dataDocuments,
         selectedDeliveryContact: this.dataDelivery.contact.name,
+        adminNote: this.dataDelivery.admin_note,
 
         /**
          * Datepicker data.

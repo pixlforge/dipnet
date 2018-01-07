@@ -15,18 +15,17 @@
         </div>
       </div>
     </div>
-    <div class="row bg-grey-light my-2">
-      <div class="col-10 mx-auto my-6">
-        <div class="my-3"
-             v-for="(delivery, index) in listDeliveries"
-             :key="delivery.id">
-          <app-admin-delivery :data-order="order"
-                              :data-delivery="delivery"
-                              :data-documents="dataDocuments">
-          </app-admin-delivery>
-        </div>
-      </div>
+
+    <div class="row bg-grey-light mt-2">
+      <app-admin-delivery class="delivery__container delivery__container--admin"
+                          v-for="(delivery, index) in listDeliveries"
+                          :key="delivery.id"
+                          :data-order="order"
+                          :data-delivery="delivery"
+                          :data-documents="dataDocuments">
+      </app-admin-delivery>
     </div>
+
   </div>
 </template>
 

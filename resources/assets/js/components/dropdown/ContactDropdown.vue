@@ -9,7 +9,7 @@
       <ul class="dropdown__list">
         <li v-for="(contact, index) in listContacts"
             @click="selectItem(contact)">
-          {{ contact.name }}
+          {{ contact.name | capitalize }}
         </li>
       </ul>
     </div>
