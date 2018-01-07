@@ -15,6 +15,7 @@ window.Vue = require('vue')
 /**
  * Vue components
  */
+Vue.component('app-navbar', require('./components/navbar/Navbar.vue'))
 Vue.component('flash', require('./components/flash/Flash.vue'))
 Vue.component('app-dropdown', require('./components/dropdown/Dropdown.vue'))
 Vue.component('app-searchbar', require('./components/search/Searchbar.vue'))

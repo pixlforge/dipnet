@@ -46,6 +46,17 @@
       }
     }
   }
+
+  &__list-item-divider {
+    width: 80%;
+    margin: 0 auto 1rem auto;
+    border-bottom: 1px solid $concrete;
+    cursor: default !important;
+
+    &:hover {
+      background-color: $white !important;
+    }
+  }
 }
 
 .settings {
@@ -68,8 +79,4 @@
     font-weight: 400;
     color: $white;
   }
-}
-
-.delivery-contact-dropdown {
-  margin-left: 1rem;
 }

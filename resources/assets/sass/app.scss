@@ -1,40 +1,40 @@
 // Bootstrap
-@import "node_modules/bootstrap/scss/bootstrap-reboot.scss";
-@import "node_modules/bootstrap/scss/bootstrap.scss";
-@import "node_modules/bootstrap/scss/bootstrap-grid.scss";
+//@import "node_modules/bootstrap/scss/bootstrap-reboot.scss";
+//@import "node_modules/bootstrap/scss/bootstrap.scss";
+//@import "node_modules/bootstrap/scss/bootstrap-grid.scss";
 
 // Dropzone
 @import "node_modules/dropzone/dist/dropzone";
 
-// Custom
-@import "partials/grid.scss";
-@import "partials/colors.scss";
-@import "partials/typography.scss";
-@import "partials/base.scss";
-@import "partials/cards.scss";
-@import "partials/errors.scss";
-@import "partials/buttons.scss";
-@import "partials/nav.scss";
-@import "partials/forms.scss";
-@import "partials/carousel.scss";
-@import "partials/components.scss";
-@import "partials/modals.scss";
-@import "partials/animations.scss";
-@import "partials/spinners.scss";
-@import "partials/autocomplete.scss";
-@import "partials/search.scss";
-@import "partials/dropzone.scss";
-@import "partials/dropdown.scss";
-@import "partials/datepicker.scss";
-
 // Updated
+@import "base/colors.scss";
+@import "base/grid.scss";
+@import "base/typography.scss";
 @import "base/base.scss";
 
 @import "components/delivery.scss";
 @import "components/document.scss";
 @import "components/dropdown.scss";
 @import "components/buttons.scss";
+@import "components/form.scss";
+@import "components/nav";
 
 @import "pages/alert.scss";
 @import "pages/company-profile.scss";
 @import "pages/order.scss";
+
+// TODO Replace
+@import "partials/cards.scss";
+@import "partials/errors.scss";
+@import "partials/buttons.scss";
+@import "partials/forms.scss";
+@import "partials/carousel.scss";
+@import "partials/components.scss";
+@import "partials/modals.scss";
+@import "partials/animations.scss";
+@import "partials/spinners.scss";
+@import "components/search";
+@import "partials/dropzone.scss";
+@import "partials/dropdown.scss";
+@import "partials/datepicker.scss";
+

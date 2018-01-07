@@ -1,4 +1,3 @@
-import Form from './Form';
 
 window.Vue = require('vue');
 
@@ -11,10 +10,8 @@ window.Vue = require('vue');
  */
 
 try {
-  window.$ = window.jQuery = require('./jquery-3.2.1');
-
-  require('bootstrap');
-
+  // window.$ = window.jQuery = require('./jquery-3.2.1');
+  require('bootstrap')
 } catch (e) {
 }
 
@@ -44,10 +41,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     key: 'your-pusher-key'
 // });
 
-window.Form = Form;
-
-window.events = new Vue();
+window.events = new Vue()
 
 window.flash = function (message) {
-  window.events.$emit('flash', message);
-};
+  window.events.$emit('flash', message)
+}
