@@ -9,41 +9,35 @@ h4,
 h5,
 h6 {
   color: $dark-grey;
+  font-weight: 400;
 }
 
 h1 {
-  font-size: 2.25rem;
-  @media (min-width: $grid-lg) { font-size: 2.25rem; }
+  font-size: 3.6rem;
 }
 
 h2 {
-  font-size: 1.875rem;
-  @media (min-width: $grid-lg) { font-size: 1.875rem; }
+  font-size: 2.4rem;
 }
 
 h3 {
   font-size: 1.5rem;
-  @media (min-width: $grid-lg) { font-size: 1.5rem; }
 }
 
 h4 {
   font-size: 1.25rem;
-  @media (min-width: $grid-lg) { font-size: 1.25rem; }
 }
 
 h5 {
   font-size: 1rem;
-  @media (min-width: $grid-lg) { font-size: 1rem; }
 }
 
-//.h4-responsive {
-//  font-size: 1.25rem;
-//  @media (min-width: $grid-lg) { font-size: 1.25rem; }
-//}
-
-.h6-responsive {
+h6 {
   font-size: 1rem;
-  @media (min-width: $grid-lg) { font-size: .75rem; }
+}
+
+strong {
+  font-weight: 400;
 }
 
 .select-label {
@@ -115,6 +109,3 @@ input {
   text-transform: uppercase;
 }
 
-strong {
-  font-weight: 400;
-}

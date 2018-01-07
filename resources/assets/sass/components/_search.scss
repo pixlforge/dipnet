@@ -1,0 +1,96 @@
+.searchbar {
+
+  @media all and (max-width: $bp-sm) {
+    position: relative;
+  }
+
+  &__input {
+    background-color: $alabaster;
+    width: 40rem;
+    height: 4rem;
+    border: none;
+    outline: none;
+    font-size: 1.4rem;
+    padding-left: 5.5rem;
+    transition: all .3s ease-out;
+
+    @media all and (max-width: $bp-xl) {
+      width: 30rem;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      width: 90vw;
+    }
+
+    &:focus {
+      background-color: $white !important;
+      box-shadow: 0 6px 14px 0 rgba(200, 200, 200, .5);
+    }
+
+    &::-webkit-input-placeholder {
+      font-weight: 300;
+      letter-spacing: .1px;
+      color: $lighter-grey;
+    }
+
+    &::-moz-placeholder {
+      font-weight: 300;
+      letter-spacing: .1px;
+      color: $lighter-grey;
+    }
+  }
+
+  svg {
+    color: $lighter-grey;
+    transform: translateX(4rem);
+
+    @media all and (max-width: $bp-sm) {
+      position: absolute;
+      top: 50%;
+      left: 2rem;
+      transform: translateY(-50%);
+    }
+  }
+
+  &__dropdown {
+    z-index: 10;
+    width: 40rem;
+    position: absolute;
+    background-color: $white;
+    padding: 1rem 0;
+    list-style: none;
+    transform: translateX(1.65rem);
+    border-top: 1px solid $mercury;
+    box-shadow: 0 6px 14px 0 rgba(200, 200, 200, .5);
+
+    @media all and (max-width: $bp-xl) {
+      width: 30rem;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      width: 90vw;
+      transform: translateX(0);
+    }
+
+    li {
+      cursor: pointer;
+      padding: 1rem 0 1rem 2rem;
+
+      &:hover {
+        background-color: $alabaster;
+      }
+    }
+  }
+
+  &__title {
+    font-weight: 300;
+    font-size: 1.2rem;
+    color: $scorpion;
+    padding: .5rem 0 .5rem 2rem;
+  }
+
+  &__not-empty {
+    background-color: $white !important;
+    box-shadow: 0 6px 14px 0 rgba(200, 200, 200, .5);
+  }
+}

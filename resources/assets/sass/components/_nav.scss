@@ -1,0 +1,135 @@
+.navbar {
+  width: 84vw;
+  min-height: 8rem;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+
+  @media all and (max-width: $bp-lg) {
+    flex-direction: column;
+  }
+
+  &__first-section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+
+    @media all and (max-width: $bp-lg) {
+      width: 100%;
+      justify-content: space-between;
+      margin: 2rem 0;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      flex-direction: column;
+    }
+  }
+
+  &__second-section {
+    width: 50%;
+    display: flex;
+    align-items: center;
+
+    @media all and (max-width: $bp-lg) {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      flex-direction: column;
+    }
+  }
+
+  &__logo {
+    margin-right: 5rem;
+
+    @media all and (max-width: $bp-sm) {
+      margin-right: 0;
+    }
+
+    img {
+      height: 32px;
+    }
+  }
+
+  &__searchbar {
+    margin-right: auto;
+
+    @media all and (max-width: $bp-lg) {
+      margin-right: unset;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      margin-top: 2rem;
+    }
+  }
+
+  &__quicklinks {
+    margin-right: auto;
+    flex: 0 0 15%;
+
+    @media all and (max-width: $bp-sm) {
+      width: 100%;
+      margin-right: 0;
+    }
+  }
+
+  &__links {
+    list-style: none;
+    display: flex;
+
+    @media all and (max-width: $bp-sm) {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    li {
+      &:first-child a {
+        margin-left: 0;
+      }
+    }
+
+    a {
+      font-weight: 300;
+      text-decoration: none;
+      margin: 0 2rem;
+    }
+
+    .active {
+      font-weight: 700;
+    }
+  }
+
+  &__user-infos {
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media all and (max-width: $bp-sm) {
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    img {
+      width: 3.3rem;
+      border-radius: 50%;
+      margin-right: 1rem;
+    }
+  }
+
+  &__user-company {
+    transform: translateY(-.1rem);
+  }
+}
+
+.vertical-divider {
+  height: 20px;
+  width: 1px;
+  background-color: $concrete;
+  margin: 0 1rem;
+
+  @media all and (max-width: $bp-sm) {
+    display: none;
+  }
+}
