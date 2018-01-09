@@ -48,6 +48,7 @@ export default {
     },
     toggleModal() {
       this.showModal === false ? this.showModal = true : this.showModal = false
+      document.getElementById('body').classList.toggle('modal__open')
     },
     finishRegistration() {
       this.congratulateUponRegistration()
