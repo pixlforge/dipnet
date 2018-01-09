@@ -30,7 +30,7 @@
   </script>
   <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
-<body>
+<body id="body">
 <div id="app">
   @yield ('content')
   <flash message="{{ session('flash') }}"
