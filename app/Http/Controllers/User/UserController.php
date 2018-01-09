@@ -22,6 +22,7 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -61,6 +62,7 @@ class UserController extends Controller
      *
      * @param User $user
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(User $user)
     {
@@ -71,13 +73,12 @@ class UserController extends Controller
 
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update([
-            'username' => $request->username,
-            'role' => $request->role,
-            'email' => $request->email,
-            'email_confirmed' => $this->getEmailStatus(),
-            'company_id' => $request->company_id
-        ]);
+        $user->username = $request->username;
+        $user->role = $request->role;
+        $user->email = $request->email;
+        $user->email_confirmed = $this->getEmailStatus($user->email_confirmed);
+        $user->company_id = $request->company_id;
+        $user->save();
 
         return response($user, 200);
     }
@@ -87,6 +88,8 @@ class UserController extends Controller
      *
      * @param User $user
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(User $user)
     {
@@ -98,14 +101,15 @@ class UserController extends Controller
     }
 
     /**
+     * @param $status
      * @return int
      */
-    protected function getEmailStatus(): int
+    protected function getEmailStatus($status): int
     {
-        if (empty($request->email_confirmed)) {
-            $emailStatus = 0;
-        } else {
+        if ($status == 1 && empty($request->email_confirmed)) {
             $emailStatus = 1;
+        } else {
+            $emailStatus = 0;
         }
         return $emailStatus;
     }
