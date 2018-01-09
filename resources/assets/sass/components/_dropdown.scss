@@ -45,6 +45,10 @@
         background-color: $alabaster;
       }
     }
+
+    &--options {
+      width: 12rem;
+    }
   }
 
   &__list-item-divider {
@@ -55,6 +59,12 @@
 
     &:hover {
       background-color: $white !important;
+    }
+  }
+
+  &__item {
+    svg {
+      margin-right: .5rem;
     }
   }
 }

@@ -1,0 +1,13 @@
+.main {
+  &__container {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    min-height: 50vh;
+    padding: 6rem 0;
+
+    &--grey {
+      background-color: $alabaster;
+    }
+  }
+}

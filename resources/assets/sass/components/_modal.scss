@@ -1,0 +1,114 @@
+.modal {
+  &__open {
+    overflow: hidden;
+    position: fixed;
+  }
+
+  &__background {
+    z-index: 100;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($black, .43);
+    overflow-y: hidden;
+    cursor: default !important;
+  }
+
+  &__slider {
+    z-index: 200;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 50vw;
+    height: 100vh;
+    background-color: $white;
+    overflow-y: scroll;
+    cursor: default !important;
+
+    @media all and (max-width: $bp-md) {
+      width: 100vw;
+    }
+  }
+
+  &__container {
+    width: 70%;
+    margin: 12rem 0 12rem 6rem;
+    cursor: default !important;
+  }
+
+  &__title {
+    font-size: 2.4rem;
+    margin-bottom: 5.5rem;
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4rem;
+    position: relative;
+  }
+
+  &__label {
+    font-size: 1.4rem;
+    color: $scorpion;
+  }
+
+  &__required {
+    font-size: 1.6rem;
+    color: $dark-grey;
+    position: absolute;
+    right: 1rem;
+    transform: translateY(3rem);
+  }
+
+  &__input {
+    font-size: 1.6rem;
+    line-height: 1.5;
+    height: 3.5rem;
+    border: none;
+    border-bottom: 1px solid $light-grey;
+    outline: none;
+    transition: all .2s;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-bottom: 1px solid $bg-red;
+    }
+  }
+
+  &__select {
+    font-family: $font-stack;
+    font-size: 1.6rem;
+    height: 3.5rem;
+    border: none;
+    border-bottom: 1px solid $light-grey;
+    border-radius: 0;
+    -webkit-appearance: none;
+    background-color: $white;
+    outline: none;
+    transition: all .2s;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-bottom: 1px solid $bg-red;
+    }
+  }
+
+  &__buttons {
+    display: flex;
+    margin-top: 5rem;
+    color: $dark-grey;
+  }
+
+  &__alert {
+    position: absolute;
+    bottom: -1.7rem;
+    font-size: 1.2rem;
+    color: $error;
+  }
+}

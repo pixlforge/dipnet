@@ -1,0 +1,86 @@
+.card {
+  &__container {
+    width: 84%;
+    background-color: $white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    padding: 2rem;
+    box-shadow: 0 15px 18px 0 rgba($scorpion, 0.04);
+
+    &:not(:first-child) {
+      margin-top: 1rem;
+    }
+
+    @media all and (max-width: $bp-md) {
+      flex-direction: column;
+    }
+  }
+
+  &__img {
+    width: 4rem;
+
+    @media all and (max-width: $bp-md) {
+      display: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+
+  &__title {
+    font-size: 1.6rem;
+    font-weight: 300;
+
+    @media all and (max-width: $bp-md) {
+      margin-bottom: 2rem;
+    }
+
+    a {
+      &:hover,
+      &:active {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__meta {
+    font-size: 1.2rem;
+
+    @media all and (max-width: $bp-md) {
+      margin-top: 2rem;
+    }
+  }
+
+  &__label {
+    text-transform: uppercase;
+  }
+
+  &__controls {
+    height: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+
+    div {
+      &:hover {
+        color: tomato;
+        cursor: pointer;
+      }
+
+      @media all and (max-width: $bp-md) {
+        margin: 0 .5rem;
+      }
+    }
+
+    @media all and (max-width: $bp-md) {
+      flex-direction: row;
+      margin-top: 2rem;
+    }
+  }
+}

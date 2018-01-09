@@ -1,0 +1,22 @@
+.badge {
+  width: 10rem;
+  font-size: 1.2rem;
+  font-weight: 300;
+  letter-spacing: .2px;
+  text-align: center;
+  color: $white;
+  padding: .75rem 1rem;
+  border-radius: 3px;
+
+  &--success {
+    background: $bg-success;
+  }
+
+  &badge--warning {
+    background: $bg-warning;
+  }
+
+  &badge--danger {
+    background-color: $bg-red;
+  }
+}
