@@ -29,7 +29,8 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        $documents = Document::orderBy('file_name')
+        $documents = Document::orderBy('filename')
+            ->with('article')
             ->get()
             ->toJson();
 
