@@ -1,98 +1,85 @@
 <template>
   <div>
-    <!--Button-->
-    <a class="dropdown-item"
-       role="button"
-       @click.stop="toggleModal">
+    <div @click="toggleModal">
       <i class="fal fa-pencil"></i>
-      <span class="ml-3">Modifier</span>
-    </a>
+    </div>
 
-    <!--Background-->
     <transition name="fade">
-      <div class="modal-background"
+      <div class="modal__background"
            v-if="showModal"
-           @click="toggleModal"></div>
+           @click="toggleModal">
+      </div>
     </transition>
 
-    <!--Modal Panel-->
     <transition name="slide">
-      <div class="modal-panel"
+      <div class="modal__slider"
            v-if="showModal"
            @keyup.esc="toggleModal"
            @keyup.enter="updateArticle">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10 col-lg-8 offset-lg-1">
 
-              <!--Title-->
-              <h3 class="mt-7 mb-5">Modifier l'article</h3>
+        <div class="modal__container">
+          <h2 class="modal__title">Modifier {{ article.reference }}</h2>
 
-              <!--Form-->
-              <form @submit.prevent>
-
-                <!--Reference-->
-                <div class="form-group">
-                  <label for="reference">Référence</label>
-                  <span class="required">*</span>
-                  <input type="text"
-                         id="reference"
-                         name="reference"
-                         class="form-control"
-                         v-model.trim="article.reference"
-                         required autofocus>
-                  <div class="help-block"
-                       v-if="errors.reference"
-                       v-text="errors.reference[0]">
-                  </div>
-                </div>
-
-                <!--Description-->
-                <div class="form-group my-5">
-                  <label for="description">Description</label>
-                  <input type="text"
-                         id="description"
-                         name="description"
-                         class="form-control"
-                         v-model.trim="article.description">
-                  <div class="help-block"
-                       v-if="errors.description"
-                       v-text="errors.description[0]">
-                  </div>
-                </div>
-
-                <!--Type-->
-                <div class="form-group my-5">
-                  <label for="type">Type</label>
-                  <select name="type"
-                          id="type"
-                          class="form-control custom-select"
-                          v-model.trim="article.type">
-                    <option disabled>Sélectionnez un type</option>
-                    <option value="option">Option</option>
-                    <option value="impression">Impression</option>
-                  </select>
-                </div>
-
-                <!--Buttons-->
-                <div class="form-group d-flex flex-column flex-lg-row my-6">
-                  <div class="col-12 col-lg-5 px-0 pr-lg-2">
-                    <button class="btn btn-block btn-lg btn-white"
-                            @click.stop="toggleModal">
-                      <i class="fal fa-times mr-2"></i>
-                      Annuler
-                    </button>
-                  </div>
-                  <div class="col-12 col-lg-7 px-0 pl-lg-2">
-                    <button class="btn btn-block btn-lg btn-black"
-                            @click.prevent="updateArticle">
-                      <i class="fal fa-check mr-2"></i>
-                      Modifier
-                    </button>
-                  </div>
-                </div>
-              </form>
+          <!--Reference-->
+          <div class="modal__group">
+            <label for="reference" class="modal__label">Référence</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="reference"
+                   id="reference"
+                   class="modal__input"
+                   v-model.trim="article.reference"
+                   required autofocus>
+            <div class="modal__alert"
+                 v-if="errors.reference">
+              {{ errors.reference[0] }}
             </div>
+          </div>
+
+          <!--Description-->
+          <div class="modal__group">
+            <label for="description" class="modal__label">Description</label>
+            <input type="text"
+                   name="description"
+                   id="description"
+                   class="modal__input"
+                   v-model.trim="article.description"
+                   required>
+            <div class="modal__alert"
+                 v-if="errors.description">
+              {{ errors.description[0] }}
+            </div>
+          </div>
+
+          <!--Status-->
+          <div class="modal__group">
+            <label for="type" class="modal__label">Type</label>
+            <select name="type"
+                    id="type"
+                    class="modal__select"
+                    v-model.trim="article.type">
+              <option disabled>Sélectionnez un type</option>
+              <option value="option">Option</option>
+              <option value="impression">Impression</option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.type">
+              {{ errors.type[0] }}
+            </div>
+          </div>
+
+          <!--Buttons-->
+          <div class="modal__buttons">
+            <button class="btn btn--grey"
+                    @click.stop="toggleModal">
+              <i class="fal fa-times"></i>
+              Annuler
+            </button>
+            <button class="btn btn--black"
+                    @click.prevent="updateArticle">
+              <i class="fal fa-check"></i>
+              Mettre à jour
+            </button>
           </div>
         </div>
       </div>

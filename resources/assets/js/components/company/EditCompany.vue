@@ -1,99 +1,84 @@
 <template>
   <div>
-    <!--Button-->
-    <a class="dropdown-item"
-       role="button"
-       @click.stop="toggleModal">
+    <div @click="toggleModal">
       <i class="fal fa-pencil"></i>
-      <span class="ml-3">Modifier</span>
-    </a>
+    </div>
 
-    <!--Background-->
     <transition name="fade">
-      <div class="modal-background"
+      <div class="modal__background"
            v-if="showModal"
            @click="toggleModal">
       </div>
     </transition>
 
-    <!--Modal Panel-->
     <transition name="slide">
-      <div class="modal-panel"
+      <div class="modal__slider"
            v-if="showModal"
            @keyup.esc="toggleModal"
-           @keyup.enter="updateCompany">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10 col-lg-8 offset-lg-1">
+           @keyup.enter="editCompany">
 
-              <!--Title-->
-              <h3 class="mt-7 mb-5">Modifier la société</h3>
+        <div class="modal__container">
+          <h2 class="modal__title">Modifier {{ company.name }}</h2>
 
-              <!--Form-->
-              <form @submit.prevent>
-
-                <!--Name-->
-                <div class="form-group">
-                  <label for="name">Nom</label>
-                  <span class="required">*</span>
-                  <input type="text"
-                         id="name"
-                         name="name"
-                         class="form-control"
-                         v-model.trim="company.name"
-                         required autofocus>
-                  <div class="help-block"
-                       v-if="errors.name"
-                       v-text="errors.name[0]">
-                  </div>
-                </div>
-
-                <!--Status-->
-                <div class="form-group my-5">
-                  <label for="status">Statut</label>
-                  <select name="status"
-                          id="status"
-                          class="form-control custom-select"
-                          v-model.trim="company.status">
-                    <option disabled>Sélectionnez un statut</option>
-                    <option value="temporaire">Temporaire</option>
-                    <option value="permanent">Permanent</option>
-                  </select>
-                </div>
-
-                <!--Description-->
-                <div class="form-group my-5">
-                  <label for="description">Description</label>
-                  <input type="text"
-                         id="description"
-                         name="description"
-                         class="form-control"
-                         v-model.trim="company.description">
-                  <div class="help-block"
-                       v-if="errors.description"
-                       v-text="errors.description[0]">
-                  </div>
-                </div>
-
-                <!--Buttons-->
-                <div class="form-group d-flex flex-column flex-lg-row my-6">
-                  <div class="col-12 col-lg-5 px-0 pr-lg-2">
-                    <button class="btn btn-block btn-lg btn-white"
-                            @click.stop="toggleModal">
-                      <i class="fal fa-times mr-2"></i>
-                      Annuler
-                    </button>
-                  </div>
-                  <div class="col-12 col-lg-7 px-0 pl-lg-2">
-                    <button class="btn btn-block btn-lg btn-black"
-                            @click.prevent="updateCompany">
-                      <i class="fal fa-check mr-2"></i>
-                      Modifier
-                    </button>
-                  </div>
-                </div>
-              </form>
+          <!--Name-->
+          <div class="modal__group">
+            <label for="name" class="modal__label">Nom</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="name"
+                   id="name"
+                   class="modal__input"
+                   v-model.trim="company.name"
+                   required autofocus>
+            <div class="modal__alert"
+                 v-if="errors.name">
+              {{ errors.name[0] }}
             </div>
+          </div>
+
+          <!--Status-->
+          <div class="modal__group">
+            <label for="status" class="modal__label">Statut</label>
+            <select name="status"
+                    id="status"
+                    class="modal__select"
+                    v-model.trim="company.status">
+              <option disabled>Sélectionnez un statut</option>
+              <option value="temporaire">Temporaire</option>
+              <option value="permanent">Permanent</option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.status">
+              {{ errors.status[0] }}
+            </div>
+          </div>
+
+          <!--Description-->
+          <div class="modal__group">
+            <label for="description" class="modal__label">Description</label>
+            <input type="text"
+                   name="description"
+                   id="description"
+                   class="modal__input"
+                   v-model.trim="company.description">
+            <div class="modal__alert"
+                 v-if="errors.description">
+              {{ errors.description[0] }}
+            </div>
+          </div>
+
+          <!--Buttons-->
+          <div class="modal__buttons">
+            <button class="btn btn--grey"
+                    @click.stop="toggleModal">
+              <i class="fal fa-times"></i>
+              Annuler
+            </button>
+            <button class="btn btn--black"
+                    @click.prevent="addCompany">
+              <i class="fal fa-check"></i>
+              Mettre à jour
+            </button>
           </div>
         </div>
       </div>
@@ -149,6 +134,11 @@
             })
           })
       }
+    },
+    created() {
+      eventBus.$on('openEditCompany', () => {
+        this.toggleModal()
+      })
     }
   }
 </script>

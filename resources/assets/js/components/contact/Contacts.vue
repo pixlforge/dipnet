@@ -1,41 +1,30 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-10 my-5 mx-auto">
-        <div class="row">
-          <div class="col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only">
-            <h1 class="mt-5">Contacts</h1>
-            <div class="mt-5">
-              {{ contacts.length }}
-              {{ contacts.length == 0 || contacts.length == 1 ? 'contact' : 'contacts' }}
-            </div>
-
-            <!--Add-->
-            <app-add-contact @contactWasCreated="addContact"></app-add-contact>
-          </div>
-        </div>
+  <div>
+    <div class="header__container">
+      <h1 class="header__title">Contacts</h1>
+      <div class="header__stats">
+        {{ contacts.length }}
+        {{ contacts.length == 0 || contacts.length == 1 ? 'contact' : 'contacts' }}
       </div>
+      <app-add-contact @contactWasCreated="addContact">
+      </app-add-contact>
     </div>
-    <div class="row bg-grey-light">
-      <div class="col-10 mx-auto my-7">
 
-        <!--Contact-->
-        <transition-group name="highlight">
-          <app-contact class="card card-custom center-on-small-only"
-                       v-for="(contact, index) in contacts"
-                       :data-contact="contact"
-                       :key="contact.id"
-                       @contactWasDeleted="removeContact(index)">
-          </app-contact>
-        </transition-group>
-
-        <!--Loader-->
-        <app-moon-loader :loading="loaderState"
-                         :color="loader.color"
-                         :size="loader.size">
-        </app-moon-loader>
-      </div>
+    <div class="main__container main__container--grey">
+      <transition-group name="highlight" tag="div">
+        <app-contact class="card__container"
+                     v-for="(contact, index) in contacts"
+                     :data-contact="contact"
+                     :key="index"
+                     @contactWasDeleted="removeContact(index)">
+        </app-contact>
+      </transition-group>
     </div>
+
+    <app-moon-loader :loading="loaderState"
+                     :color="loader.color"
+                     :size="loader.size">
+    </app-moon-loader>
   </div>
 </template>
 

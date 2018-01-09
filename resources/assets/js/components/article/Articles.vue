@@ -1,42 +1,26 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-10 my-5 mx-auto">
-        <div class="row">
-          <div
-            class="col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only">
-            <h1 class="mt-5">Articles</h1>
-            <div class="mt-5">
-              {{ articles.length }}
-              {{ articles.length == 0 || articles.length == 1 ? 'article' : 'articles' }}
-            </div>
-
-            <!--Add Article-->
-            <app-add-article :data-categories="categories"
-                             @articleWasCreated="addArticle">
-            </app-add-article>
-          </div>
-        </div>
+  <div>
+    <div class="header__container">
+      <h1 class="header__title">Articles</h1>
+      <div class="header__stats">
+        {{ articles.length }}
+        {{ articles.length == 0 || articles.length == 1 ? 'article' : 'articles' }}
       </div>
-    </div>
-    <div class="row bg-grey-light">
-      <div class="col-10 mx-auto my-7">
-
-        <!--Article-->
-        <transition-group name="highlight">
-          <app-article class="card card-custom center-on-small-only"
-                       v-for="(article, index) in articles"
-                       :data-article="article"
-                       :data-categories="categories"
-                       :key="article.id"
-                       @articleWasDeleted="removeArticle(index)">
-          </app-article>
-        </transition-group>
-
-      </div>
+      <app-add-article @articleWasCreated="addArticle">
+      </app-add-article>
     </div>
 
-    <!--Loader-->
+    <div class="main__container main__container--grey">
+      <transition-group name="highlight" tag="div">
+        <app-article class="card__container"
+                     v-for="(article, index) in articles"
+                     :data-article="article"
+                     :key="index"
+                     @articleWasDeleted="removeArticle(index)">
+        </app-article>
+      </transition-group>
+    </div>
+
     <app-moon-loader :loading="loaderState"
                      :color="loader.color"
                      :size="loader.size">

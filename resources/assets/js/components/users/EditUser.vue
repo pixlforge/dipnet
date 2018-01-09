@@ -1,115 +1,105 @@
 <template>
   <div>
-
-    <!--Button-->
-    <a class="dropdown-item"
-       role="button"
-       @click.stop="toggleModal">
+    <div @click="toggleModal">
       <i class="fal fa-pencil"></i>
-      <span class="ml-3">Modifier</span>
-    </a>
+    </div>
 
-    <!--Background-->
     <transition name="fade">
-      <div class="modal-background"
+      <div class="modal__background"
            v-if="showModal"
            @click="toggleModal">
       </div>
     </transition>
 
-    <!--Modal Panel-->
     <transition name="slide">
-      <div class="modal-panel"
+      <div class="modal__slider"
            v-if="showModal"
            @keyup.esc="toggleModal"
            @keyup.enter="updateUser">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10 col-lg-8 offset-lg-1">
 
-              <!--Title-->
-              <h3 class="mt-7 mb-5">Modifier l'utilisateur</h3>
+        <div class="modal__container">
+          <h2 class="modal__title">Modifier {{ user.username}}</h2>
 
-              <!--Form-->
-              <form @submit.prevent>
-
-                <!--Username-->
-                <div class="form-group">
-                  <label for="username">Nom d'utilisateur</label>
-                  <span class="required">*</span>
-                  <input type="text"
-                         id="username"
-                         name="username"
-                         class="form-control"
-                         v-model.trim="user.username"
-                         required autofocus>
-                  <div class="help-block"
-                       v-if="errors.username"
-                       v-text="errors.username[0]">
-                  </div>
-                </div>
-
-                <!--Email-->
-                <div class="form-group my-5">
-                  <label for="email">Email</label>
-                  <input type="email"
-                         id="email"
-                         name="email"
-                         class="form-control"
-                         v-model.trim="user.email">
-                  <div class="help-block"
-                       v-if="errors.email"
-                       v-text="errors.email[0]">
-                  </div>
-                </div>
-
-                <!--Role-->
-                <div class="form-group my-5">
-                  <label for="role">Rôle</label>
-                  <select name="role"
-                          id="role"
-                          class="form-control custom-select"
-                          v-model.trim="user.role">
-                    <option disabled>Sélectionnez un rôle</option>
-                    <option value="utilisateur">Utilisateur</option>
-                    <option value="administrateur">Administrateur</option>
-                  </select>
-                </div>
-
-                <!--Company-->
-                <div class="form-group my-5">
-                  <label for="company_id">Société</label>
-                  <select name="company_id"
-                          id="company_id"
-                          class="form-control custom-select"
-                          v-model.trim="user.company_id">
-                    <option disabled>Sélectionnez une société</option>
-                    <option v-for="company in companies"
-                            :value="company.id"
-                            v-text="company.name">
-                    </option>
-                  </select>
-                </div>
-
-                <!--Buttons-->
-                <div class="form-group d-flex flex-column flex-lg-row my-6">
-                  <div class="col-12 col-lg-5 px-0 pr-lg-2">
-                    <button class="btn btn-block btn-lg btn-white"
-                            @click.stop="toggleModal">
-                      <i class="fal fa-times mr-2"></i>
-                      Annuler
-                    </button>
-                  </div>
-                  <div class="col-12 col-lg-7 px-0 pl-lg-2">
-                    <button class="btn btn-block btn-lg btn-black"
-                            @click.prevent="updateUser">
-                      <i class="fal fa-check mr-2"></i>
-                      Modifier
-                    </button>
-                  </div>
-                </div>
-              </form>
+          <!--Name-->
+          <div class="modal__group">
+            <label for="username" class="modal__label">Nom d'utilisateur</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="username"
+                   id="username"
+                   class="modal__input"
+                   v-model.trim="user.username"
+                   required autofocus>
+            <div class="modal__alert"
+                 v-if="errors.username">
+              {{ errors.username[0] }}
             </div>
+          </div>
+
+          <!--Email-->
+          <div class="modal__group">
+            <label for="email" class="modal__label">Email</label>
+            <span class="modal__required">*</span>
+            <input type="email"
+                   name="email"
+                   id="email"
+                   class="modal__input"
+                   v-model.trim="user.email"
+                   required autofocus>
+            <div class="modal__alert"
+                 v-if="errors.email">
+              {{ errors.email[0] }}
+            </div>
+          </div>
+
+          <!--Role-->
+          <div class="modal__group">
+            <label for="role" class="modal__label">Rôle</label>
+            <select name="role"
+                    id="role"
+                    class="modal__select"
+                    v-model.trim="user.role">
+              <option disabled>Sélectionnez un rôle</option>
+              <option value="utilisateur">Utilisateur</option>
+              <option value="administrateur">Administrateur</option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.role">
+              {{ errors.role[0] }}
+            </div>
+          </div>
+
+          <!--Company-->
+          <div class="modal__group">
+            <label for="company_id" class="modal__label">Société</label>
+            <select name="company_id"
+                    id="company_id"
+                    class="modal__select"
+                    v-model.trim="user.company_id">
+              <option disabled>Sélectionnez une société</option>
+              <option v-for="(company, index) in companies"
+                      :value="company.id">
+                {{ company.name }}
+              </option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.company_id">
+              {{ errors.company_id[0] }}
+            </div>
+          </div>
+
+          <!--Buttons-->
+          <div class="modal__buttons">
+            <button class="btn btn--grey"
+                    @click.stop="toggleModal">
+              <i class="fal fa-times"></i>
+              Annuler
+            </button>
+            <button class="btn btn--black"
+                    @click.prevent="updateUser">
+              <i class="fal fa-check"></i>
+              Mettre à jour
+            </button>
           </div>
         </div>
       </div>

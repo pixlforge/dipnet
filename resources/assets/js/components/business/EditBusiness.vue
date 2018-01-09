@@ -1,140 +1,123 @@
 <template>
   <div>
-    <!--Button-->
-    <a class="dropdown-item"
-       role="button"
-       @click.stop="toggleModal">
+    <div @click="toggleModal">
       <i class="fal fa-pencil"></i>
-      <span class="ml-3">Modifier</span>
-    </a>
+    </div>
 
-    <!--Background-->
     <transition name="fade">
-      <div class="modal-background"
+      <div class="modal__background"
            v-if="showModal"
            @click="toggleModal">
       </div>
     </transition>
 
-    <!--Modal Panel-->
     <transition name="slide">
-      <div class="modal-panel"
+      <div class="modal__slider"
            v-if="showModal"
            @keyup.esc="toggleModal"
            @keyup.enter="updateBusiness">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10 col-lg-8 offset-lg-1">
 
-              <!--Title-->
-              <h3 class="mt-7 mb-5">Modifier l'affaire</h3>
+        <div class="modal__container">
+          <h2 class="modal__title">Modifier {{ business.name }}</h2>
 
-              <!--Form-->
-              <form @submit.prevent>
-
-                <!--Name-->
-                <div class="form-group">
-                  <label for="name">Nom</label>
-                  <span class="required">*</span>
-                  <input type="text"
-                         id="name"
-                         name="name"
-                         class="form-control"
-                         v-model.trim="business.name"
-                         required autofocus>
-                  <div class="help-block"
-                       v-if="errors.name"
-                       v-text="errors.name[0]">
-                  </div>
-                </div>
-
-                <!--Reference-->
-                <div class="form-group my-5">
-                  <label for="reference">Référence</label>
-                  <span class="required">*</span>
-                  <input type="text"
-                         id="reference"
-                         name="reference"
-                         class="form-control"
-                         v-model.trim="business.reference"
-                         required>
-                  <div class="help-block"
-                       v-if="errors.reference"
-                       v-text="errors.reference[0]">
-                  </div>
-                </div>
-
-                <!--Description-->
-                <div class="form-group my-5">
-                  <label for="description">Description</label>
-                  <input type="text"
-                         id="description"
-                         name="description"
-                         class="form-control"
-                         v-model.trim="business.description">
-                  <div class="help-block"
-                       v-if="errors.description"
-                       v-text="errors.description[0]">
-                  </div>
-                </div>
-
-                <!--Company-->
-                <div class="form-group my-5">
-                  <label for="company_id">Société</label>
-                  <select name="company_id"
-                          id="company_id"
-                          class="form-control custom-select"
-                          v-model.number.trim="business.company_id">
-                    <option disabled>Sélectionnez une société</option>
-                    <option v-for="company in companies"
-                            :value="company.id"
-                            v-text="company.name">
-                    </option>
-                  </select>
-                  <div class="help-block"
-                       v-if="errors.company_id"
-                       v-text="errors.company_id[0]">
-                  </div>
-                </div>
-
-                <!--Contact-->
-                <div class="form-group my-5">
-                  <label for="contact_id">Contact</label>
-                  <select name="contact_id"
-                          id="contact_id"
-                          class="form-control custom-select"
-                          v-model.number.trim="business.contact_id">
-                    <option disabled>Sélectionnez un contact</option>
-                    <option v-for="(contact, index) in contacts"
-                            :value="contact.contact[index].id"
-                            v-text="contact.contact[index].name">
-                    </option>
-                  </select>
-                  <div class="help-block"
-                       v-if="errors.contact_id"
-                       v-text="errors.contact_id[0]">
-                  </div>
-                </div>
-
-                <!--Buttons-->
-                <div class="form-group d-flex flex-column flex-lg-row my-6">
-                  <div class="col-12 col-lg-5 px-0 pr-lg-2">
-                    <button class="btn btn-block btn-lg btn-white"
-                            @click.stop="toggleModal">
-                      <i class="fal fa-times mr-2"></i>
-                      Annuler
-                    </button>
-                  </div>
-                  <div class="col-12 col-lg-7 px-0 pl-lg-2">
-                    <button class="btn btn-block btn-lg btn-black"
-                            @click.prevent="updateBusiness">
-                      <i class="fal fa-check mr-2"></i>
-                      Modifier
-                    </button>
-                  </div>
-                </div>
-              </form>
+          <!--Name-->
+          <div class="modal__group">
+            <label for="name" class="modal__label">Nom</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="name"
+                   id="name"
+                   class="modal__input"
+                   v-model.trim="business.name"
+                   required autofocus>
+            <div class="modal__alert"
+                 v-if="errors.name">
+              {{ errors.name[0] }}
             </div>
+          </div>
+
+          <!--Reference-->
+          <div class="modal__group">
+            <label for="reference" class="modal__label">Référence</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="reference"
+                   id="reference"
+                   class="modal__input"
+                   v-model.trim="business.reference"
+                   required>
+            <div class="modal__alert"
+                 v-if="errors.reference">
+              {{ errors.reference[0] }}
+            </div>
+          </div>
+
+          <!--Description-->
+          <div class="modal__group">
+            <label for="description" class="modal__label">Description</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="description"
+                   id="description"
+                   class="modal__input"
+                   v-model.trim="business.description"
+                   required>
+            <div class="modal__alert"
+                 v-if="errors.description">
+              {{ errors.description[0] }}
+            </div>
+          </div>
+
+          <!--Company-->
+          <div class="modal__group">
+            <label for="company_id" class="modal__label">Société</label>
+            <select name="company_id"
+                    id="company_id"
+                    class="modal__select"
+                    v-model.number.trim="business.company_id">
+              <option disabled>Sélectionnez une société</option>
+              <option v-for="(company, index) in companies"
+                      :value="company.id">
+                {{ company.name }}
+              </option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.company_id">
+              {{ errors.company_id[0] }}
+            </div>
+          </div>
+
+          <!--Contact-->
+          <div class="modal__group">
+            <label for="contact_id" class="modal__label">Contact</label>
+            <select name="contact_id"
+                    id="contact_id"
+                    class="modal__select"
+                    v-model.number.trim="business.contact_id">
+              <option disabled>Sélectionnez un contact</option>
+              <option v-for="(contact, index) in contacts"
+                      :value="contact.contact[index].id">
+                {{ contact.contact[index].name }}
+              </option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.contact_id">
+              {{ errors.contact_id[0] }}
+            </div>
+          </div>
+
+          <!--Buttons-->
+          <div class="modal__buttons">
+            <button class="btn btn--grey"
+                    @click.stop="toggleModal">
+              <i class="fal fa-times"></i>
+              Annuler
+            </button>
+            <button class="btn btn--black"
+                    @click.prevent="updateBusiness">
+              <i class="fal fa-check"></i>
+              Mettre à jour
+            </button>
           </div>
         </div>
       </div>
@@ -161,13 +144,12 @@
     },
     mixins: [mixins],
     computed: {
-
       /**
        * Get the contacts associated with the company.
        */
       contacts() {
         if (this.business.company_id !== '') {
-          return this.companies.filter((company) => {
+          return this.companies.filter(company => {
             return company.id === this.business.company_id
           })
         }

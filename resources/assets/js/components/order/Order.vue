@@ -1,66 +1,44 @@
 <template>
   <div>
-    <div class="col col-lg-1 hidden-md-down">
+    <div class="card__img">
       <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet"
-           class="img-bullet">
+           alt="Bullet point image">
     </div>
 
-    <div class="col-12 col-lg-2">
-
-      <!--Reference-->
-      <h5 class="mb-0">
-        <a :href="createRoute" v-if="order.status === 'incomplète'">
-          {{ order.reference }}
-        </a>
-        <a :href="showRoute" v-else>
-          {{ order.reference }}
-        </a>
-      </h5>
+    <div class="card__title">
+      <a :href="createRoute" v-if="order.status === 'incomplète'">
+        {{ order.reference }}
+      </a>
+      <a :href="showRoute" v-else>
+        {{ order.reference }}
+      </a>
     </div>
 
-    <div class="col-12 col-lg-2">
+    <div class="badge"
+         :class="statusClass">
+      {{ order.status | capitalize }}
+    </div>
 
-      <!--Status-->
-      <div class="badge badge-custom"
-            :class="statusClass"
-            v-text="order.status">
+    <div class="card__meta">
+      <div v-if="order.business">
+        <span class="card__label">Affaire</span>
+        {{ order.business.name }}
+      </div>
+      <div v-if="order.contact">
+        <span class="card__label">Facturation</span>
+        {{ order.contact.name }}
       </div>
     </div>
 
-    <div class="col-12 col-lg-3">
-
-      <!--Business-->
-      <div class="card-content"
-           v-if="order.business">
-        <span class="card-label">Affaire:</span>
-        <span v-text="order.business.name"></span>
+    <div class="card__meta">
+      <div>
+        <span class="card__label">Créé</span>
+        {{ getDate(order.created_at) }}
       </div>
-
-      <!--Contact-->
-      <div class="card-content"
-           v-if="order.contact">
-        <span class="card-label">Facturation:</span>
-        <span v-text="order.contact.name"></span>
+      <div>
+        <span class="card__label">Modifié</span>
+        {{ getDate(order.updated_at) }}
       </div>
-    </div>
-
-    <div class="col-12 col-lg-3">
-
-      <!--Created at-->
-      <div class="card-content">
-        <span class="card-label">Créé:</span>
-        <span v-text="getDate(order.created_at)"></span>
-      </div>
-
-      <!--Modified at-->
-      <div class="card-content">
-        <span class="card-label">Modifié:</span>
-        <span v-text="getDate(order.updated_at)"></span>
-      </div>
-    </div>
-
-    <div class="col-12 col-lg-1 center-on-small-only text-lg-right">
     </div>
   </div>
 </template>
@@ -99,14 +77,3 @@
     }
   }
 </script>
-
-<style scoped>
-  a {
-    color: inherit;
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-</style>

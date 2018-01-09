@@ -1,117 +1,97 @@
 <template>
   <div>
-    <a class="dropdown-item"
-       role="button"
-       @click.stop="toggleModal">
+    <div @click="toggleModal">
       <i class="fal fa-pencil"></i>
-      <span class="ml-3">Modifier</span>
-    </a>
+    </div>
 
-    <!--Background-->
     <transition name="fade">
-      <div class="modal-background"
+      <div class="modal__background"
            v-if="showModal"
-           @click.stop="toggleModal">
+           @click="toggleModal">
       </div>
     </transition>
 
-    <!--Modal Panel-->
     <transition name="slide">
-      <div class="modal-panel"
+      <div class="modal__slider"
            v-if="showModal"
            @keyup.esc="toggleModal"
            @keyup.enter="updateFormat">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10 col-lg-8 offset-lg-1">
 
-              <!--Title-->
-              <h3 class="mt-7 mb-5">Modifier le format</h3>
+        <div class="modal__container">
+          <h2 class="modal__title">Modifier {{ format.name }}</h2>
 
-              <!--Form-->
-              <form @submit.prevent>
-
-                <!--Name-->
-                <div class="form-group">
-                  <label for="name">Nom</label>
-                  <span class="required">*</span>
-                  <input type="text"
-                         id="name"
-                         name="name"
-                         class="form-control"
-                         v-model.trim="format.name"
-                         required autofocus>
-                  <div class="help-block"
-                       v-if="errors.name"
-                       v-text="errors.name[0]">
-                  </div>
-                </div>
-
-                <!--Height-->
-                <div class="form-group my-5">
-                  <label for="height">Hauteur</label>
-                  <span class="required">*</span>
-                  <input type="number"
-                         id="height"
-                         name="height"
-                         class="form-control"
-                         v-model.trim="format.height"
-                         required>
-                  <div class="help-block"
-                       v-if="errors.height"
-                       v-text="errors.height[0]">
-                  </div>
-                </div>
-
-                <!--Width-->
-                <div class="form-group my-5">
-                  <label for="width">Largeur</label>
-                  <span class="required">*</span>
-                  <input type="number"
-                         id="width"
-                         name="width"
-                         class="form-control"
-                         v-model.trim="format.width"
-                         required>
-                  <div class="help-block"
-                       v-if="errors.width"
-                       v-text="errors.width[0]">
-                  </div>
-                </div>
-
-                <!--Surface-->
-                <div class="form-group my-5">
-                  <label for="surface">Surface</label>
-                  <input type="text"
-                         id="surface"
-                         name="surface"
-                         class="form-control"
-                         v-model.trim="format.surface">
-                  <div class="help-block"
-                       v-if="errors.surface"
-                       v-text="errors.surface[0]">
-                  </div>
-                </div>
-
-                <!--Buttons-->
-                <div class="form-group d-flex flex-column flex-lg-row my-6">
-                  <div class="col-12 col-lg-5 px-0 pr-lg-2">
-                    <button class="btn btn-block btn-lg btn-white"
-                            @click.stop="toggleModal">
-                      <i class="fal fa-times mr-2"></i>
-                      Annuler
-                    </button>
-                  </div>
-                  <div class="col-12 col-lg-7 px-0 pl-lg-2">
-                    <button class="btn btn-block btn-lg btn-black"
-                            @click.prevent="updateFormat">
-                      <i class="fal fa-check mr-2"></i>
-                      Modifier
-                    </button>
-                  </div>
-                </div>
-              </form>
+          <!--Name-->
+          <div class="modal__group">
+            <label for="name" class="modal__label">Nom</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="name"
+                   id="name"
+                   class="modal__input"
+                   v-model.trim="format.name"
+                   required autofocus>
+            <div class="modal__alert"
+                 v-if="errors.name">
+              {{ errors.name[0] }}
             </div>
+          </div>
+
+          <!--Height-->
+          <div class="modal__group">
+            <label for="height" class="modal__label">Hauteur</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="height"
+                   id="height"
+                   class="modal__input"
+                   v-model.trim="format.height">
+            <div class="modal__alert"
+                 v-if="errors.height">
+              {{ errors.height[0] }}
+            </div>
+          </div>
+
+          <!--Width-->
+          <div class="modal__group">
+            <label for="width" class="modal__label">Largeur</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="width"
+                   id="width"
+                   class="modal__input"
+                   v-model.trim="format.width">
+            <div class="modal__alert"
+                 v-if="errors.width">
+              {{ errors.width[0] }}
+            </div>
+          </div>
+
+          <!--Surface-->
+          <div class="modal__group">
+            <label for="surface" class="modal__label">Surface</label>
+            <input type="text"
+                   name="surface"
+                   id="surface"
+                   class="modal__input"
+                   v-model.trim="format.surface">
+            <div class="modal__alert"
+                 v-if="errors.surface">
+              {{ errors.surface[0] }}
+            </div>
+          </div>
+
+          <!--Buttons-->
+          <div class="modal__buttons">
+            <button class="btn btn--grey"
+                    @click.stop="toggleModal">
+              <i class="fal fa-times"></i>
+              Annuler
+            </button>
+            <button class="btn btn--black"
+                    @click.prevent="updateFormat">
+              <i class="fal fa-check"></i>
+              Mettre à jour
+            </button>
           </div>
         </div>
       </div>
@@ -125,10 +105,10 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: ['data'],
+    props: ['data-format'],
     data() {
       return {
-        format: this.data,
+        format: this.dataFormat,
         errors: {}
       }
     },

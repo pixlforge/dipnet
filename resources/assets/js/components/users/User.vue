@@ -1,106 +1,79 @@
 <template>
   <div>
-    <div class="col col-lg-1 hidden-md-down">
+    <div class="card__img">
       <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet"
-           class="img-bullet">
+           alt="Bullet point image">
     </div>
 
-    <div class="col-12 col-lg-2">
-
-      <!--Username-->
-      <h5 class="mb-0"
-          v-text="user.username">
-      </h5>
+    <div class="card__title">
+      {{ user.username| capitalize }}
     </div>
 
-    <div class="col-12 col-lg-3">
-
-      <!--Role-->
-      <div class="card-content">
-        <span class="card-label">Role:</span>
-        <span>{{ user.role | capitalize }}</span>
+    <div class="card__meta">
+      <div>
+        <span class="card__label">Role</span>
+        {{ user.role| capitalize }}
       </div>
-
-      <!--Email-->
-      <div class="card-content">
-        <span class="card-label">Email:</span>
-        <span v-text="user.email"></span>
+      <div>
+        <span class="card__label">Email</span>
+        {{ user.email }}
       </div>
-
-      <!--Company-->
-      <div class="card-content">
-        <span class="card-label">Société:</span>
-        <span v-text="user.company.name"></span>
+      <div>
+        <span class="card__label">Société</span>
+        {{ user.company.name | capitalize }}
       </div>
     </div>
 
-    <div class="col-12 col-lg-2">
-
-      <!--Email confirmed-->
-      <div class="card-content">
-        <span class="card-label">Compte:</span>
-        <span v-if="user.email_confirmed"><i class="fal fa-check-circle text-success"></i></span>
-        <span v-else><i class="fal fa-times-circle text-warning"></i></span>
+    <!--User info-->
+    <div class="card__meta">
+      <div>
+        <span class="card__label">Compte</span>
+        <span v-if="user.email_confirmed">
+          <i class="fal fa-check-circle text-success"></i>
+        </span>
+        <span v-else>
+          <i class="fal fa-times-circle text-warning"></i>
+        </span>
       </div>
-
-      <!--Contact confirmed-->
-      <div class="card-content">
-        <span class="card-label">Contact:</span>
-        <span v-if="user.contact_confirmed"><i class="fal fa-check-circle text-success"></i></span>
-        <span v-else><i class="fal fa-times-circle text-warning"></i></span>
+      <div>
+        <span class="card__label">Contact</span>
+        <span v-if="user.contact_confirmed">
+          <i class="fal fa-check-circle text-success"></i>
+        </span>
+        <span v-else>
+          <i class="fal fa-times-circle text-warning"></i>
+        </span>
       </div>
-
-      <!--Company confirmed-->
-      <div class="card-content">
-        <span class="card-label">Société:</span>
-        <span v-if="user.company_confirmed"><i class="fal fa-check-circle text-success"></i></span>
-        <span v-else><i class="fal fa-times-circle text-warning"></i></span>
-      </div>
-
-    </div>
-
-    <div class="col-12 col-lg-3">
-
-      <!--Created at-->
-      <div class="card-content">
-        <span class="card-label">Créé:</span>
-        <span v-text="getDate(user.created_at)"></span>
-      </div>
-
-      <!--Modified at-->
-      <div class="card-content">
-        <span class="card-label">Modifié:</span>
-        <span v-text="getDate(user.updated_at)"></span>
+      <div>
+        <span class="card__label">Société</span>
+        <span v-if="user.company_confirmed">
+          <i class="fal fa-check-circle text-success"></i>
+        </span>
+        <span v-else>
+          <i class="fal fa-times-circle text-warning"></i>
+        </span>
       </div>
     </div>
 
-    <div class="col-12 col-lg-1 center-on-small-only text-lg-right">
-      <div class="dropdown">
-        <a class="btn btn-transparent btn-sm"
-           type="button"
-           id="dropdownMenuLink"
-           data-toggle="dropdown"
-           aria-haspopup="true"
-           aria-expanded="false">
-          <i class="fal fa-ellipsis-v fa-lg" aria-hidden="true"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right"
-             aria-labelledby="dropdownMenuLink">
+    <div class="card__meta">
+      <div>
+        <span class="card__label">Créé</span>
+        {{ getDate(user.created_at) }}
+      </div>
+      <div>
+        <span class="card__label">Modifié</span>
+        {{ getDate(user.updated_at) }}
+      </div>
+    </div>
 
-          <!--Edit-->
-          <app-edit-user :data-user="user"
-                         :data-companies="companies">
-          </app-edit-user>
-
-          <!--Delete-->
-          <a class="dropdown-item text-danger"
-             role="button"
-             @click.prevent="destroy">
-            <i class="fal fa-times"></i>
-            <span class="ml-3">Supprimer</span>
-          </a>
-        </div>
+    <div class="card__controls">
+      <div>
+        <app-edit-user :data-user="user"
+                       :data-companies="companies">
+        </app-edit-user>
+      </div>
+      <div @click="destroy">
+        <i class="fal fa-times"></i>
       </div>
     </div>
   </div>

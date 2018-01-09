@@ -1,99 +1,55 @@
 <template>
   <div>
-    <div class="col col-lg-1 hidden-md-down">
+    <div class="card__img">
       <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet"
-           class="img-bullet">
+           alt="Bullet point image">
     </div>
 
-    <div class="col-12 col-lg-2">
-
-      <!--Name-->
-      <h5 class="mb-0"
-          v-text="business.name">
-      </h5>
+    <div class="card__title">
+      {{ business.name | capitalize }}
     </div>
 
-    <div class="col-12 col-lg-3 pl-0">
-
-      <!--Reference-->
-      <div class="card-content">
-        <span class="card-label">Référence:</span>
-        <span v-text="business.reference"></span>
+    <div class="card__meta">
+      <div>
+        <span class="card__label">Référence</span>
+        {{ business.reference }}
       </div>
-
-      <!--Description-->
-      <div class="card-content"
-           v-if="business.description">
-        <span class="card-label">Description:</span>
-        <span v-text="business.description"></span>
+      <div>
+        <span class="card__label">Description</span>
+        {{ business.description | capitalize }}
       </div>
     </div>
 
-    <div class="col-12 col-lg-2 pl-0">
-
-      <!--Company-->
-      <div class="card-content">
-        <span class="card-label">Société:</span>
-        <span v-text="business.company.name"></span>
+    <div class="card__meta">
+      <div>
+        <span class="card__label">Société</span>
+        {{ business.company.name | capitalize }}
       </div>
-
-      <!--Contact-->
-      <div class="card-content">
-        <span class="card-label">Contact:</span>
-        <span v-text="business.contact.name"></span>
-      </div>
-
-      <!--Created by username-->
-      <div class="card-content">
-        <span class="card-label">Créé par:</span>
-        <span v-text="business.created_by_username"></span>
+      <div>
+        <span class="card__label">Contact</span>
+        {{ business.contact.name | capitalize }}
       </div>
     </div>
 
-    <div class="col-12 col-lg-3">
-
-      <!--Created at-->
-      <div class="card-content">
-        <span class="card-label">Créé:</span>
-        <span v-text="getDate(business.created_at)"></span>
+    <div class="card__meta">
+      <div>
+        <span class="card__label">Créé</span>
+        {{ getDate(business.created_at) }}
       </div>
-
-      <!--Modified at-->
-      <div class="card-content">
-        <span class="card-label">Modifié:</span>
-        <span v-text="getDate(business.updated_at)"></span>
+      <div>
+        <span class="card__label">Modifié</span>
+        {{ getDate(business.updated_at) }}
       </div>
     </div>
 
-    <div class="col-12 col-lg-1 center-on-small-only text-lg-right">
-      <div class="dropdown">
-        <a class="btn btn-transparent btn-sm"
-           type="button"
-           id="dropdownMenuLink"
-           data-toggle="dropdown"
-           aria-haspopup="true"
-           aria-expanded="false">
-          <i class="fal fa-ellipsis-v fa-lg"
-             aria-hidden="true">
-          </i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right"
-             aria-labelledby="Dropdown menu link">
-
-          <!--Edit-->
-          <app-edit-business :data-business="business"
-                             :data-companies="companies">
-          </app-edit-business>
-
-          <!--Delete-->
-          <a class="dropdown-item text-danger"
-             role="button"
-             @click.prevent="destroy">
-            <i class="fal fa-times"></i>
-            <span class="ml-3">Supprimer</span>
-          </a>
-        </div>
+    <div class="card__controls">
+      <div>
+        <app-edit-business :data-business="business"
+                           :data-companies="companies">
+        </app-edit-business>
+      </div>
+      <div @click="destroy">
+        <i class="fal fa-times"></i>
       </div>
     </div>
   </div>
