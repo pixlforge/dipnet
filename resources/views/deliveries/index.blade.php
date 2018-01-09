@@ -6,6 +6,7 @@
 
     @include ('layouts.partials._nav')
 
-   <h1>Deliveries</h1>
+   <app-deliveries :data-deliveries="{{ $deliveries }}">
+   </app-deliveries>
 
 @endsection

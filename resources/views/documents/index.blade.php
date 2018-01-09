@@ -4,8 +4,9 @@
 
 @section ('content')
 
-    @include ('layouts.nav')
+  @include ('layouts.partials._nav')
 
-    <h1>Documents</h1>
+  <app-documents :data-documents="{{ $documents }}">
+  </app-documents>
 
 @endsection
