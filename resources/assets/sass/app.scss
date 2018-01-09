@@ -1,12 +1,5 @@
-// Bootstrap
-//@import "node_modules/bootstrap/scss/bootstrap-reboot.scss";
-//@import "node_modules/bootstrap/scss/bootstrap.scss";
-//@import "node_modules/bootstrap/scss/bootstrap-grid.scss";
-
-// Dropzone
 @import "node_modules/dropzone/dist/dropzone";
 
-// Updated
 @import "base/colors";
 @import "base/grid";
 @import "base/typography";
@@ -25,21 +18,14 @@
 @import "components/card";
 @import "components/badge";
 @import "components/modal";
+@import "components/carousel";
+@import "components/animations";
+@import "components/spinners";
+@import "components/dropzone";
+@import "components/errors";
+@import "components/datepicker";
 
 @import "pages/alert";
 @import "pages/company-profile";
 @import "pages/order";
-
-// TODO Replace
-@import "partials/errors.scss";
-//@import "partials/buttons.scss";
-@import "partials/forms.scss";
-@import "partials/carousel.scss";
-@import "partials/components.scss";
-//@import "partials/modals.scss";
-@import "partials/animations.scss";
-@import "partials/spinners.scss";
-@import "partials/dropzone.scss";
-@import "partials/dropdown.scss";
-@import "partials/datepicker.scss";
-
+@import "pages/login";

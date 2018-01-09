@@ -9,14 +9,14 @@
   border-radius: 3px;
 
   &--success {
-    background: $bg-success;
+    background-color: $bg-success;
   }
 
-  &badge--warning {
-    background: $bg-warning;
+  &--warning {
+    background-color: $bg-warning;
   }
 
-  &badge--danger {
+  &--danger {
     background-color: $bg-red;
   }
 }

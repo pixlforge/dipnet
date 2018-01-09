@@ -28,7 +28,6 @@ Vue.component('app-contacts', require('./components/contact/Contacts.vue'))
 Vue.component('app-formats', require('./components/format/Formats.vue'))
 Vue.component('app-businesses', require('./components/business/Businesses.vue'))
 Vue.component('app-show-company', require('./components/company/ShowCompany.vue'))
-
 Vue.component('app-articles', require('./components/article/Articles.vue'))
 Vue.component('app-users', require('./components/users/Users.vue'))
 Vue.component('app-companies', require('./components/company/Companies.vue'))
@@ -38,6 +37,7 @@ Vue.component('app-deliveries', require('./components/delivery/Deliveries'))
 Vue.component('app-create-order', require('./components/order/CreateOrder.vue'))
 Vue.component('app-order-admin', require('./components/order/AdminOrder'))
 Vue.component('app-add-default-business', require('./components/business/AddDefaultBusiness'))
+Vue.component('app-login', require('./components/login/Login'))
 
 export const eventBus = new Vue()
 

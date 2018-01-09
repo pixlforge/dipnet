@@ -15,7 +15,7 @@
         <ul class="navbar__links">
           <li>
             <a :href="routeOrders"
-               :class="{'active': dataRouteName.includes('orders')}">
+               :class="{'active': dataRouteName.includes('orders') || dataRouteName === 'index'}">
               Commandes
             </a>
           </li>
