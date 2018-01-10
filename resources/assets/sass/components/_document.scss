@@ -4,17 +4,15 @@
   }
 
   &__container {
-    width: 100%;
+    width: 84%;
     display: flex;
+    margin: 2rem auto;
     padding-bottom: 1rem;
     background-color: $white;
     box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.1);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
 
     &--preview {
       box-shadow: 0 49px 29px 0 rgba(0, 0, 0, 0.14);
-      margin-top: 3.5rem;
       margin-bottom: 0;
     }
   }
@@ -37,7 +35,7 @@
   }
 
   &__title {
-    font-size: 1.25rem;
+    font-size: 1.8rem;
     margin-top: 1rem;
   }
 
@@ -48,7 +46,7 @@
 
   &__option-label {
     width: 100%;
-    font-size: 12px;
+    font-size: 1.2rem;
     font-weight: 300;
     color: $scorpion;
   }
@@ -134,12 +132,15 @@
   }
 
   &__input {
+    font-size: 1.4rem;
     outline: none;
     padding-bottom: .5rem;
     border: none;
     border-bottom: 1px solid $lighter-grey;
-    transition: border-bottom .3s;
+    transition: border-bottom .2s;
+    margin-top: 1rem;
 
+    &:hover,
     &:focus,
     &:active {
       border-bottom: 1px solid $bg-red;
@@ -153,7 +154,7 @@
 
   &__icon-delete,
   &__icon-clone {
-    font-size: 2rem;
+    font-size: 2.5rem;
     padding: 1.5rem;
     cursor: pointer;
     transition: color .2s;

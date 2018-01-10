@@ -3,11 +3,11 @@
     <div class="delivery__header">
       <div class="delivery__header-box">
         <div class="delivery__details">
-          <div class="badge badge-order"
+          <div class="badge__order"
                v-text="dataDeliveryNumber">
           </div>
           <h3 class="delivery__label">Livraison à</h3>
-          <h3>
+          <h3 class="delivery__label delivery__label--dropdown">
             <app-dropdown :label="selectedContact"
                           :list-items="listContacts"
                           add-contact-component="true"
@@ -46,7 +46,7 @@
       </div>
     </div>
     <transition name="fade">
-      <textarea class="v-order-textarea"
+      <textarea class="delivery__textarea"
                 placeholder="Faîtes nous part de vos commentaires pour cette livraison ici."
                 @blur="updateNote"
                 v-model="delivery.note"

@@ -1,20 +1,20 @@
 .delivery {
+  background-color: $alabaster;
+  padding-bottom: 1rem;
+
   &__container {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    flex: 0 0 83.333333%;
-    max-width: 83.333333%;
-    margin: auto;
-    padding-top: 4.5rem;
-    padding-bottom: 6.25rem;
+    padding-bottom: 10rem;
 
     &--white {
       background-color: $white;
-      margin-top: 33px;
+      margin-top: 3.3rem;
       box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.1);
 
       &:first-child {
-        margin-top: 80px;
+        margin-top: 8rem;
       }
     }
 
@@ -31,25 +31,37 @@
   }
 
   &__header {
+    width: 84vw;
+    margin: 3rem auto;
+    padding-top: 6rem;
     display: flex;
+    align-items: center;
+
+    @media all and (max-width: $bp-lg) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    &--preview {
+      align-items: flex-start;
+    }
   }
 
   &__header-box {
-    margin-right: 12rem;
+    margin-right: 5rem;
 
     &--white {
       color: $white;
-
     }
   }
 
   &__details {
     display: flex;
     align-items: center;
-    width: 400px;
+    width: 40rem;
 
     &--preview {
-      width: 520px;
+      width: 50rem;
     }
 
     &--admin {
@@ -70,8 +82,9 @@
   }
 
   &__label {
+    font-size: 2.4rem;
     font-weight: 300;
-    margin-right: .5rem;
+    margin-right: .75rem;
 
     &--white {
       color: $white;
@@ -80,9 +93,18 @@
     &--light-grey {
       color: $light-grey;
     }
+
+    &--dropdown {
+      transform: translateY(.1rem);
+    }
+
+    &--datepicker {
+      transform: translateY(.5rem);
+    }
   }
 
   &__info {
+    font-size: 2.4rem;
     color: $white;
     font-weight: 400;
   }
@@ -92,13 +114,29 @@
     padding: 0;
 
     li {
-      margin: .25rem 0;
+      margin: .5rem 0;
     }
 
     &--admin {
       display: block;
       width: 20rem;
-      margin-left: 7.2rem;
+      margin-left: 8rem;
+    }
+  }
+
+  &__textarea {
+    width: 84%;
+    border: none;
+    padding: 4rem;
+    margin: 1rem auto;
+    display: block;
+    resize: none;
+    box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
+    font-size: 1.4rem;
+
+    &::-webkit-input-placeholder,
+    &::-moz-placeholder {
+      color: $lighter-grey;
     }
   }
 
@@ -131,9 +169,14 @@
 
     h2 {
       width: 75%;
-      font-size: 24px;
+      font-size: 2.4rem;
       font-weight: 300;
     }
+  }
+
+  &__business {
+    padding-bottom: 6rem;
+    border-bottom: 1px solid $concrete;
   }
 
   &__terms {
@@ -146,7 +189,7 @@
     }
 
     input {
-      margin-right: .75rem;
+      margin-right: 1rem;
       zoom: 1.5;
     }
 
@@ -174,7 +217,7 @@
       flex-direction: column;
 
       & > button {
-        margin-bottom: .95rem;
+        margin-bottom: 1rem;
       }
     }
   }
@@ -182,7 +225,7 @@
   &__icon-destroy {
     position: absolute;
     right: -6rem;
-    font-size: 2rem;
+    font-size: 2.5rem;
     color: $tundora;
     cursor: pointer;
 
@@ -195,7 +238,7 @@
 
   &__note-control {
     cursor: pointer;
-    margin-top: .75rem;
+    margin-top: 1rem;
 
     &:hover {
       text-decoration: underline;

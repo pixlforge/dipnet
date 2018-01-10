@@ -4,156 +4,134 @@
 
       <!--Preview-->
       <div key="preview" v-if="showPreview">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10 my-5 mx-auto">
-              <div class="row">
-                <div class="order__container">
-                  <h1 class="order__title">Prévisualisation de la commande</h1>
-                  <div class="order__header"></div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row"
-               v-for="(delivery, index) in listDeliveries"
-               :key="index"
-               :class="'bg-red-' + (index + 1)">
-            <app-preview-delivery class="delivery__container"
-                                  :data-order="order"
-                                  :data-delivery="delivery"
-                                  :data-delivery-number="index + 1"
-                                  :data-documents="documents"
-                                  @removeDelivery="removeDelivery">
-            </app-preview-delivery>
-          </div>
 
-          <div class="delivery__business">
-            <h2>
-              Associé à l'affaire
-              <strong>{{ order.business.name | capitalize }}</strong>
-            </h2>
-            <ul class="delivery__list">
-              <li>{{ order.business.name }}</li>
-              <li>{{ order.business.reference }}</li>
-            </ul>
-          </div>
-          <hr>
-          <div class="delivery__billed-to">
-            <h2>
-              Facturation à
-              <strong>{{ order.contact.name | capitalize }}</strong>
-            </h2>
-            <ul class="delivery__list">
-              <li>{{ order.contact.name }}</li>
-              <li>{{ order.contact.address_line1 }}</li>
-              <li>{{ order.contact.address_line2 }}</li>
-              <li>{{ order.contact.zip }} {{ order.contact.city }}</li>
-              <li>{{ order.contact.phone_number }}</li>
-              <li>{{ order.contact.fax }}</li>
-              <li>{{ order.contact.email }}</li>
-            </ul>
-          </div>
-          <div class="delivery__terms">
-            <label>
-              <input type="checkbox" v-model="terms">
-              <div>
-                J'ai lu et j'accepte les Conditions Générales de Vente (CGV)
-              </div>
-            </label>
-          </div>
-          <div class="delivery__terms-link">
-            <p><a href="javascript:;">Conditions Générales de Vente</a></p>
-          </div>
-          <div class="order__footer">
-            <button class="btn btn--grey"
-                    @click="goToOrder()">
-              Retour
-            </button>
-            <button class="btn btn--black"
-                    @click="completeOrder()"
-                    :disabled="!terms">
-              Commander
-            </button>
-          </div>
+        <div class="header__container">
+          <h1 class="header__title">Prévisualisation de la commande</h1>
+          <div></div>
+        </div>
+        <app-preview-delivery v-for="(delivery, index) in listDeliveries"
+                              :key="index"
+                              class="delivery__container"
+                              :class="'bg-red-' + (index + 1)"
+                              :data-order="order"
+                              :data-delivery="delivery"
+                              :data-delivery-number="index + 1"
+                              :data-documents="documents"
+                              @removeDelivery="removeDelivery">
+        </app-preview-delivery>
+        <div class="delivery__business">
+          <h2>
+            Associé à l'affaire
+            <strong>{{ order.business.name | capitalize }}</strong>
+          </h2>
+          <ul class="delivery__list">
+            <li>{{ order.business.name }}</li>
+            <li>{{ order.business.reference }}</li>
+          </ul>
+        </div>
+        <div class="delivery__billed-to">
+          <h2>
+            Facturation à
+            <strong>{{ order.contact.name | capitalize }}</strong>
+          </h2>
+          <ul class="delivery__list">
+            <li>{{ order.contact.name }}</li>
+            <li>{{ order.contact.address_line1 }}</li>
+            <li>{{ order.contact.address_line2 }}</li>
+            <li>{{ order.contact.zip }} {{ order.contact.city }}</li>
+            <li>{{ order.contact.phone_number }}</li>
+            <li>{{ order.contact.fax }}</li>
+            <li>{{ order.contact.email }}</li>
+          </ul>
+        </div>
+        <div class="delivery__terms">
+          <label>
+            <input type="checkbox" v-model="terms">
+            <div>
+              J'ai lu et j'accepte les Conditions Générales de Vente (CGV)
+            </div>
+          </label>
+        </div>
+        <div class="delivery__terms-link">
+          <p><a href="javascript:;">Conditions Générales de Vente</a></p>
+        </div>
+        <div class="order__footer">
+          <button class="btn btn--grey"
+                  @click="goToOrder()">
+            Retour
+          </button>
+          <button class="btn btn--black"
+                  @click="completeOrder()"
+                  :disabled="!terms">
+            Commander
+          </button>
         </div>
       </div>
 
       <!--Order-->
       <div key="order" v-else>
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10 my-5 mx-auto">
-              <div class="row">
-                <div class="order__container">
-                  <h1 class="order__title">Nouvelle commande</h1>
-                  <div class="order__header">
+        <div class="header__container">
+          <h1 class="header__title">Nouvelle commande</h1>
+          <div class="order__header">
 
-                    <!--Business-->
-                    <div class="order__business">
-                      <h6 class="order__label">Affaire</h6>
-                      <app-dropdown :label="selectedBusiness"
-                                    :list-items="listBusinesses"
-                                    @itemSelected="selectBusiness">
-                      </app-dropdown>
-                    </div>
+            <!--Business-->
+            <div class="order__business">
+              <h6 class="order__label">Affaire</h6>
+              <app-dropdown :label="selectedBusiness"
+                            :list-items="listBusinesses"
+                            @itemSelected="selectBusiness">
+              </app-dropdown>
+            </div>
 
-                    <!--Billing-->
-                    <div class="order__billing">
-                      <h6 class="order__label">Facturation</h6>
-                      <app-dropdown :label="selectedContact"
-                                    :list-items="listContacts"
-                                    add-contact-component="true"
-                                    @itemSelected="selectContact">
-                      </app-dropdown>
-                    </div>
-                  </div>
-
-                  <!--Add Contact-->
-                  <app-add-contact class="v-hidden"
-                                   @contactWasCreated="addContact">
-                  </app-add-contact>
-                </div>
-              </div>
+            <!--Billing-->
+            <div class="order__billing">
+              <h6 class="order__label">Facturation</h6>
+              <app-dropdown :label="selectedContact"
+                            :list-items="listContacts"
+                            add-contact-component="true"
+                            @itemSelected="selectContact">
+              </app-dropdown>
             </div>
           </div>
 
-          <transition-group name="order">
-            <div class="row bg-grey-light my-2"
-                 v-for="(delivery, index) in listDeliveries"
-                 :key="index">
-              <div class="col-10 mx-auto my-6">
-                <app-create-delivery :data-order="order"
-                                     :data-delivery="delivery"
-                                     :data-delivery-number="index + 1"
-                                     :data-documents="documents"
-                                     @removeDelivery="removeDelivery">
-                </app-create-delivery>
-              </div>
-            </div>
-          </transition-group>
-
-          <div class="order__controls"
-               role="button"
-               @click="addDelivery">
-            <h4 class="order__controls-label">
-              <i class="fal fa-plus-circle mr-2"></i>
-              <span>Ajouter une livraison</span>
-            </h4>
-          </div>
-
-          <div class="order__errors" v-if="errors.length">
-            <i class="fal fa-exclamation-triangle"></i>
-            {{ errors[0].message }}
-          </div>
-
-          <div class="order__footer">
-            <button class="btn btn--black" @click="goToPreview()">Aperçu de la commande</button>
-          </div>
+          <!--Add Contact-->
+          <app-add-contact class="v-hidden"
+                           @contactWasCreated="addContact">
+          </app-add-contact>
         </div>
+
+        <transition-group name="order">
+          <app-create-delivery class="delivery"
+                               v-for="(delivery, index) in listDeliveries"
+                               :key="index" :data-order="order"
+                               :data-delivery="delivery"
+                               :data-delivery-number="index + 1"
+                               :data-documents="documents"
+                               @removeDelivery="removeDelivery">
+          </app-create-delivery>
+        </transition-group>
+
+        <div class="order__controls"
+             role="button"
+             @click="addDelivery">
+          <h4 class="order__controls-label">
+            <i class="fal fa-plus-circle mr-2"></i>
+            <span>Ajouter une livraison</span>
+          </h4>
+        </div>
+
+        <div class="order__errors" v-if="errors.length">
+          <i class="fal fa-exclamation-triangle"></i>
+          {{ errors[0].message }}
+        </div>
+
+        <div class="order__footer">
+          <button class="btn btn--black" @click="goToPreview()">Aperçu de la commande</button>
+        </div>
+
       </div>
     </transition>
-    <!--Loader-->
+
     <app-moon-loader :loading="loaderState"
                      :color="loader.color"
                      :size="loader.size">
@@ -187,7 +165,7 @@
         selectedBusiness: 'Affaire',
         selectedContact: 'Contact',
         errors: [],
-        showPreview: false,
+        showPreview: true,
         terms: false
       }
     },

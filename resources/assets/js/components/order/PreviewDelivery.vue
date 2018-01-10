@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="delivery__header">
+    <div class="delivery__header delivery__header--preview">
       <div class="delivery__header-box delivery__header-box--white">
         <div class="delivery__details delivery__details--preview">
           <h3 class="delivery__label delivery__label--white">Livraison à</h3>

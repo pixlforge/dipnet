@@ -37790,28 +37790,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -37831,7 +37809,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       selectedBusiness: 'Affaire',
       selectedContact: 'Contact',
       errors: [],
-      showPreview: false,
+      showPreview: true,
       terms: false
     };
   },
@@ -55550,13 +55528,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "delivery__details"
   }, [_c('div', {
-    staticClass: "badge badge-order",
+    staticClass: "badge__order",
     domProps: {
       "textContent": _vm._s(_vm.dataDeliveryNumber)
     }
   }), _vm._v(" "), _c('h3', {
     staticClass: "delivery__label"
-  }, [_vm._v("Livraison à")]), _vm._v(" "), _c('h3', [_c('app-dropdown', {
+  }, [_vm._v("Livraison à")]), _vm._v(" "), _c('h3', {
+    staticClass: "delivery__label delivery__label--dropdown"
+  }, [_c('app-dropdown', {
     attrs: {
       "label": _vm.selectedContact,
       "list-items": _vm.listContacts,
@@ -55611,7 +55591,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       value: (_vm.delivery.note),
       expression: "delivery.note"
     }],
-    staticClass: "v-order-textarea",
+    staticClass: "delivery__textarea",
     attrs: {
       "placeholder": "Faîtes nous part de vos commentaires pour cette livraison ici."
     },
@@ -56493,26 +56473,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.showPreview) ? _c('div', {
     key: "preview"
   }, [_c('div', {
-    staticClass: "container-fluid"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-10 my-5 mx-auto"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "order__container"
+    staticClass: "header__container"
   }, [_c('h1', {
-    staticClass: "order__title"
-  }, [_vm._v("Prévisualisation de la commande")]), _vm._v(" "), _c('div', {
-    staticClass: "order__header"
-  })])])])]), _vm._v(" "), _vm._l((_vm.listDeliveries), function(delivery, index) {
-    return _c('div', {
+    staticClass: "header__title"
+  }, [_vm._v("Prévisualisation de la commande")]), _vm._v(" "), _c('div')]), _vm._v(" "), _vm._l((_vm.listDeliveries), function(delivery, index) {
+    return _c('app-preview-delivery', {
       key: index,
-      staticClass: "row",
-      class: 'bg-red-' + (index + 1)
-    }, [_c('app-preview-delivery', {
       staticClass: "delivery__container",
+      class: 'bg-red-' + (index + 1),
       attrs: {
         "data-order": _vm.order,
         "data-delivery": delivery,
@@ -56522,14 +56490,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "removeDelivery": _vm.removeDelivery
       }
-    })], 1)
+    })
   }), _vm._v(" "), _c('div', {
     staticClass: "delivery__business"
-  }, [_c('h2', [_vm._v("\n            Associé à l'affaire\n            "), _c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.order.business.name)))])]), _vm._v(" "), _c('ul', {
+  }, [_c('h2', [_vm._v("\n          Associé à l'affaire\n          "), _c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.order.business.name)))])]), _vm._v(" "), _c('ul', {
     staticClass: "delivery__list"
-  }, [_c('li', [_vm._v(_vm._s(_vm.order.business.name))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.business.reference))])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_c('li', [_vm._v(_vm._s(_vm.order.business.name))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.business.reference))])])]), _vm._v(" "), _c('div', {
     staticClass: "delivery__billed-to"
-  }, [_c('h2', [_vm._v("\n            Facturation à\n            "), _c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.order.contact.name)))])]), _vm._v(" "), _c('ul', {
+  }, [_c('h2', [_vm._v("\n          Facturation à\n          "), _c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.order.contact.name)))])]), _vm._v(" "), _c('ul', {
     staticClass: "delivery__list"
   }, [_c('li', [_vm._v(_vm._s(_vm.order.contact.name))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.address_line1))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.address_line2))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.zip) + " " + _vm._s(_vm.order.contact.city))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.phone_number))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.fax))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.order.contact.email))])])]), _vm._v(" "), _c('div', {
     staticClass: "delivery__terms"
@@ -56564,7 +56532,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }
-  }), _vm._v(" "), _c('div', [_vm._v("\n              J'ai lu et j'accepte les Conditions Générales de Vente (CGV)\n            ")])])]), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), _c('div', [_vm._v("\n            J'ai lu et j'accepte les Conditions Générales de Vente (CGV)\n          ")])])]), _vm._v(" "), _c('div', {
     staticClass: "delivery__terms-link"
   }, [_c('p', [_c('a', {
     attrs: {
@@ -56579,7 +56547,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.goToOrder()
       }
     }
-  }, [_vm._v("\n            Retour\n          ")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("\n          Retour\n        ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--black",
     attrs: {
       "disabled": !_vm.terms
@@ -56589,20 +56557,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.completeOrder()
       }
     }
-  }, [_vm._v("\n            Commander\n          ")])])], 2)]) : _c('div', {
+  }, [_vm._v("\n          Commander\n        ")])])], 2) : _c('div', {
     key: "order"
   }, [_c('div', {
-    staticClass: "container-fluid"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-10 my-5 mx-auto"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "order__container"
+    staticClass: "header__container"
   }, [_c('h1', {
-    staticClass: "order__title"
+    staticClass: "header__title"
   }, [_vm._v("Nouvelle commande")]), _vm._v(" "), _c('div', {
     staticClass: "order__header"
   }, [_c('div', {
@@ -56635,17 +56595,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "contactWasCreated": _vm.addContact
     }
-  })], 1)])])]), _vm._v(" "), _c('transition-group', {
+  })], 1), _vm._v(" "), _c('transition-group', {
     attrs: {
       "name": "order"
     }
   }, _vm._l((_vm.listDeliveries), function(delivery, index) {
-    return _c('div', {
+    return _c('app-create-delivery', {
       key: index,
-      staticClass: "row bg-grey-light my-2"
-    }, [_c('div', {
-      staticClass: "col-10 mx-auto my-6"
-    }, [_c('app-create-delivery', {
+      staticClass: "delivery",
       attrs: {
         "data-order": _vm.order,
         "data-delivery": delivery,
@@ -56655,7 +56612,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "removeDelivery": _vm.removeDelivery
       }
-    })], 1)])
+    })
   })), _vm._v(" "), _c('div', {
     staticClass: "order__controls",
     attrs: {
@@ -56672,7 +56629,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "order__errors"
   }, [_c('i', {
     staticClass: "fal fa-exclamation-triangle"
-  }), _vm._v("\n          " + _vm._s(_vm.errors[0].message) + "\n        ")]) : _vm._e(), _vm._v(" "), _c('div', {
+  }), _vm._v("\n        " + _vm._s(_vm.errors[0].message) + "\n      ")]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "order__footer"
   }, [_c('button', {
     staticClass: "btn btn--black",
@@ -56681,7 +56638,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.goToPreview()
       }
     }
-  }, [_vm._v("Aperçu de la commande")])])], 1)])]), _vm._v(" "), _c('app-moon-loader', {
+  }, [_vm._v("Aperçu de la commande")])])], 1)]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -60335,7 +60292,7 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('div', {
-    staticClass: "delivery__header"
+    staticClass: "delivery__header delivery__header--preview"
   }, [_c('div', {
     staticClass: "delivery__header-box delivery__header-box--white"
   }, [_c('div', {
