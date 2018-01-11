@@ -1,11 +1,13 @@
 <template>
-  <div class="alert alert-flash z-depth-1"
-       :class="alertClass"
-       role="alert"
-       v-show="show">
-    <i class="fal fa-info-circle mr-3"></i>
-    {{ body }}
-  </div>
+  <transition name="fade">
+    <div class="alert"
+         :class="alertClass"
+         role="alert"
+         v-show="show">
+      <i class="fal fa-info-circle"></i>
+      {{ body }}
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -29,7 +31,7 @@
     },
     computed: {
       alertClass() {
-        return 'alert-' + this.alertLevel;
+        return 'alert--' + this.alertLevel;
       },
     },
     methods: {
