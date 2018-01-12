@@ -142,6 +142,7 @@ class OrderController extends Controller
 
         $contacts = Contact::all();
         $businesses = Business::all();
+        $formats = Format::all();
 
         return view('orders.show', [
             'order' => $order,
@@ -149,7 +150,8 @@ class OrderController extends Controller
             'articles' => $articles,
             'documents' => $documents,
             'businesses' => $businesses,
-            'contacts' => $contacts
+            'contacts' => $contacts,
+            'formats' => $formats
         ]);
     }
 

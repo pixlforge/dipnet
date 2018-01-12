@@ -5,6 +5,10 @@
   display: flex;
   justify-content: space-between;
 
+  @media only print {
+    display: none;
+  }
+
   @media all and (max-width: $bp-lg) {
     flex-direction: column;
   }

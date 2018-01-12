@@ -11,6 +11,31 @@
       </div>
 
       <div class="document__options-container">
+        <!--Format-->
+        <div class="document__option">
+          <h4 class="document__option-label">Format</h4>
+          <app-format-dropdown label="Format"
+                               :list-items="dataFormats"
+                               @itemSelected="selectFormat">
+          </app-format-dropdown>
+          <div class="document__size">
+            <div class="document__size-group">
+              <h4 class="document__option-label">Largeur</h4>
+              <input type="number"
+                     class="document__input"
+                     v-model.number="listWidth"
+                     @blur="update()">
+            </div>
+            <div class="document__size-group">
+              <h4 class="document__option-label">Hauteur</h4>
+              <input type="number"
+                     class="document__input"
+                     v-model.number="listHeight"
+                     @blur="update()">
+            </div>
+          </div>
+        </div>
+
         <!--Print-->
         <div class="document__option">
           <h4 class="document__option-label">Type d'impression</h4>
@@ -72,6 +97,7 @@
 
 <script>
   import ArticleDropdown from './ArticleDropdown'
+  import FormatDropdown from '../dropdown/FormatDropdown'
   import mixins from '../../mixins'
   import { eventBus } from '../../app'
   import { mapGetters, mapActions } from 'vuex'
@@ -81,7 +107,8 @@
       'data-order',
       'data-delivery',
       'data-document',
-      'data-options'
+      'data-options',
+      'data-formats'
     ],
     data() {
       return {
@@ -96,14 +123,17 @@
           finish: this.dataDocument.finish,
           delivery_id: this.dataDocument.delivery_id,
           article_id: '',
-          options: []
+          options: [],
+          width: this.dataDocument.width,
+          height: this.dataDocument.height
         },
         selectedFinish: this.dataDocument.finish,
         selectedOptions: this.dataOptions,
       }
     },
     components: {
-      'app-article-dropdown': ArticleDropdown
+      'app-article-dropdown': ArticleDropdown,
+      'app-format-dropdown': FormatDropdown
     },
     mixins: [mixins],
     computed: {
@@ -151,6 +181,28 @@
           } else {
             this.document.quantity = newValue
           }
+        }
+      },
+
+      listWidth: {
+        get() {
+          return this.listDocuments.find(document => {
+            return document.id == this.document.id
+          }).width
+        },
+        set(value) {
+          this.document.width = value
+        }
+      },
+
+      listHeight: {
+        get() {
+          return this.listDocuments.find(document => {
+            return document.id == this.document.id
+          }).height
+        },
+        set(value) {
+          this.document.height = value
         }
       },
 
@@ -213,7 +265,9 @@
           finish: this.document.finish,
           quantity: this.document.quantity,
           options: this.document.options,
-          optionModels: this.selectedOptions
+          optionModels: this.selectedOptions,
+          width: this.document.width,
+          height: this.document.height
         }).then(() => {
           eventBus.$emit('clone', {
             deliveryId: this.delivery.id,
@@ -222,7 +276,9 @@
             finish: this.document.finish,
             quantity: this.document.quantity,
             options: this.document.options,
-            optionModels: this.selectedOptions
+            optionModels: this.selectedOptions,
+            width: this.document.width,
+            height: this.document.height
           })
           flash({
             message: "Propriétés du document copiées à tous les autres documents de la livraison!",
@@ -299,6 +355,15 @@
         }), 1)
         this.update()
       },
+
+      /**
+       * Select a format.
+       */
+      selectFormat(format) {
+        this.document.width = format.width
+        this.document.height = format.height
+        this.update()
+      }
     },
     created() {
       /**

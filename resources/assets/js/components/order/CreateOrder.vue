@@ -165,7 +165,7 @@
         selectedBusiness: 'Affaire',
         selectedContact: 'Contact',
         errors: [],
-        showPreview: true,
+        showPreview: false,
         terms: false
       }
     },

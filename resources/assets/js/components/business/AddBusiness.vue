@@ -9,7 +9,7 @@
     <transition name="fade">
       <div class="modal__background"
            v-if="showModal"
-           @click="toggleModal">
+           @click="toggleModal">$
       </div>
     </transition>
 

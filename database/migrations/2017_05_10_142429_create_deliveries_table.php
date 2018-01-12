@@ -17,6 +17,7 @@ class CreateDeliveriesTable extends Migration
             $table->increments('id');
             $table->string('reference')->unique()->index();
             $table->text('note')->nullable();
+            $table->text('admin_note')->nullable();
             $table->unsignedInteger('order_id')->nullable();
             $table->unsignedInteger('contact_id')->nullable();
             $table->dateTime('to_deliver_at')->nullable();

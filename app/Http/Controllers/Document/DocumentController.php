@@ -61,12 +61,21 @@ class DocumentController extends Controller
         return response($document, 200);
     }
 
+    /**
+     * @param Order $order
+     * @param Delivery $delivery
+     * @param Document $document
+     * @param UpdateDocumentRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(Order $order, Delivery $delivery, Document $document, UpdateDocumentRequest $request)
     {
         $document->article_id = $request->article_id;
         $document->finish = $request->finish;
         $document->quantity = $request->quantity;
         $document->articles()->sync($request->options);
+        $document->width = $request->width;
+        $document->height = $request->height;
         $document->save();
 
         return response(200);

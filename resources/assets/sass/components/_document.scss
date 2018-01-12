@@ -175,4 +175,16 @@
       }
     }
   }
+
+  &__size-group {
+    //margin: 1rem 0;
+  }
+
+  &__size {
+    display: flex;
+
+    input {
+      width: 90%;
+    }
+  }
 }

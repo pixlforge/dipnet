@@ -66,11 +66,14 @@ Route::prefix('/deliveries')->namespace('Delivery')->group(function () {
     Route::put('/{delivery}', 'DeliveryController@update')->name('deliveries.update');
     Route::delete('/{delivery}', 'DeliveryController@destroy')->name('deliveries.destroy');
 
+    Route::get('/{delivery}/receipt/show', 'DeliveryReceiptController@show')->name('deliveries.receipts.show');
+
     /**
      * Note
      */
     Route::put('/{delivery}/note', 'DeliveryNoteController@update')->name('deliveries.note.update');
     Route::delete('/{delivery}/note', 'DeliveryNoteController@destroy')->name('deliveries.note.destroy');
+    Route::patch('/{delivery}/note/admin', 'DeliveryAdminNoteController@update')->name('deliveries.admin.note.update');
 });
 
 /**
@@ -143,6 +146,8 @@ Route::prefix('/orders')->namespace('Order')->group(function () {
     Route::put('/{order}', 'OrderController@update')->name('orders.update');
     Route::delete('/{order}', 'OrderController@destroy')->name('orders.destroy');
     Route::patch('/{order}/complete', 'CompleteOrderController@update')->name('orders.complete');
+
+    Route::get('/{order}/receipt/show', 'OrderReceiptController@show')->name('orders.receipts.show');
 });
 
 /**

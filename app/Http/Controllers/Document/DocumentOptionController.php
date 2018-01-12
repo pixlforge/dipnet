@@ -26,6 +26,8 @@ class DocumentOptionController extends Controller
             $document->article_id = $request->print;
             $document->finish = $request->finish;
             $document->quantity = $request->quantity;
+            $document->width = $request->width;
+            $document->height = $request->height;
             $document->save();
 
             $document->articles()->sync($request->options);

@@ -19,6 +19,7 @@
   }
 
   &__container {
+    z-index: 9999;
     position: relative;
     background-color: tomato;
   }
@@ -48,6 +49,13 @@
 
     &--options {
       width: 12rem;
+    }
+
+    &--justified {
+      li {
+        display: flex;
+        justify-content: space-between;
+      }
     }
   }
 

@@ -1,31 +1,31 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-10 my-5 mx-auto">
-        <div class="row">
-          <div class="order__container">
-            <h1 class="order__title">Commande {{ order.reference }}</h1>
-            <div class="order__header">
-              <p>Ajouter un commentaire</p>
-            </div>
-            <div class="order__header">
-              <p>Changer tous les status</p>
-            </div>
-          </div>
-        </div>
+  <div>
+    <div class="header__container">
+      <h1 class="header__title">Commande {{ order.reference }}</h1>
+      <div>
+        Statut de la commande
+      </div>
+      <div>
+        <a class="btn btn--black-large"
+           :href="routeOrderReceipt"
+           target="_blank"
+           rel="noopener noreferrer">
+          <i class="fal fa-clipboard"></i>
+          Bulletin de commande
+        </a>
       </div>
     </div>
 
-    <div class="row bg-grey-light mt-2">
+    <div class="order__container">
       <app-admin-delivery class="delivery__container delivery__container--admin"
                           v-for="(delivery, index) in listDeliveries"
                           :key="delivery.id"
                           :data-order="order"
                           :data-delivery="delivery"
-                          :data-documents="dataDocuments">
+                          :data-documents="dataDocuments"
+                          :data-formats="dataFormats">
       </app-admin-delivery>
     </div>
-
   </div>
 </template>
 
@@ -44,7 +44,8 @@
       'data-articles',
       'data-documents',
       'data-businesses',
-      'data-contacts'
+      'data-contacts',
+      'data-formats'
     ],
     data() {
       return {
@@ -64,7 +65,11 @@
         'listContacts',
         'listDeliveries',
         'listDocuments'
-      ])
+      ]),
+
+      routeOrderReceipt() {
+        return route('orders.receipts.show', [this.order.reference])
+      }
     },
     methods: {
       ...mapActions([

@@ -1,34 +1,21 @@
 <template>
   <div>
-    <div class="delivery__header">
-      <div class="delivery__header-box">
-        <div class="delivery__details">
-          <h5 class="delivery__label delivery__label--light-grey">
-            Référence
-            {{ delivery.reference }}
-          </h5>
-        </div>
-        <div class="delivery__details delivery__details--admin">
-          <div class="delivery__first-label">
-            <h3 class="delivery__label">Livraison à</h3>
-            <h3>
+    <div class="admin-delivery__header">
+      <div class="admin-delivery__details">
+        <h3 class="admin-delivery__reference">
+          Référence {{ delivery.reference }}
+        </h3>
+
+        <div class="admin-delivery__first-meta">
+          <div class="admin-delivery__label-container">
+            <h3 class="admin-delivery__label">Livraison à</h3>
+            <h3 class="admin-delivery__label">
               <app-contact-dropdown :label="selectedDeliveryContact"
                                     @itemSelected="selectDeliveryContact">
               </app-contact-dropdown>
             </h3>
           </div>
-          <h3 class="delivery__label">Le</h3>
-          <app-datepicker class="datepicker-light"
-                          :date="startTime"
-                          :option="option"
-                          :limit="limit"
-                          :to-deliver-at="delivery.to_deliver_at"
-                          :style=""
-                          @change="updateDeliveryDate">
-          </app-datepicker>
-        </div>
-        <div class="delivery__details delivery__details--secondary">
-          <ul class="delivery__list delivery__list--admin">
+          <ul class="admin-delivery__contact-info">
             <li>{{ delivery.contact.address_line1 }}</li>
             <li>{{ delivery.contact.address_line2 }}</li>
             <li>{{ delivery.contact.zip }} {{ delivery.contact.city }}</li>
@@ -36,18 +23,40 @@
             <li>{{ delivery.contact.fax }}</li>
             <li>{{ delivery.contact.email }}</li>
           </ul>
-          <div class="delivery__note">
+        </div>
+
+        <div class="admin-delivery__second-meta">
+          <div class="admin-delivery__label-container">
+            <h3 class="admin-delivery__label">Le</h3>
+            <app-datepicker class="datepicker-light"
+                            :date="startTime"
+                            :option="option"
+                            :limit="limit"
+                            :to-deliver-at="delivery.to_deliver_at"
+                            @change="updateDeliveryDate">
+            </app-datepicker>
+          </div>
+          <div class="admin-delivery__note" v-if="delivery.note">
             <h5>Note</h5>
             {{ delivery.note }}
           </div>
         </div>
       </div>
-      <div class="delivery__controls delivery__controls--admin">
-        <button class="btn btn--black">Bulletin de livraison</button>
-        <input type="text"
-               class="form__input"
-               v-model="adminNote"
-               placeholder="Commentaires pour admins seulement">
+
+      <div class="admin-delivery__controls">
+        <a class="btn btn--black"
+           :href="routeDeliveryReceipt"
+           target="_blank"
+           rel="noopener noreferrer">
+          <i class="fal fa-clipboard"></i>
+          Bulletin de livraison
+        </a>
+
+        <textarea type="text"
+                  class="form__textarea"
+                  v-model="adminNote"
+                  placeholder="Commentaires pour admins seulement"
+                  @blur="updateAdminNote"></textarea>
       </div>
     </div>
 
@@ -58,7 +67,8 @@
                           :data-order="order"
                           :data-delivery="delivery"
                           :data-document="document"
-                          :data-options="document.articles">
+                          :data-options="document.articles"
+                          :data-formats="dataFormats">
       </app-admin-document>
     </div>
   </div>
@@ -76,7 +86,8 @@
     props: [
       'data-order',
       'data-delivery',
-      'data-documents'
+      'data-documents',
+      'data-formats'
     ],
     data() {
       return {
@@ -150,6 +161,10 @@
           return document.delivery_id == this.delivery.id
         })
       },
+
+      routeDeliveryReceipt() {
+        return route('deliveries.receipts.show', [this.delivery.reference])
+      }
     },
     methods: {
       /**
@@ -157,6 +172,15 @@
        */
       update() {
         axios.put(route('deliveries.update', [this.delivery.reference]), this.delivery)
+      },
+
+      /**
+       * Set the admin note.
+       */
+      updateAdminNote() {
+        axios.patch(route('deliveries.admin.note.update', [this.delivery.reference]), {
+          admin_note: this.adminNote
+        })
       },
 
       /**

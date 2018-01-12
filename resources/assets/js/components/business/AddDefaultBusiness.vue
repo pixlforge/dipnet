@@ -15,43 +15,44 @@
       <div class="alert-page__card--large" key="end" v-else>
         <h1 class="alert-page__title">Ajouter une affaire</h1>
         <form class="alert-page__form" submit.prevent>
+
           <!--Name-->
-          <div class="alert-page__form-group">
-            <label class="alert-page__label" for="name">Nom</label>
-            <span class="required">*</span>
+          <div class="form__group">
+            <label class="form__label" for="name">Nom</label>
+            <span class="form__required">*</span>
             <input type="text"
                    id="name"
                    name="name"
-                   class="form-control"
+                   class="form__input"
                    v-model.trim="business.name"
                    required autofocus>
-            <div class="help-block"
+            <div class="form__alert"
                  v-if="errors.name"
                  v-text="errors.name[0]">
             </div>
           </div>
 
           <!--Description-->
-          <div class="alert-page__form-group">
-            <label class="alert-page__label" for="description">Description</label>
+          <div class="form__group">
+            <label class="form__label" for="description">Description</label>
             <input type="text"
                    id="description"
                    name="description"
-                   class="form-control"
+                   class="form__input"
                    v-model.trim="business.description">
-            <div class="help-block"
+            <div class="form__alert"
                  v-if="errors.description"
                  v-text="errors.description[0]">
             </div>
           </div>
 
           <!--Contact-->
-          <div class="alert-page__form-group">
-            <label class="alert-page__label" for="contact_id">Contact</label>
-            <span class="required">*</span>
+          <div class="form__group">
+            <label class="form__label" for="contact_id">Contact</label>
+            <span class="form__required">*</span>
             <select name="contact_id"
                     id="contact_id"
-                    class="form-control custom-select"
+                    class="form__select"
                     v-model.number.trim="business.contact_id">
               <option disabled>Sélectionnez un contact</option>
               <option v-for="(contact, index) in dataContacts"
@@ -59,7 +60,7 @@
                       v-text="contact.name">
               </option>
             </select>
-            <div class="help-block"
+            <div class="form__alert"
                  v-if="errors.contact_id"
                  v-text="errors.contact_id[0]">
             </div>
@@ -71,7 +72,7 @@
         </button>
       </div>
     </transition>
-    <!--Loader-->
+
     <app-moon-loader :loading="loaderState"
                      :color="loader.color"
                      :size="loader.size">

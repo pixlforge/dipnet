@@ -11,7 +11,8 @@
                    :data-articles="{{ $articles }}"
                    :data-documents="{{ $documents }}"
                    :data-businesses="{{ $businesses }}"
-                   :data-contacts="{{ $contacts }}">
+                   :data-contacts="{{ $contacts }}"
+                   :data-formats="{{ $formats }}">
   </app-order-admin>
 
 @endsection

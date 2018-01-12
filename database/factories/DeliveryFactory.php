@@ -7,6 +7,7 @@ $factory->define(Dipnet\Delivery::class, function (Faker $faker) {
     return [
         'reference' => uniqid(),
         'note' => null,
+        'admin_note' => null,
         'order_id' => function() {
             return factory(Dipnet\Order::class)->create()->id;
         },

@@ -1,5 +1,7 @@
 .delivery {
   background-color: $alabaster;
+  margin-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 1rem;
 
   &__container {
@@ -19,21 +21,17 @@
     }
 
     &--admin {
+      width: 84%;
+      margin: 0 auto 4rem auto;
       background-color: $white;
-      padding: 2.5rem 3rem;
       box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.1);
-      margin-bottom: 2rem;
-
-      &:first-child {
-        margin-top: 5.5rem;
-      }
+      padding-bottom: 2rem;
     }
   }
 
   &__header {
     width: 84vw;
     margin: 3rem auto;
-    padding-top: 6rem;
     display: flex;
     align-items: center;
 
@@ -44,6 +42,12 @@
 
     &--preview {
       align-items: flex-start;
+      margin-top: 8rem;
+    }
+
+    &--admin {
+      padding: 0 4rem;
+      align-items: stretch;
     }
   }
 
@@ -53,6 +57,14 @@
     &--white {
       color: $white;
     }
+
+    &--admin {
+      width: 100%;
+    }
+  }
+
+  &__details-container {
+    display: flex;
   }
 
   &__details {
@@ -65,7 +77,6 @@
     }
 
     &--admin {
-      width: 100%;
     }
 
     &--secondary {
@@ -75,12 +86,6 @@
     }
   }
 
-  &__first-label {
-    width: 20.5rem;
-    display: flex;
-    align-items: center;
-  }
-
   &__label {
     font-size: 2.4rem;
     font-weight: 300;
@@ -88,10 +93,6 @@
 
     &--white {
       color: $white;
-    }
-
-    &--light-grey {
-      color: $light-grey;
     }
 
     &--dropdown {
@@ -118,9 +119,8 @@
     }
 
     &--admin {
-      display: block;
-      width: 20rem;
-      margin-left: 8rem;
+      width: 43rem;
+      margin-left: 11.5rem;
     }
   }
 
@@ -147,6 +147,11 @@
 
   &__note {
     margin-left: 3rem;
+    width: 100%;
+
+    h5 {
+      font-size: 1.6rem;
+    }
   }
 
   &__delivery-note {
@@ -213,11 +218,13 @@
     position: relative;
 
     &--admin {
+      width: 20%;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
 
-      & > button {
-        margin-bottom: 1rem;
+      button {
+        width: 100%;
       }
     }
   }

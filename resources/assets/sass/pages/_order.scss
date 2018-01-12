@@ -1,4 +1,9 @@
 .order {
+  &__container {
+    padding-top: 8rem;
+    background-color: $alabaster;
+  }
+
   &__header {
     width: 50%;
     display: flex;

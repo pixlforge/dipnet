@@ -24,8 +24,11 @@
 @import "components/dropzone";
 @import "components/errors";
 @import "components/datepicker";
+@import "components/alerts";
 
 @import "pages/alert";
 @import "pages/company-profile";
 @import "pages/order";
 @import "pages/login";
+@import "pages/admin-delivery";
+@import "pages/receipt";

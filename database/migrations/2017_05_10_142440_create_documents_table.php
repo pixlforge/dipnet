@@ -22,6 +22,8 @@ class CreateDocumentsTable extends Migration
             $table->enum('finish', ['roulé', 'plié']);
             $table->unsignedInteger('delivery_id')->nullable();
             $table->unsignedInteger('article_id')->nullable();
+            $table->integer('width')->nullable();
+            $table->integer('height')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

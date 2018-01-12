@@ -139,6 +139,8 @@ export const store = new Vuex.Store({
       state.documents[index].finish = payload.document.finish
       state.documents[index].quantity = payload.document.quantity
       state.documents[index].articles = payload.options
+      state.documents[index].width = payload.document.width
+      state.documents[index].height = payload.document.height
     },
 
     removeDocument: (state, payload) => {
@@ -157,6 +159,8 @@ export const store = new Vuex.Store({
           document.finish = payload.finish
           document.quantity = payload.quantity
           document.articles = payload.optionModels
+          document.width = payload.width
+          document.height = payload.height
         }
       })
     },
@@ -270,7 +274,9 @@ export const store = new Vuex.Store({
           print: payload.print,
           finish: payload.finish,
           quantity: payload.quantity,
-          options: payload.options
+          options: payload.options,
+          width: payload.width,
+          height: payload.height
         }).then(() => {
           commit('toggleLoader')
           commit('cloneOptions', {
@@ -279,7 +285,9 @@ export const store = new Vuex.Store({
             finish: payload.finish,
             quantity: payload.quantity,
             options: payload.options,
-            optionModels: payload.optionModels
+            optionModels: payload.optionModels,
+            width: payload.width,
+            height: payload.height
           })
           resolve()
         }).catch(error => {
