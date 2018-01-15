@@ -1,10 +1,10 @@
 <template>
-  <div class="mt-4 mr-3">
-    <a class="btn btn-lg btn-orange"
-       @click="sendConfirmationAgain">
-      <i class="fal fa-redo mr-2"></i>
+  <div>
+    <button class="btn btn--warning"
+            @click="sendConfirmationAgain">
+      <i class="fal fa-redo"></i>
       Renvoyer l'email de confirmation
-    </a>
+    </button>
   </div>
 </template>
 

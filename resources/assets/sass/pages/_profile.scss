@@ -1,0 +1,100 @@
+.profile {
+  &__header {
+    display: flex;
+    align-items: center;
+
+    @media all and (max-width: $bp-md) {
+      margin-top: 2rem;
+    }
+  }
+
+  &__header-item:not(:last-child) {
+    margin-right: 2rem;
+  }
+
+  &__icon {
+    font-size: 3.3rem;
+    margin-left: 1rem;
+
+    &--success {
+      color: $atlantis;
+    }
+
+    &--warning {
+      color: $yellowsea;
+    }
+  }
+
+  &__container {
+    min-height: 80vh;
+    background-color: $alabaster;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 5rem;
+  }
+
+  &__box {
+    width: 84%;
+    min-height: 28rem;
+    background-color: $white;
+    display: flex;
+
+    @media all and (max-width: $bp-md) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__box-item {
+    width: 30%;
+    padding: 4.5rem;
+
+    @media all and (max-width: $bp-md) {
+      width: 100%;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+
+      &:first-child {
+        padding-top: 4.5rem;
+      }
+
+      &:last-child {
+        padding-bottom: 4.5rem;
+      }
+    }
+  }
+
+  &__item {
+    font-size: 1.8rem;
+    margin-bottom: 2rem;
+
+    @media all and (max-width: $bp-lg) {
+      font-size: 1.4rem;
+    }
+
+    h3 {
+      font-size: 2.5rem;
+      font-weight: 700;
+
+      @media all and (max-width: $bp-lg) {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  &__avatar {
+    width: 18rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    img {
+      width: 100%;
+    }
+  }
+}

@@ -1,120 +1,108 @@
 <template>
   <div>
-
-    <!--Button-->
-    <a class="btn btn-lg btn-black mt-4"
-       @click="toggleModal">
-      <i class="fal fa-cog mr-2"></i>
+    <button class="btn btn--black"
+            @click="toggleModal">
+      <i class="fal fa-cog"></i>
       Mettre à jour le compte
-    </a>
+    </button>
 
-    <!--Background-->
     <transition name="fade">
-      <div class="modal-background"
+      <div class="modal__background"
            v-if="showModal"
            @click="toggleModal">
       </div>
     </transition>
 
-    <!--Modal Panel-->
     <transition name="slide">
-      <div class="modal-panel"
+      <div class="modal__slider"
            v-if="showModal"
            @keyup.esc="toggleModal"
-           @keyup.enter="addContact">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-10 col-lg-8 offset-lg-1">
+           @keyup.enter="updateArticle">
 
-              <app-avatar-upload :data-avatar="avatar"
-                                 :data-random-avatar="dataRandomAvatar">
-              </app-avatar-upload>
+        <div class="modal__container">
 
-              <!--Title-->
-              <h3 class="mt-7 mb-5">Informations de votre compte</h3>
+          <app-avatar-upload :data-avatar="avatar"
+                             :data-random-avatar="dataRandomAvatar">
+          </app-avatar-upload>
 
-              <!--Form-->
-              <form @submit.prevent>
+          <h2 class="modal__title">Mise à jour des informations du compte</h2>
 
-                <!--Username-->
-                <div class="form-group">
-                  <label for="username">Nom d'utilisateur</label>
-                  <span class="required">*</span>
-                  <input type="text"
-                         id="username"
-                         name="username"
-                         class="form-control"
-                         v-model.trim="user.username"
-                         required>
-                  <div class="help-block"
-                       v-if="errors.username"
-                       v-text="errors.username[0]">
-                  </div>
-                </div>
-
-                <!--Email-->
-                <div class="form-group my-5">
-                  <label for="email">E-mail</label>
-                  <span class="required">*</span>
-                  <input type="text"
-                         id="email"
-                         name="email"
-                         class="form-control"
-                         v-model.trim="user.email"
-                         required>
-                  <div class="help-block"
-                       v-if="errors.email"
-                       v-text="errors.email[0]">
-                  </div>
-                </div>
-
-                <!--Password-->
-                <div class="form-group my-5">
-                  <label for="password">Mot de passe</label>
-                  <input type="password"
-                         name="password"
-                         id="password"
-                         class="form-control"
-                         v-model.trim="user.password">
-                  <div class="help-block"
-                       v-if="errors.password"
-                       v-text="errors.password[0]">
-                  </div>
-                </div>
-
-                <!--Password Confirmation-->
-                <div class="form-group my-5">
-                  <label for="password_confirmation">Confirmation du mot de passe</label>
-                  <input type="password"
-                         name="password_confirmation"
-                         id="password_confirmation"
-                         class="form-control"
-                         v-model.trim="user.password_confirmation">
-                  <div class="help-block"
-                       v-if="errors.password_confirmation"
-                       v-text="errors.password_confirmation[0]">
-                  </div>
-                </div>
-
-                <!--Buttons-->
-                <div class="form-group d-flex flex-column flex-lg-row my-6">
-                  <div class="col-12 col-lg-5 px-0 pr-lg-2">
-                    <button class="btn btn-block btn-lg btn-white"
-                            @click.stop="toggleModal">
-                      <i class="fal fa-times mr-2"></i>
-                      Annuler
-                    </button>
-                  </div>
-                  <div class="col-12 col-lg-7 px-0 pl-lg-2">
-                    <button class="btn btn-block btn-lg btn-black"
-                            @click.prevent="updateProfile">
-                      <i class="fal fa-check mr-2"></i>
-                      Sauvegarder
-                    </button>
-                  </div>
-                </div>
-              </form>
+          <!--Name-->
+          <div class="modal__group">
+            <label for="username" class="modal__label">Nom</label>
+            <span class="modal__required">*</span>
+            <input type="text"
+                   name="username"
+                   id="username"
+                   class="modal__input"
+                   v-model.trim="user.username"
+                   required autofocus>
+            <div class="modal__alert"
+                 v-if="errors.username">
+              {{ errors.username[0] }}
             </div>
+          </div>
+
+          <!--Email-->
+          <div class="modal__group">
+            <label for="email" class="modal__label">Email</label>
+            <span class="modal__required">*</span>
+            <input type="email"
+                   name="email"
+                   id="email"
+                   class="modal__input"
+                   v-model.trim="user.email"
+                   required>
+            <div class="modal__alert"
+                 v-if="errors.email">
+              {{ errors.email[0] }}
+            </div>
+          </div>
+
+          <!--Password-->
+          <div class="modal__group">
+            <label for="password" class="modal__label">Password</label>
+            <span class="modal__required">*</span>
+            <input type="password"
+                   name="password"
+                   id="password"
+                   class="modal__input"
+                   v-model.trim="user.password"
+                   required>
+            <div class="modal__alert"
+                 v-if="errors.password">
+              {{ errors.password[0] }}
+            </div>
+          </div>
+
+          <!--Password-->
+          <div class="modal__group">
+            <label for="password_confirmation" class="modal__label">Confirmation du mot de passer</label>
+            <span class="modal__required">*</span>
+            <input type="password"
+                   name="password_confirmation"
+                   id="password_confirmation"
+                   class="modal__input"
+                   v-model.trim="user.password_confirmation"
+                   required>
+            <div class="modal__alert"
+                 v-if="errors.password_confirmation">
+              {{ errors.password_confirmation[0] }}
+            </div>
+          </div>
+
+          <!--Buttons-->
+          <div class="modal__buttons">
+            <button class="btn btn--grey"
+                    @click.stop="toggleModal">
+              <i class="fal fa-times"></i>
+              Annuler
+            </button>
+            <button class="btn btn--black"
+                    @click.prevent="updateProfile">
+              <i class="fal fa-check"></i>
+              Mettre à jour
+            </button>
           </div>
         </div>
       </div>

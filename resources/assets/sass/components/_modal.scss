@@ -1,7 +1,6 @@
 .modal {
   &__open {
     overflow: hidden;
-    position: fixed;
   }
 
   &__background {
@@ -103,6 +102,10 @@
     display: flex;
     margin-top: 5rem;
     color: $dark-grey;
+
+    &--avatar {
+      margin-bottom: 5rem;
+    }
   }
 
   &__alert {

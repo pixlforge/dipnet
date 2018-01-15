@@ -1,31 +1,32 @@
 <template>
   <div>
-    <h3 class="mt-7 mb-5">Avatar</h3>
+    <h2 class="modal__title">Avatar</h2>
 
-    <div class="form-group my-5">
+    <div class="modal__group">
       <label for="avatar"
-             class="btn btn-lg btn-black">
-        <i class="fal fa-folder-open mr-2"></i>
+             class="btn btn--black">
+        <i class="fal fa-folder-open"></i>
         Sélectionner une image
       </label>
       <input type="file"
              name="avatar"
              id="avatar"
+             class="v-hidden"
              @change="fileChange">
-      <div class="help-block"
-           v-if="errors.length"
-           v-text="errors[0]">
+      <div class="modal__alert"
+           v-if="errors.length">
+        {{ errors[0] }}
       </div>
     </div>
 
-    <div class="form-group my-5">
+    <div class="modal__group">
       <img :src="avatar.path"
-           class="avatar-upload"
+           class="avatar__img"
            alt="Avatar à modifier"
            v-if="avatar.path">
 
       <img :src="currentAvatar"
-           class="avatar-upload"
+           class="avatar__img"
            alt="Avatar actuel"
            v-if="currentAvatar && !avatar.path">
 
@@ -35,12 +36,15 @@
            style="width: 200px;">
     </div>
 
-    <div class="form-group my-5" v-if="avatar.path">
-      <button class="btn btn-lg btn-black" @click="update">
-        <i class="fal fa-upload mr-2"></i>
+    <div class="modal__buttons modal__buttons--avatar" v-if="avatar.path">
+      <button class="btn btn--black"
+              @click.prevent="update">
+        <i class="fal fa-upload"></i>
         Mettre à jour l'avatar
       </button>
     </div>
+
+
   </div>
 </template>
 
@@ -66,10 +70,6 @@
       }
     },
     computed: {
-      ...mapActions([
-        'toggleLoader'
-      ]),
-
       /**
        * Get a random avatar's path.
        */
@@ -79,6 +79,9 @@
     },
     mixins: [mixins],
     methods: {
+      ...mapActions([
+        'toggleLoader'
+      ]),
 
       /**
        * Upload on file change.
@@ -94,7 +97,7 @@
         this.$store.dispatch('toggleLoader')
 
         axios.post(this.endpoint, this.packageUploads(event))
-          .then((response) => {
+          .then(response => {
             this.$store.dispatch('toggleLoader')
             this.avatar = response.data
             flash({
@@ -102,7 +105,7 @@
               level: 'success'
             })
           })
-          .catch((error) => {
+          .catch(error => {
             this.$store.dispatch('toggleLoader')
             if (error.response.status === 422) {
               this.errors = error.response.data.errors.avatar
@@ -135,35 +138,23 @@
           avatar: {
             id: this.avatar.id
           }
+        }).then(() => {
+          this.$store.dispatch('toggleLoader')
+          flash({
+            message: "Votre avatar a bien été mis à jour.",
+            level: 'success'
+          })
+          setTimeout(() => {
+            window.location = route('profile.index')
+          }, 1500)
+        }).catch(() => {
+          this.$store.dispatch('toggleLoader')
+          flash({
+            message: "Il y a eu un problème, votre compte n'a pas été mis à jour.",
+            level: 'danger'
+          })
         })
-          .then(() => {
-            this.$store.dispatch('toggleLoader')
-            flash({
-              message: "Votre avatar a bien été mis à jour.",
-              level: 'success'
-            })
-            setTimeout(function () {
-              window.location.pathname = '/profile';
-            }, 2500)
-          })
-          .catch(() => {
-            this.$store.dispatch('toggleLoader')
-            flash({
-              message: "Il y a eu un problème, votre compte n'a pas été mis à jour.",
-              level: 'danger'
-            })
-          })
       }
     }
   }
 </script>
-
-<style scoped>
-  label {
-    font-size: .875rem !important;
-  }
-
-  input {
-    display: none;
-  }
-</style>

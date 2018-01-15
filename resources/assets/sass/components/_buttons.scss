@@ -26,6 +26,19 @@
     }
   }
 
+  &--warning {
+    color: $white;
+    background-color: $yellowsea;
+    border: 1px solid $yellowsea;
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: none;
+      background-color: lighten($yellowsea, 5%);
+    }
+  }
+
   &--black-large {
     display: inline-block;
     color: $white;
