@@ -3,6 +3,10 @@
     flex: 0 0 100%;
     height: 100vh;
 
+    @media all and (max-width: $bp-md) {
+      height: 70vh;
+    }
+
     &--red {
       background-color: $bg-red;
     }
