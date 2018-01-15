@@ -1,104 +1,103 @@
 <template>
-  <div>
-    <a href="/">
-      <div class="company-logo-container"
-           :class="logo"
+  <div class="register__container"
+       @keyup.enter="registerAccount">
+    <section class="register__first-section">
+      <div class="login__logo login__logo--color"
            aria-hidden="true">
+        <img :src="logoColor" :alt="`${appName} logo`">
       </div>
-    </a>
-    <div class="row">
+      <div class="register__form">
+        <h1 class="register__title">Création du compte</h1>
 
-      <!--Show the carousel-->
-      <app-register-carousel></app-register-carousel>
+        <div class="form__group">
+          <label for="username">Nom d'utilisateur</label>
+          <span class="form__required">*</span>
+          <input type="text"
+                 name="username"
+                 id="username"
+                 class="form__input"
+                 v-model.trim="account.username"
+                 required autofocus>
+          <div class="form__alert"
+               v-if="errors.username">
+            {{ errors.username[0] }}
+          </div>
+        </div>
 
-      <div class="col-12 col-lg-6 vh-100 d-flex align-items-center">
-        <div class="col-12 col-lg-8 offset-lg-2">
+        <div class="form__group">
+          <label for="email">Email</label>
+          <span class="form__required">*</span>
+          <input type="email"
+                 name="email"
+                 id="email"
+                 class="form__input"
+                 v-model.trim="account.email"
+                 required>
+          <div class="form__alert"
+               v-if="errors.email">
+            {{ errors.email[0] }}
+          </div>
+        </div>
 
-          <!--Register Account Form-->
-          <form role="form" @submit.prevent>
+        <div class="form__group">
+          <label for="password">Mot de passe</label>
+          <span class="form__required">*</span>
+          <input type="password"
+                 name="password"
+                 id="password"
+                 class="form__input"
+                 v-model.trim="account.password"
+                 required>
+          <div class="form__alert"
+               v-if="errors.password">
+            {{ errors.password[0] }}
+          </div>
+        </div>
 
-            <h4 class="text-center">Enregistrement</h4>
+        <div class="form__group">
+          <label for="password_confirmation">Mot de passe</label>
+          <span class="form__required">*</span>
+          <input type="password"
+                 name="password_confirmation"
+                 id="password_confirmation"
+                 class="form__input"
+                 v-model.trim="account.password_confirmation"
+                 required>
+          <div class="form__alert"
+               v-if="errors.password_confirmation">
+            {{ errors.password_confirmation[0] }}
+          </div>
+        </div>
 
-            <!--Username-->
-            <div class="form-group my-5">
-              <label for="username">Nom d'utilisateur / Pseudo</label>
-              <span class="required">*</span>
-              <input type="text"
-                     id="username"
-                     name="username"
-                     v-model="account.username"
-                     class="form-control"
-                     required autofocus>
-              <div class="help-block"
-                   v-if="errors.username"
-                   v-text="errors.username[0]">
-              </div>
-            </div>
+        <div class="register__buttons">
+          <button class="btn btn--black"
+                  @click="registerAccount">
+            <i class="fal fa-check"></i>
+            Créer le compte
+          </button>
+        </div>
 
-            <!--Email-->
-            <div class="form-group my-5">
-              <label for="email">E-mail</label>
-              <span class="required">*</span>
-              <input type="email"
-                     id="email"
-                     name="email"
-                     v-model="account.email"
-                     class="form-control"
-                     :disabled="invitation.data.email"
-                     required>
-              <div class="help-block"
-                   v-if="errors.email"
-                   v-text="errors.email[0]">
-              </div>
-            </div>
-
-            <!--Password-->
-            <div class="form-group my-5">
-              <label for="password">Mot de passe</label>
-              <span class="required">*</span>
-              <input type="password"
-                     id="password"
-                     name="password"
-                     v-model="account.password"
-                     class="form-control"
-                     required>
-              <div class="help-block"
-                   v-if="errors.password"
-                   v-text="errors.password[0]">
-              </div>
-            </div>
-
-            <!--Password confirm-->
-            <div class="form-group my-5">
-              <label for="password-confirm">Confirmation du mot de passe</label>
-              <span class="required">*</span>
-              <input type="password"
-                     id="password-confirm"
-                     name="password_confirmation"
-                     v-model="account.password_confirmation"
-                     class="form-control"
-                     required>
-            </div>
-
-            <button class="btn btn-lg btn-black btn-block mt-5"
-                    @click="registerAccount">
-              <i class="fal fa-check mr-2"></i>
-              Créer le compte
-            </button>
-
-            <p class="text-small text-center mt-4">
-              Vous disposez déjà d'un compte?
-              <a href="/login" class="ml-3">Connectez-vous</a>
-            </p>
-          </form>
+        <div class="register__login">
+          Vous disposez déjà d'un compte?
+          <a :href="loginRoute" class="register__link">
+            Connectez-vous
+          </a>
         </div>
       </div>
-    </div>
+    </section>
+
+    <section class="login__second-section">
+      <div class="login__logo login__logo--bw"
+           aria-hidden="true">
+        <img :src="logoBw" :alt="`${appName} logo`">
+      </div>
+      <app-carousel></app-carousel>
+    </section>
   </div>
 </template>
 
 <script>
-  import RegisterCarousel from './RegisterCarousel.vue'
+  import Carousel from '../carousel/Carousel'
   import mixins from '../../mixins'
   import { mapActions } from 'vuex'
 
@@ -119,7 +118,7 @@
       }
     },
     components: {
-      'app-register-carousel': RegisterCarousel
+      'app-carousel': Carousel
     },
     mixins: [mixins],
     methods: {
@@ -136,7 +135,6 @@
         axios.post(route('register.store'), this.account)
           .then(() => {
             this.$store.dispatch('toggleLoader')
-            this.toggleModal()
             this.account = {}
             this.$emit('accountCreated')
           })

@@ -1,9 +1,10 @@
 <template>
-  <div class="container-fluid">
+  <div>
     <transition name="fade" mode="out-in">
 
       <!--Show the registration menu-->
       <app-register-menu v-if="showRegistrationMenu"
+                         :data-app-name="dataAppName"
                          @registrationSelection="selection">
       </app-register-menu>
 
@@ -31,7 +32,6 @@
       </app-register-company>
     </transition>
 
-    <!--Loader-->
     <app-moon-loader :loading="loaderState"
                      :color="loader.color"
                      :size="loader.size">
@@ -50,7 +50,10 @@
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    props: ['token-data'],
+    props: [
+      'token-data',
+      'data-app-name'
+    ],
     data() {
       return {
         showRegistrationMenu: false,

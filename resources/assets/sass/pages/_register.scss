@@ -1,0 +1,286 @@
+.register {
+  &__container {
+    min-height: 100vh;
+    display: flex;
+
+    @media all and (max-width: $bp-md) {
+      flex-direction: column;
+    }
+  }
+
+  &__first-section,
+  &__second-section,
+  &__summary-section,
+  &__form-section {
+    width: 50vw;
+
+    @media all and (max-width: $bp-md) {
+      width: 100vw;
+    }
+  }
+
+  &__first-section {
+    background-color: $white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+
+    @media all and (max-width: $bp-md) {
+      order: 1;
+      padding: 6rem 0;
+    }
+  }
+
+  &__second-section {
+    @media all and (max-width: $bp-md) {
+      order: 0;
+      height: 70vh;
+    }
+  }
+
+  &__summary-section {
+    background-color: $bg-red;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding-top: 14rem;
+    padding-right: 10rem;
+    background-image: url(/img/patterns/art-red-pattern-steps@3x.png);
+    background-size: contain;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+
+    @media all and (max-width: $bp-lg) {
+      padding-right: 3rem;
+    }
+
+    @media all and (max-width: $bp-md) {
+      position: initial;
+      height: 9rem;
+      background-image: unset;
+      padding: 0;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      height: 14rem;
+      justify-content: flex-end;
+    }
+  }
+
+  &__form-section {
+    position: absolute;
+    left: 50vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 6rem 0;
+
+    @media all and (max-width: $bp-md) {
+      position: initial;
+    }
+  }
+
+  &__logo {
+    position: absolute;
+    z-index: 500;
+    top: 3rem;
+    left: 8rem;
+    display: none;
+    user-select: none;
+
+    img {
+      height: 32px;
+    }
+
+    &--color {
+      @media all and (min-width: $bp-md-plus-one) {
+        display: block;
+      }
+    }
+
+    &--bw {
+      @media all and (max-width: $bp-md) {
+        display: block;
+      }
+    }
+
+    &--summary {
+      position: fixed;
+      display: block;
+
+      @media all and (max-width: $bp-md) {
+        position: absolute;
+      }
+    }
+  }
+
+  &__summary {
+    position: fixed;
+    width: 40rem;
+
+    @media all and (max-width: $bp-md) {
+      width: auto;
+      position: initial;
+      display: flex;
+    }
+  }
+
+  &__summary-item {
+    height: 6rem;
+    border-radius: 4px;
+    font-size: 1.6rem;
+    color: $white;
+    padding: 1rem 2rem;
+    display: flex;
+    align-items: center;
+    opacity: .5;
+    user-select: none;
+
+    &--done {
+      opacity: 1;
+    }
+
+    &--active {
+      opacity: 1;
+      background-color: $light-accent;
+      box-shadow: 0 15px 18px 0 rgba($black, .06);
+
+      @media all and (max-width: $bp-md) {
+        background-color: unset;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__summary-label {
+    margin-left: 2rem;
+
+    @media all and (max-width: $bp-md) {
+      display: none;
+    }
+  }
+
+  &__form {
+    width: 50%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    @media all and (max-width: $bp-lg) {
+      width: 60%;
+    }
+
+    @media all and (max-width: $bp-md) {
+      width: 70%;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      width: 80%;
+    }
+  }
+
+  &__title {
+    font-size: 2.4rem;
+    text-align: center;
+    margin-bottom: 6.5rem;
+  }
+
+  &__buttons {
+    margin-top: 1rem;
+
+    button {
+      width: 100%;
+    }
+  }
+
+  &__login {
+    margin-top: 1rem;
+  }
+
+  &__link {
+    &:hover,
+    &:focus,
+    &:active {
+      text-decoration: underline;
+    }
+  }
+
+  &__lead {
+    font-size: 2.4rem;
+    font-weight: 300;
+    text-align: center;
+  }
+
+  &__back {
+    width: 5rem;
+    cursor: pointer;
+    margin: 3rem auto 0 auto;
+    text-align: center;
+
+    &:hover,
+    &:focus,
+    &:active {
+      svg {
+        color: $bg-red;
+      }
+    }
+  }
+
+  &__btn {
+    width: 100%;
+    border: none;
+    color: $white;
+    font-size: 1.6rem;
+    font-weight: 300;
+    padding: 3rem 2rem;
+    margin: 1rem 0;
+    cursor: pointer;
+    transition: all .2s;
+    outline: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+      box-shadow: 0 6px 14px 0 rgba(200, 200, 200, .75);
+      transform: translateY(-.2rem);
+    }
+
+    &--red {
+      background-color: $bg-red;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: lighten($bg-red, 5%);
+      }
+    }
+
+    &--purple {
+      background-color: $bg-purple;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: lighten($bg-purple, 5%);
+      }
+    }
+
+    &--orange {
+      background-color: $bg-orange;
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: lighten($bg-orange, 5%);
+      }
+    }
+  }
+}

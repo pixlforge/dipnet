@@ -1,65 +1,62 @@
 <template>
-  <div class="row">
-    <a href="/">
-      <div class="company-logo-container"
-           :class="logoWhite"
+  <div class="register__container"
+       @keyup.enter="createCompany">
+    <section class="register__summary-section">
+      <div class="register__logo register__logo--summary"
            aria-hidden="true">
+        <img :src="logoBw" :alt="`${appName} logo`">
       </div>
-    </a>
-    <div class="col-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding">
-      <div class="col-12 col-md-5 offset-md-5 mt-md-checklist no-padding">
+      <div class="register__summary">
+        <div class="register__summary-item register__summary-item--done">
+          <span class="badge__summary"><i class="fa fa-check"></i></span>
+          <span class="register__summary-label">Création de votre compte</span>
+        </div>
 
-        <div class="d-flex flex-column justify-content-center checklist">
-          <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
-            <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
-            <span>Enregistrement</span>
-          </a>
-          <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
-            <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
-            <span>Contact</span>
-          </a>
-          <a class="d-flex align-items-center checklist-item checklist-item-active link-unstyled">
-            <span class="badge badge-white mx-4">3</span>
-            <span>Société</span>
-          </a>
-          <a class="d-flex align-items-center checklist-item link-unstyled">
-            <span class="badge badge-white mx-4">4</span>
-            <span>Prêt</span>
-          </a>
+        <div class="register__summary-item register__summary-item--done">
+          <span class="badge__summary">2</span>
+          <span class="register__summary-label">Création de votre premier contact</span>
+        </div>
+
+        <div class="register__summary-item register__summary-item--active">
+          <span class="badge__summary">3</span>
+          <span class="register__summary-label">Création de votre société</span>
+        </div>
+
+        <div class="register__summary-item">
+          <span class="badge__summary">4</span>
+          <span class="register__summary-label">Terminé!</span>
         </div>
       </div>
-    </div>
+    </section>
 
-    <div class="col-12 col-lg-6 push-lg-6 vh-100 d-flex align-items-center">
-      <div class="col-12 col-lg-8 mx-auto py-5">
+    <section class="register__form-section">
+      <div class="register__form">
+        <h1 class="register__title">Votre société</h1>
 
-        <form role="form" @submit.prevent>
-
-          <h4 class="text-center">Société</h4>
-
-          <!--Name-->
-          <div class="form-group my-5">
-            <label for="name">Nom</label>
-            <input type="text"
-                   id="name"
-                   name="name"
-                   v-model="company.name"
-                   class="form-control"
-                   autofocus>
-            <div class="help-block"
-                 v-if="errors.name"
-                 v-text="errors.name[0]">
-            </div>
+        <div class="form__group">
+          <label for="name">Nom de la société</label>
+          <span class="form__required">*</span>
+          <input type="text"
+                 name="name"
+                 id="name"
+                 class="form__input"
+                 v-model.trim="company.name"
+                 required autofocus>
+          <div class="form__alert"
+               v-if="errors.name">
+            {{ errors.name[0] }}
           </div>
+        </div>
 
-          <button class="btn btn-lg btn-black btn-block mt-5"
+        <div class="register__buttons">
+          <button class="btn btn--black"
                   @click="createCompany">
-            <i class="fal fa-check mr-2"></i>
-            Terminer
+            <i class="fal fa-check"></i>
+            Terminer l'enregistrement
           </button>
-        </form>
+        </div>
       </div>
-    </div>
+    </section>
   </div>
 </template>
 

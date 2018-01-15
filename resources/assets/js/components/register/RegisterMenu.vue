@@ -1,62 +1,64 @@
 <template>
-  <div>
-    <a href="/">
-      <div class="company-logo-container"
-           :class="logo"
+  <div class="register__container">
+    <section class="register__first-section">
+      <div class="login__logo login__logo--color"
            aria-hidden="true">
+        <img :src="logoColor" :alt="`${appName} logo`">
       </div>
-    </a>
-    <div class="row">
-
-      <!--Show the carousel-->
-      <app-register-carousel></app-register-carousel>
-
-      <div class="col-12 col-lg-6 vh-100 d-flex align-items-center">
-        <div class="col-12 col-lg-8 offset-lg-2">
-
-          <h4 class="text-center mb-5">Je souhaite créer un compte et</h4>
-
-          <div class="card card-custom bg-red hoverable hoverable-red"
-               @click="joinCompany">
-            <div class="card-block">
-              <h5 class="card-title-white">Je désire rejoindre ma société</h5>
-            </div>
-          </div>
-
-          <div class="card card-custom bg-purple hoverable hoverable-purple"
-               @click="addCompany">
-            <div class="card-block">
-              <h5 class="card-title-white">Je désire enregistrer ma société</h5>
-            </div>
-          </div>
-
-          <div class="card card-custom bg-orange hoverable hoverable-orange"
-               @click="asSelf">
-            <div class="card-block">
-              <h5 class="card-title-white">Je désire commander en mon nom propre</h5>
-            </div>
-          </div>
-
-          <p class="text-small text-center mt-5">
-            Vous disposez déjà d'un compte?
-            <a href="/login" class="ml-3">Connectez-vous</a>
-          </p>
+      <div class="register__form">
+        <h1 class="register__title">Je souhaite créer un compte et</h1>
+        <button class="register__btn register__btn--orange"
+                @click="joinCompany">
+          Je désire rejoindre ma société
+        </button>
+        <button class="register__btn register__btn--red"
+                @click="addCompany">
+          Je désire enregistrer ma société
+        </button>
+        <button class="register__btn register__btn--purple"
+                @click="asSelf">
+          Je désire commander à mon nom
+        </button>
+        <div class="register__login">
+          Vous disposez déjà d'un compte?
+          <a :href="loginRoute" class="register__link">
+            Connectez-vous
+          </a>
         </div>
       </div>
-    </div>
+    </section>
+
+    <section class="login__second-section">
+      <div class="login__logo login__logo--bw"
+           aria-hidden="true">
+        <img :src="logoBw" :alt="`${appName} logo`">
+      </div>
+      <app-carousel></app-carousel>
+    </section>
   </div>
 </template>
 
 <script>
-  import RegisterCarousel from './RegisterCarousel.vue'
+  import Carousel from '../carousel/Carousel'
   import mixins from '../../mixins'
+  import { mapGetters, mapActions } from 'vuex'
 
   export default {
+    props: ['data-app-name'],
     components: {
-      'app-register-carousel': RegisterCarousel
+      'app-carousel': Carousel
     },
     mixins: [mixins],
+    computed: {
+      ...mapGetters([
+        'loaderState'
+      ])
+    },
     methods: {
+      ...mapActions([
+        'toggleLoader'
+      ]),
+
       /**
        * Create an account and join an existing company.
        */
