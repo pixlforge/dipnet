@@ -1,7 +1,8 @@
 <template>
   <div class="login__container" @keyup.enter="login">
     <section class="login__first-section">
-      <div class="login__logo login__logo--color">
+      <div class="login__logo login__logo--color"
+           aria-hidden="true">
         <img :src="logoColor" :alt="`${dataAppName} logo`">
       </div>
       <div class="login__form">
@@ -67,7 +68,8 @@
     </section>
 
     <section class="login__second-section">
-      <div class="login__logo login__logo--bw">
+      <div class="login__logo login__logo--bw"
+           aria-hidden="true">
         <img :src="logoBw" :alt="`${dataAppName} logo`">
       </div>
       <app-carousel></app-carousel>
@@ -104,31 +106,7 @@
     computed: {
       ...mapGetters([
         'loaderState'
-      ]),
-
-      logoColor() {
-        if (this.dataAppName === 'Dipnet') {
-          return '/img/logos/dip-logo-md.png'
-        } else if (this.dataAppName === 'Multicop') {
-          return '/img/logos/multicop-logo-md.png'
-        }
-      },
-
-      logoBw() {
-        if (this.dataAppName === 'Dipnet') {
-          return '/img/logos/dip-logo-white-md.png'
-        } else if (this.dataAppName === 'Multicop') {
-          return '/img/logos/multicop-logo-white-md.png'
-        }
-      },
-
-      forgottenRoute() {
-        return route('password.request')
-      },
-
-      registerRoute() {
-        return route('register.index')
-      }
+      ])
     },
     methods: {
       ...mapActions([

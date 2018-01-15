@@ -12,16 +12,36 @@ export default {
     }
   },
   computed: {
-    logo() {
-      return this.appName === 'Dipnet' ? 'company-logo-dip' : 'company-logo-multicop'
+    logoColor() {
+      if (this.appName === 'Dipnet') {
+        return '/img/logos/dip-logo-md.png'
+      } else if (this.appName === 'Multicop') {
+        return '/img/logos/multicop-logo-md.png'
+      }
     },
-    logoWhite() {
-      return this.appName === 'Dipnet' ? 'company-logo-dip-white' : 'company-logo-multicop-white'
+
+    logoBw() {
+      if (this.appName === 'Dipnet') {
+        return '/img/logos/dip-logo-white-md.png'
+      } else if (this.appName === 'Multicop') {
+        return '/img/logos/multicop-logo-white-md.png'
+      }
     },
 
     /**
      * Routes
      */
+    loginRoute() {
+      return route('login')
+    },
+
+    forgottenRoute() {
+      return route('password.request')
+    },
+
+    registerRoute() {
+      return route('register.index')
+    },
   },
   filters: {
     capitalize(value) {
