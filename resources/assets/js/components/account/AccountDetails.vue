@@ -9,8 +9,6 @@
     </a>
     <div class="row">
 
-      <app-register-carousel></app-register-carousel>
-
       <div class="col-12 col-lg-6 vh-100 d-flex align-items-center">
         <div class="col-12 col-lg-8 offset-lg-2">
 
@@ -87,7 +85,6 @@
 </template>
 
 <script>
-  import RegisterCarousel from '../register/RegisterCarousel.vue'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
   import { mapGetters, mapActions } from 'vuex'
@@ -104,7 +101,6 @@
       }
     },
     components: {
-      'app-register-carousel': RegisterCarousel,
       'app-moon-loader': MoonLoader
     },
     computed: {
