@@ -32,6 +32,7 @@
   &__second-section {
     @media all and (max-width: $bp-md) {
       order: 0;
+      height: 70vh;
     }
   }
 
@@ -41,13 +42,14 @@
     top: 3rem;
     left: 8rem;
     display: none;
+    user-select: none;
 
     img {
       height: 32px;
     }
 
     &--color {
-      @media all and (min-width: $bp-md) {
+      @media all and (min-width: $bp-md-plus-one) {
         display: block;
       }
     }
@@ -68,6 +70,14 @@
 
     @media all and (max-width: $bp-lg) {
       width: 60%;
+    }
+
+    @media all and (max-width: $bp-md) {
+      height: 60vh;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      height: 65vh;
     }
   }
 

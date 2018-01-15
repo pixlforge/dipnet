@@ -3,7 +3,7 @@
     <div class="admin-delivery__header">
       <div class="admin-delivery__details">
         <h3 class="admin-delivery__reference">
-          Référence {{ delivery.reference }}
+          Réf. {{ delivery.reference }}
         </h3>
 
         <div class="admin-delivery__first-meta">
@@ -55,7 +55,7 @@
         <textarea type="text"
                   class="form__textarea"
                   v-model="adminNote"
-                  placeholder="Commentaires pour admins seulement"
+                  placeholder="Commentaires pour admins"
                   @blur="updateAdminNote"></textarea>
       </div>
     </div>
