@@ -2,6 +2,7 @@
   <div>
     <carousel :perPage="perPage"
               :autoplay="autoplay"
+              :autoplayTimeout="autoplayTimeout"
               :loop="loop"
               :speed="speed"
               class="carousel">
@@ -44,6 +45,7 @@
       return {
         perPage: 1,
         autoplay: true,
+        autoplayTimeout: 4000,
         loop: true,
         speed: 750
       }
