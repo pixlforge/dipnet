@@ -32,7 +32,7 @@
         <li v-if="userIsAdmin">
           <a :href="routeUsers">Utilisateurs</a>
         </li>
-        <li v-if="userIsAdmin">
+        <li>
           <a :href="routeLegacyApp" target="_blank" rel="noopener noreferrer">Ancienne application</a>
           <i class="fal fa-external-link"></i>
         </li>
