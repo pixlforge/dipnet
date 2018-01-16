@@ -53399,7 +53399,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": _vm.routeUsers
     }
-  }, [_vm._v("Utilisateurs")])]) : _vm._e(), _vm._v(" "), (_vm.userIsAdmin) ? _c('li', [_c('a', {
+  }, [_vm._v("Utilisateurs")])]) : _vm._e(), _vm._v(" "), _c('li', [_c('a', {
     attrs: {
       "href": _vm.routeLegacyApp,
       "target": "_blank",
@@ -53407,7 +53407,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Ancienne application")]), _vm._v(" "), _c('i', {
     staticClass: "fal fa-external-link"
-  })]) : _vm._e()])]) : _vm._e()])
+  })])])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
