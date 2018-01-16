@@ -75,6 +75,7 @@
        */
       addContact() {
         eventBus.$emit('dropdownAddContact')
+        this.open = false
       }
     },
     created() {

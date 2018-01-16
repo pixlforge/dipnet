@@ -35251,6 +35251,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     addContact() {
       __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('dropdownAddContact');
+      this.open = false;
     }
   },
   created() {
