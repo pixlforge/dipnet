@@ -36169,6 +36169,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -55146,7 +55150,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$set(_vm.invitation, "email", $event.target.value)
       }
     }
-  })]), _vm._v(" "), _c('button', {
+  }), _vm._v(" "), (_vm.errors.email) ? _c('div', {
+    staticClass: "invitation__alert"
+  }, [_vm._v("\n      " + _vm._s(_vm.errors.email[0]) + "\n    ")]) : _vm._e()]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--black",
     on: {
       "click": _vm.sendInvitation

@@ -14,6 +14,10 @@
              placeholder="adresse@email.tld"
              v-model="invitation.email"
              @keyup.enter="sendInvitation">
+      <div class="invitation__alert"
+           v-if="errors.email">
+        {{ errors.email[0] }}
+      </div>
     </div>
 
     <button class="btn btn--black"
