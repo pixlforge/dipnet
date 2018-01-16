@@ -4,6 +4,7 @@ namespace Dipnet\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
 use Dipnet\Http\Controllers\Controller;
+use Illuminate\Validation\Rule;
 
 class AccountController extends Controller
 {
@@ -36,7 +37,7 @@ class AccountController extends Controller
         if ($request->password === null) {
             $request->validate([
                 'username' => 'required|string|min:3|max:255',
-                'email' => 'required|string|email|unique:users,id,:id|max:255',
+                'email' => 'required|string|email|unique:users|max:255'
             ]);
 
             $request->user()->username = $request->username;
@@ -49,7 +50,7 @@ class AccountController extends Controller
         if ($request->password) {
             $request->validate([
                 'username' => 'required|string|min:3|max:255',
-                'email' => 'required|string|email|unique:users,id,:id|max:255',
+                'email' => 'required|string|email|unique:users|max:255',
                 'password' => 'required|string|min:6|confirmed'
             ]);
 

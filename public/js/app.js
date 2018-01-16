@@ -39471,7 +39471,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.$store.dispatch('toggleLoader');
 
       axios.patch(route('account.update'), this.user).then(response => {
-        this.toggleModal();
         this.$store.dispatch('toggleLoader');
         this.errors = {};
         this.user.password = '';

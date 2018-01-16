@@ -150,7 +150,6 @@
 
         axios.patch(route('account.update'), this.user)
           .then(response => {
-            this.toggleModal()
             this.$store.dispatch('toggleLoader')
             this.errors = {}
             this.user.password = ''
