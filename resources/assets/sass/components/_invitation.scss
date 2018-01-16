@@ -1,0 +1,54 @@
+.invitation {
+  &__container {
+    width: 84vw;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+
+    @media all and (max-width: $bp-md) {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  &__input-group {
+    display: flex;
+  }
+
+  &__input {
+    width: 30rem;
+    font-size: 1.6rem;
+    line-height: 1.5;
+    height: 3.5rem;
+    border: none;
+    border-bottom: 1px solid $lighter-grey;
+    outline: none;
+    transition: all .2s;
+
+    @media all and (max-width: $bp-md) {
+      width: 27rem;
+      margin-bottom: 2rem;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-bottom: 1px solid $dark-grey;
+    }
+  }
+
+  &__img {
+    width: 4rem;
+    margin-right: 4rem;
+
+    @media all and (max-width: $bp-md) {
+      display: none;
+    }
+
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+}

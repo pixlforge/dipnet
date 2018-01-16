@@ -1,41 +1,22 @@
 <template>
   <div>
-    <div class="col-lg-1 hidden-md-down">
-      <img src="/img/placeholders/contact-bullet.jpg" alt="Bullet" class="img-bullet">
+    <div class="card__img">
+      <img src="/img/placeholders/contact-bullet.jpg"
+           alt="Bullet point image">
     </div>
 
-    <div class="col-12 col-lg-5">
-
-      <!--Username-->
-      <h5 class="mb-0" v-text="invitation.email"></h5>
+    <div class="card__title">
+      {{ invitation.email}}
     </div>
 
-    <div class="col-12 col-lg-3">
-      <app-resend-invitation :data-invitation="invitation"></app-resend-invitation>
+    <div class="card__meta">
+      <app-resend-invitation :data-invitation="invitation">
+      </app-resend-invitation>
     </div>
 
-    <!--Controls-->
-    <div class="col-12 col-lg-3 center-on-small-only text-lg-right">
-      <div class="dropdown">
-        <a class="btn btn-transparent btn-sm"
-           type="button"
-           id="dropdownMenuLink"
-           data-toggle="dropdown"
-           aria-haspopup="true"
-           aria-expanded="false">
-          <i class="fal fa-ellipsis-v fa-lg" aria-hidden="true"></i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right"
-             aria-labelledby="dropdownMenuLink">
-
-          <!--Delete-->
-          <a class="dropdown-item text-danger"
-             role="button"
-             @click.prevent="destroy">
-            <i class="fal fa-times"></i>
-            <span class="ml-3">Supprimer</span>
-          </a>
-        </div>
+    <div class="card__controls">
+      <div @click="destroy">
+        <i class="fal fa-times"></i>
       </div>
     </div>
   </div>

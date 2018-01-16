@@ -33728,52 +33728,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -33966,6 +33920,80 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -36185,22 +36213,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -36269,25 +36281,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -36329,8 +36322,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
 //
 //
 //
@@ -51122,77 +51113,21 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-3"
-  }, [_c('h5', {
-    staticClass: "mb-0",
-    domProps: {
-      "textContent": _vm._s(_vm.user.username)
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-2"
-  }, [(_vm.user.was_invited && !_vm.user.confirmed) ? _c('div', {
-    staticClass: "badge badge-custom badge-warning",
-    domProps: {
-      "textContent": _vm._s('Invitation envoyée')
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-3"
+    staticClass: "card__title"
+  }, [_vm._v("\n    " + _vm._s(_vm.user.username) + "\n  ")]), _vm._v(" "), _c('div', {
+    staticClass: "card__meta"
   }, [_c('span', {
-    staticClass: "card-content",
-    domProps: {
-      "textContent": _vm._s(_vm.user.email)
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-2"
-  }, [(_vm.user.was_invited && !_vm.user.confirmed) ? _c('app-send-confirmation-email-again', [_vm._v("\n      Renvoyer\n    ")]) : _vm._e()], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-1 center-on-small-only text-lg-right"
-  }, [_c('div', {
-    staticClass: "dropdown"
-  }, [_vm._m(1), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-menu dropdown-menu-right",
-    attrs: {
-      "aria-labelledby": "dropdownMenuLink"
-    }
-  }, [_c('a', {
-    staticClass: "dropdown-item text-danger",
-    attrs: {
-      "role": "button"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.destroy($event)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-times"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v("Supprimer")])])])])])])
+    staticClass: "card__label"
+  }, [_vm._v("Email")]), _vm._v("\n    " + _vm._s(_vm.user.email) + "\n  ")]), _vm._v(" "), _c('div', {
+    staticClass: "card__meta"
+  })])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-lg-1 hidden-md-down"
+    staticClass: "card__img"
   }, [_c('img', {
-    staticClass: "img-bullet",
     attrs: {
       "src": "/img/placeholders/contact-bullet.jpg",
-      "alt": "Bullet"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "btn btn-transparent btn-sm",
-    attrs: {
-      "type": "button",
-      "id": "dropdownMenuLink",
-      "data-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-ellipsis-v fa-lg",
-    attrs: {
-      "aria-hidden": "true"
+      "alt": "Bullet point image"
     }
   })])
 }]}
@@ -51650,14 +51585,14 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('button', {
-    staticClass: "btn btn-black",
+  return _c('button', {
+    staticClass: "btn btn--black",
     on: {
       "click": _vm.resend
     }
   }, [_c('i', {
-    staticClass: "fal fa-redo mr-2"
-  }), _vm._v("\n    Renvoyer\n  ")])])
+    staticClass: "fal fa-redo"
+  }), _vm._v("\n  Renvoyer\n")])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -55259,36 +55194,21 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "col-12"
-  }, [_c('h3', {
-    staticClass: "light mt-4"
-  }, [_vm._v("Inviter un membre")]), _vm._v(" "), _c('div', {
-    staticClass: "d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only mt-5"
-  }, [_c('div', {
-    staticClass: "col-lg-9 d-flex flex-row justify-content-start pl-0 pt-1"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-6 pl-0"
-  }, [_c('form', {
-    on: {
-      "submit": function($event) {
-        $event.preventDefault();
-      }
-    }
-  }, [_c('div', {
-    staticClass: "form-group"
-  }, [_c('input', {
+  return _c('div', [_c('div', {
+    staticClass: "invitation__input-group"
+  }, [_vm._m(0), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.invitation.email),
       expression: "invitation.email"
     }],
-    staticClass: "form-control",
+    staticClass: "invitation__input",
     attrs: {
       "type": "email",
-      "name": "user.email",
-      "placeholder": "e.g. adresse@email.com"
+      "name": "email",
+      "id": "email",
+      "placeholder": "adresse@email.tld"
     },
     domProps: {
       "value": (_vm.invitation.email)
@@ -55303,27 +55223,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$set(_vm.invitation, "email", $event.target.value)
       }
     }
-  }), _vm._v(" "), (_vm.errors.email) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.email[0])
-    }
-  }) : _vm._e()])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col-lg-3 text-lg-right pr-0"
-  }, [_c('a', {
-    staticClass: "btn btn-lg btn-black",
-    attrs: {
-      "role": "button"
-    },
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn--black",
     on: {
       "click": _vm.sendInvitation
     }
   }, [_c('i', {
-    staticClass: "fal fa-user-plus mr-2"
-  }), _vm._v("\n        Envoyer une invitation\n      ")])])])])
+    staticClass: "fal fa-user-plus"
+  }), _vm._v("\n    Envoyer une invitation\n  ")])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-lg-1 pl-0 pt-2"
+    staticClass: "invitation__img"
   }, [_c('img', {
     staticClass: "img-bullet",
     attrs: {
@@ -56539,40 +56449,36 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "container-fluid"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-10 my-5 mx-auto"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col-12 d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only"
+  return _c('div', [_c('div', {
+    staticClass: "header__container"
   }, [_c('h1', {
-    staticClass: "mt-5"
+    staticClass: "header__title"
   }, [_vm._v(_vm._s(_vm.company.name))]), _vm._v(" "), _c('div', {
-    staticClass: "light mt-5 mr-3"
+    staticClass: "company__members"
   }, [_c('i', {
-    staticClass: "fal fa-users mr-2"
-  }), _vm._v("\n            " + _vm._s(_vm.data.user.length) + "\n            " + _vm._s(_vm.data.user.length == 0 || _vm.data.user.length == 1 ? 'membre' : 'membres') + "\n          ")])]), _vm._v(" "), _c('app-invite-member', {
+    staticClass: "fal fa-users"
+  }), _vm._v("\n      " + _vm._s(_vm.data.user.length) + "\n      " + _vm._s(_vm.data.user.length == 0 || _vm.data.user.length == 1 ? 'membre' : 'membres') + "\n    ")])]), _vm._v(" "), _c('div', {
+    staticClass: "header__container"
+  }, [_c('app-invite-member', {
+    staticClass: "invitation__container",
     on: {
       "invitationWasAdded": _vm.addInvitation
     }
-  })], 1)])]), _vm._v(" "), _c('div', {
-    staticClass: "row bg-grey-light"
+  })], 1), _vm._v(" "), _c('div', {
+    staticClass: "company__container"
   }, [_c('div', {
-    staticClass: "col-10 mx-auto my-7"
-  }, [_c('h3', {
-    staticClass: "light mb-5"
+    staticClass: "company__group"
+  }, [_c('h2', {
+    staticClass: "company__title"
   }, [_vm._v("Membres de " + _vm._s(_vm.company.name))]), _vm._v(" "), _c('transition-group', {
     attrs: {
-      "name": "highlight"
+      "name": "highlight",
+      "tag": "div"
     }
   }, _vm._l((_vm.data.user), function(member, index) {
     return _c('app-company-member', {
-      key: member.id,
-      staticClass: "card card-custom center-on-small-only",
+      key: index,
+      staticClass: "card__container",
       attrs: {
         "member": member
       },
@@ -56582,18 +56488,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), _c('h3', {
-    staticClass: "light mt-7 mb-5"
-  }, [_vm._v("Invitations")]), _vm._v(" "), (!_vm.invitations.length) ? _c('h5', {
-    staticClass: "text-center light my-6"
+  }))], 1), _vm._v(" "), _c('div', {
+    staticClass: "company__group"
+  }, [_c('h2', {
+    staticClass: "company__title"
+  }, [_vm._v("Invitations")]), _vm._v(" "), (!_vm.invitations.length) ? _c('p', {
+    staticClass: "company__lead"
   }, [_vm._v("\n        Invitez vos collègues à rejoindre " + _vm._s(_vm.appName) + " et vos invitations s'afficheront ici.\n      ")]) : _vm._e(), _vm._v(" "), _c('transition-group', {
     attrs: {
-      "name": "highlight"
+      "name": "highlight",
+      "tag": "div"
     }
   }, _vm._l((_vm.invitations), function(invitation, index) {
     return _c('app-invited-member', {
-      key: invitation.id,
-      staticClass: "card card-custom center-on-small-only",
+      key: index,
+      staticClass: "card__container",
       attrs: {
         "invitation": invitation
       },
@@ -56603,16 +56512,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), _c('h3', {
-    staticClass: "settings__title"
+  }))], 1), _vm._v(" "), _c('div', {
+    staticClass: "company__group company__group--last"
+  }, [_c('h3', {
+    staticClass: "company__title"
   }, [_vm._v("Paramètres")]), _vm._v(" "), _c('p', {
-    staticClass: "settings__paragraph"
+    staticClass: "company__paragraph"
   }, [_vm._v("\n        Gérez les paramètres par défaut pour votre société.\n      ")]), _vm._v(" "), _c('div', {
-    staticClass: "settings__options"
+    staticClass: "company__options"
   }, [_c('div', {
-    staticClass: "settings__option"
+    staticClass: "company__option"
   }, [_c('label', {
-    staticClass: "settings__label"
+    staticClass: "company__label"
   }, [_vm._v("Affaire par défaut :")]), _vm._v(" "), _c('app-settings-dropdown', {
     attrs: {
       "label": _vm.selectedBusiness,
@@ -56621,20 +56532,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "itemSelected": _vm.selectBusiness
     }
-  })], 1), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('app-moon-loader', {
+  })], 1)])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
       "size": _vm.loader.size
     }
-  })], 1)])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "settings__option"
-  }, [_c('label', {
-    staticClass: "settings__label"
-  }, [_vm._v("Contact par défaut :")])])
-}]}
+  })], 1)
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -57264,67 +57169,29 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-5"
-  }, [_c('h5', {
-    staticClass: "mb-0",
-    domProps: {
-      "textContent": _vm._s(_vm.invitation.email)
-    }
-  })]), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-3"
+    staticClass: "card__title"
+  }, [_vm._v("\n    " + _vm._s(_vm.invitation.email) + "\n  ")]), _vm._v(" "), _c('div', {
+    staticClass: "card__meta"
   }, [_c('app-resend-invitation', {
     attrs: {
       "data-invitation": _vm.invitation
     }
   })], 1), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-3 center-on-small-only text-lg-right"
+    staticClass: "card__controls"
   }, [_c('div', {
-    staticClass: "dropdown"
-  }, [_vm._m(1), _vm._v(" "), _c('div', {
-    staticClass: "dropdown-menu dropdown-menu-right",
-    attrs: {
-      "aria-labelledby": "dropdownMenuLink"
-    }
-  }, [_c('a', {
-    staticClass: "dropdown-item text-danger",
-    attrs: {
-      "role": "button"
-    },
     on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.destroy($event)
-      }
+      "click": _vm.destroy
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  }), _vm._v(" "), _c('span', {
-    staticClass: "ml-3"
-  }, [_vm._v("Supprimer")])])])])])])
+  })])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-lg-1 hidden-md-down"
+    staticClass: "card__img"
   }, [_c('img', {
-    staticClass: "img-bullet",
     attrs: {
       "src": "/img/placeholders/contact-bullet.jpg",
-      "alt": "Bullet"
-    }
-  })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "btn btn-transparent btn-sm",
-    attrs: {
-      "type": "button",
-      "id": "dropdownMenuLink",
-      "data-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-ellipsis-v fa-lg",
-    attrs: {
-      "aria-hidden": "true"
+      "alt": "Bullet point image"
     }
   })])
 }]}

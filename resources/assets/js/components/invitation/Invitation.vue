@@ -1,42 +1,26 @@
 <template>
-  <div class="col-12">
-    <h3 class="light mt-4">Inviter un membre</h3>
-    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-center center-on-small-only mt-5">
-
-      <div class="col-lg-9 d-flex flex-row justify-content-start pl-0 pt-1">
-        <div class="col-lg-1 pl-0 pt-2">
-          <img src="/img/placeholders/contact-bullet.jpg"
-               alt="Bullet"
-               class="img-bullet">
-        </div>
-
-        <div class="col-lg-6 pl-0">
-          <form @submit.prevent>
-            <div class="form-group">
-              <input type="email"
-                     name="user.email"
-                     class="form-control"
-                     placeholder="e.g. adresse@email.com"
-                     v-model="invitation.email"
-                     @keyup.enter="sendInvitation">
-              <div class="help-block"
-                   v-if="errors.email"
-                   v-text="errors.email[0]">
-              </div>
-            </div>
-          </form>
-        </div>
+  <div>
+    <div class="invitation__input-group">
+      <div class="invitation__img">
+        <img src="/img/placeholders/contact-bullet.jpg"
+             alt="Bullet"
+             class="img-bullet">
       </div>
 
-      <div class="col-lg-3 text-lg-right pr-0">
-
-        <!--Button-->
-        <a @click="sendInvitation" class="btn btn-lg btn-black" role="button">
-          <i class="fal fa-user-plus mr-2"></i>
-          Envoyer une invitation
-        </a>
-      </div>
+      <input type="email"
+             name="email"
+             id="email"
+             class="invitation__input"
+             placeholder="adresse@email.tld"
+             v-model="invitation.email"
+             @keyup.enter="sendInvitation">
     </div>
+
+    <button class="btn btn--black"
+            @click="sendInvitation">
+      <i class="fal fa-user-plus"></i>
+      Envoyer une invitation
+    </button>
   </div>
 </template>
 

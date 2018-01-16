@@ -1,67 +1,21 @@
 <template>
   <div>
-    <div class="col-lg-1 hidden-md-down">
+    <div class="card__img">
       <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet"
-           class="img-bullet">
+           alt="Bullet point image">
     </div>
 
-    <div class="col-12 col-lg-3">
-
-      <!--Username-->
-      <h5 class="mb-0" v-text="user.username"></h5>
+    <div class="card__title">
+      {{ user.username }}
     </div>
 
-    <div class="col-12 col-lg-2">
-
-      <!--Invitation was sent-->
-      <div class="badge badge-custom badge-warning"
-           v-if="user.was_invited && ! user.confirmed"
-           v-text="'Invitation envoyée'">
-      </div>
+    <div class="card__meta">
+      <span class="card__label">Email</span>
+      {{ user.email }}
     </div>
 
-    <div class="col-12 col-lg-3">
+    <div class="card__meta"></div>
 
-      <!--Email-->
-      <span class="card-content"
-            v-text="user.email">
-      </span>
-    </div>
-
-    <div class="col-12 col-lg-2">
-
-      <app-send-confirmation-email-again v-if="user.was_invited && ! user.confirmed">
-        Renvoyer
-      </app-send-confirmation-email-again>
-    </div>
-
-    <!--Controls-->
-    <div class="col-12 col-lg-1 center-on-small-only text-lg-right">
-      <div class="dropdown">
-        <a class="btn btn-transparent btn-sm"
-           type="button"
-           id="dropdownMenuLink"
-           data-toggle="dropdown"
-           aria-haspopup="true"
-           aria-expanded="false">
-          <i class="fal fa-ellipsis-v fa-lg"
-             aria-hidden="true">
-          </i>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right"
-             aria-labelledby="dropdownMenuLink">
-
-          <!--Delete-->
-          <a class="dropdown-item text-danger"
-             role="button"
-             @click.prevent="destroy">
-            <i class="fal fa-times"></i>
-            <span class="ml-3">Supprimer</span>
-          </a>
-        </div>
-      </div>
-    </div>
   </div>
 </template>
 

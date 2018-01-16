@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <button class="btn btn-black"
-            @click="resend">
-      <i class="fal fa-redo mr-2"></i>
-      Renvoyer
-    </button>
-  </div>
+  <button class="btn btn--black"
+          @click="resend">
+    <i class="fal fa-redo"></i>
+    Renvoyer
+  </button>
 </template>
 
 <script>
