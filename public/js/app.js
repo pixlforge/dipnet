@@ -35391,6 +35391,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -37489,7 +37491,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       delivery: this.dataDelivery,
       documents: this.dataDocuments,
       articles: this.dataArticles,
-      selectedContact: 'Contact',
+      selectedContact: 'contact',
       showNote: false,
 
       /**
@@ -37506,7 +37508,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         week: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
         month: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
         format: 'LL [à] HH[h]mm',
-        placeholder: 'Date de livraison',
+        placeholder: 'date de livraison',
         inputStyle: {
           'display': 'inline-block',
           'padding': '6px',
@@ -49175,13 +49177,17 @@ module.exports = Component.exports
 /* 279 */
 /***/ (function(module, exports, __webpack_require__) {
 
+
+/* styles */
+__webpack_require__(398)
+
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(198),
   /* template */
   __webpack_require__(341),
   /* scopeId */
-  null,
+  "data-v-448184f8",
   /* cssModules */
   null
 )
@@ -53405,9 +53411,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "target": "_blank",
       "rel": "noopener noreferrer"
     }
-  }, [_vm._v("Ancienne application")]), _vm._v(" "), _c('i', {
+  }, [_vm._v("\n          Ancienne application\n          "), _c('i', {
     staticClass: "fal fa-external-link"
-  })])])]) : _vm._e()])
+  })])])])]) : _vm._e()])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -54450,7 +54456,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.toggleOpen
     }
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))])]), _vm._v(" "), _c('i', {
+  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm.label))])]), _vm._v(" "), _c('i', {
     staticClass: "fas fa-caret-down"
   })]), _vm._v(" "), (_vm.open) ? _c('div', {
     staticClass: "dropdown__container"
@@ -57337,7 +57343,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.toggleOpen
     }
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))])]), _vm._v(" "), _c('i', {
+  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm.label))])]), _vm._v(" "), _c('i', {
     staticClass: "fas fa-caret-down"
   })]), _vm._v(" "), (_vm.open) ? _c('div', {
     staticClass: "dropdown__container"
@@ -58470,6 +58476,47 @@ __webpack_require__(146);
 __webpack_require__(147);
 module.exports = __webpack_require__(145);
 
+
+/***/ }),
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */,
+/* 396 */,
+/* 397 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(7)();
+exports.push([module.i, "\nsvg[data-v-448184f8] {\n  margin-left: 1rem;\n}\n", ""]);
+
+/***/ }),
+/* 398 */
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(397);
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var update = __webpack_require__(8)("1942c909", content, false);
+// Hot Module Replacement
+if(false) {
+ // When the styles change, update the <style> tags
+ if(!content.locals) {
+   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-448184f8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MenuDropdown.vue", function() {
+     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-448184f8\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./MenuDropdown.vue");
+     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+     update(newContent);
+   });
+ }
+ // When the module is disposed, remove the <style> tags
+ module.hot.dispose(function() { update(); });
+}
 
 /***/ })
 /******/ ]);

@@ -91,7 +91,7 @@
         delivery: this.dataDelivery,
         documents: this.dataDocuments,
         articles: this.dataArticles,
-        selectedContact: 'Contact',
+        selectedContact: 'contact',
         showNote: false,
 
         /**
@@ -108,7 +108,7 @@
           week: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
           month: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
           format: 'LL [à] HH[h]mm',
-          placeholder: 'Date de livraison',
+          placeholder: 'date de livraison',
           inputStyle: {
             'display': 'inline-block',
             'padding': '6px',

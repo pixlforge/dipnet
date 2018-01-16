@@ -33,8 +33,10 @@
           <a :href="routeUsers">Utilisateurs</a>
         </li>
         <li>
-          <a :href="routeLegacyApp" target="_blank" rel="noopener noreferrer">Ancienne application</a>
-          <i class="fal fa-external-link"></i>
+          <a :href="routeLegacyApp" target="_blank" rel="noopener noreferrer">
+            Ancienne application
+            <i class="fal fa-external-link"></i>
+          </a>
         </li>
       </ul>
     </div>
@@ -129,3 +131,9 @@
     }
   }
 </script>
+
+<style scoped>
+  svg {
+    margin-left: 1rem;
+  }
+</style>

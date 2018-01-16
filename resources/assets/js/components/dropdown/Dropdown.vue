@@ -2,7 +2,7 @@
   <div ref="dropdownMenu">
     <div class="dropdown__label"
          @click="toggleOpen">
-      <span><strong>{{ label | capitalize }}</strong></span>
+      <span><strong>{{ label }}</strong></span>
       <i class="fas fa-caret-down"></i>
     </div>
     <div class="dropdown__container" v-if="open">
