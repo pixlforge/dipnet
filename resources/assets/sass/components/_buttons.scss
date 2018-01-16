@@ -7,6 +7,13 @@
   padding: 1rem 0;
   transition: background-color .2s;
   cursor: pointer;
+  
+  &:disabled {
+    color: $light-grey;
+    cursor: not-allowed;
+    background-color: $mercury;
+    border: 1px solid $mercury;
+  }
 
   svg {
     margin-right: .5rem;
@@ -23,6 +30,11 @@
       outline: none;
       background-color: $dark-grey;
       border: 1px solid $black;
+
+      &:disabled {
+        background-color: $mercury;
+        border: 1px solid $mercury;
+      }
     }
   }
 
@@ -36,6 +48,11 @@
     &:focus {
       outline: none;
       background-color: lighten($yellowsea, 5%);
+
+      &:disabled {
+        background-color: $mercury;
+        border: 1px solid $mercury;
+      }
     }
   }
 
@@ -52,6 +69,11 @@
       outline: none;
       background-color: $dark-grey;
       border: 1px solid $black;
+
+      &:disabled {
+        background-color: $mercury;
+        border: 1px solid $mercury;
+      }
     }
   }
 
@@ -68,6 +90,11 @@
       outline: none;
       background-color: $mercury;
       border: 1px solid $mercury;
+
+      &:disabled {
+        background-color: $mercury;
+        border: 1px solid $mercury;
+      }
     }
   }
 
