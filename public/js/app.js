@@ -56410,7 +56410,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h2', {
     staticClass: "company__title"
   }, [_vm._v("Invitations")]), _vm._v(" "), (!_vm.invitations.length) ? _c('p', {
-    staticClass: "company__lead"
+    staticClass: "company__paragraph"
   }, [_vm._v("\n        Invitez vos collègues à rejoindre " + _vm._s(_vm.appName) + " et vos invitations s'afficheront ici.\n      ")]) : _vm._e(), _vm._v(" "), _c('transition-group', {
     attrs: {
       "name": "highlight",

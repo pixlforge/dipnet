@@ -33,7 +33,7 @@
       <div class="company__group">
         <h2 class="company__title">Invitations</h2>
 
-        <p class="company__lead" v-if="!invitations.length">
+        <p class="company__paragraph" v-if="!invitations.length">
           Invitez vos collègues à rejoindre {{ appName }} et vos invitations s'afficheront ici.
         </p>
 
