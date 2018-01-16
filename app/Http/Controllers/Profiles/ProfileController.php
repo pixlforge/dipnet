@@ -25,7 +25,10 @@ class ProfileController extends Controller
     }
 
     /**
-     * Profile
+     * Profile index.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
@@ -62,6 +65,10 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(Request $request)
     {
         if ($request->avatar['id']) {
