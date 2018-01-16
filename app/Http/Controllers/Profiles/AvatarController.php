@@ -22,6 +22,10 @@ class AvatarController extends Controller
         $this->imageManager = $imageManager;
     }
 
+    /**
+     * @param AvatarUploadRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function store(AvatarUploadRequest $request)
     {
         $processedImage = $this->imageManager->make($request->file('avatar')->getPathName())

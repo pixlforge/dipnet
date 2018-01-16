@@ -50801,8 +50801,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.toggleModal
     }
   }, [_c('i', {
-    staticClass: "fal fa-cog"
-  }), _vm._v("\n    Mettre à jour le compte\n  ")]), _vm._v(" "), _c('transition', {
+    staticClass: "fal fa-pencil"
+  }), _vm._v("\n    Éditer mon compte\n  ")]), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "fade"
     }
@@ -58198,7 +58198,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "register__title"
   }, [_vm._v("Rejoindre ma société")]), _vm._v(" "), _c('p', {
     staticClass: "register__lead"
-  }, [_vm._v("\n        Demandez une invitation à l'un de vos collègues membres de " + _vm._s(_vm.appName) + " afin de pouvoir créer votre compte en\n        tant que membre de votre société.\n      ")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n        Demandez une invitation à l'un de vos collègues membres déjà inscrit, afin de pouvoir créer votre compte en\n        tant que membre de votre société.\n      ")]), _vm._v(" "), _c('div', {
     staticClass: "register__back",
     on: {
       "click": _vm.backToMenu

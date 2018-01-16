@@ -2,8 +2,8 @@
   <div>
     <button class="btn btn--black"
             @click="toggleModal">
-      <i class="fal fa-cog"></i>
-      Mettre à jour le compte
+      <i class="fal fa-pencil"></i>
+      Éditer mon compte
     </button>
 
     <transition name="fade">

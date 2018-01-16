@@ -8,7 +8,7 @@
         <h1 class="register__title">Rejoindre ma société</h1>
 
         <p class="register__lead">
-          Demandez une invitation à l'un de vos collègues membres de {{ appName }} afin de pouvoir créer votre compte en
+          Demandez une invitation à l'un de vos collègues membres déjà inscrit, afin de pouvoir créer votre compte en
           tant que membre de votre société.
         </p>
 
