@@ -61,14 +61,36 @@ class OrderValidationTest extends TestCase
         $this->assertEquals('incomplète', $order->status);
         $this->assertCount(0, $order->deliveries);
 
-        factory(Delivery::class)->create([
+        $delivery = factory(Delivery::class)->create([
             'order_id' => $order->id
+        ]);
+
+        factory(Document::class)->create([
+            'delivery_id' => $delivery->id
         ]);
 
         $this->assertCount(1, $order->fresh()->deliveries);
 
         $this->postJson(route('orders.validation', $order), $order->toArray())
             ->assertStatus(200);
+    }
+
+    /** @test */
+    function validation_fails_if_there_is_no_document_associated_to_a_delivery()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $this->actingAs($user);
+
+        $order = factory(Order::class)->create();
+
+        factory(Delivery::class)->create([
+            'order_id' => $order->id
+        ]);
+
+        $this->postJson(route('orders.validation', $order), $order->toArray())
+            ->assertStatus(422);
     }
 
     /** @test */

@@ -44,6 +44,10 @@ class OrderValidationController extends Controller
         $deliveries = Delivery::where('order_id', $order->id)->get();
 
         foreach ($deliveries as $delivery) {
+            if (count($delivery->documents) === 0) {
+                abort(422, "Une livraison ne contient aucun document.");
+            }
+
             if ($delivery->contact_id === null) {
                 abort(422, "Une livraison ne contient pas de contact de livraison.");
             }
