@@ -17,14 +17,20 @@
                       @paginationSwitched="getCompanies">
       </app-pagination>
 
-      <transition-group name="pagination" tag="div" mode="out-in">
-        <app-company class="card__container"
-                     v-for="(company, index) in companies"
-                     :data-company="company"
-                     :key="company.id"
-                     @companyWasDeleted="removeCompany(index)">
-        </app-company>
-      </transition-group>
+      <template v-if="!companies.length && !fetching">
+        <p class="paragraph__no-model-found">Il n'existe encore aucune société.</p>
+      </template>
+
+      <template v-else>
+        <transition-group name="pagination" tag="div" mode="out-in">
+          <app-company class="card__container"
+                       v-for="(company, index) in companies"
+                       :key="company.id"
+                       :data-company="company"
+                       @companyWasDeleted="removeCompany(index)">
+          </app-company>
+        </transition-group>
+      </template>
 
       <app-pagination class="pagination pagination--bottom"
                       v-if="companies.length"
@@ -53,7 +59,9 @@
     data() {
       return {
         companies: [],
-        meta: {}
+        meta: {},
+        errors: {},
+        fetching: false
       }
     },
     mixins: [mixins],
@@ -74,6 +82,7 @@
        */
       getCompanies(page = 1) {
         this.$store.dispatch('toggleLoader')
+        this.fetching = true
 
         axios.get(route('api.companies.index'), {
           params: {
@@ -83,6 +92,11 @@
           this.companies = response.data.data
           this.meta = response.data.meta
           this.$store.dispatch('toggleLoader')
+          this.fetching = false
+        }).catch(error => {
+          this.errors = error.response.data
+          this.$store.dispatch('toggleLoader')
+          this.fetching = false
         })
       },
 

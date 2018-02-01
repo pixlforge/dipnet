@@ -17,14 +17,20 @@
                       @paginationSwitched="getContacts">
       </app-pagination>
 
-      <transition-group name="pagination" tag="div" mode="out-in">
-        <app-contact class="card__container"
-                     v-for="(contact, index) in contacts"
-                     :key="contact.id"
-                     :data-contact="contact"
-                     @contactWasDeleted="removeContact(index)">
-        </app-contact>
-      </transition-group>
+      <template v-if="!contacts.length && !fetching">
+        <p class="paragraph__no-model-found">Il n'existe encore aucun contact.</p>
+      </template>
+
+      <template v-else>
+        <transition-group name="pagination" tag="div" mode="out-in">
+          <app-contact class="card__container"
+                       v-for="(contact, index) in contacts"
+                       :key="contact.id"
+                       :data-contact="contact"
+                       @contactWasDeleted="removeContact(index)">
+          </app-contact>
+        </transition-group>
+      </template>
 
       <app-pagination class="pagination pagination--bottom"
                       v-if="contacts.length"
@@ -53,7 +59,9 @@
     data() {
       return {
         contacts: [],
-        meta: {}
+        meta: {},
+        errors: {},
+        fetching: false
       }
     },
     mixins: [mixins],
@@ -74,6 +82,7 @@
        */
       getContacts(page = 1) {
         this.$store.dispatch('toggleLoader')
+        this.fetching = true
 
         axios.get(route('api.contacts.index'), {
           params: {
@@ -83,6 +92,11 @@
           this.contacts = response.data.data
           this.meta = response.data.meta
           this.$store.dispatch('toggleLoader')
+          this.fetching = false
+        }).catch(error => {
+          this.errors = error.response.data
+          this.$store.dispatch('toggleLoader')
+          this.fetching = false
         })
       },
 

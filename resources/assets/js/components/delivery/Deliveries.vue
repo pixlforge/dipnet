@@ -16,14 +16,20 @@
                       @paginationSwitched="getDeliveries">
       </app-pagination>
 
-      <transition-group name="pagination" tag="div" mode="out-in">
-        <app-delivery class="card__container"
-                      v-for="(delivery, index) in deliveries"
-                      :key="delivery.id"
-                      :data-delivery="delivery"
-                      @deliveryWasDeleted="removeDelivery(index)">
-        </app-delivery>
-      </transition-group>
+      <template v-if="!deliveries.length && !fetching">
+        <p class="paragraph__no-model-found">Il n'existe encore aucune livraison.</p>
+      </template>
+
+      <template v-else>
+        <transition-group name="pagination" tag="div" mode="out-in">
+          <app-delivery class="card__container"
+                        v-for="(delivery, index) in deliveries"
+                        :key="delivery.id"
+                        :data-delivery="delivery"
+                        @deliveryWasDeleted="removeDelivery(index)">
+          </app-delivery>
+        </transition-group>
+      </template>
 
       <app-pagination class="pagination pagination--bottom"
                       v-if="deliveries.length"
@@ -50,7 +56,9 @@
     data() {
       return {
         deliveries: [],
-        meta: {}
+        meta: {},
+        errors: {},
+        fetching: false
       }
     },
     mixins: [mixins],
@@ -70,6 +78,7 @@
        */
       getDeliveries(page = 1) {
         this.$store.dispatch('toggleLoader')
+        this.fetching = true
 
         axios.get(route('api.deliveries.index'), {
           params: {
@@ -79,6 +88,11 @@
           this.deliveries = response.data.data
           this.meta = response.data.meta
           this.$store.dispatch('toggleLoader')
+          this.fetching = false
+        }).catch(error => {
+          this.errors = error.response.data
+          this.$store.dispatch('toggleLoader')
+          this.fetching = false
         })
       },
     },

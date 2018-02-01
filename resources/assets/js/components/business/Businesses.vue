@@ -20,16 +20,22 @@
                       @paginationSwitched="getBusinesses">
       </app-pagination>
 
-      <transition-group name="pagination" tag="div" mode="out-in">
-        <app-business class="card__container"
-                      v-for="(business, index) in businesses"
-                      :key="business.id"
-                      :data-business="business"
-                      :data-companies="dataCompanies"
-                      :data-contacts="dataContacts"
-                      @businessWasDeleted="removeBusiness(index)">
-        </app-business>
-      </transition-group>
+      <template v-if="!businesses.length && !fetching">
+        <p class="paragraph__no-model-found">Il n'existe encore aucune affaire.</p>
+      </template>
+
+      <template v-else>
+        <transition-group name="pagination" tag="div" mode="out-in">
+          <app-business class="card__container"
+                        v-for="(business, index) in businesses"
+                        :key="business.id"
+                        :data-business="business"
+                        :data-companies="dataCompanies"
+                        :data-contacts="dataContacts"
+                        @businessWasDeleted="removeBusiness(index)">
+          </app-business>
+        </transition-group>
+      </template>
 
       <app-pagination class="pagination pagination--bottom"
                       v-if="businesses.length"
@@ -64,7 +70,9 @@
       return {
         businesses: [],
         companies: this.dataCompanies,
-        meta: {}
+        meta: {},
+        errors: {},
+        fetching: false
       }
     },
     mixins: [mixins],
@@ -85,6 +93,7 @@
        */
       getBusinesses(page = 1) {
         this.$store.dispatch('toggleLoader')
+        this.fetching = true
 
         axios.get(route('api.businesses.index'), {
           params: {
@@ -94,6 +103,11 @@
           this.businesses = response.data.data
           this.meta = response.data.meta
           this.$store.dispatch('toggleLoader')
+          this.fetching = false
+        }).catch(error => {
+          this.errors = error.response.data
+          this.$store.dispatch('toggleLoader')
+          this.fetching = false
         })
       },
 

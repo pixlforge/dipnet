@@ -20,14 +20,20 @@
                       @paginationSwitched="getOrders">
       </app-pagination>
 
-      <transition-group name="pagination" tag="div" mode="out-in">
-        <app-order class="card__container"
-                   v-for="(order, index) in orders"
-                   :key="order.id"
-                   :data-order="order"
-                   @orderWasDeleted="removeOrder(index)">
-        </app-order>
-      </transition-group>
+      <template v-if="!orders.length && !fetching">
+        <p class="paragraph__no-model-found">Il n'existe encore aucune commande.</p>
+      </template>
+
+      <template v-else>
+        <transition-group name="pagination" tag="div" mode="out-in">
+          <app-order class="card__container"
+                     v-for="(order, index) in orders"
+                     :key="order.id"
+                     :data-order="order"
+                     @orderWasDeleted="removeOrder(index)">
+          </app-order>
+        </transition-group>
+      </template>
 
       <app-pagination class="pagination pagination--bottom"
                       v-if="orders.length"
@@ -56,7 +62,9 @@
     data() {
       return {
         orders: [],
-        meta: {}
+        meta: {},
+        errors: {},
+        fetching: false
       }
     },
     mixins: [mixins],
@@ -77,6 +85,7 @@
        */
       getOrders(page = 1) {
         this.$store.dispatch('toggleLoader')
+        this.fetching = true
 
         axios.get(route('api.orders.index'), {
           params: {
@@ -86,6 +95,11 @@
           this.orders = response.data.data
           this.meta = response.data.meta
           this.$store.dispatch('toggleLoader')
+          this.fetching = false
+        }).catch(error => {
+          this.errors = error.response.data
+          this.$store.dispatch('toggleLoader')
+          this.fetching = false
         })
       },
 

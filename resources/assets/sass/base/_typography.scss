@@ -40,76 +40,20 @@ strong {
   font-weight: 400;
 }
 
-.select-label {
-  font-weight: 300;
-  color: $scorpion;
-  margin-left: 10px;
-}
-
-.text-small {
-  font-size: 12px;
-  color: $dark-grey;
-
-  a {
-    font-size: .875rem;
-    color: $black;
-  }
-}
-
-.lead {
-  font-size: 30px;
-  font-weight: 400;
-}
-
-.bold {
-  font-weight: 700;
-}
-
-.info {
-  font-size: 18px;
-  font-weight: 100;
-  text-align: center;
-}
-
-.back-arrow {
-  display: inline-block;
-  cursor: pointer;
-  margin-top: 1rem;
-
-  &:hover {
-    color: $tundora;
-  }
-}
-
-.light {
-  font-weight: 100;
-}
-
-.description {
-  font-size: .875rem;
-  font-weight: 400;
-  line-height: 1.43;
-}
-
 input {
   font-family: $font-stack;
-}
-
-.text-success {
-  color: $atlantis !important;
-}
-
-.profile-data {
-  color: $scorpion;
-}
-
-.card-label {
-  font-size: 12px;
-  margin-right: 5px;
-  text-transform: uppercase;
 }
 
 small {
   font-size: 2rem;
   color: $scorpion;
+}
+
+.paragraph {
+  &__no-model-found {
+    font-size: 2.4rem;
+    font-weight: 300;
+    text-align: center;
+    margin-top: 10rem;
+  }
 }

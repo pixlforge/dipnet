@@ -16,14 +16,20 @@
                       @paginationSwitched="getDocuments">
       </app-pagination>
 
-      <transition-group name="pagination" tag="div" mode="out-in">
-        <app-document class="card__container"
-                      v-for="(document, index) in documents"
-                      :key="document.id"
-                      :data-document="document"
-                      @documentWasDeleted="removeDocument(index)">
-        </app-document>
-      </transition-group>
+      <template v-if="!documents.length && !fetching">
+        <p class="paragraph__no-model-found">Il n'existe encore aucun document.</p>
+      </template>
+
+      <template v-else>
+        <transition-group name="pagination" tag="div" mode="out-in">
+          <app-document class="card__container"
+                        v-for="(document, index) in documents"
+                        :key="document.id"
+                        :data-document="document"
+                        @documentWasDeleted="removeDocument(index)">
+          </app-document>
+        </transition-group>
+      </template>
 
       <app-pagination class="pagination pagination--bottom"
                       v-if="documents.length"
@@ -50,7 +56,9 @@
     data() {
       return {
         documents: [],
-        meta: {}
+        meta: {},
+        errors: {},
+        fetching: false
       }
     },
     mixins: [mixins],
@@ -70,6 +78,7 @@
        */
       getDocuments(page = 1) {
         this.$store.dispatch('toggleLoader')
+        this.fetching = true
 
         axios.get('/api/documents', {
           params: {
@@ -79,6 +88,11 @@
           this.documents = response.data.data
           this.meta = response.data.meta
           this.$store.dispatch('toggleLoader')
+          this.fetching = false
+        }).catch(error => {
+          this.errors = error.response.data
+          this.$store.dispatch('toggleLoader')
+          this.fetching = false
         })
       },
     },
