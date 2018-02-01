@@ -16,13 +16,13 @@
     </div>
 
     <div class="card__meta">
-      <div>
+      <div v-if="delivery.order">
         <span class="card__label">Commande</span>
         {{ delivery.order.reference }}
       </div>
-      <div v-if="delivery.order.reference">
+      <div v-if="delivery.order">
         <span class="card__label">Contact</span>
-        {{ delivery.order.reference }}
+        {{ delivery.contact.name}}
       </div>
       <div v-if="delivery.to_delivery_at">
         <span class="card__label">Date</span>
