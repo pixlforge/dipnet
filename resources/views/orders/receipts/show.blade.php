@@ -6,21 +6,22 @@
 
   @include ('layouts.partials._nav')
 
-  <div class="receipt__header">
-    @if (config('app.name') === 'Dipnet')
-      <img class="receipt__logo"
-           src="{{ asset('/img/logos/header-dip.gif') }}"
-           alt="En-tête Dip">
-    @endif
-    <h1 class="receipt__title">Bulletin de commande</h1>
-  </div>
-
   @foreach ($order->deliveries as $delivery)
+    <div class="receipt__header">
+      @if (config('app.name') === 'Dipnet')
+        <img class="receipt__logo"
+             src="{{ asset('/img/logos/header-dip.gif') }}"
+             alt="En-tête Dip">
+      @endif
+      <h1 class="receipt__title">Bulletin de livraison
+        <small>(ref. {{ $delivery->reference }})</small>
+      </h1>
+    </div>
+
+
     <section class="receipt__section">
       <div class="receipt__content">
         <div class="receipt__container">
-
-          <h2 class="receipt__secondary-title">Livraison {{ $delivery->reference }}</h2>
 
           {{--First row--}}
           <div class="receipt__row">
@@ -28,12 +29,6 @@
               <h2 class="receipt__item-title">Date de la commande</h2>
               <p class="receipt__item-content">
                 {{ $order->updated_at->formatLocalized('%e %B %Y - %H:%M') }}
-              </p>
-            </div>
-            <div class="receipt__item">
-              <h2 class="receipt__item-title">Fichier</h2>
-              <p class="receipt__item-content">
-                ?
               </p>
             </div>
             <div class="receipt__item">
@@ -47,6 +42,15 @@
           {{--Second row--}}
           <div class="receipt__row">
             <div class="receipt__item">
+              <h2 class="receipt__item-title">Commandé par</h2>
+              <ul class="receipt__item-list">
+                <li>{{ $company->name }}</li>
+                <br>
+                <li>{{ $user->username }}</li>
+                <li>{{ $user->email }}</li>
+              </ul>
+            </div>
+            <div class="receipt__item">
               <h2 class="receipt__item-title">Livraison chez</h2>
               <ul class="receipt__item-list">
                 <li>{{ ucfirst($delivery->contact->name) }}</li>
@@ -56,12 +60,6 @@
                 <li>{{ $delivery->contact->phone_number }}</li>
                 <li>{{ $delivery->contact->fax }}</li>
                 <li>{{ $delivery->contact->email }}</li>
-              </ul>
-            </div>
-            <div class="receipt__item">
-              <h2 class="receipt__item-title">Commandé par</h2>
-              <ul class="receipt__item-list">
-                <li>?</li>
               </ul>
             </div>
             <div class="receipt__item">
@@ -115,7 +113,6 @@
           <table class="receipt__table">
             <tr class="receipt__table-header">
               <th>Nom de fichier</th>
-              <th>Code article</th>
               <th>Impression</th>
               <th>Finition</th>
               <th>Options</th>
@@ -126,7 +123,6 @@
             @foreach ($delivery->documents as $document)
               <tr>
                 <td>{{ $document->filename }}</td>
-                <td>?</td>
                 <td>{{ $document->article->description }}</td>
                 <td>{{ ucfirst($document->finish) }}</td>
                 <td>

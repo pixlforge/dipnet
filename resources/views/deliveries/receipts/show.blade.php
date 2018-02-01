@@ -12,7 +12,9 @@
            src="{{ asset('/img/logos/header-dip.gif') }}"
            alt="En-tête Dip">
     @endif
-    <h1 class="receipt__title">Bulletin de livraison</h1>
+      <h1 class="receipt__title">Bulletin de livraison
+        <small>(ref. {{ $delivery->reference }})</small>
+      </h1>
   </div>
 
   <div class="receipt__content">
@@ -27,12 +29,6 @@
           </p>
         </div>
         <div class="receipt__item">
-          <h2 class="receipt__item-title">Fichier</h2>
-          <p class="receipt__item-content">
-            ?
-          </p>
-        </div>
-        <div class="receipt__item">
           <h2 class="receipt__item-title">Commande n°</h2>
           <p class="receipt__item-content">
             {{ $order->reference }}
@@ -43,6 +39,17 @@
       {{--Second row--}}
       <div class="receipt__row">
         <div class="receipt__item">
+          <h2 class="receipt__item-title">Commandé par</h2>
+          <ul class="receipt__item-list">
+            <li>{{ $company->name }}</li>
+            <li>{{ $company->description }}</li>
+            <li>{{ $company->status }}</li>
+            <br>
+            <li>{{ $user->username }}</li>
+            <li>{{ $user->email }}</li>
+          </ul>
+        </div>
+        <div class="receipt__item">
           <h2 class="receipt__item-title">Livraison chez</h2>
           <ul class="receipt__item-list">
             <li>{{ ucfirst($delivery->contact->name) }}</li>
@@ -52,12 +59,6 @@
             <li>{{ $delivery->contact->phone_number }}</li>
             <li>{{ $delivery->contact->fax }}</li>
             <li>{{ $delivery->contact->email }}</li>
-          </ul>
-        </div>
-        <div class="receipt__item">
-          <h2 class="receipt__item-title">Commandé par</h2>
-          <ul class="receipt__item-list">
-            <li>?</li>
           </ul>
         </div>
         <div class="receipt__item">
@@ -111,7 +112,6 @@
       <table class="receipt__table">
         <tr class="receipt__table-header">
           <th>Nom de fichier</th>
-          <th>Code article</th>
           <th>Impression</th>
           <th>Finition</th>
           <th>Options</th>
@@ -122,7 +122,6 @@
         @foreach ($documents as $document)
           <tr>
             <td>{{ $document->filename }}</td>
-            <td>?</td>
             <td>{{ $document->article->description }}</td>
             <td>{{ ucfirst($document->finish) }}</td>
             <td>

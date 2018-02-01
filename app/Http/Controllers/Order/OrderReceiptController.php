@@ -15,10 +15,19 @@ class OrderReceiptController extends Controller
         $this->middleware(['admin']);
     }
 
+    /**
+     * @param Order $order
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Order $order)
     {
+        $company = $order->business->company;
+        $user = $order->user;
+
         return view('orders.receipts.show', [
-            'order' => $order
+            'order' => $order,
+            'company' => $company,
+            'user' => $user
         ]);
     }
 }

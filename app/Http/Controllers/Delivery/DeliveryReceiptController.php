@@ -15,10 +15,18 @@ class DeliveryReceiptController extends Controller
         $this->middleware(['admin']);
     }
 
+    /**
+     * @param Delivery $delivery
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Delivery $delivery)
     {
         $order = $delivery->order;
         $order = $order->load('contact');
+
+        $company = $order->business->company;
+
+        $user = $order->user;
 
         $delivery = $delivery->load('contact');
 
@@ -28,7 +36,9 @@ class DeliveryReceiptController extends Controller
         return view('deliveries.receipts.show', [
             'order' => $order,
             'delivery' => $delivery,
-            'documents' => $documents
+            'documents' => $documents,
+            'company' => $company,
+            'user' => $user
         ]);
     }
 }
