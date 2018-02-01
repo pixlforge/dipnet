@@ -14,7 +14,7 @@ class FormatController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('admin');
     }
 
     /**
@@ -24,18 +24,7 @@ class FormatController extends Controller
      */
     public function index()
     {
-        $this->authorize('view', Format::class);
-
-        $formats = Format::latest()
-            ->orderBy('name')
-            ->get()
-            ->toJson();
-
-        if (request()->wantsJson()) {
-            return $formats;
-        }
-
-        return view('formats.index', compact('formats'));
+        return view('formats.index');
     }
 
     /**

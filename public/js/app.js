@@ -32311,15 +32311,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Article_vue__ = __webpack_require__(257);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Article_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Article_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddArticle_vue__ = __webpack_require__(256);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddArticle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AddArticle_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Article_vue__ = __webpack_require__(257);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Article_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Article_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddArticle_vue__ = __webpack_require__(256);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddArticle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AddArticle_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -32352,6 +32354,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -32361,21 +32382,48 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-articles', 'data-categories'],
+  props: ['data-categories'],
   data() {
     return {
-      articles: this.dataArticles,
-      categories: this.dataCategories
+      articles: [],
+      categories: this.dataCategories,
+      meta: {},
+      errors: {},
+      fetching: false
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
   components: {
-    'app-article': __WEBPACK_IMPORTED_MODULE_0__Article_vue___default.a,
-    'app-add-article': __WEBPACK_IMPORTED_MODULE_1__AddArticle_vue___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+    'app-article': __WEBPACK_IMPORTED_MODULE_1__Article_vue___default.a,
+    'app-add-article': __WEBPACK_IMPORTED_MODULE_2__AddArticle_vue___default.a,
+    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
+    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(['loaderState'])),
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
+    /**
+     * Fetch the articles paginated data.
+     */
+    getArticles(page = 1) {
+      this.$store.dispatch('toggleLoader');
+      this.fetching = true;
+
+      axios.get(route('api.articles.index'), {
+        params: {
+          page
+        }
+      }).then(response => {
+        this.articles = response.data.data;
+        this.meta = response.data.meta;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      }).catch(error => {
+        this.errors = error.response.data;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      });
+    },
+
     /**
      * Add a new article to the list.
      */
@@ -32417,9 +32465,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   },
   created() {
-    __WEBPACK_IMPORTED_MODULE_4__app__["eventBus"].$on('articleWasUpdated', data => {
+    __WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on('articleWasUpdated', data => {
       this.updateArticle(data);
     });
+  },
+  mounted() {
+    this.getArticles();
   }
 });
 
@@ -33110,6 +33161,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -33125,7 +33182,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     return {
       businesses: [],
       companies: this.dataCompanies,
-      meta: {}
+      meta: {},
+      errors: {},
+      fetching: false
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
@@ -33142,6 +33201,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     getBusinesses(page = 1) {
       this.$store.dispatch('toggleLoader');
+      this.fetching = true;
 
       axios.get(route('api.businesses.index'), {
         params: {
@@ -33151,6 +33211,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.businesses = response.data.data;
         this.meta = response.data.meta;
         this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      }).catch(error => {
+        this.errors = error.response.data;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
       });
     },
 
@@ -33656,6 +33721,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -33669,7 +33740,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   data() {
     return {
       companies: [],
-      meta: {}
+      meta: {},
+      errors: {},
+      fetching: false
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
@@ -33686,6 +33759,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     getCompanies(page = 1) {
       this.$store.dispatch('toggleLoader');
+      this.fetching = true;
 
       axios.get(route('api.companies.index'), {
         params: {
@@ -33695,6 +33769,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.companies = response.data.data;
         this.meta = response.data.meta;
         this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      }).catch(error => {
+        this.errors = error.response.data;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
       });
     },
 
@@ -34629,6 +34708,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -34642,7 +34727,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   data() {
     return {
       contacts: [],
-      meta: {}
+      meta: {},
+      errors: {},
+      fetching: false
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
@@ -34659,6 +34746,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     getContacts(page = 1) {
       this.$store.dispatch('toggleLoader');
+      this.fetching = true;
 
       axios.get(route('api.contacts.index'), {
         params: {
@@ -34668,6 +34756,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.contacts = response.data.data;
         this.meta = response.data.meta;
         this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      }).catch(error => {
+        this.errors = error.response.data;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
       });
     },
 
@@ -34998,6 +35091,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -35009,7 +35108,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   data() {
     return {
       deliveries: [],
-      meta: {}
+      meta: {},
+      errors: {},
+      fetching: false
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
@@ -35025,6 +35126,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     getDeliveries(page = 1) {
       this.$store.dispatch('toggleLoader');
+      this.fetching = true;
 
       axios.get(route('api.deliveries.index'), {
         params: {
@@ -35034,6 +35136,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.deliveries = response.data.data;
         this.meta = response.data.meta;
         this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      }).catch(error => {
+        this.errors = error.response.data;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
       });
     }
   },
@@ -35265,6 +35372,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -35276,7 +35389,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   data() {
     return {
       documents: [],
-      meta: {}
+      meta: {},
+      errors: {},
+      fetching: false
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
@@ -35292,6 +35407,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     getDocuments(page = 1) {
       this.$store.dispatch('toggleLoader');
+      this.fetching = true;
 
       axios.get('/api/documents', {
         params: {
@@ -35301,6 +35417,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.documents = response.data.data;
         this.meta = response.data.meta;
         this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      }).catch(error => {
+        this.errors = error.response.data;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
       });
     }
   },
@@ -36240,15 +36361,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Format_vue__ = __webpack_require__(286);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Format_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Format_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddFormat_vue__ = __webpack_require__(284);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddFormat_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AddFormat_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Format_vue__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Format_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Format_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddFormat_vue__ = __webpack_require__(284);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddFormat_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AddFormat_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -36281,6 +36404,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -36290,20 +36432,46 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-formats'],
   data() {
     return {
-      formats: this.dataFormats
+      formats: [],
+      meta: {},
+      errors: {},
+      fetching: false
     };
   },
   components: {
-    'app-format': __WEBPACK_IMPORTED_MODULE_0__Format_vue___default.a,
-    'app-add-format': __WEBPACK_IMPORTED_MODULE_1__AddFormat_vue___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+    'app-format': __WEBPACK_IMPORTED_MODULE_1__Format_vue___default.a,
+    'app-add-format': __WEBPACK_IMPORTED_MODULE_2__AddFormat_vue___default.a,
+    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
+    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(['loaderState'])),
+  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
+    /**
+     * Fetch the formats paginated data.
+     */
+    getFormats(page = 1) {
+      this.$store.dispatch('toggleLoader');
+      this.fetching = true;
+
+      axios.get(route('api.formats.index'), {
+        params: {
+          page
+        }
+      }).then(response => {
+        this.formats = response.data.data;
+        this.meta = response.data.meta;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      }).catch(error => {
+        this.errors = error.response.data;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      });
+    },
+
     /**
      * Add a new format to the list.
      */
@@ -36345,9 +36513,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   },
   created() {
-    __WEBPACK_IMPORTED_MODULE_4__app__["eventBus"].$on('formatWasUpdated', data => {
+    __WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on('formatWasUpdated', data => {
       this.updateFormat(data);
     });
+  },
+  mounted() {
+    this.getFormats();
   }
 });
 
@@ -38795,6 +38966,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -38808,7 +38985,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   data() {
     return {
       orders: [],
-      meta: {}
+      meta: {},
+      errors: {},
+      fetching: false
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
@@ -38825,6 +39004,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     getOrders(page = 1) {
       this.$store.dispatch('toggleLoader');
+      this.fetching = true;
 
       axios.get(route('api.orders.index'), {
         params: {
@@ -38834,6 +39014,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.orders = response.data.data;
         this.meta = response.data.meta;
         this.$store.dispatch('toggleLoader');
+        this.fetching = false;
+      }).catch(error => {
+        this.errors = error.response.data;
+        this.$store.dispatch('toggleLoader');
+        this.fetching = false;
       });
     },
 
@@ -69990,20 +70175,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Formats")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.formats.length) + "\n      " + _vm._s(_vm.formats.length == 0 || _vm.formats.length == 1 ? 'format' : 'formats') + "\n    ")]), _vm._v(" "), _c('app-add-format', {
+  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'format' : 'formats') + "\n    ")]), _vm._v(" "), _c('app-add-format', {
     on: {
       "formatWasCreated": _vm.addFormat
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
-  }, [_c('transition-group', {
+  }, [(_vm.formats.length) ? _c('app-pagination', {
+    staticClass: "pagination pagination--top",
     attrs: {
-      "name": "highlight",
-      "tag": "div"
+      "data-meta": _vm.meta
+    },
+    on: {
+      "paginationSwitched": _vm.getFormats
+    }
+  }) : _vm._e(), _vm._v(" "), (!_vm.formats.length && !_vm.fetching) ? [_c('p', {
+    staticClass: "paragraph__no-model-found"
+  }, [_vm._v("Il n'existe encore aucun format.")])] : [_c('transition-group', {
+    attrs: {
+      "name": "pagination",
+      "tag": "div",
+      "mode": "out-in"
     }
   }, _vm._l((_vm.formats), function(format, index) {
     return _c('app-format', {
-      key: index,
+      key: format.id,
       staticClass: "card__container",
       attrs: {
         "data-format": format
@@ -70014,7 +70210,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  }))], 1), _vm._v(" "), _c('app-moon-loader', {
+  }))], _vm._v(" "), (_vm.formats.length) ? _c('app-pagination', {
+    staticClass: "pagination pagination--bottom",
+    attrs: {
+      "data-meta": _vm.meta
+    },
+    on: {
+      "paginationSwitched": _vm.getFormats
+    }
+  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -70751,7 +70955,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getCompanies
     }
-  }) : _vm._e(), _vm._v(" "), _c('transition-group', {
+  }) : _vm._e(), _vm._v(" "), (!_vm.companies.length && !_vm.fetching) ? [_c('p', {
+    staticClass: "paragraph__no-model-found"
+  }, [_vm._v("Il n'existe encore aucune société.")])] : [_c('transition-group', {
     attrs: {
       "name": "pagination",
       "tag": "div",
@@ -70770,7 +70976,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), (_vm.companies.length) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.companies.length) ? _c('app-pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -70778,7 +70984,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getCompanies
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -71708,7 +71914,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getDeliveries
     }
-  }) : _vm._e(), _vm._v(" "), _c('transition-group', {
+  }) : _vm._e(), _vm._v(" "), (!_vm.deliveries.length && !_vm.fetching) ? [_c('p', {
+    staticClass: "paragraph__no-model-found"
+  }, [_vm._v("Il n'existe encore aucune livraison.")])] : [_c('transition-group', {
     attrs: {
       "name": "pagination",
       "tag": "div",
@@ -71727,7 +71935,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), (_vm.deliveries.length) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.deliveries.length) ? _c('app-pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -71735,7 +71943,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getDeliveries
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -72671,20 +72879,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Articles")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.articles.length) + "\n      " + _vm._s(_vm.articles.length == 0 || _vm.articles.length == 1 ? 'article' : 'articles') + "\n    ")]), _vm._v(" "), _c('app-add-article', {
+  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'article' : 'articles') + "\n    ")]), _vm._v(" "), _c('app-add-article', {
     on: {
       "articleWasCreated": _vm.addArticle
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
-  }, [_c('transition-group', {
+  }, [(_vm.articles.length) ? _c('app-pagination', {
+    staticClass: "pagination pagination--top",
     attrs: {
-      "name": "highlight",
-      "tag": "div"
+      "data-meta": _vm.meta
+    },
+    on: {
+      "paginationSwitched": _vm.getArticles
+    }
+  }) : _vm._e(), _vm._v(" "), (!_vm.articles.length && !_vm.fetching) ? [_c('p', {
+    staticClass: "paragraph__no-model-found"
+  }, [_vm._v("Il n'existe encore aucun article.")])] : [_c('transition-group', {
+    attrs: {
+      "name": "pagination",
+      "tag": "div",
+      "mode": "out-in"
     }
   }, _vm._l((_vm.articles), function(article, index) {
     return _c('app-article', {
-      key: index,
+      key: article.id,
       staticClass: "card__container",
       attrs: {
         "data-article": article
@@ -72695,7 +72914,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  }))], 1), _vm._v(" "), _c('app-moon-loader', {
+  }))], _vm._v(" "), (_vm.articles.length) ? _c('app-pagination', {
+    staticClass: "pagination pagination--bottom",
+    attrs: {
+      "data-meta": _vm.meta
+    },
+    on: {
+      "paginationSwitched": _vm.getArticles
+    }
+  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -72804,7 +73031,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getBusinesses
     }
-  }) : _vm._e(), _vm._v(" "), _c('transition-group', {
+  }) : _vm._e(), _vm._v(" "), (!_vm.businesses.length && !_vm.fetching) ? [_c('p', {
+    staticClass: "paragraph__no-model-found"
+  }, [_vm._v("Il n'existe encore aucune affaire.")])] : [_c('transition-group', {
     attrs: {
       "name": "pagination",
       "tag": "div",
@@ -72825,7 +73054,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), (_vm.businesses.length) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.businesses.length) ? _c('app-pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -72833,7 +73062,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getBusinesses
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -73158,7 +73387,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getContacts
     }
-  }) : _vm._e(), _vm._v(" "), _c('transition-group', {
+  }) : _vm._e(), _vm._v(" "), (!_vm.contacts.length && !_vm.fetching) ? [_c('p', {
+    staticClass: "paragraph__no-model-found"
+  }, [_vm._v("Il n'existe encore aucun contact.")])] : [_c('transition-group', {
     attrs: {
       "name": "pagination",
       "tag": "div",
@@ -73177,7 +73408,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), (_vm.contacts.length) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.contacts.length) ? _c('app-pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -73185,7 +73416,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getContacts
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -73978,7 +74209,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getDocuments
     }
-  }) : _vm._e(), _vm._v(" "), _c('transition-group', {
+  }) : _vm._e(), _vm._v(" "), (!_vm.documents.length && !_vm.fetching) ? [_c('p', {
+    staticClass: "paragraph__no-model-found"
+  }, [_vm._v("Il n'existe encore aucun document.")])] : [_c('transition-group', {
     attrs: {
       "name": "pagination",
       "tag": "div",
@@ -73997,7 +74230,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), (_vm.documents.length) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.documents.length) ? _c('app-pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -74005,7 +74238,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getDocuments
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -75475,7 +75708,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getOrders
     }
-  }) : _vm._e(), _vm._v(" "), _c('transition-group', {
+  }) : _vm._e(), _vm._v(" "), (!_vm.orders.length && !_vm.fetching) ? [_c('p', {
+    staticClass: "paragraph__no-model-found"
+  }, [_vm._v("Il n'existe encore aucune commande.")])] : [_c('transition-group', {
     attrs: {
       "name": "pagination",
       "tag": "div",
@@ -75494,7 +75729,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  })), _vm._v(" "), (_vm.orders.length) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.orders.length) ? _c('app-pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -75502,7 +75737,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getOrders
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,

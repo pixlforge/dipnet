@@ -6,7 +6,6 @@
 
   @include ('layouts.partials._nav')
 
-  <app-formats :data-formats="{{ $formats }}">
-  </app-formats>
+  <app-formats></app-formats>
 
 @endsection

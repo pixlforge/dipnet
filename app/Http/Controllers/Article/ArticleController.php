@@ -21,19 +21,13 @@ class ArticleController extends Controller
      * Display a listing of all the articles.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
         $this->authorize('view', Article::class);
 
-        $articles = Article::latest()
-            ->orderBy('reference')
-            ->get()
-            ->toJson();
-
-        return view('articles.index', [
-            'articles' => $articles
-        ]);
+        return view('articles.index');
     }
 
     /**

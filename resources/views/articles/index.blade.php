@@ -6,6 +6,6 @@
 
     @include ('layouts.partials._nav')
 
-    <app-articles :data-articles="{{ $articles }}"></app-articles>
+    <app-articles></app-articles>
 
 @endsection

@@ -9,6 +9,10 @@ Auth::routes();
  * Api
  */
 Route::prefix('/api')->namespace('Api')->group(function () {
+    Route::prefix('/articles')->namespace('Article')->group(function () {
+        Route::get('/', 'ArticleController@index')->name('api.articles.index');
+    });
+
     Route::prefix('/businesses')->namespace('Business')->group(function () {
         Route::get('/', 'BusinessController@index')->name('api.businesses.index');
     });
@@ -27,6 +31,10 @@ Route::prefix('/api')->namespace('Api')->group(function () {
 
     Route::prefix('/documents')->namespace('Document')->group(function () {
         Route::get('/', 'DocumentController@index')->name('api.documents.index');
+    });
+
+    Route::prefix('/formats')->namespace('Format')->group(function () {
+        Route::get('/', 'FormatController@index')->name('api.formats.index');
     });
 
     Route::prefix('/orders')->namespace('Order')->group(function () {

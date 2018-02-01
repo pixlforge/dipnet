@@ -3,22 +3,40 @@
     <div class="header__container">
       <h1 class="header__title">Articles</h1>
       <div class="header__stats">
-        {{ articles.length }}
-        {{ articles.length == 0 || articles.length == 1 ? 'article' : 'articles' }}
+        {{ meta.total }}
+        {{ meta.total == 0 || meta.total == 1 ? 'article' : 'articles' }}
       </div>
       <app-add-article @articleWasCreated="addArticle">
       </app-add-article>
     </div>
 
     <div class="main__container main__container--grey">
-      <transition-group name="highlight" tag="div">
-        <app-article class="card__container"
-                     v-for="(article, index) in articles"
-                     :data-article="article"
-                     :key="index"
-                     @articleWasDeleted="removeArticle(index)">
-        </app-article>
-      </transition-group>
+      <app-pagination class="pagination pagination--top"
+                      v-if="articles.length"
+                      :data-meta="meta"
+                      @paginationSwitched="getArticles">
+      </app-pagination>
+
+      <template v-if="!articles.length && !fetching">
+        <p class="paragraph__no-model-found">Il n'existe encore aucun article.</p>
+      </template>
+
+      <template v-else>
+        <transition-group name="pagination" tag="div" mode="out-in">
+          <app-article class="card__container"
+                       v-for="(article, index) in articles"
+                       :key="article.id"
+                       :data-article="article"
+                       @articleWasDeleted="removeArticle(index)">
+          </app-article>
+        </transition-group>
+      </template>
+
+      <app-pagination class="pagination pagination--bottom"
+                      v-if="articles.length"
+                      :data-meta="meta"
+                      @paginationSwitched="getArticles">
+      </app-pagination>
     </div>
 
     <app-moon-loader :loading="loaderState"
@@ -29,6 +47,7 @@
 </template>
 
 <script>
+  import Pagination from '../pagination/Pagination'
   import Article from './Article.vue'
   import AddArticle from './AddArticle.vue'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
@@ -37,20 +56,21 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'data-articles',
-      'data-categories'
-    ],
+    props: ['data-categories'],
     data() {
       return {
-        articles: this.dataArticles,
-        categories: this.dataCategories
+        articles: [],
+        categories: this.dataCategories,
+        meta: {},
+        errors: {},
+        fetching: false
       }
     },
     mixins: [mixins],
     components: {
       'app-article': Article,
       'app-add-article': AddArticle,
+      'app-pagination': Pagination,
       'app-moon-loader': MoonLoader
     },
     computed: {
@@ -59,6 +79,29 @@
       ])
     },
     methods: {
+      /**
+       * Fetch the articles paginated data.
+       */
+      getArticles(page = 1) {
+        this.$store.dispatch('toggleLoader')
+        this.fetching = true
+
+        axios.get(route('api.articles.index'), {
+          params: {
+            page
+          }
+        }).then(response => {
+          this.articles = response.data.data
+          this.meta = response.data.meta
+          this.$store.dispatch('toggleLoader')
+          this.fetching = false
+        }).catch(error => {
+          this.errors = error.response.data
+          this.$store.dispatch('toggleLoader')
+          this.fetching = false
+        })
+      },
+
       /**
        * Add a new article to the list.
        */
@@ -103,6 +146,9 @@
       eventBus.$on('articleWasUpdated', (data) => {
         this.updateArticle(data)
       })
+    },
+    mounted() {
+      this.getArticles()
     }
   }
 </script>
