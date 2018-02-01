@@ -12,16 +12,13 @@ class ArticleTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function an_admin_can_view_all_articles()
+    function an_admin_can_reach_the_articles_index_view()
     {
         $user = factory(User::class)->create(['role' => 'administrateur']);
         $this->signIn($user);
 
-        $article = factory(Article::class)->create(['reference' => '85erfgbn']);
-
         $this->get(route('articles.index'))
-            ->assertStatus(200)
-            ->assertSee('85erfgbn');
+            ->assertStatus(200);
     }
 
     /** @test */
