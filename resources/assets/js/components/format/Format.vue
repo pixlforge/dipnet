@@ -36,11 +36,12 @@
     </div>
 
     <div class="card__controls">
-      <div>
+      <div title="Modifier">
         <app-edit-format :data-format="format">
         </app-edit-format>
       </div>
-      <div @click="destroy">
+      <div title="Supprimer"
+           @click="destroy">
         <i class="fal fa-times"></i>
       </div>
     </div>

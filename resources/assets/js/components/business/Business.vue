@@ -43,13 +43,14 @@
     </div>
 
     <div class="card__controls">
-      <div>
+      <div title="Modifier">
         <app-edit-business :data-business="business"
                            :data-companies="companies"
                            :data-contacts="dataContacts">
         </app-edit-business>
       </div>
-      <div @click="destroy">
+      <div title="Supprimer"
+           @click="destroy">
         <i class="fal fa-times"></i>
       </div>
     </div>

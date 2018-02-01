@@ -54,11 +54,12 @@
     </div>
 
     <div class="card__controls">
-      <div>
+      <div title="Modifier">
         <app-edit-contact :data-contact="contact">
         </app-edit-contact>
       </div>
-      <div @click="destroy">
+      <div title="Supprimer"
+           @click="destroy">
         <i class="fal fa-times"></i>
       </div>
     </div>

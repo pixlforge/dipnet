@@ -59,11 +59,15 @@
       </div>
     </div>
     <div class="document__controls">
-      <div class="document__icon-delete" @click="destroy">
+      <div class="document__icon-delete"
+           title="Supprimer"
+           @click="destroy">
         <i class="fal fa-times"></i>
       </div>
 
-      <div class="document__icon-clone" @click="clone">
+      <div class="document__icon-clone"
+           title="Copier"
+           @click="clone">
         <i class="fal fa-copy"></i>
       </div>
     </div>

@@ -32269,6 +32269,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -33002,6 +33003,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_moment__);
+//
 //
 //
 //
@@ -33882,6 +33884,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -34546,6 +34549,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(2);
+//
 //
 //
 //
@@ -36316,6 +36320,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -37203,6 +37208,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
 //
 //
 //
@@ -38483,6 +38492,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
 //
 //
 //
@@ -41157,6 +41170,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(2);
+//
 //
 //
 //
@@ -70580,11 +70594,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__label"
   }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.company.updated_at)) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('div', [_c('app-edit-company', {
+  }, [_c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-company', {
     attrs: {
       "data-company": _vm.company
     }
   })], 1), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Supprimer"
+    },
     on: {
       "click": _vm.destroy
     }
@@ -70908,6 +70929,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "document__controls"
   }, [_c('div', {
     staticClass: "document__icon-delete",
+    attrs: {
+      "title": "Supprimer"
+    },
     on: {
       "click": _vm.destroy
     }
@@ -70915,6 +70939,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times"
   })]), _vm._v(" "), _c('div', {
     staticClass: "document__icon-clone",
+    attrs: {
+      "title": "Copier"
+    },
     on: {
       "click": _vm.clone
     }
@@ -72032,11 +72059,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__label"
   }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.contact.updated_at)) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('div', [_c('app-edit-contact', {
+  }, [_c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-contact', {
     attrs: {
       "data-contact": _vm.contact
     }
   })], 1), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Supprimer"
+    },
     on: {
       "click": _vm.destroy
     }
@@ -74158,12 +74192,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__label"
   }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.user.updated_at)) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('div', [_c('app-edit-user', {
+  }, [_c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-user', {
     attrs: {
       "data-user": _vm.user,
       "data-companies": _vm.companies
     }
   })], 1), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Supprimer"
+    },
     on: {
       "click": _vm.destroy
     }
@@ -75196,6 +75237,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "document__controls"
   }, [_c('div', {
     staticClass: "document__icon-delete",
+    attrs: {
+      "title": "Supprimer"
+    },
     on: {
       "click": _vm.destroy
     }
@@ -75203,6 +75247,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times"
   })]), _vm._v(" "), _c('div', {
     staticClass: "document__icon-clone",
+    attrs: {
+      "title": "Copier"
+    },
     on: {
       "click": _vm.clone
     }
@@ -75774,11 +75821,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__label"
   }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.article.updated_at)) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('div', [_c('app-edit-article', {
+  }, [_c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-article', {
     attrs: {
       "data-article": _vm.article
     }
   })], 1), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Supprimer"
+    },
     on: {
       "click": _vm.destroy
     }
@@ -75830,13 +75884,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__label"
   }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.business.updated_at)) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('div', [_c('app-edit-business', {
+  }, [_c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-business', {
     attrs: {
       "data-business": _vm.business,
       "data-companies": _vm.companies,
       "data-contacts": _vm.dataContacts
     }
   })], 1), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Supprimer"
+    },
     on: {
       "click": _vm.destroy
     }
@@ -76156,11 +76217,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__label"
   }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.format.updated_at)) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('div', [_c('app-edit-format', {
+  }, [_c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-format', {
     attrs: {
       "data-format": _vm.format
     }
   })], 1), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Supprimer"
+    },
     on: {
       "click": _vm.destroy
     }
