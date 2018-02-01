@@ -96,8 +96,8 @@
                     v-model.number.trim="business.contact_id">
               <option disabled>Sélectionnez un contact</option>
               <option v-for="(contact, index) in contacts"
-                      :value="contact.contact[index].id">
-                {{ contact.contact[index].name }}
+                      :value="contact.id">
+                {{ contact.name }}
               </option>
             </select>
             <div class="modal__alert"
@@ -113,7 +113,7 @@
               <i class="fal fa-times"></i>
               Annuler
             </button>
-            <button class="btn btn--black"
+            <button class="btn btn--red"
                     @click.prevent="updateBusiness">
               <i class="fal fa-check"></i>
               Mettre à jour
@@ -133,13 +133,14 @@
   export default {
     props: [
       'data-business',
-      'data-companies'
+      'data-companies',
+      'data-contacts'
     ],
     data() {
       return {
         business: this.dataBusiness,
         companies: this.dataCompanies,
-        errors: {}
+        errors: {},
       }
     },
     mixins: [mixins],
@@ -149,8 +150,8 @@
        */
       contacts() {
         if (this.business.company_id !== '') {
-          return this.companies.filter(company => {
-            return company.id === this.business.company_id
+          return this.dataContacts.filter(contact => {
+            return contact.company_id === this.business.company_id
           })
         }
       }
@@ -174,19 +175,9 @@
             this.$store.dispatch('toggleLoader')
             this.toggleModal()
           })
-          .catch((error) => {
+          .catch(error => {
             this.$store.dispatch('toggleLoader')
-            if (error.response.status === 422) {
-              flash({
-                message: "Erreur. La validation a échoué.",
-                level: 'danger'
-              })
-              return
-            }
-            flash({
-              message: "Erreur. Veuillez réessayer plus tard.",
-              level: 'danger'
-            })
+            this.errors = error.response.data
           })
       }
     }

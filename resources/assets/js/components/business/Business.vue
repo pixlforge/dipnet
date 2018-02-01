@@ -45,7 +45,8 @@
     <div class="card__controls">
       <div>
         <app-edit-business :data-business="business"
-                           :data-companies="companies">
+                           :data-companies="companies"
+                           :data-contacts="dataContacts">
         </app-edit-business>
       </div>
       <div @click="destroy">
@@ -63,7 +64,8 @@
   export default {
     props: [
       'data-business',
-      'data-companies'
+      'data-companies',
+      'data-contacts'
     ],
     data() {
       return {
