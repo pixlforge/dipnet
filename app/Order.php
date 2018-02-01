@@ -44,7 +44,7 @@ class Order extends Model
      */
     public function scopeCompleted(Builder $builder)
     {
-        return $builder->whereIn('status', ['réceptionnée', 'traitée', 'envoyée']);
+        return $builder->whereIn('status', ['traitée', 'envoyée']);
     }
 
     /**

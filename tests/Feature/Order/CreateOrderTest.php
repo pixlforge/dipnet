@@ -223,6 +223,6 @@ class CreateOrderTest extends TestCase
         $this->patchJson(route('orders.complete', $order), $order->toArray())
             ->assertStatus(200);
 
-        $this->assertEquals('réceptionnée', $order->fresh()->status);
+        $this->assertEquals('envoyée', $order->fresh()->status);
     }
 }

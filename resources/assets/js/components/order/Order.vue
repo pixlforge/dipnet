@@ -58,8 +58,8 @@
     computed: {
       statusClass() {
         if (this.order.status === 'incomplète') return 'badge--danger'
-        if (this.order.status === 'réceptionnée') return 'badge--warning'
-        if (this.order.status === 'traitée' || this.order.status === 'envoyée') return 'badge--success'
+        if (this.order.status === 'envoyée') return 'badge--warning'
+        if (this.order.status === 'traitée') return 'badge--success'
       },
 
       createRoute() {

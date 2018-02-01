@@ -24,7 +24,7 @@ class CompleteOrderController extends Controller
      */
     public function update(Order $order)
     {
-        $order->status = 'réceptionnée';
+        $order->status = 'envoyée';
         $order->save();
 
         return response(200);
