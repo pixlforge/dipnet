@@ -149,7 +149,7 @@
               <i class="fal fa-times"></i>
               Annuler
             </button>
-            <button class="btn btn--black"
+            <button class="btn btn--red"
                     @click.prevent="updateContact">
               <i class="fal fa-check"></i>
               Mettre à jour

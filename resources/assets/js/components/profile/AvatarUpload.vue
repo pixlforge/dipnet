@@ -4,7 +4,7 @@
 
     <div class="modal__group">
       <label for="avatar"
-             class="btn btn--black">
+             class="btn btn--red">
         <i class="fal fa-folder-open"></i>
         Sélectionner une image
       </label>
@@ -37,7 +37,7 @@
     </div>
 
     <div class="modal__buttons modal__buttons--avatar" v-if="avatar.path">
-      <button class="btn btn--black"
+      <button class="btn btn--red"
               @click.prevent="update">
         <i class="fal fa-upload"></i>
         Mettre à jour l'avatar

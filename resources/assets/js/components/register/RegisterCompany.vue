@@ -49,7 +49,7 @@
         </div>
 
         <div class="register__buttons">
-          <button class="btn btn--black"
+          <button class="btn btn--red"
                   @click="createCompany">
             <i class="fal fa-check"></i>
             Terminer l'enregistrement

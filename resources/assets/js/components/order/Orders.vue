@@ -3,10 +3,10 @@
     <div class="header__container">
       <h1 class="header__title">Commandes</h1>
       <div class="header__stats">
-        {{ orders.length }}
-        {{ orders.length == 0 || orders.length == 1 ? 'commande' : 'commandes' }}
+        {{ meta.total }}
+        {{ meta.total == 0 || meta.total == 1 ? 'commande' : 'commandes' }}
       </div>
-      <button class="btn btn--black-large"
+      <button class="btn btn--red-large"
               @click="redirect()">
         <i class="fal fa-plus-circle"></i>
         Nouvelle commande
@@ -14,14 +14,24 @@
     </div>
 
     <div class="main__container main__container--grey">
-      <transition-group name="highlight" tag="div">
+      <app-pagination class="pagination pagination--top"
+                      :data-meta="meta"
+                      @paginationSwitched="getOrders">
+      </app-pagination>
+
+      <transition-group name="pagination" tag="div" mode="out-in">
         <app-order class="card__container"
                    v-for="(order, index) in orders"
-                   :key="index"
+                   :key="order.id"
                    :data-order="order"
                    @orderWasDeleted="removeOrder(index)">
         </app-order>
       </transition-group>
+
+      <app-pagination class="pagination pagination--bottom"
+                      :data-meta="meta"
+                      @paginationSwitched="getOrders">
+      </app-pagination>
     </div>
 
     <app-moon-loader :loading="loaderState"
@@ -32,6 +42,7 @@
 </template>
 
 <script>
+  import Pagination from '../pagination/Pagination'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import Order from './Order.vue'
   import AddOrder from './CreateOrder.vue'
@@ -40,16 +51,17 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: ['data-orders'],
     data() {
       return {
-        orders: this.dataOrders
+        orders: [],
+        meta: {}
       }
     },
     mixins: [mixins],
     components: {
       'app-order': Order,
       'app-add-order': AddOrder,
+      'app-pagination': Pagination,
       'app-moon-loader': MoonLoader
     },
     computed: {
@@ -59,25 +71,27 @@
     },
     methods: {
       /**
+       * Fetch the orders paginated data.
+       */
+      getOrders(page = 1) {
+        this.$store.dispatch('toggleLoader')
+
+        axios.get(route('api.orders.index'), {
+          params: {
+            page
+          }
+        }).then(response => {
+          this.orders = response.data.data
+          this.meta = response.data.meta
+          this.$store.dispatch('toggleLoader')
+        })
+      },
+
+      /**
        * Redirect to /orders/create route.
        */
       redirect() {
         window.location = route('orders.create.start')
-      },
-
-      /**
-       * Update the order.
-       */
-      updateOrder(data) {
-        for (let order of this.orders) {
-          if (data.id === order.id) {
-            // TODO: Update attributes
-          }
-        }
-        flash({
-          message: 'Les modifications apportées à la commande ont été enregistrées.',
-          level: 'success'
-        })
       },
 
       /**
@@ -91,10 +105,8 @@
         })
       }
     },
-    created() {
-      eventBus.$on('orderWasUpdated', (data) => {
-        this.updateOrder(data)
-      })
-    },
+    mounted() {
+      this.getOrders()
+    }
   }
 </script>

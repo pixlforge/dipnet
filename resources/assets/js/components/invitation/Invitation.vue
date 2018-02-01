@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    <button class="btn btn--black"
+    <button class="btn btn--red"
             @click="sendInvitation">
       <i class="fal fa-user-plus"></i>
       Envoyer une invitation

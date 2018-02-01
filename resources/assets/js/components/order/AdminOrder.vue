@@ -6,7 +6,7 @@
         Statut de la commande
       </div>
       <div>
-        <a class="btn btn--black-large"
+        <a class="btn btn--red-large"
            :href="routeOrderReceipt"
            target="_blank"
            rel="noopener noreferrer">

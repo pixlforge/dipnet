@@ -6,7 +6,7 @@
       <div key="preview" v-if="showPreview">
 
         <div class="header__container">
-          <h1 class="header__title">Prévisualisation de la commande</h1>
+          <h1 class="header__title">Prévisualisation avant commande</h1>
           <div></div>
         </div>
         <app-preview-delivery v-for="(delivery, index) in listDeliveries"
@@ -60,7 +60,7 @@
                   @click="goToOrder()">
             Retour
           </button>
-          <button class="btn btn--black"
+          <button class="btn btn--red"
                   @click="completeOrder()"
                   :disabled="!terms">
             Commander
@@ -126,7 +126,7 @@
         </div>
 
         <div class="order__footer">
-          <button class="btn btn--black" @click="goToPreview()">Aperçu de la commande</button>
+          <button class="btn btn--red" @click="goToPreview()">Aperçu de la commande</button>
         </div>
 
       </div>
@@ -294,7 +294,7 @@
               top: 0,
               left: 0,
               behavior: 'smooth'
-            });
+            })
           })
           .catch(error => {
             this.errors = []

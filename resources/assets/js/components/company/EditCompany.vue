@@ -15,7 +15,7 @@
       <div class="modal__slider"
            v-if="showModal"
            @keyup.esc="toggleModal"
-           @keyup.enter="editCompany">
+           @keyup.enter="updateCompany">
 
         <div class="modal__container">
           <h2 class="modal__title">Modifier {{ company.name }}</h2>
@@ -74,8 +74,8 @@
               <i class="fal fa-times"></i>
               Annuler
             </button>
-            <button class="btn btn--black"
-                    @click.prevent="addCompany">
+            <button class="btn btn--red"
+                    @click.prevent="updateCompany">
               <i class="fal fa-check"></i>
               Mettre à jour
             </button>

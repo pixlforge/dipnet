@@ -1,5 +1,5 @@
 <template>
-  <button class="btn btn--black"
+  <button class="btn btn--red"
           @click="resend">
     <i class="fal fa-redo"></i>
     Renvoyer

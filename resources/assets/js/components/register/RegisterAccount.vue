@@ -70,7 +70,7 @@
         </div>
 
         <div class="register__buttons">
-          <button class="btn btn--black"
+          <button class="btn btn--red"
                   @click="registerAccount">
             <i class="fal fa-check"></i>
             Créer le compte

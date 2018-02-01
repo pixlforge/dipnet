@@ -44,7 +44,7 @@
       </div>
 
       <div class="admin-delivery__controls">
-        <a class="btn btn--black"
+        <a class="btn btn--red"
            :href="routeDeliveryReceipt"
            target="_blank"
            rel="noopener noreferrer">

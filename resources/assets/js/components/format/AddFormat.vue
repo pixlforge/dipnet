@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="btn btn--black-large"
+    <button class="btn btn--red-large"
             @click="toggleModal">
       <i class="fal fa-plus-circle"></i>
       Nouveau format
@@ -89,7 +89,7 @@
               <i class="fal fa-times"></i>
               Annuler
             </button>
-            <button class="btn btn--black"
+            <button class="btn btn--red"
                     @click.prevent="addFormat">
               <i class="fal fa-check"></i>
               Ajouter

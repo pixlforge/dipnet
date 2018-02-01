@@ -46,7 +46,7 @@
         </label>
 
         <div class="login__buttons">
-          <button class="btn btn--black"
+          <button class="btn btn--red"
                   @click="login">
             <i class="fal fa-key"></i>
             Connexion

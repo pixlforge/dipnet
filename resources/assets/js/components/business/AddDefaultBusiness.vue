@@ -7,7 +7,7 @@
         <p class="alert-page__paragraph">
           {{ context }} disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.
         </p>
-        <button class="btn btn--black" @click="toggleAlert">
+        <button class="btn btn--red" @click="toggleAlert">
           <i class="fal fa-plus-circle"></i>
           Ajouter
         </button>
@@ -66,7 +66,7 @@
             </div>
           </div>
         </form>
-        <button class="btn btn--black" @click="addBusiness">
+        <button class="btn btn--red" @click="addBusiness">
           <i class="fal fa-check"></i>
           Terminer
         </button>

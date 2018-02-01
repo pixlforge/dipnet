@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button class="btn btn--black-large"
+    <button class="btn btn--red-large"
             @click="toggleModal">
       <i class="fal fa-plus-circle"></i>
       Nouvelle affaire
@@ -71,23 +71,25 @@
           </div>
 
           <!--Company-->
-          <div class="modal__group">
-            <label for="company_id" class="modal__label">Société</label>
-            <select name="company_id"
-                    id="company_id"
-                    class="modal__select"
-                    v-model.number.trim="business.company_id">
-              <option disabled>Sélectionnez une société</option>
-              <option v-for="(company, index) in companies"
-                      :value="company.id">
-                {{ company.name }}
-              </option>
-            </select>
-            <div class="modal__alert"
-                 v-if="errors.company_id">
-              {{ errors.company_id[0] }}
+          <template v-if="userIsAdmin">
+            <div class="modal__group">
+              <label for="company_id" class="modal__label">Société</label>
+              <select name="company_id"
+                      id="company_id"
+                      class="modal__select"
+                      v-model.number.trim="business.company_id">
+                <option disabled>Sélectionnez une société</option>
+                <option v-for="(company, index) in companies"
+                        :value="company.id">
+                  {{ company.name }}
+                </option>
+              </select>
+              <div class="modal__alert"
+                   v-if="errors.company_id">
+                {{ errors.company_id[0] }}
+              </div>
             </div>
-          </div>
+          </template>
 
           <!--Contact-->
           <div class="modal__group">
@@ -98,8 +100,8 @@
                     v-model.number.trim="business.contact_id">
               <option disabled>Sélectionnez un contact</option>
               <option v-for="(contact, index) in contacts"
-                      :value="contact.contact[index].id">
-                {{ contact.contact[index].name }}
+                      :value="contact.id">
+                {{ contact.name }}
               </option>
             </select>
             <div class="modal__alert"
@@ -115,7 +117,7 @@
               <i class="fal fa-times"></i>
               Annuler
             </button>
-            <button class="btn btn--black"
+            <button class="btn btn--red"
                     @click.prevent="addBusiness">
               <i class="fal fa-check"></i>
               Ajouter
@@ -132,7 +134,11 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: ['data-companies'],
+    props: [
+      'data-companies',
+      'data-contacts',
+      'data-user'
+    ],
     data() {
       return {
         business: {
@@ -152,11 +158,24 @@
        * Get the contacts associated with the company.
        */
       contacts() {
-        if (this.business.company_id !== '') {
-          return this.companies.filter(company => {
-            return company.id === this.business.company_id
+        if (this.userIsAdmin) {
+          if (this.business.company_id !== '') {
+            return this.dataContacts.filter(contact => {
+              return contact.company_id === this.business.company_id
+            })
+          }
+        } else {
+          return this.dataContacts.filter(contact => {
+            return contact.company_id === this.dataUser.company.id
           })
         }
+      },
+
+      /**
+       * Check whether the user is an admin.
+       */
+      userIsAdmin() {
+        return this.dataUser.role === 'administrateur'
       }
     },
     methods: {
@@ -169,6 +188,10 @@
        */
       addBusiness() {
         this.$store.dispatch('toggleLoader')
+
+        if (!this.userIsAdmin) {
+          this.business.company_id = this.dataUser.company.id
+        }
 
         axios.post(route('businesses.store'), this.business)
           .then(response => {

@@ -36,7 +36,7 @@
         <h1 class="register__title">Votre premier contact</h1>
 
         <div class="form__group">
-          <label for="name">Nom du contact</label>
+          <label for="name">Prénom et Nom / Contact</label>
           <span class="form__required">*</span>
           <input type="text"
                  name="name"
@@ -135,7 +135,7 @@
         </div>
 
         <div class="register__buttons">
-          <button class="btn btn--black"
+          <button class="btn btn--red"
                   @click="createContact">
             <i class="fal fa-check"></i>
             Créer le contact
