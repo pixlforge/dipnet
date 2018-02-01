@@ -4,16 +4,16 @@
 
 @section ('content')
 
-    @include ('layouts.partials._nav')
+  @include ('layouts.partials._nav')
 
-    @if ($order)
-        <app-create-order :data-order="{{ $order }}"
-                          :data-businesses="{{ $businesses }}"
-                          :data-contacts="{{ $contacts }}"
-                          :data-deliveries="{{ $deliveries }}"
-                          :data-documents="{{ $documents }}"
-                          :data-articles="{{ $articles }}">
-        </app-create-order>
-    @endif
+  @if ($order)
+    <app-create-order :data-order="{{ $order }}"
+                      :data-businesses="{{ $businesses }}"
+                      :data-contacts="{{ $contacts }}"
+                      :data-deliveries="{{ $deliveries }}"
+                      :data-documents="{{ $documents }}"
+                      :data-articles="{{ $articles }}">
+    </app-create-order>
+  @endif
 
 @endsection
