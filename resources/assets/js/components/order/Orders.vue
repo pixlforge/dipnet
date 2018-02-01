@@ -15,6 +15,7 @@
 
     <div class="main__container main__container--grey">
       <app-pagination class="pagination pagination--top"
+                      v-if="orders.length"
                       :data-meta="meta"
                       @paginationSwitched="getOrders">
       </app-pagination>
@@ -29,6 +30,7 @@
       </transition-group>
 
       <app-pagination class="pagination pagination--bottom"
+                      v-if="orders.length"
                       :data-meta="meta"
                       @paginationSwitched="getOrders">
       </app-pagination>
