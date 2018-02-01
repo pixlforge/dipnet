@@ -23,25 +23,15 @@ class BusinessController extends Controller
      * Display a listing of all Businesses.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
-        $this->authorize('view', Business::class);
-
-        $businesses = Business::with('company', 'contact')
-            ->orderBy('name')
-            ->get()
-            ->toJson();
-
-        $companies = Company::with('contact')
-            ->orderBy('name')
-            ->get()
-            ->toJson();
+        $companies = Company::orderBy('name')->get();
+        $contacts = Contact::orderBy('name')->get();
 
         return view('businesses.index', [
-            'businesses' => $businesses,
-            'companies' => $companies
+            'companies' => $companies,
+            'contacts' => $contacts
         ]);
     }
 

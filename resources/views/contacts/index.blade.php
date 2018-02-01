@@ -4,8 +4,8 @@
 
 @section ('content')
 
-    @include ('layouts.partials._nav')
+  @include ('layouts.partials._nav')
 
-    <app-contacts :data-contacts="{{ $contacts }}"></app-contacts>
+  <app-contacts></app-contacts>
 
 @endsection

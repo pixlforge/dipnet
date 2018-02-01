@@ -3,24 +3,37 @@
     <div class="header__container">
       <h1 class="header__title">Affaires</h1>
       <div class="header__stats">
-        {{ businesses.length }}
-        {{ businesses.length == 0 || businesses.length == 1 ? 'affaire' : 'affaires' }}
+        {{ meta.total }}
+        {{ meta.total == 0 || meta.total == 1 ? 'affaire' : 'affaires' }}
       </div>
       <app-add-business :data-companies="companies"
+                        :data-contacts="dataContacts"
+                        :data-user="dataUser"
                         @businessWasCreated="addBusiness">
       </app-add-business>
     </div>
 
     <div class="main__container main__container--grey">
-      <transition-group name="highlight" tag="div">
+      <app-pagination class="pagination pagination--top"
+                      :data-meta="meta"
+                      @paginationSwitched="getBusinesses">
+      </app-pagination>
+
+      <transition-group name="pagination" tag="div" mode="out-in">
         <app-business class="card__container"
                       v-for="(business, index) in businesses"
+                      :key="business.id"
                       :data-business="business"
-                      :data-companies="companies"
-                      :key="index"
+                      :data-companies="dataCompanies"
+                      :data-contacts="dataContacts"
                       @businessWasDeleted="removeBusiness(index)">
         </app-business>
       </transition-group>
+
+      <app-pagination class="pagination pagination--bottom"
+                      :data-meta="meta"
+                      @paginationSwitched="getBusinesses">
+      </app-pagination>
     </div>
 
     <app-moon-loader :loading="loaderState"
@@ -31,6 +44,7 @@
 </template>
 
 <script>
+  import Pagination from '../pagination/Pagination'
   import Business from './Business.vue'
   import AddBusiness from './AddBusiness.vue'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
@@ -40,19 +54,22 @@
 
   export default {
     props: [
-      'data-businesses',
-      'data-companies'
+      'data-companies',
+      'data-contacts',
+      'data-user'
     ],
     data() {
       return {
-        businesses: this.dataBusinesses,
-        companies: this.dataCompanies
+        businesses: [],
+        companies: this.dataCompanies,
+        meta: {}
       }
     },
     mixins: [mixins],
     components: {
       'app-business': Business,
       'app-add-business': AddBusiness,
+      'app-pagination': Pagination,
       'app-moon-loader': MoonLoader
     },
     computed: {
@@ -61,6 +78,23 @@
       ])
     },
     methods: {
+      /**
+       * Fetch the businesses paginated data.
+       */
+      getBusinesses(page = 1) {
+        this.$store.dispatch('toggleLoader')
+
+        axios.get(route('api.businesses.index'), {
+          params: {
+            page
+          }
+        }).then(response => {
+          this.businesses = response.data.data
+          this.meta = response.data.meta
+          this.$store.dispatch('toggleLoader')
+        })
+      },
+
       /**
        * Add a new business to the list.
        */
@@ -106,6 +140,9 @@
       eventBus.$on('businessWasUpdated', (data) => {
         this.updateBusiness(data)
       })
+    },
+    mounted() {
+      this.getBusinesses()
     }
   }
 </script>

@@ -22,27 +22,20 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
-        $this->authorize('view', User::class);
-
-        $users = User::with('company')
-            ->orderBy('username')
-            ->get()
-            ->toJson();
-
-        $companies = Company::orderBy('name')
-            ->get()
-            ->toJson();
+        $companies = Company::orderBy('name')->get();
 
         return view('users.index', [
-            'users' => $users,
             'companies' => $companies
         ]);
     }
 
+    /**
+     * @param StoreUserRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function store(StoreUserRequest $request)
     {
         $user = User::create([
@@ -71,13 +64,25 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
+    /**
+     * @param UpdateUserRequest $request
+     * @param User $user
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->username = $request->username;
         $user->role = $request->role;
         $user->email = $request->email;
         $user->email_confirmed = $this->getEmailStatus($user->email_confirmed);
-        $user->company_id = $request->company_id;
+
+        if ($user->isSolo() && $request->company_id !== null) {
+            $user->company_id = $request->company_id;
+            $user->is_solo = false;
+        } else {
+            $user->company_id = $request->company_id;
+        }
+
         $user->save();
 
         return response($user, 200);

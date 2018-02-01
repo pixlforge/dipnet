@@ -6,6 +6,39 @@
 Auth::routes();
 
 /**
+ * Api
+ */
+Route::prefix('/api')->namespace('Api')->group(function () {
+    Route::prefix('/businesses')->namespace('Business')->group(function () {
+        Route::get('/', 'BusinessController@index')->name('api.businesses.index');
+    });
+
+    Route::prefix('/contacts')->namespace('Contact')->group(function () {
+        Route::get('/', 'ContactController@index')->name('api.contacts.index');
+    });
+
+    Route::prefix('/companies')->namespace('Company')->group(function () {
+        Route::get('/', 'CompanyController@index')->name('api.companies.index');
+    });
+
+    Route::prefix('/deliveries')->namespace('Delivery')->group(function () {
+        Route::get('/', 'DeliveryController@index')->name('api.deliveries.index');
+    });
+
+    Route::prefix('/documents')->namespace('Document')->group(function () {
+        Route::get('/', 'DocumentController@index')->name('api.documents.index');
+    });
+
+    Route::prefix('/orders')->namespace('Order')->group(function () {
+        Route::get('/', 'OrderController@index')->name('api.orders.index');
+    });
+
+    Route::prefix('/users')->namespace('User')->group(function () {
+        Route::get('/', 'UserController@index')->name('api.users.index');
+    });
+});
+
+/**
  * Account
  */
 Route::prefix('/account')->namespace('Account')->group(function () {

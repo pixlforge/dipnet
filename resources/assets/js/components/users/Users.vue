@@ -3,22 +3,32 @@
     <div class="header__container">
       <h1 class="header__title">Utilisateurs</h1>
       <div class="header__stats">
-        {{ users.length }}
-        {{ users.length == 0 || users.length == 1 ? 'utilisateur' : 'utilisateurs' }}
+        {{ meta.total }}
+        {{ meta.total == 0 || meta.total == 1 ? 'utilisateur' : 'utilisateurs' }}
       </div>
       <div></div>
     </div>
 
     <div class="main__container main__container--grey">
-      <transition-group name="highlight" tag="div">
+      <app-pagination class="pagination pagination--top"
+                      :data-meta="meta"
+                      @paginationSwitched="getUsers">
+      </app-pagination>
+
+      <transition-group name="pagination" tag="div" mode="out-in">
         <app-user class="card__container"
                   v-for="(user, index) in users"
-                  :key="index"
+                  :key="user.id"
                   :data-user="user"
                   :data-companies="companies"
                   @userWasDeleted="removeUser(index)">
         </app-user>
       </transition-group>
+
+      <app-pagination class="pagination pagination--bottom"
+                      :data-meta="meta"
+                      @paginationSwitched="getUsers">
+      </app-pagination>
     </div>
 
     <app-moon-loader :loading="loaderState"
@@ -29,6 +39,7 @@
 </template>
 
 <script>
+  import Pagination from '../pagination/Pagination'
   import User from './User.vue'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
@@ -37,18 +48,19 @@
 
   export default {
     props: [
-      'data-users',
       'data-companies'
     ],
     data() {
       return {
-        users: this.dataUsers,
-        companies: this.dataCompanies
+        users: [],
+        companies: this.dataCompanies,
+        meta: {}
       }
     },
     mixins: [mixins],
     components: {
       'app-user': User,
+      'app-pagination': Pagination,
       'app-moon-loader': MoonLoader
     },
     computed: {
@@ -57,6 +69,22 @@
       ])
     },
     methods: {
+      /**
+       * Fetch the users paginated data.
+       */
+      getUsers(page = 1) {
+        this.$store.dispatch('toggleLoader')
+
+        axios.get(route('api.users.index'), {
+          params: {
+            page
+          }
+        }).then(response => {
+          this.users = response.data.data
+          this.meta = response.data.meta
+          this.$store.dispatch('toggleLoader')
+        })
+      },
 
       /**
        * Update the user details.
@@ -88,6 +116,9 @@
       eventBus.$on('userWasUpdated', (data) => {
         this.updateUser(data)
       })
+    },
+    mounted() {
+      this.getUsers()
     }
   }
 </script>

@@ -1,0 +1,75 @@
+.pagination {
+  user-select: none;
+
+  &--top {
+    margin: 0 auto 4rem auto;
+  }
+
+  &--bottom {
+    margin: 4rem auto 0 auto;
+  }
+
+  &__component {
+    .fa-chevron-left,
+    .fa-chevron-right {
+      color: $scorpion;
+    }
+  }
+
+  &__list {
+    background-color: $white;
+    list-style: none;
+    box-shadow: 0 6px 14px 0 rgba(200, 200, 200, .25);
+    display: flex;
+    justify-content: center;
+
+    li {
+      font-size: 1.4rem;
+      padding: .75rem 1.5rem;
+      cursor: pointer;
+
+      span {
+        color: $scorpion;
+        font-weight: 300;
+      }
+
+      &:hover,
+      &:focus,
+      &:active {
+        background-color: $bg-red;
+
+        span,
+        svg {
+          color: $white;
+        }
+      }
+    }
+  }
+
+  &__active {
+    background-color: $bg-red;
+
+    span {
+      color: $white !important;
+    }
+  }
+
+  &--disabled {
+    cursor: not-allowed !important;
+    background-color: $mercury;
+
+    span {
+      cursor: not-allowed;
+    }
+
+    &:hover,
+    &:focus,
+    &:active {
+      background-color: $mercury !important;
+
+      svg {
+        color: $scorpion !important;
+      }
+    }
+  }
+}

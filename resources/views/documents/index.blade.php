@@ -6,7 +6,6 @@
 
   @include ('layouts.partials._nav')
 
-  <app-documents :data-documents="{{ $documents }}">
-  </app-documents>
+  <app-documents></app-documents>
 
 @endsection

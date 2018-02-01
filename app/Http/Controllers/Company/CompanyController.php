@@ -29,13 +29,7 @@ class CompanyController extends Controller
     {
         $this->authorize('touch', Company::class);
 
-        $companies = Company::orderBy('name')
-            ->get()
-            ->toJson();
-
-        return view('companies.index', [
-            'companies' => $companies
-        ]);
+        return view('companies.index');
     }
 
     /**

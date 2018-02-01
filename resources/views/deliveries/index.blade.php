@@ -4,9 +4,8 @@
 
 @section ('content')
 
-    @include ('layouts.partials._nav')
+  @include ('layouts.partials._nav')
 
-   <app-deliveries :data-deliveries="{{ $deliveries }}">
-   </app-deliveries>
+  <app-deliveries></app-deliveries>
 
 @endsection

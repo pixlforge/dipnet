@@ -36,20 +36,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->isAdmin()) {
-            $orders = Order::completed()->with(['business', 'contact', 'user'])
-                ->orderBy('created_at')
-                ->get();
-        } else {
-            $orders = Order::where('user_id', auth()->id())
-                ->with(['business', 'contact', 'user'])
-                ->orderBy('created_at')
-                ->get();
-        }
-
-        return view('orders.index', [
-            'orders' => $orders
-        ]);
+        return view('orders.index');
     }
 
     /**

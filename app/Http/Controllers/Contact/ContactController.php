@@ -4,9 +4,9 @@ namespace Dipnet\Http\Controllers\Contact;
 
 use Dipnet\Contact;
 use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\Contact\UpdateContactRequest;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Dipnet\Http\Requests\Contact\StoreContactRequest;
+use Dipnet\Http\Requests\Contact\UpdateContactRequest;
 
 class ContactController extends Controller
 {
@@ -32,26 +32,7 @@ class ContactController extends Controller
      */
     public function index()
     {
-        if (auth()->user()->isAdmin()) {
-            $contacts = Contact::latest()
-                ->with('company')
-                ->orderBy('name')
-                ->get()
-                ->toJson();
-        } else {
-            $contacts = Contact::where('company_id', auth()->user()->company_id)
-                ->with('company')
-                ->latest()
-                ->orderBy('name')
-                ->get()
-                ->toJson();
-        }
-
-        if (request()->wantsJson()) {
-            return $contacts;
-        }
-
-        return view('contacts.index', compact('contacts'));
+        return view('contacts.index');
     }
 
     /**

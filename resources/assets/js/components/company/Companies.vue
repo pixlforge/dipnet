@@ -3,15 +3,20 @@
     <div class="header__container">
       <h1 class="header__title">Sociétés</h1>
       <div class="header__stats">
-        {{ companies.length }}
-        {{ companies.length == 0 || companies.length == 1 ? 'société' : 'sociétés' }}
+        {{ meta.total }}
+        {{ meta.total == 0 || meta.total == 1 ? 'société' : 'sociétés' }}
       </div>
       <app-add-company @companyWasCreated="addCompany">
       </app-add-company>
     </div>
 
     <div class="main__container main__container--grey">
-      <transition-group name="highlight" tag="div">
+      <app-pagination class="pagination pagination--top"
+                      :data-meta="meta"
+                      @paginationSwitched="getCompanies">
+      </app-pagination>
+
+      <transition-group name="pagination" tag="div" mode="out-in">
         <app-company class="card__container"
                      v-for="(company, index) in companies"
                      :data-company="company"
@@ -19,6 +24,11 @@
                      @companyWasDeleted="removeCompany(index)">
         </app-company>
       </transition-group>
+
+      <app-pagination class="pagination pagination--bottom"
+                      :data-meta="meta"
+                      @paginationSwitched="getCompanies">
+      </app-pagination>
     </div>
 
     <app-moon-loader :loading="loaderState"
@@ -29,6 +39,7 @@
 </template>
 
 <script>
+  import Pagination from '../pagination/Pagination'
   import Company from './Company.vue'
   import AddCompany from './AddCompany.vue'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
@@ -37,16 +48,17 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: ['data-companies'],
     data() {
       return {
-        companies: this.dataCompanies
+        companies: [],
+        meta: {}
       }
     },
     mixins: [mixins],
     components: {
       'app-company': Company,
       'app-add-company': AddCompany,
+      'app-pagination': Pagination,
       'app-moon-loader': MoonLoader
     },
     computed: {
@@ -55,6 +67,22 @@
       ])
     },
     methods: {
+      /**
+       * Fetch the companies paginated data.
+       */
+      getCompanies(page = 1) {
+        this.$store.dispatch('toggleLoader')
+
+        axios.get(route('api.companies.index'), {
+          params: {
+            page
+          }
+        }).then(response => {
+          this.companies = response.data.data
+          this.meta = response.data.meta
+          this.$store.dispatch('toggleLoader')
+        })
+      },
 
       /**
        * Add a new company to the list.
@@ -99,6 +127,9 @@
       eventBus.$on('companyWasUpdated', (data) => {
         this.updateCompany(data)
       })
+    },
+    mounted() {
+      this.getCompanies()
     }
   }
 </script>

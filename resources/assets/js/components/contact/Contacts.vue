@@ -3,22 +3,32 @@
     <div class="header__container">
       <h1 class="header__title">Contacts</h1>
       <div class="header__stats">
-        {{ contacts.length }}
-        {{ contacts.length == 0 || contacts.length == 1 ? 'contact' : 'contacts' }}
+        {{ meta.total }}
+        {{ meta.total == 0 || meta.total == 1 ? 'contact' : 'contacts' }}
       </div>
       <app-add-contact @contactWasCreated="addContact">
       </app-add-contact>
     </div>
 
     <div class="main__container main__container--grey">
-      <transition-group name="highlight" tag="div">
+      <app-pagination class="pagination pagination--top"
+                      :data-meta="meta"
+                      @paginationSwitched="getContacts">
+      </app-pagination>
+
+      <transition-group name="pagination" tag="div" mode="out-in">
         <app-contact class="card__container"
                      v-for="(contact, index) in contacts"
+                     :key="contact.id"
                      :data-contact="contact"
-                     :key="index"
                      @contactWasDeleted="removeContact(index)">
         </app-contact>
       </transition-group>
+
+      <app-pagination class="pagination pagination--bottom"
+                      :data-meta="meta"
+                      @paginationSwitched="getContacts">
+      </app-pagination>
     </div>
 
     <app-moon-loader :loading="loaderState"
@@ -29,6 +39,7 @@
 </template>
 
 <script>
+  import Pagination from '../pagination/Pagination'
   import Contact from './Contact.vue'
   import AddContact from './AddContact.vue'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
@@ -37,16 +48,17 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: ['data-contacts'],
     data() {
       return {
-        contacts: this.dataContacts
+        contacts: [],
+        meta: {}
       }
     },
     mixins: [mixins],
     components: {
       'app-contact': Contact,
       'app-add-contact': AddContact,
+      'app-pagination': Pagination,
       'app-moon-loader': MoonLoader
     },
     computed: {
@@ -55,6 +67,23 @@
       ])
     },
     methods: {
+      /**
+       * Fetch the contacts paginated data.
+       */
+      getContacts(page = 1) {
+        this.$store.dispatch('toggleLoader')
+
+        axios.get(route('api.contacts.index'), {
+          params: {
+            page
+          }
+        }).then(response => {
+          this.contacts = response.data.data
+          this.meta = response.data.meta
+          this.$store.dispatch('toggleLoader')
+        })
+      },
+
       /**
        * Add a new contact to the list.
        */
@@ -104,6 +133,9 @@
       eventBus.$on('contactWasUpdated', (data) => {
         this.updateContact(data)
       })
+    },
+    mounted() {
+      this.getContacts()
     }
   }
 </script>

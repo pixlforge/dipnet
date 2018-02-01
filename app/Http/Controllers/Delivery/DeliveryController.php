@@ -28,11 +28,6 @@ class DeliveryController extends Controller
     {
         $this->authorize('view', Delivery::class);
 
-        $deliveries = Delivery::with('order', 'contact')
-            ->orderBy('created_at')
-            ->get()
-            ->toJson();
-
         return view('deliveries.index', compact('deliveries'));
     }
 
