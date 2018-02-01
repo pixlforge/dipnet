@@ -24,7 +24,21 @@
         <p class="paragraph__no-model-found">Il n'existe encore aucune affaire.</p>
       </template>
 
-      <template v-else>
+      <template v-if="businesses.length && dataUser.role === 'utilisateur'">
+        <div class="user-business__container">
+          <transition-group name="pagination" tag="div" mode="out-in">
+            <app-user-business v-for="(business, index) in businesses"
+                               :key="business.id"
+                               :data-business="business"
+                               :data-contacts="dataContacts"
+                               :data-orders="dataOrders"
+                               @businessWasDeleted="removeBusiness(index)">
+            </app-user-business>
+          </transition-group>
+        </div>
+      </template>
+
+      <template v-if="businesses.length && dataUser.role === 'administrateur'">
         <transition-group name="pagination" tag="div" mode="out-in">
           <app-business class="card__container"
                         v-for="(business, index) in businesses"
@@ -54,6 +68,7 @@
 <script>
   import Pagination from '../pagination/Pagination'
   import Business from './Business.vue'
+  import UserBusiness from './UserBusiness'
   import AddBusiness from './AddBusiness.vue'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
@@ -64,7 +79,8 @@
     props: [
       'data-companies',
       'data-contacts',
-      'data-user'
+      'data-user',
+      'data-orders'
     ],
     data() {
       return {
@@ -78,6 +94,7 @@
     mixins: [mixins],
     components: {
       'app-business': Business,
+      'app-user-business': UserBusiness,
       'app-add-business': AddBusiness,
       'app-pagination': Pagination,
       'app-moon-loader': MoonLoader

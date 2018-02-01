@@ -1,0 +1,52 @@
+.user-business {
+  &__container {
+    width: 84vw;
+    margin: 0 auto;
+
+    div {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+  }
+
+  &__card {
+    margin: 3rem 0;
+    padding: 3rem 2rem;
+    background-color: $white;
+    border-radius: 3px;
+    box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 22%;
+    justify-content: flex-start !important;
+
+    &:hover,
+    &:focus,
+    &:active {
+      cursor: pointer;
+    }
+
+    &:hover img,
+    &:focus img,
+    &:active img {
+      transform: translateY(-5px);
+    }
+  }
+
+  &__img {
+    display: block;
+    width: 8rem;
+    margin-top: 6rem;
+    margin-bottom: 7rem;
+    transition: all .2s ease-out;
+  }
+
+  &__title {
+    font-size: 1.6rem;
+  }
+
+  &__orders {
+    font-size: 1.4rem;
+  }
+}

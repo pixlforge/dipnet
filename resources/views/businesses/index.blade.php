@@ -8,7 +8,8 @@
 
   <app-businesses :data-companies="{{ $companies }}"
                   :data-contacts="{{ $contacts }}"
-                  :data-user="{{ auth()->user() }}">
+                  :data-user="{{ auth()->user() }}"
+                  :data-orders="{{ $orders }}">
   </app-businesses>
 
 @endsection

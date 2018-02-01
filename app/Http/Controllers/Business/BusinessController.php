@@ -8,6 +8,7 @@ use Dipnet\Contact;
 use Dipnet\Http\Controllers\Controller;
 use Dipnet\Http\Requests\Business\StoreBusinessRequest;
 use Dipnet\Http\Requests\Business\UpdateBusinessRequest;
+use Dipnet\Order;
 
 class BusinessController extends Controller
 {
@@ -29,9 +30,22 @@ class BusinessController extends Controller
         $companies = Company::orderBy('name')->get();
         $contacts = Contact::orderBy('name')->get();
 
+        $orders = [];
+
+        if (auth()->user()->isNotAdmin()) {
+            $businessIds = [];
+
+            foreach (auth()->user()->company->business as $business) {
+                array_push($businessIds, $business->id);
+            }
+
+            $orders = Order::whereIn('business_id', $businessIds)->get();
+        }
+
         return view('businesses.index', [
             'companies' => $companies,
-            'contacts' => $contacts
+            'contacts' => $contacts,
+            'orders' => $orders
         ]);
     }
 
