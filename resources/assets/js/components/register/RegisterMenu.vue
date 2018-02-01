@@ -6,14 +6,14 @@
         <img :src="logoColor" :alt="`${appName} logo`">
       </div>
       <div class="register__form">
-        <h1 class="register__title">Je souhaite créer un compte et</h1>
-        <button class="register__btn register__btn--orange"
-                @click="joinCompany">
-          Je désire rejoindre ma société
-        </button>
+        <h1 class="register__title">Création de compte</h1>
         <button class="register__btn register__btn--red"
                 @click="addCompany">
           Je désire enregistrer ma société
+        </button>
+        <button class="register__btn register__btn--orange"
+                @click="joinCompany">
+          Je désire rejoindre ma société
         </button>
         <button class="register__btn register__btn--purple"
                 @click="asSelf">
