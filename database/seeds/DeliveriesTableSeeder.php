@@ -1,5 +1,6 @@
 <?php
 
+use Dipnet\Delivery;
 use Illuminate\Database\Seeder;
 
 class DeliveriesTableSeeder extends Seeder
@@ -11,6 +12,6 @@ class DeliveriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Delivery::class, 10)->create();
+        factory(Delivery::class, 10)->create();
     }
 }

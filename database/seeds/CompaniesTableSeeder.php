@@ -1,5 +1,6 @@
 <?php
 
+use Dipnet\Company;
 use Illuminate\Database\Seeder;
 
 class CompaniesTableSeeder extends Seeder
@@ -11,6 +12,6 @@ class CompaniesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Company::class, 10)->create();
+        factory(Company::class, 10)->create();
     }
 }

@@ -1,5 +1,6 @@
 <?php
 
+use Dipnet\Document;
 use Illuminate\Database\Seeder;
 
 class DocumentsTableSeeder extends Seeder
@@ -11,6 +12,6 @@ class DocumentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Document::class, 5)->create();
+        factory(Document::class, 5)->create();
     }
 }
