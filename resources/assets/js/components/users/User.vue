@@ -18,7 +18,7 @@
         <span class="card__label">Email</span>
         {{ user.email }}
       </div>
-      <div>
+      <div v-if="user.company">
         <span class="card__label">Société</span>
         {{ user.company.name | capitalize }}
       </div>
