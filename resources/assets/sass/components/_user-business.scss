@@ -5,14 +5,14 @@
 
     & > div {
       display: flex;
-      flex-wrap: wrap;
+      flex-flow: row wrap;
       justify-content: space-between;
     }
   }
 
   &__card {
     flex: 0 0 35rem;
-    margin: 3rem 0;
+    margin: 3rem auto;
     padding: 3rem 2rem;
     background-color: $white;
     border-radius: 3px;
