@@ -74364,21 +74364,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', [_c('span', {
     staticClass: "card__label"
   }, [_vm._v("Compte")]), _vm._v(" "), (_vm.user.email_confirmed) ? _c('span', [_c('i', {
-    staticClass: "fal fa-check-circle text-success"
+    staticClass: "fal fa-check-circle text--success"
   })]) : _c('span', [_c('i', {
-    staticClass: "fal fa-times-circle text-warning"
+    staticClass: "fal fa-times-circle text--warning"
   })])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "card__label"
   }, [_vm._v("Contact")]), _vm._v(" "), (_vm.user.contact_confirmed) ? _c('span', [_c('i', {
-    staticClass: "fal fa-check-circle text-success"
+    staticClass: "fal fa-check-circle text--success"
   })]) : _c('span', [_c('i', {
-    staticClass: "fal fa-times-circle text-warning"
+    staticClass: "fal fa-times-circle text--warning"
   })])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "card__label"
   }, [_vm._v("Société")]), _vm._v(" "), (_vm.user.company_confirmed) ? _c('span', [_c('i', {
-    staticClass: "fal fa-check-circle text-success"
+    staticClass: "fal fa-check-circle text--success"
   })]) : _c('span', [_c('i', {
-    staticClass: "fal fa-times-circle text-warning"
+    staticClass: "fal fa-times-circle text--warning"
   })])])]), _vm._v(" "), _c('div', {
     staticClass: "card__meta"
   }, [_c('div', [_c('span', {

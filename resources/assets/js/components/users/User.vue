@@ -29,28 +29,28 @@
       <div>
         <span class="card__label">Compte</span>
         <span v-if="user.email_confirmed">
-          <i class="fal fa-check-circle text-success"></i>
+          <i class="fal fa-check-circle text--success"></i>
         </span>
         <span v-else>
-          <i class="fal fa-times-circle text-warning"></i>
+          <i class="fal fa-times-circle text--warning"></i>
         </span>
       </div>
       <div>
         <span class="card__label">Contact</span>
         <span v-if="user.contact_confirmed">
-          <i class="fal fa-check-circle text-success"></i>
+          <i class="fal fa-check-circle text--success"></i>
         </span>
         <span v-else>
-          <i class="fal fa-times-circle text-warning"></i>
+          <i class="fal fa-times-circle text--warning"></i>
         </span>
       </div>
       <div>
         <span class="card__label">Société</span>
         <span v-if="user.company_confirmed">
-          <i class="fal fa-check-circle text-success"></i>
+          <i class="fal fa-check-circle text--success"></i>
         </span>
         <span v-else>
-          <i class="fal fa-times-circle text-warning"></i>
+          <i class="fal fa-times-circle text--warning"></i>
         </span>
       </div>
     </div>

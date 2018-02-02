@@ -57,3 +57,13 @@ small {
     margin-top: 10rem;
   }
 }
+
+.text {
+  &--success {
+    color: $atlantis;
+  }
+
+  &--warning {
+    color: $yellowsea;
+  }
+}
