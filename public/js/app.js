@@ -41207,6 +41207,38 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -41216,7 +41248,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   props: ['data-user', 'data-companies'],
   data() {
     return {
-      user: this.dataUser,
+      user: {
+        id: this.dataUser.id,
+        username: this.dataUser.username,
+        email: this.dataUser.email,
+        password: null,
+        password_confirmation: null,
+        role: this.dataUser.role,
+        company_id: this.dataUser.company_id
+      },
       companies: this.dataCompanies,
       errors: {}
     };
@@ -41235,8 +41275,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }).then(() => {
         this.$store.dispatch('toggleLoader');
         this.toggleModal();
+        this.user.password = null;
+        this.user.password_confirmation = null;
       }).catch(error => {
         this.$store.dispatch('toggleLoader');
+        this.user.password = null;
+        this.user.password_confirmation = null;
         if (error.response.status === 422) {
           flash({
             message: "Erreur. La validation a échoué.",
@@ -68235,6 +68279,86 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), (_vm.errors.email) ? _c('div', {
     staticClass: "modal__alert"
   }, [_vm._v("\n            " + _vm._s(_vm.errors.email[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "password"
+    }
+  }, [_vm._v("Mot de passe")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.user.password),
+      expression: "user.password",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__input",
+    attrs: {
+      "type": "password",
+      "name": "password",
+      "id": "password",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.user.password)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.user, "password", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.password) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.password[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "password_confirmation"
+    }
+  }, [_vm._v("Confirmation")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.user.password_confirmation),
+      expression: "user.password_confirmation",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__input",
+    attrs: {
+      "type": "password",
+      "name": "password_confirmation",
+      "id": "password_confirmation",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.user.password_confirmation)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.user, "password_confirmation", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.password_confirmation) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.password_confirmation[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",

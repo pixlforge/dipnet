@@ -20,7 +20,7 @@
         <div class="modal__container">
           <h2 class="modal__title">Modifier {{ user.username}}</h2>
 
-          <!--Name-->
+          <!--Username-->
           <div class="modal__group">
             <label for="username" class="modal__label">Nom d'utilisateur</label>
             <span class="modal__required">*</span>
@@ -49,6 +49,38 @@
             <div class="modal__alert"
                  v-if="errors.email">
               {{ errors.email[0] }}
+            </div>
+          </div>
+
+          <!--Password-->
+          <div class="modal__group">
+            <label for="password" class="modal__label">Mot de passe</label>
+            <span class="modal__required">*</span>
+            <input type="password"
+                   name="password"
+                   id="password"
+                   class="modal__input"
+                   v-model.trim="user.password"
+                   required>
+            <div class="modal__alert"
+                 v-if="errors.password">
+              {{ errors.password[0] }}
+            </div>
+          </div>
+
+          <!--Password Confirmation-->
+          <div class="modal__group">
+            <label for="password_confirmation" class="modal__label">Confirmation</label>
+            <span class="modal__required">*</span>
+            <input type="password"
+                   name="password_confirmation"
+                   id="password_confirmation"
+                   class="modal__input"
+                   v-model.trim="user.password_confirmation"
+                   required>
+            <div class="modal__alert"
+                 v-if="errors.password_confirmation">
+              {{ errors.password_confirmation[0] }}
             </div>
           </div>
 
@@ -119,7 +151,15 @@
     ],
     data() {
       return {
-        user: this.dataUser,
+        user: {
+          id: this.dataUser.id,
+          username: this.dataUser.username,
+          email: this.dataUser.email,
+          password: null,
+          password_confirmation: null,
+          role: this.dataUser.role,
+          company_id: this.dataUser.company_id
+        },
         companies: this.dataCompanies,
         errors: {}
       }
@@ -143,9 +183,13 @@
           .then(() => {
             this.$store.dispatch('toggleLoader')
             this.toggleModal()
+            this.user.password = null
+            this.user.password_confirmation = null
           })
-          .catch((error) => {
+          .catch(error => {
             this.$store.dispatch('toggleLoader')
+            this.user.password = null
+            this.user.password_confirmation = null
             if (error.response.status === 422) {
               flash({
                 message: "Erreur. La validation a échoué.",

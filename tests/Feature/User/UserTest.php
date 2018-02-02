@@ -123,6 +123,28 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    function an_admin_can_update_a_users_password()
+    {
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
+
+        factory(User::class)->create([
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com'
+        ]);
+
+        $user = User::where('email', 'johndoe@example.com')->first();
+
+        $this->putJson(route('users.update', $user), [
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com',
+            'password' => 'hunter2',
+            'password_confirmation' => 'hunter2',
+            'role' => 'utilisateur'
+        ])->assertStatus(200);
+    }
+
+    /** @test */
     function an_admin_can_delete_a_user()
     {
         $admin = factory(User::class)->states('admin')->create();

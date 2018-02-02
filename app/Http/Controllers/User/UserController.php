@@ -94,6 +94,10 @@ class UserController extends Controller
             $user->company_id = $request->company_id;
         }
 
+        if ($request->password) {
+            $user->password = bcrypt($request->password);
+        }
+
         $user->save();
 
         $this->sendConfirmationEmail($user);
