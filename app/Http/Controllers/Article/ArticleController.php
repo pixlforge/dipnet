@@ -52,6 +52,7 @@ class ArticleController extends Controller
      *
      * @param Article $article
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Article $article)
     {
@@ -83,6 +84,8 @@ class ArticleController extends Controller
      *
      * @param Article $article
      * @return \Illuminate\Http\Response
+     * @throws \Exception
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Article $article)
     {

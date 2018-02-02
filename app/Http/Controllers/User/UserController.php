@@ -2,11 +2,13 @@
 
 namespace Dipnet\Http\Controllers\User;
 
+use Dipnet\Mail\RegistrationEmailConfirmation;
 use Dipnet\User;
 use Dipnet\Company;
 use Dipnet\Http\Controllers\Controller;
 use Dipnet\Http\Requests\User\StoreUserRequest;
 use Dipnet\Http\Requests\User\UpdateUserRequest;
+use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -38,14 +40,23 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $user = User::create([
-            'username' => $request->username,
-            'password' => bcrypt($request->password),
-            'role' => $request->role,
-            'email' => $request->email,
-            'confirmed' => $this->getEmailStatus(),
-            'company_id' => $request->company_id
-        ]);
+        $user = new User;
+        $user->username = $request->username;
+        $user->password = bcrypt($request->password);
+        $user->role = $request->role;
+        $user->email = $request->email;
+        $user->email_confirmed = $this->getEmailStatus($request->status);
+
+        if ($request->company_id) {
+            $user->company_id = $request->company_id;
+            $user->company_confirmed = true;
+        } else {
+            $user->is_solo = true;
+        }
+
+        $user->save();
+
+        $this->sendConfirmationEmail($user);
 
         return response($user, 200);
     }
@@ -85,6 +96,8 @@ class UserController extends Controller
 
         $user->save();
 
+        $this->sendConfirmationEmail($user);
+
         return response($user, 200);
     }
 
@@ -117,5 +130,16 @@ class UserController extends Controller
             $emailStatus = 0;
         }
         return $emailStatus;
+    }
+
+    /**
+     * Send a confirmation email to a newly registered user.
+     *
+     * @param $user
+     */
+    protected function sendConfirmationEmail($user)
+    {
+        Mail::to($user)
+            ->queue(new RegistrationEmailConfirmation($user));
     }
 }

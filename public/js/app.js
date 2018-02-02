@@ -41389,13 +41389,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__User_vue__ = __webpack_require__(314);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__User_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__User_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__app__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddUser__ = __webpack_require__(406);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AddUser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AddUser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__User_vue__ = __webpack_require__(314);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__User_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__User_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -41438,6 +41440,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+
 
 
 
@@ -41455,13 +41460,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       meta: {}
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
   components: {
-    'app-user': __WEBPACK_IMPORTED_MODULE_1__User_vue___default.a,
+    'app-user': __WEBPACK_IMPORTED_MODULE_2__User_vue___default.a,
+    'app-add-user': __WEBPACK_IMPORTED_MODULE_1__AddUser___default.a,
     'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(['loaderState'])),
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
     /**
      * Fetch the users paginated data.
@@ -41477,6 +41483,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.users = response.data.data;
         this.meta = response.data.meta;
         this.$store.dispatch('toggleLoader');
+      });
+    },
+
+    /**
+     * Add a new user.
+     */
+    addUser(user) {
+      this.users.unshift(user);
+      flash({
+        message: "La création de l'utilisateur a réussi.",
+        level: 'success'
       });
     },
 
@@ -41507,7 +41524,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   },
   created() {
-    __WEBPACK_IMPORTED_MODULE_4__app__["eventBus"].$on('userWasUpdated', data => {
+    __WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on('userWasUpdated', data => {
       this.updateUser(data);
     });
   },
@@ -72446,7 +72463,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Utilisateurs")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'utilisateur' : 'utilisateurs') + "\n    ")]), _vm._v(" "), _c('div')]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'utilisateur' : 'utilisateurs') + "\n    ")]), _vm._v(" "), _c('app-add-user', {
+    attrs: {
+      "data-companies": _vm.dataCompanies
+    },
+    on: {
+      "userWasCreated": _vm.addUser
+    }
+  })], 1), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [_c('app-pagination', {
     staticClass: "pagination pagination--top",
@@ -77110,6 +77134,559 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-2005d924", module.exports)
+  }
+}
+
+/***/ }),
+/* 405 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['data-companies'],
+  data() {
+    return {
+      user: {
+        username: '',
+        password: '',
+        role: '',
+        email: '',
+        company_id: ''
+      },
+      companies: this.dataCompanies,
+      errors: {}
+    };
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
+  methods: {
+    /**
+     * Add a new user.
+     */
+    addUser() {
+      this.$store.dispatch('toggleLoader');
+
+      axios.post(route('users.store'), this.user).then(response => {
+        this.user = response.data;
+        this.$emit('userWasCreated', this.user);
+        this.$store.dispatch('toggleLoader');
+        this.toggleModal();
+        this.user = {};
+        this.errors = {};
+      }).catch(error => {
+        this.$store.dispatch('toggleLoader');
+        this.errors = error.response.data.errors;
+      });
+    }
+  }
+});
+
+/***/ }),
+/* 406 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(405),
+  /* template */
+  __webpack_require__(407),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/Heyoka/Webdev/Projects/dipnet/resources/assets/js/components/users/AddUser.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] AddUser.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-ef69ab22", Component.options)
+  } else {
+    hotAPI.reload("data-v-ef69ab22", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 407 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('button', {
+    staticClass: "btn btn--red-large",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-plus-circle"
+  }), _vm._v("\n    Nouvel utilisateur\n  ")]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal__background",
+    on: {
+      "click": _vm.toggleModal
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal__slider",
+    on: {
+      "keyup": [function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27, $event.key)) { return null; }
+        _vm.toggleModal($event)
+      }, function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
+        _vm.addUser($event)
+      }]
+    }
+  }, [_c('div', {
+    staticClass: "modal__container"
+  }, [_c('h2', {
+    staticClass: "modal__title"
+  }, [_vm._v("Nouvel utilisateur")]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "username"
+    }
+  }, [_vm._v("Nom d'utilisateur")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.user.username),
+      expression: "user.username",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__input",
+    attrs: {
+      "type": "text",
+      "name": "username",
+      "id": "username",
+      "required": "",
+      "autofocus": ""
+    },
+    domProps: {
+      "value": (_vm.user.username)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.user, "username", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.username) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.username[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "email"
+    }
+  }, [_vm._v("Adresse Email")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.user.email),
+      expression: "user.email",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__input",
+    attrs: {
+      "type": "email",
+      "name": "email",
+      "id": "email",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.user.email)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.user, "email", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.email) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.email[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "password"
+    }
+  }, [_vm._v("Mot de passe")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.user.password),
+      expression: "user.password",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__input",
+    attrs: {
+      "type": "password",
+      "name": "password",
+      "id": "password",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.user.password)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.user, "password", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.password) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.password[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "password_confirmation"
+    }
+  }, [_vm._v("Confirmation")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.user.password_confirmation),
+      expression: "user.password_confirmation",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__input",
+    attrs: {
+      "type": "password",
+      "name": "password_confirmation",
+      "id": "password_confirmation",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.user.password_confirmation)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.user, "password_confirmation", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.password_confirmation) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.password_confirmation[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "role"
+    }
+  }, [_vm._v("Rôle")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.user.role),
+      expression: "user.role",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__select",
+    attrs: {
+      "name": "role",
+      "id": "role"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.$set(_vm.user, "role", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Sélectionnez un rôle")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "utilisateur"
+    }
+  }, [_vm._v("Utilisateur")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "administrateur"
+    }
+  }, [_vm._v("Administrateur")])]), _vm._v(" "), (_vm.errors.role) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.role[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "company_id"
+    }
+  }, [_vm._v("Société")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number.trim",
+      value: (_vm.user.company_id),
+      expression: "user.company_id",
+      modifiers: {
+        "number": true,
+        "trim": true
+      }
+    }],
+    staticClass: "modal__select",
+    attrs: {
+      "name": "company_id",
+      "id": "company_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return _vm._n(val)
+        });
+        _vm.$set(_vm.user, "company_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Sélectionnez une société")]), _vm._v(" "), _vm._l((_vm.companies), function(company, index) {
+    return _c('option', {
+      domProps: {
+        "value": company.id
+      }
+    }, [_vm._v("\n              " + _vm._s(company.name) + "\n            ")])
+  })], 2), _vm._v(" "), (_vm.errors.company_id) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.company_id[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__buttons"
+  }, [_c('button', {
+    staticClass: "btn btn--grey",
+    on: {
+      "click": function($event) {
+        $event.stopPropagation();
+        _vm.toggleModal($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-times"
+  }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn--red",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.addUser($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n            Ajouter\n          ")])])])]) : _vm._e()])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-ef69ab22", module.exports)
   }
 }
 

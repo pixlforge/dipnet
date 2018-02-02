@@ -24,6 +24,70 @@ class UserTest extends TestCase
     }
 
     /** @test */
+    function an_admin_can_create_a_new_user()
+    {
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
+
+        $this->assertCount(1, User::all());
+
+        $this->postJson(route('users.store'), [
+            'username' => 'John Doe',
+            'password' => 'secret',
+            'password_confirmation' => 'secret',
+            'role' => 'utilisateur',
+            'email' => 'johndoe@example.com',
+            'email_confirmed' => 1,
+            'company_id' => null
+        ])->assertStatus(200);
+
+        $this->assertCount(2, User::all());
+    }
+
+    /** @test */
+    function guests_cannot_create_users()
+    {
+        $this->withExceptionHandling();
+
+        $this->assertCount(0, User::all());
+
+        $this->postJson(route('users.store'), [
+            'username' => 'John Doe',
+            'password' => 'secret',
+            'password_confirmation' => 'secret',
+            'role' => 'utilisateur',
+            'email' => 'johndoe@example.com',
+            'email_confirmed' => 1,
+            'company_id' => null
+        ])->assertStatus(401);
+
+        $this->assertCount(0, User::all());
+    }
+
+    /** @test */
+    function users_who_are_not_admins_cannot_create_users()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->create();
+        $this->signIn($user);
+
+        $this->assertCount(1, User::all());
+
+        $this->postJson(route('users.store'), [
+            'username' => 'John Doe',
+            'password' => 'secret',
+            'password_confirmation' => 'secret',
+            'role' => 'utilisateur',
+            'email' => 'johndoe@example.com',
+            'email_confirmed' => 1,
+            'company_id' => null
+        ])->assertStatus(403);
+
+        $this->assertCount(1, User::all());
+    }
+
+    /** @test */
     function an_admin_can_update_a_user()
     {
         $admin = factory(User::class)->states('admin')->create();

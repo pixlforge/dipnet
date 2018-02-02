@@ -6,7 +6,9 @@
         {{ meta.total }}
         {{ meta.total == 0 || meta.total == 1 ? 'utilisateur' : 'utilisateurs' }}
       </div>
-      <div></div>
+      <app-add-user :data-companies="dataCompanies"
+                    @userWasCreated="addUser">
+      </app-add-user>
     </div>
 
     <div class="main__container main__container--grey">
@@ -40,6 +42,7 @@
 
 <script>
   import Pagination from '../pagination/Pagination'
+  import AddUser from './AddUser'
   import User from './User.vue'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
@@ -60,6 +63,7 @@
     mixins: [mixins],
     components: {
       'app-user': User,
+      'app-add-user': AddUser,
       'app-pagination': Pagination,
       'app-moon-loader': MoonLoader
     },
@@ -83,6 +87,17 @@
           this.users = response.data.data
           this.meta = response.data.meta
           this.$store.dispatch('toggleLoader')
+        })
+      },
+
+      /**
+       * Add a new user.
+       */
+      addUser(user) {
+        this.users.unshift(user)
+        flash({
+          message: "La création de l'utilisateur a réussi.",
+          level: 'success'
         })
       },
 
