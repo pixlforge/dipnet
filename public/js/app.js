@@ -70741,14 +70741,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__controls"
   }, [_c('div', {
     attrs: {
-      "title": "Modifier"
-    }
-  }, [_c('app-edit-company', {
-    attrs: {
-      "data-company": _vm.company
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    attrs: {
       "title": "Supprimer"
     },
     on: {
@@ -70756,7 +70748,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })])])])
+  })]), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-company', {
+    attrs: {
+      "data-company": _vm.company
+    }
+  })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -72206,14 +72206,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__controls"
   }, [_c('div', {
     attrs: {
-      "title": "Modifier"
-    }
-  }, [_c('app-edit-contact', {
-    attrs: {
-      "data-contact": _vm.contact
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    attrs: {
       "title": "Supprimer"
     },
     on: {
@@ -72221,7 +72213,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })])])])
+  })]), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-contact', {
+    attrs: {
+      "data-contact": _vm.contact
+    }
+  })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -74413,15 +74413,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__controls"
   }, [_c('div', {
     attrs: {
-      "title": "Modifier"
-    }
-  }, [_c('app-edit-user', {
-    attrs: {
-      "data-user": _vm.user,
-      "data-companies": _vm.companies
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    attrs: {
       "title": "Supprimer"
     },
     on: {
@@ -74429,7 +74420,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })])])])
+  })]), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-user', {
+    attrs: {
+      "data-user": _vm.user,
+      "data-companies": _vm.companies
+    }
+  })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -76042,14 +76042,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__controls"
   }, [_c('div', {
     attrs: {
-      "title": "Modifier"
-    }
-  }, [_c('app-edit-article', {
-    attrs: {
-      "data-article": _vm.article
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    attrs: {
       "title": "Supprimer"
     },
     on: {
@@ -76057,7 +76049,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })])])])
+  })]), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-article', {
+    attrs: {
+      "data-article": _vm.article
+    }
+  })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -76105,6 +76105,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__controls"
   }, [_c('div', {
     attrs: {
+      "title": "Supprimer"
+    },
+    on: {
+      "click": _vm.destroy
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-times"
+  })]), _vm._v(" "), _c('div', {
+    attrs: {
       "title": "Modifier"
     }
   }, [_c('app-edit-business', {
@@ -76113,16 +76122,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-companies": _vm.companies,
       "data-contacts": _vm.dataContacts
     }
-  })], 1), _vm._v(" "), _c('div', {
-    attrs: {
-      "title": "Supprimer"
-    },
-    on: {
-      "click": _vm.destroy
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-times"
-  })])])])
+  })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -76438,14 +76438,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__controls"
   }, [_c('div', {
     attrs: {
-      "title": "Modifier"
-    }
-  }, [_c('app-edit-format', {
-    attrs: {
-      "data-format": _vm.format
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    attrs: {
       "title": "Supprimer"
     },
     on: {
@@ -76453,7 +76445,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })])])])
+  })]), _vm._v(" "), _c('div', {
+    attrs: {
+      "title": "Modifier"
+    }
+  }, [_c('app-edit-format', {
+    attrs: {
+      "data-format": _vm.format
+    }
+  })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"

@@ -67,14 +67,14 @@
     </div>
 
     <div class="card__controls">
+      <div title="Supprimer"
+           @click="destroy">
+        <i class="fal fa-times"></i>
+      </div>
       <div title="Modifier">
         <app-edit-user :data-user="user"
                        :data-companies="companies">
         </app-edit-user>
-      </div>
-      <div title="Supprimer"
-           @click="destroy">
-        <i class="fal fa-times"></i>
       </div>
     </div>
   </div>

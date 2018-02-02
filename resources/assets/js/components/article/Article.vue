@@ -32,13 +32,13 @@
     </div>
 
     <div class="card__controls">
-      <div title="Modifier">
-        <app-edit-article :data-article="article">
-        </app-edit-article>
-      </div>
       <div title="Supprimer"
            @click="destroy">
         <i class="fal fa-times"></i>
+      </div>
+      <div title="Modifier">
+        <app-edit-article :data-article="article">
+        </app-edit-article>
       </div>
     </div>
   </div>
