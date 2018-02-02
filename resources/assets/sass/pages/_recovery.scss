@@ -1,0 +1,45 @@
+.recovery {
+  &__container {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: top left;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &--orange {
+      background-image: url(/img/patterns/art-orange-pattern-login@3x.png);
+      background-color: $bg-orange;
+    }
+
+    &--purple {
+      background-image: url(/img/patterns/art-purple-pattern-login@3x.png);
+      background-color: $bg-purple;
+    }
+  }
+
+  &__panel {
+    width: 40vw;
+    background-color: $white;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 6px 14px 0 rgba($black, .15);
+
+    @media all and (max-width: $bp-xl) {
+      width: 60vw;
+    }
+
+    @media all and (max-width: $bp-lg) {
+      width: 70vw;
+    }
+
+    @media all and (max-width: $bp-md) {
+      width: 80vw;
+    }
+  }
+}

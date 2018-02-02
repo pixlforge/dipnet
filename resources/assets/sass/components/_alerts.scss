@@ -9,7 +9,7 @@
   font-size: 1.4rem;
   text-align: center;
   border-radius: 3px;
-  box-shadow: 0 6px 14px 0 rgba(200, 200, 200, .5);
+  box-shadow: 0 6px 14px 0 rgba($black, .15);
 
   &--success {
     background-color: $bg-success;
