@@ -11,7 +11,7 @@
 
     <div class="main__container main__container--grey">
       <app-pagination class="pagination pagination--top"
-                      v-if="documents.length"
+                      v-if="meta.total > 25"
                       :data-meta="meta"
                       @paginationSwitched="getDocuments">
       </app-pagination>
@@ -32,7 +32,7 @@
       </template>
 
       <app-pagination class="pagination pagination--bottom"
-                      v-if="documents.length"
+                      v-if="meta.total > 25"
                       :data-meta="meta"
                       @paginationSwitched="getDocuments">
       </app-pagination>

@@ -12,7 +12,7 @@
 
     <div class="main__container main__container--grey">
       <app-pagination class="pagination pagination--top"
-                      v-if="formats.length"
+                      v-if="meta.total > 25"
                       :data-meta="meta"
                       @paginationSwitched="getFormats">
       </app-pagination>
@@ -33,7 +33,7 @@
       </template>
 
       <app-pagination class="pagination pagination--bottom"
-                      v-if="formats.length"
+                      v-if="meta.total > 25"
                       :data-meta="meta"
                       @paginationSwitched="getFormats">
       </app-pagination>
