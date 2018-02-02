@@ -30,7 +30,7 @@ class BusinessController extends Controller
         $companies = Company::orderBy('name')->get();
         $contacts = Contact::orderBy('name')->get();
 
-        $orders = [];
+        $orders = collect();
 
         if (auth()->user()->isNotAdmin()) {
             $businessIds = [];

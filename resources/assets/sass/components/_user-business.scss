@@ -3,7 +3,7 @@
     width: 84vw;
     margin: 0 auto;
 
-    div {
+    & > div {
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
@@ -11,15 +11,20 @@
   }
 
   &__card {
+    flex: 0 0 35rem;
     margin: 3rem 0;
     padding: 3rem 2rem;
     background-color: $white;
     border-radius: 3px;
     box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.04);
-    display: flex;
-    flex-direction: column;
-    flex: 0 0 22%;
-    justify-content: flex-start !important;
+
+    @media all and (max-width: $bp-md) {
+      flex: 0 0 25rem;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      flex: 0 0 100%;
+    }
 
     &:hover,
     &:focus,
@@ -34,11 +39,15 @@
     }
   }
 
+  &__card-content {
+  }
+
   &__img {
     display: block;
     width: 8rem;
     margin-top: 6rem;
     margin-bottom: 7rem;
+    user-select: none;
     transition: all .2s ease-out;
   }
 

@@ -4739,7 +4739,7 @@ module.exports = function normalizeComponent (
       this.loader.loading = !this.loader.loading;
     },
     toggleModal() {
-      this.showModal === false ? this.showModal = true : this.showModal = false;
+      this.showModal = !this.showModal;
       document.getElementById('body').classList.toggle('modal__open');
     },
     finishRegistration() {
@@ -33482,6 +33482,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditUserBusiness__ = __webpack_require__(403);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditUserBusiness___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditUserBusiness__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -33491,8 +33502,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data-business', 'data-contacts', 'data-orders'],
+  data() {
+    return {
+      open: false
+    };
+  },
+  components: {
+    'app-edit-user-business': __WEBPACK_IMPORTED_MODULE_0__EditUserBusiness___default.a
+  },
   computed: {
     iconColor() {
       if (this.dataBusiness.folder_color === 'rouge') {
@@ -33518,6 +33539,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
       return count > 1 ? `${count} commandes` : `${count} commande`;
+    }
+  },
+  methods: {
+    toggleEditBusiness() {
+      this.open = !this.open;
+    },
+
+    closeEditBusiness() {
+      this.open = false;
     }
   }
 });
@@ -73077,6 +73107,14 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "user-business__card"
+  }, [_c('div', {
+    staticClass: "user-business__card-content",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.toggleEditBusiness($event)
+      }
+    }
   }, [_c('img', {
     staticClass: "user-business__img",
     attrs: {
@@ -73087,7 +73125,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "user-business__title"
   }, [_vm._v(_vm._s(_vm.dataBusiness.name))]), _vm._v(" "), _c('p', {
     staticClass: "user-business__orders"
-  }, [_vm._v(_vm._s(_vm.orders))])])
+  }, [_vm._v(_vm._s(_vm.orders))])]), _vm._v(" "), _c('app-edit-user-business', {
+    staticClass: "v-hidden",
+    attrs: {
+      "data-business": _vm.dataBusiness,
+      "data-contacts": _vm.dataContacts,
+      "data-open": _vm.open
+    },
+    on: {
+      "closeEditBusiness": _vm.closeEditBusiness
+    }
+  })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -76622,6 +76670,448 @@ module.exports = function listToStyles (parentId, list) {
 __webpack_require__(4);
 module.exports = __webpack_require__(146);
 
+
+/***/ }),
+/* 396 */,
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['data-business', 'data-companies', 'data-contacts', 'data-open'],
+  data() {
+    return {
+      business: this.dataBusiness,
+      companies: this.dataCompanies,
+      errors: {}
+    };
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
+  computed: {
+    /**
+     * Get the contacts associated with the company.
+     */
+    contacts() {
+      if (this.business.company_id !== '') {
+        return this.dataContacts.filter(contact => {
+          return contact.company_id === this.business.company_id;
+        });
+      }
+    }
+  },
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
+
+    /**
+     * Close the edit business slider.
+     */
+    closeEditBusiness() {
+      this.$emit('closeEditBusiness');
+    },
+
+    /**
+     * Update a business.
+     */
+    updateBusiness() {
+      this.$store.dispatch('toggleLoader');
+
+      axios.put(route('businesses.update', [this.business.id]), this.business).then(() => {
+        __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('businessWasUpdated', this.business);
+      }).then(() => {
+        this.$store.dispatch('toggleLoader');
+        this.$emit('closeEditBusiness');
+      }).catch(error => {
+        this.$store.dispatch('toggleLoader');
+        this.errors = error.response.data;
+      });
+    }
+  })
+});
+
+/***/ }),
+/* 403 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(402),
+  /* template */
+  __webpack_require__(404),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/Heyoka/Webdev/Projects/dipnet/resources/assets/js/components/business/EditUserBusiness.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] EditUserBusiness.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-2005d924", Component.options)
+  } else {
+    hotAPI.reload("data-v-2005d924", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 404 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.dataOpen) ? _c('div', {
+    staticClass: "modal__background",
+    on: {
+      "click": _vm.closeEditBusiness
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.dataOpen) ? _c('div', {
+    staticClass: "modal__slider",
+    on: {
+      "keyup": [function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27, $event.key)) { return null; }
+        _vm.closeEditBusiness($event)
+      }, function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
+        _vm.updateBusiness($event)
+      }]
+    }
+  }, [_c('div', {
+    staticClass: "modal__container"
+  }, [_c('h2', {
+    staticClass: "modal__title"
+  }, [_vm._v("Modifier " + _vm._s(_vm.business.name))]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "name"
+    }
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.business.name),
+      expression: "business.name",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__input",
+    attrs: {
+      "type": "text",
+      "name": "name",
+      "id": "name",
+      "required": "",
+      "autofocus": ""
+    },
+    domProps: {
+      "value": (_vm.business.name)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.business, "name", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "reference"
+    }
+  }, [_vm._v("Référence")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.business.reference),
+      expression: "business.reference",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__input",
+    attrs: {
+      "type": "text",
+      "name": "reference",
+      "id": "reference",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.business.reference)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.business, "reference", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.reference) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.reference[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "description"
+    }
+  }, [_vm._v("Description")]), _vm._v(" "), _c('span', {
+    staticClass: "modal__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.trim",
+      value: (_vm.business.description),
+      expression: "business.description",
+      modifiers: {
+        "trim": true
+      }
+    }],
+    staticClass: "modal__input",
+    attrs: {
+      "type": "text",
+      "name": "description",
+      "id": "description",
+      "required": ""
+    },
+    domProps: {
+      "value": (_vm.business.description)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.business, "description", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  }), _vm._v(" "), (_vm.errors.description) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.description[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "contact_id"
+    }
+  }, [_vm._v("Contact")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number.trim",
+      value: (_vm.business.contact_id),
+      expression: "business.contact_id",
+      modifiers: {
+        "number": true,
+        "trim": true
+      }
+    }],
+    staticClass: "modal__select",
+    attrs: {
+      "name": "contact_id",
+      "id": "contact_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return _vm._n(val)
+        });
+        _vm.$set(_vm.business, "contact_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Sélectionnez un contact")]), _vm._v(" "), _vm._l((_vm.contacts), function(contact, index) {
+    return _c('option', {
+      domProps: {
+        "value": contact.id
+      }
+    }, [_vm._v("\n              " + _vm._s(contact.name) + "\n            ")])
+  })], 2), _vm._v(" "), (_vm.errors.contact_id) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.contact_id[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__buttons"
+  }, [_c('button', {
+    staticClass: "btn btn--grey",
+    on: {
+      "click": function($event) {
+        $event.stopPropagation();
+        _vm.closeEditBusiness($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-times"
+  }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn--red",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.updateBusiness($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n            Mettre à jour\n          ")])])])]) : _vm._e()])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2005d924", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

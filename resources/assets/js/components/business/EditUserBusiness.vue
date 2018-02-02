@@ -1,20 +1,16 @@
 <template>
   <div>
-    <div @click="toggleModal">
-      <i class="fal fa-pencil"></i>
-    </div>
-
     <transition name="fade">
       <div class="modal__background"
-           v-if="showModal"
-           @click="toggleModal">
+           v-if="dataOpen"
+           @click="closeEditBusiness">
       </div>
     </transition>
 
     <transition name="slide">
       <div class="modal__slider"
-           v-if="showModal"
-           @keyup.esc="toggleModal"
+           v-if="dataOpen"
+           @keyup.esc="closeEditBusiness"
            @keyup.enter="updateBusiness">
 
         <div class="modal__container">
@@ -68,25 +64,6 @@
             </div>
           </div>
 
-          <!--Company-->
-          <div class="modal__group">
-            <label for="company_id" class="modal__label">Société</label>
-            <select name="company_id"
-                    id="company_id"
-                    class="modal__select"
-                    v-model.number.trim="business.company_id">
-              <option disabled>Sélectionnez une société</option>
-              <option v-for="(company, index) in companies"
-                      :value="company.id">
-                {{ company.name }}
-              </option>
-            </select>
-            <div class="modal__alert"
-                 v-if="errors.company_id">
-              {{ errors.company_id[0] }}
-            </div>
-          </div>
-
           <!--Contact-->
           <div class="modal__group">
             <label for="contact_id" class="modal__label">Contact</label>
@@ -109,7 +86,7 @@
           <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
-                    @click.stop="toggleModal">
+                    @click.stop="closeEditBusiness">
               <i class="fal fa-times"></i>
               Annuler
             </button>
@@ -134,7 +111,8 @@
     props: [
       'data-business',
       'data-companies',
-      'data-contacts'
+      'data-contacts',
+      'data-open'
     ],
     data() {
       return {
@@ -162,6 +140,13 @@
       ]),
 
       /**
+       * Close the edit business slider.
+       */
+      closeEditBusiness() {
+        this.$emit('closeEditBusiness')
+      },
+
+      /**
        * Update a business.
        */
       updateBusiness() {
@@ -173,7 +158,7 @@
           })
           .then(() => {
             this.$store.dispatch('toggleLoader')
-            this.toggleModal()
+            this.$emit('closeEditBusiness')
           })
           .catch(error => {
             this.$store.dispatch('toggleLoader')

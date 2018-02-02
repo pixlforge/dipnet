@@ -67,7 +67,7 @@ export default {
       this.loader.loading = !this.loader.loading
     },
     toggleModal() {
-      this.showModal === false ? this.showModal = true : this.showModal = false
+      this.showModal = !this.showModal
       document.getElementById('body').classList.toggle('modal__open')
     },
     finishRegistration() {
