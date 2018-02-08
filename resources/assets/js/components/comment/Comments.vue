@@ -12,6 +12,10 @@
                    :data-comment="comment">
       </app-comment>
     </transition-group>
+    <p class="paragraph__no-model-found paragraph__no-model-found--small"
+       v-if="!comments.length">
+      Aucun commentaire n'a été posté pour le moment.
+    </p>
   </div>
 </template>
 

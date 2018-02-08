@@ -21,6 +21,10 @@
                      :data-order="order"
                      :display-user="true">
           </app-order>
+          <p class="paragraph__no-model-found paragraph__no-model-found--small"
+             v-if="!dataOrders.length">
+            Aucune commande n'a été enregistrée pour cette affaire.
+          </p>
         </div>
         <div class="business__comments">
           <app-comments :data-business="dataBusiness"

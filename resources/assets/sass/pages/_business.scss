@@ -3,15 +3,38 @@
     width: 84vw;
     margin: 0 auto;
     display: flex;
+
+    @media all and (max-width: $bp-lg) {
+      flex-direction: column;
+    }
   }
 
   &__orders {
     flex: 0 0 60%;
     padding-right: 1.5rem;
+
+    @media all and (max-width: $bp-xl) {
+      flex: 0 0 70%;
+    }
+
+    @media all and (max-width: $bp-lg) {
+      flex: 0 0 100%;
+      padding-right: 0;
+    }
   }
 
   &__comments {
     flex: 0 0 40%;
     padding-left: 1.5rem;
+
+    @media all and (max-width: $bp-xl) {
+      flex: 0 0 30%;
+    }
+
+    @media all and (max-width: $bp-lg) {
+      flex: 0 0 100%;
+      margin-top: 5rem;
+      padding-left: 0;
+    }
   }
 }

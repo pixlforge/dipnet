@@ -33629,6 +33629,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -33883,6 +33887,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AddComment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AddComment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Comment__ = __webpack_require__(275);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__Comment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__Comment__);
+//
+//
+//
+//
 //
 //
 //
@@ -69416,7 +69424,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-comment": comment
       }
     })
-  }))], 1)
+  })), _vm._v(" "), (!_vm.comments.length) ? _c('p', {
+    staticClass: "paragraph__no-model-found paragraph__no-model-found--small"
+  }, [_vm._v("\n    Aucun commentaire n'a été posté pour le moment.\n  ")]) : _vm._e()], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -71657,7 +71667,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "business__container"
   }, [_c('div', {
     staticClass: "business__orders"
-  }, _vm._l((_vm.dataOrders), function(order, index) {
+  }, [_vm._l((_vm.dataOrders), function(order, index) {
     return _c('app-order', {
       key: order.id,
       staticClass: "card__container card__container--full",
@@ -71666,7 +71676,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "display-user": true
       }
     })
-  })), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), (!_vm.dataOrders.length) ? _c('p', {
+    staticClass: "paragraph__no-model-found paragraph__no-model-found--small"
+  }, [_vm._v("\n          Aucune commande n'a été enregistrée pour cette affaire.\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "business__comments"
   }, [_c('app-comments', {
     attrs: {

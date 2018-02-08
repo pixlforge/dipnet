@@ -55,6 +55,11 @@ small {
     font-weight: 300;
     text-align: center;
     margin-top: 10rem;
+
+    &--small {
+      font-size: 1.8rem;
+      margin-top: 5rem;
+    }
   }
 }
 
