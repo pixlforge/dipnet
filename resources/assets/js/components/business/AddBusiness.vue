@@ -41,7 +41,6 @@
           <!--Reference-->
           <div class="modal__group">
             <label for="reference" class="modal__label">Référence</label>
-            <span class="modal__required">*</span>
             <input type="text"
                    name="reference"
                    id="reference"
@@ -57,7 +56,6 @@
           <!--Description-->
           <div class="modal__group">
             <label for="description" class="modal__label">Description</label>
-            <span class="modal__required">*</span>
             <input type="text"
                    name="description"
                    id="description"
@@ -74,6 +72,7 @@
           <template v-if="userIsAdmin">
             <div class="modal__group">
               <label for="company_id" class="modal__label">Société</label>
+              <span class="modal__required">*</span>
               <select name="company_id"
                       id="company_id"
                       class="modal__select"
@@ -94,6 +93,7 @@
           <!--Contact-->
           <div class="modal__group">
             <label for="contact_id" class="modal__label">Contact</label>
+            <span class="modal__required">*</span>
             <select name="contact_id"
                     id="contact_id"
                     class="modal__select"
@@ -107,6 +107,25 @@
             <div class="modal__alert"
                  v-if="errors.contact_id">
               {{ errors.contact_id[0] }}
+            </div>
+          </div>
+
+          <!--Folder Color-->
+          <div class="modal__group">
+            <label for="folder_color" class="modal__label">Couleur</label>
+            <select name="folder_color"
+                    id="folder_color"
+                    class="modal__select"
+                    v-model="business.folder_color">
+              <option disabled>Sélectionner une couleur</option>
+              <option value="rouge">Rouge</option>
+              <option value="orange">Orange</option>
+              <option value="violet">Violet</option>
+              <option value="bleu">Bleu</option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.folder_color">
+              {{ errors.folder_color[0] }}
             </div>
           </div>
 
@@ -146,7 +165,8 @@
           reference: '',
           description: '',
           company_id: '',
-          contact_id: ''
+          contact_id: '',
+          folder_color: ''
         },
         companies: this.dataCompanies,
         errors: {}

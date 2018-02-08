@@ -79,11 +79,18 @@ class BusinessController extends Controller
         $business->company_id = $request->company_id;
         $business->contact_id = $request->contact_id;
         $business->created_by_username = auth()->user()->username;
+        $business->folder_color = $request->folder_color;
 
-        if ($request->has('reference')) {
+        if ($request->reference) {
             $business->reference = $request->reference;
         } else {
             $business->reference = uniqid(true);
+        }
+
+        if ($business->folder_color) {
+            $business->folder_color = $request->folder_color;
+        } else {
+            $business->folder_color = array_random(['rouge', 'orange', 'purple', 'bleu']);
         }
 
         $business->save();

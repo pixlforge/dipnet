@@ -75,4 +75,45 @@ class BusinessTest extends TestCase
         $this->deleteJson(route('businesses.destroy', $business))->assertStatus(204);
         $this->assertNotNull($business->fresh()->deleted_at);
     }
+
+    /** @test */
+    function a_user_can_create_a_new_business()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->create([
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com'
+        ]);
+        $this->signIn($user);
+
+        $this->assertCount(0, Business::all());
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create();
+
+        $this->postJson(route('businesses.store'), [
+            'name' => 'Awesome business',
+            'description' => 'John Doe\'s first business',
+            'company_id' => $company->id,
+            'contact_id' => $contact->id,
+            'folder_color' => 'bleu'
+        ]);
+
+        $this->assertCount(1, Business::all());
+
+        $this->assertDatabaseHas('businesses', [
+            'name' => 'Awesome business',
+            'description' => 'John Doe\'s first business',
+            'company_id' => $company->id,
+            'contact_id' => $contact->id,
+            'folder_color' => 'bleu'
+        ]);
+    }
+
+    /** @test */
+//    function a_user_can_update_his_own_businesses()
+//    {
+//
+//    }
 }
