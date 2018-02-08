@@ -9,7 +9,10 @@
   <app-show-business :data-business="{{ $business }}"
                      :data-contacts="{{ $contacts }}"
                      :data-user="{{ auth()->user() }}"
-                     :data-orders="{{ $orders }}">
+                     :data-orders="{{ $orders }}"
+                     data-avatar-path="{{ auth()->user()->avatarPath() }}"
+                     data-random-avatar="{{ 'img/placeholders/' . auth()->user()->randomAvatar() }}"
+                     :data-comments="{{ $comments }}">
   </app-show-business>
 
 @endsection

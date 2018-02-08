@@ -38,12 +38,12 @@
 }
 
 .highlight-leave-active {
-  //position: absolute;
+  position: absolute;
   transition: opacity .2s;
 }
 
 .highlight-move {
-  //transition: transform .2s;
+  transition: transform .4s;
 }
 
 /**

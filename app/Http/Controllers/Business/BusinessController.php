@@ -2,6 +2,7 @@
 
 namespace Dipnet\Http\Controllers\Business;
 
+use Dipnet\Comment;
 use Dipnet\Company;
 use Dipnet\Business;
 use Dipnet\Contact;
@@ -138,10 +139,16 @@ class BusinessController extends Controller
             ->latest()
             ->get();
 
+        $comments = Comment::with('user', 'user.avatar')
+            ->where('business_id', $business->id)
+            ->latest()
+            ->get();
+
         return view('businesses.show', [
             'business' => $business,
             'contacts' => $contacts,
-            'orders' => $orders
+            'orders' => $orders,
+            'comments' => $comments
         ]);
     }
 

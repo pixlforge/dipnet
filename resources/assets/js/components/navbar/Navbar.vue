@@ -94,8 +94,6 @@
       routeCompany() {
         return route('companies.show', [this.dataUserCompanyId])
       }
-    },
-    created() {
     }
   }
 </script>

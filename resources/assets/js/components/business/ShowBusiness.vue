@@ -23,7 +23,12 @@
           </app-order>
         </div>
         <div class="business__comments">
-          Comments
+          <app-comments :data-business="dataBusiness"
+                        :data-avatar-path="dataAvatarPath"
+                        :data-random-avatar="dataRandomAvatar"
+                        :data-comments="dataComments"
+                        :data-user="dataUser">
+          </app-comments>
         </div>
       </div>
     </div>
@@ -36,6 +41,7 @@
 </template>
 
 <script>
+  import Comments from '../comment/Comments'
   import Order from '../order/Order'
   import EditBusiness from './EditBusiness'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
@@ -47,12 +53,16 @@
       'data-business',
       'data-contacts',
       'data-user',
-      'data-orders'
+      'data-orders',
+      'data-avatar-path',
+      'data-random-avatar',
+      'data-comments'
     ],
     mixins: [mixins],
     components: {
       'app-order': Order,
       'app-edit-business': EditBusiness,
+      'app-comments': Comments,
       'app-moon-loader': MoonLoader
     },
     computed: {

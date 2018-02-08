@@ -36,13 +36,13 @@ class Business extends Model
     ];
 
     /**
-     * BusinessComment relationship.
+     * Comments relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function businessComment()
+    public function comments()
     {
-        return $this->hasMany(BusinessComment::class);
+        return $this->hasMany(Comment::class);
     }
 
     /**

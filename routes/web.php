@@ -79,6 +79,13 @@ Route::prefix('/businesses')->namespace('Business')->group(function () {
 });
 
 /**
+ * Comment
+ */
+Route::prefix('/comments')->namespace('Comment')->group(function () {
+    Route::post('/{business}', 'CommentController@store')->name('comments.store');
+});
+
+/**
  * Company
  */
 Route::prefix('/companies')->namespace('Company')->group(function () {

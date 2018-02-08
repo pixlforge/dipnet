@@ -220,6 +220,7 @@
             this.$store.dispatch('toggleLoader')
             this.toggleModal()
             this.business = {}
+            this.errors = {}
           })
           .catch(error => {
             this.$store.dispatch('toggleLoader')

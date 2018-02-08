@@ -3,6 +3,7 @@
 namespace Tests\Feature\User;
 
 use Dipnet\User;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -26,6 +27,8 @@ class UserTest extends TestCase
     /** @test */
     function an_admin_can_create_a_new_user()
     {
+        Mail::fake();
+
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
 

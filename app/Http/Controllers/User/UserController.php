@@ -100,8 +100,6 @@ class UserController extends Controller
 
         $user->save();
 
-        $this->sendConfirmationEmail($user);
-
         return response($user, 200);
     }
 
