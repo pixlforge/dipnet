@@ -1,7 +1,11 @@
 <template>
   <div>
     <div @click="toggleModal">
-      <i class="fal fa-pencil"></i>
+      <slot>
+        <div>
+          <i class="fal fa-pencil"></i>
+        </div>
+      </slot>
     </div>
 
     <transition name="fade">
@@ -69,7 +73,7 @@
           </div>
 
           <!--Company-->
-          <div class="modal__group">
+          <div class="modal__group" v-if="dataUser.role === 'administrateur'">
             <label for="company_id" class="modal__label">Société</label>
             <select name="company_id"
                     id="company_id"
@@ -134,7 +138,8 @@
     props: [
       'data-business',
       'data-companies',
-      'data-contacts'
+      'data-contacts',
+      'data-user'
     ],
     data() {
       return {

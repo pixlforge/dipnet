@@ -4,7 +4,6 @@ namespace Dipnet\Policies;
 
 use Dipnet\Business;
 use Dipnet\User;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BusinessPolicy
@@ -14,11 +13,15 @@ class BusinessPolicy
     /**
      * User has permission to view every Business.
      *
+     * @param User $user
+     * @param Business $business
      * @return mixed
      */
-    public function view()
+    public function view(User $user, Business $business)
     {
-        return auth()->user()->isAdmin();
+        if ($user->isNotSolo()) {
+            return $user->company_id === $business->company_id;
+        }
     }
 
     /**

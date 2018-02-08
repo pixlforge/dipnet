@@ -117,7 +117,32 @@ class BusinessController extends Controller
     {
         $this->authorize('view', $business);
 
-        return view('businesses.show', compact('business'));
+        if (auth()->user()->isAdmin()) {
+            $contacts = Contact::orderBy('name')
+                ->latest()
+                ->get();
+        } elseif (auth()->user()->isNotAdmin() && auth()->user()->isNotSolo()) {
+            $contacts = Contact::where('company_id', auth()->user()->company_id)
+                ->orderBy('name')
+                ->latest()
+                ->get();
+        } else {
+            $contacts = Contact::where('user_id', auth()->id())
+                ->orderBy('name')
+                ->latest()
+                ->get();
+        }
+
+        $orders = Order::with('user')
+            ->where('business_id', $business->id)
+            ->latest()
+            ->get();
+
+        return view('businesses.show', [
+            'business' => $business,
+            'contacts' => $contacts,
+            'orders' => $orders
+        ]);
     }
 
     /**

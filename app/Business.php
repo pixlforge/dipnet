@@ -17,6 +17,13 @@ class Business extends Model
     ];
 
     /**
+     * Casts
+     */
+    protected $casts = [
+        'company_id' => 'integer'
+    ];
+
+    /**
      * Disable mass assignment protection for the following fields
      */
     protected $fillable = [

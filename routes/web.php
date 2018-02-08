@@ -73,6 +73,7 @@ Route::prefix('/businesses')->namespace('Business')->group(function () {
     Route::get('/', 'BusinessController@index')->name('businesses.index');
     Route::get('/create', 'BusinessController@create')->name('businesses.create');
     Route::post('/', 'BusinessController@store')->name('businesses.store');
+    Route::get('/{business}/show', 'BusinessController@show')->name('businesses.show');
     Route::put('/{business}', 'BusinessController@update')->name('businesses.update');
     Route::delete('/{business}', 'BusinessController@destroy')->name('businesses.destroy');
 });

@@ -16,6 +16,10 @@
     @media all and (max-width: $bp-md) {
       flex-direction: column;
     }
+
+    &--full {
+      width: 100%;
+    }
   }
 
   &__img {

@@ -30,7 +30,6 @@
             <app-user-business v-for="(business, index) in businesses"
                                :key="business.id"
                                :data-business="business"
-                               :data-contacts="dataContacts"
                                :data-orders="dataOrders"
                                @businessWasDeleted="removeBusiness(index)">
             </app-user-business>

@@ -79,8 +79,6 @@ class BusinessTest extends TestCase
     /** @test */
     function a_user_can_create_a_new_business()
     {
-        $this->withoutExceptionHandling();
-
         $user = factory(User::class)->create([
             'username' => 'John Doe',
             'email' => 'johndoe@example.com'
@@ -109,6 +107,29 @@ class BusinessTest extends TestCase
             'contact_id' => $contact->id,
             'folder_color' => 'bleu'
         ]);
+    }
+
+    /** @test */
+    function users_can_reach_the_business_show_page()
+    {
+        $company = factory(Company::class)->create([
+            'name' => "John Doe's company"
+        ]);
+
+        $user = factory(User::class)->create([
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com',
+            'company_id' => $company->id
+        ]);
+        $this->signIn($user);
+
+        $business = factory(Business::class)->create([
+            'name' => "John Doe's business",
+            'company_id' => $company->id
+        ]);
+
+        $this->get(route('businesses.show', $business))
+            ->assertStatus(200);
     }
 
     /** @test */

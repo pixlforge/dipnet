@@ -1,0 +1,17 @@
+.business {
+  &__container {
+    width: 84vw;
+    margin: 0 auto;
+    display: flex;
+  }
+
+  &__orders {
+    flex: 0 0 60%;
+    padding-right: 1.5rem;
+  }
+
+  &__comments {
+    flex: 0 0 40%;
+    padding-left: 1.5rem;
+  }
+}

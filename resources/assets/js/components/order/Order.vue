@@ -19,7 +19,7 @@
       {{ order.status | capitalize }}
     </div>
 
-    <div class="card__meta">
+    <div class="card__meta" v-if="!displayUser">
       <div v-if="order.business">
         <span class="card__label">Affaire</span>
         {{ order.business.name }}
@@ -28,6 +28,11 @@
         <span class="card__label">Facturation</span>
         {{ order.contact.name }}
       </div>
+    </div>
+
+    <div class="card__meta" v-if="displayUser">
+      <span class="card__label">Par</span>
+      {{ order.user.username }}
     </div>
 
     <div class="card__meta">
@@ -48,7 +53,10 @@
   import mixins from '../../mixins'
 
   export default {
-    props: ['data-order'],
+    props: [
+      'data-order',
+      'display-user'
+    ],
     data() {
       return {
         order: this.dataOrder
