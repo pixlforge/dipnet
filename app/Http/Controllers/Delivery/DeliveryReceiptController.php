@@ -22,13 +22,13 @@ class DeliveryReceiptController extends Controller
     public function show(Delivery $delivery)
     {
         $order = $delivery->order;
-        $order = $order->load('contact');
+        $order->load('contact', 'managedBy');
 
         $company = $order->business->company;
 
         $user = $order->user;
 
-        $delivery = $delivery->load('contact');
+        $delivery->load('contact');
 
         $documents = $delivery->documents;
         $documents = $documents->load(['article', 'articles']);

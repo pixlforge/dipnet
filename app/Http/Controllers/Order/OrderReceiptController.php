@@ -23,6 +23,7 @@ class OrderReceiptController extends Controller
     {
         $company = $order->business->company;
         $user = $order->user;
+        $order->load('managedBy');
 
         return view('orders.receipts.show', [
             'order' => $order,

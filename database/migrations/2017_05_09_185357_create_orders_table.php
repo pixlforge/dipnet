@@ -20,12 +20,14 @@ class CreateOrdersTable extends Migration
             $table->unsignedInteger('business_id')->nullable();
             $table->unsignedInteger('contact_id')->nullable();
             $table->unsignedInteger('user_id');
+            $table->unsignedInteger('manager_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('business_id')->references('id')->on('businesses')->onDelete('set null');
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('set null');
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('manager_id')->references('id')->on('users');
         });
     }
 

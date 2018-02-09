@@ -88,6 +88,16 @@ class Order extends Model
     }
 
     /**
+     * ManagedBy relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function managedBy()
+    {
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    /**
      * Documents relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough

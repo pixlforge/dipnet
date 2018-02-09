@@ -197,6 +197,7 @@ Route::prefix('/orders')->namespace('Order')->group(function () {
     Route::patch('/{order}/complete', 'CompleteOrderController@update')->name('orders.complete');
 
     Route::get('/{order}/receipt/show', 'OrderReceiptController@show')->name('orders.receipts.show');
+    Route::put('/{order}/status', 'OrderStatusController@update')->name('orders.status.update');
 });
 
 /**

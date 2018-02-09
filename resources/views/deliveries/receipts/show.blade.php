@@ -86,7 +86,7 @@
         <div class="receipt__item">
           <h2 class="receipt__item-title">Commande prise en charge par</h2>
           <p class="receipt__item-content">
-            {{ $order->business->company->name }}
+            {{ $order->managedBy->username }}
           </p>
         </div>
       </div>

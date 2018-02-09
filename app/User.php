@@ -296,6 +296,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Manages relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function manages()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    /**
      * Comments relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

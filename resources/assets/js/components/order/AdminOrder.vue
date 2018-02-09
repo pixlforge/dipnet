@@ -3,7 +3,13 @@
     <div class="header__container">
       <h1 class="header__title">Commande {{ order.reference }}</h1>
       <div>
-        Statut de la commande
+          <button class="btn"
+                  :class="{ 'btn--green': order.status === 'envoyée', 'btn--orange': order.status === 'traitée' }"
+                  @click.prevent="switchOrderStatus">
+            <span v-show="order.status === 'envoyée'"><i class="fal fa-check"></i></span>
+            <span v-show="order.status === 'traitée'"><i class="fal fa-times"></i></span>
+            {{ this.order.status === 'envoyée' ? 'Commande traitée' : 'Commande envoyée' }}
+          </button>
       </div>
       <div>
         <a class="btn btn--red-large"
@@ -26,6 +32,11 @@
                           :data-formats="dataFormats">
       </app-admin-delivery>
     </div>
+
+    <app-moon-loader :loading="loaderState"
+                     :color="loader.color"
+                     :size="loader.size">
+    </app-moon-loader>
   </div>
 </template>
 
@@ -82,6 +93,31 @@
         'hydrateDocuments',
         'removeDocument'
       ]),
+
+      /**
+       * Switch the status of the order.
+       */
+      switchOrderStatus() {
+        if (this.order.status === 'envoyée') {
+          this.order.status = 'traitée'
+        } else if (this.order.status === 'traitée') {
+          this.order.status = 'envoyée'
+        }
+
+        this.$store.dispatch('toggleLoader')
+
+        axios.put(route('orders.status.update', [this.order.reference]), this.order)
+          .then(() => {
+            this.$store.dispatch('toggleLoader')
+            flash({
+              message: `Le statut de la commande a été changé en ${this.order.status}`,
+              level: 'success'
+            })
+          })
+          .catch(() => {
+            this.$store.dispatch('toggleLoader')
+          })
+      }
     },
     created() {
       /**

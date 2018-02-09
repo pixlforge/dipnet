@@ -38069,6 +38069,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -38096,7 +38107,31 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       return route('orders.receipts.show', [this.order.reference]);
     }
   }),
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["c" /* mapActions */])(['toggleLoader', 'hydrateArticleTypes', 'hydrateBusinesses', 'hydrateContacts', 'hydrateDeliveries', 'addDelivery', 'hydrateDocuments', 'removeDocument'])),
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["c" /* mapActions */])(['toggleLoader', 'hydrateArticleTypes', 'hydrateBusinesses', 'hydrateContacts', 'hydrateDeliveries', 'addDelivery', 'hydrateDocuments', 'removeDocument']), {
+
+    /**
+     * Switch the status of the order.
+     */
+    switchOrderStatus() {
+      if (this.order.status === 'envoyée') {
+        this.order.status = 'traitée';
+      } else if (this.order.status === 'traitée') {
+        this.order.status = 'envoyée';
+      }
+
+      this.$store.dispatch('toggleLoader');
+
+      axios.put(route('orders.status.update', [this.order.reference]), this.order).then(() => {
+        this.$store.dispatch('toggleLoader');
+        flash({
+          message: `Le statut de la commande a été changé en ${this.order.status}`,
+          level: 'success'
+        });
+      }).catch(() => {
+        this.$store.dispatch('toggleLoader');
+      });
+    }
+  }),
   created() {
     /**
      * Hydrate the store.
@@ -69715,7 +69750,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__container"
   }, [_c('h1', {
     staticClass: "header__title"
-  }, [_vm._v("Commande " + _vm._s(_vm.order.reference))]), _vm._v(" "), _c('div', [_vm._v("\n      Statut de la commande\n    ")]), _vm._v(" "), _c('div', [_c('a', {
+  }, [_vm._v("Commande " + _vm._s(_vm.order.reference))]), _vm._v(" "), _c('div', [_c('button', {
+    staticClass: "btn",
+    class: {
+      'btn--green': _vm.order.status === 'envoyée', 'btn--orange': _vm.order.status === 'traitée'
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.switchOrderStatus($event)
+      }
+    }
+  }, [_c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.order.status === 'envoyée'),
+      expression: "order.status === 'envoyée'"
+    }]
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  })]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.order.status === 'traitée'),
+      expression: "order.status === 'traitée'"
+    }]
+  }, [_c('i', {
+    staticClass: "fal fa-times"
+  })]), _vm._v("\n          " + _vm._s(this.order.status === 'envoyée' ? 'Commande traitée' : 'Commande envoyée') + "\n        ")])]), _vm._v(" "), _c('div', [_c('a', {
     staticClass: "btn btn--red-large",
     attrs: {
       "href": _vm.routeOrderReceipt,
@@ -69737,7 +69801,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-formats": _vm.dataFormats
       }
     })
-  }))])
+  })), _vm._v(" "), _c('app-moon-loader', {
+    attrs: {
+      "loading": _vm.loaderState,
+      "color": _vm.loader.color,
+      "size": _vm.loader.size
+    }
+  })], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
