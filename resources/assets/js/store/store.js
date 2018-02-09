@@ -141,6 +141,7 @@ export const store = new Vuex.Store({
       state.documents[index].articles = payload.options
       state.documents[index].width = payload.document.width
       state.documents[index].height = payload.document.height
+      state.documents[index].nb_orig = payload.document.nb_orig
     },
 
     removeDocument: (state, payload) => {

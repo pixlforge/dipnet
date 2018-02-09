@@ -20,6 +20,7 @@ $factory->define(Dipnet\Document::class, function (Faker $faker) {
             return factory(Dipnet\Article::class)->create()->id;
         },
         'width' => null,
-        'height' => null
+        'height' => null,
+        'nb_orig' => null
     ];
 });

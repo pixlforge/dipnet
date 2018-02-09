@@ -118,6 +118,7 @@
           <th>Quantité</th>
           <th>Largeur</th>
           <th>Hauteur</th>
+          <th>Nb. Orig.</th>
         </tr>
         @foreach ($documents as $document)
           <tr>
@@ -134,6 +135,7 @@
             <td>{{ $document->quantity }}</td>
             <td>{{ $document->width }}</td>
             <td>{{ $document->height }}</td>
+            <td>{{ $document->nb_orig }}</td>
           </tr>
         @endforeach
       </table>

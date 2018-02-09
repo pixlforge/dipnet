@@ -33796,6 +33796,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -37723,6 +37724,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -37747,7 +37757,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         article_id: '',
         options: [],
         width: this.dataDocument.width,
-        height: this.dataDocument.height
+        height: this.dataDocument.height,
+        nb_orig: this.dataDocument.nb_orig
       },
       selectedFinish: this.dataDocument.finish,
       selectedOptions: this.dataOptions
@@ -45252,6 +45263,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       state.documents[index].articles = payload.options;
       state.documents[index].width = payload.document.width;
       state.documents[index].height = payload.document.height;
+      state.documents[index].nb_orig = payload.document.nb_orig;
     },
 
     removeDocument: (state, payload) => {
@@ -69404,7 +69416,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "comments__textarea",
     attrs: {
-      "type": "text"
+      "type": "text",
+      "placeholder": "Votre commentaire ici..."
     },
     domProps: {
       "value": (_vm.comment.body)
@@ -76467,6 +76480,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "document__option"
   }, [_c('h4', {
     staticClass: "document__option-label"
+  }, [_vm._v("Nb. Orig.")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number",
+      value: (_vm.document.nb_orig),
+      expression: "document.nb_orig",
+      modifiers: {
+        "number": true
+      }
+    }],
+    staticClass: "document__input",
+    attrs: {
+      "type": "number"
+    },
+    domProps: {
+      "value": (_vm.document.nb_orig)
+    },
+    on: {
+      "blur": [_vm.update, function($event) {
+        _vm.$forceUpdate()
+      }],
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.document, "nb_orig", _vm._n($event.target.value))
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "document__option"
+  }, [_c('h4', {
+    staticClass: "document__option-label"
   }, [_vm._v("Quantité")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
@@ -76485,9 +76528,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": (_vm.listSelectedQuantity)
     },
     on: {
-      "blur": [function($event) {
-        _vm.update()
-      }, function($event) {
+      "blur": [_vm.update, function($event) {
         _vm.$forceUpdate()
       }],
       "input": function($event) {

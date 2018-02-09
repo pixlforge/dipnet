@@ -72,13 +72,22 @@
           </ul>
         </div>
 
+        <!--Number of Originals-->
+        <div class="document__option">
+          <h4 class="document__option-label">Nb. Orig.</h4>
+          <input type="number"
+                 class="document__input"
+                 v-model.number="document.nb_orig"
+                 @blur="update">
+        </div>
+
         <!--Quantity-->
         <div class="document__option">
           <h4 class="document__option-label">Quantité</h4>
           <input type="number"
                  class="document__input"
                  v-model.number="listSelectedQuantity"
-                 @blur="update()">
+                 @blur="update">
         </div>
 
       </div>
@@ -129,7 +138,8 @@
           article_id: '',
           options: [],
           width: this.dataDocument.width,
-          height: this.dataDocument.height
+          height: this.dataDocument.height,
+          nb_orig: this.dataDocument.nb_orig
         },
         selectedFinish: this.dataDocument.finish,
         selectedOptions: this.dataOptions,

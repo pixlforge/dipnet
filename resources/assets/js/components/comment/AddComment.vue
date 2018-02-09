@@ -6,7 +6,8 @@
     </div>
     <textarea type="text"
               class="comments__textarea"
-              v-model="comment.body"></textarea>
+              v-model="comment.body"
+              placeholder="Votre commentaire ici..."></textarea>
     <button class="btn btn--red" @click="addComment">
       <i class="fal fa-paper-plane"></i>
       Envoyer

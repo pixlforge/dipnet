@@ -2,7 +2,6 @@
 
 namespace Dipnet\Http\Controllers\Document;
 
-use Dipnet\Http\Requests\Document\UpdateDocumentRequest;
 use Dipnet\Order;
 use Dipnet\Delivery;
 use Dipnet\Document;
@@ -11,6 +10,7 @@ use Dipnet\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Dipnet\Http\Requests\DocumentRequest;
 use Dipnet\Http\Requests\Document\StoreDocumentRequest;
+use Dipnet\Http\Requests\Document\UpdateDocumentRequest;
 
 class DocumentController extends Controller
 {
@@ -76,6 +76,7 @@ class DocumentController extends Controller
         $document->articles()->sync($request->options);
         $document->width = $request->width;
         $document->height = $request->height;
+        $document->nb_orig = $request->nb_orig;
         $document->save();
 
         return response(200);

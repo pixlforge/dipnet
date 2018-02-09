@@ -24,6 +24,7 @@ class CreateDocumentsTable extends Migration
             $table->unsignedInteger('article_id')->nullable();
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
+            $table->integer('nb_orig')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
