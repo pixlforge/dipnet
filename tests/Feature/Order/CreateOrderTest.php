@@ -2,12 +2,13 @@
 
 namespace Tests\Feature\Order;
 
-use Dipnet\Business;
-use Dipnet\Company;
-use Dipnet\Order;
 use Dipnet\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Dipnet\Order;
+use Dipnet\Company;
+use Illuminate\Support\Facades\Mail;
 use Tests\TestCase;
+use Dipnet\Business;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateOrderTest extends TestCase
 {
@@ -213,6 +214,8 @@ class CreateOrderTest extends TestCase
     /** @test */
     function an_order_can_be_completed()
     {
+        Mail::fake();
+        
         $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
