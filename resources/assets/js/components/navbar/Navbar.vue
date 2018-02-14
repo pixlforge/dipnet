@@ -41,7 +41,9 @@
                            :data-user-role="dataUserRole">
         </app-menu-dropdown>
         <div class="vertical-divider"></div>
-        <a :href="routeCompany" class="navbar__user-company">{{ dataUserCompanyName }}</a>
+        <a :href="routeCompany" class="navbar__user-company">
+          {{ dataUserRole === 'administrateur' ? 'Admin' : dataUserCompanyName }}
+        </a>
       </div>
     </div>
   </div>

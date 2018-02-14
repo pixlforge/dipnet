@@ -37306,6 +37306,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -71523,7 +71525,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": _vm.routeCompany
     }
-  }, [_vm._v(_vm._s(_vm.dataUserCompanyName))])], 1)])])
+  }, [_vm._v("\n        " + _vm._s(_vm.dataUserRole === 'administrateur' ? 'Admin' : _vm.dataUserCompanyName) + "\n      ")])], 1)])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
