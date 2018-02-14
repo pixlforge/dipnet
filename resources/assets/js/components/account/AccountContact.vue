@@ -1,163 +1,149 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-
-      <a href="/">
-        <div class="company-logo-container"
-             :class="logoWhite"
-             aria-hidden="true">
+  <div class="register__container"
+       @keyup.enter="createContact">
+    <section class="register__summary-section">
+      <div class="register__logo register__logo--summary"
+           aria-hidden="true">
+        <img :src="logoBw" :alt="`${appName} logo`">
+      </div>
+      <div class="register__summary">
+        <div class="register__summary-item register__summary-item--done">
+          <span class="badge__summary"><i class="fa fa-check"></i></span>
+          <span class="register__summary-label">Création de votre compte</span>
         </div>
-      </a>
 
-      <div class="col-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding">
-        <div class="col-12 col-md-5 offset-md-5 mt-md-checklist no-padding">
+        <div class="register__summary-item register__summary-item--active">
+          <span class="badge__summary">2</span>
+          <span class="register__summary-label">Création de votre premier contact</span>
+        </div>
 
-          <div class="d-flex flex-column justify-content-center checklist">
-            <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
-              <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
-              <span>Enregistrement</span>
-            </a>
-            <a class="d-flex align-items-center checklist-item checklist-item-active link-unstyled">
-              <span class="badge badge-white mx-4">2</span>
-              <span>Contact</span>
-            </a>
-            <a class="d-flex align-items-center checklist-item link-unstyled">
-              <span class="badge badge-white mx-4">3</span>
-              <span>Société</span>
-            </a>
-            <a class="d-flex align-items-center checklist-item link-unstyled">
-              <span class="badge badge-white mx-4">4</span>
-              <span>Prêt</span>
-            </a>
+        <div class="register__summary-item"
+             v-if="!dataUser.company_confirmed">
+          <span class="badge__summary">3</span>
+          <span class="register__summary-label">Création de votre société</span>
+        </div>
+
+        <div class="register__summary-item">
+          <span class="badge__summary" v-if="!dataUser.company_confirmed">4</span>
+          <span class="badge__summary" v-else>3</span>
+          <span class="register__summary-label">Terminé!</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="register__form-section">
+      <div class="register__form">
+        <h1 class="register__title">Votre premier contact</h1>
+
+        <div class="form__group">
+          <label for="name">Prénom et Nom / Contact</label>
+          <span class="form__required">*</span>
+          <input type="text"
+                 name="name"
+                 id="name"
+                 class="form__input"
+                 v-model.trim="contact.name"
+                 required autofocus>
+          <div class="form__alert"
+               v-if="errors.name">
+            {{ errors.name[0] }}
           </div>
         </div>
-      </div>
 
-      <div class="col-12 col-lg-6 push-lg-6 vh-100 d-flex align-items-center">
-        <div class="col-12 col-lg-8 mx-auto py-5">
+        <div class="form__group">
+          <label for="address_line1">Adresse ligne 1</label>
+          <span class="form__required">*</span>
+          <input type="text"
+                 name="address_line1"
+                 id="address_line1"
+                 class="form__input"
+                 v-model.trim="contact.address_line1"
+                 required>
+          <div class="form__alert"
+               v-if="errors.address_line1">
+            {{ errors.address_line1[0] }}
+          </div>
+        </div>
 
-          <!--Contact Info Form-->
-          <form role="form"
-                @submit.prevent>
+        <div class="form__group">
+          <label for="address_line2">Adresse ligne 2</label>
+          <input type="text"
+                 name="address_line2"
+                 id="address_line2"
+                 class="form__input"
+                 v-model.trim="contact.address_line2">
+          <div class="form__alert"
+               v-if="errors.address_line2">
+            {{ errors.address_line2[0] }}
+          </div>
+        </div>
 
-            <h4 class="text-center">Contact</h4>
+        <div class="form__group">
+          <label for="zip">NPA</label>
+          <span class="form__required">*</span>
+          <input type="text"
+                 name="zip"
+                 id="zip"
+                 class="form__input"
+                 v-model.trim="contact.zip"
+                 required>
+          <div class="form__alert"
+               v-if="errors.zip">
+            {{ errors.zip[0] }}
+          </div>
+        </div>
 
-            <!--Name-->
-            <div class="form-group my-5">
-              <label for="name">Nom</label>
-              <span class="required">*</span>
-              <input type="text"
-                     id="name"
-                     name="name"
-                     v-model="contact.name"
-                     class="form-control"
-                     required autofocus>
-              <div class="help-block"
-                   v-if="errors.name"
-                   v-text="errors.name[0]">
-              </div>
-            </div>
+        <div class="form__group">
+          <label for="city">Localité</label>
+          <span class="form__required">*</span>
+          <input type="text"
+                 name="city"
+                 id="city"
+                 class="form__input"
+                 v-model.trim="contact.city"
+                 required>
+          <div class="form__alert"
+               v-if="errors.city">
+            {{ errors.city[0] }}
+          </div>
+        </div>
 
-            <!--Address Line 1-->
-            <div class="form-group my-5">
-              <label for="address_line1">Adresse ligne 1</label>
-              <span class="required">*</span>
-              <input type="text"
-                     id="address_line1"
-                     name="address_line1"
-                     v-model="contact.address_line1"
-                     class="form-control"
-                     required>
-              <div class="help-block"
-                   v-if="errors.address_line1"
-                   v-text="errors.address_line1[0]">
-              </div>
-            </div>
+        <div class="form__group">
+          <label for="phone_number">Téléphone</label>
+          <input type="text"
+                 name="phone_number"
+                 id="phone_number"
+                 class="form__input"
+                 v-model.trim="contact.phone_number">
+          <div class="form__alert"
+               v-if="errors.phone_number">
+            {{ errors.phone_number[0] }}
+          </div>
+        </div>
 
-            <!--Address Line 2-->
-            <div class="form-group my-5">
-              <label for="address_line2">Adresse ligne 2</label>
-              <input type="text"
-                     id="address_line2"
-                     name="address_line2"
-                     v-model="contact.address_line2"
-                     class="form-control">
-              <div class="help-block"
-                   v-if="errors.address_line2"
-                   v-text="errors.address_line2[0]">
-              </div>
-            </div>
+        <div class="form__group">
+          <label for="fax">Fax</label>
+          <input type="text"
+                 name="fax"
+                 id="fax"
+                 class="form__input"
+                 v-model.trim="contact.fax">
+          <div class="form__alert"
+               v-if="errors.fax">
+            {{ errors.fax[0] }}
+          </div>
+        </div>
 
-            <!--Zip-->
-            <div class="form-group my-5">
-              <label for="zip">NPA</label>
-              <span class="required">*</span>
-              <input type="text"
-                     id="zip"
-                     name="zip"
-                     v-model="contact.zip"
-                     class="form-control"
-                     required>
-              <div class="help-block"
-                   v-if="errors.zip"
-                   v-text="errors.zip[0]">
-              </div>
-            </div>
-
-            <!--City-->
-            <div class="form-group my-5">
-              <label for="city">Ville</label>
-              <span class="required">*</span>
-              <input type="text"
-                     id="city"
-                     name="city"
-                     v-model="contact.city"
-                     class="form-control"
-                     required>
-              <div class="help-block"
-                   v-if="errors.city"
-                   v-text="errors.city[0]">
-              </div>
-            </div>
-
-            <!--Phone Number-->
-            <div class="form-group my-5">
-              <label for="phone_number">Téléphone</label>
-              <input type="text"
-                     id="phone_number"
-                     name="phone_number"
-                     v-model="contact.phone_number"
-                     class="form-control">
-              <div class="help-block"
-                   v-if="errors.phone_number"
-                   v-text="errors.phone_number[0]">
-              </div>
-            </div>
-
-            <!--Fax-->
-            <div class="form-group my-5">
-              <label for="fax">Fax</label>
-              <input type="text"
-                     id="fax"
-                     name="fax"
-                     v-model="contact.fax"
-                     class="form-control">
-              <div class="help-block"
-                   v-if="errors.fax"
-                   v-text="errors.fax[0]">
-              </div>
-            </div>
-
-            <button class="btn btn-black btn-block mt-5"
-                    @click="updateContactInfo">
-              Mettre à jour
-            </button>
-          </form>
+        <div class="register__buttons">
+          <button class="btn btn--red"
+                  @click="createContact">
+            <i class="fal fa-check"></i>
+            Créer le contact
+          </button>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!--Loader-->
     <app-moon-loader :loading="loaderState"
                      :color="loader.color"
                      :size="loader.size">
@@ -168,9 +154,13 @@
 <script>
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
+    props: [
+      'data-app-name',
+      'data-user'
+    ],
     data() {
       return {
         contact: {
@@ -186,28 +176,23 @@
       }
     },
     components: {
-      'app-moon-loader': MoonLoader
+      'app-moon-loader': MoonLoader,
     },
+    mixins: [mixins],
     computed: {
       ...mapGetters([
         'loaderState'
       ])
     },
-    mixins: [mixins],
     methods: {
-      ...mapActions([
-        'toggleLoader'
-      ]),
-
       /**
-       * Update the Contact associated with the User.
+       * Create the contact.
        */
-      updateContactInfo() {
+      createContact() {
         this.$store.dispatch('toggleLoader')
 
         axios.post(route('register.contact.store'), this.contact)
           .then(() => {
-            this.$store.dispatch('toggleLoader')
             this.contact = {}
             flash({
               message: 'Félicitations! Votre compte a bien été mis à jour!',
@@ -215,7 +200,7 @@
             })
             setTimeout(() => {
               window.location = route('index')
-            }, 2000)
+            }, 1000)
           })
           .catch(error => {
             this.$store.dispatch('toggleLoader')
@@ -225,9 +210,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .company-logo-container {
-    position: fixed;
-  }
-</style>

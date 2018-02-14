@@ -4,6 +4,8 @@
 
 @section ('content')
 
-    <app-account-contact></app-account-contact>
+  <app-account-contact data-app-name="{{ config('app.name') }}"
+                       :data-user="{{ auth()->user() }}">
+  </app-account-contact>
 
 @endsection

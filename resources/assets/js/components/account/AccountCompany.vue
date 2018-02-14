@@ -1,84 +1,63 @@
 <template>
-  <div class="container-fluid">
-    <div class="row">
-
-      <a href="/">
-        <div class="company-logo-container"
-             :class="logoWhite"
-             aria-hidden="true">
+  <div class="register__container"
+       @keyup.enter="createCompany">
+    <section class="register__summary-section">
+      <div class="register__logo register__logo--summary"
+           aria-hidden="true">
+        <img :src="logoBw" :alt="`${appName} logo`">
+      </div>
+      <div class="register__summary">
+        <div class="register__summary-item register__summary-item--done">
+          <span class="badge__summary"><i class="fa fa-check"></i></span>
+          <span class="register__summary-label">Création de votre compte</span>
         </div>
-      </a>
 
-      <div class="col-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding">
-        <div class="col-12 col-md-5 offset-md-5 mt-md-checklist no-padding">
+        <div class="register__summary-item register__summary-item--done">
+          <span class="badge__summary">2</span>
+          <span class="register__summary-label">Création de votre premier contact</span>
+        </div>
 
-          <div class="d-flex flex-column justify-content-center checklist">
-            <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
-              <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
-              <span>Enregistrement</span>
-            </a>
-            <a class="d-flex align-items-center checklist-item checklist-item-done link-unstyled">
-              <span class="badge badge-white mx-4"><i class="fal fa-check"></i></span>
-              <span>Contact</span>
-            </a>
-            <a class="d-flex align-items-center checklist-item checklist-item-active link-unstyled">
-              <span class="badge badge-white mx-4">3</span>
-              <span>Société</span>
-            </a>
-            <a class="d-flex align-items-center checklist-item link-unstyled">
-              <span class="badge badge-white mx-4">4</span>
-              <span>Prêt</span>
-            </a>
+        <div class="register__summary-item register__summary-item--active">
+          <span class="badge__summary">3</span>
+          <span class="register__summary-label">Création de votre société</span>
+        </div>
+
+        <div class="register__summary-item">
+          <span class="badge__summary">4</span>
+          <span class="register__summary-label">Terminé!</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="register__form-section">
+      <div class="register__form">
+        <h1 class="register__title">Votre société</h1>
+
+        <div class="form__group">
+          <label for="name">Nom de la société</label>
+          <span class="form__required">*</span>
+          <input type="text"
+                 name="name"
+                 id="name"
+                 class="form__input"
+                 v-model.trim="company.name"
+                 required autofocus>
+          <div class="form__alert"
+               v-if="errors.name">
+            {{ errors.name[0] }}
           </div>
         </div>
-      </div>
 
-      <div class="col-12 col-lg-6 push-lg-6 vh-100 d-flex align-items-center">
-        <div class="col-12 col-lg-8 mx-auto py-5">
-
-          <!--Company Info Form-->
-          <form role="form"
-                @submit.prevent>
-
-            <h4 class="text-center">Société</h4>
-
-            <!--Name-->
-            <div class="form-group my-5">
-              <label for="name">Nom</label>
-              <input type="text"
-                     id="name"
-                     name="name"
-                     v-model="company.name"
-                     class="form-control"
-                     autofocus>
-              <div class="help-block"
-                   v-if="errors.name"
-                   v-text="errors.name[0]">
-              </div>
-            </div>
-
-            <button class="btn btn-black btn-block mt-5"
-                    @click="updateWithCompany">
-              Mettre à jour
-            </button>
-
-            <p class="mt-5 text-center">
-              <small>Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société
-                et commandez en votre nom propre
-              </small>
-            </p>
-
-            <p class="text-small text-center mt-5">
-              <a @click="updateAsSelf">
-                Passer cette étape
-              </a>
-            </p>
-          </form>
+        <div class="register__buttons">
+          <button class="btn btn--red"
+                  @click="createCompany">
+            <i class="fal fa-check"></i>
+            Terminer l'enregistrement
+          </button>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!--Loader-->
     <app-moon-loader :loading="loaderState"
                      :color="loader.color"
                      :size="loader.size">
@@ -89,9 +68,10 @@
 <script>
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
-  import { mapGetters, mapActions } from 'vuex'
+  import { mapGetters } from 'vuex'
 
   export default {
+    props: ['data-app-name'],
     data() {
       return {
         company: {
@@ -101,52 +81,31 @@
       }
     },
     components: {
-      'app-moon-loader': MoonLoader
+      'app-moon-loader': MoonLoader,
     },
+    mixins: [mixins],
     computed: {
       ...mapGetters([
         'loaderState'
       ])
     },
-    mixins: [mixins],
     methods: {
-      ...mapActions([
-        'toggleLoader'
-      ]),
-
       /**
-       * Update the User when associated with a Company.
+       * Create a new company.
        */
-      updateWithCompany() {
-        this.updateCompany(this.company)
-      },
-
-      /**
-       * Update the User when not associated with a Company.
-       */
-      updateAsSelf() {
-        this.company.name = 'self'
-        this.updateCompany(this.company)
-      },
-
-      /**
-       * Update Company.
-       */
-      updateCompany(company) {
+      createCompany() {
         this.$store.dispatch('toggleLoader')
 
-        axios.put(route('register.company.store'), company)
+        axios.post(route('register.company.store'), this.company)
           .then(() => {
-            this.$store.dispatch('toggleLoader')
             this.company = {}
-            this.errors = {}
             flash({
               message: 'Félicitations! Votre compte a bien été mis à jour!',
               level: 'success'
             })
             setTimeout(() => {
               window.location = route('index')
-            }, 2500)
+            }, 1000)
           })
           .catch(error => {
             this.$store.dispatch('toggleLoader')
@@ -156,17 +115,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .help-block {
-    position: relative;
-  }
-
-  a {
-    cursor: pointer;
-  }
-
-  .company-logo-container {
-    position: fixed;
-  }
-</style>

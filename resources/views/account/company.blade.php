@@ -4,6 +4,6 @@
 
 @section ('content')
 
-    <app-account-company></app-account-company>
+  <app-account-company data-app-name="{{ config('app.name') }}"></app-account-company>
 
 @endsection

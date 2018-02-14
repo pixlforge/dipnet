@@ -31684,33 +31684,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['data-app-name'],
   data() {
     return {
       company: {
@@ -31722,48 +31702,30 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   components: {
     'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState'])),
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState'])),
+  methods: {
     /**
-     * Update the User when associated with a Company.
+     * Create a new company.
      */
-    updateWithCompany() {
-      this.updateCompany(this.company);
-    },
-
-    /**
-     * Update the User when not associated with a Company.
-     */
-    updateAsSelf() {
-      this.company.name = 'self';
-      this.updateCompany(this.company);
-    },
-
-    /**
-     * Update Company.
-     */
-    updateCompany(company) {
+    createCompany() {
       this.$store.dispatch('toggleLoader');
 
-      axios.put(route('register.company.store'), company).then(() => {
-        this.$store.dispatch('toggleLoader');
+      axios.post(route('register.company.store'), this.company).then(() => {
         this.company = {};
-        this.errors = {};
         flash({
           message: 'Félicitations! Votre compte a bien été mis à jour!',
           level: 'success'
         });
         setTimeout(() => {
           window.location = route('index');
-        }, 2500);
+        }, 1000);
       }).catch(error => {
         this.$store.dispatch('toggleLoader');
         this.errors = error.response.data.errors;
       });
     }
-  })
+  }
 });
 
 /***/ }),
@@ -31931,26 +31893,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['data-app-name', 'data-user'],
   data() {
     return {
       contact: {
@@ -31968,18 +31917,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   components: {
     'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState'])),
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState'])),
+  methods: {
     /**
-     * Update the Contact associated with the User.
+     * Create the contact.
      */
-    updateContactInfo() {
+    createContact() {
       this.$store.dispatch('toggleLoader');
 
       axios.post(route('register.contact.store'), this.contact).then(() => {
-        this.$store.dispatch('toggleLoader');
         this.contact = {};
         flash({
           message: 'Félicitations! Votre compte a bien été mis à jour!',
@@ -31987,13 +31934,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         });
         setTimeout(() => {
           window.location = route('index');
-        }, 2000);
+        }, 1000);
       }).catch(error => {
         this.$store.dispatch('toggleLoader');
         this.errors = error.response.data.errors;
       });
     }
-  })
+  }
 });
 
 /***/ }),
@@ -45438,13 +45385,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
 
 
 /***/ }),
-/* 248 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.help-block[data-v-0edc3438] {\n  position: relative;\n}\na[data-v-0edc3438] {\n  cursor: pointer;\n}\n.company-logo-container[data-v-0edc3438] {\n  position: fixed;\n}\n", ""]);
-
-/***/ }),
+/* 248 */,
 /* 249 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45473,13 +45414,7 @@ exports = module.exports = __webpack_require__(8)();
 exports.push([module.i, "\n.v-spinner .v-moon1\n{\n\n    -webkit-animation: v-moonStretchDelay 0.6s 0s infinite linear;\n            animation: v-moonStretchDelay 0.6s 0s infinite linear;\n    -webkit-animation-fill-mode: forwards;\n            animation-fill-mode: forwards;\n    position: relative;\n}\n.v-spinner .v-moon2\n{\n    -webkit-animation: v-moonStretchDelay 0.6s 0s infinite linear;\n            animation: v-moonStretchDelay 0.6s 0s infinite linear;\n    -webkit-animation-fill-mode: forwards;\n            animation-fill-mode: forwards;\n    opacity: 0.8;\n    position: absolute;\n}\n.v-spinner .v-moon3\n{\n    opacity: 0.1;\n}\n@-webkit-keyframes v-moonStretchDelay\n{\n100%\n    {\n        -webkit-transform: rotate(360deg);\n                transform: rotate(360deg);\n}\n}\n@keyframes v-moonStretchDelay\n{\n100%\n    {\n        -webkit-transform: rotate(360deg);\n                transform: rotate(360deg);\n}\n}\n", ""]);
 
 /***/ }),
-/* 253 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports = module.exports = __webpack_require__(8)();
-exports.push([module.i, "\n.company-logo-container[data-v-2f99925b] {\n  position: fixed;\n}\n", ""]);
-
-/***/ }),
+/* 253 */,
 /* 254 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -66624,17 +66559,13 @@ exports.clearImmediate = clearImmediate;
 /* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(403)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(169),
   /* template */
   __webpack_require__(331),
   /* scopeId */
-  "data-v-0edc3438",
+  null,
   /* cssModules */
   null
 )
@@ -66662,17 +66593,13 @@ module.exports = Component.exports
 /* 263 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/* styles */
-__webpack_require__(408)
-
 var Component = __webpack_require__(1)(
   /* script */
   __webpack_require__(170),
   /* template */
   __webpack_require__(347),
   /* scopeId */
-  "data-v-2f99925b",
+  null,
   /* cssModules */
   null
 )
@@ -69299,52 +69226,55 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "container-fluid"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('a', {
-    attrs: {
-      "href": "/"
+    staticClass: "register__container",
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
+        _vm.createCompany($event)
+      }
     }
+  }, [_c('section', {
+    staticClass: "register__summary-section"
   }, [_c('div', {
-    staticClass: "company-logo-container",
-    class: _vm.logoWhite,
+    staticClass: "register__logo register__logo--summary",
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-6 push-lg-6 vh-100 d-flex align-items-center"
-  }, [_c('div', {
-    staticClass: "col-12 col-lg-8 mx-auto py-5"
-  }, [_c('form', {
+  }, [_c('img', {
     attrs: {
-      "role": "form"
-    },
-    on: {
-      "submit": function($event) {
-        $event.preventDefault();
-      }
+      "src": _vm.logoBw,
+      "alt": (_vm.appName + " logo")
     }
-  }, [_c('h4', {
-    staticClass: "text-center"
-  }, [_vm._v("Société")]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
+  })]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('section', {
+    staticClass: "register__form-section"
+  }, [_c('div', {
+    staticClass: "register__form"
+  }, [_c('h1', {
+    staticClass: "register__title"
+  }, [_vm._v("Votre société")]), _vm._v(" "), _c('div', {
+    staticClass: "form__group"
   }, [_c('label', {
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("Nom")]), _vm._v(" "), _c('input', {
+  }, [_vm._v("Nom de la société")]), _vm._v(" "), _c('span', {
+    staticClass: "form__required"
+  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.company.name),
-      expression: "company.name"
+      expression: "company.name",
+      modifiers: {
+        "trim": true
+      }
     }],
-    staticClass: "form-control",
+    staticClass: "form__input",
     attrs: {
       "type": "text",
-      "id": "name",
       "name": "name",
+      "id": "name",
+      "required": "",
       "autofocus": ""
     },
     domProps: {
@@ -69353,26 +69283,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.company, "name", $event.target.value)
+        _vm.$set(_vm.company, "name", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.name[0])
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-black btn-block mt-5",
+    staticClass: "form__alert"
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.name[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "register__buttons"
+  }, [_c('button', {
+    staticClass: "btn btn--red",
     on: {
-      "click": _vm.updateWithCompany
+      "click": _vm.createCompany
     }
-  }, [_vm._v("\n            Mettre à jour\n          ")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('p', {
-    staticClass: "text-small text-center mt-5"
-  }, [_c('a', {
-    on: {
-      "click": _vm.updateAsSelf
-    }
-  }, [_vm._v("\n              Passer cette étape\n            ")])])])])])]), _vm._v(" "), _c('app-moon-loader', {
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n          Terminer l'enregistrement\n        ")])])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -69381,36 +69309,34 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding"
+    staticClass: "register__summary"
   }, [_c('div', {
-    staticClass: "col-12 col-md-5 offset-md-5 mt-md-checklist no-padding"
-  }, [_c('div', {
-    staticClass: "d-flex flex-column justify-content-center checklist"
-  }, [_c('a', {
-    staticClass: "d-flex align-items-center checklist-item checklist-item-done link-unstyled"
+    staticClass: "register__summary-item register__summary-item--done"
   }, [_c('span', {
-    staticClass: "badge badge-white mx-4"
+    staticClass: "badge__summary"
   }, [_c('i', {
-    staticClass: "fal fa-check"
-  })]), _vm._v(" "), _c('span', [_vm._v("Enregistrement")])]), _vm._v(" "), _c('a', {
-    staticClass: "d-flex align-items-center checklist-item checklist-item-done link-unstyled"
+    staticClass: "fa fa-check"
+  })]), _vm._v(" "), _c('span', {
+    staticClass: "register__summary-label"
+  }, [_vm._v("Création de votre compte")])]), _vm._v(" "), _c('div', {
+    staticClass: "register__summary-item register__summary-item--done"
   }, [_c('span', {
-    staticClass: "badge badge-white mx-4"
-  }, [_c('i', {
-    staticClass: "fal fa-check"
-  })]), _vm._v(" "), _c('span', [_vm._v("Contact")])]), _vm._v(" "), _c('a', {
-    staticClass: "d-flex align-items-center checklist-item checklist-item-active link-unstyled"
+    staticClass: "badge__summary"
+  }, [_vm._v("2")]), _vm._v(" "), _c('span', {
+    staticClass: "register__summary-label"
+  }, [_vm._v("Création de votre premier contact")])]), _vm._v(" "), _c('div', {
+    staticClass: "register__summary-item register__summary-item--active"
   }, [_c('span', {
-    staticClass: "badge badge-white mx-4"
-  }, [_vm._v("3")]), _vm._v(" "), _c('span', [_vm._v("Société")])]), _vm._v(" "), _c('a', {
-    staticClass: "d-flex align-items-center checklist-item link-unstyled"
+    staticClass: "badge__summary"
+  }, [_vm._v("3")]), _vm._v(" "), _c('span', {
+    staticClass: "register__summary-label"
+  }, [_vm._v("Création de votre société")])]), _vm._v(" "), _c('div', {
+    staticClass: "register__summary-item"
   }, [_c('span', {
-    staticClass: "badge badge-white mx-4"
-  }, [_vm._v("4")]), _vm._v(" "), _c('span', [_vm._v("Prêt")])])])])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('p', {
-    staticClass: "mt-5 text-center"
-  }, [_c('small', [_vm._v("Veuillez ne pas remplir le champ-ci dessus dans le cas où vous ne faîtes pas partie d'une société\n              et commandez en votre nom propre\n            ")])])
+    staticClass: "badge__summary"
+  }, [_vm._v("4")]), _vm._v(" "), _c('span', {
+    staticClass: "register__summary-label"
+  }, [_vm._v("Terminé!")])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -70931,54 +70857,70 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "container-fluid"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('a', {
-    attrs: {
-      "href": "/"
+    staticClass: "register__container",
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
+        _vm.createContact($event)
+      }
     }
+  }, [_c('section', {
+    staticClass: "register__summary-section"
   }, [_c('div', {
-    staticClass: "company-logo-container",
-    class: _vm.logoWhite,
+    staticClass: "register__logo register__logo--summary",
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "col-12 col-lg-6 push-lg-6 vh-100 d-flex align-items-center"
-  }, [_c('div', {
-    staticClass: "col-12 col-lg-8 mx-auto py-5"
-  }, [_c('form', {
+  }, [_c('img', {
     attrs: {
-      "role": "form"
-    },
-    on: {
-      "submit": function($event) {
-        $event.preventDefault();
-      }
+      "src": _vm.logoBw,
+      "alt": (_vm.appName + " logo")
     }
-  }, [_c('h4', {
-    staticClass: "text-center"
-  }, [_vm._v("Contact")]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "register__summary"
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), (!_vm.dataUser.company_confirmed) ? _c('div', {
+    staticClass: "register__summary-item"
+  }, [_c('span', {
+    staticClass: "badge__summary"
+  }, [_vm._v("3")]), _vm._v(" "), _c('span', {
+    staticClass: "register__summary-label"
+  }, [_vm._v("Création de votre société")])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "register__summary-item"
+  }, [(!_vm.dataUser.company_confirmed) ? _c('span', {
+    staticClass: "badge__summary"
+  }, [_vm._v("4")]) : _c('span', {
+    staticClass: "badge__summary"
+  }, [_vm._v("3")]), _vm._v(" "), _c('span', {
+    staticClass: "register__summary-label"
+  }, [_vm._v("Terminé!")])])])]), _vm._v(" "), _c('section', {
+    staticClass: "register__form-section"
+  }, [_c('div', {
+    staticClass: "register__form"
+  }, [_c('h1', {
+    staticClass: "register__title"
+  }, [_vm._v("Votre premier contact")]), _vm._v(" "), _c('div', {
+    staticClass: "form__group"
   }, [_c('label', {
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', {
-    staticClass: "required"
+  }, [_vm._v("Prénom et Nom / Contact")]), _vm._v(" "), _c('span', {
+    staticClass: "form__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.contact.name),
-      expression: "contact.name"
+      expression: "contact.name",
+      modifiers: {
+        "trim": true
+      }
     }],
-    staticClass: "form-control",
+    staticClass: "form__input",
     attrs: {
       "type": "text",
-      "id": "name",
       "name": "name",
+      "id": "name",
       "required": "",
       "autofocus": ""
     },
@@ -70988,34 +70930,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "name", $event.target.value)
+        _vm.$set(_vm.contact, "name", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.name[0])
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
+    staticClass: "form__alert"
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.name[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form__group"
   }, [_c('label', {
     attrs: {
       "for": "address_line1"
     }
   }, [_vm._v("Adresse ligne 1")]), _vm._v(" "), _c('span', {
-    staticClass: "required"
+    staticClass: "form__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.contact.address_line1),
-      expression: "contact.address_line1"
+      expression: "contact.address_line1",
+      modifiers: {
+        "trim": true
+      }
     }],
-    staticClass: "form-control",
+    staticClass: "form__input",
     attrs: {
       "type": "text",
-      "id": "address_line1",
       "name": "address_line1",
+      "id": "address_line1",
       "required": ""
     },
     domProps: {
@@ -71024,16 +70969,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "address_line1", $event.target.value)
+        _vm.$set(_vm.contact, "address_line1", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.errors.address_line1) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.address_line1[0])
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
+    staticClass: "form__alert"
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.address_line1[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form__group"
   }, [_c('label', {
     attrs: {
       "for": "address_line2"
@@ -71041,15 +70986,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Adresse ligne 2")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.contact.address_line2),
-      expression: "contact.address_line2"
+      expression: "contact.address_line2",
+      modifiers: {
+        "trim": true
+      }
     }],
-    staticClass: "form-control",
+    staticClass: "form__input",
     attrs: {
       "type": "text",
-      "id": "address_line2",
-      "name": "address_line2"
+      "name": "address_line2",
+      "id": "address_line2"
     },
     domProps: {
       "value": (_vm.contact.address_line2)
@@ -71057,34 +71005,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "address_line2", $event.target.value)
+        _vm.$set(_vm.contact, "address_line2", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.errors.address_line2) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.address_line2[0])
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
+    staticClass: "form__alert"
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.address_line2[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form__group"
   }, [_c('label', {
     attrs: {
       "for": "zip"
     }
   }, [_vm._v("NPA")]), _vm._v(" "), _c('span', {
-    staticClass: "required"
+    staticClass: "form__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.contact.zip),
-      expression: "contact.zip"
+      expression: "contact.zip",
+      modifiers: {
+        "trim": true
+      }
     }],
-    staticClass: "form-control",
+    staticClass: "form__input",
     attrs: {
       "type": "text",
-      "id": "zip",
       "name": "zip",
+      "id": "zip",
       "required": ""
     },
     domProps: {
@@ -71093,34 +71044,37 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "zip", $event.target.value)
+        _vm.$set(_vm.contact, "zip", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.errors.zip) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.zip[0])
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
+    staticClass: "form__alert"
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.zip[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form__group"
   }, [_c('label', {
     attrs: {
       "for": "city"
     }
-  }, [_vm._v("Ville")]), _vm._v(" "), _c('span', {
-    staticClass: "required"
+  }, [_vm._v("Localité")]), _vm._v(" "), _c('span', {
+    staticClass: "form__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.contact.city),
-      expression: "contact.city"
+      expression: "contact.city",
+      modifiers: {
+        "trim": true
+      }
     }],
-    staticClass: "form-control",
+    staticClass: "form__input",
     attrs: {
       "type": "text",
-      "id": "city",
       "name": "city",
+      "id": "city",
       "required": ""
     },
     domProps: {
@@ -71129,16 +71083,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "city", $event.target.value)
+        _vm.$set(_vm.contact, "city", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.errors.city) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.city[0])
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
+    staticClass: "form__alert"
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.city[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form__group"
   }, [_c('label', {
     attrs: {
       "for": "phone_number"
@@ -71146,15 +71100,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Téléphone")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.contact.phone_number),
-      expression: "contact.phone_number"
+      expression: "contact.phone_number",
+      modifiers: {
+        "trim": true
+      }
     }],
-    staticClass: "form-control",
+    staticClass: "form__input",
     attrs: {
       "type": "text",
-      "id": "phone_number",
-      "name": "phone_number"
+      "name": "phone_number",
+      "id": "phone_number"
     },
     domProps: {
       "value": (_vm.contact.phone_number)
@@ -71162,16 +71119,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "phone_number", $event.target.value)
+        _vm.$set(_vm.contact, "phone_number", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.errors.phone_number) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.phone_number[0])
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "form-group my-5"
+    staticClass: "form__alert"
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.phone_number[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "form__group"
   }, [_c('label', {
     attrs: {
       "for": "fax"
@@ -71179,15 +71136,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Fax")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model",
+      rawName: "v-model.trim",
       value: (_vm.contact.fax),
-      expression: "contact.fax"
+      expression: "contact.fax",
+      modifiers: {
+        "trim": true
+      }
     }],
-    staticClass: "form-control",
+    staticClass: "form__input",
     attrs: {
       "type": "text",
-      "id": "fax",
-      "name": "fax"
+      "name": "fax",
+      "id": "fax"
     },
     domProps: {
       "value": (_vm.contact.fax)
@@ -71195,20 +71155,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "fax", $event.target.value)
+        _vm.$set(_vm.contact, "fax", $event.target.value.trim())
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   }), _vm._v(" "), (_vm.errors.fax) ? _c('div', {
-    staticClass: "help-block",
-    domProps: {
-      "textContent": _vm._s(_vm.errors.fax[0])
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn-black btn-block mt-5",
+    staticClass: "form__alert"
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.fax[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "register__buttons"
+  }, [_c('button', {
+    staticClass: "btn btn--red",
     on: {
-      "click": _vm.updateContactInfo
+      "click": _vm.createContact
     }
-  }, [_vm._v("\n            Mettre à jour\n          ")])])])])]), _vm._v(" "), _c('app-moon-loader', {
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n          Créer le contact\n        ")])])])]), _vm._v(" "), _c('app-moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -71217,30 +71181,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 1)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "col-12 col-lg-6 fixed-lg-left bg-shapes-red no-padding"
-  }, [_c('div', {
-    staticClass: "col-12 col-md-5 offset-md-5 mt-md-checklist no-padding"
-  }, [_c('div', {
-    staticClass: "d-flex flex-column justify-content-center checklist"
-  }, [_c('a', {
-    staticClass: "d-flex align-items-center checklist-item checklist-item-done link-unstyled"
+    staticClass: "register__summary-item register__summary-item--done"
   }, [_c('span', {
-    staticClass: "badge badge-white mx-4"
+    staticClass: "badge__summary"
   }, [_c('i', {
-    staticClass: "fal fa-check"
-  })]), _vm._v(" "), _c('span', [_vm._v("Enregistrement")])]), _vm._v(" "), _c('a', {
-    staticClass: "d-flex align-items-center checklist-item checklist-item-active link-unstyled"
+    staticClass: "fa fa-check"
+  })]), _vm._v(" "), _c('span', {
+    staticClass: "register__summary-label"
+  }, [_vm._v("Création de votre compte")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "register__summary-item register__summary-item--active"
   }, [_c('span', {
-    staticClass: "badge badge-white mx-4"
-  }, [_vm._v("2")]), _vm._v(" "), _c('span', [_vm._v("Contact")])]), _vm._v(" "), _c('a', {
-    staticClass: "d-flex align-items-center checklist-item link-unstyled"
-  }, [_c('span', {
-    staticClass: "badge badge-white mx-4"
-  }, [_vm._v("3")]), _vm._v(" "), _c('span', [_vm._v("Société")])]), _vm._v(" "), _c('a', {
-    staticClass: "d-flex align-items-center checklist-item link-unstyled"
-  }, [_c('span', {
-    staticClass: "badge badge-white mx-4"
-  }, [_vm._v("4")]), _vm._v(" "), _c('span', [_vm._v("Prêt")])])])])])
+    staticClass: "badge__summary"
+  }, [_vm._v("2")]), _vm._v(" "), _c('span', {
+    staticClass: "register__summary-label"
+  }, [_vm._v("Création de votre premier contact")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -77969,32 +77925,7 @@ if (false) {
 }
 
 /***/ }),
-/* 403 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(248);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(9)("bec80a94", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-0edc3438\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountCompany.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-0edc3438\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountCompany.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 403 */,
 /* 404 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -78099,32 +78030,7 @@ if(false) {
 }
 
 /***/ }),
-/* 408 */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(253);
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var update = __webpack_require__(9)("2825feb3", content, false);
-// Hot Module Replacement
-if(false) {
- // When the styles change, update the <style> tags
- if(!content.locals) {
-   module.hot.accept("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-2f99925b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountContact.vue", function() {
-     var newContent = require("!!../../../../../node_modules/css-loader/index.js!../../../../../node_modules/vue-loader/lib/style-compiler/index.js?{\"id\":\"data-v-2f99925b\",\"scoped\":true,\"hasInlineConfig\":true}!../../../../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./AccountContact.vue");
-     if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-     update(newContent);
-   });
- }
- // When the module is disposed, remove the <style> tags
- module.hot.dispose(function() { update(); });
-}
-
-/***/ }),
+/* 408 */,
 /* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
