@@ -12,6 +12,10 @@
         <img class="receipt__logo"
              src="{{ asset('/img/logos/header-dip.gif') }}"
              alt="En-tête Dip">
+      @elseif (config('app.name') === 'Multicop')
+        <img class="receipt__logo"
+             src="{{ asset('/img/logos/header-multicop.png') }}"
+             alt="En-tête Multicop">
       @endif
       <h1 class="receipt__title">Bulletin de livraison
         <small>(ref. {{ $delivery->reference }})</small>
