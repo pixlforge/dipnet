@@ -2,9 +2,11 @@
 
 namespace Dipnet\Http\Controllers\Order;
 
-use Dipnet\Order;
-use Illuminate\Http\Request;
 use Dipnet\Http\Controllers\Controller;
+use Dipnet\Mail\AdminOrderCompleteNotification;
+use Dipnet\Mail\CustomerOrderCompleteConfirmation;
+use Dipnet\Order;
+use Illuminate\Support\Facades\Mail;
 
 class CompleteOrderController extends Controller
 {
@@ -17,8 +19,6 @@ class CompleteOrderController extends Controller
     }
 
     /**
-     * Update the order's status.
-     *
      * @param Order $order
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -26,6 +26,12 @@ class CompleteOrderController extends Controller
     {
         $order->status = 'envoyée';
         $order->save();
+
+        Mail::to(auth()->user())
+            ->queue(new CustomerOrderCompleteConfirmation($order));
+
+        Mail::to('admin@example.com')
+            ->queue(new AdminOrderCompleteNotification($order));
 
         return response(200);
     }

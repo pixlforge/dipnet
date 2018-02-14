@@ -252,6 +252,53 @@ Route::prefix('/users')->namespace('User')->group(function () {
 });
 
 /**
+ * Mailables
+ */
+Route::middleware(['admin'])->group(function () {
+    /**
+     * Customer confirmation email.
+     */
+    Route::get('/mailables/order/confirmation', function () {
+        $order = factory(\Dipnet\Order::class)->create([
+            'status' => 'envoyée'
+        ]);
+
+        $deliveries = factory(\Dipnet\Delivery::class, 3)->create([
+            'order_id' => $order->id
+        ]);
+
+        foreach($deliveries as $delivery) {
+            factory(\Dipnet\Document::class, 3)->create([
+                'delivery_id' => $delivery->id
+            ]);
+        }
+
+        return new \Dipnet\Mail\CustomerOrderCompleteConfirmation($order);
+    });
+
+    /**
+     * Admin order notification.
+     */
+    Route::get('/mailables/order/notification', function () {
+        $order = factory(\Dipnet\Order::class)->create([
+            'status' => 'envoyée'
+        ]);
+
+        $deliveries = factory(\Dipnet\Delivery::class, 3)->create([
+            'order_id' => $order->id
+        ]);
+
+        foreach($deliveries as $delivery) {
+            factory(\Dipnet\Document::class, 3)->create([
+                'delivery_id' => $delivery->id
+            ]);
+        }
+
+        return new \Dipnet\Mail\AdminOrderCompleteNotification($order);
+    });
+});
+
+/**
  * Errors
  */
 Route::fallback(function () {
