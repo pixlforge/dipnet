@@ -15,7 +15,9 @@ class UserAccountCompanyInfo
      */
     public function handle($request, Closure $next)
     {
-        if (auth()->user()->isNotSolo() && auth()->user()->company_id === null) {
+        if (auth()->user()->isNotSolo()
+            && auth()->user()->isNotAssociatedWithAnyCompany()
+            && auth()->user()->isNotAdmin()) {
             return redirect()->route('account.company');
         }
 

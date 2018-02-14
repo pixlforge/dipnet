@@ -189,6 +189,16 @@ class User extends Authenticatable
     }
 
     /**
+     * User is not associated with any company.
+     *
+     * @return bool
+     */
+    public function isNotAssociatedWithAnyCompany()
+    {
+        return $this->company_id === null;
+    }
+
+    /**
      * User's company has a default business set up.
      *
      * @return bool
