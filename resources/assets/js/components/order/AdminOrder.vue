@@ -3,13 +3,12 @@
     <div class="header__container">
       <h1 class="header__title">Commande {{ order.reference }}</h1>
       <div>
-          <button class="btn"
-                  :class="{ 'btn--green': order.status === 'envoyée', 'btn--orange': order.status === 'traitée' }"
+          <button class="btn btn--black"
                   @click.prevent="switchOrderStatus">
-            <span v-show="order.status === 'envoyée'"><i class="fal fa-check"></i></span>
-            <span v-show="order.status === 'traitée'"><i class="fal fa-times"></i></span>
-            {{ this.order.status === 'envoyée' ? 'Commande traitée' : 'Commande envoyée' }}
+            {{ this.order.status === 'envoyée' ? 'Marquer la commande traitée' : 'Marquer la commande envoyée' }}
           </button>
+        <span v-show="order.status === 'envoyée'"><i class="fas fa-exclamation-circle text--warning"></i></span>
+        <span v-show="order.status === 'traitée'"><i class="fas fa-check-circle text--success"></i></span>
       </div>
       <div>
         <a class="btn btn--red-large"
@@ -131,3 +130,11 @@
     }
   }
 </script>
+
+<style scoped>
+  .fa-exclamation-circle,
+  .fa-check-circle {
+    font-size: 4rem;
+    margin-left: 2rem;
+  }
+</style>

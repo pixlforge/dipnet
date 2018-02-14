@@ -325,7 +325,7 @@
                 })
                 setTimeout(() => {
                   window.location = route('orders.index')
-                }, 1500)
+                }, 1000)
               })
               .catch(error => {
                 console.log(error)

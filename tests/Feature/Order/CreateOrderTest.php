@@ -215,7 +215,7 @@ class CreateOrderTest extends TestCase
     function an_order_can_be_completed()
     {
         Mail::fake();
-        
+
         $this->withoutExceptionHandling();
 
         $user = factory(User::class)->create();
