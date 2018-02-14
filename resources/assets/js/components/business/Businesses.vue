@@ -31,6 +31,7 @@
                                :key="business.id"
                                :data-business="business"
                                :data-orders="dataOrders"
+                               :data-user="dataUser"
                                @businessWasDeleted="removeBusiness(index)">
             </app-user-business>
           </transition-group>
@@ -45,6 +46,7 @@
                         :data-business="business"
                         :data-companies="dataCompanies"
                         :data-contacts="dataContacts"
+                        :data-user="dataUser"
                         @businessWasDeleted="removeBusiness(index)">
           </app-business>
         </transition-group>

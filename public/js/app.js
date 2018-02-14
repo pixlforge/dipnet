@@ -33152,13 +33152,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-business', 'data-companies', 'data-contacts'],
+  props: ['data-business', 'data-companies', 'data-contacts', 'data-user'],
   data() {
     return {
       business: this.dataBusiness,
@@ -33208,6 +33209,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
 //
 //
 //
@@ -33390,6 +33393,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -72531,7 +72553,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.dataUser.role === 'administrateur') ? _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",
@@ -72569,7 +72591,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.errors.reference) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.reference[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.reference[0]) + "\n          ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",
@@ -74335,7 +74357,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: business.id,
       attrs: {
         "data-business": business,
-        "data-orders": _vm.dataOrders
+        "data-orders": _vm.dataOrders,
+        "data-user": _vm.dataUser
       },
       on: {
         "businessWasDeleted": function($event) {
@@ -74356,7 +74379,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "data-business": business,
         "data-companies": _vm.dataCompanies,
-        "data-contacts": _vm.dataContacts
+        "data-contacts": _vm.dataContacts,
+        "data-user": _vm.dataUser
       },
       on: {
         "businessWasDeleted": function($event) {
@@ -74466,7 +74490,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.dataUser.role === 'administrateur') ? _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",
@@ -74506,7 +74530,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.errors.reference) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.reference[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.reference[0]) + "\n          ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",
@@ -74639,6 +74663,58 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })], 2), _vm._v(" "), (_vm.errors.contact_id) ? _c('div', {
     staticClass: "modal__alert"
   }, [_vm._v("\n            " + _vm._s(_vm.errors.contact_id[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "folder_color"
+    }
+  }, [_vm._v("Couleur")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.business.folder_color),
+      expression: "business.folder_color"
+    }],
+    staticClass: "modal__select",
+    attrs: {
+      "name": "folder_color",
+      "id": "folder_color"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        });
+        _vm.$set(_vm.business, "folder_color", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Sélectionner une couleur")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "rouge"
+    }
+  }, [_vm._v("Rouge")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "orange"
+    }
+  }, [_vm._v("Orange")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "violet"
+    }
+  }, [_vm._v("Violet")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "bleu"
+    }
+  }, [_vm._v("Bleu")])]), _vm._v(" "), (_vm.errors.folder_color) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.folder_color[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
@@ -77211,7 +77287,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "data-business": _vm.business,
       "data-companies": _vm.companies,
-      "data-contacts": _vm.dataContacts
+      "data-contacts": _vm.dataContacts,
+      "data-user": _vm.dataUser
     }
   })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

@@ -2,14 +2,14 @@
 
 namespace Dipnet\Http\Controllers\Business;
 
+use Dipnet\Order;
 use Dipnet\Comment;
 use Dipnet\Company;
-use Dipnet\Business;
 use Dipnet\Contact;
+use Dipnet\Business;
 use Dipnet\Http\Controllers\Controller;
 use Dipnet\Http\Requests\Business\StoreBusinessRequest;
 use Dipnet\Http\Requests\Business\UpdateBusinessRequest;
-use Dipnet\Order;
 
 class BusinessController extends Controller
 {
@@ -161,13 +161,13 @@ class BusinessController extends Controller
      */
     public function update(UpdateBusinessRequest $request, Business $business)
     {
-        $business->update([
-            'name' => $request->name,
-            'reference' => $request->reference,
-            'description' => $request->description,
-            'company_id' => $request->company_id,
-            'contact_id' => $request->contact_id
-        ]);
+        $business->name = $request->name;
+        $business->reference = $request->reference;
+        $business->description = $request->description;
+        $business->company_id = $request->company_id;
+        $business->contact_id = $request->contact_id;
+        $business->folder_color = $request->folder_color;
+        $business->save();
 
         return response($business, 200);
     }

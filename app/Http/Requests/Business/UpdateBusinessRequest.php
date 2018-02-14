@@ -2,6 +2,8 @@
 
 namespace Dipnet\Http\Requests\Business;
 
+use Illuminate\Validation\Rule;
+
 class UpdateBusinessRequest extends StoreBusinessRequest
 {
     /**
@@ -21,7 +23,13 @@ class UpdateBusinessRequest extends StoreBusinessRequest
      */
     public function rules()
     {
-        return array_merge(parent::rules(), []);
+        return array_merge(parent::rules(), [
+            'reference' => [
+                'required',
+                Rule::unique('businesses')->ignore($this->id)
+            ],
+            'folder_color' => 'required|in:rouge,orange,violet,bleu'
+        ]);
     }
 
     /**

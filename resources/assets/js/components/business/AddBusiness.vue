@@ -39,7 +39,7 @@
           </div>
 
           <!--Reference-->
-          <div class="modal__group">
+          <div class="modal__group" v-if="dataUser.role === 'administrateur'">
             <label for="reference" class="modal__label">Référence</label>
             <input type="text"
                    name="reference"

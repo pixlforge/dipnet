@@ -50,7 +50,8 @@
       <div title="Modifier">
         <app-edit-business :data-business="business"
                            :data-companies="companies"
-                           :data-contacts="dataContacts">
+                           :data-contacts="dataContacts"
+                           :data-user="dataUser">
         </app-edit-business>
       </div>
     </div>
@@ -66,7 +67,8 @@
     props: [
       'data-business',
       'data-companies',
-      'data-contacts'
+      'data-contacts',
+      'data-user'
     ],
     data() {
       return {

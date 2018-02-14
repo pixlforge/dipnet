@@ -41,7 +41,7 @@
           </div>
 
           <!--Reference-->
-          <div class="modal__group">
+          <div class="modal__group" v-if="dataUser.role === 'administrateur'">
             <label for="reference" class="modal__label">Référence</label>
             <span class="modal__required">*</span>
             <input type="text"
@@ -107,6 +107,25 @@
             <div class="modal__alert"
                  v-if="errors.contact_id">
               {{ errors.contact_id[0] }}
+            </div>
+          </div>
+
+          <!--Folder Color-->
+          <div class="modal__group">
+            <label for="folder_color" class="modal__label">Couleur</label>
+            <select name="folder_color"
+                    id="folder_color"
+                    class="modal__select"
+                    v-model="business.folder_color">
+              <option disabled>Sélectionner une couleur</option>
+              <option value="rouge">Rouge</option>
+              <option value="orange">Orange</option>
+              <option value="violet">Violet</option>
+              <option value="bleu">Bleu</option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.folder_color">
+              {{ errors.folder_color[0] }}
             </div>
           </div>
 
