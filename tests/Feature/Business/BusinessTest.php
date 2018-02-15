@@ -52,7 +52,8 @@ class BusinessTest extends TestCase
             'reference' => '85erfgbn',
             'description' => 'Lorem ipsum dolor sit amet.',
             'company_id' => $business->company_id,
-            'contact_id' => $business->contact_id
+            'contact_id' => $business->contact_id,
+            'folder_color' => 'bleu'
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('businesses', [
