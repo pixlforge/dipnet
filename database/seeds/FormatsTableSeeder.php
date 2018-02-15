@@ -12,6 +12,6 @@ class FormatsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Format::class, 10)->create();
+        factory(Format::class, 5)->create();
     }
 }

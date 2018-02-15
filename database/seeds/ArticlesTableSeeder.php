@@ -13,23 +13,75 @@ class ArticlesTableSeeder extends Seeder
     public function run()
     {
         factory(Article::class)->create([
-            'description' => 'NB - A4 - Papier',
-            'type' => 'impression'
+            'description' => 'Paper',
+            'type' => 'impression',
+            'greyscale' => true
         ]);
 
         factory(Article::class)->create([
-            'description' => 'Couleur - A4 - Papier',
-            'type' => 'impression'
+            'description' => 'Calque',
+            'type' => 'impression',
+            'greyscale' => true
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Film',
+            'type' => 'impression',
+            'greyscale' => true
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Plotter',
+            'type' => 'impression',
+            'greyscale' => true
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Paper',
+            'type' => 'impression',
+            'greyscale' => false
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Calque',
+            'type' => 'impression',
+            'greyscale' => false
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Film',
+            'type' => 'impression',
+            'greyscale' => false
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Plotter',
+            'type' => 'impression',
+            'greyscale' => false
         ]);
 
         factory(Article::class)->create([
             'description' => 'Vernis UV',
-            'type' => 'option'
+            'type' => 'option',
+            'greyscale' => false
         ]);
 
         factory(Article::class)->create([
             'description' => 'Reliure Wiro',
-            'type' => 'option'
+            'type' => 'option',
+            'greyscale' => false
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Vernis Lambda',
+            'type' => 'option',
+            'greyscale' => false
+        ]);
+
+        factory(Article::class)->create([
+            'description' => 'Reliure Lambda',
+            'type' => 'option',
+            'greyscale' => false
         ]);
     }
 }
