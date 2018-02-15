@@ -28,4 +28,17 @@
     top: .75rem;
     left: .75rem;
   }
+
+  &__link {
+    color: $white;
+    text-decoration: underline;
+  }
+
+  &__icon {
+    &--back {
+      position: relative !important;
+      top: unset !important;
+      margin-right: 1rem;
+    }
+  }
 }

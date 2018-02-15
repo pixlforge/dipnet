@@ -11,7 +11,11 @@
       @if (session('status'))
         <div class="alert alert--success">
           <i class="fal fa-check-circle"></i>
-          {{ session('status') }}
+          <p>{{ session('status') }}</p>
+          <p>
+            <i class="fal fa-arrow-left alert__icon--back"></i>
+            <a class="alert__link" href="{{ route('index') }}">Retour</a>
+          </p>
         </div>
       @endif
 
