@@ -27,6 +27,13 @@ class Article extends Model
     ];
 
     /**
+     * Casting
+     */
+    protected $casts = [
+        'greyscale' => 'boolean'
+    ];
+
+    /**
      * Scope the query by print.
      *
      * @param Builder $builder

@@ -38,13 +38,14 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        $article = Article::create([
-            'reference' => $request->reference,
-            'description' => $request->description,
-            'type' => $request->type
-        ]);
+        $article = new Article;
+        $article->reference = $request->reference;
+        $article->description = $request->description;
+        $article->type = $request->type;
+        $article->greyscale = $request->greyscale;
+        $article->save();
 
-        return $article;
+        return response($article, 200);
     }
 
     /**
@@ -70,11 +71,11 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        $article->update([
-            'reference' => $request->reference,
-            'description' => $request->description,
-            'type' => $request->type
-        ]);
+        $article->reference = $request->reference;
+        $article->description = $request->description;
+        $article->type = $request->type;
+        $article->greyscale = $request->greyscale;
+        $article->save();
 
         return response($article, 200);
     }

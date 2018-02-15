@@ -53,7 +53,7 @@
             </div>
           </div>
 
-          <!--Status-->
+          <!--Type-->
           <div class="modal__group">
             <label for="type" class="modal__label">Type</label>
             <select name="type"
@@ -69,6 +69,19 @@
               {{ errors.type[0] }}
             </div>
           </div>
+
+          <!--Greyscale-->
+          <transition name="fade" mode="out-in">
+            <div class="modal__group" v-if="article.type === 'impression'">
+              <label for="greyscale" class="modal__label">
+                <input type="checkbox"
+                       name="greyscale"
+                       id="greyscale"
+                       v-model="article.greyscale">
+                Niveaux de gris
+              </label>
+            </div>
+          </transition>
 
           <!--Buttons-->
           <div class="modal__buttons">
@@ -100,7 +113,8 @@
         article: {
           reference: '',
           description: '',
-          type: ''
+          type: '',
+          greyscale: false
         },
         errors: {}
       }

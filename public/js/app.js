@@ -32189,6 +32189,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -32200,7 +32213,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       article: {
         reference: '',
         description: '',
-        type: ''
+        type: '',
+        greyscale: false
       },
       errors: {}
     };
@@ -32499,9 +32513,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 //
 //
 //
@@ -32591,7 +32602,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -32606,8 +32629,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
+  methods: {
     /**
      * Update an article.
      */
@@ -32634,7 +32656,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         });
       });
     }
-  })
+  }
 });
 
 /***/ }),
@@ -75464,7 +75486,52 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Impression")])]), _vm._v(" "), (_vm.errors.type) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.type[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.type[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade",
+      "mode": "out-in"
+    }
+  }, [(_vm.article.type === 'impression') ? _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "greyscale"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.article.greyscale),
+      expression: "article.greyscale"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "name": "greyscale",
+      "id": "greyscale"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.article.greyscale) ? _vm._i(_vm.article.greyscale, null) > -1 : (_vm.article.greyscale)
+    },
+    on: {
+      "change": function($event) {
+        var $$a = _vm.article.greyscale,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && (_vm.article.greyscale = $$a.concat([$$v]))
+          } else {
+            $$i > -1 && (_vm.article.greyscale = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.$set(_vm.article, "greyscale", $$c)
+        }
+      }
+    }
+  }), _vm._v("\n              Niveaux de gris\n            ")])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
@@ -75486,7 +75553,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n            Ajouter\n          ")])])])]) : _vm._e()])], 1)
+  }), _vm._v("\n            Ajouter\n          ")])])], 1)]) : _vm._e()])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -76329,7 +76396,52 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Impression")])]), _vm._v(" "), (_vm.errors.type) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.type[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.type[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade",
+      "mode": "out-in"
+    }
+  }, [(_vm.article.type === 'impression') ? _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "greyscale"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.article.greyscale),
+      expression: "article.greyscale"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "name": "greyscale",
+      "id": "greyscale"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.article.greyscale) ? _vm._i(_vm.article.greyscale, null) > -1 : (_vm.article.greyscale)
+    },
+    on: {
+      "change": function($event) {
+        var $$a = _vm.article.greyscale,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$el.checked) {
+            $$i < 0 && (_vm.article.greyscale = $$a.concat([$$v]))
+          } else {
+            $$i > -1 && (_vm.article.greyscale = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.$set(_vm.article, "greyscale", $$c)
+        }
+      }
+    }
+  }), _vm._v("\n              Niveaux de gris\n            ")])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
@@ -76351,7 +76463,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n            Mettre à jour\n          ")])])])]) : _vm._e()])], 1)
+  }), _vm._v("\n            Mettre à jour\n          ")])])], 1)]) : _vm._e()])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

@@ -30,7 +30,8 @@ class ArticleTest extends TestCase
         $this->postJson(route('articles.store'), [
             'reference' => '85erfgbn',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'impression'
+            'type' => 'impression',
+            'greyscale' => true
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('articles', [
@@ -49,7 +50,8 @@ class ArticleTest extends TestCase
         $this->postJson(route('articles.store'), [
             'reference' => '85erfgbn',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'impression'
+            'type' => 'impression',
+            'greyscale' => true
         ])->assertStatus(200);
 
         $article = Article::whereReference('85erfgbn')->first();
@@ -57,14 +59,11 @@ class ArticleTest extends TestCase
         $this->putJson(route('articles.update', $article), [
             'reference' => '85ERFGBN',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'option'
+            'type' => 'option',
+            'greyscale' => false
         ])->assertStatus(200);
 
-        $this->assertDatabaseHas('articles', [
-            'reference' => '85ERFGBN',
-            'description' => 'Lorem isum dolor sit amet',
-            'type' => 'option'
-        ]);
+        $this->assertEquals(false, $article->fresh()->greyscale);
     }
 
     /** @test */
@@ -76,7 +75,8 @@ class ArticleTest extends TestCase
         $this->postJson(route('articles.store'), [
             'reference' => '85erfgbn',
             'description' => 'Lorem isum dolor sit amet',
-            'type' => 'impression'
+            'type' => 'impression',
+            'greyscale' => true,
         ])->assertStatus(200);
 
         $article = Article::whereReference('85erfgbn')->first();
