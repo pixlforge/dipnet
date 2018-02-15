@@ -6,6 +6,6 @@
 
   @include ('layouts.partials._nav')
 
-  <app-orders></app-orders>
+  <app-orders data-user-role="{{ auth()->user()->role }}"></app-orders>
 
 @endsection

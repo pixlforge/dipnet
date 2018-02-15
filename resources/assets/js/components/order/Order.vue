@@ -6,10 +6,16 @@
     </div>
 
     <div class="card__title">
-      <a :href="createRoute" v-if="order.status === 'incomplète'">
+      <a :href="createRoute"
+         v-if="order.status === 'incomplète'">
         {{ order.reference }}
       </a>
-      <a :href="showRoute" v-else>
+      <a :href="showRoute"
+         v-if="order.status !== 'incomplète' && dataUserRole === 'utilisateur'">
+        {{ order.reference }}
+      </a>
+      <a :href="adminRoute"
+         v-if="order.status !== 'incomplète' && dataUserRole === 'administrateur'">
         {{ order.reference }}
       </a>
     </div>
@@ -19,7 +25,7 @@
       {{ order.status | capitalize }}
     </div>
 
-    <div class="card__meta" v-if="!displayUser">
+    <div class="card__meta">
       <div v-if="order.business">
         <span class="card__label">Affaire</span>
         {{ order.business.name }}
@@ -30,7 +36,7 @@
       </div>
     </div>
 
-    <div class="card__meta" v-if="displayUser">
+    <div class="card__meta">
       <span class="card__label">Par</span>
       {{ order.user.username }}
     </div>
@@ -53,10 +59,16 @@
   import mixins from '../../mixins'
 
   export default {
-    props: [
-      'data-order',
-      'display-user'
-    ],
+    props: {
+      dataOrder: {
+        type: Object,
+        required: true
+      },
+      dataUserRole: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         order: this.dataOrder
@@ -75,6 +87,10 @@
       },
 
       showRoute() {
+        return route('orders.complete.show', [this.order.reference])
+      },
+
+      adminRoute() {
         return route('orders.show', [this.order.reference])
       }
     },

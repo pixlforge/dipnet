@@ -2,11 +2,11 @@
 
 namespace Dipnet\Http\Controllers\Order;
 
+use Dipnet\Order;
+use Illuminate\Support\Facades\Mail;
 use Dipnet\Http\Controllers\Controller;
 use Dipnet\Mail\AdminOrderCompleteNotification;
 use Dipnet\Mail\CustomerOrderCompleteConfirmation;
-use Dipnet\Order;
-use Illuminate\Support\Facades\Mail;
 
 class CompleteOrderController extends Controller
 {
@@ -19,6 +19,23 @@ class CompleteOrderController extends Controller
     }
 
     /**
+     * Display a completed order to the user.
+     *
+     * @param Order $order
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Order $order)
+    {
+        $order->load('business', 'contact', 'user', 'deliveries.contact', 'deliveries.documents.article', 'deliveries.documents.articles');
+
+        return view('orders.complete.show', [
+            'order' => $order
+        ]);
+    }
+
+    /**
+     * Update the status of the order.
+     *
      * @param Order $order
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */

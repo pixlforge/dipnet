@@ -30,6 +30,7 @@
                      v-for="(order, index) in orders"
                      :key="order.id"
                      :data-order="order"
+                     :data-user-role="dataUserRole"
                      @orderWasDeleted="removeOrder(index)">
           </app-order>
         </transition-group>
@@ -59,6 +60,12 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    props: {
+      dataUserRole: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         orders: [],

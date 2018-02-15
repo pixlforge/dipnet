@@ -76,7 +76,7 @@ Option: {{ $article->description }}<br>
 @endcomponent
 @endforeach
 
-@component('mail::button', ['url' => ''])
+@component('mail::button', ['url' => config('app.url') . '/orders/' . $order->reference . '/complete/show'])
 Visualiser ma commande
 @endcomponent
 
