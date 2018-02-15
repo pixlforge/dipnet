@@ -16,6 +16,7 @@
       <!--Register the account-->
       <app-register-account v-if="showAccountForm"
                             @accountCreated="accountCreated"
+                            :data-registration-type="registrationType"
                             :data-invitation="invitation.data">
       </app-register-account>
 

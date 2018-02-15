@@ -24,17 +24,17 @@ class RegisterContactOnlyController extends Controller
      */
     public function store(RegisterContactRequest $request)
     {
-        Contact::create([
-            'name' => $request->name,
-            'address_line1' => $request->address_line1,
-            'address_line2' => $request->address_line2,
-            'zip' => $request->zip,
-            'city' => $request->city,
-            'phone_number' => $request->phone_number,
-            'fax' => $request->fax,
-            'email' => auth()->user()->email,
-            'user_id' => auth()->id()
-        ]);
+        $contact = new Contact;
+        $contact->name = $request->name;
+        $contact->address_line1 = $request->address_line1;
+        $contact->address_line2 = $request->address_line2;
+        $contact->zip = $request->zip;
+        $contact->city = $request->city;
+        $contact->phone_number = $request->phone_number;
+        $contact->fax = $request->fax;
+        $contact->email = auth()->user()->email;
+        $contact->user_id = auth()->id();
+        $contact->save();
 
         auth()->user()->confirmContact();
         auth()->user()->confirmCompany();

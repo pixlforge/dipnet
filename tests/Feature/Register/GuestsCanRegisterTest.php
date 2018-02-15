@@ -277,11 +277,12 @@ class GuestsCanRegisterTest extends TestCase
     /** @test */
     function a_user_can_register_as_self()
     {
-        $this->json('POST', route('register.store'), [
+        $this->postJson(route('register.store'), [
             'username' => 'John Doe',
             'email' => 'johndoe@example.com',
             'password' => 'secret',
-            'password_confirmation' => 'secret'
+            'password_confirmation' => 'secret',
+            'is_solo' => 'true'
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('users', [
@@ -289,7 +290,7 @@ class GuestsCanRegisterTest extends TestCase
             'email' => 'johndoe@example.com'
         ]);
 
-        $this->json('POST', route('register.contact-only.store'), [
+        $this->postJson(route('register.contact-only.store'), [
             'name' => 'Home',
             'address_line1' => 'Main Street',
             'zip' => '10100',

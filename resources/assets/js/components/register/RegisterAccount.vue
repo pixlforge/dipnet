@@ -102,14 +102,18 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: ['data-invitation'],
+    props: [
+      'data-registration-type',
+      'data-invitation'
+    ],
     data() {
       return {
         account: {
           username: '',
           email: '',
           password: '',
-          password_confirmation: ''
+          password_confirmation: '',
+          is_solo: this.dataRegistrationType === 'self' ? true : false
         },
         errors: {},
         invitation: {

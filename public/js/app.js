@@ -40548,6 +40548,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -40775,14 +40776,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-invitation'],
+  props: ['data-registration-type', 'data-invitation'],
   data() {
     return {
       account: {
         username: '',
         email: '',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
+        is_solo: this.dataRegistrationType === 'self' ? true : false
       },
       errors: {},
       invitation: {
@@ -69177,6 +69179,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : _vm._e(), _vm._v(" "), (_vm.showAccountForm) ? _c('app-register-account', {
     attrs: {
+      "data-registration-type": _vm.registrationType,
       "data-invitation": _vm.invitation.data
     },
     on: {

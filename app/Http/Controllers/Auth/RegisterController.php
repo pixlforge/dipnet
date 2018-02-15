@@ -41,12 +41,17 @@ class RegisterController extends Controller
      */
     public function store(RegisterAccountRequest $request)
     {
-        $user = User::create([
-            'username' => $request->username,
-            'password' => bcrypt($request->password),
-            'email' => $request->email,
-            'confirmation_token' => User::generateConfirmationToken($request->email)
-        ]);
+        $user = new User;
+        $user->username = $request->username;
+        $user->password = bcrypt($request->password);
+        $user->email = $request->email;
+        $user->confirmation_token = User::generateConfirmationToken($request->email);
+
+        if ($request->is_solo) {
+            $user->is_solo = true;
+        }
+
+        $user->save();
 
         $invitation = Invitation::where('email', $request->email)->first();
 
