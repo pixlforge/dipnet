@@ -9,6 +9,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    position: relative;
 
     &:hover {
       background-color: $alabaster;
@@ -16,6 +17,14 @@
 
     .fa-caret-down {
       margin-left: 1rem;
+    }
+
+    & img {
+      position: absolute;
+      top: 8px;
+      left: 12rem;
+      width: 1.6rem;
+      transform: translateY(3px);
     }
   }
 
@@ -72,6 +81,24 @@
 
     &:hover {
       background-color: $white !important;
+    }
+  }
+
+  &__section-title {
+    background-color: $alabaster;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &:hover,
+    &:focus,
+    &:active {
+      cursor: default;
+    }
+
+    & img {
+      width: 1.6rem;
+      transform: translateY(3px);
     }
   }
 

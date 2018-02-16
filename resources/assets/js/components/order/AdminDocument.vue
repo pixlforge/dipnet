@@ -158,14 +158,17 @@
       ]),
 
       listSelectedPrintType() {
-        let label = null
+        let label = {}
 
         if (this.dataDocument.article_id) {
           label = this.listArticlePrintTypes.find(article => {
             return article.id === this.dataDocument.article_id
-          }).description
+          })
         } else {
-          label = 'Sélection'
+          label = {
+            description: 'Sélection',
+            greyscale: null
+          }
         }
 
         return label

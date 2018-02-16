@@ -37765,14 +37765,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(['listArticlePrintTypes', 'listArticleOptionTypes', 'listDocuments']), {
 
     listSelectedPrintType() {
-      let label = null;
+      let label = {};
 
       if (this.dataDocument.article_id) {
         label = this.listArticlePrintTypes.find(article => {
           return article.id === this.dataDocument.article_id;
-        }).description;
+        });
       } else {
-        label = 'Sélection';
+        label = {
+          description: 'Sélection',
+          greyscale: null
+        };
       }
 
       return label;
@@ -38158,6 +38161,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39054,14 +39084,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])(['listArticlePrintTypes', 'listArticleOptionTypes', 'listDocuments']), {
 
     listSelectedPrintType() {
-      let label = null;
+      let label = {};
 
       if (this.dataDocument.article_id) {
         label = this.listArticlePrintTypes.find(article => {
           return article.id === this.dataDocument.article_id;
-        }).description;
+        });
       } else {
-        label = 'Sélection';
+        label = {
+          description: 'Sélection',
+          greyscale: null
+        };
       }
 
       return label;
@@ -75280,38 +75313,82 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.toggleOpen
     }
-  }, [_c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))]), _vm._v(" "), _c('i', {
+  }, [(_vm.type !== 'print') ? _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))]) : _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.label.description)) + "\n      "), (_vm.label.greyscale && _vm.label.greyscale !== null) ? _c('img', {
+    attrs: {
+      "src": "/img/icons/black-white.png",
+      "alt": "Icône noir et blanc"
+    }
+  }) : _vm._e(), _vm._v(" "), (!_vm.label.greyscale && _vm.label.greyscale !== null) ? _c('img', {
+    attrs: {
+      "src": "/img/icons/colors.png",
+      "alt": "Icône couleur"
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('i', {
     staticClass: "fas fa-caret-down"
   })]), _vm._v(" "), (_vm.open) ? _c('div', {
     staticClass: "dropdown__container"
-  }, [_c('ul', {
+  }, [(_vm.type === 'print') ? _c('ul', {
     staticClass: "dropdown__list"
-  }, [_vm._l((_vm.listArticlePrintTypes), function(article, index) {
-    return (_vm.type === 'print') ? _c('li', {
+  }, [_vm._m(0), _vm._v(" "), _vm._l((_vm.listArticlePrintTypes), function(article) {
+    return (article.greyscale) ? _c('li', {
+      key: article.id,
       on: {
         "click": function($event) {
           _vm.selectItem(article)
         }
       }
     }, [_vm._v("\n        " + _vm._s(article.description) + "\n      ")]) : _vm._e()
-  }), _vm._v(" "), _vm._l((_vm.listArticleOptionTypes), function(article, index) {
-    return (_vm.type === 'option') ? _c('li', {
+  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._l((_vm.listArticlePrintTypes), function(article) {
+    return (!article.greyscale) ? _c('li', {
+      key: article.id,
       on: {
         "click": function($event) {
           _vm.selectItem(article)
         }
       }
     }, [_vm._v("\n        " + _vm._s(article.description) + "\n      ")]) : _vm._e()
-  }), _vm._v(" "), _vm._l((_vm.listFinishTypes), function(finish, index) {
-    return (_vm.type === 'finish') ? _c('li', {
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.type === 'option') ? _c('ul', {
+    staticClass: "dropdown__list"
+  }, _vm._l((_vm.listArticleOptionTypes), function(article) {
+    return _c('li', {
+      key: article.id,
+      on: {
+        "click": function($event) {
+          _vm.selectItem(article)
+        }
+      }
+    }, [_vm._v("\n        " + _vm._s(article.description) + "\n      ")])
+  })) : _vm._e(), _vm._v(" "), (_vm.type === 'finish') ? _c('ul', {
+    staticClass: "dropdown__list"
+  }, _vm._l((_vm.listFinishTypes), function(finish, index) {
+    return _c('li', {
+      key: index,
       on: {
         "click": function($event) {
           _vm.selectItem(finish)
         }
       }
-    }, [_vm._v("\n        " + _vm._s(_vm._f("capitalize")(finish.name)) + "\n      ")]) : _vm._e()
-  })], 2)]) : _vm._e()])
-},staticRenderFns: []}
+    }, [_vm._v("\n        " + _vm._s(_vm._f("capitalize")(finish.name)) + "\n      ")])
+  })) : _vm._e()]) : _vm._e()])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', {
+    staticClass: "dropdown__section-title"
+  }, [_c('div', [_vm._v("Noir & blanc")]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": "/img/icons/black-white.png",
+      "alt": "Icône noir et blanc"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('li', {
+    staticClass: "dropdown__section-title"
+  }, [_c('div', [_vm._v("Couleur")]), _vm._v(" "), _c('div', [_c('img', {
+    attrs: {
+      "src": "/img/icons/colors.png",
+      "alt": "Icône couleur"
+    }
+  })])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

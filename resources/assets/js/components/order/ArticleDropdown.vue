@@ -2,23 +2,50 @@
   <div ref="dropdownMenu">
     <div class="dropdown__label"
          @click="toggleOpen">
-      <span>{{ label | capitalize }}</span>
+      <span v-if="type !== 'print'">{{ label | capitalize }}</span>
+      <span v-else>{{ label.description | capitalize }}
+        <img v-if="label.greyscale && label.greyscale !== null"
+             src="/img/icons/black-white.png"
+             alt="Icône noir et blanc">
+        <img v-if="!label.greyscale && label.greyscale !== null"
+             src="/img/icons/colors.png"
+             alt="Icône couleur">
+      </span>
       <i class="fas fa-caret-down"></i>
     </div>
     <div class="dropdown__container" v-if="open">
-      <ul class="dropdown__list">
-        <li v-if="type === 'print'"
-            v-for="(article, index) in listArticlePrintTypes"
+      <ul class="dropdown__list" v-if="type === 'print'">
+        <li class="dropdown__section-title">
+          <div>Noir &amp; blanc</div>
+          <div><img src="/img/icons/black-white.png" alt="Icône noir et blanc"></div>
+        </li>
+        <li v-for="article in listArticlePrintTypes"
+            :key="article.id"
+            v-if="article.greyscale"
             @click="selectItem(article)">
           {{ article.description }}
         </li>
-        <li v-if="type === 'option'"
-            v-for="(article, index) in listArticleOptionTypes"
+        <li class="dropdown__section-title">
+          <div>Couleur</div>
+          <div><img src="/img/icons/colors.png" alt="Icône couleur"></div>
+        </li>
+        <li v-for="article in listArticlePrintTypes"
+            :key="article.id"
+            v-if="!article.greyscale"
             @click="selectItem(article)">
           {{ article.description }}
         </li>
-        <li v-if="type === 'finish'"
-            v-for="(finish, index) in listFinishTypes"
+      </ul>
+      <ul class="dropdown__list" v-if="type === 'option'">
+        <li v-for="article in listArticleOptionTypes"
+            :key="article.id"
+            @click="selectItem(article)">
+          {{ article.description }}
+        </li>
+      </ul>
+      <ul class="dropdown__list" v-if="type === 'finish'">
+        <li v-for="(finish, index) in listFinishTypes"
+            :key="index"
             @click="selectItem(finish)">
           {{ finish.name | capitalize }}
         </li>
