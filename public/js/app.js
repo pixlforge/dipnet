@@ -39377,6 +39377,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -39420,6 +39428,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     getDate(date) {
       return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).locale(this.momentLocale).format(this.momentFormat);
+    },
+
+    destroy() {
+      axios.delete(route('orders.destroy', [this.order.reference])).then(() => this.$emit('orderWasDeleted', this.order));
     }
   }
 });
@@ -39561,8 +39573,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     /**
      * Delete an order.
      */
-    removeOrder(index) {
+    removeOrder(payload) {
+      let index;
+
+      index = this.orders.findIndex(order => {
+        return order.id === payload.id;
+      });
+
       this.orders.splice(index, 1);
+
       flash({
         message: 'Suppression de la commande réussie.',
         level: 'success'
@@ -75282,7 +75301,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__label"
   }, [_vm._v("Créé")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.order.created_at)) + "\n    ")]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "card__label"
-  }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.order.updated_at)) + "\n    ")])])])
+  }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.order.updated_at)) + "\n    ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card__controls card__controls--order"
+  }, [(_vm.order.status === 'incomplète') ? _c('div', {
+    attrs: {
+      "title": "Supprimer"
+    },
+    on: {
+      "click": _vm.destroy
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-times"
+  })]) : _vm._e()])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -77336,9 +77366,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-user-role": _vm.dataUserRole
       },
       on: {
-        "orderWasDeleted": function($event) {
-          _vm.removeOrder(index)
-        }
+        "orderWasDeleted": _vm.removeOrder
       }
     })
   }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('app-pagination', {

@@ -36,11 +36,12 @@ class OrderPolicy
     /**
      * User has permission to delete the Order.
      *
+     * @param User $user
      * @param Order $order
      * @return bool
      */
     public function delete(User $user, Order $order)
     {
-        return $user->id === $order->business->company->id;
+        return $user->company_id === $order->business->company->id;
     }
 }

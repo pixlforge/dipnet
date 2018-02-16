@@ -51,6 +51,14 @@
         {{ getDate(order.updated_at) }}
       </div>
     </div>
+
+    <div class="card__controls card__controls--order">
+      <div v-if="order.status === 'incomplète'"
+           title="Supprimer"
+           @click="destroy">
+        <i class="fal fa-times"></i>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -97,6 +105,11 @@
     methods: {
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
+      },
+
+      destroy() {
+        axios.delete(route('orders.destroy', [this.order.reference]))
+          .then(() => this.$emit('orderWasDeleted', this.order))
       }
     }
   }

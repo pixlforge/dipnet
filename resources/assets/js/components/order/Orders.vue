@@ -31,7 +31,7 @@
                      :key="order.id"
                      :data-order="order"
                      :data-user-role="dataUserRole"
-                     @orderWasDeleted="removeOrder(index)">
+                     @orderWasDeleted="removeOrder">
           </app-order>
         </transition-group>
       </template>
@@ -120,8 +120,15 @@
       /**
        * Delete an order.
        */
-      removeOrder(index) {
+      removeOrder(payload) {
+        let index
+
+        index = this.orders.findIndex(order => {
+          return order.id === payload.id
+        })
+
         this.orders.splice(index, 1)
+
         flash({
           message: 'Suppression de la commande réussie.',
           level: 'success'
