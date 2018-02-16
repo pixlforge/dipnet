@@ -14,7 +14,7 @@
         <span class="card__label">Référence</span>
         {{ business.reference }}
       </div>
-      <div>
+      <div v-if="business.description">
         <span class="card__label">Description</span>
         {{ business.description | capitalize }}
       </div>

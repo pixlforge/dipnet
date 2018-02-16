@@ -77433,9 +77433,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__meta"
   }, [_c('div', [_c('span', {
     staticClass: "card__label"
-  }, [_vm._v("Référence")]), _vm._v("\n      " + _vm._s(_vm.business.reference) + "\n    ")]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v("Référence")]), _vm._v("\n      " + _vm._s(_vm.business.reference) + "\n    ")]), _vm._v(" "), (_vm.business.description) ? _c('div', [_c('span', {
     staticClass: "card__label"
-  }, [_vm._v("Description")]), _vm._v("\n      " + _vm._s(_vm._f("capitalize")(_vm.business.description)) + "\n    ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Description")]), _vm._v("\n      " + _vm._s(_vm._f("capitalize")(_vm.business.description)) + "\n    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "card__meta"
   }, [_c('div', [_c('span', {
     staticClass: "card__label"
