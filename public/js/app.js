@@ -35850,8 +35850,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 //
 //
 //
@@ -35876,14 +35874,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['label'],
+  props: ['label', 'data-company-id'],
   data() {
     return {
       open: false
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['listContacts'])),
+  computed: {
+    listContacts() {
+      return this.$store.getters.listContacts.filter(contact => {
+        return contact.company_id == this.dataCompanyId;
+      });
+    }
+  },
   methods: {
     /**
      * Toggle the open state of the dropdown list.
@@ -37387,6 +37391,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_moment__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app__ = __webpack_require__(4);
+//
 //
 //
 //
@@ -70392,7 +70397,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "admin-delivery__label"
   }, [_c('app-contact-dropdown', {
     attrs: {
-      "label": _vm.selectedDeliveryContact
+      "label": _vm.selectedDeliveryContact,
+      "data-company-id": _vm.dataOrder.business.company_id
     },
     on: {
       "itemSelected": _vm.selectDeliveryContact

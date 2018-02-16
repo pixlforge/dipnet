@@ -23,7 +23,8 @@
 
   export default {
     props: [
-      'label'
+      'label',
+      'data-company-id'
     ],
     data() {
       return {
@@ -32,9 +33,11 @@
     },
     mixins: [mixins],
     computed: {
-      ...mapGetters([
-        'listContacts'
-      ])
+      listContacts() {
+        return this.$store.getters.listContacts.filter(contact => {
+          return contact.company_id == this.dataCompanyId
+        })
+      }
     },
     methods: {
       /**

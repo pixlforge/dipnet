@@ -11,6 +11,7 @@
             <h3 class="admin-delivery__label">Livraison à</h3>
             <h3 class="admin-delivery__label">
               <app-contact-dropdown :label="selectedDeliveryContact"
+                                    :data-company-id="dataOrder.business.company_id"
                                     @itemSelected="selectDeliveryContact">
               </app-contact-dropdown>
             </h3>
