@@ -5,9 +5,8 @@ namespace Dipnet\Http\Controllers\Search;
 use Dipnet\Order;
 use Dipnet\Company;
 use Dipnet\Contact;
-use Dipnet\Business;
 use Dipnet\Delivery;
-use Illuminate\Http\Request;
+use Dipnet\Business;
 use Dipnet\Http\Controllers\Controller;
 
 class SearchController extends Controller
@@ -21,35 +20,35 @@ class SearchController extends Controller
     {
         if (auth()->user()->isAdmin()) {
             $orders = Order::select(['id', 'reference'])
-                ->where('reference', 'like', request('query') . '%')
+                ->where('reference', 'like', '%' . request('query') . '%')
                 ->latest()
                 ->limit(5)
                 ->get()
                 ->toArray();
 
             $companies = Company::select(['id', 'name'])
-                ->where('name', 'like', request('query') . '%')
+                ->where('name', 'like', '%' . request('query') . '%')
                 ->latest()
                 ->limit(5)
                 ->get()
                 ->toArray();
 
             $businesses = Business::select(['id', 'name'])
-                ->where('name', 'like', request('query') . '%')
+                ->where('name', 'like', '%' . request('query') . '%')
                 ->latest()
                 ->limit(5)
                 ->get()
                 ->toArray();
 
             $deliveries = Delivery::select(['id', 'reference'])
-                ->where('reference', 'like', request('query') . '%')
+                ->where('reference', 'like', '%' . request('query') . '%')
                 ->latest()
                 ->limit(5)
                 ->get()
                 ->toArray();
 
             $contacts = Contact::select(['id', 'name'])
-                ->where('name', 'like', request('query') . '%')
+                ->where('name', 'like', '%' . request('query') . '%')
                 ->latest()
                 ->limit(5)
                 ->get()
@@ -62,7 +61,7 @@ class SearchController extends Controller
             $orders = Order::select(['id', 'reference'])
                 ->where([
                     ['user_id', auth()->id()],
-                    ['reference', 'like', request('query') . '%']
+                    ['reference', 'like', '%' . request('query') . '%']
                 ])
                 ->latest()
                 ->limit(5)
@@ -73,7 +72,7 @@ class SearchController extends Controller
             $companies = Company::select(['id', 'name'])
                 ->where([
                     ['id', auth()->user()->company_id],
-                    ['name', 'like', request('query') . '%']
+                    ['name', 'like', '%' . request('query') . '%']
                 ])
                 ->get()
                 ->toArray();
@@ -82,7 +81,7 @@ class SearchController extends Controller
             $businesses = Business::select(['id', 'name'])
                 ->where([
                     ['company_id', auth()->user()->company_id],
-                    ['name', 'like', request('query') . '%']
+                    ['name', 'like', '%' . request('query') . '%']
                 ])
                 ->latest()
                 ->limit(5)
@@ -91,7 +90,7 @@ class SearchController extends Controller
 
             // Search for the deliveries related to the user's company.
             $deliveries = auth()->user()->deliveries()
-                ->where('reference', 'like', request('query') . '%')
+                ->where('reference', 'like', '%' . request('query') . '%')
                 ->latest()
                 ->limit(5)
                 ->get()
@@ -101,7 +100,7 @@ class SearchController extends Controller
             $contacts = Contact::select(['id', 'name'])
                 ->where([
                     ['user_id', auth()->id()],
-                    ['name', 'like', request('query') . '%']
+                    ['name', 'like', '%' . request('query') . '%']
                 ])
                 ->latest()
                 ->limit(5)
