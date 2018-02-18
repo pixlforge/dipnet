@@ -2,8 +2,6 @@
 
 namespace Dipnet\Http\Requests\Article;
 
-use Illuminate\Foundation\Http\FormRequest;
-
 class UpdateArticleRequest extends StoreArticleRequest
 {
     /**

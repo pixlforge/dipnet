@@ -13,7 +13,7 @@ class ArticlesTableSeeder extends Seeder
     public function run()
     {
         factory(Article::class)->create([
-            'description' => 'Paper',
+            'description' => 'Papier',
             'type' => 'impression',
             'greyscale' => true
         ]);
@@ -37,7 +37,7 @@ class ArticlesTableSeeder extends Seeder
         ]);
 
         factory(Article::class)->create([
-            'description' => 'Paper',
+            'description' => 'Papier',
             'type' => 'impression',
             'greyscale' => false
         ]);
