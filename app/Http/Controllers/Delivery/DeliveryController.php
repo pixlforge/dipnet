@@ -40,7 +40,7 @@ class DeliveryController extends Controller
     public function store(StoreDeliveryRequest $request)
     {
         $delivery = new Delivery;
-        $delivery->reference = uniqid(true);
+        $delivery->reference = date('Ymd') . '-' . substr(str_slug(auth()->user()->company->name), 0, 8) . '-del-' . str_random(5);
         $delivery->order_id = $request->order_id;
         $delivery->save();
 

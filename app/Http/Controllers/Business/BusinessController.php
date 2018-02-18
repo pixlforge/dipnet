@@ -85,7 +85,7 @@ class BusinessController extends Controller
         if ($request->reference) {
             $business->reference = $request->reference;
         } else {
-            $business->reference = uniqid(true);
+            $business->reference = date('Ymd') . '-' . substr(str_slug(auth()->user()->company->name), 0, 8) . '-bus-' . str_random(5);
         }
 
         if ($business->folder_color) {

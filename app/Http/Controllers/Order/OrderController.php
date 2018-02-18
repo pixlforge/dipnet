@@ -2,7 +2,6 @@
 
 namespace Dipnet\Http\Controllers\Order;
 
-use Dipnet\Document;
 use Dipnet\Order;
 use Dipnet\Format;
 use Dipnet\Contact;
@@ -11,7 +10,6 @@ use Dipnet\Business;
 use Illuminate\Http\Request;
 use Dipnet\Http\Controllers\Controller;
 use Dipnet\Http\Requests\Order\StoreOrderRequest;
-use Dipnet\Http\Requests\Order\UpdateOrderRequest;
 
 class OrderController extends Controller
 {
@@ -102,10 +100,17 @@ class OrderController extends Controller
      */
     public function store(StoreOrderRequest $request)
     {
-        Order::create([
-            'reference' => uniqid(true),
-            'user_id' => auth()->id()
-        ]);
+//        $date = date('Ymd');
+//
+//        $order = new Order;
+//        $order->reference = str_slug(auth()->user()->company->name) . '-' . $date . str_random(5);
+//        $order->user_id = auth()->id();
+//        $order->save();
+
+//        Order::create([
+//            'reference' => uniqid(true),
+//            'user_id' => auth()->id()
+//        ]);
 
         return view('orders.create');
     }
@@ -181,7 +186,7 @@ class OrderController extends Controller
     protected function createSkeletonOrder()
     {
         return auth()->user()->orders()->create([
-            'reference' => uniqid(true),
+            'reference' => date('Ymd') . '-' . substr(str_slug(auth()->user()->company->name), 0, 8) . '-ord-' . str_random(5),
             'user_id' => auth()->id(),
             'business_id' => auth()->user()->company->business_id
         ]);
