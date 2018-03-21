@@ -7,14 +7,14 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class ResetPasswordNotification extends Notification
+class ResetPasswordNotification extends Notification implements ShouldQueue
 {
     use Queueable;
 
     /**
      * Create a new notification instance.
      *
-     * @return void
+     * @param $token
      */
     public function __construct($token)
     {
@@ -24,7 +24,7 @@ class ResetPasswordNotification extends Notification
     /**
      * Get the notification's delivery channels.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function via($notifiable)
@@ -35,23 +35,23 @@ class ResetPasswordNotification extends Notification
     /**
      * Get the mail representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->subject('Réinitialisation de votre mot de passe')
-                    ->greeting('Cher membre,')
-                    ->line('Vous avez reçu cet email parce que vous avez demandé une réinitialisation du mot de passe pour votre compte.')
-                    ->action('Réinitialiser le mot de passe', url('/password/reset', $this->token))
-                    ->line('Aucune action n\'est requise si vous n\'êtes pas à l\'origine de cette demande.');
+            ->subject('Réinitialisation de votre mot de passe')
+            ->greeting('Cher membre,')
+            ->line('Vous avez reçu cet email parce que vous avez demandé une réinitialisation du mot de passe pour votre compte.')
+            ->action('Réinitialiser le mot de passe', url('/password/reset', $this->token))
+            ->line('Aucune action n\'est requise si vous n\'êtes pas à l\'origine de cette demande.');
     }
 
     /**
      * Get the array representation of the notification.
      *
-     * @param  mixed  $notifiable
+     * @param  mixed $notifiable
      * @return array
      */
     public function toArray($notifiable)
