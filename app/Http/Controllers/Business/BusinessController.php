@@ -80,7 +80,6 @@ class BusinessController extends Controller
         $business->company_id = $request->company_id;
         $business->contact_id = $request->contact_id;
         $business->created_by_username = auth()->user()->username;
-        $business->folder_color = $request->folder_color;
 
         if ($request->reference) {
             $business->reference = $request->reference;
