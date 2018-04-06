@@ -48,6 +48,17 @@ class Order extends Model
     }
 
     /**
+     * Only orders owned by the authenticated user.
+     *
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeOwn(Builder $builder)
+    {
+        return $builder->where('company_id', auth()->user()->company_id);
+    }
+
+    /**
      * Business relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -105,5 +116,15 @@ class Order extends Model
     public function documents()
     {
         return $this->hasManyThrough(Document::class, Delivery::class);
+    }
+
+    /**
+     * Company relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
     }
 }

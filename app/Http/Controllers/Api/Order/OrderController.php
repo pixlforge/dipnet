@@ -16,6 +16,9 @@ class OrderController extends Controller
         $this->middleware(['auth']);
     }
 
+    /**
+     * @return OrdersCollection
+     */
     public function index()
     {
         if (auth()->user()->isAdmin()) {
@@ -27,7 +30,8 @@ class OrderController extends Controller
             );
         } else {
             return new OrdersCollection(
-                Order::latest()
+                Order::own()
+                    ->latest()
                     ->with('business', 'contact', 'user')
                     ->paginate(25)
             );

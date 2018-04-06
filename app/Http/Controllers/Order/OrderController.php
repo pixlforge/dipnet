@@ -185,11 +185,14 @@ class OrderController extends Controller
      */
     protected function createSkeletonOrder()
     {
-        return auth()->user()->orders()->create([
-            'reference' => date('Ymd') . '-' . substr(str_slug(auth()->user()->company->name), 0, 8) . '-ord-' . str_random(5),
-            'user_id' => auth()->id(),
-            'business_id' => auth()->user()->company->business_id
-        ]);
+        $order = new Order;
+        $order->reference = date('Ymd') . '-' . substr(str_slug(auth()->user()->company->name), 0, 8) . '-ord-' . str_random(5);
+        $order->user_id = auth()->id();
+        $order->business_id = auth()->user()->company->business_id;
+        $order->company_id = auth()->user()->company->id;
+        $order->save();
+
+        return $order;
     }
 
     /**
