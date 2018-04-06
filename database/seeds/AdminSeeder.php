@@ -24,7 +24,7 @@ class AdminSeeder extends Seeder
 
         factory(User::class)->create([
             'username' => 'Radu',
-            'password' => bcrypt('secret'),
+            'password' => bcrypt('bebold'),
             'role' => 'administrateur',
             'email' => 'radu@bebold.ch',
             'email_confirmed' => 1,
@@ -32,46 +32,40 @@ class AdminSeeder extends Seeder
             'confirmation_token' => null
         ]);
 
+        factory(User::class)->create([
+            'username' => 'Aurore',
+            'password' => bcrypt('bebold'),
+            'role' => 'administrateur',
+            'email' => 'aurore@bebold.ch',
+            'email_confirmed' => 1,
+            'company_id' => null,
+            'confirmation_token' => null
+        ]);
+
         /**
-         * Seeds with company.
+         * Different admins are generated related to the app name.
+         * Available app names are "Dipnet" or "Multicop".
          */
-
-        /*
-        factory(User::class)->create([
-            'username' => 'Célien',
-            'password' => bcrypt('secret'),
-            'role' => 'administrateur',
-            'email' => 'celien@pixlforge.ch',
-            'email_confirmed' => 1,
-            'company_id' => function () {
-                return factory(Company::class)->create([
-                    'name' => 'Pixlforge',
-                    'status' => 'permanent',
-                    'description' => 'Agence de développement web',
-                    'created_by_username' => 'Célien'
-                ])->id;
-            },
-            'confirmation_token' => null
-        ]);
-        */
-
-        /*
-        factory(User::class)->create([
-            'username' => 'Radu',
-            'password' => bcrypt('secret'),
-            'role' => 'administrateur',
-            'email' => 'radu@bebold.ch',
-            'email_confirmed' => 1,
-            'company_id' => function () {
-                return factory(Company::class)->create([
-                    'name' => 'Bebold',
-                    'status' => 'permanent',
-                    'description' => 'Agence de développement Web',
-                    'created_by_username' => 'Radu'
-                ])->id;
-            },
-            'confirmation_token' => null
-        ]);
-        */
+        if (config('app.name') === 'Dipnet') {
+            factory(User::class)->create([
+                'username' => 'Gilles',
+                'password' => bcrypt('dipnet'),
+                'role' => 'administrateur',
+                'email' => 'gilles@dip.ch',
+                'email_confirmed' => 1,
+                'company_id' => null,
+                'confirmation_token' => null
+            ]);
+        } else if (config('app.name') === 'Multicop') {
+            factory(User::class)->create([
+                'username' => 'Mathias',
+                'password' => bcrypt('multicop'),
+                'role' => 'administrateur',
+                'email' => 'mathias@multicop.ch',
+                'email_confirmed' => 1,
+                'company_id' => null,
+                'confirmation_token' => null
+            ]);
+        }
     }
 }
