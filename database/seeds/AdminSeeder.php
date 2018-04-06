@@ -42,30 +42,50 @@ class AdminSeeder extends Seeder
             'confirmation_token' => null
         ]);
 
+        factory(User::class)->create([
+            'username' => 'Gilles',
+            'password' => bcrypt('dipnet'),
+            'role' => 'administrateur',
+            'email' => 'gilles@dip.ch',
+            'email_confirmed' => 1,
+            'company_id' => null,
+            'confirmation_token' => null
+        ]);
+
+        factory(User::class)->create([
+            'username' => 'Mathias',
+            'password' => bcrypt('multicop'),
+            'role' => 'administrateur',
+            'email' => 'mathias@multicop.ch',
+            'email_confirmed' => 1,
+            'company_id' => null,
+            'confirmation_token' => null
+        ]);
+
         /**
          * Different admins are generated related to the app name.
          * Available app names are "Dipnet" or "Multicop".
          */
-        if (config('app.name') === 'Dipnet') {
-            factory(User::class)->create([
-                'username' => 'Gilles',
-                'password' => bcrypt('dipnet'),
-                'role' => 'administrateur',
-                'email' => 'gilles@dip.ch',
-                'email_confirmed' => 1,
-                'company_id' => null,
-                'confirmation_token' => null
-            ]);
-        } else if (config('app.name') === 'Multicop') {
-            factory(User::class)->create([
-                'username' => 'Mathias',
-                'password' => bcrypt('multicop'),
-                'role' => 'administrateur',
-                'email' => 'mathias@multicop.ch',
-                'email_confirmed' => 1,
-                'company_id' => null,
-                'confirmation_token' => null
-            ]);
-        }
+//        if (config('app.name') === 'Dipnet') {
+//            factory(User::class)->create([
+//                'username' => 'Gilles',
+//                'password' => bcrypt('dipnet'),
+//                'role' => 'administrateur',
+//                'email' => 'gilles@dip.ch',
+//                'email_confirmed' => 1,
+//                'company_id' => null,
+//                'confirmation_token' => null
+//            ]);
+//        } else if (config('app.name') === 'Multicop') {
+//            factory(User::class)->create([
+//                'username' => 'Mathias',
+//                'password' => bcrypt('multicop'),
+//                'role' => 'administrateur',
+//                'email' => 'mathias@multicop.ch',
+//                'email_confirmed' => 1,
+//                'company_id' => null,
+//                'confirmation_token' => null
+//            ]);
+//        }
     }
 }
