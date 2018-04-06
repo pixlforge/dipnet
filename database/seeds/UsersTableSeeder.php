@@ -1,8 +1,6 @@
 <?php
 
 use Dipnet\User;
-use Dipnet\Company;
-use Dipnet\Contact;
 use Illuminate\Database\Seeder;
 
 class UsersTableSeeder extends Seeder
