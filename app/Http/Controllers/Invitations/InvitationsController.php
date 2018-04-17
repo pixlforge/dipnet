@@ -36,9 +36,7 @@ class InvitationsController extends Controller
 
         Mail::to($invitation)->queue(new InvitationEmail($invitation));
 
-        if (request()->wantsJson()) {
-            return $invitation;
-        }
+        return response($invitation, 200);
     }
 
     /**
