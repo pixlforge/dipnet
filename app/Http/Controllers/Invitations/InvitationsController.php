@@ -27,12 +27,12 @@ class InvitationsController extends Controller
      */
     public function store(InvitationRequest $request)
     {
-        $invitation = Invitation::create([
-            'email' => $request->email,
-            'token' => Invitation::generateConfirmationToken($request->email),
-            'company_id' => auth()->user()->company_id,
-            'created_by' => auth()->user()->username
-        ]);
+        $invitation = new Invitation;
+        $invitation->email = $request->email;
+        $invitation->token = Invitation::generateConfirmationToken($request->email);
+        $invitation->company_id = auth()->user()->company_id;
+        $invitation->created_by = auth()->user()->username;
+        $invitation->save();
 
         Mail::to($invitation)->queue(new InvitationEmail($invitation));
 
