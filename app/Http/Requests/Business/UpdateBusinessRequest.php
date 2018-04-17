@@ -28,7 +28,7 @@ class UpdateBusinessRequest extends StoreBusinessRequest
                 'required',
                 Rule::unique('businesses')->ignore($this->id)
             ],
-            'folder_color' => 'required|in:rouge,orange,violet,bleu'
+            'folder_color' => 'required|in:red,orange,purple,blue'
         ]);
     }
 

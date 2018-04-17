@@ -16,13 +16,13 @@
     ],
     computed: {
       iconColor() {
-        if (this.dataBusiness.folder_color === 'rouge') {
+        if (this.dataBusiness.folder_color === 'red') {
           return '/img/folders/folder-red.svg'
         } else if (this.dataBusiness.folder_color === 'orange') {
           return '/img/folders/folder-orange.svg'
-        } else if (this.dataBusiness.folder_color === 'violet') {
+        } else if (this.dataBusiness.folder_color === 'purple') {
           return '/img/folders/folder-purple.svg'
-        } else {
+        } else if (this.dataBusiness.folder_color === 'blue') {
           return '/img/folders/folder-blue.svg'
         }
       },

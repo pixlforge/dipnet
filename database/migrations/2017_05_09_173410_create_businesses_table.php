@@ -20,7 +20,7 @@ class CreateBusinessesTable extends Migration
             $table->string('description')->nullable();
             $table->unsignedInteger('company_id')->nullable();
             $table->unsignedInteger('contact_id')->nullable();
-            $table->enum('folder_color', ['rouge', 'orange', 'violet', 'bleu'])->default('rouge');
+            $table->enum('folder_color', ['red', 'orange', 'purple', 'blue'])->default('red');
             $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();

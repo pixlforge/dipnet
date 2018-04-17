@@ -29,7 +29,7 @@ class StoreBusinessRequest extends FormRequest
             'description' => 'nullable|max:45',
             'company_id' => 'required|exists:companies,id',
             'contact_id' => 'required|exists:contacts,id',
-            'folder_color' => 'nullable|in:rouge,orange,violet,bleu'
+            'folder_color' => 'nullable|in:red,orange,purple,blue'
         ];
     }
 

@@ -33665,13 +33665,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   props: ['data-business', 'data-orders'],
   computed: {
     iconColor() {
-      if (this.dataBusiness.folder_color === 'rouge') {
+      if (this.dataBusiness.folder_color === 'red') {
         return '/img/folders/folder-red.svg';
       } else if (this.dataBusiness.folder_color === 'orange') {
         return '/img/folders/folder-orange.svg';
-      } else if (this.dataBusiness.folder_color === 'violet') {
+      } else if (this.dataBusiness.folder_color === 'purple') {
         return '/img/folders/folder-purple.svg';
-      } else {
+      } else if (this.dataBusiness.folder_color === 'blue') {
         return '/img/folders/folder-blue.svg';
       }
     },
@@ -72826,7 +72826,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Sélectionner une couleur")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "rouge"
+      "value": "red"
     }
   }, [_vm._v("Rouge")]), _vm._v(" "), _c('option', {
     attrs: {
@@ -72834,11 +72834,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Orange")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "violet"
+      "value": "purple"
     }
   }, [_vm._v("Violet")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "bleu"
+      "value": "blue"
     }
   }, [_vm._v("Bleu")])]), _vm._v(" "), (_vm.errors.folder_color) ? _c('div', {
     staticClass: "modal__alert"
@@ -74763,7 +74763,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Sélectionner une couleur")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "rouge"
+      "value": "red"
     }
   }, [_vm._v("Rouge")]), _vm._v(" "), _c('option', {
     attrs: {
@@ -74771,11 +74771,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Orange")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "violet"
+      "value": "purple"
     }
   }, [_vm._v("Violet")]), _vm._v(" "), _c('option', {
     attrs: {
-      "value": "bleu"
+      "value": "blue"
     }
   }, [_vm._v("Bleu")])]), _vm._v(" "), (_vm.errors.folder_color) ? _c('div', {
     staticClass: "modal__alert"

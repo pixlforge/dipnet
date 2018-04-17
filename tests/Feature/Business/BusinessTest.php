@@ -53,7 +53,7 @@ class BusinessTest extends TestCase
             'description' => 'Lorem ipsum dolor sit amet.',
             'company_id' => $business->company_id,
             'contact_id' => $business->contact_id,
-            'folder_color' => 'bleu'
+            'folder_color' => 'blue'
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('businesses', [
@@ -61,7 +61,8 @@ class BusinessTest extends TestCase
             'reference' => '85erfgbn',
             'description' => 'Lorem ipsum dolor sit amet.',
             'company_id' => $business->company_id,
-            'contact_id' => $business->contact_id
+            'contact_id' => $business->contact_id,
+            'folder_color' => 'blue'
         ]);
     }
 
@@ -96,7 +97,7 @@ class BusinessTest extends TestCase
             'description' => 'John Doe\'s first business',
             'company_id' => $company->id,
             'contact_id' => $contact->id,
-            'folder_color' => 'bleu'
+            'folder_color' => 'blue'
         ]);
 
         $this->assertCount(1, Business::all());
@@ -106,7 +107,7 @@ class BusinessTest extends TestCase
             'description' => 'John Doe\'s first business',
             'company_id' => $company->id,
             'contact_id' => $contact->id,
-            'folder_color' => 'bleu'
+            'folder_color' => 'blue'
         ]);
     }
 

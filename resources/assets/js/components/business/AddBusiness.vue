@@ -118,10 +118,10 @@
                     class="modal__select"
                     v-model="business.folder_color">
               <option disabled>Sélectionner une couleur</option>
-              <option value="rouge">Rouge</option>
+              <option value="red">Rouge</option>
               <option value="orange">Orange</option>
-              <option value="violet">Violet</option>
-              <option value="bleu">Bleu</option>
+              <option value="purple">Violet</option>
+              <option value="blue">Bleu</option>
             </select>
             <div class="modal__alert"
                  v-if="errors.folder_color">

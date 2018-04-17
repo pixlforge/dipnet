@@ -87,10 +87,10 @@ class BusinessController extends Controller
             $business->reference = date('Ymd') . '-' . substr(str_slug(auth()->user()->company->name), 0, 8) . '-bus-' . str_random(5);
         }
 
-        if ($business->folder_color) {
+        if ($request->folder_color) {
             $business->folder_color = $request->folder_color;
         } else {
-            $business->folder_color = array_random(['rouge', 'orange', 'purple', 'bleu']);
+            $business->folder_color = array_random(['red', 'orange', 'purple', 'blue']);
         }
 
         $business->save();
