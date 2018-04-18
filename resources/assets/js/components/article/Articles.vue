@@ -1,16 +1,23 @@
 <template>
   <div>
     <div class="header__container">
+
+      <!--Page title-->
       <h1 class="header__title">Articles</h1>
+
+      <!--Users count-->
       <div class="header__stats">
-        {{ meta.total }}
-        {{ meta.total == 0 || meta.total == 1 ? 'article' : 'articles' }}
+        <span v-text="modelCount"></span>
       </div>
+
+      <!--Add article-->
       <app-add-article @articleWasCreated="addArticle">
       </app-add-article>
     </div>
 
     <div class="main__container main__container--grey">
+
+      <!--Pagination top-->
       <app-pagination class="pagination pagination--top"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -32,6 +39,7 @@
         </transition-group>
       </template>
 
+      <!--Pagination bottom-->
       <app-pagination class="pagination pagination--bottom"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -63,7 +71,10 @@
         categories: this.dataCategories,
         meta: {},
         errors: {},
-        fetching: false
+        fetching: false,
+        modelNameSingular: 'article',
+        modelNamePlural: 'articles',
+        modelGender: 'M'
       }
     },
     mixins: [mixins],

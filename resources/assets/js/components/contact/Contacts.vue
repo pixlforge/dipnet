@@ -1,16 +1,25 @@
 <template>
   <div>
     <div class="header__container">
+
+      <!--Page title-->
       <h1 class="header__title">Contacts</h1>
+
+      <!--Contacts count-->
       <div class="header__stats">
-        {{ meta.total }}
-        {{ meta.total == 0 || meta.total == 1 ? 'contact' : 'contacts' }}
+        <span v-if="meta.total > 1">{{ meta.total }} contacts</span>
+        <span v-else-if="meta.total === 1">{{ meta.total }} contact</span>
+        <span v-else>Aucune contact</span>
       </div>
+
+      <!--Add contact-->
       <app-add-contact @contactWasCreated="addContact">
       </app-add-contact>
     </div>
 
     <div class="main__container main__container--grey">
+
+      <!--Pagination top-->
       <app-pagination class="pagination pagination--top"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -32,6 +41,7 @@
         </transition-group>
       </template>
 
+      <!--Pagination bottom-->
       <app-pagination class="pagination pagination--bottom"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -61,7 +71,10 @@
         contacts: [],
         meta: {},
         errors: {},
-        fetching: false
+        fetching: false,
+        modelNameSingular: 'contact',
+        modelNamePlural: 'contacts',
+        modelGender: 'M'
       }
     },
     mixins: [mixins],

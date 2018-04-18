@@ -12,6 +12,20 @@ export default {
     }
   },
   computed: {
+    modelCount() {
+      if (this.meta.total > 1) {
+        return this.meta.total + ' ' + this.modelNamePlural
+      } else if (this.meta.total === 1) {
+        return this.meta.total + ' ' + this.modelNameSingular
+      } else {
+        if (this.modelGender === 'M') {
+          return 'Aucun ' + this.modelNameSingular
+        } else if (this.modelGender === 'F') {
+          return 'Aucune ' + this.modelNameSingular
+        }
+      }
+    },
+
     logoColor() {
       if (this.appName === 'Dipnet') {
         return '/img/logos/dip-logo-md.png'

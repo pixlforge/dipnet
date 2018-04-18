@@ -1,16 +1,23 @@
 <template>
   <div>
     <div class="header__container">
+
+      <!--Page title-->
       <h1 class="header__title">Formats</h1>
+
+      <!--Formats count-->
       <div class="header__stats">
-        {{ meta.total }}
-        {{ meta.total == 0 || meta.total == 1 ? 'format' : 'formats' }}
+        <span v-text="modelCount"></span>
       </div>
+
+      <!--Add format-->
       <app-add-format @formatWasCreated="addFormat">
       </app-add-format>
     </div>
 
     <div class="main__container main__container--grey">
+
+      <!--Pagination top-->
       <app-pagination class="pagination pagination--top"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -32,6 +39,7 @@
         </transition-group>
       </template>
 
+      <!--Pagination bottom-->
       <app-pagination class="pagination pagination--bottom"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -61,7 +69,11 @@
         formats: [],
         meta: {},
         errors: {},
-        fetching: false
+        fetching: false,
+        modelNameSingular: 'format',
+        modelNamePlural: 'formats',
+        modelGender: 'M'
+
       }
     },
     components: {

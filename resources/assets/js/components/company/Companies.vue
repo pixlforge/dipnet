@@ -1,16 +1,23 @@
 <template>
   <div>
     <div class="header__container">
+
+      <!--Page title-->
       <h1 class="header__title">Sociétés</h1>
+
+      <!--Companies count-->
       <div class="header__stats">
-        {{ meta.total }}
-        {{ meta.total == 0 || meta.total == 1 ? 'société' : 'sociétés' }}
+        <span v-text="modelCount"></span>
       </div>
+
+      <!--Add company-->
       <app-add-company @companyWasCreated="addCompany">
       </app-add-company>
     </div>
 
     <div class="main__container main__container--grey">
+
+      <!--Pagination top -->
       <app-pagination class="pagination pagination--top"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -32,6 +39,7 @@
         </transition-group>
       </template>
 
+      <!--Pagination bottom-->
       <app-pagination class="pagination pagination--bottom"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -61,7 +69,10 @@
         companies: [],
         meta: {},
         errors: {},
-        fetching: false
+        fetching: false,
+        modelNameSingular: 'société',
+        modelNamePlural: 'sociétés',
+        modelGender: 'F'
       }
     },
     mixins: [mixins],

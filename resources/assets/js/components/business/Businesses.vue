@@ -1,11 +1,18 @@
 <template>
   <div>
     <div class="header__container">
+
+      <!--Page title-->
       <h1 class="header__title">Affaires</h1>
+
+      <!--Businesses count-->
       <div class="header__stats">
-        {{ meta.total }}
-        {{ meta.total == 0 || meta.total == 1 ? 'affaire' : 'affaires' }}
+        <span v-if="meta.total > 1">{{ meta.total }} affaires</span>
+        <span v-else-if="meta.total === 1">{{ meta.total }} affaire</span>
+        <span v-else>Aucune affaire</span>
       </div>
+
+      <!--Add business-->
       <app-add-business :data-companies="companies"
                         :data-contacts="dataContacts"
                         :data-user="dataUser"
@@ -14,6 +21,8 @@
     </div>
 
     <div class="main__container main__container--grey">
+
+      <!--Pagination top-->
       <app-pagination class="pagination pagination--top"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -52,6 +61,7 @@
         </transition-group>
       </template>
 
+      <!--Pagination bottom-->
       <app-pagination class="pagination pagination--bottom"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -89,7 +99,10 @@
         companies: this.dataCompanies,
         meta: {},
         errors: {},
-        fetching: false
+        fetching: false,
+        modelNameSingular: 'affaire',
+        modelNamePlural: 'affaires',
+        modelGender: 'F'
       }
     },
     mixins: [mixins],

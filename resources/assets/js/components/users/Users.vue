@@ -1,17 +1,24 @@
 <template>
   <div>
     <div class="header__container">
+
+      <!--Page title-->
       <h1 class="header__title">Utilisateurs</h1>
+
+      <!--Users count-->
       <div class="header__stats">
-        {{ meta.total }}
-        {{ meta.total == 0 || meta.total == 1 ? 'utilisateur' : 'utilisateurs' }}
+        <span v-text="modelCount"></span>
       </div>
+
+      <!--Add user-->
       <app-add-user :data-companies="dataCompanies"
                     @userWasCreated="addUser">
       </app-add-user>
     </div>
 
     <div class="main__container main__container--grey">
+
+      <!--Pagination top-->
       <app-pagination class="pagination pagination--top"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -28,6 +35,7 @@
         </app-user>
       </transition-group>
 
+      <!--Pagination bottom-->
       <app-pagination class="pagination pagination--bottom"
                       v-if="meta.total > 25"
                       :data-meta="meta"
@@ -59,7 +67,10 @@
       return {
         users: [],
         companies: this.dataCompanies,
-        meta: {}
+        meta: {},
+        modelNameSingular: 'utilisateur',
+        modelNamePlural: 'utilisateurs',
+        modelGender: 'M'
       }
     },
     mixins: [mixins],

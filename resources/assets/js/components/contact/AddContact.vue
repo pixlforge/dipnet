@@ -76,7 +76,7 @@
                    name="zip"
                    id="zip"
                    class="modal__input"
-                   v-model.trim="contact.zip"
+                   v-model.number="contact.zip"
                    required>
             <div class="modal__alert"
                  v-if="errors.zip">

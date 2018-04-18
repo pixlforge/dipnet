@@ -4684,6 +4684,20 @@ module.exports = function normalizeComponent (
     };
   },
   computed: {
+    modelCount() {
+      if (this.meta.total > 1) {
+        return this.meta.total + ' ' + this.modelNamePlural;
+      } else if (this.meta.total === 1) {
+        return this.meta.total + ' ' + this.modelNameSingular;
+      } else {
+        if (this.modelGender === 'M') {
+          return 'Aucun ' + this.modelNameSingular;
+        } else if (this.modelGender === 'F') {
+          return 'Aucune ' + this.modelNameSingular;
+        }
+      }
+    },
+
     logoColor() {
       if (this.appName === 'Dipnet') {
         return '/img/logos/dip-logo-md.png';
@@ -32403,6 +32417,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -32420,7 +32442,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       categories: this.dataCategories,
       meta: {},
       errors: {},
-      fetching: false
+      fetching: false,
+      modelNameSingular: 'article',
+      modelNamePlural: 'articles',
+      modelGender: 'M'
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
@@ -33246,6 +33271,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -33264,7 +33299,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       companies: this.dataCompanies,
       meta: {},
       errors: {},
-      fetching: false
+      fetching: false,
+      modelNameSingular: 'affaire',
+      modelNamePlural: 'affaires',
+      modelGender: 'F'
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* default */]],
@@ -34136,6 +34174,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -34151,7 +34197,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       companies: [],
       meta: {},
       errors: {},
-      fetching: false
+      fetching: false,
+      modelNameSingular: 'société',
+      modelNamePlural: 'sociétés',
+      modelGender: 'F'
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
@@ -35125,6 +35174,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -35140,7 +35199,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       contacts: [],
       meta: {},
       errors: {},
-      fetching: false
+      fetching: false,
+      modelNameSingular: 'contact',
+      modelNamePlural: 'contacts',
+      modelGender: 'M'
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
@@ -35508,6 +35570,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -35521,7 +35590,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       deliveries: [],
       meta: {},
       errors: {},
-      fetching: false
+      fetching: false,
+      modelNameSingular: 'livraison',
+      modelNamePlural: 'livraisons',
+      modelGender: 'F'
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
@@ -35789,6 +35861,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -35802,7 +35881,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       documents: [],
       meta: {},
       errors: {},
-      fetching: false
+      fetching: false,
+      modelNameSingular: 'document',
+      modelNamePlural: 'documents',
+      modelGender: 'M'
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
@@ -36838,6 +36920,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -36853,7 +36943,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       formats: [],
       meta: {},
       errors: {},
-      fetching: false
+      fetching: false,
+      modelNameSingular: 'format',
+      modelNamePlural: 'formats',
+      modelGender: 'M'
+
     };
   },
   components: {
@@ -39512,6 +39606,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -39533,7 +39637,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       orders: [],
       meta: {},
       errors: {},
-      fetching: false
+      fetching: false,
+      modelNameSingular: 'commande',
+      modelNamePlural: 'commandes',
+      modelGender: 'F'
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
@@ -42127,6 +42234,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -42142,7 +42257,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     return {
       users: [],
       companies: this.dataCompanies,
-      meta: {}
+      meta: {},
+      modelNameSingular: 'utilisateur',
+      modelNamePlural: 'utilisateurs',
+      modelGender: 'M'
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
@@ -71378,7 +71496,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Formats")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'format' : 'formats') + "\n    ")]), _vm._v(" "), _c('app-add-format', {
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.modelCount)
+    }
+  })]), _vm._v(" "), _c('app-add-format', {
     on: {
       "formatWasCreated": _vm.addFormat
     }
@@ -72219,7 +72341,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Sociétés")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'société' : 'sociétés') + "\n    ")]), _vm._v(" "), _c('app-add-company', {
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.modelCount)
+    }
+  })]), _vm._v(" "), _c('app-add-company', {
     on: {
       "companyWasCreated": _vm.addCompany
     }
@@ -73234,7 +73360,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Livraisons")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'livraison' : 'livraisons') + "\n    ")]), _vm._v(" "), _c('div')]), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.modelCount)
+    }
+  })]), _vm._v(" "), _c('div')]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [(_vm.meta.total > 25) ? _c('app-pagination', {
     staticClass: "pagination pagination--top",
@@ -73621,7 +73751,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Utilisateurs")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'utilisateur' : 'utilisateurs') + "\n    ")]), _vm._v(" "), _c('app-add-user', {
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.modelCount)
+    }
+  })]), _vm._v(" "), _c('app-add-user', {
     attrs: {
       "data-companies": _vm.dataCompanies
     },
@@ -74223,7 +74357,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Articles")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'article' : 'articles') + "\n    ")]), _vm._v(" "), _c('app-add-article', {
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.modelCount)
+    }
+  })]), _vm._v(" "), _c('app-add-article', {
     on: {
       "articleWasCreated": _vm.addArticle
     }
@@ -74388,7 +74526,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Affaires")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'affaire' : 'affaires') + "\n    ")]), _vm._v(" "), _c('app-add-business', {
+  }, [(_vm.meta.total > 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " affaires")]) : (_vm.meta.total === 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " affaire")]) : _c('span', [_vm._v("Aucune affaire")])]), _vm._v(" "), _c('app-add-business', {
     attrs: {
       "data-companies": _vm.companies,
       "data-contacts": _vm.dataContacts,
@@ -74826,7 +74964,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Contacts")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'contact' : 'contacts') + "\n    ")]), _vm._v(" "), _c('app-add-contact', {
+  }, [(_vm.meta.total > 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " contacts")]) : (_vm.meta.total === 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " contact")]) : _c('span', [_vm._v("Aucune contact")])]), _vm._v(" "), _c('app-add-contact', {
     on: {
       "contactWasCreated": _vm.addContact
     }
@@ -75055,11 +75193,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model.trim",
+      rawName: "v-model.number",
       value: (_vm.contact.zip),
       expression: "contact.zip",
       modifiers: {
-        "trim": true
+        "number": true
       }
     }],
     staticClass: "modal__input",
@@ -75075,7 +75213,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "zip", $event.target.value.trim())
+        _vm.$set(_vm.contact, "zip", _vm._n($event.target.value))
       },
       "blur": function($event) {
         _vm.$forceUpdate()
@@ -75767,7 +75905,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Documents")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'document' : 'documents') + "\n    ")]), _vm._v(" "), _c('div')]), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.modelCount)
+    }
+  })]), _vm._v(" "), _c('div')]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [(_vm.meta.total > 25) ? _c('app-pagination', {
     staticClass: "pagination pagination--top",
@@ -77336,7 +77478,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Commandes")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [_vm._v("\n      " + _vm._s(_vm.meta.total) + "\n      " + _vm._s(_vm.meta.total == 0 || _vm.meta.total == 1 ? 'commande' : 'commandes') + "\n    ")]), _vm._v(" "), _c('button', {
+  }, [(_vm.meta.total > 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " commandes")]) : (_vm.meta.total === 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " commande")]) : _c('span', [_vm._v("Aucune commande")])]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red-large",
     on: {
       "click": function($event) {
