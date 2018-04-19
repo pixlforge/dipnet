@@ -7,9 +7,7 @@
 
       <!--Contacts count-->
       <div class="header__stats">
-        <span v-if="meta.total > 1">{{ meta.total }} contacts</span>
-        <span v-else-if="meta.total === 1">{{ meta.total }} contact</span>
-        <span v-else>Aucune contact</span>
+        <span v-text="modelCount"></span>
       </div>
 
       <!--Add contact-->

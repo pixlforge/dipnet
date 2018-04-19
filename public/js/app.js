@@ -35182,8 +35182,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
 
 
 
@@ -74964,7 +74962,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Contacts")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [(_vm.meta.total > 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " contacts")]) : (_vm.meta.total === 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " contact")]) : _c('span', [_vm._v("Aucune contact")])]), _vm._v(" "), _c('app-add-contact', {
+  }, [_c('span', {
+    domProps: {
+      "textContent": _vm._s(_vm.modelCount)
+    }
+  })]), _vm._v(" "), _c('app-add-contact', {
     on: {
       "contactWasCreated": _vm.addContact
     }
