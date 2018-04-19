@@ -27,11 +27,11 @@ class StoreContactRequest extends FormRequest
             'name' => 'required|min:3|max:45',
             'address_line1' => 'required',
             'address_line2' => 'nullable',
-            'zip' => 'required|min:4|max:16',
+            'zip' => 'required|numeric|min:4|max:16',
             'city' => 'required|min:2|max:45',
-            'phone_number' => 'nullable|max:45',
-            'fax' => 'nullable|max:45',
-            'email' => 'required|max:45',
+            'phone_number' => 'nullable|numeric|max:45',
+            'fax' => 'nullable|numeric|max:45',
+            'email' => 'required|email|max:45',
             'company_id' => 'nullable|exists:companies,id'
         ];
     }
