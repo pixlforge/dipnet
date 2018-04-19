@@ -28,19 +28,27 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        $companies = Company::orderBy('name')->get();
-        $contacts = Contact::orderBy('name')->get();
-
+        $companies = collect();
+        $contacts = collect();
         $orders = collect();
 
-        if (auth()->user()->isNotAdmin()) {
+        if (auth()->user()->isAdmin()) {
+            $companies = Company::orderBy('name')->get();
+            $contacts = Contact::orderBy('name')->get();
+        } else if (auth()->user()->isNotSolo()) {
             $businessIds = [];
-
             foreach (auth()->user()->company->business as $business) {
                 array_push($businessIds, $business->id);
             }
-
             $orders = Order::whereIn('business_id', $businessIds)->get();
+
+            $contacts = Contact::where('company_id', auth()->user()->company->id)
+                ->orderBy('name')
+                ->get();
+        } else if (auth()->user()->isSolo()) {
+            $contacts = Contact::where('user_id', auth()->id())
+                ->orderBy('name')
+                ->get();
         }
 
         return view('businesses.index', [
@@ -77,9 +85,9 @@ class BusinessController extends Controller
         $business = new Business;
         $business->name = $request->name;
         $business->description = $request->description;
+        $business->user_id = auth()->id();
         $business->company_id = $request->company_id;
         $business->contact_id = $request->contact_id;
-        $business->created_by_username = auth()->user()->username;
 
         if ($request->reference) {
             $business->reference = $request->reference;

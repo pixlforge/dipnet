@@ -27,7 +27,7 @@ class StoreBusinessRequest extends FormRequest
             'name' => 'required|min:3|max:45',
             'reference' => 'nullable|unique:businesses,id,:id|min:3|max:45',
             'description' => 'nullable|max:45',
-            'company_id' => 'required|exists:companies,id',
+            'company_id' => 'nullable|exists:companies,id',
             'contact_id' => 'required|exists:contacts,id',
             'folder_color' => 'nullable|in:red,orange,purple,blue'
         ];

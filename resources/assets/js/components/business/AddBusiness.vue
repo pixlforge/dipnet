@@ -185,9 +185,7 @@
             })
           }
         } else {
-          return this.dataContacts.filter(contact => {
-            return contact.company_id === this.dataUser.company.id
-          })
+          return this.dataContacts
         }
       },
 

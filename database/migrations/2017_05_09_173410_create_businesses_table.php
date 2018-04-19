@@ -18,13 +18,14 @@ class CreateBusinessesTable extends Migration
             $table->string('name', 45);
             $table->string('reference', 45)->unique()->index();
             $table->string('description')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('company_id')->nullable();
             $table->unsignedInteger('contact_id')->nullable();
             $table->enum('folder_color', ['red', 'orange', 'purple', 'blue'])->default('red');
-            $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();
 
+            $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('contact_id')->references('id')->on('contacts');
         });

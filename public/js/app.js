@@ -32877,9 +32877,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
           });
         }
       } else {
-        return this.dataContacts.filter(contact => {
-          return contact.company_id === this.dataUser.company.id;
-        });
+        return this.dataContacts;
       }
     },
 

@@ -27,10 +27,17 @@ class BusinessController extends Controller
                     ->orderBy('name')
                     ->paginate(25)
             );
-        } else {
+        } else if (auth()->user()->isNotSolo()) {
             return new BusinessesCollection(
                 Business::where('company_id', auth()->user()->company->id)
                     ->with('company', 'contact')
+                    ->orderBy('name')
+                    ->paginate(25)
+            );
+        } else {
+            return new BusinessesCollection(
+                Business::where('user_id', auth()->id())
+                    ->with('contact')
                     ->orderBy('name')
                     ->paginate(25)
             );
