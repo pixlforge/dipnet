@@ -41787,12 +41787,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['data-companies'],
+  computed: {
+    userIsNotAdmin() {
+      return this.user.role === '' || this.user.role === 'utilisateur';
+    }
+  },
   data() {
     return {
       user: {
@@ -41812,6 +41819,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
      * Add a new user.
      */
     addUser() {
+      if (this.user.role === 'administrateur') {
+        this.user.company_id = null;
+      }
+
       this.$store.dispatch('toggleLoader');
 
       axios.post(route('users.store'), this.user).then(response => {
@@ -77914,7 +77925,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Administrateur")])]), _vm._v(" "), (_vm.errors.role) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.role[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.role[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.userIsNotAdmin) ? _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",
@@ -77960,7 +77971,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n              " + _vm._s(company.name) + "\n            ")])
   })], 2), _vm._v(" "), (_vm.errors.company_id) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.company_id[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.company_id[0]) + "\n          ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",

@@ -102,7 +102,8 @@
           </div>
 
           <!--Company-->
-          <div class="modal__group">
+          <div class="modal__group"
+               v-if="userIsNotAdmin">
             <label for="company_id" class="modal__label">Société</label>
             <select name="company_id"
                     id="company_id"
@@ -133,6 +134,7 @@
               Ajouter
             </button>
           </div>
+
         </div>
       </div>
     </transition>
@@ -145,6 +147,11 @@
 
   export default {
     props: ['data-companies'],
+    computed: {
+      userIsNotAdmin() {
+        return this.user.role === '' || this.user.role === 'utilisateur'
+      }
+    },
     data() {
       return {
         user: {
@@ -164,6 +171,10 @@
        * Add a new user.
        */
       addUser() {
+        if (this.user.role === 'administrateur') {
+          this.user.company_id = null
+        }
+
         this.$store.dispatch('toggleLoader')
 
         axios.post(route('users.store'), this.user)
