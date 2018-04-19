@@ -21,6 +21,8 @@ class BusinessPolicy
     {
         if ($user->isNotSolo()) {
             return $user->company_id === $business->company_id;
+        } else if ($user->isSolo()) {
+            return $user->id === $business->user_id;
         }
     }
 

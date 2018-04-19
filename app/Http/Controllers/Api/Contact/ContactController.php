@@ -33,7 +33,11 @@ class ContactController extends Controller
                     ->paginate(25)
             );
         } else {
-            // User is solo
+            return new ContactsCollection(
+                Contact::where('user_id', auth()->id())
+                    ->orderBy('name')
+                    ->paginate(25)
+            );
         }
     }
 }
