@@ -2,12 +2,12 @@
 
 namespace Dipnet\Http\Controllers\Invitations;
 
+use Dipnet\Invitation;
+use Illuminate\Http\Request;
+use Dipnet\Mail\InvitationEmail;
+use Illuminate\Support\Facades\Mail;
 use Dipnet\Http\Controllers\Controller;
 use Dipnet\Http\Requests\Invitation\InvitationRequest;
-use Dipnet\Invitation;
-use Dipnet\Mail\InvitationEmail;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class InvitationsController extends Controller
 {
