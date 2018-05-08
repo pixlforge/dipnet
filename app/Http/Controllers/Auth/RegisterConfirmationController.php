@@ -2,21 +2,13 @@
 
 namespace Dipnet\Http\Controllers\Auth;
 
-use Dipnet\Mail\RegistrationEmailConfirmation;
 use Dipnet\User;
-use Dipnet\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
+use Dipnet\Http\Controllers\Controller;
+use Dipnet\Mail\RegistrationEmailConfirmation;
 
 class RegisterConfirmationController extends Controller
 {
-    /**
-     * RegisterConfirmationController constructor.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Confirm the user registration.
      *
@@ -35,10 +27,17 @@ class RegisterConfirmationController extends Controller
 
         $user->confirm();
 
-        return redirect()
-            ->route('profile.index')
-            ->with('flash', 'Votre compte est maintenant confirmé! Vous pouvez dès à présent effectuer des commandes!')
-            ->with('level', 'success');
+        if (auth()->check()) {
+            return redirect()
+                ->route('profile.index')
+                ->with('flash', 'Votre compte est maintenant confirmé! Vous pouvez dès à présent effectuer des commandes!')
+                ->with('level', 'success');
+        } else {
+            return redirect()
+                ->route('login')
+                ->with('flash', 'Votre compte est maintenant confirmé! Vous pouvez dès à présent vous y connecter.')
+                ->with('level', 'success');
+        }
     }
 
     /**

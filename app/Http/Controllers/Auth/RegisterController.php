@@ -2,12 +2,11 @@
 
 namespace Dipnet\Http\Controllers\Auth;
 
-use Dipnet\Invitation;
 use Dipnet\User;
-use Dipnet\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use Dipnet\Invitation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
+use Dipnet\Http\Controllers\Controller;
 use Dipnet\Mail\RegistrationEmailConfirmation;
 use Dipnet\Http\Requests\Register\RegisterAccountRequest;
 

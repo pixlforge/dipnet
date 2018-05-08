@@ -48,6 +48,7 @@ class UserController extends Controller
         $user->role = $request->role;
         $user->email = $request->email;
         $user->email_confirmed = $this->getEmailStatus($request->status);
+        $user->confirmation_token = User::generateConfirmationToken($request->email);
 
         if ($request->role === 'administrateur') {
             $user->is_solo = false;
