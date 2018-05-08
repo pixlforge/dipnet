@@ -102,7 +102,8 @@
           </div>
 
           <!--Company-->
-          <div class="modal__group">
+          <div class="modal__group"
+               v-if="userIsNotAdmin">
             <label for="company_id" class="modal__label">Société</label>
             <select name="company_id"
                     id="company_id"
@@ -145,10 +146,21 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: [
-      'data-user',
-      'data-companies'
-    ],
+    computed: {
+      userIsNotAdmin() {
+        return this.user.role === '' || this.user.role === 'utilisateur'
+      }
+    },
+    props: {
+      dataUser: {
+        type: Object,
+        required: true
+      },
+      dataCompanies: {
+        type: Array,
+        required: true
+      }
+    },
     data() {
       return {
         user: {

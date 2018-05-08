@@ -41789,12 +41789,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-companies'],
+  props: {
+    dataCompanies: {
+      type: Array,
+      required: true
+    }
+  },
   computed: {
     userIsNotAdmin() {
       return this.user.role === '' || this.user.role === 'utilisateur';
@@ -41992,13 +42000,28 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-user', 'data-companies'],
+  computed: {
+    userIsNotAdmin() {
+      return this.user.role === '' || this.user.role === 'utilisateur';
+    }
+  },
+  props: {
+    dataUser: {
+      type: Object,
+      required: true
+    },
+    dataCompanies: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       user: {
@@ -42149,17 +42172,25 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-user', 'data-companies'],
-  data() {
-    return {
-      user: this.dataUser,
-      companies: this.dataCompanies
-    };
-  },
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
   components: {
     'app-edit-user': __WEBPACK_IMPORTED_MODULE_0__EditUser_vue___default.a
   },
+  props: {
+    user: {
+      type: Object,
+      required: true
+    },
+    companies: {
+      type: Array,
+      required: true
+    }
+  },
+  computed: {
+    userIsNotAdmin() {
+      return this.user.role === '' || this.user.role === 'utilisateur';
+    }
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
   methods: {
     /**
      * Delete a user.
@@ -42259,7 +42290,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-companies'],
+  components: {
+    'app-user': __WEBPACK_IMPORTED_MODULE_2__User_vue___default.a,
+    'app-add-user': __WEBPACK_IMPORTED_MODULE_1__AddUser___default.a,
+    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
+    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
+  },
+  props: {
+    dataCompanies: {
+      type: Array,
+      required: true
+    }
+  },
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(['loaderState'])),
   data() {
     return {
       users: [],
@@ -42271,13 +42314,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
-  components: {
-    'app-user': __WEBPACK_IMPORTED_MODULE_2__User_vue___default.a,
-    'app-add-user': __WEBPACK_IMPORTED_MODULE_1__AddUser___default.a,
-    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
-  },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
     /**
      * Fetch the users paginated data.
@@ -42314,6 +42350,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       for (let user of this.users) {
         if (data.id === user.id) {
           user.username = data.username;
+          user.email = data.email;
+          user.role = data.role;
         }
       }
       flash({
@@ -69261,7 +69299,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Administrateur")])]), _vm._v(" "), (_vm.errors.role) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.role[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.role[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.userIsNotAdmin) ? _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",
@@ -69306,7 +69344,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n              " + _vm._s(company.name) + "\n            ")])
   })], 2), _vm._v(" "), (_vm.errors.company_id) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.company_id[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.company_id[0]) + "\n          ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
@@ -73790,8 +73828,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: user.id,
       staticClass: "card__container",
       attrs: {
-        "data-user": user,
-        "data-companies": _vm.companies
+        "user": user,
+        "companies": _vm.companies
       },
       on: {
         "userWasDeleted": function($event) {
@@ -75848,19 +75886,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-check-circle text--success"
   })]) : _c('span', [_c('i', {
     staticClass: "fal fa-times-circle text--warning"
-  })])]), _vm._v(" "), _c('div', [_c('span', {
+  })])]), _vm._v(" "), (_vm.userIsNotAdmin) ? _c('div', [_c('span', {
     staticClass: "card__label"
   }, [_vm._v("Contact")]), _vm._v(" "), (_vm.user.contact_confirmed) ? _c('span', [_c('i', {
     staticClass: "fal fa-check-circle text--success"
   })]) : _c('span', [_c('i', {
     staticClass: "fal fa-times-circle text--warning"
-  })])]), _vm._v(" "), _c('div', [_c('span', {
+  })])]) : _vm._e(), _vm._v(" "), (_vm.userIsNotAdmin) ? _c('div', [_c('span', {
     staticClass: "card__label"
   }, [_vm._v("Société")]), _vm._v(" "), (_vm.user.company_confirmed) ? _c('span', [_c('i', {
     staticClass: "fal fa-check-circle text--success"
   })]) : _c('span', [_c('i', {
     staticClass: "fal fa-times-circle text--warning"
-  })])])]), _vm._v(" "), _c('div', {
+  })])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "card__meta"
   }, [_c('div', [_c('span', {
     staticClass: "card__label"

@@ -2,13 +2,13 @@
 
 namespace Dipnet\Http\Controllers\User;
 
-use Dipnet\Mail\RegistrationEmailConfirmation;
 use Dipnet\User;
 use Dipnet\Company;
+use Illuminate\Support\Facades\Mail;
 use Dipnet\Http\Controllers\Controller;
+use Dipnet\Mail\RegistrationEmailConfirmation;
 use Dipnet\Http\Requests\User\StoreUserRequest;
 use Dipnet\Http\Requests\User\UpdateUserRequest;
-use Illuminate\Support\Facades\Mail;
 
 class UserController extends Controller
 {
@@ -35,6 +35,8 @@ class UserController extends Controller
     }
 
     /**
+     * Store a new user.
+     *
      * @param StoreUserRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -47,7 +49,9 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->email_confirmed = $this->getEmailStatus($request->status);
 
-        if ($request->company_id) {
+        if ($request->role === 'administrateur') {
+            $user->is_solo = false;
+        } else if ($request->role === 'utilisateur' && $request->company_id) {
             $user->company_id = $request->company_id;
             $user->company_confirmed = true;
         } else {
@@ -76,6 +80,8 @@ class UserController extends Controller
     }
 
     /**
+     * Update a user.
+     *
      * @param UpdateUserRequest $request
      * @param User $user
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -87,7 +93,13 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->email_confirmed = $this->getEmailStatus($user->email_confirmed);
 
-        if ($user->isSolo() && $request->company_id !== null) {
+        if ($request->role === 'administrateur') {
+            $user->company_id = null;
+            $user->is_solo = false;
+        } else if ($user->isNotSolo() && $request->company_id === null) {
+            $user->company_id = null;
+            $user->is_solo = true;
+        } else if ($user->isSolo() && $request->company_id !== null) {
             $user->company_id = $request->company_id;
             $user->is_solo = false;
         } else {

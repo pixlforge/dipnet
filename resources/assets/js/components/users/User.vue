@@ -35,7 +35,7 @@
           <i class="fal fa-times-circle text--warning"></i>
         </span>
       </div>
-      <div>
+      <div v-if="userIsNotAdmin">
         <span class="card__label">Contact</span>
         <span v-if="user.contact_confirmed">
           <i class="fal fa-check-circle text--success"></i>
@@ -44,7 +44,7 @@
           <i class="fal fa-times-circle text--warning"></i>
         </span>
       </div>
-      <div>
+      <div v-if="userIsNotAdmin">
         <span class="card__label">Société</span>
         <span v-if="user.company_confirmed">
           <i class="fal fa-check-circle text--success"></i>
@@ -86,20 +86,25 @@
   import mixins from '../../mixins'
 
   export default {
-    props: [
-      'data-user',
-      'data-companies'
-    ],
-    data() {
-      return {
-        user: this.dataUser,
-        companies: this.dataCompanies
-      }
-    },
-    mixins: [mixins],
     components: {
       'app-edit-user': EditUser
     },
+    props: {
+      user: {
+        type: Object,
+        required: true
+      },
+      companies: {
+        type: Array,
+        required: true
+      }
+    },
+    computed: {
+      userIsNotAdmin() {
+        return this.user.role === '' || this.user.role === 'utilisateur'
+      }
+    },
+    mixins: [mixins],
     methods: {
       /**
        * Delete a user.

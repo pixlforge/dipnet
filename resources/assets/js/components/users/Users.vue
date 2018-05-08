@@ -29,8 +29,8 @@
         <app-user class="card__container"
                   v-for="(user, index) in users"
                   :key="user.id"
-                  :data-user="user"
-                  :data-companies="companies"
+                  :user="user"
+                  :companies="companies"
                   @userWasDeleted="removeUser(index)">
         </app-user>
       </transition-group>
@@ -60,9 +60,23 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'data-companies'
-    ],
+    components: {
+      'app-user': User,
+      'app-add-user': AddUser,
+      'app-pagination': Pagination,
+      'app-moon-loader': MoonLoader
+    },
+    props: {
+      dataCompanies: {
+        type: Array,
+        required: true
+      }
+    },
+    computed: {
+      ...mapGetters([
+        'loaderState'
+      ])
+    },
     data() {
       return {
         users: [],
@@ -74,17 +88,6 @@
       }
     },
     mixins: [mixins],
-    components: {
-      'app-user': User,
-      'app-add-user': AddUser,
-      'app-pagination': Pagination,
-      'app-moon-loader': MoonLoader
-    },
-    computed: {
-      ...mapGetters([
-        'loaderState'
-      ])
-    },
     methods: {
       /**
        * Fetch the users paginated data.
@@ -121,6 +124,8 @@
         for (let user of this.users) {
           if (data.id === user.id) {
             user.username = data.username
+            user.email = data.email
+            user.role = data.role
           }
         }
         flash({

@@ -90,7 +90,10 @@
           <div class="modal__group">
             <label for="role" class="modal__label">Rôle</label>
             <span class="modal__required">*</span>
-            <select name="role" id="role" class="modal__select" v-model.trim="user.role">
+            <select name="role"
+                    id="role"
+                    class="modal__select"
+                    v-model.trim="user.role">
               <option disabled>Sélectionnez un rôle</option>
               <option value="utilisateur">Utilisateur</option>
               <option value="administrateur">Administrateur</option>
@@ -146,7 +149,12 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: ['data-companies'],
+    props: {
+      dataCompanies: {
+        type: Array,
+        required: true
+      }
+    },
     computed: {
       userIsNotAdmin() {
         return this.user.role === '' || this.user.role === 'utilisateur'
