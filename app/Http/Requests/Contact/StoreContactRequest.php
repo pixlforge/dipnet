@@ -29,8 +29,8 @@ class StoreContactRequest extends FormRequest
             'address_line2' => 'nullable',
             'zip' => 'required|numeric|min:1000|max:999999',
             'city' => 'required|min:2|max:45',
-            'phone_number' => 'nullable|numeric|max:45',
-            'fax' => 'nullable|numeric|max:45',
+            'phone_number' => 'nullable|numeric',
+            'fax' => 'nullable|numeric',
             'email' => 'required|email|max:45',
             'company_id' => 'nullable|exists:companies,id'
         ];
