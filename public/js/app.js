@@ -40638,8 +40638,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     updateProfile() {
       this.$store.dispatch('toggleLoader');
-
-      axios.patch(route('account.update'), this.user).then(response => {
+      axios.patch(route('account.update'), this.user).then(() => {
         this.$store.dispatch('toggleLoader');
         this.errors = {};
         this.user.password = '';
@@ -40651,17 +40650,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }).catch(error => {
         this.$store.dispatch('toggleLoader');
         this.errors = error.response.data.errors;
-        if (error.response.status === 422) {
-          flash({
-            message: "La mise à jour de votre compte a échoué, veuillez vérifiez qu'il n'existe aucune erreur.",
-            level: 'danger'
-          });
-          return;
-        }
-        flash({
-          message: "La mise à jour de votre compte a échoué, veuillez réessayer plus tard.",
-          level: 'danger'
-        });
       });
     }
   })

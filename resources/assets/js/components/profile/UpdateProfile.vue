@@ -147,9 +147,8 @@
        */
       updateProfile() {
         this.$store.dispatch('toggleLoader')
-
         axios.patch(route('account.update'), this.user)
-          .then(response => {
+          .then(() => {
             this.$store.dispatch('toggleLoader')
             this.errors = {}
             this.user.password = ''
@@ -162,17 +161,6 @@
           .catch(error => {
             this.$store.dispatch('toggleLoader')
             this.errors = error.response.data.errors
-            if (error.response.status === 422) {
-              flash({
-                message: "La mise à jour de votre compte a échoué, veuillez vérifiez qu'il n'existe aucune erreur.",
-                level: 'danger'
-              })
-              return
-            }
-            flash({
-              message: "La mise à jour de votre compte a échoué, veuillez réessayer plus tard.",
-              level: 'danger'
-            })
           })
       }
     }
