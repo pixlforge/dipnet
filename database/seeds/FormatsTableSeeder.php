@@ -1,6 +1,6 @@
 <?php
 
-use Dipnet\Format;
+use App\Format;
 use Illuminate\Database\Seeder;
 
 class FormatsTableSeeder extends Seeder

@@ -1,8 +1,8 @@
 <?php
 
-use Dipnet\User;
-use Dipnet\Company;
-use Dipnet\Contact;
+use App\User;
+use App\Company;
+use App\Contact;
 use Illuminate\Database\Seeder;
 
 class TestUsersSeeder extends Seeder

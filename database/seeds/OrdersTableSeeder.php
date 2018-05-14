@@ -1,6 +1,6 @@
 <?php
 
-use Dipnet\Order;
+use App\Order;
 use Illuminate\Database\Seeder;
 
 class OrdersTableSeeder extends Seeder

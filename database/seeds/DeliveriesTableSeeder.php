@@ -1,6 +1,6 @@
 <?php
 
-use Dipnet\Delivery;
+use App\Delivery;
 use Illuminate\Database\Seeder;
 
 class DeliveriesTableSeeder extends Seeder

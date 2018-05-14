@@ -1,6 +1,6 @@
 <?php
 
-use Dipnet\Business;
+use App\Business;
 use Illuminate\Database\Seeder;
 
 class BusinessesTableSeeder extends Seeder

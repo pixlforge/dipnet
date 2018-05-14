@@ -1,6 +1,6 @@
 <?php
 
-use Dipnet\Document;
+use App\Document;
 use Illuminate\Database\Seeder;
 
 class DocumentsTableSeeder extends Seeder
