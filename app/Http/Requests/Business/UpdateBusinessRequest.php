@@ -1,6 +1,6 @@
 <?php
 
-namespace Dipnet\Http\Requests\Business;
+namespace App\Http\Requests\Business;
 
 use Illuminate\Validation\Rule;
 

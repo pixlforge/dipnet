@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Order;
 
-use Dipnet\User;
-use Dipnet\Order;
+use App\User;
+use App\Order;
+use App\Contact;
+use App\Delivery;
+use App\Document;
 use Tests\TestCase;
-use Dipnet\Contact;
-use Dipnet\Delivery;
-use Dipnet\Document;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class OrderValidationTest extends TestCase

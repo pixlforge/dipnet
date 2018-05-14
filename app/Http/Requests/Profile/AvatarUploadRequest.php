@@ -1,6 +1,6 @@
 <?php
 
-namespace Dipnet\Http\Requests\Profile;
+namespace App\Http\Requests\Profile;
 
 use Illuminate\Foundation\Http\FormRequest;
 

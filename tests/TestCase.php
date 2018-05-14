@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use Dipnet\User;
-use Dipnet\Exceptions\Handler;
+use App\User;
+use App\Exceptions\Handler;
 use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 

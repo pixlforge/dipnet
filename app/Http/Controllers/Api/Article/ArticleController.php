@@ -1,10 +1,10 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Api\Article;
+namespace App\Http\Controllers\Api\Article;
 
-use Dipnet\Article;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Resources\ArticlesCollection;
+use App\Article;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ArticlesCollection;
 
 class ArticleController extends Controller
 {

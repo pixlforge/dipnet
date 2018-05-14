@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(Dipnet\Company::class, function (Faker $faker) {
+$factory->define(App\Company::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'status' => 'temporaire',

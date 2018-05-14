@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Contact;
 
-use Dipnet\User;
-use Dipnet\Contact;
+use App\User;
+use App\Contact;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

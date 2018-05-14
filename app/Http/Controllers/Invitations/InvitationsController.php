@@ -1,13 +1,13 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Invitations;
+namespace App\Http\Controllers\Invitations;
 
-use Dipnet\Invitation;
+use App\Invitation;
 use Illuminate\Http\Request;
-use Dipnet\Mail\InvitationEmail;
+use App\Mail\InvitationEmail;
 use Illuminate\Support\Facades\Mail;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\Invitation\InvitationRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Invitation\InvitationRequest;
 
 class InvitationsController extends Controller
 {

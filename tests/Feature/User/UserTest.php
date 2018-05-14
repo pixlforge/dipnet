@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\User;
 
-use Dipnet\User;
-use Illuminate\Support\Facades\Mail;
+use App\User;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase

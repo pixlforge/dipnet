@@ -1,10 +1,9 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Account;
+namespace App\Http\Controllers\Account;
 
 use Illuminate\Http\Request;
-use Dipnet\Http\Controllers\Controller;
-use Illuminate\Validation\Rule;
+use App\Http\Controllers\Controller;
 
 class AccountController extends Controller
 {
@@ -34,32 +33,34 @@ class AccountController extends Controller
      */
     public function update(Request $request)
     {
-        if ($request->password === null) {
-            $request->validate([
-                'username' => 'required|string|min:3|max:255',
-                'email' => 'required|string|email|unique:users|max:255'
-            ]);
+        $request->validate([]);
 
-            $request->user()->username = $request->username;
-            $request->user()->email = $request->email;
-            $request->user()->save();
-
-            return response([], 200);
-        }
-
-        if ($request->password) {
-            $request->validate([
-                'username' => 'required|string|min:3|max:255',
-                'email' => 'required|string|email|unique:users|max:255',
-                'password' => 'required|string|min:6|confirmed'
-            ]);
-
-            $request->user()->username = $request->username;
-            $request->user()->email = $request->email;
-            $request->user()->password = bcrypt($request->password);
-            $request->user()->save();
-
-            return response([], 200);
-        }
+//        if ($request->password === null) {
+//            $request->validate([
+//                'username' => 'required|string|min:3|max:255',
+//                'email' => 'required|string|email|unique:users|max:255'
+//            ]);
+//
+//            $request->user()->username = $request->username;
+//            $request->user()->email = $request->email;
+//            $request->user()->save();
+//
+//            return response([], 200);
+//        }
+//
+//        if ($request->password) {
+//            $request->validate([
+//                'username' => 'required|string|min:3|max:255',
+//                'email' => 'required|string|email|unique:users|max:255',
+//                'password' => 'required|string|min:6|confirmed'
+//            ]);
+//
+//            $request->user()->username = $request->username;
+//            $request->user()->email = $request->email;
+//            $request->user()->password = bcrypt($request->password);
+//            $request->user()->save();
+//
+//            return response([], 200);
+//        }
     }
 }

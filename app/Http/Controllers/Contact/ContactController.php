@@ -1,12 +1,12 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Contact;
+namespace App\Http\Controllers\Contact;
 
-use Dipnet\Contact;
-use Dipnet\Http\Controllers\Controller;
+use App\Contact;
+use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Dipnet\Http\Requests\Contact\StoreContactRequest;
-use Dipnet\Http\Requests\Contact\UpdateContactRequest;
+use App\Http\Requests\Contact\StoreContactRequest;
+use App\Http\Requests\Contact\UpdateContactRequest;
 
 class ContactController extends Controller
 {

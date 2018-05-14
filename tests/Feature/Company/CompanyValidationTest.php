@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Company;
 
-use Dipnet\Company;
-use Dipnet\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
+use App\Company;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CompanyValidationTest extends TestCase
 {

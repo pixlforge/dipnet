@@ -1,8 +1,8 @@
 <?php
 
-namespace Dipnet\Mail;
+namespace App\Mail;
 
-use Dipnet\Order;
+use App\Order;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;

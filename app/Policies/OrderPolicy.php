@@ -1,9 +1,9 @@
 <?php
 
-namespace Dipnet\Policies;
+namespace App\Policies;
 
-use Dipnet\Order;
-use Dipnet\User;
+use App\Order;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class OrderPolicy

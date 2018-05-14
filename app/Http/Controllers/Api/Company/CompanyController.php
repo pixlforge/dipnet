@@ -1,10 +1,10 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Api\Company;
+namespace App\Http\Controllers\Api\Company;
 
-use Dipnet\Company;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Resources\CompaniesCollection;
+use App\Company;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\CompaniesCollection;
 
 class CompanyController extends Controller
 {

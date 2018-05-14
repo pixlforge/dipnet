@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Document;
 
-use Dipnet\User;
-use Dipnet\Order;
+use App\User;
+use App\Order;
+use App\Contact;
+use App\Delivery;
 use Tests\TestCase;
-use Dipnet\Contact;
-use Dipnet\Delivery;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Dipnet\Http\Requests\Invitation;
+namespace App\Http\Requests\Invitation;
 
 use Illuminate\Foundation\Http\FormRequest;
 

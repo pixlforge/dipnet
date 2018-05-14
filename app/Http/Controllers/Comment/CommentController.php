@@ -1,11 +1,11 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Comment;
+namespace App\Http\Controllers\Comment;
 
-use Dipnet\Business;
-use Dipnet\Comment;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\Comment\StoreCommentRequest;
+use App\Business;
+use App\Comment;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Comment\StoreCommentRequest;
 use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller

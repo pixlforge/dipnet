@@ -1,10 +1,10 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Api\Contact;
+namespace App\Http\Controllers\Api\Contact;
 
-use Dipnet\Contact;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Resources\ContactsCollection;
+use App\Contact;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\ContactsCollection;
 
 class ContactController extends Controller
 {

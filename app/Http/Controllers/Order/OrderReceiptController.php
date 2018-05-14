@@ -1,9 +1,9 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Order;
+namespace App\Http\Controllers\Order;
 
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Order;
+use App\Http\Controllers\Controller;
+use App\Order;
 
 class OrderReceiptController extends Controller
 {

@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Order;
 
-use Dipnet\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateOrderMiddlewareTest extends TestCase
 {

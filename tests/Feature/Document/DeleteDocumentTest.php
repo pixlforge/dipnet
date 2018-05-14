@@ -2,13 +2,13 @@
 
 namespace Tests\Feature\Document;
 
-use Dipnet\User;
-use Dipnet\Order;
+use App\User;
+use App\Order;
+use App\Company;
+use App\Business;
+use App\Delivery;
+use App\Document;
 use Tests\TestCase;
-use Dipnet\Company;
-use Dipnet\Business;
-use Dipnet\Delivery;
-use Dipnet\Document;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DeleteDocumentTest extends TestCase

@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Register;
 
-use Dipnet\User;
+use App\User;
 use Tests\TestCase;
-use Dipnet\Invitation;
-use Dipnet\Mail\InvitationEmail;
+use App\Invitation;
+use App\Mail\InvitationEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

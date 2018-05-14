@@ -1,12 +1,12 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Order;
+namespace App\Http\Controllers\Order;
 
-use Dipnet\Order;
+use App\Order;
 use Illuminate\Support\Facades\Mail;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Mail\AdminOrderCompleteNotification;
-use Dipnet\Mail\CustomerOrderCompleteConfirmation;
+use App\Http\Controllers\Controller;
+use App\Mail\AdminOrderCompleteNotification;
+use App\Mail\CustomerOrderCompleteConfirmation;
 
 class CompleteOrderController extends Controller
 {

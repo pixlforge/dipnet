@@ -1,10 +1,10 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Api\Order;
+namespace App\Http\Controllers\Api\Order;
 
-use Dipnet\Order;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Resources\OrdersCollection;
+use App\Order;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\OrdersCollection;
 
 class OrderController extends Controller
 {

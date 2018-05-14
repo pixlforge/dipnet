@@ -1,9 +1,9 @@
 <?php
 
-namespace Dipnet\Policies;
+namespace App\Policies;
 
-use Dipnet\User;
-use Dipnet\Article;
+use App\User;
+use App\Article;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArticlePolicy

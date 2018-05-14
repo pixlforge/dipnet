@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Order;
 
-use Dipnet\User;
-use Dipnet\Order;
-use Dipnet\Company;
-use Illuminate\Support\Facades\Mail;
+use App\User;
+use App\Order;
+use App\Company;
+use App\Business;
 use Tests\TestCase;
-use Dipnet\Business;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateOrderTest extends TestCase

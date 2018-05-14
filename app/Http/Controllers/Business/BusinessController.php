@@ -1,15 +1,15 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Business;
+namespace App\Http\Controllers\Business;
 
-use Dipnet\Order;
-use Dipnet\Comment;
-use Dipnet\Company;
-use Dipnet\Contact;
-use Dipnet\Business;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\Business\StoreBusinessRequest;
-use Dipnet\Http\Requests\Business\UpdateBusinessRequest;
+use App\Order;
+use App\Comment;
+use App\Company;
+use App\Contact;
+use App\Business;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Business\StoreBusinessRequest;
+use App\Http\Requests\Business\UpdateBusinessRequest;
 
 class BusinessController extends Controller
 {

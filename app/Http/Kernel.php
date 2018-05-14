@@ -1,13 +1,13 @@
 <?php
 
-namespace Dipnet\Http;
+namespace App\Http;
 
-use Dipnet\Http\Middleware\CompanyHasDefaultBusiness;
-use Dipnet\Http\Middleware\UserAccountDetails;
-use Dipnet\Http\Middleware\UserEmailConfirmed;
-use Dipnet\Http\Middleware\UserAccountCompanyInfo;
-use Dipnet\Http\Middleware\UserAccountContactInfo;
-use Dipnet\Http\Middleware\UserIsAdmin;
+use App\Http\Middleware\CompanyHasDefaultBusiness;
+use App\Http\Middleware\UserAccountDetails;
+use App\Http\Middleware\UserEmailConfirmed;
+use App\Http\Middleware\UserAccountCompanyInfo;
+use App\Http\Middleware\UserAccountContactInfo;
+use App\Http\Middleware\UserIsAdmin;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -22,7 +22,7 @@ class Kernel extends HttpKernel
     protected $middleware = [
         \Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode::class,
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
-        \Dipnet\Http\Middleware\TrimStrings::class,
+        \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
     ];
 
@@ -33,12 +33,12 @@ class Kernel extends HttpKernel
      */
     protected $middlewareGroups = [
         'web' => [
-            \Dipnet\Http\Middleware\EncryptCookies::class,
+            \App\Http\Middleware\EncryptCookies::class,
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Session\Middleware\StartSession::class,
             // \Illuminate\Session\Middleware\AuthenticateSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
-            \Dipnet\Http\Middleware\VerifyCsrfToken::class,
+            \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
@@ -60,7 +60,7 @@ class Kernel extends HttpKernel
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
-        'guest' => \Dipnet\Http\Middleware\RedirectIfAuthenticated::class,
+        'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'user.account.contact' => UserAccountContactInfo::class,
         'user.account.company' => UserAccountCompanyInfo::class,

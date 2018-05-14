@@ -1,10 +1,10 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Api\Document;
+namespace App\Http\Controllers\Api\Document;
 
-use Dipnet\Document;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Resources\DocumentsCollection;
+use App\Document;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\DocumentsCollection;
 
 class DocumentController extends Controller
 {

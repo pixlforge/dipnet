@@ -1,9 +1,9 @@
 <?php
 
-namespace Dipnet\Policies;
+namespace App\Policies;
 
-use Dipnet\Business;
-use Dipnet\User;
+use App\Business;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BusinessPolicy

@@ -1,12 +1,12 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Delivery;
+namespace App\Http\Controllers\Delivery;
 
-use Dipnet\Delivery;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\Delivery\StoreDeliveryRequest;
-use Dipnet\Http\Requests\Delivery\UpdateDeliveryRequest;
-use Dipnet\Http\Requests\DeliveryRequest;
+use App\Delivery;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Delivery\StoreDeliveryRequest;
+use App\Http\Requests\Delivery\UpdateDeliveryRequest;
+use App\Http\Requests\DeliveryRequest;
 
 class DeliveryController extends Controller
 {

@@ -2,12 +2,10 @@
 
 namespace Tests\Feature\Register;
 
-use Dipnet\User;
-use Dipnet\Contact;
-use Dipnet\Company;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Support\Facades\Mail;
-use Dipnet\Mail\RegistrationEmailConfirmation;
+use App\Mail\RegistrationEmailConfirmation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class GuestsCanRegisterTest extends TestCase

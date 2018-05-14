@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Order;
 
-use Dipnet\Delivery;
-use Dipnet\Order;
-use Dipnet\User;
+use App\User;
+use App\Order;
+use App\Delivery;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

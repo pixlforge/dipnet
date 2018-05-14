@@ -2,12 +2,12 @@
 
 namespace Tests\Feature\Document;
 
-use Dipnet\Delivery;
-use Dipnet\Order;
-use Dipnet\User;
+use App\User;
+use App\Order;
+use App\Article;
+use App\Delivery;
+use App\Document;
 use Tests\TestCase;
-use Dipnet\Article;
-use Dipnet\Document;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ArticleDocumentTest extends TestCase

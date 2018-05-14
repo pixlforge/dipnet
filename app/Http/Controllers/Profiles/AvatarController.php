@@ -1,11 +1,11 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Profiles;
+namespace App\Http\Controllers\Profiles;
 
-use Dipnet\Avatar;
-use Dipnet\Http\Requests\Profile\AvatarUploadRequest;
+use App\Avatar;
+use App\Http\Requests\Profile\AvatarUploadRequest;
 use Illuminate\Http\Request;
-use Dipnet\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManager;
 
 class AvatarController extends Controller

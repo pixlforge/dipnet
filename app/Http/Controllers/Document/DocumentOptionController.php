@@ -1,12 +1,12 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Document;
+namespace App\Http\Controllers\Document;
 
-use Dipnet\Order;
-use Dipnet\Delivery;
-use Dipnet\Document;
+use App\Order;
+use App\Delivery;
+use App\Document;
 use Illuminate\Http\Request;
-use Dipnet\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class DocumentOptionController extends Controller
 {

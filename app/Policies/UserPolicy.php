@@ -1,8 +1,8 @@
 <?php
 
-namespace Dipnet\Policies;
+namespace App\Policies;
 
-use Dipnet\User;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy

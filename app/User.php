@@ -1,10 +1,10 @@
 <?php
 
-namespace Dipnet;
+namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Dipnet\Notifications\ResetPasswordNotification;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -342,7 +342,7 @@ class User extends Authenticatable
      */
     public function deliveries()
     {
-        return $this->hasManyThrough('Dipnet\Delivery', 'Dipnet\Contact');
+        return $this->hasManyThrough('App\Delivery', 'App\Contact');
     }
 
     /**
@@ -352,7 +352,7 @@ class User extends Authenticatable
      */
     public function businesses()
     {
-        return $this->hasManyThrough('Dipnet\Business', 'Dipnet\Contact');
+        return $this->hasManyThrough('App\Business', 'App\Contact');
     }
 
     /**

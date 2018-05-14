@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\Format;
 
-use Dipnet\Format;
-use Dipnet\User;
+use App\User;
+use App\Format;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

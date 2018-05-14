@@ -1,9 +1,9 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Delivery;
+namespace App\Http\Controllers\Delivery;
 
-use Dipnet\Delivery;
-use Dipnet\Http\Controllers\Controller;
+use App\Delivery;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 class DeliveryAdminNoteController extends Controller

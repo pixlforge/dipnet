@@ -1,14 +1,14 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use Dipnet\User;
-use Dipnet\Invitation;
+use App\User;
+use App\Invitation;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Mail\RegistrationEmailConfirmation;
-use Dipnet\Http\Requests\Register\RegisterAccountRequest;
+use App\Http\Controllers\Controller;
+use App\Mail\RegistrationEmailConfirmation;
+use App\Http\Requests\Register\RegisterAccountRequest;
 
 class RegisterController extends Controller
 {

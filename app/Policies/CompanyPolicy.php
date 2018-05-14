@@ -1,9 +1,9 @@
 <?php
 
-namespace Dipnet\Policies;
+namespace App\Policies;
 
-use Dipnet\User;
-use Dipnet\Company;
+use App\User;
+use App\Company;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CompanyPolicy
@@ -38,8 +38,8 @@ class CompanyPolicy
     /**
      * Determine whether the user can update the company.
      *
-     * @param  \Dipnet\User  $user
-     * @param  \Dipnet\Company  $company
+     * @param  \App\User  $user
+     * @param  \App\Company  $company
      * @return mixed
      */
     public function update(User $user, Company $company)
@@ -50,8 +50,8 @@ class CompanyPolicy
     /**
      * Determine whether the user can delete the company.
      *
-     * @param  \Dipnet\User  $user
-     * @param  \Dipnet\Company  $company
+     * @param  \App\User  $user
+     * @param  \App\Company  $company
      * @return mixed
      */
     public function delete(User $user, Company $company)

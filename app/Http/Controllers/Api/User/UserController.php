@@ -1,10 +1,10 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Api\User;
+namespace App\Http\Controllers\Api\User;
 
-use Dipnet\User;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Resources\UsersCollection;
+use App\User;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\UsersCollection;
 
 class UserController extends Controller
 {

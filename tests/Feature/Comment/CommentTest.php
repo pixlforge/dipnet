@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Comment;
 
-use Dipnet\Business;
-use Dipnet\Company;
-use Dipnet\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
+use App\Company;
+use App\Business;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CommentTest extends TestCase
 {

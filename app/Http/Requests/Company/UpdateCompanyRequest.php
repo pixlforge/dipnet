@@ -1,8 +1,8 @@
 <?php
 
-namespace Dipnet\Http\Requests\Company;
+namespace App\Http\Requests\Company;
 
-use Dipnet\Http\Requests\Company\StoreCompanyRequest;
+use App\Http\Requests\Company\StoreCompanyRequest;
 
 class UpdateCompanyRequest extends StoreCompanyRequest
 {

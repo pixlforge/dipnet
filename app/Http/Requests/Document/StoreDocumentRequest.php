@@ -1,6 +1,6 @@
 <?php
 
-namespace Dipnet\Http\Requests\Document;
+namespace App\Http\Requests\Document;
 
 use Illuminate\Foundation\Http\FormRequest;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace Dipnet\Policies;
+namespace App\Policies;
 
-use Dipnet\Delivery;
-use Dipnet\User;
+use App\Delivery;
+use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DeliveryPolicy

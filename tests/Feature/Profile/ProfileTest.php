@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Profile;
 
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -19,11 +20,21 @@ class ProfileTest extends TestCase
     }
 
     /** @test */
-    function an_authenticated_user_can_modify_his_profile()
+    function an_authenticated_user_can_update_his_own_profile()
     {
-        $this->signIn();
+        $this->withoutExceptionHandling();
 
-        $this->get('/profile')
-            ->assertSee('Profil');
+        $user = factory(User::class)->create([
+            'username' => 'John Doe',
+            'email' => 'johndoe@example.com'
+        ]);
+        $this->signIn($user);
+
+        $this->patchJson(route('account.update', $user), [
+            'email' => 'john_doe@example.com'
+        ])->assertStatus(200);
+
+        $user = User::where('email', 'john_doe@example.com')->first();
+        $this->assertCount(1, $user);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Avatar;
 
-use Dipnet\User;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

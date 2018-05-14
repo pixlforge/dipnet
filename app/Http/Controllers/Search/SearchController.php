@@ -1,13 +1,13 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Search;
+namespace App\Http\Controllers\Search;
 
-use Dipnet\Order;
-use Dipnet\Company;
-use Dipnet\Contact;
-use Dipnet\Delivery;
-use Dipnet\Business;
-use Dipnet\Http\Controllers\Controller;
+use App\Order;
+use App\Company;
+use App\Contact;
+use App\Delivery;
+use App\Business;
+use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {

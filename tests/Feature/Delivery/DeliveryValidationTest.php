@@ -2,11 +2,11 @@
 
 namespace Tests\Feature\Delivery;
 
-use Dipnet\Delivery;
-use Dipnet\Order;
-use Dipnet\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\User;
+use App\Order;
+use App\Delivery;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DeliveryValidationTest extends TestCase
 {

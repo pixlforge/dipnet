@@ -1,11 +1,11 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Article;
+namespace App\Http\Controllers\Article;
 
-use Dipnet\Article;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\Article\StoreArticleRequest;
-use Dipnet\Http\Requests\Article\UpdateArticleRequest;
+use App\Article;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Article\StoreArticleRequest;
+use App\Http\Requests\Article\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {

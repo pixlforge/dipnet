@@ -1,11 +1,11 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Format;
+namespace App\Http\Controllers\Format;
 
-use Dipnet\Format;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\Format\StoreFormatRequest;
-use Dipnet\Http\Requests\Format\UpdateFormatRequest;
+use App\Format;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Format\StoreFormatRequest;
+use App\Http\Requests\Format\UpdateFormatRequest;
 
 class FormatController extends Controller
 {

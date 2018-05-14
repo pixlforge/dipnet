@@ -1,6 +1,6 @@
 <?php
 
-namespace Dipnet\Http\Resources;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 

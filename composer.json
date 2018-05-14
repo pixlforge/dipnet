@@ -25,7 +25,7 @@
             "database"
         ],
         "psr-4": {
-            "Dipnet\\": "app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {

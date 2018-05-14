@@ -1,9 +1,9 @@
 <?php
 
-namespace Dipnet\Policies;
+namespace App\Policies;
 
-use Dipnet\User;
-use Dipnet\Document;
+use App\User;
+use App\Document;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DocumentPolicy
@@ -13,8 +13,8 @@ class DocumentPolicy
     /**
      * Determine whether the user can delete the document.
      *
-     * @param  \Dipnet\User  $user
-     * @param  \Dipnet\Document  $document
+     * @param  \App\User  $user
+     * @param  \App\Document  $document
      * @return mixed
      */
     public function delete(User $user, Document $document)

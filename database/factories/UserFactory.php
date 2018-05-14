@@ -1,9 +1,9 @@
 <?php
 
-use Dipnet\User;
+use App\User;
 use Faker\Generator as Faker;
 
-$factory->define(Dipnet\User::class, function (Faker $faker) {
+$factory->define(App\User::class, function (Faker $faker) {
     static $password;
 
     return [
@@ -12,7 +12,7 @@ $factory->define(Dipnet\User::class, function (Faker $faker) {
         'role' => 'utilisateur',
         'email' => $faker->unique()->safeEmail,
         'company_id' => function () {
-            return factory(Dipnet\Company::class)->create()->id;
+            return factory(App\Company::class)->create()->id;
         },
         'is_solo' => false,
         'email_confirmed' => true,
@@ -23,7 +23,7 @@ $factory->define(Dipnet\User::class, function (Faker $faker) {
     ];
 });
 
-$factory->state(Dipnet\User::class, 'not-confirmed', function (Faker $faker) {
+$factory->state(App\User::class, 'not-confirmed', function (Faker $faker) {
     return [
         'email_confirmed' => false,
         'contact_confirmed' => false,
@@ -32,33 +32,33 @@ $factory->state(Dipnet\User::class, 'not-confirmed', function (Faker $faker) {
     ];
 });
 
-$factory->state(Dipnet\User::class, 'email-not-confirmed', function (Faker $faker) {
+$factory->state(App\User::class, 'email-not-confirmed', function (Faker $faker) {
     return [
         'email_confirmed' => false,
         'confirmation_token' => User::generateConfirmationToken($faker->safeEmail)
     ];
 });
 
-$factory->state(Dipnet\User::class, 'contact-not-confirmed', [
+$factory->state(App\User::class, 'contact-not-confirmed', [
     'contact_confirmed' => false
 ]);
 
-$factory->state(Dipnet\User::class, 'company-not-confirmed', [
+$factory->state(App\User::class, 'company-not-confirmed', [
     'company_confirmed' => false
 ]);
 
-$factory->state(Dipnet\User::class, 'mailable-tests-only', [
+$factory->state(App\User::class, 'mailable-tests-only', [
     'company_id' => 1,
 ]);
 
-$factory->state(Dipnet\User::class, 'no-company', [
+$factory->state(App\User::class, 'no-company', [
     'company_id' => null,
 ]);
 
-$factory->state(Dipnet\User::class, 'admin', [
+$factory->state(App\User::class, 'admin', [
     'role' => 'administrateur'
 ]);
 
-$factory->state(Dipnet\User::class, 'solo', [
+$factory->state(App\User::class, 'solo', [
     'is_solo' => true,
 ]);

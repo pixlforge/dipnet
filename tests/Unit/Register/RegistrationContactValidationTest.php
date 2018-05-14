@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Register;
 
-use Dipnet\User;
+use App\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 

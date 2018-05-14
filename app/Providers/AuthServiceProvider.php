@@ -1,9 +1,9 @@
 <?php
 
-namespace Dipnet\Providers;
+namespace App\Providers;
 
-use Dipnet\Admin;
-use Dipnet\User;
+use App\Admin;
+use App\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -15,18 +15,18 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'Dipnet\Admin' => 'Dipnet\Policies\AdminPolicy',
-        'Dipnet\Format' => 'Dipnet\Policies\FormatPolicy',
-        'Dipnet\Company' => 'Dipnet\Policies\CompanyPolicy',
-        'Dipnet\Business' => 'Dipnet\Policies\BusinessPolicy',
-        'Dipnet\Article' => 'Dipnet\Policies\ArticlePolicy',
-        'Dipnet\Contact' => 'Dipnet\Policies\ContactPolicy',
-        'Dipnet\Order' => 'Dipnet\Policies\OrderPolicy',
-        'Dipnet\Delivery' => 'Dipnet\Policies\DeliveryPolicy',
-        'Dipnet\Document' => 'Dipnet\Policies\DocumentPolicy',
-        'Dipnet\User' => 'Dipnet\Policies\UserPolicy',
-        'Dipnet\Profile' => 'Dipnet\Policies\UpdateProfilePolicy',
-        'Dipnet\Invitation' => 'Dipnet\Policies\InvitationPolicy',
+        'App\Admin' => 'App\Policies\AdminPolicy',
+        'App\Format' => 'App\Policies\FormatPolicy',
+        'App\Company' => 'App\Policies\CompanyPolicy',
+        'App\Business' => 'App\Policies\BusinessPolicy',
+        'App\Article' => 'App\Policies\ArticlePolicy',
+        'App\Contact' => 'App\Policies\ContactPolicy',
+        'App\Order' => 'App\Policies\OrderPolicy',
+        'App\Delivery' => 'App\Policies\DeliveryPolicy',
+        'App\Document' => 'App\Policies\DocumentPolicy',
+        'App\User' => 'App\Policies\UserPolicy',
+        'App\Profile' => 'App\Policies\UpdateProfilePolicy',
+        'App\Invitation' => 'App\Policies\InvitationPolicy',
     ];
 
     /**

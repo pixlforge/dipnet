@@ -1,14 +1,14 @@
 <?php
 
-namespace Dipnet\Http\Controllers\User;
+namespace App\Http\Controllers\User;
 
-use Dipnet\User;
-use Dipnet\Company;
+use App\User;
+use App\Company;
 use Illuminate\Support\Facades\Mail;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Mail\RegistrationEmailConfirmation;
-use Dipnet\Http\Requests\User\StoreUserRequest;
-use Dipnet\Http\Requests\User\UpdateUserRequest;
+use App\Http\Controllers\Controller;
+use App\Mail\RegistrationEmailConfirmation;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {

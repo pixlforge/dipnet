@@ -1,12 +1,12 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Order;
+namespace App\Http\Controllers\Order;
 
-use Dipnet\Delivery;
-use Dipnet\Document;
-use Dipnet\Order;
+use App\Delivery;
+use App\Document;
+use App\Order;
 use Illuminate\Http\Request;
-use Dipnet\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class OrderValidationController extends Controller
 {

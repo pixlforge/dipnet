@@ -1,13 +1,13 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Company;
+namespace App\Http\Controllers\Company;
 
-use Dipnet\Business;
-use Dipnet\Company;
-use Dipnet\Invitation;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\Company\StoreCompanyRequest;
-use Dipnet\Http\Requests\Company\UpdateCompanyRequest;
+use App\Business;
+use App\Company;
+use App\Invitation;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Company\StoreCompanyRequest;
+use App\Http\Requests\Company\UpdateCompanyRequest;
 
 class CompanyController extends Controller
 {

@@ -1,15 +1,15 @@
 <?php
 
-namespace Dipnet\Http\Controllers\Order;
+namespace App\Http\Controllers\Order;
 
-use Dipnet\Order;
-use Dipnet\Format;
-use Dipnet\Contact;
-use Dipnet\Article;
-use Dipnet\Business;
+use App\Order;
+use App\Format;
+use App\Contact;
+use App\Article;
+use App\Business;
 use Illuminate\Http\Request;
-use Dipnet\Http\Controllers\Controller;
-use Dipnet\Http\Requests\Order\StoreOrderRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Order\StoreOrderRequest;
 
 class OrderController extends Controller
 {
