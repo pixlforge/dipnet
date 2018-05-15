@@ -36835,21 +36835,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    'app-edit-format': __WEBPACK_IMPORTED_MODULE_0__EditFormat_vue___default.a
+  },
   props: ['data-format'],
   data() {
     return {
       format: this.dataFormat
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
-  components: {
-    'app-edit-format': __WEBPACK_IMPORTED_MODULE_0__EditFormat_vue___default.a
-  },
-  filters: {
-    mm(value) {
-      return value.concat('mm');
+  computed: {
+    widthTimesHeight() {
+      return this.format.height * this.format.width;
     }
   },
+  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
   methods: {
     /**
      * Delete a format.
@@ -78312,11 +78312,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__meta"
   }, [_c('div', [_c('span', {
     staticClass: "card__label"
-  }, [_vm._v("Hauteur")]), _vm._v("\n      " + _vm._s(_vm._f("mm")(_vm._f("capitalize")(_vm.format.height))) + "\n    ")]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v("Hauteur")]), _vm._v("\n      " + _vm._s(_vm.format.height) + " mm\n    ")]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "card__label"
-  }, [_vm._v("Largeur")]), _vm._v("\n      " + _vm._s(_vm._f("mm")(_vm._f("capitalize")(_vm.format.width))) + "\n    ")]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v("Largeur")]), _vm._v("\n      " + _vm._s(_vm.format.width) + " mm\n    ")]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "card__label"
-  }, [_vm._v("Surface")]), _vm._v("\n      " + _vm._s(_vm._f("mm")(_vm._f("capitalize")(_vm.format.surface)))), _c('sup', [_vm._v("2")])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Surface")]), _vm._v("\n      " + _vm._s(_vm.widthTimesHeight) + " mm"), _c('sup', [_vm._v("2")])])]), _vm._v(" "), _c('div', {
     staticClass: "card__meta"
   }, [_c('div', [_c('span', {
     staticClass: "card__label"

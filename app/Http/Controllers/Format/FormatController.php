@@ -38,8 +38,7 @@ class FormatController extends Controller
         $format = Format::create([
             'name' => $request->name,
             'height' => $request->height,
-            'width' => $request->width,
-            'surface' => $request->surface,
+            'width' => $request->width
         ]);
 
         return response($format, 200);
@@ -54,12 +53,10 @@ class FormatController extends Controller
      */
     public function update(UpdateFormatRequest $request, Format $format)
     {
-        $format->update([
-            'name' => $request->name,
-            'height' => $request->height,
-            'width' => $request->width,
-            'surface' => $request->surface
-        ]);
+        $format->name = $request->name;
+        $format->height = $request->height;
+        $format->width = $request->width;
+        $format->save();
 
         return response($format, 200);
     }
@@ -69,6 +66,8 @@ class FormatController extends Controller
      *
      * @param Format $format
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Exception
      */
     public function destroy(Format $format)
     {

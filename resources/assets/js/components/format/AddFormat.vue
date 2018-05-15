@@ -40,13 +40,13 @@
 
           <!--Height-->
           <div class="modal__group">
-            <label for="height" class="modal__label">Hauteur</label>
+            <label for="height" class="modal__label">Hauteur (mm)</label>
             <span class="modal__required">*</span>
-            <input type="text"
+            <input type="number"
                    name="height"
                    id="height"
                    class="modal__input"
-                   v-model.trim="format.height">
+                   v-model.number="format.height">
             <div class="modal__alert"
                  v-if="errors.height">
               {{ errors.height[0] }}
@@ -55,13 +55,13 @@
 
           <!--Width-->
           <div class="modal__group">
-            <label for="width" class="modal__label">Largeur</label>
+            <label for="width" class="modal__label">Largeur (mm)</label>
             <span class="modal__required">*</span>
-            <input type="text"
+            <input type="number"
                    name="width"
                    id="width"
                    class="modal__input"
-                   v-model.trim="format.width">
+                   v-model.number="format.width">
             <div class="modal__alert"
                  v-if="errors.width">
               {{ errors.width[0] }}
@@ -70,12 +70,13 @@
 
           <!--Surface-->
           <div class="modal__group">
-            <label for="surface" class="modal__label">Surface</label>
+            <label for="surface" class="modal__label">Surface (mm<sup>2</sup>)</label>
             <input type="text"
                    name="surface"
                    id="surface"
-                   class="modal__input"
-                   v-model.trim="format.surface">
+                   class="modal__input modal__input--disabled"
+                   :value="widthTimesHeight"
+                   disabled>
             <div class="modal__alert"
                  v-if="errors.surface">
               {{ errors.surface[0] }}
@@ -110,11 +111,19 @@
       return {
         format: {
           name: '',
-          height: '',
-          width: '',
-          surface: ''
+          height: null,
+          width: null,
         },
         errors: {}
+      }
+    },
+    computed: {
+      widthTimesHeight() {
+        if (this.format.width && this.format.height) {
+          return this.format.width * this.format.height
+        } else {
+          return 0
+        }
       }
     },
     mixins: [mixins],

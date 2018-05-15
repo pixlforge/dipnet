@@ -24,9 +24,9 @@ class StoreFormatRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:formats,name,:id|min:2|max:45',
-            'height' => 'required',
-            'width' => 'required',
+            'name' => 'required|min:2|max:45',
+            'height' => 'required|numeric',
+            'width' => 'required|numeric',
         ];
     }
 

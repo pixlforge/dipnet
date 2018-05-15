@@ -77,6 +77,17 @@
     &:active {
       border-bottom: 1px solid $dark-grey;
     }
+
+    &--disabled {
+      background-color: $concrete;
+      color: $lighter-grey;
+      border-bottom: 1px solid $concrete;
+
+      &:hover {
+        cursor: not-allowed;
+        border-bottom: 1px solid $concrete;
+      }
+    }
   }
 
   &__select {

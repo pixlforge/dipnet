@@ -15,10 +15,9 @@ class CreateFormatsTable extends Migration
     {
         Schema::create('formats', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 45)->unique()->index();
+            $table->string('name', 45)->index();
             $table->integer('height');
             $table->integer('width');
-            $table->decimal('surface', 12, 4)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

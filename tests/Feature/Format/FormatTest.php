@@ -30,15 +30,13 @@ class FormatTest extends TestCase
         $this->postJson(route('formats.store'), [
             'name' => 'A4',
             'height' => 297,
-            'width' => 210,
-            'surface' => 62500
+            'width' => 210
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('formats', [
             'name' => 'A4',
             'height' => 297,
-            'width' => 210,
-            'surface' => 62500
+            'width' => 210
         ]);
     }
 
@@ -51,15 +49,13 @@ class FormatTest extends TestCase
         $this->postJson(route('formats.store'), [
             'name' => 'A4',
             'height' => 297,
-            'width' => 210,
-            'surface' => 62500
+            'width' => 210
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('formats', [
             'name' => 'A4',
             'height' => 297,
-            'width' => 210,
-            'surface' => 62500
+            'width' => 210
         ]);
 
         $format = Format::whereName('A4')->first();
@@ -67,15 +63,13 @@ class FormatTest extends TestCase
         $this->putJson(route('formats.update', $format), [
             'name' => 'A5',
             'height' => 210,
-            'width' => 148,
-            'surface' => 31250
+            'width' => 148
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('formats', [
             'name' => 'A5',
             'height' => 210,
-            'width' => 148,
-            'surface' => 31250
+            'width' => 148
         ]);
     }
 
@@ -88,15 +82,13 @@ class FormatTest extends TestCase
         $this->postJson(route('formats.store'), [
             'name' => 'A4',
             'height' => 297,
-            'width' => 210,
-            'surface' => 62500
+            'width' => 210
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('formats', [
             'name' => 'A4',
             'height' => 297,
-            'width' => 210,
-            'surface' => 62500
+            'width' => 210
         ]);
 
         $format = Format::whereName('A4')->first();

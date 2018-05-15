@@ -12,15 +12,15 @@
     <div class="card__meta">
       <div>
         <span class="card__label">Hauteur</span>
-        {{ format.height | capitalize | mm }}
+        {{ format.height }} mm
       </div>
       <div>
         <span class="card__label">Largeur</span>
-        {{ format.width | capitalize | mm }}
+        {{ format.width }} mm
       </div>
       <div>
         <span class="card__label">Surface</span>
-        {{ format.surface | capitalize | mm }}<sup>2</sup>
+        {{ widthTimesHeight }} mm<sup>2</sup>
       </div>
     </div>
 
@@ -54,21 +54,21 @@
   import mixins from '../../mixins'
 
   export default {
+    components: {
+      'app-edit-format': EditFormat
+    },
     props: ['data-format'],
     data() {
       return {
         format: this.dataFormat
       }
     },
-    mixins: [mixins],
-    components: {
-      'app-edit-format': EditFormat
-    },
-    filters: {
-      mm(value) {
-        return value.concat('mm')
+    computed: {
+      widthTimesHeight() {
+        return this.format.height * this.format.width
       }
     },
+    mixins: [mixins],
     methods: {
       /**
        * Delete a format.
