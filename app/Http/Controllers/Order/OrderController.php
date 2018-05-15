@@ -55,7 +55,10 @@ class OrderController extends Controller
 
         $this->authorize('touch', $order);
 
-        if (auth()->user()->hasCompany()) {
+        if (auth()->user()->isAdmin()) {
+            $businesses = Business::all();
+            $contacts = Contact::all();
+        } else if (auth()->user()->isNotAdmin() && auth()->user()->hasCompany()) {
             $businesses = Business::where('company_id', auth()->user()->company_id)
                 ->orderBy('name')
                 ->get();
