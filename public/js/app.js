@@ -33657,6 +33657,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Carousel: __WEBPACK_IMPORTED_MODULE_0_vue_carousel__["Carousel"],
+    Slide: __WEBPACK_IMPORTED_MODULE_0_vue_carousel__["Slide"]
+  },
   data() {
     return {
       perPage: 1,
@@ -33665,10 +33669,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       loop: true,
       speed: 750
     };
-  },
-  components: {
-    Carousel: __WEBPACK_IMPORTED_MODULE_0_vue_carousel__["Carousel"],
-    Slide: __WEBPACK_IMPORTED_MODULE_0_vue_carousel__["Slide"]
   }
 });
 

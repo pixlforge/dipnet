@@ -41,6 +41,10 @@
   import { Carousel, Slide } from 'vue-carousel'
 
   export default {
+    components: {
+      Carousel,
+      Slide
+    },
     data() {
       return {
         perPage: 1,
@@ -49,10 +53,6 @@
         loop: true,
         speed: 750
       }
-    },
-    components: {
-      Carousel,
-      Slide
     }
   }
 </script>
