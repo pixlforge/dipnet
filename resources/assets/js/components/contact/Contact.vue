@@ -55,12 +55,12 @@
 
     <div class="card__controls">
       <div title="Supprimer"
+           role="button"
            @click="destroy">
         <i class="fal fa-times"></i>
       </div>
       <div title="Modifier">
-        <app-edit-contact :data-contact="contact">
-        </app-edit-contact>
+        <edit-contact :contact="contact"></edit-contact>
       </div>
     </div>
   </div>
@@ -72,28 +72,21 @@
   import mixins from '../../mixins'
 
   export default {
-    props: ['data-contact'],
-    data() {
-      return {
-        contact: this.dataContact,
+    components: {
+      EditContact
+    },
+    props: {
+      contact: {
+        type: Object,
+        required: true
       }
     },
     mixins: [mixins],
-    components: {
-      'app-edit-contact': EditContact
-    },
     methods: {
-      /**
-       * Delete a contact.
-       */
       destroy() {
         axios.delete(route('contacts.destroy', [this.contact.id]))
         this.$emit('contactWasDeleted', this.contact.id)
       },
-
-      /**
-       * Get the formatted dates.
-       */
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
       }

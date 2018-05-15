@@ -20,7 +20,6 @@
         <div class="modal__container">
           <h2 class="modal__title">Nouveau contact</h2>
 
-          <!--Name-->
           <div class="modal__group">
             <label for="name" class="modal__label">Nom</label>
             <span class="modal__required">*</span>
@@ -36,7 +35,6 @@
             </div>
           </div>
 
-          <!--Address line 1-->
           <div class="modal__group">
             <label for="address_line1" class="modal__label">Adresse ligne 1</label>
             <span class="modal__required">*</span>
@@ -52,7 +50,6 @@
             </div>
           </div>
 
-          <!--Address line 2-->
           <div class="modal__group">
             <label for="address_line2" class="modal__label">Adresse ligne 2</label>
             <input type="text"
@@ -66,7 +63,6 @@
             </div>
           </div>
 
-          <!--Zip-->
           <div class="modal__group">
             <label for="zip" class="modal__label">NPA</label>
             <span class="modal__required">*</span>
@@ -82,7 +78,6 @@
             </div>
           </div>
 
-          <!--City-->
           <div class="modal__group">
             <label for="city" class="modal__label">Localité</label>
             <span class="modal__required">*</span>
@@ -98,7 +93,6 @@
             </div>
           </div>
 
-          <!--Phone-->
           <div class="modal__group">
             <label for="phone_number" class="modal__label">Téléphone</label>
             <input type="text"
@@ -112,7 +106,6 @@
             </div>
           </div>
 
-          <!--Fax-->
           <div class="modal__group">
             <label for="fax" class="modal__label">Fax</label>
             <input type="text"
@@ -126,7 +119,6 @@
             </div>
           </div>
 
-          <!--Email-->
           <div class="modal__group">
             <label for="email" class="modal__label">Email</label>
             <span class="modal__required">*</span>
@@ -142,14 +134,15 @@
             </div>
           </div>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="updateContact">
               <i class="fal fa-check"></i>
               Mettre à jour
@@ -162,46 +155,38 @@
 </template>
 
 <script>
-  import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
   import { eventBus } from '../../app'
   import { mapActions } from 'vuex'
 
   export default {
-    props: ['data-contact'],
-    data() {
-      return {
-        contact: this.dataContact,
-        errors: {}
+    props: {
+      contact: {
+        type: Object,
+        required: true
       }
     },
-    components: {
-      'app-moon-loader': MoonLoader
+    data() {
+      return {
+        errors: {}
+      }
     },
     mixins: [mixins],
     methods: {
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Update a contact.
-       */
       updateContact() {
         this.$store.dispatch('toggleLoader')
-
-        axios.put(route('contacts.update', [this.contact.id]), this.contact)
-          .then(() => {
-            eventBus.$emit('contactWasUpdated', this.contact)
-          })
-          .then(() => {
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data
-          })
+        axios.put(route('contacts.update', [this.contact.id]), this.contact).then(() => {
+          eventBus.$emit('contactWasUpdated', this.contact)
+        }).then(() => {
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data
+        })
       }
     }
   }

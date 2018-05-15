@@ -5751,7 +5751,7 @@ Vue.component('app-register', __webpack_require__(315));
 Vue.component('app-account-contact', __webpack_require__(261));
 Vue.component('app-account-company', __webpack_require__(260));
 Vue.component('app-profile', __webpack_require__(313));
-Vue.component('app-contacts', __webpack_require__(283));
+Vue.component('contacts', __webpack_require__(283));
 Vue.component('app-formats', __webpack_require__(298));
 Vue.component('app-businesses', __webpack_require__(270));
 Vue.component('app-show-company', __webpack_require__(281));
@@ -34610,11 +34610,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -34776,13 +34774,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-
 
 
 
@@ -34804,18 +34795,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       errors: {}
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
-  components: {
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
-  },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
-    /**
-     * Add a new contact.
-     */
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
     addContact() {
       this.$store.dispatch('toggleLoader');
-
       axios.post(route('contacts.store'), this.contact).then(response => {
         this.contact = response.data;
         this.$emit('contactWasCreated', this.contact);
@@ -34824,13 +34807,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.contact = {};
       }).catch(error => {
         this.$store.dispatch('toggleLoader');
-        this.errors = error.response.data;
+        this.errors = error.response.data.errors;
         this.redirectIfNotConfirmed(error);
       });
     }
   }),
   created() {
-    __WEBPACK_IMPORTED_MODULE_2__app__["eventBus"].$on('dropdownAddContact', () => this.toggleModal());
+    __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$on('dropdownAddContact', () => this.toggleModal());
   }
 });
 
@@ -34919,28 +34902,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-contact'],
-  data() {
-    return {
-      contact: this.dataContact
-    };
+  components: {
+    EditContact: __WEBPACK_IMPORTED_MODULE_0__EditContact_vue___default.a
+  },
+  props: {
+    contact: {
+      type: Object,
+      required: true
+    }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
-  components: {
-    'app-edit-contact': __WEBPACK_IMPORTED_MODULE_0__EditContact_vue___default.a
-  },
   methods: {
-    /**
-     * Delete a contact.
-     */
     destroy() {
       axios.delete(route('contacts.destroy', [this.contact.id]));
       this.$emit('contactWasDeleted', this.contact.id);
     },
-
-    /**
-     * Get the formatted dates.
-     */
     getDate(date) {
       return __WEBPACK_IMPORTED_MODULE_1_moment___default()(date).locale(this.momentLocale).format(this.momentFormat);
     }
@@ -35010,18 +34986,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -35032,6 +34996,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Contact: __WEBPACK_IMPORTED_MODULE_1__Contact_vue___default.a,
+    AddContact: __WEBPACK_IMPORTED_MODULE_2__AddContact_vue___default.a,
+    Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
+  },
   data() {
     return {
       contacts: [],
@@ -35043,18 +35013,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       modelGender: 'M'
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
-  components: {
-    'app-contact': __WEBPACK_IMPORTED_MODULE_1__Contact_vue___default.a,
-    'app-add-contact': __WEBPACK_IMPORTED_MODULE_2__AddContact_vue___default.a,
-    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
-  },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(['loaderState'])),
+  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
   methods: {
-    /**
-     * Fetch the contacts paginated data.
-     */
     getContacts(page = 1) {
       this.$store.dispatch('toggleLoader');
       this.fetching = true;
@@ -35074,10 +35035,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.fetching = false;
       });
     },
-
-    /**
-     * Add a new contact to the list.
-     */
     addContact(contact) {
       this.contacts.unshift(contact);
       flash({
@@ -35085,10 +35042,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: 'success'
       });
     },
-
-    /**
-     * Update a contact details.
-     */
     updateContact(data) {
       for (let contact of this.contacts) {
         if (data.id === contact.id) {
@@ -35108,10 +35061,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: 'success'
       });
     },
-
-    /**
-     * Remove a contact from the list.
-     */
     removeContact(index) {
       this.contacts.splice(index, 1);
       flash({
@@ -35136,11 +35085,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__app__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -35299,41 +35246,29 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-contact'],
+  props: {
+    contact: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      contact: this.dataContact,
       errors: {}
     };
   },
-  components: {
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
-  },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
-    /**
-     * Update a contact.
-     */
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
     updateContact() {
       this.$store.dispatch('toggleLoader');
-
       axios.put(route('contacts.update', [this.contact.id]), this.contact).then(() => {
-        __WEBPACK_IMPORTED_MODULE_2__app__["eventBus"].$emit('contactWasUpdated', this.contact);
+        __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('contactWasUpdated', this.contact);
       }).then(() => {
         this.$store.dispatch('toggleLoader');
         this.toggleModal();
@@ -73350,7 +73285,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__controls"
   }, [_c('div', {
     attrs: {
-      "title": "Supprimer"
+      "title": "Supprimer",
+      "role": "button"
     },
     on: {
       "click": _vm.destroy
@@ -73361,9 +73297,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "title": "Modifier"
     }
-  }, [_c('app-edit-contact', {
+  }, [_c('edit-contact', {
     attrs: {
-      "data-contact": _vm.contact
+      "contact": _vm.contact
     }
   })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -74174,6 +74110,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.stopPropagation();
@@ -74184,6 +74123,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times"
   }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.preventDefault();
@@ -74835,13 +74777,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('app-add-contact', {
+  })]), _vm._v(" "), _c('add-contact', {
     on: {
       "contactWasCreated": _vm.addContact
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
-  }, [(_vm.meta.total > 25) ? _c('app-pagination', {
+  }, [(_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--top",
     attrs: {
       "data-meta": _vm.meta
@@ -74858,11 +74800,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "mode": "out-in"
     }
   }, _vm._l((_vm.contacts), function(contact, index) {
-    return _c('app-contact', {
+    return _c('contact', {
       key: contact.id,
       staticClass: "card__container",
       attrs: {
-        "data-contact": contact
+        "contact": contact
       },
       on: {
         "contactWasDeleted": function($event) {
@@ -74870,7 +74812,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -74878,7 +74820,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getContacts
     }
-  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -74901,6 +74843,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('button', {
     staticClass: "btn btn--red-large",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": _vm.toggleModal
     }
@@ -75250,6 +75195,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.stopPropagation();
@@ -75260,6 +75208,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times"
   }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.preventDefault();

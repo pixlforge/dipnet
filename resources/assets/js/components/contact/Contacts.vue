@@ -1,28 +1,20 @@
 <template>
   <div>
     <div class="header__container">
-
-      <!--Page title-->
       <h1 class="header__title">Contacts</h1>
 
-      <!--Contacts count-->
       <div class="header__stats">
         <span v-text="modelCount"></span>
       </div>
 
-      <!--Add contact-->
-      <app-add-contact @contactWasCreated="addContact">
-      </app-add-contact>
+      <add-contact @contactWasCreated="addContact"></add-contact>
     </div>
 
     <div class="main__container main__container--grey">
-
-      <!--Pagination top-->
-      <app-pagination class="pagination pagination--top"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getContacts">
-      </app-pagination>
+      <pagination class="pagination pagination--top"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getContacts"></pagination>
 
       <template v-if="!contacts.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun contact.</p>
@@ -30,27 +22,23 @@
 
       <template v-else>
         <transition-group name="pagination" tag="div" mode="out-in">
-          <app-contact class="card__container"
-                       v-for="(contact, index) in contacts"
-                       :key="contact.id"
-                       :data-contact="contact"
-                       @contactWasDeleted="removeContact(index)">
-          </app-contact>
+          <contact class="card__container"
+                   v-for="(contact, index) in contacts"
+                   :key="contact.id"
+                   :contact="contact"
+                   @contactWasDeleted="removeContact(index)"></contact>
         </transition-group>
       </template>
 
-      <!--Pagination bottom-->
-      <app-pagination class="pagination pagination--bottom"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getContacts">
-      </app-pagination>
+      <pagination class="pagination pagination--bottom"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getContacts"></pagination>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -64,6 +52,12 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    components: {
+      Contact,
+      AddContact,
+      Pagination,
+      MoonLoader
+    },
     data() {
       return {
         contacts: [],
@@ -75,22 +69,13 @@
         modelGender: 'M'
       }
     },
-    mixins: [mixins],
-    components: {
-      'app-contact': Contact,
-      'app-add-contact': AddContact,
-      'app-pagination': Pagination,
-      'app-moon-loader': MoonLoader
-    },
     computed: {
       ...mapGetters([
         'loaderState'
       ])
     },
+    mixins: [mixins],
     methods: {
-      /**
-       * Fetch the contacts paginated data.
-       */
       getContacts(page = 1) {
         this.$store.dispatch('toggleLoader')
         this.fetching = true
@@ -110,10 +95,6 @@
           this.fetching = false
         })
       },
-
-      /**
-       * Add a new contact to the list.
-       */
       addContact(contact) {
         this.contacts.unshift(contact)
         flash({
@@ -121,10 +102,6 @@
           level: 'success'
         })
       },
-
-      /**
-       * Update a contact details.
-       */
       updateContact(data) {
         for (let contact of this.contacts) {
           if (data.id === contact.id) {
@@ -144,10 +121,6 @@
           level: 'success'
         })
       },
-
-      /**
-       * Remove a contact from the list.
-       */
       removeContact(index) {
         this.contacts.splice(index, 1)
         flash({
