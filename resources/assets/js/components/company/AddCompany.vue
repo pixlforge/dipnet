@@ -22,7 +22,6 @@
         <div class="modal__container">
           <h2 class="modal__title">Nouvelle société</h2>
 
-          <!--Name-->
           <div class="modal__group">
             <label for="name" class="modal__label">Nom</label>
             <span class="modal__required">*</span>
@@ -38,7 +37,6 @@
             </div>
           </div>
 
-          <!--Status-->
           <div class="modal__group">
             <label for="status" class="modal__label">Statut</label>
             <select name="status"
@@ -55,7 +53,6 @@
             </div>
           </div>
 
-          <!--Description-->
           <div class="modal__group">
             <label for="description" class="modal__label">Description</label>
             <input type="text"
@@ -69,14 +66,15 @@
             </div>
           </div>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="addCompany">
               <i class="fal fa-check"></i>
               Ajouter
@@ -108,25 +106,18 @@
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Add a company.
-       */
       addCompany() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('companies.store'), this.company)
-          .then(response => {
-            this.company = response.data
-            this.$emit('companyWasCreated', this.company)
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-            this.company = {}
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        axios.post(route('companies.store'), this.company).then(response => {
+          this.company = response.data
+          this.$emit('companyWasCreated', this.company)
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+          this.company = {}
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

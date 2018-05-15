@@ -16,11 +16,9 @@
            v-if="showModal"
            @keyup.esc="toggleModal"
            @keyup.enter="updateCompany">
-
         <div class="modal__container">
           <h2 class="modal__title">Modifier {{ company.name }}</h2>
 
-          <!--Name-->
           <div class="modal__group">
             <label for="name" class="modal__label">Nom</label>
             <span class="modal__required">*</span>
@@ -36,7 +34,6 @@
             </div>
           </div>
 
-          <!--Status-->
           <div class="modal__group">
             <label for="status" class="modal__label">Statut</label>
             <select name="status"
@@ -53,7 +50,6 @@
             </div>
           </div>
 
-          <!--Description-->
           <div class="modal__group">
             <label for="description" class="modal__label">Description</label>
             <input type="text"
@@ -67,14 +63,15 @@
             </div>
           </div>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="updateCompany">
               <i class="fal fa-check"></i>
               Mettre à jour
@@ -92,10 +89,14 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: ['data-company'],
+    props: {
+      company: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
-        company: this.dataCompany,
         errors: {}
       }
     },
@@ -104,34 +105,15 @@
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Update a company.
-       */
       updateCompany() {
         this.$store.dispatch('toggleLoader')
-
-        axios.put(route('companies.update', [this.company.id]), this.company)
-          .then(() => {
+        axios.put(route('companies.update', [this.company.id]), this.company).then(() => {
             eventBus.$emit('companyWasUpdated', this.company)
-          })
-          .then(() => {
+          }).then(() => {
             this.$store.dispatch('toggleLoader')
             this.toggleModal()
-          })
-          .catch(error => {
+          }).catch(() => {
             this.$store.dispatch('toggleLoader')
-            if (error.response.status === 422) {
-              flash({
-                message: "Erreur. La validation a échoué.",
-                level: 'danger'
-              })
-              return
-            }
-            flash({
-              message: "Erreur. Veuillez réessayer plus tard.",
-              level: 'danger'
-            })
           })
       }
     },

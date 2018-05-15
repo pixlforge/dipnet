@@ -23,9 +23,15 @@ class UpdateCompanyRequest extends StoreCompanyRequest
      */
     public function rules()
     {
-        return array_merge(parent::rules(), [
-            'business_id' => 'required|exists:businesses,id'
-        ]);
+        if (auth()->user()->isAdmin()) {
+            return array_merge(parent::rules(), [
+                'business_id' => 'nullable|exists:businesses,id'
+            ]);
+        } else {
+            return array_merge(parent::rules(), [
+                'business_id' => 'required|exists:businesses,id'
+            ]);
+        }
     }
 
     /**

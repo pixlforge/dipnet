@@ -33973,8 +33973,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
 
 
 
@@ -33992,13 +33990,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
-    /**
-     * Add a company.
-     */
     addCompany() {
       this.$store.dispatch('toggleLoader');
-
       axios.post(route('companies.store'), this.company).then(response => {
         this.company = response.data;
         this.$emit('companyWasCreated', this.company);
@@ -34076,18 +34069,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -34098,6 +34079,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Company: __WEBPACK_IMPORTED_MODULE_1__Company_vue___default.a,
+    AddCompany: __WEBPACK_IMPORTED_MODULE_2__AddCompany_vue___default.a,
+    Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
+  },
   data() {
     return {
       companies: [],
@@ -34110,17 +34097,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
-  components: {
-    'app-company': __WEBPACK_IMPORTED_MODULE_1__Company_vue___default.a,
-    'app-add-company': __WEBPACK_IMPORTED_MODULE_2__AddCompany_vue___default.a,
-    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
-  },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
-    /**
-     * Fetch the companies paginated data.
-     */
     getCompanies(page = 1) {
       this.$store.dispatch('toggleLoader');
       this.fetching = true;
@@ -34140,10 +34118,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.fetching = false;
       });
     },
-
-    /**
-     * Add a new company to the list.
-     */
     addCompany(company) {
       this.companies.unshift(company);
       flash({
@@ -34151,10 +34125,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: 'success'
       });
     },
-
-    /**
-     * Update a company details.
-     */
     updateCompany(data) {
       for (let company of this.companies) {
         if (data.id === company.id) {
@@ -34168,10 +34138,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: 'success'
       });
     },
-
-    /**
-     * Remove a company from the list.
-     */
     removeCompany(index) {
       this.companies.splice(index, 1);
       flash({
@@ -34253,17 +34219,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-company'],
+  components: {
+    EditCompany: __WEBPACK_IMPORTED_MODULE_0__EditCompany_vue___default.a
+  },
+  props: {
+    company: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      company: this.dataCompany,
       open: false
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* default */]],
-  components: {
-    'app-edit-company': __WEBPACK_IMPORTED_MODULE_0__EditCompany_vue___default.a
-  },
   methods: {
     /**
      * Delete a company.
@@ -34317,19 +34287,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['member'],
-  data() {
-    return {
-      user: this.member
-    };
-  },
   components: {
-    'app-send-confirmation-email-again': __WEBPACK_IMPORTED_MODULE_0__register_SendConfirmationEmailAgain_vue___default.a
+    SendConfirmationEmailAgain: __WEBPACK_IMPORTED_MODULE_0__register_SendConfirmationEmailAgain_vue___default.a
+  },
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   methods: {
     destroy() {
-      alert('delete member');
+      alert('delete user');
     }
   }
 });
@@ -34430,49 +34400,34 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-company'],
+  props: {
+    company: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      company: this.dataCompany,
       errors: {}
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
-    /**
-     * Update a company.
-     */
     updateCompany() {
       this.$store.dispatch('toggleLoader');
-
       axios.put(route('companies.update', [this.company.id]), this.company).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('companyWasUpdated', this.company);
       }).then(() => {
         this.$store.dispatch('toggleLoader');
         this.toggleModal();
-      }).catch(error => {
+      }).catch(() => {
         this.$store.dispatch('toggleLoader');
-        if (error.response.status === 422) {
-          flash({
-            message: "Erreur. La validation a échoué.",
-            level: 'danger'
-          });
-          return;
-        }
-        flash({
-          message: "Erreur. Veuillez réessayer plus tard.",
-          level: 'danger'
-        });
       });
     }
   }),
@@ -34571,15 +34526,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -34591,27 +34537,35 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data', 'invitations-data', 'data-businesses'],
+  components: {
+    CompanyMember: __WEBPACK_IMPORTED_MODULE_1__CompanyMember_vue___default.a,
+    InviteMember: __WEBPACK_IMPORTED_MODULE_2__invitation_Invitation_vue___default.a,
+    InvitedMember: __WEBPACK_IMPORTED_MODULE_3__invitation_InvitedMember_vue___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a,
+    SettingsDropdown: __WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown___default.a
+  },
+  props: {
+    company: {
+      type: Object,
+      required: true
+    },
+    invitations: {
+      type: Array,
+      required: true
+    },
+    businesses: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
-      company: this.data,
-      invitations: this.invitationsData,
       selectedBusiness: 'Sélection'
     };
-  },
-  components: {
-    'app-company-member': __WEBPACK_IMPORTED_MODULE_1__CompanyMember_vue___default.a,
-    'app-invite-member': __WEBPACK_IMPORTED_MODULE_2__invitation_Invitation_vue___default.a,
-    'app-invited-member': __WEBPACK_IMPORTED_MODULE_3__invitation_InvitedMember_vue___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a,
-    'app-settings-dropdown': __WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown___default.a
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* default */]],
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
-    /**
-     * Add a new invitation to the list.
-     */
     addInvitation(member) {
       this.invitations.unshift(member);
       flash({
@@ -34619,33 +34573,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: 'success'
       });
     },
-
-    /**
-     * Remove a member from the company.
-     */
     removeMember() {
       alert('removed a member');
     },
-
-    /**
-     * Remove an invitation.
-     */
     removeInvitation(index) {
       this.invitations.splice(index, 1);
     },
-
-    /**
-     * Select a default business and update it.
-     */
     selectBusiness(business) {
       this.selectedBusiness = business.name;
       this.company.business_id = business.id;
       this.update(business);
     },
-
-    /**
-     * Update the company's settings.
-     */
     update(business) {
       axios.put(route('companies.update', [this.company.id]), this.company).then(() => {
         flash({
@@ -34656,13 +34594,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   },
   mounted() {
-    /**
-     * Preselect the default business.
-     */
-    const businessId = this.data.business_id;
-
+    const businessId = this.company.business_id;
     if (businessId !== null) {
-      const business = this.dataBusinesses.find(business => {
+      const business = this.businesses.find(business => {
         return business.id === businessId;
       });
       this.selectedBusiness = business.name;
@@ -39528,16 +39462,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -39548,8 +39472,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Order: __WEBPACK_IMPORTED_MODULE_2__Order_vue___default.a,
+    AddOrder: __WEBPACK_IMPORTED_MODULE_3__CreateOrder_vue___default.a,
+    Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_1_vue_spinner_src_MoonLoader_vue___default.a
+  },
   props: {
-    dataUserRole: {
+    userRole: {
       type: String,
       required: true
     }
@@ -39565,18 +39495,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       modelGender: 'F'
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
-  components: {
-    'app-order': __WEBPACK_IMPORTED_MODULE_2__Order_vue___default.a,
-    'app-add-order': __WEBPACK_IMPORTED_MODULE_3__CreateOrder_vue___default.a,
-    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_1_vue_spinner_src_MoonLoader_vue___default.a
-  },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(['loaderState'])),
+  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
   methods: {
-    /**
-     * Fetch the orders paginated data.
-     */
     getOrders(page = 1) {
       this.$store.dispatch('toggleLoader');
       this.fetching = true;
@@ -39596,26 +39517,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.fetching = false;
       });
     },
-
-    /**
-     * Redirect to /orders/create route.
-     */
     redirect() {
       window.location = route('orders.create.start');
     },
-
-    /**
-     * Delete an order.
-     */
     removeOrder(payload) {
       let index;
-
       index = this.orders.findIndex(order => {
         return order.id === payload.id;
       });
-
       this.orders.splice(index, 1);
-
       flash({
         message: 'Suppression de la commande réussie.',
         level: 'success'
@@ -70327,6 +70237,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.stopPropagation();
@@ -70337,6 +70250,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times"
   }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.preventDefault();
@@ -71834,7 +71750,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__controls"
   }, [_c('div', {
     attrs: {
-      "title": "Supprimer"
+      "title": "Supprimer",
+      "role": "button"
     },
     on: {
       "click": _vm.destroy
@@ -71845,9 +71762,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "title": "Modifier"
     }
-  }, [_c('app-edit-company', {
+  }, [_c('edit-company', {
     attrs: {
-      "data-company": _vm.company
+      "company": _vm.company
     }
   })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -72275,13 +72192,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('app-add-company', {
+  })]), _vm._v(" "), _c('add-company', {
     on: {
       "companyWasCreated": _vm.addCompany
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
-  }, [(_vm.meta.total > 25) ? _c('app-pagination', {
+  }, [(_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--top",
     attrs: {
       "data-meta": _vm.meta
@@ -72298,11 +72215,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "mode": "out-in"
     }
   }, _vm._l((_vm.companies), function(company, index) {
-    return _c('app-company', {
+    return _c('company', {
       key: company.id,
       staticClass: "card__container",
       attrs: {
-        "data-company": company
+        "company": company
       },
       on: {
         "companyWasDeleted": function($event) {
@@ -72310,7 +72227,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -72318,7 +72235,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getCompanies
     }
-  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -75931,9 +75848,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "company__members"
   }, [_c('i', {
     staticClass: "fal fa-users"
-  }), _vm._v("\n      " + _vm._s(_vm.data.user.length) + "\n      " + _vm._s(_vm.data.user.length == 0 || _vm.data.user.length == 1 ? 'membre' : 'membres') + "\n    ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n      " + _vm._s(_vm.company.user.length) + "\n      " + _vm._s(_vm.company.user.length == 0 || _vm.company.user.length == 1 ? 'membre' : 'membres') + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "header__container"
-  }, [_c('app-invite-member', {
+  }, [_c('invite-member', {
     staticClass: "invitation__container",
     on: {
       "invitationWasAdded": _vm.addInvitation
@@ -75949,12 +75866,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "highlight",
       "tag": "div"
     }
-  }, _vm._l((_vm.data.user), function(member, index) {
-    return _c('app-company-member', {
+  }, _vm._l((_vm.company.user), function(user, index) {
+    return _c('company-member', {
       key: index,
       staticClass: "card__container",
       attrs: {
-        "member": member
+        "user": user
       },
       on: {
         "memberWasDeleted": function($event) {
@@ -75974,7 +75891,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "tag": "div"
     }
   }, _vm._l((_vm.invitations), function(invitation, index) {
-    return _c('app-invited-member', {
+    return _c('invited-member', {
       key: index,
       staticClass: "card__container",
       attrs: {
@@ -75998,15 +75915,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "company__option"
   }, [_c('label', {
     staticClass: "company__label"
-  }, [_vm._v("Affaire par défaut :")]), _vm._v(" "), _c('app-settings-dropdown', {
+  }, [_vm._v("Affaire par défaut :")]), _vm._v(" "), _c('settings-dropdown', {
     attrs: {
       "label": _vm.selectedBusiness,
-      "data": _vm.dataBusinesses
+      "data": _vm.businesses
     },
     on: {
       "itemSelected": _vm.selectBusiness
     }
-  })], 1)])])]), _vm._v(" "), _c('app-moon-loader', {
+  })], 1)])])]), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -77001,6 +76918,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.stopPropagation();
@@ -77011,6 +76931,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times"
   }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.preventDefault();
@@ -77253,6 +77176,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__stats"
   }, [(_vm.meta.total > 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " commandes")]) : (_vm.meta.total === 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " commande")]) : _c('span', [_vm._v("Aucune commande")])]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red-large",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         _vm.redirect()
@@ -77262,7 +77188,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-plus-circle"
   }), _vm._v("\n      Nouvelle commande\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
-  }, [(_vm.meta.total > 25) ? _c('app-pagination', {
+  }, [(_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--top",
     attrs: {
       "data-meta": _vm.meta
@@ -77279,18 +77205,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "mode": "out-in"
     }
   }, _vm._l((_vm.orders), function(order, index) {
-    return _c('app-order', {
+    return _c('order', {
       key: order.id,
       staticClass: "card__container",
       attrs: {
-        "data-order": order,
-        "data-user-role": _vm.dataUserRole
+        "order": order,
+        "user-role": _vm.userRole
       },
       on: {
         "orderWasDeleted": _vm.removeOrder
       }
     })
-  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -77298,7 +77224,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getOrders
     }
-  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,

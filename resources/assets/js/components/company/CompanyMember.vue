@@ -24,19 +24,19 @@
   import mixins from '../../mixins'
 
   export default {
-    props: ['member'],
-    data() {
-      return {
-        user: this.member
-      }
-    },
     components: {
-      'app-send-confirmation-email-again': SendConfirmationEmailAgain
+      SendConfirmationEmailAgain
+    },
+    props: {
+      user: {
+        type: Object,
+        required: true
+      }
     },
     mixins: [mixins],
     methods: {
       destroy() {
-        alert('delete member')
+        alert('delete user')
       }
     }
   }

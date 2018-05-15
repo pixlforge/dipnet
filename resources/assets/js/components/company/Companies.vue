@@ -1,28 +1,20 @@
 <template>
   <div>
     <div class="header__container">
-
-      <!--Page title-->
       <h1 class="header__title">Sociétés</h1>
 
-      <!--Companies count-->
       <div class="header__stats">
         <span v-text="modelCount"></span>
       </div>
 
-      <!--Add company-->
-      <app-add-company @companyWasCreated="addCompany">
-      </app-add-company>
+      <add-company @companyWasCreated="addCompany"></add-company>
     </div>
 
     <div class="main__container main__container--grey">
-
-      <!--Pagination top -->
-      <app-pagination class="pagination pagination--top"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getCompanies">
-      </app-pagination>
+      <pagination class="pagination pagination--top"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getCompanies"></pagination>
 
       <template v-if="!companies.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucune société.</p>
@@ -30,27 +22,23 @@
 
       <template v-else>
         <transition-group name="pagination" tag="div" mode="out-in">
-          <app-company class="card__container"
-                       v-for="(company, index) in companies"
-                       :key="company.id"
-                       :data-company="company"
-                       @companyWasDeleted="removeCompany(index)">
-          </app-company>
+          <company class="card__container"
+                   v-for="(company, index) in companies"
+                   :key="company.id"
+                   :company="company"
+                   @companyWasDeleted="removeCompany(index)"></company>
         </transition-group>
       </template>
 
-      <!--Pagination bottom-->
-      <app-pagination class="pagination pagination--bottom"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getCompanies">
-      </app-pagination>
+      <pagination class="pagination pagination--bottom"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getCompanies"></pagination>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -64,6 +52,12 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    components: {
+      Company,
+      AddCompany,
+      Pagination,
+      MoonLoader
+    },
     data() {
       return {
         companies: [],
@@ -76,21 +70,12 @@
       }
     },
     mixins: [mixins],
-    components: {
-      'app-company': Company,
-      'app-add-company': AddCompany,
-      'app-pagination': Pagination,
-      'app-moon-loader': MoonLoader
-    },
     computed: {
       ...mapGetters([
         'loaderState'
       ])
     },
     methods: {
-      /**
-       * Fetch the companies paginated data.
-       */
       getCompanies(page = 1) {
         this.$store.dispatch('toggleLoader')
         this.fetching = true
@@ -110,10 +95,6 @@
           this.fetching = false
         })
       },
-
-      /**
-       * Add a new company to the list.
-       */
       addCompany(company) {
         this.companies.unshift(company)
         flash({
@@ -121,10 +102,6 @@
           level: 'success'
         })
       },
-
-      /**
-       * Update a company details.
-       */
       updateCompany(data) {
         for (let company of this.companies) {
           if (data.id === company.id) {
@@ -138,10 +115,6 @@
           level: 'success'
         })
       },
-
-      /**
-       * Remove a company from the list.
-       */
       removeCompany(index) {
         this.companies.splice(index, 1)
         flash({

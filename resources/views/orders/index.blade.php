@@ -3,9 +3,7 @@
 @section ('title', 'Commandes')
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
-  <app-orders data-user-role="{{ auth()->user()->role }}"></app-orders>
+  <app-orders user-role="{{ auth()->user()->role }}"></app-orders>
 
 @endsection

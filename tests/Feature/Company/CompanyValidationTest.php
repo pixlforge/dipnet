@@ -20,27 +20,6 @@ class CompanyValidationTest extends TestCase
     }
 
     /** @test */
-    function update_validation_fails_if_no_default_business_is_provided_by_admins()
-    {
-        $this->withExceptionHandling();
-
-        $this->actingAs($this->admin);
-
-        $company = factory(Company::class)->create([
-            'name' => 'John Doe\'s company'
-        ]);
-
-        $this->assertNull($company->business_id);
-
-        $this->putJson(route('companies.update', $company), [
-            'name' => 'Jane Doe\' company',
-            'status' => $company->status
-        ])->assertStatus(422);
-
-        $this->assertEquals('John Doe\'s company', $company->fresh()->name);
-    }
-
-    /** @test */
     function update_validation_fails_if_no_default_business_is_provided_by_users()
     {
         $this->withExceptionHandling();

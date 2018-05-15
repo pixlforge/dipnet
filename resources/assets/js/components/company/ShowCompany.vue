@@ -5,51 +5,44 @@
 
       <div class="company__members">
         <i class="fal fa-users"></i>
-        {{ data.user.length }}
-        {{ data.user.length == 0 || data.user.length == 1 ? 'membre' : 'membres' }}
+        {{ company.user.length }}
+        {{ company.user.length == 0 || company.user.length == 1 ? 'membre' : 'membres' }}
       </div>
     </div>
 
     <div class="header__container">
-      <app-invite-member class="invitation__container"
-                         @invitationWasAdded="addInvitation">
-      </app-invite-member>
+      <invite-member class="invitation__container"
+                     @invitationWasAdded="addInvitation"></invite-member>
     </div>
 
     <div class="company__container">
       <div class="company__group">
         <h2 class="company__title">Membres de {{ company.name }}</h2>
-
         <transition-group name="highlight" tag="div">
-          <app-company-member class="card__container"
-                              v-for="(member, index) in data.user"
-                              :key="index"
-                              :member="member"
-                              @memberWasDeleted="removeMember(index)">
-          </app-company-member>
+          <company-member class="card__container"
+                          v-for="(user, index) in company.user"
+                          :key="index"
+                          :user="user"
+                          @memberWasDeleted="removeMember(index)"></company-member>
         </transition-group>
       </div>
 
       <div class="company__group">
         <h2 class="company__title">Invitations</h2>
-
         <p class="company__paragraph" v-if="!invitations.length">
           Invitez vos collègues à rejoindre {{ appName }} et vos invitations s'afficheront ici.
         </p>
-
         <transition-group name="highlight" tag="div">
-          <app-invited-member class="card__container"
-                              v-for="(invitation, index) in invitations"
-                              :key="index"
-                              :invitation="invitation"
-                              @invitationWasDeleted="removeInvitation(index)">
-          </app-invited-member>
+          <invited-member class="card__container"
+                          v-for="(invitation, index) in invitations"
+                          :key="index"
+                          :invitation="invitation"
+                          @invitationWasDeleted="removeInvitation(index)"></invited-member>
         </transition-group>
       </div>
 
       <div class="company__group company__group--last">
         <h3 class="company__title">Paramètres</h3>
-
         <p class="company__paragraph">
           Gérez les paramètres par défaut pour votre société.
         </p>
@@ -57,19 +50,17 @@
         <div class="company__options">
           <div class="company__option">
             <label class="company__label">Affaire par défaut :</label>
-            <app-settings-dropdown :label="selectedBusiness"
-                                   :data="dataBusinesses"
-                                   @itemSelected="selectBusiness">
-            </app-settings-dropdown>
+            <settings-dropdown :label="selectedBusiness"
+                               :data="businesses"
+                               @itemSelected="selectBusiness"></settings-dropdown>
           </div>
         </div>
       </div>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 
 </template>
@@ -85,24 +76,31 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'data',
-      'invitations-data',
-      'data-businesses'
-    ],
-    data() {
-      return {
-        company: this.data,
-        invitations: this.invitationsData,
-        selectedBusiness: 'Sélection'
+    components: {
+      CompanyMember,
+      InviteMember,
+      InvitedMember,
+      MoonLoader,
+      SettingsDropdown
+    },
+    props: {
+      company: {
+        type: Object,
+        required: true
+      },
+      invitations: {
+        type: Array,
+        required: true
+      },
+      businesses: {
+        type: Array,
+        required: true
       }
     },
-    components: {
-      'app-company-member': CompanyMember,
-      'app-invite-member': InviteMember,
-      'app-invited-member': InvitedMember,
-      'app-moon-loader': MoonLoader,
-      'app-settings-dropdown': SettingsDropdown
+    data() {
+      return {
+        selectedBusiness: 'Sélection'
+      }
     },
     mixins: [mixins],
     computed: {
@@ -111,9 +109,6 @@
       ])
     },
     methods: {
-      /**
-       * Add a new invitation to the list.
-       */
       addInvitation(member) {
         this.invitations.unshift(member)
         flash({
@@ -121,52 +116,30 @@
           level: 'success'
         })
       },
-
-      /**
-       * Remove a member from the company.
-       */
       removeMember() {
         alert('removed a member')
       },
-
-      /**
-       * Remove an invitation.
-       */
       removeInvitation(index) {
         this.invitations.splice(index, 1)
       },
-
-      /**
-       * Select a default business and update it.
-       */
       selectBusiness(business) {
         this.selectedBusiness = business.name
         this.company.business_id = business.id
         this.update(business)
       },
-
-      /**
-       * Update the company's settings.
-       */
       update(business) {
-        axios.put(route('companies.update', [this.company.id]), this.company)
-          .then(() => {
-            flash({
-              message: "Les paramètres de votre société ont bien été mis à jour!",
-              level: 'success'
-            })
+        axios.put(route('companies.update', [this.company.id]), this.company).then(() => {
+          flash({
+            message: "Les paramètres de votre société ont bien été mis à jour!",
+            level: 'success'
           })
-          .catch(error => console.log(error))
+        }).catch(error => console.log(error))
       }
     },
     mounted() {
-      /**
-       * Preselect the default business.
-       */
-      const businessId = this.data.business_id
-
+      const businessId = this.company.business_id
       if (businessId !== null) {
-        const business = this.dataBusinesses.find(business => {
+        const business = this.businesses.find(business => {
           return business.id === businessId
         })
         this.selectedBusiness = business.name

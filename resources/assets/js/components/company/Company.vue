@@ -33,12 +33,12 @@
 
     <div class="card__controls">
       <div title="Supprimer"
+           role="button"
            @click="destroy">
         <i class="fal fa-times"></i>
       </div>
       <div title="Modifier">
-        <app-edit-company :data-company="company">
-        </app-edit-company>
+        <edit-company :company="company"></edit-company>
       </div>
     </div>
   </div>
@@ -50,17 +50,21 @@
   import mixins from '../../mixins'
 
   export default {
-    props: ['data-company'],
+    components: {
+      EditCompany
+    },
+    props: {
+      company: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
-        company: this.dataCompany,
         open: false
       }
     },
     mixins: [mixins],
-    components: {
-      'app-edit-company': EditCompany
-    },
     methods: {
       /**
        * Delete a company.

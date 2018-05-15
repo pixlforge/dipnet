@@ -3,12 +3,9 @@
 @section ('title', 'Détails pour la société ' . auth()->user()->company->name)
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
-  <app-show-company :data="{{ $company }}"
-                    :invitations-data="{{ $invitations }}"
-                    :data-businesses="{{ $businesses }}">
-  </app-show-company>
+  <app-show-company :company="{{ $company }}"
+                    :invitations="{{ $invitations }}"
+                    :businesses="{{ $businesses }}"></app-show-company>
 
 @endsection
