@@ -58,10 +58,9 @@
       </div>
     </section>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <MoonLoader :loading="loaderState"
+                :color="loader.color"
+                :size="loader.size"/>
   </div>
 </template>
 
@@ -71,7 +70,15 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: ['data-app-name'],
+    components: {
+      MoonLoader,
+    },
+    props: {
+      dataAppName: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         company: {
@@ -79,9 +86,6 @@
         },
         errors: {}
       }
-    },
-    components: {
-      'app-moon-loader': MoonLoader,
     },
     mixins: [mixins],
     computed: {
@@ -95,22 +99,19 @@
        */
       createCompany() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('register.company.store'), this.company)
-          .then(() => {
-            this.company = {}
-            flash({
-              message: 'Félicitations! Votre compte a bien été mis à jour!',
-              level: 'success'
-            })
-            setTimeout(() => {
-              window.location = route('index')
-            }, 1000)
+        axios.post(route('register.company.store'), this.company).then(() => {
+          this.company = {}
+          flash({
+            message: 'Félicitations! Votre compte a bien été mis à jour!',
+            level: 'success'
           })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+          setTimeout(() => {
+            window.location = route('index')
+          }, 1000)
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

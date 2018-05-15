@@ -31697,14 +31697,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-app-name'],
+  components: {
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+  },
+  props: {
+    dataAppName: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       company: {
@@ -31712,9 +31719,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       },
       errors: {}
     };
-  },
-  components: {
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState'])),
@@ -31724,7 +31728,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
      */
     createCompany() {
       this.$store.dispatch('toggleLoader');
-
       axios.post(route('register.company.store'), this.company).then(() => {
         this.company = {};
         flash({
@@ -31906,14 +31909,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-app-name', 'data-user'],
+  components: {
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+  },
+  props: {
+    dataAppName: {
+      type: String,
+      required: true
+    },
+    dataUser: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       contact: {
@@ -31928,18 +31942,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       errors: {}
     };
   },
-  components: {
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
-  },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState'])),
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState']), {
+
+    shouldDisplayCompanyChecklistItem() {
+      return !this.dataUser.is_solo && !this.dataUser.company_confirmed;
+    }
+  }),
   methods: {
     /**
      * Create the contact.
      */
     createContact() {
       this.$store.dispatch('toggleLoader');
-
       axios.post(route('register.contact.store'), this.contact).then(() => {
         this.contact = {};
         flash({
@@ -69593,7 +69608,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n          Terminer l'enregistrement\n        ")])])])]), _vm._v(" "), _c('app-moon-loader', {
+  }), _vm._v("\n          Terminer l'enregistrement\n        ")])])])]), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -71155,7 +71170,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "register__summary"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), (!_vm.dataUser.company_confirmed) ? _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), (_vm.shouldDisplayCompanyChecklistItem) ? _c('div', {
     staticClass: "register__summary-item"
   }, [_c('span', {
     staticClass: "badge__summary"
@@ -71163,7 +71178,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "register__summary-label"
   }, [_vm._v("Création de votre société")])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "register__summary-item"
-  }, [(!_vm.dataUser.company_confirmed) ? _c('span', {
+  }, [(_vm.shouldDisplayCompanyChecklistItem) ? _c('span', {
     staticClass: "badge__summary"
   }, [_vm._v("4")]) : _c('span', {
     staticClass: "badge__summary"
@@ -71449,7 +71464,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n          Créer le contact\n        ")])])])]), _vm._v(" "), _c('app-moon-loader', {
+  }), _vm._v("\n          Créer le contact\n        ")])])])]), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,

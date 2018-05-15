@@ -18,13 +18,13 @@
         </div>
 
         <div class="register__summary-item"
-             v-if="!dataUser.company_confirmed">
+             v-if="shouldDisplayCompanyChecklistItem">
           <span class="badge__summary">3</span>
           <span class="register__summary-label">Création de votre société</span>
         </div>
 
         <div class="register__summary-item">
-          <span class="badge__summary" v-if="!dataUser.company_confirmed">4</span>
+          <span class="badge__summary" v-if="shouldDisplayCompanyChecklistItem">4</span>
           <span class="badge__summary" v-else>3</span>
           <span class="register__summary-label">Terminé!</span>
         </div>
@@ -144,10 +144,9 @@
       </div>
     </section>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <MoonLoader :loading="loaderState"
+                :color="loader.color"
+                :size="loader.size"/>
   </div>
 </template>
 
@@ -157,10 +156,19 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'data-app-name',
-      'data-user'
-    ],
+    components: {
+      MoonLoader,
+    },
+    props: {
+      dataAppName: {
+        type: String,
+        required: true
+      },
+      dataUser: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
         contact: {
@@ -175,14 +183,15 @@
         errors: {}
       }
     },
-    components: {
-      'app-moon-loader': MoonLoader,
-    },
     mixins: [mixins],
     computed: {
       ...mapGetters([
         'loaderState'
-      ])
+      ]),
+
+      shouldDisplayCompanyChecklistItem() {
+        return !this.dataUser.is_solo && !this.dataUser.company_confirmed
+      }
     },
     methods: {
       /**
@@ -190,22 +199,19 @@
        */
       createContact() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('register.contact.store'), this.contact)
-          .then(() => {
-            this.contact = {}
-            flash({
-              message: 'Félicitations! Votre compte a bien été mis à jour!',
-              level: 'success'
-            })
-            setTimeout(() => {
-              window.location = route('index')
-            }, 1000)
+        axios.post(route('register.contact.store'), this.contact).then(() => {
+          this.contact = {}
+          flash({
+            message: 'Félicitations! Votre compte a bien été mis à jour!',
+            level: 'success'
           })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+          setTimeout(() => {
+            window.location = route('index')
+          }, 1000)
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }
