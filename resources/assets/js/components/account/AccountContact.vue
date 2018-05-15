@@ -144,9 +144,9 @@
       </div>
     </section>
 
-    <MoonLoader :loading="loaderState"
-                :color="loader.color"
-                :size="loader.size"/>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -188,7 +188,6 @@
       ...mapGetters([
         'loaderState'
       ]),
-
       shouldDisplayCompanyChecklistItem() {
         return !this.dataUser.is_solo && !this.dataUser.company_confirmed
       }

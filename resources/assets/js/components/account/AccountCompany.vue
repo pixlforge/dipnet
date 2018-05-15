@@ -58,9 +58,9 @@
       </div>
     </section>
 
-    <MoonLoader :loading="loaderState"
-                :color="loader.color"
-                :size="loader.size"/>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
