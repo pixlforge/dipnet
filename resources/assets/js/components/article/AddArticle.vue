@@ -107,7 +107,6 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: ['data-categories'],
     data() {
       return {
         article: {
@@ -124,27 +123,22 @@
       ...mapActions([
         'toggleLoader'
       ]),
-
       /**
        * Add an article.
        */
       addArticle() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('articles.store'), this.article)
-          .then(response => {
-            this.article.id = response.data
-            this.$emit('articleWasCreated', this.article)
-          })
-          .then(() => {
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-            this.article = {}
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        axios.post(route('articles.store'), this.article).then(response => {
+          this.article.id = response.data.id
+          this.$emit('articleWasCreated', this.article)
+        }).then(() => {
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+          this.article = {}
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

@@ -11,18 +11,16 @@
       </div>
 
       <!--Add article-->
-      <app-add-article @articleWasCreated="addArticle">
-      </app-add-article>
+      <add-article @articleWasCreated="addArticle"></add-article>
     </div>
 
     <div class="main__container main__container--grey">
 
       <!--Pagination top-->
-      <app-pagination class="pagination pagination--top"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getArticles">
-      </app-pagination>
+      <pagination class="pagination pagination--top"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getArticles"></pagination>
 
       <template v-if="!articles.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun article.</p>
@@ -40,17 +38,15 @@
       </template>
 
       <!--Pagination bottom-->
-      <app-pagination class="pagination pagination--bottom"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getArticles">
-      </app-pagination>
+      <pagination class="pagination pagination--bottom"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getArticles"></pagination>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -64,11 +60,15 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: ['data-categories'],
+    components: {
+      'app-article': Article,
+      AddArticle,
+      Pagination,
+      MoonLoader
+    },
     data() {
       return {
         articles: [],
-        categories: this.dataCategories,
         meta: {},
         errors: {},
         fetching: false,
@@ -78,12 +78,6 @@
       }
     },
     mixins: [mixins],
-    components: {
-      'app-article': Article,
-      'app-add-article': AddArticle,
-      'app-pagination': Pagination,
-      'app-moon-loader': MoonLoader
-    },
     computed: {
       ...mapGetters([
         'loaderState'
@@ -96,7 +90,6 @@
       getArticles(page = 1) {
         this.$store.dispatch('toggleLoader')
         this.fetching = true
-
         axios.get(route('api.articles.index'), {
           params: {
             page
@@ -112,18 +105,16 @@
           this.fetching = false
         })
       },
-
       /**
        * Add a new article to the list.
        */
       addArticle(article) {
         this.articles.unshift(article)
         flash({
-          message: 'La création de l\'article a réussi.',
+          message: "La création de l'article a réussi.",
           level: 'success'
         })
       },
-
       /**
        * Update the article details.
        */
@@ -137,18 +128,17 @@
           }
         }
         flash({
-          message: 'Les modifications apportées à l\'article ont été enregistrées.',
+          message: "Les modifications apportées à l'article ont été enregistrées.",
           level: 'success'
         })
       },
-
       /**
        * Remove an article from the list.
        */
       removeArticle(index) {
         this.articles.splice(index, 1)
         flash({
-          message: 'Suppression de l\'article réussie.',
+          message: "Suppression de l'article réussie.",
           level: 'success'
         })
       }

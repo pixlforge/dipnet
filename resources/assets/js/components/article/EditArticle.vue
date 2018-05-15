@@ -105,11 +105,15 @@
   import { eventBus } from '../../app'
 
   export default {
-    props: ['data-article'],
+    props: {
+      dataArticle: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
         article: this.dataArticle,
-        categories: this.dataCategories,
         errors: {}
       }
     },
@@ -120,29 +124,14 @@
        */
       updateArticle() {
         this.$store.dispatch('toggleLoader')
-
-        axios.put(route('articles.update', [this.article.id]), this.article)
-          .then(() => {
-            eventBus.$emit('articleWasUpdated', this.article)
-          })
-          .then(() => {
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-          })
-          .catch((error) => {
-            this.$store.dispatch('toggleLoader')
-            if (error.response.status === 422) {
-              flash({
-                message: "Erreur. La validation a échoué.",
-                level: 'danger'
-              })
-              return;
-            }
-            flash({
-              message: "Erreur. Veuillez réessayer plus tard.",
-              level: 'danger'
-            })
-          })
+        axios.put(route('articles.update', [this.article.id]), this.article).then(() => {
+          eventBus.$emit('articleWasUpdated', this.article)
+        }).then(() => {
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+        }).catch((error) => {
+          this.$store.dispatch('toggleLoader')
+        })
       }
     }
   }

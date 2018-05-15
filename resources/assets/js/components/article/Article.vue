@@ -6,28 +6,28 @@
     </div>
 
     <div class="card__title">
-      {{ article.reference }}
+      {{ dataArticle.reference }}
     </div>
 
     <div class="card__meta">
       <div>
         <span class="card__label">Description</span>
-        {{ article.description | capitalize }}
+        {{ dataArticle.description | capitalize }}
       </div>
       <div>
         <span class="card__label">Type</span>
-        {{ article.type | capitalize }}
+        {{ dataArticle.type | capitalize }}
       </div>
     </div>
 
     <div class="card__meta">
       <div>
         <span class="card__label">Créé</span>
-        {{ getDate(article.created_at) }}
+        {{ getDate(dataArticle.created_at) }}
       </div>
       <div>
         <span class="card__label">Modifié</span>
-        {{ getDate(article.updated_at) }}
+        {{ getDate(dataArticle.updated_at) }}
       </div>
     </div>
 
@@ -37,8 +37,7 @@
         <i class="fal fa-times"></i>
       </div>
       <div title="Modifier">
-        <app-edit-article :data-article="article">
-        </app-edit-article>
+        <edit-article :data-article="dataArticle"></edit-article>
       </div>
     </div>
   </div>
@@ -50,30 +49,24 @@
   import mixins from '../../mixins'
 
   export default {
-    props: [
-      'data-article',
-      'data-categories'
-    ],
-    data() {
-      return {
-        article: this.dataArticle,
-        categories: this.dataCategories
+    components: {
+      EditArticle
+    },
+    props: {
+      dataArticle: {
+        type: Object,
+        required: true
       }
     },
     mixins: [mixins],
-    components: {
-      'app-edit-article': EditArticle
-    },
     methods: {
-
       /**
        * Delete the article.
        */
       destroy() {
-        axios.delete(route('articles.destroy', [this.article.id]))
-        this.$emit('articleWasDeleted', this.article.id)
+        axios.delete(route('articles.destroy', [this.dataArticle.id]))
+        this.$emit('articleWasDeleted', this.dataArticle.id)
       },
-
       /**
        * Get the formatted dates.
        */
