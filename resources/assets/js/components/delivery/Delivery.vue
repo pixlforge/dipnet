@@ -20,7 +20,7 @@
         <span class="card__label">Commande</span>
         {{ delivery.order.reference }}
       </div>
-      <div v-if="delivery.order">
+      <div v-if="delivery.contact">
         <span class="card__label">Contact</span>
         {{ delivery.contact.name}}
       </div>
@@ -48,13 +48,12 @@
   import mixins from '../../mixins'
 
   export default {
-    props: ['data-delivery'],
-    data() {
-      return {
-        delivery: this.dataDelivery
+    props: {
+      delivery: {
+        type: Object,
+        required: true
       }
     },
-    mixins: [mixins],
     computed: {
       deliveryNote() {
         if (this.delivery.note.length > 45) {
@@ -64,10 +63,8 @@
         }
       }
     },
+    mixins: [mixins],
     methods: {
-      /**
-       * Get the formatted dates.
-       */
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
       },

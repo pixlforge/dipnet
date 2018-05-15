@@ -1,11 +1,8 @@
 <template>
   <div>
     <div class="header__container">
-
-      <!--Page title-->
       <h1 class="header__title">Livraisons</h1>
 
-      <!--Deliveries count-->
       <div class="header__stats">
         <span v-text="modelCount"></span>
       </div>
@@ -15,12 +12,10 @@
 
     <div class="main__container main__container--grey">
 
-      <!--Pagination top-->
-      <app-pagination class="pagination pagination--top"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getDeliveries">
-      </app-pagination>
+      <pagination class="pagination pagination--top"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getDeliveries"></pagination>
 
       <template v-if="!deliveries.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucune livraison.</p>
@@ -28,27 +23,23 @@
 
       <template v-else>
         <transition-group name="pagination" tag="div" mode="out-in">
-          <app-delivery class="card__container"
-                        v-for="(delivery, index) in deliveries"
-                        :key="delivery.id"
-                        :data-delivery="delivery"
-                        @deliveryWasDeleted="removeDelivery(index)">
-          </app-delivery>
+          <delivery class="card__container"
+                    v-for="(delivery, index) in deliveries"
+                    :key="delivery.id"
+                    :delivery="delivery"
+                    @deliveryWasDeleted="removeDelivery(index)"></delivery>
         </transition-group>
       </template>
 
-      <!--Pagination bottom-->
-      <app-pagination class="pagination pagination--bottom"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getDeliveries">
-      </app-pagination>
+      <pagination class="pagination pagination--bottom"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getDeliveries"></pagination>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -60,6 +51,11 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    components: {
+      Delivery,
+      Pagination,
+      MoonLoader
+    },
     data() {
       return {
         deliveries: [],
@@ -71,21 +67,13 @@
         modelGender: 'F'
       }
     },
-    mixins: [mixins],
-    components: {
-      'app-delivery': Delivery,
-      'app-pagination': Pagination,
-      'app-moon-loader': MoonLoader
-    },
     computed: {
       ...mapGetters([
         'loaderState'
       ])
     },
+    mixins: [mixins],
     methods: {
-      /**
-       * Fetch the users paginated data.
-       */
       getDeliveries(page = 1) {
         this.$store.dispatch('toggleLoader')
         this.fetching = true

@@ -35341,15 +35341,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -35358,6 +35349,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Delivery: __WEBPACK_IMPORTED_MODULE_1__Delivery___default.a,
+    Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+  },
   data() {
     return {
       deliveries: [],
@@ -35369,17 +35365,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       modelGender: 'F'
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
-  components: {
-    'app-delivery': __WEBPACK_IMPORTED_MODULE_1__Delivery___default.a,
-    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
-  },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(['loaderState'])),
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
   methods: {
-    /**
-     * Fetch the users paginated data.
-     */
     getDeliveries(page = 1) {
       this.$store.dispatch('toggleLoader');
       this.fetching = true;
@@ -35464,13 +35452,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-delivery'],
-  data() {
-    return {
-      delivery: this.dataDelivery
-    };
+  props: {
+    delivery: {
+      type: Object,
+      required: true
+    }
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   computed: {
     deliveryNote() {
       if (this.delivery.note.length > 45) {
@@ -35480,10 +35467,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     }
   },
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   methods: {
-    /**
-     * Get the formatted dates.
-     */
     getDate(date) {
       return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).locale(this.momentLocale).format(this.momentFormat);
     }
@@ -73157,7 +73142,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div')]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
-  }, [(_vm.meta.total > 25) ? _c('app-pagination', {
+  }, [(_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--top",
     attrs: {
       "data-meta": _vm.meta
@@ -73174,11 +73159,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "mode": "out-in"
     }
   }, _vm._l((_vm.deliveries), function(delivery, index) {
-    return _c('app-delivery', {
+    return _c('delivery', {
       key: delivery.id,
       staticClass: "card__container",
       attrs: {
-        "data-delivery": delivery
+        "delivery": delivery
       },
       on: {
         "deliveryWasDeleted": function($event) {
@@ -73186,7 +73171,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -73194,7 +73179,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getDeliveries
     }
-  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -73223,7 +73208,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__meta"
   }, [(_vm.delivery.order) ? _c('div', [_c('span', {
     staticClass: "card__label"
-  }, [_vm._v("Commande")]), _vm._v("\n      " + _vm._s(_vm.delivery.order.reference) + "\n    ")]) : _vm._e(), _vm._v(" "), (_vm.delivery.order) ? _c('div', [_c('span', {
+  }, [_vm._v("Commande")]), _vm._v("\n      " + _vm._s(_vm.delivery.order.reference) + "\n    ")]) : _vm._e(), _vm._v(" "), (_vm.delivery.contact) ? _c('div', [_c('span', {
     staticClass: "card__label"
   }, [_vm._v("Contact")]), _vm._v("\n      " + _vm._s(_vm.delivery.contact.name) + "\n    ")]) : _vm._e(), _vm._v(" "), (_vm.delivery.to_delivery_at) ? _c('div', [_c('span', {
     staticClass: "card__label"
