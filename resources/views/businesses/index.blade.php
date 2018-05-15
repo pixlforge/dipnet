@@ -3,13 +3,9 @@
 @section ('title', 'Affaires')
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
-  <app-businesses :data-companies="{{ $companies }}"
-                  :data-contacts="{{ $contacts }}"
-                  :data-user="{{ auth()->user() }}"
-                  :data-orders="{{ $orders }}">
-  </app-businesses>
-
+  <app-businesses :companies="{{ $companies }}"
+                  :contacts="{{ $contacts }}"
+                  :user="{{ auth()->user() }}"
+                  :orders="{{ $orders }}"></app-businesses>
 @endsection

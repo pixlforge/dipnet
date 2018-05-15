@@ -5765,7 +5765,7 @@ Vue.component('app-create-order', __webpack_require__(144));
 Vue.component('app-order-admin', __webpack_require__(306));
 Vue.component('app-add-default-business', __webpack_require__(268));
 Vue.component('app-login', __webpack_require__(302));
-Vue.component('app-show-business', __webpack_require__(271));
+Vue.component('show-business', __webpack_require__(271));
 
 const eventBus = new Vue();
 /* harmony export (immutable) */ __webpack_exports__["eventBus"] = eventBus;
@@ -32685,15 +32685,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-companies', 'data-contacts', 'data-user'],
+  props: {
+    companies: {
+      type: Array,
+      required: true
+    },
+    contacts: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       business: {
@@ -32704,46 +32714,32 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         contact_id: '',
         folder_color: ''
       },
-      companies: this.dataCompanies,
       errors: {}
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   computed: {
-    /**
-     * Get the contacts associated with the company.
-     */
-    contacts() {
+    filteredContacts() {
       if (this.userIsAdmin) {
         if (this.business.company_id !== '') {
-          return this.dataContacts.filter(contact => {
+          return this.contacts.filter(contact => {
             return contact.company_id === this.business.company_id;
           });
         }
       } else {
-        return this.dataContacts;
+        return this.contacts;
       }
     },
-
-    /**
-     * Check whether the user is an admin.
-     */
     userIsAdmin() {
-      return this.dataUser.role === 'administrateur';
+      return this.user.role === 'administrateur';
     }
   },
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
-    /**
-     * Add a business.
-     */
     addBusiness() {
       this.$store.dispatch('toggleLoader');
-
       if (!this.userIsAdmin) {
-        this.business.company_id = this.dataUser.company.id;
+        this.business.company_id = this.user.company.id;
       }
-
       axios.post(route('businesses.store'), this.business).then(response => {
         this.business = response.data;
         this.$emit('businessWasCreated', this.business);
@@ -32853,13 +32849,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-company', 'data-contacts'],
+  components: {
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
+  },
+  props: {
+    dataCompany: {
+      type: Object,
+      required: true
+    },
+    dataContacts: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       showAlert: true,
@@ -32875,7 +32885,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["b" /* mapGetters */])(['loaderState']), {
-
     context() {
       if (this.dataCompany.name === 'Particulier') {
         return "Vous devez";
@@ -32884,17 +32893,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       }
     }
   }),
-  components: {
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
-  },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
-    /**
-     * Create a new business.
-     */
     addBusiness() {
       this.$store.dispatch('toggleLoader');
-
       axios.post(route('businesses.store'), this.business).then(() => {
         flash({
           message: "Votre première affaire a bien été créée!",
@@ -32908,10 +32909,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.errors = error.response.data.errors;
       });
     },
-
-    /**
-     * Toggle the visibility of the alert.
-     */
     toggleAlert() {
       this.showAlert = !this.showAlert;
     }
@@ -32995,29 +32992,33 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-business', 'data-companies', 'data-contacts', 'data-user'],
-  data() {
-    return {
-      business: this.dataBusiness,
-      companies: this.dataCompanies
-    };
+  components: {
+    EditBusiness: __WEBPACK_IMPORTED_MODULE_0__EditBusiness_vue___default.a
+  },
+  props: {
+    business: {
+      type: Object,
+      required: true
+    },
+    companies: {
+      type: Array,
+      required: true
+    },
+    contacts: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
-  components: {
-    'app-edit-business': __WEBPACK_IMPORTED_MODULE_0__EditBusiness_vue___default.a
-  },
   methods: {
-    /**
-     * Delete a business.
-     */
     destroy() {
       axios.delete(route('businesses.destroy', [this.business.id]));
       this.$emit('businessWasDeleted', this.business.id);
     },
-
-    /**
-     * Get the formatted dates.
-     */
     getDate(date) {
       return __WEBPACK_IMPORTED_MODULE_2_moment___default()(date).locale(this.momentLocale).format(this.momentFormat);
     }
@@ -33110,19 +33111,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -33134,11 +33122,34 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-companies', 'data-contacts', 'data-user', 'data-orders'],
+  components: {
+    Business: __WEBPACK_IMPORTED_MODULE_1__Business_vue___default.a,
+    UserBusiness: __WEBPACK_IMPORTED_MODULE_2__UserBusiness___default.a,
+    AddBusiness: __WEBPACK_IMPORTED_MODULE_3__AddBusiness_vue___default.a,
+    Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default.a
+  },
+  props: {
+    companies: {
+      type: Array,
+      required: true
+    },
+    contacts: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    },
+    orders: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
       businesses: [],
-      companies: this.dataCompanies,
       meta: {},
       errors: {},
       fetching: false,
@@ -33148,18 +33159,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* default */]],
-  components: {
-    'app-business': __WEBPACK_IMPORTED_MODULE_1__Business_vue___default.a,
-    'app-user-business': __WEBPACK_IMPORTED_MODULE_2__UserBusiness___default.a,
-    'app-add-business': __WEBPACK_IMPORTED_MODULE_3__AddBusiness_vue___default.a,
-    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default.a
-  },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(['loaderState'])),
   methods: {
-    /**
-     * Fetch the businesses paginated data.
-     */
     getBusinesses(page = 1) {
       this.$store.dispatch('toggleLoader');
       this.fetching = true;
@@ -33179,10 +33180,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.fetching = false;
       });
     },
-
-    /**
-     * Add a new business to the list.
-     */
     addBusiness(business) {
       this.businesses.unshift(business);
       flash({
@@ -33190,10 +33187,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: 'success'
       });
     },
-
-    /**
-     * Update a business details.
-     */
     updateBusiness(data) {
       for (let business of this.businesses) {
         if (data.id === business.id) {
@@ -33209,10 +33202,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: 'success'
       });
     },
-
-    /**
-     * Remove a business from the list.
-     */
     removeBusiness(index) {
       this.businesses.splice(index, 1);
       flash({
@@ -33390,43 +33379,48 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-business', 'data-companies', 'data-contacts', 'data-user'],
+  props: {
+    business: {
+      type: Object,
+      required: true
+    },
+    companies: {
+      type: Array,
+      required: false
+    },
+    contacts: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      business: this.dataBusiness,
-      companies: this.dataCompanies,
       errors: {}
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   computed: {
-    /**
-     * Get the contacts associated with the company.
-     */
-    contacts() {
+    filteredContacts() {
       if (this.business.company_id !== '') {
-        return this.dataContacts.filter(contact => {
+        return this.contacts.filter(contact => {
           return contact.company_id === this.business.company_id;
         });
       }
     }
   },
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
-
-    /**
-     * Update a business.
-     */
     updateBusiness() {
       this.$store.dispatch('toggleLoader');
-
       axios.put(route('businesses.update', [this.business.id]), this.business).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit('businessWasUpdated', this.business);
       }).then(() => {
@@ -33503,7 +33497,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
 
 
 
@@ -33513,14 +33506,43 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-business', 'data-contacts', 'data-user', 'data-orders', 'data-avatar-path', 'data-random-avatar', 'data-comments'],
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
   components: {
-    'app-order': __WEBPACK_IMPORTED_MODULE_1__order_Order___default.a,
-    'app-edit-business': __WEBPACK_IMPORTED_MODULE_2__EditBusiness___default.a,
-    'app-comments': __WEBPACK_IMPORTED_MODULE_0__comment_Comments___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
+    Comments: __WEBPACK_IMPORTED_MODULE_0__comment_Comments___default.a,
+    Order: __WEBPACK_IMPORTED_MODULE_1__order_Order___default.a,
+    EditBusiness: __WEBPACK_IMPORTED_MODULE_2__EditBusiness___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
   },
+  props: {
+    business: {
+      type: Object,
+      required: true
+    },
+    contacts: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    },
+    orders: {
+      type: Array,
+      required: true
+    },
+    avatarPath: {
+      type: String,
+      required: true
+    },
+    randomAvatar: {
+      type: String,
+      required: true
+    },
+    comments: {
+      type: Array,
+      required: true
+    }
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* default */]],
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(['loaderState']))
 });
 
@@ -33542,28 +33564,35 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-business', 'data-orders'],
+  props: {
+    business: {
+      type: Object,
+      required: true
+    },
+    orders: {
+      type: Array,
+      required: true
+    }
+  },
   computed: {
     iconColor() {
-      if (this.dataBusiness.folder_color === 'red') {
+      if (this.business.folder_color === 'red') {
         return '/img/folders/folder-red.svg';
-      } else if (this.dataBusiness.folder_color === 'orange') {
+      } else if (this.business.folder_color === 'orange') {
         return '/img/folders/folder-orange.svg';
-      } else if (this.dataBusiness.folder_color === 'purple') {
+      } else if (this.business.folder_color === 'purple') {
         return '/img/folders/folder-purple.svg';
-      } else if (this.dataBusiness.folder_color === 'blue') {
+      } else if (this.business.folder_color === 'blue') {
         return '/img/folders/folder-blue.svg';
       }
     },
-
     iconAlt() {
-      return this.dataBusiness.name;
+      return this.business.name;
     },
-
-    orders() {
+    userOrders() {
       let count = 0;
-      this.dataOrders.forEach(order => {
-        if (order.business_id === this.dataBusiness.id) {
+      this.orders.forEach(order => {
+        if (order.business_id === this.business.id) {
           count++;
         }
       });
@@ -33572,7 +33601,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     showBusiness() {
-      window.location = route('businesses.show', [this.dataBusiness.id]);
+      window.location = route('businesses.show', [this.business.id]);
     }
   }
 });
@@ -33668,12 +33697,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-business', 'data-avatar-path', 'data-random-avatar'],
+  props: {
+    business: {
+      type: Object,
+      required: true
+    },
+    avatarPath: {
+      type: String,
+      required: true
+    },
+    randomAvatar: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       comment: {
@@ -33686,8 +33730,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     addComment() {
       this.$store.dispatch('toggleLoader');
-
-      axios.post(route('comments.store', [this.dataBusiness.id]), this.comment).then(response => {
+      axios.post(route('comments.store', [this.business.id]), this.comment).then(response => {
         this.$store.dispatch('toggleLoader');
         this.$emit('postedComment', {
           id: response.data.id,
@@ -33732,17 +33775,19 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-comment'],
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
-  computed: {
-    avatarPath() {
-      return '/img/avatar' + this.dataComment.user.avatar.path;
+  props: {
+    comment: {
+      type: Object,
+      required: true
     }
   },
+  computed: {
+    avatarPath() {
+      return '/img/avatar' + this.comment.user.avatar.path;
+    }
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   methods: {
-    /**
-     * Get the formatted dates.
-     */
     getDate(date) {
       return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).locale(this.momentLocale).fromNow();
     }
@@ -33778,31 +33823,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-business', 'data-avatar-path', 'data-random-avatar', 'data-comments', 'data-user'],
+  components: {
+    AddComment: __WEBPACK_IMPORTED_MODULE_0__AddComment___default.a,
+    Comment: __WEBPACK_IMPORTED_MODULE_1__Comment___default.a
+  },
+  props: {
+    business: {
+      type: Object,
+      required: true
+    },
+    avatarPath: {
+      type: String,
+      required: true
+    },
+    randomAvatar: {
+      type: String,
+      required: true
+    },
+    comments: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
-      comments: this.dataComments
+      currentComments: this.comments
     };
-  },
-  components: {
-    'app-add-comment': __WEBPACK_IMPORTED_MODULE_0__AddComment___default.a,
-    'app-comment': __WEBPACK_IMPORTED_MODULE_1__Comment___default.a
   },
   methods: {
     addComment(comment) {
       const newComment = {
         id: comment.id,
         body: comment.body,
-        user: this.dataUser
+        user: this.user
       };
-      this.comments.unshift(newComment);
+      this.currentComments.unshift(newComment);
       flash({
         message: "Votre commentaire a bien été posté!",
         level: 'success'
@@ -39349,19 +39413,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
-    dataOrder: {
+    order: {
       type: Object,
       required: true
     },
     dataUserRole: {
       type: String,
-      required: true
+      required: false
+    },
+    displayUser: {
+      type: Boolean,
+      required: false
     }
-  },
-  data() {
-    return {
-      order: this.dataOrder
-    };
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   computed: {
@@ -69459,14 +69522,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "comments__input-group"
   }, [_c('div', {
     staticClass: "comments__avatar"
-  }, [(_vm.dataAvatarPath !== '') ? _c('img', {
+  }, [(_vm.avatarPath !== '') ? _c('img', {
     attrs: {
-      "src": '/' + _vm.dataAvatarPath,
+      "src": '/' + _vm.avatarPath,
       "alt": "Avatar de l'utilisateur"
     }
   }) : _c('img', {
     attrs: {
-      "src": '/' + _vm.dataRandomAvatar,
+      "src": '/' + _vm.randomAvatar,
       "alt": "Avatar de l'utilisateur"
     }
   })]), _vm._v(" "), _c('textarea', {
@@ -69492,6 +69555,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": _vm.addComment
     }
@@ -69514,11 +69580,11 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('h2', {
     staticClass: "comments__title"
-  }, [_vm._v("Commentaires")]), _vm._v(" "), _c('app-add-comment', {
+  }, [_vm._v("Commentaires")]), _vm._v(" "), _c('add-comment', {
     attrs: {
-      "data-business": _vm.dataBusiness,
-      "data-avatar-path": _vm.dataAvatarPath,
-      "data-random-avatar": _vm.dataRandomAvatar
+      "business": _vm.business,
+      "avatar-path": _vm.avatarPath,
+      "random-avatar": _vm.randomAvatar
     },
     on: {
       "postedComment": _vm.addComment
@@ -69527,14 +69593,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "name": "highlight"
     }
-  }, _vm._l((_vm.comments), function(comment, index) {
-    return _c('app-comment', {
+  }, _vm._l((_vm.currentComments), function(comment, index) {
+    return _c('comment', {
       key: comment.id,
       attrs: {
-        "data-comment": comment
+        "comment": comment
       }
     })
-  })), _vm._v(" "), (!_vm.comments.length) ? _c('p', {
+  })), _vm._v(" "), (!_vm.currentComments.length) ? _c('p', {
     staticClass: "paragraph__no-model-found paragraph__no-model-found--small"
   }, [_vm._v("\n    Aucun commentaire n'a été posté pour le moment.\n  ")]) : _vm._e()], 1)
 },staticRenderFns: []}
@@ -70353,16 +70419,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "comments__container"
   }, [_c('div', {
     staticClass: "comments__avatar"
-  }, [(_vm.dataComment.user.avatar) ? _c('img', {
+  }, [(_vm.comment.user.avatar) ? _c('img', {
     attrs: {
       "src": _vm.avatarPath,
-      "alt": "L'image de profile de l'utilisateur"
+      "alt": "L'image de profil de l'utilisateur"
     }
   }) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "comments__content"
   }, [_c('div', {
     staticClass: "comments__meta"
-  }, [_c('h3', [_vm._v(_vm._s(_vm.dataComment.user.username))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.getDate(_vm.dataComment.created_at)))])]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.dataComment.body))])])])
+  }, [_c('h3', [_vm._v(_vm._s(_vm.comment.user.username))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.getDate(_vm.comment.created_at)))])]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.comment.body))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -71811,14 +71877,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__container"
   }, [_c('h1', {
     staticClass: "header__title"
-  }, [_vm._v(_vm._s(_vm.dataBusiness.name))]), _vm._v(" "), _c('app-edit-business', {
+  }, [_vm._v(_vm._s(_vm.business.name))]), _vm._v(" "), _c('edit-business', {
     attrs: {
-      "data-business": _vm.dataBusiness,
-      "data-contacts": _vm.dataContacts,
-      "data-user": _vm.dataUser
+      "business": _vm.business,
+      "contacts": _vm.contacts,
+      "user": _vm.user
     }
   }, [_c('button', {
-    staticClass: "btn btn--red"
+    staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    }
   }, [_c('i', {
     staticClass: "fal fa-pencil"
   }), _vm._v("\n        Modifier\n      ")])])], 1), _vm._v(" "), _c('div', {
@@ -71827,28 +71896,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "business__container"
   }, [_c('div', {
     staticClass: "business__orders"
-  }, [_vm._l((_vm.dataOrders), function(order, index) {
-    return _c('app-order', {
+  }, [_vm._l((_vm.orders), function(order, index) {
+    return _c('order', {
       key: order.id,
       staticClass: "card__container card__container--full",
       attrs: {
-        "data-order": order,
+        "order": order,
         "display-user": true
       }
     })
-  }), _vm._v(" "), (!_vm.dataOrders.length) ? _c('p', {
+  }), _vm._v(" "), (!_vm.orders.length) ? _c('p', {
     staticClass: "paragraph__no-model-found paragraph__no-model-found--small"
   }, [_vm._v("\n          Aucune commande n'a été enregistrée pour cette affaire.\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "business__comments"
-  }, [_c('app-comments', {
+  }, [_c('comments', {
     attrs: {
-      "data-business": _vm.dataBusiness,
-      "data-avatar-path": _vm.dataAvatarPath,
-      "data-random-avatar": _vm.dataRandomAvatar,
-      "data-comments": _vm.dataComments,
-      "data-user": _vm.dataUser
+      "business": _vm.business,
+      "avatar-path": _vm.avatarPath,
+      "random-avatar": _vm.randomAvatar,
+      "comments": _vm.comments,
+      "user": _vm.user
     }
-  })], 1)])]), _vm._v(" "), _c('app-moon-loader', {
+  })], 1)])]), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -72531,6 +72600,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_c('button', {
     staticClass: "btn btn--red-large",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": _vm.toggleModal
     }
@@ -72605,7 +72677,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.dataUser.role === 'administrateur') ? _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.user.role === 'administrateur') ? _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",
@@ -72769,7 +72841,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "disabled": ""
     }
-  }, [_vm._v("Sélectionnez un contact")]), _vm._v(" "), _vm._l((_vm.contacts), function(contact, index) {
+  }, [_vm._v("Sélectionnez un contact")]), _vm._v(" "), _vm._l((_vm.filteredContacts), function(contact, index) {
     return _c('option', {
       domProps: {
         "value": contact.id
@@ -72833,6 +72905,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.stopPropagation();
@@ -72843,6 +72918,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times"
   }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.preventDefault();
@@ -74301,9 +74379,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('h2', {
     staticClass: "user-business__title"
-  }, [_vm._v(_vm._s(_vm.dataBusiness.name))]), _vm._v(" "), _c('p', {
+  }, [_vm._v(_vm._s(_vm.business.name))]), _vm._v(" "), _c('p', {
     staticClass: "user-business__orders"
-  }, [_vm._v(_vm._s(_vm.orders))])])])
+  }, [_vm._v(_vm._s(_vm.userOrders))])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -74387,18 +74465,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__title"
   }, [_vm._v("Affaires")]), _vm._v(" "), _c('div', {
     staticClass: "header__stats"
-  }, [(_vm.meta.total > 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " affaires")]) : (_vm.meta.total === 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " affaire")]) : _c('span', [_vm._v("Aucune affaire")])]), _vm._v(" "), _c('app-add-business', {
+  }, [(_vm.meta.total > 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " affaires")]) : (_vm.meta.total === 1) ? _c('span', [_vm._v(_vm._s(_vm.meta.total) + " affaire")]) : _c('span', [_vm._v("Aucune affaire")])]), _vm._v(" "), _c('add-business', {
     attrs: {
-      "data-companies": _vm.companies,
-      "data-contacts": _vm.dataContacts,
-      "data-user": _vm.dataUser
+      "companies": _vm.companies,
+      "contacts": _vm.contacts,
+      "user": _vm.user
     },
     on: {
       "businessWasCreated": _vm.addBusiness
     }
   })], 1), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
-  }, [(_vm.meta.total > 25) ? _c('app-pagination', {
+  }, [(_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--top",
     attrs: {
       "data-meta": _vm.meta
@@ -74408,7 +74486,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : _vm._e(), _vm._v(" "), (!_vm.businesses.length && !_vm.fetching) ? [_c('p', {
     staticClass: "paragraph__no-model-found"
-  }, [_vm._v("Il n'existe encore aucune affaire.")])] : _vm._e(), _vm._v(" "), (_vm.businesses.length && _vm.dataUser.role === 'utilisateur') ? [_c('div', {
+  }, [_vm._v("Il n'existe encore aucune affaire.")])] : _vm._e(), _vm._v(" "), (_vm.businesses.length && _vm.user.role === 'utilisateur') ? [_c('div', {
     staticClass: "user-business__container"
   }, [_c('transition-group', {
     attrs: {
@@ -74417,12 +74495,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "mode": "out-in"
     }
   }, _vm._l((_vm.businesses), function(business, index) {
-    return _c('app-user-business', {
+    return _c('user-business', {
       key: business.id,
       attrs: {
-        "data-business": business,
-        "data-orders": _vm.dataOrders,
-        "data-user": _vm.dataUser
+        "business": business,
+        "orders": _vm.orders,
+        "user": _vm.user
       },
       on: {
         "businessWasDeleted": function($event) {
@@ -74430,21 +74508,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  }))], 1)] : _vm._e(), _vm._v(" "), (_vm.businesses.length && _vm.dataUser.role === 'administrateur') ? [_c('transition-group', {
+  }))], 1)] : _vm._e(), _vm._v(" "), (_vm.businesses.length && _vm.user.role === 'administrateur') ? [_c('transition-group', {
     attrs: {
       "name": "pagination",
       "tag": "div",
       "mode": "out-in"
     }
   }, _vm._l((_vm.businesses), function(business, index) {
-    return _c('app-business', {
+    return _c('business', {
       key: business.id,
       staticClass: "card__container",
       attrs: {
-        "data-business": business,
-        "data-companies": _vm.dataCompanies,
-        "data-contacts": _vm.dataContacts,
-        "data-user": _vm.dataUser
+        "business": business,
+        "companies": _vm.companies,
+        "contacts": _vm.contacts,
+        "user": _vm.user
       },
       on: {
         "businessWasDeleted": function($event) {
@@ -74452,7 +74530,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  }))] : _vm._e(), _vm._v(" "), (_vm.meta.total > 25) ? _c('app-pagination', {
+  }))] : _vm._e(), _vm._v(" "), (_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -74460,7 +74538,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getBusinesses
     }
-  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -74481,7 +74559,12 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
+    attrs: {
+      "title": "Modifier",
+      "role": "button"
+    }
+  }, [_c('div', {
     on: {
       "click": _vm.toggleModal
     }
@@ -74554,7 +74637,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.dataUser.role === 'administrateur') ? _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.user.role === 'administrateur') ? _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",
@@ -74634,7 +74717,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.errors.description) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.description[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.dataUser.role === 'administrateur') ? _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.description[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.user.role === 'administrateur') ? _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",
@@ -74718,7 +74801,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "disabled": ""
     }
-  }, [_vm._v("Sélectionnez un contact")]), _vm._v(" "), _vm._l((_vm.contacts), function(contact, index) {
+  }, [_vm._v("Sélectionnez un contact")]), _vm._v(" "), _vm._l((_vm.filteredContacts), function(contact, index) {
     return _c('option', {
       domProps: {
         "value": contact.id
@@ -74782,6 +74865,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.stopPropagation();
@@ -74792,6 +74878,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times"
   }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
         $event.preventDefault();
@@ -76010,6 +76099,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "alert-page__paragraph"
   }, [_vm._v("\n        " + _vm._s(_vm.context) + " disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.\n      ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": _vm.toggleAlert
     }
@@ -76021,10 +76113,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('h1', {
     staticClass: "alert-page__title"
   }, [_vm._v("Ajouter une affaire")]), _vm._v(" "), _c('form', {
-    staticClass: "alert-page__form",
-    attrs: {
-      "submit.prevent": ""
-    }
+    staticClass: "alert-page__form"
   }, [_c('div', {
     staticClass: "form__group"
   }, [_c('label', {
@@ -76163,12 +76252,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : _vm._e()])]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": _vm.addBusiness
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n        Terminer\n      ")])])]), _vm._v(" "), _c('app-moon-loader', {
+  }), _vm._v("\n        Terminer\n      ")])])]), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -77308,23 +77400,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__controls"
   }, [_c('div', {
     attrs: {
-      "title": "Supprimer"
+      "title": "Supprimer",
+      "role": "button"
     },
     on: {
       "click": _vm.destroy
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('div', [_c('edit-business', {
     attrs: {
-      "title": "Modifier"
-    }
-  }, [_c('app-edit-business', {
-    attrs: {
-      "data-business": _vm.business,
-      "data-companies": _vm.companies,
-      "data-contacts": _vm.dataContacts,
-      "data-user": _vm.dataUser
+      "business": _vm.business,
+      "companies": _vm.companies,
+      "contacts": _vm.contacts,
+      "user": _vm.user
     }
   })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

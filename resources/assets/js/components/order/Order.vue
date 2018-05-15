@@ -68,18 +68,17 @@
 
   export default {
     props: {
-      dataOrder: {
+      order: {
         type: Object,
         required: true
       },
       dataUserRole: {
         type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-        order: this.dataOrder
+        required: false
+      },
+      displayUser: {
+        type: Boolean,
+        required: false
       }
     },
     mixins: [mixins],

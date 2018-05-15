@@ -1,19 +1,17 @@
 <template>
   <div>
     <h2 class="comments__title">Commentaires</h2>
-    <app-add-comment :data-business="dataBusiness"
-                     :data-avatar-path="dataAvatarPath"
-                     :data-random-avatar="dataRandomAvatar"
-                     @postedComment="addComment">
-    </app-add-comment>
+    <add-comment :business="business"
+                 :avatar-path="avatarPath"
+                 :random-avatar="randomAvatar"
+                 @postedComment="addComment"></add-comment>
     <transition-group name="highlight">
-      <app-comment v-for="(comment, index) in comments"
-                   :key="comment.id"
-                   :data-comment="comment">
-      </app-comment>
+      <comment v-for="(comment, index) in currentComments"
+               :key="comment.id"
+               :comment="comment"></comment>
     </transition-group>
     <p class="paragraph__no-model-found paragraph__no-model-found--small"
-       v-if="!comments.length">
+       v-if="!currentComments.length">
       Aucun commentaire n'a été posté pour le moment.
     </p>
   </div>
@@ -24,30 +22,45 @@
   import Comment from './Comment'
 
   export default {
-    props: [
-      'data-business',
-      'data-avatar-path',
-      'data-random-avatar',
-      'data-comments',
-      'data-user'
-    ],
-    data() {
-      return {
-        comments: this.dataComments
+    components: {
+      AddComment,
+      Comment
+    },
+    props: {
+      business: {
+        type: Object,
+        required: true
+      },
+      avatarPath: {
+        type: String,
+        required: true
+      },
+      randomAvatar: {
+        type: String,
+        required: true
+      },
+      comments: {
+        type: Array,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
       }
     },
-    components: {
-      'app-add-comment': AddComment,
-      'app-comment': Comment
+    data() {
+      return {
+        currentComments: this.comments
+      }
     },
     methods: {
       addComment(comment) {
         const newComment = {
           id: comment.id,
           body: comment.body,
-          user: this.dataUser
+          user: this.user
         }
-        this.comments.unshift(newComment)
+        this.currentComments.unshift(newComment)
         flash({
           message: "Votre commentaire a bien été posté!",
           level: 'success'

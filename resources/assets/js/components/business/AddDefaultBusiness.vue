@@ -1,22 +1,25 @@
 <template>
   <div class="alert-page__container">
     <transition name="fade" mode="out-in" appear>
-      <div class="alert-page__card" key="start" v-if="showAlert">
+      <div class="alert-page__card"
+           key="start"
+           v-if="showAlert">
         <img src="/img/icons/alert@3x.png" class="alert-page__icon" alt="Attention">
         <h1 class="alert-page__title">Définir une affaire</h1>
         <p class="alert-page__paragraph">
           {{ context }} disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.
         </p>
-        <button class="btn btn--red" @click="toggleAlert">
+        <button class="btn btn--red"
+                role="button"
+                @click="toggleAlert">
           <i class="fal fa-plus-circle"></i>
           Ajouter
         </button>
       </div>
       <div class="alert-page__card--large" key="end" v-else>
         <h1 class="alert-page__title">Ajouter une affaire</h1>
-        <form class="alert-page__form" submit.prevent>
+        <form class="alert-page__form">
 
-          <!--Name-->
           <div class="form__group">
             <label class="form__label" for="name">Nom</label>
             <span class="form__required">*</span>
@@ -32,7 +35,6 @@
             </div>
           </div>
 
-          <!--Description-->
           <div class="form__group">
             <label class="form__label" for="description">Description</label>
             <input type="text"
@@ -46,7 +48,6 @@
             </div>
           </div>
 
-          <!--Contact-->
           <div class="form__group">
             <label class="form__label" for="contact_id">Contact</label>
             <span class="form__required">*</span>
@@ -66,17 +67,18 @@
             </div>
           </div>
         </form>
-        <button class="btn btn--red" @click="addBusiness">
+        <button class="btn btn--red"
+                role="button"
+                @click="addBusiness">
           <i class="fal fa-check"></i>
           Terminer
         </button>
       </div>
     </transition>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -86,10 +88,19 @@
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    props: [
-      'data-company',
-      'data-contacts'
-    ],
+    components: {
+      MoonLoader
+    },
+    props: {
+      dataCompany: {
+        type: Object,
+        required: true
+      },
+      dataContacts: {
+        type: Array,
+        required: true
+      }
+    },
     data() {
       return {
         showAlert: true,
@@ -108,7 +119,6 @@
       ...mapGetters([
         'loaderState'
       ]),
-
       context() {
         if (this.dataCompany.name === 'Particulier') {
           return "Vous devez"
@@ -117,38 +127,25 @@
         }
       }
     },
-    components: {
-      'app-moon-loader': MoonLoader
-    },
     methods: {
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Create a new business.
-       */
       addBusiness() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('businesses.store'), this.business)
-          .then(() => {
-            flash({
-              message: "Votre première affaire a bien été créée!",
-              level: 'success'
-            })
-            setTimeout(() => {
-              window.location = route('orders.create.start')
-            }, 2000)
-          }).catch(error => {
+        axios.post(route('businesses.store'), this.business).then(() => {
+          flash({
+            message: "Votre première affaire a bien été créée!",
+            level: 'success'
+          })
+          setTimeout(() => {
+            window.location = route('orders.create.start')
+          }, 2000)
+        }).catch(error => {
           this.$store.dispatch('toggleLoader')
           this.errors = error.response.data.errors
         })
       },
-
-      /**
-       * Toggle the visibility of the alert.
-       */
       toggleAlert() {
         this.showAlert = !this.showAlert
       }

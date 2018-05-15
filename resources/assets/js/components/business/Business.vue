@@ -44,15 +44,15 @@
 
     <div class="card__controls">
       <div title="Supprimer"
+           role="button"
            @click="destroy">
         <i class="fal fa-times"></i>
       </div>
-      <div title="Modifier">
-        <app-edit-business :data-business="business"
-                           :data-companies="companies"
-                           :data-contacts="dataContacts"
-                           :data-user="dataUser">
-        </app-edit-business>
+      <div>
+        <edit-business :business="business"
+                       :companies="companies"
+                       :contacts="contacts"
+                       :user="user"></edit-business>
       </div>
     </div>
   </div>
@@ -64,34 +64,33 @@
   import moment from 'moment'
 
   export default {
-    props: [
-      'data-business',
-      'data-companies',
-      'data-contacts',
-      'data-user'
-    ],
-    data() {
-      return {
-        business: this.dataBusiness,
-        companies: this.dataCompanies
+    components: {
+      EditBusiness
+    },
+    props: {
+      business: {
+        type: Object,
+        required: true
+      },
+      companies: {
+        type: Array,
+        required: true
+      },
+      contacts: {
+        type: Array,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
       }
     },
     mixins: [mixins],
-    components: {
-      'app-edit-business': EditBusiness
-    },
     methods: {
-      /**
-       * Delete a business.
-       */
       destroy() {
         axios.delete(route('businesses.destroy', [this.business.id]))
         this.$emit('businessWasDeleted', this.business.id)
       },
-
-      /**
-       * Get the formatted dates.
-       */
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
       }

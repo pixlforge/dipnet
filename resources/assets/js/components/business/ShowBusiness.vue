@@ -1,46 +1,45 @@
 <template>
   <div>
     <div class="header__container">
-      <h1 class="header__title">{{ dataBusiness.name }}</h1>
-      <app-edit-business :data-business="dataBusiness"
-                         :data-contacts="dataContacts"
-                         :data-user="dataUser">
-        <button class="btn btn--red">
+      <h1 class="header__title">{{ business.name }}</h1>
+      <edit-business :business="business"
+                     :contacts="contacts"
+                     :user="user">
+        <button class="btn btn--red"
+                role="button">
           <i class="fal fa-pencil"></i>
           Modifier
         </button>
-      </app-edit-business>
+      </edit-business>
     </div>
 
     <div class="main__container main__container--grey">
       <div class="business__container">
         <div class="business__orders">
-          <app-order class="card__container card__container--full"
-                     v-for="(order, index) in dataOrders"
-                     :key="order.id"
-                     :data-order="order"
-                     :display-user="true">
-          </app-order>
+          <order class="card__container card__container--full"
+                 v-for="(order, index) in orders"
+                 :key="order.id"
+                 :order="order"
+                 :display-user="true"></order>
           <p class="paragraph__no-model-found paragraph__no-model-found--small"
-             v-if="!dataOrders.length">
+             v-if="!orders.length">
             Aucune commande n'a été enregistrée pour cette affaire.
           </p>
         </div>
         <div class="business__comments">
-          <app-comments :data-business="dataBusiness"
-                        :data-avatar-path="dataAvatarPath"
-                        :data-random-avatar="dataRandomAvatar"
-                        :data-comments="dataComments"
-                        :data-user="dataUser">
-          </app-comments>
+          <comments :business="business"
+                    :avatar-path="avatarPath"
+                    :random-avatar="randomAvatar"
+                    :comments="comments"
+                    :user="user">
+          </comments>
         </div>
       </div>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -53,22 +52,43 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'data-business',
-      'data-contacts',
-      'data-user',
-      'data-orders',
-      'data-avatar-path',
-      'data-random-avatar',
-      'data-comments'
-    ],
-    mixins: [mixins],
     components: {
-      'app-order': Order,
-      'app-edit-business': EditBusiness,
-      'app-comments': Comments,
-      'app-moon-loader': MoonLoader
+      Comments,
+      Order,
+      EditBusiness,
+      MoonLoader
     },
+    props: {
+      business: {
+        type: Object,
+        required: true
+      },
+      contacts: {
+        type: Array,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
+      },
+      orders: {
+        type: Array,
+        required: true
+      },
+      avatarPath: {
+        type: String,
+        required: true
+      },
+      randomAvatar: {
+        type: String,
+        required: true
+      },
+      comments: {
+        type: Array,
+        required: true
+      }
+    },
+    mixins: [mixins],
     computed: {
       ...mapGetters([
         'loaderState'

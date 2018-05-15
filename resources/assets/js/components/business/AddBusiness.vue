@@ -1,6 +1,7 @@
 <template>
   <div>
     <button class="btn btn--red-large"
+            role="button"
             @click="toggleModal">
       <i class="fal fa-plus-circle"></i>
       Nouvelle affaire
@@ -22,7 +23,6 @@
         <div class="modal__container">
           <h2 class="modal__title">Nouvelle affaire</h2>
 
-          <!--Name-->
           <div class="modal__group">
             <label for="name" class="modal__label">Nom</label>
             <span class="modal__required">*</span>
@@ -38,8 +38,8 @@
             </div>
           </div>
 
-          <!--Reference-->
-          <div class="modal__group" v-if="dataUser.role === 'administrateur'">
+          <div class="modal__group"
+               v-if="user.role === 'administrateur'">
             <label for="reference" class="modal__label">Référence</label>
             <input type="text"
                    name="reference"
@@ -53,7 +53,6 @@
             </div>
           </div>
 
-          <!--Description-->
           <div class="modal__group">
             <label for="description" class="modal__label">Description</label>
             <input type="text"
@@ -68,7 +67,6 @@
             </div>
           </div>
 
-          <!--Company-->
           <template v-if="userIsAdmin">
             <div class="modal__group">
               <label for="company_id" class="modal__label">Société</label>
@@ -90,7 +88,6 @@
             </div>
           </template>
 
-          <!--Contact-->
           <div class="modal__group">
             <label for="contact_id" class="modal__label">Contact</label>
             <span class="modal__required">*</span>
@@ -99,7 +96,7 @@
                     class="modal__select"
                     v-model.number.trim="business.contact_id">
               <option disabled>Sélectionnez un contact</option>
-              <option v-for="(contact, index) in contacts"
+              <option v-for="(contact, index) in filteredContacts"
                       :value="contact.id">
                 {{ contact.name }}
               </option>
@@ -110,7 +107,6 @@
             </div>
           </div>
 
-          <!--Folder Color-->
           <div class="modal__group">
             <label for="folder_color" class="modal__label">Couleur</label>
             <select name="folder_color"
@@ -129,14 +125,15 @@
             </div>
           </div>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="addBusiness">
               <i class="fal fa-check"></i>
               Ajouter
@@ -153,11 +150,20 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: [
-      'data-companies',
-      'data-contacts',
-      'data-user'
-    ],
+    props: {
+      companies: {
+        type: Array,
+        required: true
+      },
+      contacts: {
+        type: Array,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
         business: {
@@ -168,62 +174,46 @@
           contact_id: '',
           folder_color: ''
         },
-        companies: this.dataCompanies,
         errors: {}
       }
     },
-    mixins: [mixins],
     computed: {
-      /**
-       * Get the contacts associated with the company.
-       */
-      contacts() {
+      filteredContacts() {
         if (this.userIsAdmin) {
           if (this.business.company_id !== '') {
-            return this.dataContacts.filter(contact => {
+            return this.contacts.filter(contact => {
               return contact.company_id === this.business.company_id
             })
           }
         } else {
-          return this.dataContacts
+          return this.contacts
         }
       },
-
-      /**
-       * Check whether the user is an admin.
-       */
       userIsAdmin() {
-        return this.dataUser.role === 'administrateur'
+        return this.user.role === 'administrateur'
       }
     },
+    mixins: [mixins],
     methods: {
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Add a business.
-       */
       addBusiness() {
         this.$store.dispatch('toggleLoader')
-
         if (!this.userIsAdmin) {
-          this.business.company_id = this.dataUser.company.id
+          this.business.company_id = this.user.company.id
         }
-
-        axios.post(route('businesses.store'), this.business)
-          .then(response => {
-            this.business = response.data
-            this.$emit('businessWasCreated', this.business)
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-            this.business = {}
-            this.errors = {}
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        axios.post(route('businesses.store'), this.business).then(response => {
+          this.business = response.data
+          this.$emit('businessWasCreated', this.business)
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+          this.business = {}
+          this.errors = {}
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

@@ -1,14 +1,14 @@
 <template>
   <div class="comments__container">
     <div class="comments__avatar">
-      <img :src="avatarPath" alt="L'image de profile de l'utilisateur" v-if="dataComment.user.avatar">
+      <img :src="avatarPath" alt="L'image de profil de l'utilisateur" v-if="comment.user.avatar">
     </div>
     <div class="comments__content">
       <div class="comments__meta">
-        <h3>{{ dataComment.user.username }}</h3>
-        <span>{{ getDate(dataComment.created_at) }}</span>
+        <h3>{{ comment.user.username }}</h3>
+        <span>{{ getDate(comment.created_at) }}</span>
       </div>
-      <p>{{ dataComment.body }}</p>
+      <p>{{ comment.body }}</p>
     </div>
   </div>
 </template>
@@ -18,19 +18,19 @@
   import mixins from '../../mixins'
 
   export default {
-    props: [
-      'data-comment'
-    ],
-    mixins: [mixins],
-    computed: {
-      avatarPath() {
-        return '/img/avatar' + this.dataComment.user.avatar.path
+    props: {
+      comment: {
+        type: Object,
+        required: true
       }
     },
+    computed: {
+      avatarPath() {
+        return '/img/avatar' + this.comment.user.avatar.path
+      }
+    },
+    mixins: [mixins],
     methods: {
-      /**
-       * Get the formatted dates.
-       */
       getDate(date) {
         return moment(date).locale(this.momentLocale).fromNow()
       }

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div title="Modifier"
+       role="button">
     <div @click="toggleModal">
       <slot>
         <div>
@@ -24,7 +25,6 @@
         <div class="modal__container">
           <h2 class="modal__title">Modifier {{ business.name }}</h2>
 
-          <!--Name-->
           <div class="modal__group">
             <label for="name" class="modal__label">Nom</label>
             <span class="modal__required">*</span>
@@ -40,8 +40,8 @@
             </div>
           </div>
 
-          <!--Reference-->
-          <div class="modal__group" v-if="dataUser.role === 'administrateur'">
+          <div class="modal__group"
+               v-if="user.role === 'administrateur'">
             <label for="reference" class="modal__label">Référence</label>
             <span class="modal__required">*</span>
             <input type="text"
@@ -56,7 +56,6 @@
             </div>
           </div>
 
-          <!--Description-->
           <div class="modal__group">
             <label for="description" class="modal__label">Description</label>
             <span class="modal__required">*</span>
@@ -72,8 +71,8 @@
             </div>
           </div>
 
-          <!--Company-->
-          <div class="modal__group" v-if="dataUser.role === 'administrateur'">
+          <div class="modal__group"
+               v-if="user.role === 'administrateur'">
             <label for="company_id" class="modal__label">Société</label>
             <select name="company_id"
                     id="company_id"
@@ -91,7 +90,6 @@
             </div>
           </div>
 
-          <!--Contact-->
           <div class="modal__group">
             <label for="contact_id" class="modal__label">Contact</label>
             <select name="contact_id"
@@ -99,7 +97,7 @@
                     class="modal__select"
                     v-model.number.trim="business.contact_id">
               <option disabled>Sélectionnez un contact</option>
-              <option v-for="(contact, index) in contacts"
+              <option v-for="(contact, index) in filteredContacts"
                       :value="contact.id">
                 {{ contact.name }}
               </option>
@@ -110,7 +108,6 @@
             </div>
           </div>
 
-          <!--Folder Color-->
           <div class="modal__group">
             <label for="folder_color" class="modal__label">Couleur</label>
             <select name="folder_color"
@@ -129,14 +126,15 @@
             </div>
           </div>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="updateBusiness">
               <i class="fal fa-check"></i>
               Mettre à jour
@@ -154,55 +152,54 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: [
-      'data-business',
-      'data-companies',
-      'data-contacts',
-      'data-user'
-    ],
+    props: {
+      business: {
+        type: Object,
+        required: true
+      },
+      companies: {
+        type: Array,
+        required: false
+      },
+      contacts: {
+        type: Array,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
-        business: this.dataBusiness,
-        companies: this.dataCompanies,
         errors: {}
       }
     },
-    mixins: [mixins],
     computed: {
-      /**
-       * Get the contacts associated with the company.
-       */
-      contacts() {
+      filteredContacts() {
         if (this.business.company_id !== '') {
-          return this.dataContacts.filter(contact => {
+          return this.contacts.filter(contact => {
             return contact.company_id === this.business.company_id
           })
         }
       }
     },
+    mixins: [mixins],
     methods: {
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Update a business.
-       */
       updateBusiness() {
         this.$store.dispatch('toggleLoader')
-
-        axios.put(route('businesses.update', [this.business.id]), this.business)
-          .then(() => {
-            eventBus.$emit('businessWasUpdated', this.business)
-          })
-          .then(() => {
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data
-          })
+        axios.put(route('businesses.update', [this.business.id]), this.business).then(() => {
+          eventBus.$emit('businessWasUpdated', this.business)
+        }).then(() => {
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data
+        })
       }
     }
   }

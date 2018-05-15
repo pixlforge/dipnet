@@ -1,14 +1,16 @@
 <template>
   <div class="comments__input-group">
     <div class="comments__avatar">
-      <img :src="'/' + dataAvatarPath" alt="Avatar de l'utilisateur" v-if="dataAvatarPath !== ''">
-      <img :src="'/' + dataRandomAvatar" alt="Avatar de l'utilisateur" v-else>
+      <img :src="'/' + avatarPath" alt="Avatar de l'utilisateur" v-if="avatarPath !== ''">
+      <img :src="'/' + randomAvatar" alt="Avatar de l'utilisateur" v-else>
     </div>
     <textarea type="text"
               class="comments__textarea"
               v-model="comment.body"
               placeholder="Votre commentaire ici..."></textarea>
-    <button class="btn btn--red" @click="addComment">
+    <button class="btn btn--red"
+            role="button"
+            @click="addComment">
       <i class="fal fa-paper-plane"></i>
       Envoyer
     </button>
@@ -20,11 +22,20 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: [
-      'data-business',
-      'data-avatar-path',
-      'data-random-avatar',
-    ],
+    props: {
+      business: {
+        type: Object,
+        required: true
+      },
+      avatarPath: {
+        type: String,
+        required: true
+      },
+      randomAvatar: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         comment: {
@@ -37,8 +48,7 @@
     methods: {
       addComment() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('comments.store', [this.dataBusiness.id]), this.comment)
+        axios.post(route('comments.store', [this.business.id]), this.comment)
           .then(response => {
             this.$store.dispatch('toggleLoader')
             this.$emit('postedComment', {

@@ -3,16 +3,12 @@
 @section ('title', 'Affaire ' . $business->name)
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
-  <app-show-business :data-business="{{ $business }}"
-                     :data-contacts="{{ $contacts }}"
-                     :data-user="{{ auth()->user() }}"
-                     :data-orders="{{ $orders }}"
-                     data-avatar-path="{{ auth()->user()->avatarPath() }}"
-                     data-random-avatar="{{ 'img/placeholders/' . auth()->user()->randomAvatar() }}"
-                     :data-comments="{{ $comments }}">
-  </app-show-business>
-
+  <show-business :business="{{ $business }}"
+                 :contacts="{{ $contacts }}"
+                 :user="{{ auth()->user() }}"
+                 :orders="{{ $orders }}"
+                 avatar-path="{{ auth()->user()->avatarPath() }}"
+                 random-avatar="{{ 'img/placeholders/' . auth()->user()->randomAvatar() }}"
+                 :comments="{{ $comments }}"></show-business>
 @endsection
