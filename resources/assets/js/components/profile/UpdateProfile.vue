@@ -17,7 +17,7 @@
       <div class="modal__slider"
            v-if="showModal"
            @keyup.esc="toggleModal"
-           @keyup.enter="updateArticle">
+           @keyup.enter="updateProfile">
 
         <div class="modal__container">
 
@@ -116,19 +116,29 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: [
-      'data-user',
-      'data-avatar',
-      'data-random-avatar'
-    ],
+    props: {
+      dataUser: {
+        type: Object,
+        required: true
+      },
+      dataAvatar: {
+        type: String,
+        required: true
+      },
+      dataRandomAvatar: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         avatar: this.dataAvatar,
         user: {
+          id: this.dataUser.id,
           username: this.dataUser.username,
           email: this.dataUser.email,
-          password: '',
-          password_confirmation: ''
+          password: null,
+          password_confirmation: null
         },
         errors: {}
       }
@@ -150,6 +160,7 @@
         axios.patch(route('account.update'), this.user)
           .then(() => {
             this.$store.dispatch('toggleLoader')
+            this.toggleModal()
             this.errors = {}
             this.user.password = ''
             this.user.password_confirmation = ''

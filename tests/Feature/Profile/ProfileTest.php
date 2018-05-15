@@ -31,10 +31,11 @@ class ProfileTest extends TestCase
         $this->signIn($user);
 
         $this->patchJson(route('account.update', $user), [
-            'email' => 'john_doe@example.com'
+            'username' => 'John Doe',
+            'email' => 'john_doe@example.com',
         ])->assertStatus(200);
 
-        $user = User::where('email', 'john_doe@example.com')->first();
+        $user = User::where('email', 'john_doe@example.com')->get();
         $this->assertCount(1, $user);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\Http\Requests\Profile\UpdateProfileRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -28,39 +29,20 @@ class AccountController extends Controller
     /**
      * Update account info.
      *
-     * @param Request $request
+     * @param UpdateProfileRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function update(Request $request)
+    public function update(UpdateProfileRequest $request)
     {
-        $request->validate([]);
+        $request->user()->username = $request->username;
+        $request->user()->email = $request->email;
 
-//        if ($request->password === null) {
-//            $request->validate([
-//                'username' => 'required|string|min:3|max:255',
-//                'email' => 'required|string|email|unique:users|max:255'
-//            ]);
-//
-//            $request->user()->username = $request->username;
-//            $request->user()->email = $request->email;
-//            $request->user()->save();
-//
-//            return response([], 200);
-//        }
-//
-//        if ($request->password) {
-//            $request->validate([
-//                'username' => 'required|string|min:3|max:255',
-//                'email' => 'required|string|email|unique:users|max:255',
-//                'password' => 'required|string|min:6|confirmed'
-//            ]);
-//
-//            $request->user()->username = $request->username;
-//            $request->user()->email = $request->email;
-//            $request->user()->password = bcrypt($request->password);
-//            $request->user()->save();
-//
-//            return response([], 200);
-//        }
+        if ($request->has('password') && $request->password !== null) {
+            $request->user()->password = bcrypt($request->password);
+        }
+
+        $request->user()->save();
+
+        return response(null, 200);
     }
 }

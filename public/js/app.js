@@ -36563,6 +36563,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -36572,12 +36573,20 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     return {
       format: {
         name: '',
-        height: '',
-        width: '',
-        surface: ''
+        height: null,
+        width: null
       },
       errors: {}
     };
+  },
+  computed: {
+    widthTimesHeight() {
+      if (this.format.width && this.format.height) {
+        return this.format.width * this.format.height;
+      } else {
+        return 0;
+      }
+    }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(['toggleLoader']), {
@@ -36714,6 +36723,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -36726,6 +36736,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       format: this.dataFormat,
       errors: {}
     };
+  },
+  computed: {
+    widthTimesHeight() {
+      if (this.format.width && this.format.height) {
+        return this.format.width * this.format.height;
+      } else {
+        return 0;
+      }
+    }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
@@ -40614,15 +40633,29 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-user', 'data-avatar', 'data-random-avatar'],
+  props: {
+    dataUser: {
+      type: Object,
+      required: true
+    },
+    dataAvatar: {
+      type: String,
+      required: true
+    },
+    dataRandomAvatar: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       avatar: this.dataAvatar,
       user: {
+        id: this.dataUser.id,
         username: this.dataUser.username,
         email: this.dataUser.email,
-        password: '',
-        password_confirmation: ''
+        password: null,
+        password_confirmation: null
       },
       errors: {}
     };
@@ -40640,6 +40673,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.$store.dispatch('toggleLoader');
       axios.patch(route('account.update'), this.user).then(() => {
         this.$store.dispatch('toggleLoader');
+        this.toggleModal();
         this.errors = {};
         this.user.password = '';
         this.user.password_confirmation = '';
@@ -69734,7 +69768,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toggleModal($event)
       }, function($event) {
         if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
-        _vm.updateArticle($event)
+        _vm.updateProfile($event)
       }]
     }
   }, [_c('div', {
@@ -70820,21 +70854,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "height"
     }
-  }, [_vm._v("Hauteur")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("Hauteur (mm)")]), _vm._v(" "), _c('span', {
     staticClass: "modal__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model.trim",
+      rawName: "v-model.number",
       value: (_vm.format.height),
       expression: "format.height",
       modifiers: {
-        "trim": true
+        "number": true
       }
     }],
     staticClass: "modal__input",
     attrs: {
-      "type": "text",
+      "type": "number",
       "name": "height",
       "id": "height"
     },
@@ -70844,7 +70878,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "height", $event.target.value.trim())
+        _vm.$set(_vm.format, "height", _vm._n($event.target.value))
       },
       "blur": function($event) {
         _vm.$forceUpdate()
@@ -70859,21 +70893,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "width"
     }
-  }, [_vm._v("Largeur")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("Largeur (mm)")]), _vm._v(" "), _c('span', {
     staticClass: "modal__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model.trim",
+      rawName: "v-model.number",
       value: (_vm.format.width),
       expression: "format.width",
       modifiers: {
-        "trim": true
+        "number": true
       }
     }],
     staticClass: "modal__input",
     attrs: {
-      "type": "text",
+      "type": "number",
       "name": "width",
       "id": "width"
     },
@@ -70883,7 +70917,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "width", $event.target.value.trim())
+        _vm.$set(_vm.format, "width", _vm._n($event.target.value))
       },
       "blur": function($event) {
         _vm.$forceUpdate()
@@ -70898,33 +70932,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "surface"
     }
-  }, [_vm._v("Surface")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.format.surface),
-      expression: "format.surface",
-      modifiers: {
-        "trim": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_vm._v("Surface (mm"), _c('sup', [_vm._v("2")]), _vm._v(")")]), _vm._v(" "), _c('input', {
+    staticClass: "modal__input modal__input--disabled",
     attrs: {
-      "type": "text",
+      "type": "number",
       "name": "surface",
-      "id": "surface"
+      "id": "surface",
+      "disabled": ""
     },
     domProps: {
-      "value": (_vm.format.surface)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "surface", $event.target.value.trim())
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      "value": _vm.widthTimesHeight
     }
   }), _vm._v(" "), (_vm.errors.surface) ? _c('div', {
     staticClass: "modal__alert"
@@ -77364,21 +77381,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "height"
     }
-  }, [_vm._v("Hauteur")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("Hauteur (mm)")]), _vm._v(" "), _c('span', {
     staticClass: "modal__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model.trim",
+      rawName: "v-model.number",
       value: (_vm.format.height),
       expression: "format.height",
       modifiers: {
-        "trim": true
+        "number": true
       }
     }],
     staticClass: "modal__input",
     attrs: {
-      "type": "text",
+      "type": "number",
       "name": "height",
       "id": "height"
     },
@@ -77388,7 +77405,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "height", $event.target.value.trim())
+        _vm.$set(_vm.format, "height", _vm._n($event.target.value))
       },
       "blur": function($event) {
         _vm.$forceUpdate()
@@ -77403,21 +77420,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "width"
     }
-  }, [_vm._v("Largeur")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("Largeur (mm)")]), _vm._v(" "), _c('span', {
     staticClass: "modal__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model.trim",
+      rawName: "v-model.number",
       value: (_vm.format.width),
       expression: "format.width",
       modifiers: {
-        "trim": true
+        "number": true
       }
     }],
     staticClass: "modal__input",
     attrs: {
-      "type": "text",
+      "type": "number",
       "name": "width",
       "id": "width"
     },
@@ -77427,7 +77444,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "width", $event.target.value.trim())
+        _vm.$set(_vm.format, "width", _vm._n($event.target.value))
       },
       "blur": function($event) {
         _vm.$forceUpdate()
@@ -77442,33 +77459,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "surface"
     }
-  }, [_vm._v("Surface")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.format.surface),
-      expression: "format.surface",
-      modifiers: {
-        "trim": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_vm._v("Surface (mm"), _c('sup', [_vm._v("2")]), _vm._v(")")]), _vm._v(" "), _c('input', {
+    staticClass: "modal__input modal__input--disabled",
     attrs: {
       "type": "text",
       "name": "surface",
-      "id": "surface"
+      "id": "surface",
+      "disabled": ""
     },
     domProps: {
-      "value": (_vm.format.surface)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "surface", $event.target.value.trim())
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      "value": _vm.widthTimesHeight
     }
   }), _vm._v(" "), (_vm.errors.surface) ? _c('div', {
     staticClass: "modal__alert"
