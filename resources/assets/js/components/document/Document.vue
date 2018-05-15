@@ -53,17 +53,14 @@
   import mixins from '../../mixins'
 
   export default {
-    props: ['data-document'],
-    data() {
-      return {
-        document: this.dataDocument
+    props: {
+      document: {
+        type: Object,
+        required: true
       }
     },
     mixins: [mixins],
     methods: {
-      /**
-       * Get the formatted dates.
-       */
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
       },

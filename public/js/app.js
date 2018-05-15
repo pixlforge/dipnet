@@ -35539,17 +35539,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['data-document'],
-  data() {
-    return {
-      document: this.dataDocument
-    };
+  props: {
+    document: {
+      type: Object,
+      required: true
+    }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* default */]],
   methods: {
-    /**
-     * Get the formatted dates.
-     */
     getDate(date) {
       return __WEBPACK_IMPORTED_MODULE_0_moment___default()(date).locale(this.momentLocale).format(this.momentFormat);
     }
@@ -35616,16 +35613,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -35634,6 +35621,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Document: __WEBPACK_IMPORTED_MODULE_1__Document___default.a,
+    Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
+  },
   data() {
     return {
       documents: [],
@@ -35645,17 +35637,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       modelGender: 'M'
     };
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
-  components: {
-    'app-document': __WEBPACK_IMPORTED_MODULE_1__Document___default.a,
-    'app-pagination': __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
-    'app-moon-loader': __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
-  },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(['loaderState'])),
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* default */]],
   methods: {
-    /**
-     * Fetch the documents paginated data.
-     */
     getDocuments(page = 1) {
       this.$store.dispatch('toggleLoader');
       this.fetching = true;
@@ -39271,7 +39255,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Object,
       required: true
     },
-    dataUserRole: {
+    userRole: {
       type: String,
       required: false
     },
@@ -75225,11 +75209,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": _vm.createRoute
     }
-  }, [_vm._v("\n      " + _vm._s(_vm.order.reference) + "\n    ")]) : _vm._e(), _vm._v(" "), (_vm.order.status !== 'incomplète' && _vm.dataUserRole === 'utilisateur') ? _c('a', {
+  }, [_vm._v("\n      " + _vm._s(_vm.order.reference) + "\n    ")]) : _vm._e(), _vm._v(" "), (_vm.order.status !== 'incomplète' && _vm.userRole === 'utilisateur') ? _c('a', {
     attrs: {
       "href": _vm.showRoute
     }
-  }, [_vm._v("\n      " + _vm._s(_vm.order.reference) + "\n    ")]) : _vm._e(), _vm._v(" "), (_vm.order.status !== 'incomplète' && _vm.dataUserRole === 'administrateur') ? _c('a', {
+  }, [_vm._v("\n      " + _vm._s(_vm.order.reference) + "\n    ")]) : _vm._e(), _vm._v(" "), (_vm.order.status !== 'incomplète' && _vm.userRole === 'administrateur') ? _c('a', {
     attrs: {
       "href": _vm.adminRoute
     }
@@ -75718,7 +75702,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div')]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
-  }, [(_vm.meta.total > 25) ? _c('app-pagination', {
+  }, [(_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--top",
     attrs: {
       "data-meta": _vm.meta
@@ -75735,11 +75719,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "mode": "out-in"
     }
   }, _vm._l((_vm.documents), function(document, index) {
-    return _c('app-document', {
+    return _c('document', {
       key: document.id,
       staticClass: "card__container",
       attrs: {
-        "data-document": document
+        "document": document
       },
       on: {
         "documentWasDeleted": function($event) {
@@ -75747,7 +75731,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     })
-  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('app-pagination', {
+  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('pagination', {
     staticClass: "pagination pagination--bottom",
     attrs: {
       "data-meta": _vm.meta
@@ -75755,7 +75739,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "paginationSwitched": _vm.getDocuments
     }
-  }) : _vm._e()], 2), _vm._v(" "), _c('app-moon-loader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,

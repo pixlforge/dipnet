@@ -1,11 +1,8 @@
 <template>
   <div>
     <div class="header__container">
-
-      <!--Page title-->
       <h1 class="header__title">Documents</h1>
 
-      <!--Documents count-->
       <div class="header__stats">
         <span v-text="modelCount"></span>
       </div>
@@ -14,13 +11,10 @@
     </div>
 
     <div class="main__container main__container--grey">
-
-      <!--Pagination top -->
-      <app-pagination class="pagination pagination--top"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getDocuments">
-      </app-pagination>
+      <pagination class="pagination pagination--top"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getDocuments"></pagination>
 
       <template v-if="!documents.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun document.</p>
@@ -28,27 +22,23 @@
 
       <template v-else>
         <transition-group name="pagination" tag="div" mode="out-in">
-          <app-document class="card__container"
-                        v-for="(document, index) in documents"
-                        :key="document.id"
-                        :data-document="document"
-                        @documentWasDeleted="removeDocument(index)">
-          </app-document>
+          <document class="card__container"
+                    v-for="(document, index) in documents"
+                    :key="document.id"
+                    :document="document"
+                    @documentWasDeleted="removeDocument(index)"></document>
         </transition-group>
       </template>
 
-      <!--Pagination bottom-->
-      <app-pagination class="pagination pagination--bottom"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getDocuments">
-      </app-pagination>
+      <pagination class="pagination pagination--bottom"
+                  v-if="meta.total > 25"
+                  :data-meta="meta"
+                  @paginationSwitched="getDocuments"></pagination>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -60,6 +50,11 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    components: {
+      Document,
+      Pagination,
+      MoonLoader
+    },
     data() {
       return {
         documents: [],
@@ -71,21 +66,13 @@
         modelGender: 'M'
       }
     },
-    mixins: [mixins],
-    components: {
-      'app-document': Document,
-      'app-pagination': Pagination,
-      'app-moon-loader': MoonLoader
-    },
     computed: {
       ...mapGetters([
         'loaderState'
       ])
     },
+    mixins: [mixins],
     methods: {
-      /**
-       * Fetch the documents paginated data.
-       */
       getDocuments(page = 1) {
         this.$store.dispatch('toggleLoader')
         this.fetching = true

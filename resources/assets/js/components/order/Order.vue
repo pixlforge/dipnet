@@ -11,11 +11,11 @@
         {{ order.reference }}
       </a>
       <a :href="showRoute"
-         v-if="order.status !== 'incomplète' && dataUserRole === 'utilisateur'">
+         v-if="order.status !== 'incomplète' && userRole === 'utilisateur'">
         {{ order.reference }}
       </a>
       <a :href="adminRoute"
-         v-if="order.status !== 'incomplète' && dataUserRole === 'administrateur'">
+         v-if="order.status !== 'incomplète' && userRole === 'administrateur'">
         {{ order.reference }}
       </a>
     </div>
@@ -72,7 +72,7 @@
         type: Object,
         required: true
       },
-      dataUserRole: {
+      userRole: {
         type: String,
         required: false
       },
