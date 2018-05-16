@@ -27,15 +27,13 @@
       </div>
     </div>
 
-    <!--Document-->
-    <app-preview-document class="document__container document__container--preview"
-                          v-for="(document, index) in deliveryDocuments"
-                          :key="document.id"
-                          :data-order="order"
-                          :data-delivery="delivery"
-                          :data-document="document"
-                          :data-options="document.articles">
-    </app-preview-document>
+    <preview-document class="document__container document__container--preview"
+                      v-for="(document, index) in deliveryDocuments"
+                      :key="document.id"
+                      :order="order"
+                      :delivery="delivery"
+                      :document="document"
+                      :options="document.articles"></preview-document>
   </div>
 </template>
 
@@ -46,41 +44,38 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'data-order',
-      'data-delivery',
-      'data-documents'
-    ],
+    components: {
+      PreviewDocument
+    },
+    props: {
+      order: {
+        type: Object,
+        required: true
+      },
+      delivery: {
+        type: Object,
+        required: true
+      },
+      documents: {
+        type: Array,
+        required: true
+      },
+    },
     data() {
       return {
-        /**
-         * Component data.
-         */
-        order: this.dataOrder,
-        delivery: this.dataDelivery,
-        documents: this.dataDocuments,
-        articles: this.dataArticles,
         selectedContact: 'Contact',
         showNote: false,
       }
     },
     mixins: [mixins],
-    components: {
-      'app-preview-document': PreviewDocument
-    },
     computed: {
       ...mapGetters([
         'listContacts',
         'listDeliveries'
       ]),
-
       toDeliverAt() {
         return moment(this.delivery.to_deliver_at).format('LL [à] HH[h]mm')
       },
-
-      /**
-       * Filter the document models for the current delivery.
-       */
       deliveryDocuments() {
         return this.documents.filter(document => {
           return document.delivery_id == this.delivery.id
@@ -91,8 +86,8 @@
       /**
        * Preselect the delivery's delivery dropdown contact.
        */
-      if (this.dataDelivery.contact) {
-        this.selectedContact = this.dataDelivery.contact.name
+      if (this.delivery.contact) {
+        this.selectedContact = this.delivery.contact.name
       }
     },
   }

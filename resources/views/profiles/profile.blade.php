@@ -3,14 +3,10 @@
 @section ('title', 'Profile')
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
-  <app-profile :data-user="{{ $user }}"
-               :data-orders="{{ $orders }}"
-               :data-businesses="{{ $businesses }}"
-               data-avatar="{{ auth()->user()->avatarPath() }}"
-               data-random-avatar="{{ session('randomAvatar') }}">
-  </app-profile>
-
+  <profile :user="{{ $user }}"
+           :orders="{{ $orders }}"
+           :businesses="{{ $businesses }}"
+           avatar="{{ auth()->user()->avatarPath() }}"
+           random-avatar="{{ session('randomAvatar') }}"></profile>
 @endsection

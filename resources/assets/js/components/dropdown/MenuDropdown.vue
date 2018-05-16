@@ -1,6 +1,7 @@
 <template>
   <div ref="dropdownMenu">
     <div class="dropdown__label"
+         role="button"
          @click="toggleOpen">
       <span>{{ label | capitalize }}</span>
     </div>
@@ -47,62 +48,58 @@
   import mixins from '../../mixins'
 
   export default {
-    props: [
-      'label',
-      'data-app-name',
-      'data-user-role'
-    ],
+    props: {
+      label: {
+        type: String,
+        required: true
+      },
+      userRole: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         open: false
       }
     },
-    mixins: [mixins],
     computed: {
       userIsAdmin() {
-        return this.dataUserRole === 'administrateur'
+        return this.userRole === 'administrateur'
       },
-
       routeProfile() {
         return route('profile.index')
       },
-
       routeLogout() {
         return route('logout')
       },
-
       routeCompanies() {
         return route('companies.index')
       },
-
       routeDeliveries() {
         return route('deliveries.index')
       },
-
       routeDocuments() {
         return route('documents.index')
       },
-
       routeFormats() {
         return route('formats.index')
       },
-
       routeArticles() {
         return route('articles.index')
       },
-
       routeUsers() {
         return route('users.index')
       },
-
       routeLegacyApp() {
-        if (this.dataAppName === 'Dipnet') {
+        if (this.appName === 'Dipnet') {
           return 'http://dipnet.dip.ch/'
-        } else if (this.dataAppName === 'Multicop') {
+        } else if (this.appName === 'Multicop') {
           return 'http://multiprint.multicop.ch/'
         }
       },
     },
+    mixins: [mixins],
     methods: {
       /**
        * Toggle the open state of the dropdown list.
@@ -110,7 +107,6 @@
       toggleOpen() {
         this.open = !this.open
       },
-
       /**
        * Retrieve the reference of the active dropdown and close
        * it if another element is clicked.

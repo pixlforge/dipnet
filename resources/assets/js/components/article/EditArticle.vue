@@ -20,7 +20,6 @@
         <div class="modal__container">
           <h2 class="modal__title">Modifier {{ article.reference }}</h2>
 
-          <!--Reference-->
           <div class="modal__group">
             <label for="reference" class="modal__label">Référence</label>
             <span class="modal__required">*</span>
@@ -36,7 +35,6 @@
             </div>
           </div>
 
-          <!--Description-->
           <div class="modal__group">
             <label for="description" class="modal__label">Description</label>
             <input type="text"
@@ -51,7 +49,6 @@
             </div>
           </div>
 
-          <!--Type-->
           <div class="modal__group">
             <label for="type" class="modal__label">Type</label>
             <select name="type"
@@ -68,9 +65,9 @@
             </div>
           </div>
 
-          <!--Greyscale-->
           <transition name="fade" mode="out-in">
-            <div class="modal__group" v-if="article.type === 'impression'">
+            <div class="modal__group"
+                 v-if="article.type === 'impression'">
               <label for="greyscale" class="modal__label">
                 <input type="checkbox"
                        name="greyscale"
@@ -81,14 +78,15 @@
             </div>
           </transition>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="updateArticle">
               <i class="fal fa-check"></i>
               Mettre à jour
@@ -106,22 +104,18 @@
 
   export default {
     props: {
-      dataArticle: {
+      article: {
         type: Object,
         required: true
       }
     },
     data() {
       return {
-        article: this.dataArticle,
         errors: {}
       }
     },
     mixins: [mixins],
     methods: {
-      /**
-       * Update an article.
-       */
       updateArticle() {
         this.$store.dispatch('toggleLoader')
         axios.put(route('articles.update', [this.article.id]), this.article).then(() => {

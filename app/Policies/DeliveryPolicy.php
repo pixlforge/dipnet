@@ -29,10 +29,12 @@ class DeliveryPolicy
      */
     public function update(User $user, Delivery $delivery)
     {
-        if ($user->isSolo()) {
+        if ($user->isAdmin()) {
+            return true;
+        } else if ($user->isSolo()) {
             return $delivery->orderBelongsToUser();
         } else {
-            return $user->isAdmin() or $delivery->belongsToUsersCompany();
+            return $delivery->belongsToUsersCompany();
         }
     }
 

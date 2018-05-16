@@ -4,21 +4,19 @@
 
       <!--Preview-->
       <div key="preview" v-if="showPreview">
-
         <div class="header__container">
           <h1 class="header__title">Prévisualisation avant commande</h1>
           <div></div>
         </div>
-        <app-preview-delivery v-for="(delivery, index) in listDeliveries"
-                              :key="index"
-                              class="delivery__container"
-                              :class="'bg-red-' + (index + 1)"
-                              :data-order="order"
-                              :data-delivery="delivery"
-                              :data-delivery-number="index + 1"
-                              :data-documents="documents"
-                              @removeDelivery="removeDelivery">
-        </app-preview-delivery>
+        <preview-delivery v-for="(delivery, index) in listDeliveries"
+                          :key="index"
+                          class="delivery__container"
+                          :class="'bg-red-' + (index + 1)"
+                          :order="order"
+                          :delivery="delivery"
+                          :delivery-number="index + 1"
+                          :documents="documents"
+                          @removeDelivery="removeDelivery"></preview-delivery>
         <div class="delivery__business">
           <h2>
             Associé à l'affaire
@@ -57,12 +55,14 @@
         </div>
         <div class="order__footer">
           <button class="btn btn--grey"
+                  role="button"
                   @click="goToOrder()">
             Retour
           </button>
           <button class="btn btn--red"
-                  @click="completeOrder()"
-                  :disabled="!terms">
+                  role="button"
+                  :disabled="!terms"
+                  @click="completeOrder()">
             Commander
           </button>
         </div>
@@ -77,38 +77,35 @@
             <!--Business-->
             <div class="order__business">
               <h6 class="order__label">Affaire</h6>
-              <app-dropdown :label="selectedBusiness"
-                            :list-items="listBusinesses"
-                            @itemSelected="selectBusiness">
-              </app-dropdown>
+              <dropdown :label="selectedBusiness"
+                        :list-items="listBusinesses"
+                        @itemSelected="selectBusiness"></dropdown>
             </div>
 
             <!--Billing-->
             <div class="order__billing">
               <h6 class="order__label">Facturation</h6>
-              <app-dropdown :label="selectedContact"
-                            :list-items="listContacts"
-                            add-contact-component="true"
-                            @itemSelected="selectContact">
-              </app-dropdown>
+              <dropdown :label="selectedContact"
+                        :list-items="listContacts"
+                        :add-contact-component="true"
+                        @itemSelected="selectContact"></dropdown>
             </div>
           </div>
 
           <!--Add Contact-->
-          <app-add-contact class="v-hidden"
-                           @contactWasCreated="addContact">
-          </app-add-contact>
+          <add-contact class="v-hidden"
+                       @contactWasCreated="addContact"></add-contact>
         </div>
 
         <transition-group name="order">
-          <app-create-delivery class="delivery"
-                               v-for="(delivery, index) in listDeliveries"
-                               :key="index" :data-order="order"
-                               :data-delivery="delivery"
-                               :data-delivery-number="index + 1"
-                               :data-documents="documents"
-                               @removeDelivery="removeDelivery">
-          </app-create-delivery>
+          <create-delivery class="delivery"
+                           v-for="(delivery, index) in listDeliveries"
+                           :key="index"
+                           :order="order"
+                           :delivery="delivery"
+                           :delivery-number="index + 1"
+                           :documents="documents"
+                           @removeDelivery="removeDelivery"></create-delivery>
         </transition-group>
 
         <div class="order__controls"
@@ -126,16 +123,19 @@
         </div>
 
         <div class="order__footer">
-          <button class="btn btn--red" @click="goToPreview()">Aperçu de la commande</button>
+          <button class="btn btn--red"
+                  role="button"
+                  @click="goToPreview()">
+            Aperçu de la commande
+          </button>
         </div>
 
       </div>
     </transition>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -143,24 +143,48 @@
   import CreateDelivery from './CreateDelivery.vue'
   import PreviewDelivery from './PreviewDelivery'
   import AddContact from '../contact/AddContact.vue'
+  import Dropdown from '../dropdown/Dropdown'
   import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
   import mixins from '../../mixins'
   import { eventBus } from '../../app'
   import { mapActions, mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'data-order',
-      'data-businesses',
-      'data-contacts',
-      'data-deliveries',
-      'data-documents',
-      'data-articles'
-    ],
+    components: {
+      CreateDelivery,
+      PreviewDelivery,
+      AddContact,
+      Dropdown,
+      MoonLoader
+    },
+    props: {
+      order: {
+        type: Object,
+        required: true
+      },
+      businesses: {
+        type: Array,
+        required: true
+      },
+      contacts: {
+        type: Array,
+        required: true
+      },
+      deliveries: {
+        type: Array,
+        required: true
+      },
+      documents: {
+        type: Array,
+        required: true
+      },
+      articles: {
+        type: Array,
+        required: true
+      },
+    },
     data() {
       return {
-        order: this.dataOrder,
-        documents: this.dataDocuments,
         business: 'Choisissez une affaire',
         selectedBusiness: 'Affaire',
         selectedContact: 'Contact',
@@ -170,12 +194,6 @@
       }
     },
     mixins: [mixins],
-    components: {
-      'app-create-delivery': CreateDelivery,
-      'app-preview-delivery': PreviewDelivery,
-      'app-add-contact': AddContact,
-      'app-moon-loader': MoonLoader
-    },
     computed: {
       ...mapGetters([
         'loaderState',
@@ -196,7 +214,6 @@
         'hydrateDocuments',
         'removeDocument'
       ]),
-
       /**
        * Add a new delivery.
        */
@@ -211,7 +228,6 @@
             level: 'danger'
           }))
       },
-
       /**
        * Remove a delivery from the order.
        */
@@ -226,33 +242,27 @@
             level: 'danger'
           }))
       },
-
       /**
        * Remove a document from a delivery.
        */
       removeDocument(payload) {
-        this.$store.dispatch('removeDocument', payload)
-          .then(() => flash({
-            message: "Le document a bien été supprimé.",
-            level: 'success'
-          }))
-          .catch(() => flash({
-            message: "Il y a eu un problème lors de la suppression du document.",
-            level: 'danger'
-          }))
+        this.$store.dispatch('removeDocument', payload).then(() => flash({
+          message: "Le document a bien été supprimé.",
+          level: 'success'
+        })).catch(() => flash({
+          message: "Il y a eu un problème lors de la suppression du document.",
+          level: 'danger'
+        }))
       },
-
       /**
        * Add a new contact.
        */
       addContact(contact) {
-        this.$store.dispatch('addContact', contact)
-          .then(() => flash({
-            message: "La création du contact a réussi.",
-            level: 'success'
-          }))
+        this.$store.dispatch('addContact', contact).then(() => flash({
+          message: "La création du contact a réussi.",
+          level: 'success'
+        }))
       },
-
       /**
        * Select a business using the dropdown component.
        */
@@ -261,7 +271,6 @@
         this.order.business_id = business.id
         this.update()
       },
-
       /**
        * Select a contact using the dropdown component.
        */
@@ -271,7 +280,6 @@
         this.order.contact = contact
         this.update()
       },
-
       /**
        * Update the order.
        */
@@ -279,96 +287,85 @@
         axios.put(route('orders.update', [this.order.reference]), this.order)
           .catch(error => this.errors.push(error))
       },
-
       /**
        * Go to the preview order page.
        */
       goToPreview() {
         this.$store.dispatch('toggleLoader')
-        axios.post(route('orders.validation', [this.order.reference]), this.order)
-          .then(() => {
-            this.errors = []
-            this.$store.dispatch('toggleLoader')
-            this.showPreview = true
-            window.scroll({
-              top: 0,
-              left: 0,
-              behavior: 'smooth'
-            })
+        axios.post(route('orders.validation', [this.order.reference]), this.order).then(() => {
+          this.errors = []
+          this.$store.dispatch('toggleLoader')
+          this.showPreview = true
+          window.scroll({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
           })
-          .catch(error => {
-            this.errors = []
-            this.errors.push(error.response.data)
-            this.$store.dispatch('toggleLoader')
-          })
+        }).catch(error => {
+          this.errors = []
+          this.errors.push(error.response.data)
+          this.$store.dispatch('toggleLoader')
+        })
       },
-
       /**
        * Go the the order page
        */
       goToOrder() {
         this.showPreview = false
       },
-
       /**
        * Order
        */
       completeOrder() {
         this.$store.dispatch('toggleLoader')
-        axios.post(route('orders.validation', [this.order.reference]), this.order)
-          .then(() => {
-            axios.patch(route('orders.complete', [this.order.reference]), this.order)
-              .then(() => {
-                flash({
-                  message: "Votre commande a bien été envoyée!",
-                  level: 'success'
-                })
-                setTimeout(() => {
-                  window.location = route('orders.index')
-                }, 1000)
+        axios.post(route('orders.validation', [this.order.reference]), this.order).then(() => {
+          axios.patch(route('orders.complete', [this.order.reference]), this.order)
+            .then(() => {
+              flash({
+                message: "Votre commande a bien été envoyée!",
+                level: 'success'
               })
-              .catch(error => {
-                console.log(error)
-                this.$store.dispatch('toggleLoader')
-              })
-          })
-          .catch(error => {
-            this.errors = []
-            this.errors.push(error.response.data)
+              setTimeout(() => {
+                window.location = route('orders.index')
+              }, 1000)
+            }).catch(error => {
+            console.log(error)
             this.$store.dispatch('toggleLoader')
           })
+        }).catch(error => {
+          this.errors = []
+          this.errors.push(error.response.data)
+          this.$store.dispatch('toggleLoader')
+        })
       }
     },
     created() {
       /**
        * Delete a document.
        */
-      eventBus.$on('removeDocument', (document) => {
+      eventBus.$on('removeDocument', document => {
         this.removeDocument(document)
       })
-
       /**
        * Set the selected business for the order.
        */
-      if (this.dataOrder.business) {
+      if (this.order.business) {
         this.selectedBusiness = this.order.business.name
       }
-
       /**
        * Set the selected billing contact for the order.
        */
-      if (this.dataOrder.contact) {
+      if (this.order.contact) {
         this.selectedContact = this.order.contact.name
       }
-
       /**
        * Hydrate the store.
        */
-      this.hydrateArticleTypes(this.dataArticles)
-      this.hydrateBusinesses(this.dataBusinesses)
-      this.hydrateContacts(this.dataContacts)
-      this.hydrateDeliveries(this.dataDeliveries)
-      this.hydrateDocuments(this.dataDocuments)
+      this.hydrateArticleTypes(this.articles)
+      this.hydrateBusinesses(this.businesses)
+      this.hydrateContacts(this.contacts)
+      this.hydrateDeliveries(this.deliveries)
+      this.hydrateDocuments(this.documents)
     },
     mounted() {
       /**

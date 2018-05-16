@@ -1,42 +1,25 @@
 <template>
   <div>
     <transition name="fade" mode="out-in">
-
-      <!--Show the registration menu-->
-      <app-register-menu v-if="showRegistrationMenu"
-                         :data-app-name="dataAppName"
-                         @registrationSelection="selection">
-      </app-register-menu>
-
-      <!--Show the user instructions about how to join his company-->
-      <app-register-join-infos v-if="showJoinInfos"
-                               @backToMenu="backToMenu">
-      </app-register-join-infos>
-
-      <!--Register the account-->
-      <app-register-account v-if="showAccountForm"
-                            @accountCreated="accountCreated"
-                            :data-registration-type="registrationType"
-                            :data-invitation="invitation.data">
-      </app-register-account>
-
-      <!--Create a contact for the newly registered user-->
-      <app-register-contact v-if="showContactForm"
-                            :data-registration-type="registrationType"
-                            :data-invitation="invitation"
-                            @contactCreated="contactCreated">
-      </app-register-contact>
-
-      <!--Create a company for the newly registered user-->
-      <app-register-company v-if="showCompanyForm"
-                            @companyCreated="companyCreated">
-      </app-register-company>
+      <register-menu v-if="showRegistrationMenu"
+                     :app-name="appName"
+                     @registrationSelection="selection"></register-menu>
+      <register-join-infos v-if="showJoinInfos"
+                           @backToMenu="backToMenu"></register-join-infos>
+      <register-account v-if="showAccountForm"
+                        :registration-type="registrationType"
+                        :invitation="invitation"
+                        @accountCreated="accountCreated"></register-account>
+      <register-contact v-if="showContactForm"
+                        :registration-type="registrationType"
+                        :invitation="invitation"
+                        @contactCreated="contactCreated"></register-contact>
+      <register-company v-if="showCompanyForm"
+                        @companyCreated="companyCreated"></register-company>
     </transition>
-
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -51,10 +34,20 @@
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    props: [
-      'token-data',
-      'data-app-name'
-    ],
+    components: {
+      MoonLoader,
+      RegisterMenu,
+      RegisterJoinInfos,
+      RegisterAccount,
+      RegisterContact,
+      RegisterCompany
+    },
+    props: {
+      token: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         showRegistrationMenu: false,
@@ -63,33 +56,19 @@
         showContactForm: false,
         showCompanyForm: false,
         registrationType: '',
-        token: {
-          value: this.tokenData
-        },
-        invitation: {
-          data: {}
-        }
+        invitation: {}
       }
     },
-    components: {
-      'app-moon-loader': MoonLoader,
-      'app-register-menu': RegisterMenu,
-      'app-register-join-infos': RegisterJoinInfos,
-      'app-register-account': RegisterAccount,
-      'app-register-contact': RegisterContact,
-      'app-register-company': RegisterCompany
-    },
-    mixins: [mixins],
     computed: {
       ...mapGetters([
         'loaderState'
       ])
     },
+    mixins: [mixins],
     methods: {
       ...mapActions([
         'toggleLoader'
       ]),
-
       /**
        * Registration selection type.
        */
@@ -102,7 +81,6 @@
           this.showAccountForm = true
         }
       },
-
       /**
        * Account was created.
        */
@@ -110,7 +88,6 @@
         this.showAccountForm = false
         this.showContactForm = true
       },
-
       /**
        * Contact was created.
        */
@@ -123,14 +100,12 @@
           this.finishRegistration()
         }
       },
-
       /**
        * Company was created.
        */
       companyCreated() {
         this.finishRegistration()
       },
-
       /**
        * Get the user back to the menu.
        */
@@ -140,23 +115,21 @@
       }
     },
     created() {
-
       /**
        * Get the invitation token and try to confirm it.
        */
-      if (this.token.value) {
+      if (this.token) {
         this.registrationType = 'join'
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('invitation.confirm'), this.token)
-          .then(response => {
-            this.invitation.data = response.data
-            this.showAccountForm = true
-            this.$store.dispatch('toggleLoader')
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-          })
+        axios.post(route('invitation.confirm'), {
+          token: this.token
+        }).then(response => {
+          this.invitation = response.data
+          this.showAccountForm = true
+          this.$store.dispatch('toggleLoader')
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+        })
       } else {
         this.showRegistrationMenu = true
       }

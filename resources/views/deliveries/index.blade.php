@@ -3,9 +3,6 @@
 @section ('title', 'Livraisons')
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
-  <app-deliveries></app-deliveries>
-
+  <deliveries></deliveries>
 @endsection

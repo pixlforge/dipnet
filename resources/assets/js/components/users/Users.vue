@@ -1,52 +1,40 @@
 <template>
   <div>
     <div class="header__container">
-
-      <!--Page title-->
       <h1 class="header__title">Utilisateurs</h1>
 
-      <!--Users count-->
       <div class="header__stats">
         <span v-text="modelCount"></span>
       </div>
 
-      <!--Add user-->
-      <app-add-user :data-companies="dataCompanies"
-                    @userWasCreated="addUser">
-      </app-add-user>
+      <add-user :companies="companies"
+                @userWasCreated="addUser"></add-user>
     </div>
 
     <div class="main__container main__container--grey">
-
-      <!--Pagination top-->
-      <app-pagination class="pagination pagination--top"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getUsers">
-      </app-pagination>
+      <pagination class="pagination pagination--top"
+                  v-if="meta.total > 25"
+                  :meta="meta"
+                  @paginationSwitched="getUsers"></pagination>
 
       <transition-group name="pagination" tag="div" mode="out-in">
-        <app-user class="card__container"
-                  v-for="(user, index) in users"
-                  :key="user.id"
-                  :user="user"
-                  :companies="companies"
-                  @userWasDeleted="removeUser(index)">
-        </app-user>
+        <user class="card__container"
+              v-for="(user, index) in users"
+              :key="user.id"
+              :user="user"
+              :companies="companies"
+              @userWasDeleted="removeUser(index)"></user>
       </transition-group>
 
-      <!--Pagination bottom-->
-      <app-pagination class="pagination pagination--bottom"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getUsers">
-      </app-pagination>
+      <pagination class="pagination pagination--bottom"
+                  v-if="meta.total > 25"
+                  :meta="meta"
+                  @paginationSwitched="getUsers"></pagination>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -61,15 +49,24 @@
 
   export default {
     components: {
-      'app-user': User,
-      'app-add-user': AddUser,
-      'app-pagination': Pagination,
-      'app-moon-loader': MoonLoader
+      User,
+      AddUser,
+      Pagination,
+      MoonLoader
     },
     props: {
-      dataCompanies: {
+      companies: {
         type: Array,
         required: true
+      }
+    },
+    data() {
+      return {
+        users: [],
+        meta: {},
+        modelNameSingular: 'utilisateur',
+        modelNamePlural: 'utilisateurs',
+        modelGender: 'M'
       }
     },
     computed: {
@@ -77,24 +74,10 @@
         'loaderState'
       ])
     },
-    data() {
-      return {
-        users: [],
-        companies: this.dataCompanies,
-        meta: {},
-        modelNameSingular: 'utilisateur',
-        modelNamePlural: 'utilisateurs',
-        modelGender: 'M'
-      }
-    },
     mixins: [mixins],
     methods: {
-      /**
-       * Fetch the users paginated data.
-       */
       getUsers(page = 1) {
         this.$store.dispatch('toggleLoader')
-
         axios.get(route('api.users.index'), {
           params: {
             page
@@ -105,10 +88,6 @@
           this.$store.dispatch('toggleLoader')
         })
       },
-
-      /**
-       * Add a new user.
-       */
       addUser(user) {
         this.users.unshift(user)
         flash({
@@ -116,10 +95,6 @@
           level: 'success'
         })
       },
-
-      /**
-       * Update the user details.
-       */
       updateUser(data) {
         for (let user of this.users) {
           if (data.id === user.id) {
@@ -129,18 +104,14 @@
           }
         }
         flash({
-          message: 'Les modifications apportées à l\'utilisateur ont été enregistrées.',
+          message: "Les modifications apportées à l'utilisateur ont été enregistrées.",
           level: 'success'
         })
       },
-
-      /**
-       * Remove a user from the list.
-       */
       removeUser(index) {
         this.users.splice(index, 1)
         flash({
-          message: 'Suppression de l\'utilisateur réussie.',
+          message: "Suppression de l'utilisateur réussie.",
           level: 'success'
         })
       }

@@ -60,16 +60,20 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'type',
-      'label'
-    ],
+    props: {
+      type: {
+        type: String,
+        required: true
+      },
+      label: {
+        required: true
+      }
+    },
     data() {
       return {
         open: false
       }
     },
-    mixins: [mixins],
     computed: {
       ...mapGetters([
         'listArticlePrintTypes',
@@ -77,6 +81,7 @@
         'listFinishTypes'
       ])
     },
+    mixins: [mixins],
     methods: {
       /**
        * Toggle the open state of the dropdown list.
@@ -84,7 +89,6 @@
       toggleOpen() {
         this.open = !this.open
       },
-
       /**
        * Retrieve the reference of the active dropdown and close
        * it if another element is clicked.
@@ -96,7 +100,6 @@
           this.open = false
         }
       },
-
       /**
        * Select an item from the list.
        */

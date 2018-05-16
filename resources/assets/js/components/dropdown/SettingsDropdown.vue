@@ -7,8 +7,8 @@
     </div>
     <div class="dropdown__container" v-if="open">
       <ul class="dropdown__list">
-        <li v-if="data.length <= 0">Aucun contact</li>
-        <li v-for="(business, index) in data"
+        <li v-if="items.length <= 0">Aucun contact</li>
+        <li v-for="(business, index) in items"
             @click="selectItem(business)">
           {{ business.name }}
         </li>
@@ -22,10 +22,16 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: [
-      'label',
-      'data'
-    ],
+    props: {
+      label: {
+        type: String,
+        required: true
+      },
+      items: {
+        type: Array,
+        required: true
+      }
+    },
     data() {
       return {
         open: false
@@ -36,14 +42,12 @@
       ...mapActions([
         'toggleLoader'
       ]),
-
       /**
        * Toggle the open state of the dropdown list.
        */
       toggleOpen() {
         this.open = !this.open
       },
-
       /**
        * Retrieve the reference of the active dropdown and close
        * it if another element is clicked.
@@ -55,7 +59,6 @@
           this.open = false
         }
       },
-
       /**
        * Select an item from the list.
        */

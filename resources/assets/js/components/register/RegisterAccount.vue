@@ -71,6 +71,7 @@
 
         <div class="register__buttons">
           <button class="btn btn--red"
+                  role="button"
                   @click="registerAccount">
             <i class="fal fa-check"></i>
             Créer le compte
@@ -91,7 +92,7 @@
            aria-hidden="true">
         <img :src="logoBw" :alt="`${appName} logo`">
       </div>
-      <app-carousel></app-carousel>
+      <carousel></carousel>
     </section>
   </div>
 </template>
@@ -102,10 +103,19 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: [
-      'data-registration-type',
-      'data-invitation'
-    ],
+    components: {
+      Carousel
+    },
+    props: {
+      registrationType: {
+        type: String,
+        required: true
+      },
+      invitation: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
         account: {
@@ -115,42 +125,32 @@
           password_confirmation: '',
           is_solo: this.dataRegistrationType === 'self' ? true : false
         },
-        errors: {},
-        invitation: {
-          data: this.dataInvitation
-        }
+        errors: {}
       }
-    },
-    components: {
-      'app-carousel': Carousel
     },
     mixins: [mixins],
     methods: {
       ...mapActions([
         'toggleLoader'
       ]),
-
       /**
        * Register the account.
        */
       registerAccount() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('register.store'), this.account)
-          .then(() => {
-            this.$store.dispatch('toggleLoader')
-            this.account = {}
-            this.$emit('accountCreated')
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        axios.post(route('register.store'), this.account).then(() => {
+          this.$store.dispatch('toggleLoader')
+          this.account = {}
+          this.$emit('accountCreated')
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     },
     created() {
-      if (this.invitation.data) {
-        this.account.email = this.invitation.data.email
+      if (this.invitation) {
+        this.account.email = this.invitation.email
       }
     }
   }

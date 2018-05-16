@@ -8,14 +8,17 @@
       <div class="register__form">
         <h1 class="register__title">Création de compte</h1>
         <button class="register__btn register__btn--red"
+                role="button"
                 @click="addCompany">
           Je désire enregistrer ma société
         </button>
         <button class="register__btn register__btn--orange"
+                role="button"
                 @click="joinCompany">
           Je désire rejoindre ma société
         </button>
         <button class="register__btn register__btn--purple"
+                role="button"
                 @click="asSelf">
           Je désire commander à mon nom
         </button>
@@ -33,7 +36,7 @@
            aria-hidden="true">
         <img :src="logoBw" :alt="`${appName} logo`">
       </div>
-      <app-carousel></app-carousel>
+      <carousel></carousel>
     </section>
   </div>
 </template>
@@ -44,38 +47,17 @@
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    props: ['data-app-name'],
     components: {
-      'app-carousel': Carousel
+      Carousel
     },
     mixins: [mixins],
-    computed: {
-      ...mapGetters([
-        'loaderState'
-      ])
-    },
     methods: {
-      ...mapActions([
-        'toggleLoader'
-      ]),
-
-      /**
-       * Create an account and join an existing company.
-       */
       joinCompany() {
         this.$emit('registrationSelection', 'join')
       },
-
-      /**
-       * Create an account an create a new company.
-       */
       addCompany() {
         this.$emit('registrationSelection', 'add')
       },
-
-      /**
-       * Create an account not linked with any company.
-       */
       asSelf() {
         this.$emit('registrationSelection', 'self')
       }

@@ -4,8 +4,8 @@
 
 @section ('content')
   @include ('layouts.partials._nav')
-  <app-businesses :companies="{{ $companies }}"
-                  :contacts="{{ $contacts }}"
-                  :user="{{ auth()->user() }}"
-                  :orders="{{ $orders }}"></app-businesses>
+  <businesses :companies="{{ $companies }}"
+              :contacts="{{ $contacts }}"
+              :user="{{ auth()->user() }}"
+              :orders="{{ $orders }}"></businesses>
 @endsection

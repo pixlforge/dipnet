@@ -21,6 +21,7 @@
     </div>
 
     <button class="btn btn--red"
+            role="button"
             @click="sendInvitation">
       <i class="fal fa-user-plus"></i>
       Envoyer une invitation
@@ -46,25 +47,17 @@
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Add an invitation.
-       */
       sendInvitation() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('invitation.store'), this.invitation)
-          .then(response => {
-            this.$store.dispatch('toggleLoader')
-            this.$emit('invitationWasAdded', response.data)
-          })
-          .then(() => {
-            this.invitation = {}
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        axios.post(route('invitation.store'), this.invitation).then(response => {
+          this.$store.dispatch('toggleLoader')
+          this.$emit('invitationWasAdded', response.data)
+        }).then(() => {
+          this.invitation = {}
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

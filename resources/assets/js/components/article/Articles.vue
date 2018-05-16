@@ -1,25 +1,19 @@
 <template>
   <div>
     <div class="header__container">
-
-      <!--Page title-->
       <h1 class="header__title">Articles</h1>
 
-      <!--Users count-->
       <div class="header__stats">
         <span v-text="modelCount"></span>
       </div>
 
-      <!--Add article-->
       <add-article @articleWasCreated="addArticle"></add-article>
     </div>
 
     <div class="main__container main__container--grey">
-
-      <!--Pagination top-->
       <pagination class="pagination pagination--top"
                   v-if="meta.total > 25"
-                  :data-meta="meta"
+                  :meta="meta"
                   @paginationSwitched="getArticles"></pagination>
 
       <template v-if="!articles.length && !fetching">
@@ -29,18 +23,16 @@
       <template v-else>
         <transition-group name="pagination" tag="div" mode="out-in">
           <app-article class="card__container"
-                       v-for="(article, index) in articles"
-                       :key="article.id"
-                       :data-article="article"
-                       @articleWasDeleted="removeArticle(index)">
-          </app-article>
+                   v-for="(article, index) in articles"
+                   :key="article.id"
+                   :article="article"
+                   @articleWasDeleted="removeArticle(index)"></app-article>
         </transition-group>
       </template>
 
-      <!--Pagination bottom-->
       <pagination class="pagination pagination--bottom"
                   v-if="meta.total > 25"
-                  :data-meta="meta"
+                  :meta="meta"
                   @paginationSwitched="getArticles"></pagination>
     </div>
 

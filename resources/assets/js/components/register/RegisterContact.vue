@@ -18,13 +18,13 @@
         </div>
 
         <div class="register__summary-item"
-             v-if="dataRegistrationType === 'add'">
+             v-if="registrationType === 'add'">
           <span class="badge__summary">3</span>
           <span class="register__summary-label">Création de votre société</span>
         </div>
 
         <div class="register__summary-item">
-          <span class="badge__summary" v-if="dataRegistrationType === 'add'">4</span>
+          <span class="badge__summary" v-if="registrationType === 'add'">4</span>
           <span class="badge__summary" v-else>3</span>
           <span class="register__summary-label">Terminé!</span>
         </div>
@@ -136,6 +136,7 @@
 
         <div class="register__buttons">
           <button class="btn btn--red"
+                  role="button"
                   @click="createContact">
             <i class="fal fa-check"></i>
             Créer le contact
@@ -148,13 +149,18 @@
 
 <script>
   import mixins from '../../mixins'
-  import { mapActions } from 'vuex'
 
   export default {
-    props: [
-      'data-registration-type',
-      'data-invitation'
-    ],
+    props: {
+      registrationType: {
+        type: String,
+        required: true
+      },
+      invitation: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
         contact: {
@@ -165,33 +171,23 @@
           city: '',
           phone_number: '',
           fax: '',
-          invitation_company: this.dataInvitation.data.company_id
+          invitation_company: this.invitation.company_id
         },
         errors: {}
       }
     },
     mixins: [mixins],
     methods: {
-      ...mapActions([
-        'toggleLoader'
-      ]),
-
-      /**
-       * Create the contact.
-       */
       createContact() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('register.contact.store'), this.contact)
-          .then(() => {
-            this.contact = {}
-            this.$store.dispatch('toggleLoader')
-            this.$emit('contactCreated')
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        axios.post(route('register.contact.store'), this.contact).then(() => {
+          this.contact = {}
+          this.$store.dispatch('toggleLoader')
+          this.$emit('contactCreated')
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

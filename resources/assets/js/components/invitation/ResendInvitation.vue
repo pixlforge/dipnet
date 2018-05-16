@@ -1,5 +1,6 @@
 <template>
   <button class="btn btn--red"
+          role="button"
           @click="resend">
     <i class="fal fa-redo"></i>
     Renvoyer
@@ -11,10 +12,10 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: ['data-invitation'],
-    data() {
-      return {
-        invitation: this.dataInvitation
+    props: {
+      invitation: {
+        type: Object,
+        required: true
       }
     },
     mixins: [mixins],
@@ -22,25 +23,18 @@
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Resend an existing invitation.
-       */
       resend() {
         this.$store.dispatch('toggleLoader')
-
-        axios.put(route('invitation.update'), this.invitation)
-          .then(() => {
-            this.$store.dispatch('toggleLoader')
-            flash({
-              message: `L'invitation a bien été renvoyée à l'adresse ${this.invitation.email}`,
-              level: 'success'
-            })
+        axios.put(route('invitation.update'), this.invitation).then(() => {
+          this.$store.dispatch('toggleLoader')
+          flash({
+            message: `L'invitation a bien été renvoyée à l'adresse ${this.invitation.email}`,
+            level: 'success'
           })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            console.log(error.response.data)
-          })
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          console.log(error.response.data)
+        })
       }
     }
   }

@@ -3,10 +3,11 @@
     <section class="login__first-section">
       <div class="login__logo login__logo--color"
            aria-hidden="true">
-        <img :src="logoColor" :alt="`${dataAppName} logo`">
+        <img :src="logoColor" :alt="`${appName} logo`">
       </div>
       <div class="login__form">
         <h1 class="login__title">Connexion</h1>
+
         <div class="form__group">
           <label for="email">Email</label>
           <span class="form__required">*</span>
@@ -47,6 +48,7 @@
 
         <div class="login__buttons">
           <button class="btn btn--red"
+                  role="button"
                   @click="login">
             <i class="fal fa-key"></i>
             Connexion
@@ -70,15 +72,14 @@
     <section class="login__second-section">
       <div class="login__logo login__logo--bw"
            aria-hidden="true">
-        <img :src="logoBw" :alt="`${dataAppName} logo`">
+        <img :src="logoBw" :alt="`${appName} logo`">
       </div>
-      <app-carousel></app-carousel>
+      <carousel></carousel>
     </section>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -89,7 +90,10 @@
   import { mapGetters, mapActions } from 'vuex'
 
   export default {
-    props: ['data-app-name'],
+    components: {
+      Carousel,
+      MoonLoader
+    },
     data() {
       return {
         email: '',
@@ -98,24 +102,18 @@
         errors: {}
       }
     },
-    mixins: [mixins],
-    components: {
-      'app-carousel': Carousel,
-      'app-moon-loader': MoonLoader
-    },
     computed: {
       ...mapGetters([
         'loaderState'
       ])
     },
+    mixins: [mixins],
     methods: {
       ...mapActions([
         'toggleLoader'
       ]),
-
       login() {
         this.$store.dispatch('toggleLoader')
-
         axios.post(route('login'), {
           email: this.email,
           password: this.password

@@ -10,10 +10,9 @@
           <div class="admin-delivery__label-container">
             <h3 class="admin-delivery__label">Livraison à</h3>
             <h3 class="admin-delivery__label">
-              <app-contact-dropdown :label="selectedDeliveryContact"
-                                    :data-company-id="dataOrder.business.company_id"
-                                    @itemSelected="selectDeliveryContact">
-              </app-contact-dropdown>
+              <contact-dropdown :label="selectedDeliveryContact"
+                                :company-id="order.business.company_id"
+                                @itemSelected="selectDeliveryContact"></contact-dropdown>
             </h3>
           </div>
           <ul class="admin-delivery__contact-info">
@@ -29,13 +28,12 @@
         <div class="admin-delivery__second-meta">
           <div class="admin-delivery__label-container">
             <h3 class="admin-delivery__label">Le</h3>
-            <app-datepicker class="datepicker-light"
-                            :date="startTime"
-                            :option="option"
-                            :limit="limit"
-                            :to-deliver-at="delivery.to_deliver_at"
-                            @change="updateDeliveryDate">
-            </app-datepicker>
+            <datepicker class="datepicker-light"
+                        :date="startTime"
+                        :option="option"
+                        :limit="limit"
+                        :to-deliver-at="delivery.to_deliver_at"
+                        @change="updateDeliveryDate"></datepicker>
           </div>
           <div class="admin-delivery__note" v-if="delivery.note">
             <h5>Note</h5>
@@ -46,6 +44,7 @@
 
       <div class="admin-delivery__controls">
         <a class="btn btn--red"
+           role="button"
            :href="routeDeliveryReceipt"
            target="_blank"
            rel="noopener noreferrer">
@@ -62,15 +61,14 @@
     </div>
 
     <div class="delivery__document-container">
-      <app-admin-document class="document__admin"
-                          v-for="(document, index) in deliveryDocuments"
-                          :key="document.id"
-                          :data-order="order"
-                          :data-delivery="delivery"
-                          :data-document="document"
-                          :data-options="document.articles"
-                          :data-formats="dataFormats">
-      </app-admin-document>
+      <admin-document class="document__admin"
+                      v-for="(document, index) in deliveryDocuments"
+                      :key="document.id"
+                      :order="order"
+                      :delivery="delivery"
+                      :document="document"
+                      :options="document.articles"
+                      :formats="formats"></admin-document>
     </div>
   </div>
 </template>
@@ -84,19 +82,33 @@
   import { eventBus } from '../../app'
 
   export default {
-    props: [
-      'data-order',
-      'data-delivery',
-      'data-documents',
-      'data-formats'
-    ],
+    components: {
+      AdminDocument,
+      ContactDropdown,
+      Datepicker
+    },
+    props: {
+      order: {
+        type: Object,
+        required: true
+      },
+      delivery: {
+        type: Object,
+        required: true
+      },
+      documents: {
+        type: Array,
+        required: true
+      },
+      formats: {
+        type: Array,
+        required: true
+      }
+    },
     data() {
       return {
-        order: this.dataOrder,
-        delivery: this.dataDelivery,
-        documents: this.dataDocuments,
-        selectedDeliveryContact: this.dataDelivery.contact.name,
-        adminNote: this.dataDelivery.admin_note,
+        selectedDeliveryContact: this.delivery.contact.name,
+        adminNote: this.delivery.admin_note,
 
         /**
          * Datepicker data.
@@ -147,68 +159,36 @@
         ]
       }
     },
-    mixins: [mixins],
-    components: {
-      'app-admin-document': AdminDocument,
-      'app-contact-dropdown': ContactDropdown,
-      'app-datepicker': Datepicker
-    },
     computed: {
-      /**
-       * Filter the document models for the current delivery.
-       */
       deliveryDocuments() {
         return this.documents.filter(document => {
           return document.delivery_id == this.delivery.id
         })
       },
-
       routeDeliveryReceipt() {
         return route('deliveries.receipts.show', [this.delivery.reference])
       }
     },
+    mixins: [mixins],
     methods: {
-      /**
-       * Update the delivery.
-       */
       update() {
         axios.put(route('deliveries.update', [this.delivery.reference]), this.delivery)
       },
-
-      /**
-       * Set the admin note.
-       */
       updateAdminNote() {
         axios.patch(route('deliveries.admin.note.update', [this.delivery.reference]), {
           admin_note: this.adminNote
         })
       },
-
-      /**
-       * Update the delivery date.
-       */
       updateDeliveryDate(date) {
         this.delivery.to_deliver_at = moment(date, "LL HH:mm").format("YYYY-MM-DD HH:mm:ss")
         this.update()
       },
-
-      /**
-       * Select the delivery contact.
-       */
       selectDeliveryContact(contact) {
-        console.log("selectDeliveryContact")
         this.selectedDeliveryContact = contact.name
         this.delivery.contact_id = contact.id
         this.delivery.contact = contact
         this.update()
       },
-
-      /**
-       * The link to the delivery's note
-       */
-      goToDeliveryNote() {
-        console.log("Go to Delivery document")
-      }
     },
     created() {
       /**

@@ -3,9 +3,6 @@
 @section ('title', 'Sociétés')
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
-  <app-companies></app-companies>
-
+  <companies></companies>
 @endsection

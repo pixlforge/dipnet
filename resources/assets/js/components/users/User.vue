@@ -24,7 +24,6 @@
       </div>
     </div>
 
-    <!--User info-->
     <div class="card__meta">
       <div>
         <span class="card__label">Compte</span>
@@ -68,13 +67,13 @@
 
     <div class="card__controls">
       <div title="Supprimer"
+           role="button"
            @click="destroy">
         <i class="fal fa-times"></i>
       </div>
       <div title="Modifier">
-        <app-edit-user :data-user="user"
-                       :data-companies="companies">
-        </app-edit-user>
+        <edit-user :user="user"
+                   :companies="companies"></edit-user>
       </div>
     </div>
   </div>
@@ -87,7 +86,7 @@
 
   export default {
     components: {
-      'app-edit-user': EditUser
+      EditUser
     },
     props: {
       user: {
@@ -106,17 +105,10 @@
     },
     mixins: [mixins],
     methods: {
-      /**
-       * Delete a user.
-       */
       destroy() {
         axios.delete(route('users.destroy', [this.user.id]))
         this.$emit('userWasDeleted', this.user.id)
       },
-
-      /**
-       * Get the formatted dates.
-       */
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
       }

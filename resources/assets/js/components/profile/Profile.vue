@@ -18,14 +18,12 @@
            v-if="!user.email_confirmed">
           Compte non vérifié
         </p>
-        <app-send-confirmation-email-again class="profile__header-item"
-                                           v-if="!user.email_confirmed">
-        </app-send-confirmation-email-again>
-        <app-update-profile class="profile__header-item"
-                            :data-user="user"
-                            :data-avatar="avatar"
-                            :data-random-avatar="dataRandomAvatar">
-        </app-update-profile>
+        <send-confirmation-email-again class="profile__header-item"
+                                       v-if="!user.email_confirmed"></send-confirmation-email-again>
+        <update-profile class="profile__header-item"
+                        :user="user"
+                        :avatar="avatar"
+                        :random-avatar="randomAvatar"></update-profile>
       </div>
     </div>
 
@@ -71,10 +69,9 @@
       </div>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -87,43 +84,43 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'data-user',
-      'data-orders',
-      'data-businesses',
-      'data-avatar',
-      'data-random-avatar'
-    ],
-    data() {
-      return {
-        avatar: this.dataAvatar,
-        user: this.dataUser,
-        orders: this.dataOrders,
-        businesses: this.dataBusinesses
+    components: {
+      SendConfirmationEmailAgain,
+      UpdateProfile,
+      MoonLoader
+    },
+    props: {
+      user: {
+        type: Object,
+        required: true
+      },
+      orders: {
+        type: Number,
+        required: true
+      },
+      businesses: {
+        type: Number,
+        required: true
+      },
+      avatar: {
+        type: String,
+        required: true
+      },
+      randomAvatar: {
+        type: String,
+        required: true
       }
     },
     mixins: [mixins],
-    components: {
-      'app-send-confirmation-email-again': SendConfirmationEmailAgain,
-      'app-update-profile': UpdateProfile,
-      'app-moon-loader': MoonLoader
-    },
     computed: {
       ...mapGetters([
         'loaderState'
       ]),
-
-      /**
-       * Get a random avatar's path.
-       */
       randomAvatarPath() {
-        return 'img/placeholders/' + this.dataRandomAvatar
+        return 'img/placeholders/' + this.randomAvatar
       }
     },
     methods: {
-      /**
-       * Get the formatted dates.
-       */
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
       }

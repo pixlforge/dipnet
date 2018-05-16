@@ -50,6 +50,7 @@
 
         <div class="register__buttons">
           <button class="btn btn--red"
+                  role="button"
                   @click="createCompany">
             <i class="fal fa-check"></i>
             Terminer l'enregistrement
@@ -62,7 +63,6 @@
 
 <script>
   import mixins from '../../mixins'
-  import { mapActions } from 'vuex'
 
   export default {
     data() {
@@ -75,25 +75,15 @@
     },
     mixins: [mixins],
     methods: {
-      ...mapActions([
-        'toggleLoader'
-      ]),
-
-      /**
-       * Create a new company.
-       */
       createCompany() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('register.company.store'), this.company)
-          .then(() => {
-            this.company = {}
-            this.$emit('companyCreated')
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        axios.post(route('register.company.store'), this.company).then(() => {
+          this.company = {}
+          this.$emit('companyCreated')
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

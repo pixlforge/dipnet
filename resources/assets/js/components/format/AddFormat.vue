@@ -1,6 +1,7 @@
 <template>
   <div>
     <button class="btn btn--red-large"
+            role="button"
             @click="toggleModal">
       <i class="fal fa-plus-circle"></i>
       Nouveau format
@@ -22,7 +23,6 @@
         <div class="modal__container">
           <h2 class="modal__title">Nouveau format</h2>
 
-          <!--Name-->
           <div class="modal__group">
             <label for="name" class="modal__label">Nom</label>
             <span class="modal__required">*</span>
@@ -38,7 +38,6 @@
             </div>
           </div>
 
-          <!--Height-->
           <div class="modal__group">
             <label for="height" class="modal__label">Hauteur (mm)</label>
             <span class="modal__required">*</span>
@@ -53,7 +52,6 @@
             </div>
           </div>
 
-          <!--Width-->
           <div class="modal__group">
             <label for="width" class="modal__label">Largeur (mm)</label>
             <span class="modal__required">*</span>
@@ -68,7 +66,6 @@
             </div>
           </div>
 
-          <!--Surface-->
           <div class="modal__group">
             <label for="surface" class="modal__label">Surface (mm<sup>2</sup>)</label>
             <input type="text"
@@ -83,14 +80,15 @@
             </div>
           </div>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="addFormat">
               <i class="fal fa-check"></i>
               Ajouter
@@ -131,25 +129,18 @@
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Add a format.
-       */
       addFormat() {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('formats.store'), this.format)
-          .then(response => {
-            this.format = response.data
-            this.$emit('formatWasCreated', this.format)
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-            this.format = {}
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        axios.post(route('formats.store'), this.format).then(response => {
+          this.format = response.data
+          this.$emit('formatWasCreated', this.format)
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+          this.format = {}
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

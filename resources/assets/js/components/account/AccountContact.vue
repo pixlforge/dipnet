@@ -160,11 +160,7 @@
       MoonLoader,
     },
     props: {
-      dataAppName: {
-        type: String,
-        required: true
-      },
-      dataUser: {
+      user: {
         type: Object,
         required: true
       }
@@ -189,13 +185,10 @@
         'loaderState'
       ]),
       shouldDisplayCompanyChecklistItem() {
-        return !this.dataUser.is_solo && !this.dataUser.company_confirmed
+        return !this.user.is_solo && !this.user.company_confirmed
       }
     },
     methods: {
-      /**
-       * Create the contact.
-       */
       createContact() {
         this.$store.dispatch('toggleLoader')
         axios.post(route('register.contact.store'), this.contact).then(() => {

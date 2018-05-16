@@ -34,31 +34,24 @@ export const store = new Vuex.Store({
     loaderState: state => {
       return state.loader.show
     },
-
     listArticlePrintTypes: state => {
       return state.articles.types.print
     },
-
     listArticleOptionTypes: state => {
       return state.articles.types.option
     },
-
     listFinishTypes: state => {
       return state.articles.types.finish
     },
-
     listBusinesses: state => {
       return state.businesses
     },
-
     listContacts: state => {
       return state.contacts
     },
-
     listDeliveries: state => {
       return state.deliveries
     },
-
     listDocuments: state => {
       return state.documents
     },
@@ -71,39 +64,31 @@ export const store = new Vuex.Store({
     toggleLoader: state => {
       state.loader.show = !state.loader.show
     },
-
     hydrateArticleTypes: (state, payload) => {
       payload.forEach(article => {
         if (article.type === 'impression') {
           state.articles.types.print.push(article)
         }
-
         if (article.type === 'option') {
           state.articles.types.option.push(article)
         }
       })
     },
-
     hydrateBusinesses: (state, payload) => {
       state.businesses = payload
     },
-
     hydrateContacts: (state, payload) => {
       state.contacts = payload
     },
-
     addContact: (state, payload) => {
       state.contacts.push(payload)
     },
-
     hydrateDeliveries: (state, payload) => {
       state.deliveries = payload
     },
-
     addDelivery: (state, payload) => {
       state.deliveries.push(payload)
     },
-
     removeDelivery: (state, payload) => {
       const index = state.deliveries.findIndex(delivery => {
         if (delivery.id === payload.id) {
@@ -112,11 +97,9 @@ export const store = new Vuex.Store({
       })
       state.deliveries.splice(index, 1)
     },
-
     hydrateDocuments: (state, payload) => {
       state.documents = payload
     },
-
     addDocument: (state, payload) => {
       state.documents.push(payload)
       const index = state.documents.findIndex(document => {
@@ -128,7 +111,6 @@ export const store = new Vuex.Store({
       Vue.set(state.documents[index], 'article_id', null)
       Vue.set(state.documents[index], 'articles', [])
     },
-
     updateDocument: (state, payload) => {
       const index = state.documents.findIndex(document => {
         if (document.id === payload.document.id) {
@@ -143,7 +125,6 @@ export const store = new Vuex.Store({
       state.documents[index].height = payload.document.height
       state.documents[index].nb_orig = payload.document.nb_orig
     },
-
     removeDocument: (state, payload) => {
       const index = state.documents.findIndex(document => {
         if (document.id === payload.id) {
@@ -152,7 +133,6 @@ export const store = new Vuex.Store({
       })
       state.documents.splice(index, 1)
     },
-
     cloneOptions: (state, payload) => {
       state.documents.forEach(document => {
         if (document.delivery_id === payload.deliveryId) {
@@ -174,99 +154,74 @@ export const store = new Vuex.Store({
     toggleLoader: ({ commit }) => {
       commit('toggleLoader')
     },
-
     hydrateArticleTypes: ({ commit }, payload) => {
       commit('hydrateArticleTypes', payload)
     },
-
     hydrateBusinesses: ({ commit }, payload) => {
       commit('hydrateBusinesses', payload)
     },
-
     hydrateContacts: ({ commit }, payload) => {
       commit('hydrateContacts', payload)
     },
-
     addContact: ({ commit }, payload) => {
       commit('addContact', payload)
     },
-
     hydrateDeliveries: ({ commit }, payload) => {
       commit('hydrateDeliveries', payload)
     },
-
     addDelivery: ({ commit }, payload) => {
       const orderId = {
         order_id: payload.id
       }
-
       return new Promise((resolve, reject) => {
         commit('toggleLoader')
-        axios.post(route('deliveries.store'), orderId)
-          .then(response => {
-            commit('addDelivery', response.data)
-            commit('toggleLoader')
-            resolve()
-          })
-          .catch(error => {
-            commit('toggleLoader')
-            reject()
-          })
+        axios.post(route('deliveries.store'), orderId).then(response => {
+          commit('addDelivery', response.data)
+          commit('toggleLoader')
+          resolve()
+        }).catch(error => {
+          commit('toggleLoader')
+          reject()
+        })
       })
     },
-
     removeDelivery: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
         commit('toggleLoader')
-        axios.delete(route('deliveries.destroy', [payload.reference]), payload)
-          .then(() => {
-            commit('removeDelivery', payload)
-            commit('toggleLoader')
-            resolve()
-          })
-          .catch(error => {
-            commit('toggleLoader')
-            reject()
-          })
+        axios.delete(route('deliveries.destroy', [payload.reference]), payload).then(() => {
+          commit('removeDelivery', payload)
+          commit('toggleLoader')
+          resolve()
+        }).catch(error => {
+          commit('toggleLoader')
+          reject()
+        })
       })
     },
-
     hydrateDocuments: ({ commit }, payload) => {
       commit('hydrateDocuments', payload)
     },
-
     addDocument: ({ commit }, payload) => {
       commit('addDocument', payload)
     },
-
     updateDocument: ({ commit }, payload) => {
       commit('updateDocument', payload)
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id])
         axios.patch(endpoint, payload.document)
-          .then(() => {
-            resolve()
-          })
-          .catch(error => {
-            reject(error)
-          })
+          .then(() => resolve())
+          .catch(error => reject(error))
       })
     },
-
     removeDocument: ({ commit }, payload) => {
       commit('removeDocument', payload.document)
       return new Promise((resolve, reject) => {
         const endpoint = route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id])
         axios.delete(endpoint, payload.document)
-          .then(() => {
-            resolve()
-          })
-          .catch(error => {
-            reject()
-          })
+          .then(() => resolve())
+          .catch(error => reject())
       })
     },
-
     cloneOptions: ({ commit }, payload) => {
       commit('toggleLoader')
       return new Promise((resolve, reject) => {

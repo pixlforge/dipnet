@@ -2,7 +2,7 @@
   <div class="register__container">
     <section class="register__first-section">
       <div class="login__logo login__logo--color">
-        <img :src="logoColor" :alt="`${dataAppName} logo`">
+        <img :src="logoColor" :alt="`${appName} logo`">
       </div>
       <div class="register__form">
         <h1 class="register__title">Rejoindre ma société</h1>
@@ -20,9 +20,9 @@
 
     <section class="login__second-section">
       <div class="login__logo login__logo--bw">
-        <img :src="logoBw" :alt="`${dataAppName} logo`">
+        <img :src="logoBw" :alt="`${appName} logo`">
       </div>
-      <app-carousel></app-carousel>
+      <carousel></carousel>
     </section>
   </div>
 </template>
@@ -33,13 +33,10 @@
 
   export default {
     components: {
-      'app-carousel': Carousel
+      Carousel
     },
     mixins: [mixins],
     methods: {
-      /**
-       * Send the user back to the menu.
-       */
       backToMenu() {
         this.$emit('backToMenu')
       }

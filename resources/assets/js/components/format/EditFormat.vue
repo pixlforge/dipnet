@@ -1,6 +1,7 @@
 <template>
   <div>
-    <div @click="toggleModal">
+    <div role="button"
+         @click="toggleModal">
       <i class="fal fa-pencil"></i>
     </div>
 
@@ -20,7 +21,6 @@
         <div class="modal__container">
           <h2 class="modal__title">Modifier {{ format.name }}</h2>
 
-          <!--Name-->
           <div class="modal__group">
             <label for="name" class="modal__label">Nom</label>
             <span class="modal__required">*</span>
@@ -36,7 +36,6 @@
             </div>
           </div>
 
-          <!--Height-->
           <div class="modal__group">
             <label for="height" class="modal__label">Hauteur (mm)</label>
             <span class="modal__required">*</span>
@@ -51,7 +50,6 @@
             </div>
           </div>
 
-          <!--Width-->
           <div class="modal__group">
             <label for="width" class="modal__label">Largeur (mm)</label>
             <span class="modal__required">*</span>
@@ -66,7 +64,6 @@
             </div>
           </div>
 
-          <!--Surface-->
           <div class="modal__group">
             <label for="surface" class="modal__label">Surface (mm<sup>2</sup>)</label>
             <input type="number"
@@ -81,14 +78,15 @@
             </div>
           </div>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="updateFormat">
               <i class="fal fa-check"></i>
               Mettre à jour
@@ -106,10 +104,14 @@
   import { mapActions } from 'vuex'
 
   export default {
-    props: ['data-format'],
+    props: {
+      format: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
-        format: this.dataFormat,
         errors: {}
       }
     },
@@ -127,25 +129,17 @@
       ...mapActions([
         'toggleLoader'
       ]),
-
-      /**
-       * Update a format.
-       */
       updateFormat() {
         this.$store.dispatch('toggleLoader')
-
-        axios.put(route('formats.update', [this.format.id]), this.format)
-          .then(() => {
-            eventBus.$emit('formatWasUpdated', this.format);
-          })
-          .then(() => {
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data
-          })
+        axios.put(route('formats.update', [this.format.id]), this.format).then(() => {
+          eventBus.$emit('formatWasUpdated', this.format);
+        }).then(() => {
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data
+        })
       }
     }
   }

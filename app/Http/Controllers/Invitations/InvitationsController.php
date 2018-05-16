@@ -63,7 +63,7 @@ class InvitationsController extends Controller
      */
     public function confirm(Request $request)
     {
-        $invitation = Invitation::where('token', $request->value)->first();
+        $invitation = Invitation::where('token', $request->token)->first();
 
         if (! $invitation) {
             return response("Code invalide", 422);
@@ -77,6 +77,8 @@ class InvitationsController extends Controller
      *
      * @param Invitation $invitation
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Exception
      */
     public function destroy(Invitation $invitation)
     {

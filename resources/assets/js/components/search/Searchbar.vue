@@ -1,5 +1,6 @@
 <template>
-  <form class="searchbar" @submit.prevent>
+  <form class="searchbar"
+  >
     <i class="fal fa-search"></i>
     <input type="text"
            class="searchbar__input"
@@ -9,7 +10,7 @@
            @keyup="research">
     <transition name="fade">
       <ul class="searchbar__dropdown"
-           v-if="search.query.length > 1">
+          v-if="search.query.length > 1">
         <li v-if="searching">Recherche en cours...</li>
         <div v-if="containsOrders">
           <h6 class="searchbar__title">Commandes</h6>
@@ -53,7 +54,8 @@
             <a :href="'/contacts/' + result.id">{{ result.name }}</a>
           </li>
         </div>
-        <li v-if="search.query.length > 1 && !searching && !containsOrders && !containsCompanies && !containsBusinesses && !containsDeliveries && !containsContacts">
+        <li
+          v-if="search.query.length > 1 && !searching && !containsOrders && !containsCompanies && !containsBusinesses && !containsDeliveries && !containsContacts">
           Aucun résultat
         </li>
       </ul>
@@ -96,31 +98,21 @@
       },
     },
     methods: {
-      /**
-       * Search
-       */
       research() {
         if (this.search.query.length > 1) {
           this.toggleSearch()
-
-          axios.post(route('search.query'), this.search)
-            .then(response => {
-              this.results.orders = response.data[0]
-              this.results.companies = response.data[1]
-              this.results.businesses = response.data[2]
-              this.results.deliveries = response.data[3]
-              this.results.contacts = response.data[4]
-              this.toggleSearch()
-            })
-            .catch(error => {
-              this.toggleSearch()
-            })
+          axios.post(route('search.query'), this.search).then(response => {
+            this.results.orders = response.data[0]
+            this.results.companies = response.data[1]
+            this.results.businesses = response.data[2]
+            this.results.deliveries = response.data[3]
+            this.results.contacts = response.data[4]
+            this.toggleSearch()
+          }).catch(error => {
+            this.toggleSearch()
+          })
         }
       },
-
-      /**
-       * Toggle searching state.
-       */
       toggleSearch() {
         this.searching = !this.searching
       }

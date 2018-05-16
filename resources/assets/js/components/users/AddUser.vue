@@ -22,7 +22,6 @@
         <div class="modal__container">
           <h2 class="modal__title">Nouvel utilisateur</h2>
 
-          <!--Username-->
           <div class="modal__group">
             <label for="username" class="modal__label">Nom d'utilisateur</label>
             <span class="modal__required">*</span>
@@ -38,7 +37,6 @@
             </div>
           </div>
 
-          <!--Email-->
           <div class="modal__group">
             <label for="email" class="modal__label">Adresse Email</label>
             <span class="modal__required">*</span>
@@ -54,7 +52,6 @@
             </div>
           </div>
 
-          <!--Password-->
           <div class="modal__group">
             <label for="password" class="modal__label">Mot de passe</label>
             <span class="modal__required">*</span>
@@ -70,7 +67,6 @@
             </div>
           </div>
 
-          <!--Password Confirmation-->
           <div class="modal__group">
             <label for="password_confirmation" class="modal__label">Confirmation</label>
             <span class="modal__required">*</span>
@@ -86,7 +82,6 @@
             </div>
           </div>
 
-          <!--Role-->
           <div class="modal__group">
             <label for="role" class="modal__label">Rôle</label>
             <span class="modal__required">*</span>
@@ -104,7 +99,6 @@
             </div>
           </div>
 
-          <!--Company-->
           <div class="modal__group"
                v-if="userIsNotAdmin">
             <label for="company_id" class="modal__label">Société</label>
@@ -124,20 +118,20 @@
             </div>
           </div>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="addUser">
               <i class="fal fa-check"></i>
               Ajouter
             </button>
           </div>
-
         </div>
       </div>
     </transition>
@@ -146,18 +140,12 @@
 
 <script>
   import mixins from '../../mixins'
-  import { mapActions } from 'vuex'
 
   export default {
     props: {
-      dataCompanies: {
+      companies: {
         type: Array,
         required: true
-      }
-    },
-    computed: {
-      userIsNotAdmin() {
-        return this.user.role === '' || this.user.role === 'utilisateur'
       }
     },
     data() {
@@ -169,35 +157,32 @@
           email: '',
           company_id: ''
         },
-        companies: this.dataCompanies,
         errors: {}
+      }
+    },
+    computed: {
+      userIsNotAdmin() {
+        return this.user.role === '' || this.user.role === 'utilisateur'
       }
     },
     mixins: [mixins],
     methods: {
-      /**
-       * Add a new user.
-       */
       addUser() {
         if (this.user.role === 'administrateur') {
           this.user.company_id = null
         }
-
         this.$store.dispatch('toggleLoader')
-
-        axios.post(route('users.store'), this.user)
-          .then(response => {
-            this.user = response.data
-            this.$emit('userWasCreated', this.user)
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-            this.user = {}
-            this.errors = {}
-          })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        axios.post(route('users.store'), this.user).then(response => {
+          this.user = response.data
+          this.$emit('userWasCreated', this.user)
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+          this.user = {}
+          this.errors = {}
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

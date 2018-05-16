@@ -20,49 +20,53 @@
     </div>
 
     <div class="modal__group">
-      <img :src="avatar.path"
+      <img :src="newAvatar.path"
            class="avatar__img"
            alt="Avatar à modifier"
-           v-if="avatar.path">
+           v-if="newAvatar.path">
 
-      <img :src="currentAvatar"
+      <img :src="avatar"
            class="avatar__img"
            alt="Avatar actuel"
-           v-if="currentAvatar && !avatar.path">
+           v-if="avatar && !newAvatar.path">
 
       <img :src="randomAvatarPath"
            alt="Avatar par défaut"
-           v-if="!avatar.path && !currentAvatar"
+           v-if="!newAvatar.path && !avatar"
            style="width: 200px;">
     </div>
 
-    <div class="modal__buttons modal__buttons--avatar" v-if="avatar.path">
+    <div class="modal__buttons modal__buttons--avatar"
+         v-if="newAvatar.id">
       <button class="btn btn--red"
+              role="button"
               @click.prevent="update">
         <i class="fal fa-upload"></i>
         Mettre à jour l'avatar
       </button>
     </div>
-
-
   </div>
 </template>
 
 <script>
   import mixins from '../../mixins'
-  import { mapActions } from 'vuex'
 
   export default {
-    props: [
-      'data-avatar',
-      'data-random-avatar'
-    ],
+    props: {
+      avatar: {
+        type: String,
+        required: true
+      },
+      randomAvatar: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
-        currentAvatar: this.dataAvatar,
-        avatar: {
+        newAvatar: {
           id: null,
-          path: this.currentAvatar
+          path: this.avatar
         },
         endpoint: '/profile/avatar',
         errors: {},
@@ -70,73 +74,38 @@
       }
     },
     computed: {
-      /**
-       * Get a random avatar's path.
-       */
       randomAvatarPath() {
-        return 'img/placeholders/' + this.dataRandomAvatar
+        return 'img/placeholders/' + this.randomAvatar
       }
     },
     mixins: [mixins],
     methods: {
-      ...mapActions([
-        'toggleLoader'
-      ]),
-
-      /**
-       * Upload on file change.
-       */
       fileChange(event) {
         this.upload(event)
       },
-
-      /**
-       * Upload an avatar.
-       */
       upload(event) {
         this.$store.dispatch('toggleLoader')
-
-        axios.post(this.endpoint, this.packageUploads(event))
-          .then(response => {
-            this.$store.dispatch('toggleLoader')
-            this.avatar = response.data
-            flash({
-              message: "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
-              level: 'success'
-            })
+        axios.post(this.endpoint, this.packageUploads(event)).then(response => {
+          this.$store.dispatch('toggleLoader')
+          this.newAvatar = response.data
+          flash({
+            message: "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
+            level: 'success'
           })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            if (error.response.status === 422) {
-              this.errors = error.response.data.errors.avatar
-              flash({
-                message: this.errors[0],
-                level: 'danger'
-              })
-              return
-            }
-            this.errors = "Une erreur est survenue. Veuillez réessayer plus tard."
-          })
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+        })
       },
-
-      /**
-       * Get the file data.
-       */
       packageUploads(event) {
-        let fileData = new FormData()
+        const fileData = new FormData()
         fileData.append(this.sendAs, event.target.files[0])
         return fileData
       },
-
-      /**
-       * Update the avatar.
-       */
       update() {
         this.$store.dispatch('toggleLoader')
-
         axios.patch('/profile/avatar', {
           avatar: {
-            id: this.avatar.id
+            id: this.newAvatar.id
           }
         }).then(() => {
           this.$store.dispatch('toggleLoader')
@@ -146,7 +115,7 @@
           })
           setTimeout(() => {
             window.location = route('profile.index')
-          }, 1500)
+          }, 500)
         }).catch(() => {
           this.$store.dispatch('toggleLoader')
           flash({

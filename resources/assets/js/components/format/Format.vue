@@ -37,12 +37,12 @@
 
     <div class="card__controls">
       <div title="Supprimer"
+           role="button"
            @click="destroy">
         <i class="fal fa-times"></i>
       </div>
       <div title="Modifier">
-        <app-edit-format :data-format="format">
-        </app-edit-format>
+        <edit-format :format="format"></edit-format>
       </div>
     </div>
   </div>
@@ -55,12 +55,12 @@
 
   export default {
     components: {
-      'app-edit-format': EditFormat
+      EditFormat
     },
-    props: ['data-format'],
-    data() {
-      return {
-        format: this.dataFormat
+    props: {
+      format: {
+        type: Object,
+        required: true
       }
     },
     computed: {
@@ -70,17 +70,10 @@
     },
     mixins: [mixins],
     methods: {
-      /**
-       * Delete a format.
-       */
       destroy() {
         axios.delete(route('formats.destroy', [this.format.id]))
         this.$emit('formatWasDeleted', this.format.id)
       },
-
-      /**
-       * Get the formatted dates.
-       */
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
       }

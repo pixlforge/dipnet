@@ -1,28 +1,20 @@
 <template>
   <div>
     <div class="header__container">
-
-      <!--Page title-->
       <h1 class="header__title">Formats</h1>
 
-      <!--Formats count-->
       <div class="header__stats">
         <span v-text="modelCount"></span>
       </div>
 
-      <!--Add format-->
-      <app-add-format @formatWasCreated="addFormat">
-      </app-add-format>
+      <add-format @formatWasCreated="addFormat"></add-format>
     </div>
 
     <div class="main__container main__container--grey">
-
-      <!--Pagination top-->
-      <app-pagination class="pagination pagination--top"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getFormats">
-      </app-pagination>
+      <pagination class="pagination pagination--top"
+                  v-if="meta.total > 25"
+                  :meta="meta"
+                  @paginationSwitched="getFormats"></pagination>
 
       <template v-if="!formats.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun format.</p>
@@ -30,27 +22,23 @@
 
       <template v-else>
         <transition-group name="pagination" tag="div" mode="out-in">
-          <app-format class="card__container"
-                      v-for="(format, index) in formats"
-                      :key="format.id"
-                      :data-format="format"
-                      @formatWasDeleted="removeFormat(index)">
-          </app-format>
+          <format class="card__container"
+                  v-for="(format, index) in formats"
+                  :key="format.id"
+                  :format="format"
+                  @formatWasDeleted="removeFormat(index)"></format>
         </transition-group>
       </template>
 
-      <!--Pagination bottom-->
-      <app-pagination class="pagination pagination--bottom"
-                      v-if="meta.total > 25"
-                      :data-meta="meta"
-                      @paginationSwitched="getFormats">
-      </app-pagination>
+      <pagination class="pagination pagination--bottom"
+                  v-if="meta.total > 25"
+                  :meta="meta"
+                  @paginationSwitched="getFormats"></pagination>
     </div>
 
-    <app-moon-loader :loading="loaderState"
-                     :color="loader.color"
-                     :size="loader.size">
-    </app-moon-loader>
+    <moon-loader :loading="loaderState"
+                 :color="loader.color"
+                 :size="loader.size"></moon-loader>
   </div>
 </template>
 
@@ -64,6 +52,12 @@
   import { mapGetters } from 'vuex'
 
   export default {
+    components: {
+      Format,
+      AddFormat,
+      Pagination,
+      MoonLoader
+    },
     data() {
       return {
         formats: [],
@@ -76,22 +70,13 @@
 
       }
     },
-    components: {
-      'app-format': Format,
-      'app-add-format': AddFormat,
-      'app-pagination': Pagination,
-      'app-moon-loader': MoonLoader
-    },
-    mixins: [mixins],
     computed: {
       ...mapGetters([
         'loaderState'
       ])
     },
+    mixins: [mixins],
     methods: {
-      /**
-       * Fetch the formats paginated data.
-       */
       getFormats(page = 1) {
         this.$store.dispatch('toggleLoader')
         this.fetching = true
@@ -111,10 +96,6 @@
           this.fetching = false
         })
       },
-
-      /**
-       * Add a new format to the list.
-       */
       addFormat(format) {
         this.formats.unshift(format)
         flash({
@@ -122,10 +103,6 @@
           level: 'success'
         })
       },
-
-      /**
-       * Update the format.
-       */
       updateFormat(data) {
         for (let format of this.formats) {
           if (data.id === format.id) {
@@ -140,10 +117,6 @@
           level: 'success'
         })
       },
-
-      /**
-       * Remove a format from the list.
-       */
       removeFormat(index) {
         this.formats.splice(index, 1)
         flash({

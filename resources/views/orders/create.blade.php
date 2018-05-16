@@ -3,17 +3,13 @@
 @section ('title', 'Nouvelle commande')
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
   @if ($order)
-    <app-create-order :data-order="{{ $order }}"
-                      :data-businesses="{{ $businesses }}"
-                      :data-contacts="{{ $contacts }}"
-                      :data-deliveries="{{ $deliveries }}"
-                      :data-documents="{{ $documents }}"
-                      :data-articles="{{ $articles }}">
-    </app-create-order>
+    <create-order :order="{{ $order }}"
+                  :businesses="{{ $businesses }}"
+                  :contacts="{{ $contacts }}"
+                  :deliveries="{{ $deliveries }}"
+                  :documents="{{ $documents }}"
+                  :articles="{{ $articles }}"></create-order>
   @endif
-
 @endsection

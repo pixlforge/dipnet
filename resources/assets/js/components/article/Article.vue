@@ -6,28 +6,28 @@
     </div>
 
     <div class="card__title">
-      {{ dataArticle.reference }}
+      {{ article.reference }}
     </div>
 
     <div class="card__meta">
       <div>
         <span class="card__label">Description</span>
-        {{ dataArticle.description | capitalize }}
+        {{ article.description | capitalize }}
       </div>
       <div>
         <span class="card__label">Type</span>
-        {{ dataArticle.type | capitalize }}
+        {{ article.type | capitalize }}
       </div>
     </div>
 
     <div class="card__meta">
       <div>
         <span class="card__label">Créé</span>
-        {{ getDate(dataArticle.created_at) }}
+        {{ getDate(article.created_at) }}
       </div>
       <div>
         <span class="card__label">Modifié</span>
-        {{ getDate(dataArticle.updated_at) }}
+        {{ getDate(article.updated_at) }}
       </div>
     </div>
 
@@ -37,7 +37,7 @@
         <i class="fal fa-times"></i>
       </div>
       <div title="Modifier">
-        <edit-article :data-article="dataArticle"></edit-article>
+        <edit-article :article="article"></edit-article>
       </div>
     </div>
   </div>
@@ -53,23 +53,17 @@
       EditArticle
     },
     props: {
-      dataArticle: {
+      article: {
         type: Object,
         required: true
       }
     },
     mixins: [mixins],
     methods: {
-      /**
-       * Delete the article.
-       */
       destroy() {
-        axios.delete(route('articles.destroy', [this.dataArticle.id]))
-        this.$emit('articleWasDeleted', this.dataArticle.id)
+        axios.delete(route('articles.destroy', [this.article.id]))
+        this.$emit('articleWasDeleted', this.article.id)
       },
-      /**
-       * Get the formatted dates.
-       */
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
       }

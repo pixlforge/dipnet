@@ -55,6 +55,7 @@
     <div class="card__controls card__controls--order">
       <div v-if="order.status === 'incomplète'"
            title="Supprimer"
+           role="button"
            @click="destroy">
         <i class="fal fa-times"></i>
       </div>
@@ -88,15 +89,12 @@
         if (this.order.status === 'envoyée') return 'badge--warning'
         if (this.order.status === 'traitée') return 'badge--success'
       },
-
       createRoute() {
         return route('orders.create.end', [this.order.reference])
       },
-
       showRoute() {
         return route('orders.complete.show', [this.order.reference])
       },
-
       adminRoute() {
         return route('orders.show', [this.order.reference])
       }
@@ -105,10 +103,10 @@
       getDate(date) {
         return moment(date).locale(this.momentLocale).format(this.momentFormat)
       },
-
       destroy() {
-        axios.delete(route('orders.destroy', [this.order.reference]))
-          .then(() => this.$emit('orderWasDeleted', this.order))
+        axios.delete(route('orders.destroy', [this.order.reference])).then(() => {
+          this.$emit('orderWasDeleted', this.order)
+        })
       }
     }
   }

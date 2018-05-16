@@ -3,9 +3,6 @@
 @section ('title', 'Ajouter une affaire par défaut')
 
 @section ('content')
-
-  <app-add-default-business :data-company="{{ $company }}"
-                            :data-contacts="{{ $contacts }}">
-  </app-add-default-business>
-
+  <add-default-business :company="{{ $company }}"
+                        :contacts="{{ $contacts }}"></add-default-business>
 @endsection

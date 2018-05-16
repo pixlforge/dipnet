@@ -1,6 +1,7 @@
 <template>
   <div ref="dropdownMenu">
     <div class="dropdown__label"
+         role="button"
          @click="toggleOpen">
       <span><strong>{{ label | capitalize }}</strong></span>
       <i class="fas fa-caret-down"></i>
@@ -26,18 +27,22 @@
   import { eventBus } from '../../app'
 
   export default {
-    props: [
-      'label',
-      'listItems'
-    ],
+    props: {
+      label: {
+        type: String,
+        required: true
+      },
+      listItems: {
+        type: Array,
+        required: true
+      }
+    },
     data() {
       return {
         open: false
       }
     },
     mixins: [mixins],
-    computed: {
-    },
     methods: {
       /**
        * Toggle the open state of the dropdown list.
@@ -45,7 +50,6 @@
       toggleOpen() {
         this.open = !this.open
       },
-
       /**
        * Retrieve the reference of the active dropdown and close
        * it if another element is clicked.
@@ -57,7 +61,6 @@
           this.open = false
         }
       },
-
       /**
        * Select an item from the list.
        */

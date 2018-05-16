@@ -73,12 +73,6 @@
     components: {
       MoonLoader,
     },
-    props: {
-      dataAppName: {
-        type: String,
-        required: true
-      }
-    },
     data() {
       return {
         company: {
@@ -94,9 +88,6 @@
       ])
     },
     methods: {
-      /**
-       * Create a new company.
-       */
       createCompany() {
         this.$store.dispatch('toggleLoader')
         axios.post(route('register.company.store'), this.company).then(() => {

@@ -22,23 +22,29 @@
   import { mapGetters } from 'vuex'
 
   export default {
-    props: [
-      'label',
-      'data-company-id'
-    ],
+    props: {
+      label: {
+        type: String,
+        required: false
+      },
+      companyId: {
+        type: Number,
+        required: false
+      }
+    },
     data() {
       return {
         open: false
       }
     },
-    mixins: [mixins],
     computed: {
       listContacts() {
         return this.$store.getters.listContacts.filter(contact => {
-          return contact.company_id == this.dataCompanyId
+          return contact.company_id == this.companyId
         })
       }
     },
+    mixins: [mixins],
     methods: {
       /**
        * Toggle the open state of the dropdown list.

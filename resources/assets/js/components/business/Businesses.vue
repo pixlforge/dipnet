@@ -18,7 +18,7 @@
     <div class="main__container main__container--grey">
       <pagination class="pagination pagination--top"
                   v-if="meta.total > 25"
-                  :data-meta="meta"
+                  :meta="meta"
                   @paginationSwitched="getBusinesses"></pagination>
 
       <template v-if="!businesses.length && !fetching">
@@ -53,7 +53,7 @@
 
       <pagination class="pagination pagination--bottom"
                   v-if="meta.total > 25"
-                  :data-meta="meta"
+                  :meta="meta"
                   @paginationSwitched="getBusinesses"></pagination>
     </div>
 

@@ -1,6 +1,7 @@
 <template>
   <div>
     <button class="btn btn--red"
+            role="button"
             @click="toggleModal">
       <i class="fal fa-pencil"></i>
       Éditer mon compte
@@ -21,13 +22,11 @@
 
         <div class="modal__container">
 
-          <app-avatar-upload :data-avatar="avatar"
-                             :data-random-avatar="dataRandomAvatar">
-          </app-avatar-upload>
+          <avatar-upload :avatar="avatar"
+                         :random-avatar="randomAvatar"></avatar-upload>
 
           <h2 class="modal__title">Mise à jour des informations du compte</h2>
 
-          <!--Name-->
           <div class="modal__group">
             <label for="username" class="modal__label">Nom</label>
             <span class="modal__required">*</span>
@@ -43,7 +42,6 @@
             </div>
           </div>
 
-          <!--Email-->
           <div class="modal__group">
             <label for="email" class="modal__label">Email</label>
             <span class="modal__required">*</span>
@@ -59,7 +57,6 @@
             </div>
           </div>
 
-          <!--Password-->
           <div class="modal__group">
             <label for="password" class="modal__label">Password</label>
             <span class="modal__required">*</span>
@@ -75,7 +72,6 @@
             </div>
           </div>
 
-          <!--Password-->
           <div class="modal__group">
             <label for="password_confirmation" class="modal__label">Confirmation du mot de passer</label>
             <span class="modal__required">*</span>
@@ -91,14 +87,15 @@
             </div>
           </div>
 
-          <!--Buttons-->
           <div class="modal__buttons">
             <button class="btn btn--grey"
+                    role="button"
                     @click.stop="toggleModal">
               <i class="fal fa-times"></i>
               Annuler
             </button>
             <button class="btn btn--red"
+                    role="button"
                     @click.prevent="updateProfile">
               <i class="fal fa-check"></i>
               Mettre à jour
@@ -113,66 +110,48 @@
 <script>
   import AvatarUpload from './AvatarUpload.vue'
   import mixins from '../../mixins'
-  import { mapActions } from 'vuex'
 
   export default {
+    components: {
+      AvatarUpload
+    },
     props: {
-      dataUser: {
+      user: {
         type: Object,
         required: true
       },
-      dataAvatar: {
+      avatar: {
         type: String,
         required: true
       },
-      dataRandomAvatar: {
+      randomAvatar: {
         type: String,
         required: true
       }
     },
     data() {
       return {
-        avatar: this.dataAvatar,
-        user: {
-          id: this.dataUser.id,
-          username: this.dataUser.username,
-          email: this.dataUser.email,
-          password: null,
-          password_confirmation: null
-        },
         errors: {}
       }
     },
     mixins: [mixins],
-    components: {
-      'app-avatar-upload': AvatarUpload
-    },
     methods: {
-      ...mapActions([
-        'toggleLoader'
-      ]),
-
-      /**
-       * Update the user's profile.
-       */
       updateProfile() {
         this.$store.dispatch('toggleLoader')
-        axios.patch(route('account.update'), this.user)
-          .then(() => {
-            this.$store.dispatch('toggleLoader')
-            this.toggleModal()
-            this.errors = {}
-            this.user.password = ''
-            this.user.password_confirmation = ''
-            flash({
-              message: "Votre compte a été mis à jour avec succès!",
-              level: 'success'
-            })
+        axios.patch(route('account.update'), this.user).then(() => {
+          this.$store.dispatch('toggleLoader')
+          this.toggleModal()
+          this.errors = {}
+          this.user.password = ''
+          this.user.password_confirmation = ''
+          flash({
+            message: "Votre compte a été mis à jour avec succès!",
+            level: 'success'
           })
-          .catch(error => {
-            this.$store.dispatch('toggleLoader')
-            this.errors = error.response.data.errors
-          })
+        }).catch(error => {
+          this.$store.dispatch('toggleLoader')
+          this.errors = error.response.data.errors
+        })
       }
     }
   }

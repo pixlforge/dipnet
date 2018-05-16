@@ -3,9 +3,6 @@
 @section ('title', 'Articles')
 
 @section ('content')
-
-    @include ('layouts.partials._nav')
-
-    <app-articles></app-articles>
-
+  @include ('layouts.partials._nav')
+  <articles></articles>
 @endsection

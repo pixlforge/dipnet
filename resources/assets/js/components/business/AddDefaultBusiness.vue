@@ -56,7 +56,7 @@
                     class="form__select"
                     v-model.number.trim="business.contact_id">
               <option disabled>Sélectionnez un contact</option>
-              <option v-for="(contact, index) in dataContacts"
+              <option v-for="(contact, index) in contacts"
                       :value="contact.id"
                       v-text="contact.name">
               </option>
@@ -92,11 +92,11 @@
       MoonLoader
     },
     props: {
-      dataCompany: {
+      company: {
         type: Object,
         required: true
       },
-      dataContacts: {
+      contacts: {
         type: Array,
         required: true
       }
@@ -108,7 +108,7 @@
           name: '',
           description: '',
           contact_id: '',
-          company_id: this.dataCompany.id,
+          company_id: this.company.id,
           setDefault: true
         },
         errors: {}
@@ -120,7 +120,7 @@
         'loaderState'
       ]),
       context() {
-        if (this.dataCompany.name === 'Particulier') {
+        if (this.company.name === 'Particulier') {
           return "Vous devez"
         } else {
           return "Votre société doit"

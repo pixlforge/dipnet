@@ -12,10 +12,16 @@
 
 <script>
   export default {
-    props: [
-      'message',
-      'level'
-    ],
+    props: {
+      message: {
+        type: String,
+        required: true
+      },
+      level: {
+        type: String,
+        required: true
+      }
+    },
     data() {
       return {
         body: this.message,
@@ -46,7 +52,6 @@
         this.show = true
         this.hide()
       },
-
       /**
        * Hide the alert.
        */

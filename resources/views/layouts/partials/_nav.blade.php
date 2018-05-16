@@ -1,11 +1,10 @@
 <header>
-  <app-navbar data-app-name="{{ config('app.name') }}"
-              data-route-name="{{ Route::currentRouteName() }}"
-              data-avatar-path="{{ auth()->user()->avatarPath() }}"
-              data-random-avatar="{{ 'img/placeholders/' . auth()->user()->randomAvatar() }}"
-              data-user-name="{{ auth()->user()->username }}"
-              data-user-role="{{ auth()->user()->role }}"
-              data-user-company-name="{{ auth()->user()->company->name }}"
-              data-user-company-id="{{ auth()->user()->company->id }}">
-  </app-navbar>
+  <navbar app-name="{{ config('app.name') }}"
+          route-name="{{ Route::currentRouteName() }}"
+          avatar-path="{{ auth()->user()->avatarPath() }}"
+          random-avatar="{{ 'img/placeholders/' . auth()->user()->randomAvatar() }}"
+          user-name="{{ auth()->user()->username }}"
+          user-role="{{ auth()->user()->role }}"
+          user-company-name="{{ auth()->user()->company->name }}"
+          user-company-id="{{ auth()->user()->company->id }}"></navbar>
 </header>

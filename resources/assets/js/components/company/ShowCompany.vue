@@ -51,7 +51,7 @@
           <div class="company__option">
             <label class="company__label">Affaire par défaut :</label>
             <settings-dropdown :label="selectedBusiness"
-                               :data="businesses"
+                               :items="businesses"
                                @itemSelected="selectBusiness"></settings-dropdown>
           </div>
         </div>

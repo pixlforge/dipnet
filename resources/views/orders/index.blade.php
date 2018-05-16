@@ -4,6 +4,5 @@
 
 @section ('content')
   @include ('layouts.partials._nav')
-  <app-orders user-role="{{ auth()->user()->role }}"></app-orders>
-
+  <orders user-role="{{ auth()->user()->role }}"></orders>
 @endsection
