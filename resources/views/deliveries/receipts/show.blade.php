@@ -3,9 +3,7 @@
 @section ('title', 'Bulletin de livraison référence ' . $delivery->reference)
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
   <div class="receipt__header">
     @if (config('app.name') === 'Dipnet')
       <img class="receipt__logo"

@@ -7,5 +7,4 @@
   <show-company :company="{{ $company }}"
                 :invitations="{{ $invitations }}"
                 :businesses="{{ $businesses }}"></show-company>
-
 @endsection

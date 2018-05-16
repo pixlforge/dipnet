@@ -1,11 +1,9 @@
-@extends ('layouts.app')
+@extends ('layouts.app') 
 
-@section ('title', 'Page introuvable')
+@section ('title', 'Page introuvable') 
 
 @section ('content')
-
     @include ('layouts.nav')
-
     <div class="container-fluid">
         <div class="row vh-80">
             <div class="col-12 col-lg-8 mx-auto text-center d-flex flex-column justify-content-center align-self-center">
@@ -19,5 +17,4 @@
             </div>
         </div>
     </div>
-
 @endsection

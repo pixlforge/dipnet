@@ -3,7 +3,6 @@
 @section ('title', 'Mot de passe oublié')
 
 @section ('content')
-
   <div class="recovery__container recovery__container--orange">
     <div class="recovery__panel">
       <h1 class="form__title">Réinitialiser le mot de passe</h1>
@@ -44,5 +43,4 @@
       </form>
     </div>
   </div>
-
 @endsection

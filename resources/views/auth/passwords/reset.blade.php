@@ -3,7 +3,6 @@
 @section ('title', 'Réinitialisation du mot de passe')
 
 @section ('content')
-
   <div class="recovery__container recovery__container--purple">
     <div class="recovery__panel">
       <h1 class="form__title">Réinitialiser le mot de passe</h1>
@@ -64,12 +63,12 @@
           @endif
         </div>
 
-
-        <button type="submit" class="btn btn--red">
+        <button type="submit"
+                role="button"
+                class="btn btn--red">
           Réinitialiser le mot de passe
         </button>
       </form>
     </div>
   </div>
-
 @endsection

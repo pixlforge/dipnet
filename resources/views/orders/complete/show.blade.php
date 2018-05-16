@@ -5,7 +5,6 @@
 @section ('content')
 
   @include ('layouts.partials._nav')
-
   <div class="receipt__header">
     <h1 class="receipt__title">Résumé de la commande {{ $order->reference }}</h1>
   </div>
