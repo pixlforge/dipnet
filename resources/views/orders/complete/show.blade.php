@@ -39,13 +39,13 @@
           <div class="receipt__item">
             <h2 class="receipt__item-title">Adresse de facturation</h2>
             <ul class="receipt__item-list">
-              <li>{{ $order->contact->name }}</li>
-              <li>{{ $order->contact->address_line1 }}</li>
-              <li>{{ $order->contact->address_line2 }}</li>
-              <li>{{ $order->contact->zip }} {{ $order->contact->city }}</li>
-              <li>{{ $order->contact->phone_number }}</li>
-              <li>{{ $order->contact->fax }}</li>
-              <li>{{ $order->contact->email }}</li>
+              <li>{{ optional($order->contact)->name }}</li>
+              <li>{{ optional($order->contact)->address_line1 }}</li>
+              <li>{{ optional($order->contact)->address_line2 }}</li>
+              <li>{{ optional($order->contact)->zip }} {{ optional($order->contact)->city }}</li>
+              <li>{{ optional($order->contact)->phone_number }}</li>
+              <li>{{ optional($order->contact)->fax }}</li>
+              <li>{{ optional($order->contact)->email }}</li>
             </ul>
           </div>
           <div class="receipt__item">
@@ -63,13 +63,13 @@
             <div class="receipt__item">
               <h2 class="receipt__item-title">Adresse de livraison</h2>
               <ul class="receipt__item-list">
-                <li>{{ $delivery->contact->name }}</li>
-                <li>{{ $delivery->contact->address_line1 }}</li>
-                <li>{{ $delivery->contact->address_line2 }}</li>
-                <li>{{ $delivery->contact->zip }} {{ $delivery->contact->city }}</li>
-                <li>{{ $delivery->contact->phone_number  }}</li>
-                <li>{{ $delivery->contact->fax  }}</li>
-                <li>{{ $delivery->contact->email  }}</li>
+                <li>{{ optional($delivery->contact)->name }}</li>
+                <li>{{ optional($delivery->contact)->address_line1 }}</li>
+                <li>{{ optional($delivery->contact)->address_line2 }}</li>
+                <li>{{ optional($delivery->contact)->zip }} {{ optional($delivery->contact)->city }}</li>
+                <li>{{ optional($delivery->contact)->phone_number  }}</li>
+                <li>{{ optional($delivery->contact)->fax  }}</li>
+                <li>{{ optional($delivery->contact)->email  }}</li>
               </ul>
             </div>
             <div class="receipt__item">

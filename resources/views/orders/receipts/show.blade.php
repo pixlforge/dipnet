@@ -3,9 +3,7 @@
 @section ('title', 'Bulletin de commande référence ' . $order->reference)
 
 @section ('content')
-
   @include ('layouts.partials._nav')
-
   @foreach ($order->deliveries as $delivery)
     <div class="receipt__header">
       @if (config('app.name') === 'Dipnet')
@@ -69,7 +67,7 @@
             <div class="receipt__item">
               <h2 class="receipt__item-title">Facturation à</h2>
               <ul class="receipt__item-list">
-                <li>{{ ucfirst($order->contact->name) }}</li>
+                <li>{{ ucfirst(optional($order->contact)->name) }}</li>
                 <li>{{ $order->contact->address_line1 }}</li>
                 <li>{{ $order->contact->address_line2 }}</li>
                 <li>{{ $order->contact->zip }} {{ $order->contact->city }}</li>
