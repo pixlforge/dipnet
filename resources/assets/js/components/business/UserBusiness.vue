@@ -42,7 +42,13 @@
             count++
           }
         })
-        return count > 1 ? `${count} commandes` : `${count} commande`
+        if (count === 0) {
+          return "Aucune commande"
+        } else if (count === 1) {
+          return "1 commande"
+        } else {
+          return `${count} commandes`
+        }
       }
     },
     methods: {
