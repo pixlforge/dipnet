@@ -67,7 +67,6 @@
         modelNameSingular: 'format',
         modelNamePlural: 'formats',
         modelGender: 'M'
-
       }
     },
     computed: {
