@@ -7,7 +7,7 @@
         <img src="/img/icons/alert@3x.png" class="alert-page__icon" alt="Attention">
         <h1 class="alert-page__title">Définir une affaire</h1>
         <p class="alert-page__paragraph">
-          {{ context }} disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.
+          {{ context }} disposer d'une affaire par défaut. Cliquez sur le bouton pour en ajouter une.
         </p>
         <button class="btn btn--red"
                 role="button"

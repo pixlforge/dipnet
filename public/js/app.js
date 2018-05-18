@@ -75722,7 +75722,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "alert-page__title"
   }, [_vm._v("Définir une affaire")]), _vm._v(" "), _c('p', {
     staticClass: "alert-page__paragraph"
-  }, [_vm._v("\n        " + _vm._s(_vm.context) + " disposer d'une affaire par défaut. Clickez sur le bouton pour en ajouter une.\n      ")]), _vm._v(" "), _c('button', {
+  }, [_vm._v("\n        " + _vm._s(_vm.context) + " disposer d'une affaire par défaut. Cliquez sur le bouton pour en ajouter une.\n      ")]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
     attrs: {
       "role": "button"
