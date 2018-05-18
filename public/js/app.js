@@ -73547,7 +73547,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal__container"
   }, [_c('h2', {
     staticClass: "modal__title"
-  }, [_vm._v("Nouveau contact")]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Modifier " + _vm._s(_vm.contact.name))]), _vm._v(" "), _c('div', {
     staticClass: "modal__group"
   }, [_c('label', {
     staticClass: "modal__label",

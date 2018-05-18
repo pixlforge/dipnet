@@ -18,7 +18,7 @@
            @keyup.enter="updateContact">
 
         <div class="modal__container">
-          <h2 class="modal__title">Nouveau contact</h2>
+          <h2 class="modal__title">Modifier {{ contact.name }}</h2>
 
           <div class="modal__group">
             <label for="name" class="modal__label">Nom</label>
