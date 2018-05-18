@@ -73,7 +73,7 @@
           </div>
 
           <div class="modal__group">
-            <label for="password_confirmation" class="modal__label">Confirmation du mot de passer</label>
+            <label for="password_confirmation" class="modal__label">Confirmation du mot de passe</label>
             <span class="modal__required">*</span>
             <input type="password"
                    name="password_confirmation"

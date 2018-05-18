@@ -36681,7 +36681,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       modelNameSingular: 'format',
       modelNamePlural: 'formats',
       modelGender: 'M'
-
     };
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(['loaderState'])),
@@ -69310,7 +69309,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "password_confirmation"
     }
-  }, [_vm._v("Confirmation du mot de passer")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("Confirmation du mot de passe")]), _vm._v(" "), _c('span', {
     staticClass: "modal__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
