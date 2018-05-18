@@ -153,6 +153,9 @@
           this.errors = error.response.data.errors
         })
       }
+    },
+    mounted() {
+      this.user.password = null
     }
   }
 </script>

@@ -4,7 +4,7 @@
 
 @section ('content')
   @include ('layouts.partials._nav')
-  <profile :user="{{ $user }}"
+  <profile :user="{{ auth()->user() }}"
            :orders="{{ $orders }}"
            :businesses="{{ $businesses }}"
            avatar="{{ auth()->user()->avatarPath() }}"

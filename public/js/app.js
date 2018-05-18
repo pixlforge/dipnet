@@ -40056,6 +40056,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -40096,6 +40097,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(['loaderState']), {
     randomAvatarPath() {
       return 'img/placeholders/' + this.randomAvatar;
+    },
+    userIsNotAdmin() {
+      return this.user.role !== 'administrateur';
     }
   }),
   methods: {
@@ -40269,6 +40273,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.errors = error.response.data.errors;
       });
     }
+  },
+  mounted() {
+    this.user.password = null;
   }
 });
 
@@ -73471,7 +73478,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "profile__item"
   }, [_c('h3', [_vm._v("Adresse e-mail")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.user.email))])]), _vm._v(" "), _c('div', {
     staticClass: "profile__item"
-  }, [_c('h3', [_vm._v("Création du compte")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.getDate(_vm.user.created_at)))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h3', [_vm._v("Création du compte")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.getDate(_vm.user.created_at)))])])]), _vm._v(" "), (_vm.userIsNotAdmin) ? _c('div', {
     staticClass: "profile__box-item"
   }, [_c('div', {
     staticClass: "profile__item"
@@ -73479,7 +73486,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "profile__item"
   }, [_c('h3', [_vm._v("Réalisation de")]), _vm._v(" "), (_vm.orders == 0) ? _c('span', [_vm._v("Aucune commande")]) : _vm._e(), _vm._v(" "), (_vm.orders == 1) ? _c('span', [_vm._v(_vm._s(_vm.orders) + " commande")]) : _vm._e(), _vm._v(" "), (_vm.orders > 1) ? _c('span', [_vm._v(" " + _vm._s(_vm.orders) + " commandes")]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "profile__item"
-  }, [_c('h3', [_vm._v("Participe à")]), _vm._v(" "), (_vm.businesses == 0) ? _c('span', [_vm._v("Aucune affaire")]) : _vm._e(), _vm._v(" "), (_vm.businesses == 1) ? _c('span', [_vm._v(_vm._s(_vm.businesses) + " affaire")]) : _vm._e(), _vm._v(" "), (_vm.businesses > 1) ? _c('span', [_vm._v(" " + _vm._s(_vm.businesses) + " affaires")]) : _vm._e()])])])]), _vm._v(" "), _c('moon-loader', {
+  }, [_c('h3', [_vm._v("Participe à")]), _vm._v(" "), (_vm.businesses == 0) ? _c('span', [_vm._v("Aucune affaire")]) : _vm._e(), _vm._v(" "), (_vm.businesses == 1) ? _c('span', [_vm._v(_vm._s(_vm.businesses) + " affaire")]) : _vm._e(), _vm._v(" "), (_vm.businesses > 1) ? _c('span', [_vm._v(" " + _vm._s(_vm.businesses) + " affaires")]) : _vm._e()])]) : _vm._e()])]), _vm._v(" "), _c('moon-loader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,

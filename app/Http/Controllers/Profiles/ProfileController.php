@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Profiles;
 
 use App\User;
-use App\Company;
 use App\Contact;
 use App\Profile;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateProfileRequest;
-use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -34,21 +33,7 @@ class ProfileController extends Controller
     {
         $this->authorize('view', Profile::class);
 
-        $user = User::select([
-            'id',
-            'username',
-            'email',
-            'email_confirmed',
-            'company_id',
-            'created_at'
-        ])->where('id', auth()->id())
-            ->firstOrFail();
-
-        $users = User::where('company_id', $user->company->id)
-            ->get()
-            ->sortBy('username');
-
-        $contacts = Contact::where('company_id', $user->company->id)
+        $contacts = Contact::where('company_id', auth()->user()->company->id)
             ->get()
             ->sortBy('name');
 
@@ -57,8 +42,6 @@ class ProfileController extends Controller
         $businessesCount = auth()->user()->businesses_count;
 
         return view('profiles.profile', [
-            'user' => $user,
-            'users' => $users,
             'contacts' => $contacts,
             'orders' => $ordersCount,
             'businesses' => $businessesCount

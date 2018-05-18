@@ -48,7 +48,8 @@
           </div>
         </div>
 
-        <div class="profile__box-item">
+        <div class="profile__box-item"
+             v-if="userIsNotAdmin">
           <div class="profile__item">
             <h3>Membre de</h3>
             <p>{{ user.company.name }}</p>
@@ -118,6 +119,9 @@
       ]),
       randomAvatarPath() {
         return 'img/placeholders/' + this.randomAvatar
+      },
+      userIsNotAdmin() {
+        return this.user.role !== 'administrateur'
       }
     },
     methods: {
