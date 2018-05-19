@@ -71322,7 +71322,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "navbar__user-infos"
   }, [(_vm.avatarPath !== '') ? _c('img', {
     attrs: {
-      "src": '/' + _vm.avatarPath,
+      "src": _vm.avatarPath,
       "alt": "Avatar"
     }
   }) : _c('img', {

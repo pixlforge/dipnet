@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Profiles;
 
 use App\Avatar;
-use App\Http\Requests\Profile\AvatarUploadRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Intervention\Image\ImageManager;
+use App\Http\Requests\Profile\AvatarUploadRequest;
 
 class AvatarController extends Controller
 {
@@ -28,7 +27,7 @@ class AvatarController extends Controller
      */
     public function store(AvatarUploadRequest $request)
     {
-        $processedImage = $this->imageManager->make($request->file('avatar')->getPathName())
+        $this->imageManager->make($request->file('avatar')->getPathName())
             ->fit(200, 200, function ($constraint) {
                 $constraint->aspectRatio();
             })

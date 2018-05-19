@@ -34,7 +34,7 @@
         </ul>
       </div>
       <div class="navbar__user-infos">
-        <img :src="'/' + avatarPath" alt="Avatar" v-if="avatarPath !== ''">
+        <img :src="avatarPath" alt="Avatar" v-if="avatarPath !== ''">
         <img :src="'/' + randomAvatar" alt="Avatar" v-else>
         <menu-dropdown class="navbar__user-name"
                        :label="userName"

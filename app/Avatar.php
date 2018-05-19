@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Avatar extends Model
@@ -21,6 +22,6 @@ class Avatar extends Model
      */
     public function path()
     {
-        return config('avatar.path.relative') . $this->path;
+        return Storage::url('avatar' . $this->path);
     }
 }
