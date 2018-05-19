@@ -25,12 +25,12 @@ class StoreContactRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3|max:45',
-            'address_line1' => 'required',
-            'address_line2' => 'nullable',
-            'zip' => 'required|numeric|min:1000|max:999999',
-            'city' => 'required|min:2|max:45',
-            'phone_number' => 'nullable|numeric',
-            'fax' => 'nullable|numeric',
+            'address_line1' => 'required|string|min:3|max:255',
+            'address_line2' => 'nullable|string|min:3|max:255',
+            'zip' => 'required|string|min:4|max:16',
+            'city' => 'required|string|min:2|max:45',
+            'phone_number' => 'nullable|string|max:45',
+            'fax' => 'nullable|string|max:45',
             'email' => 'required|email|max:45',
             'company_id' => 'nullable|exists:companies,id'
         ];

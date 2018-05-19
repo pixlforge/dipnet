@@ -134,6 +134,25 @@
             </div>
           </div>
 
+          <div class="modal__group"
+               v-if="userIsAdmin">
+            <label for="company_id" class="modal__label">Société</label>
+            <select name="company_id"
+                    id="company_id"
+                    class="modal__select"
+                    v-model.number.trim="contact.company_id">
+              <option disabled>Sélectionnez une société</option>
+              <option v-for="(company, index) in companies"
+                      :value="company.id">
+                {{ company.name }}
+              </option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.company_id">
+              {{ errors.company_id[0] }}
+            </div>
+          </div>
+
           <div class="modal__buttons">
             <button class="btn btn--grey"
                     role="button"
@@ -164,11 +183,24 @@
       contact: {
         type: Object,
         required: true
+      },
+      companies: {
+        type: Array,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
       }
     },
     data() {
       return {
         errors: {}
+      }
+    },
+    computed: {
+      userIsAdmin() {
+        return this.user.role === 'administrateur'
       }
     },
     mixins: [mixins],

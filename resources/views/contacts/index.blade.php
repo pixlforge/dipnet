@@ -4,5 +4,6 @@
 
 @section ('content')
   @include ('layouts.partials._nav')
-  <contacts></contacts>
+  <contacts :companies="{{ $companies }}"
+            :user="{{ auth()->user() }}"></contacts>
 @endsection

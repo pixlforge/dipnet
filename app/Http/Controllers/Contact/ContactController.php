@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Contact;
 
+use App\Company;
 use App\Contact;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -26,13 +27,15 @@ class ContactController extends Controller
     }
 
     /**
-     * Display a listing of the Contat model.
+     * Display a listing of the Contact model.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('contacts.index');
+        $companies = Company::all();
+
+        return view('contacts.index', compact('companies'));
     }
 
     /**
@@ -43,20 +46,30 @@ class ContactController extends Controller
      */
     public function store(StoreContactRequest $request)
     {
-        $contact = Contact::create([
-            'name' => $request->name,
-            'address_line1' => $request->address_line1,
-            'address_line2' => $request->address_line2,
-            'zip' => $request->zip,
-            'city' => $request->city,
-            'phone_number' => $request->phone_number,
-            'fax' => $request->fax,
-            'email' => $request->email,
-            'user_id' => auth()->id(),
-            'company_id' => auth()->user()->company_id
-        ]);
+        $contact = new Contact;
+        $contact->name = $request->name;
+        $contact->address_line1 = $request->address_line1;
+        $contact->address_line2 = $request->address_line2;
+        $contact->zip = $request->zip;
+        $contact->city = $request->city;
+        $contact->phone_number = $request->phone_number;
+        $contact->fax = $request->fax;
+        $contact->email = $request->email;
 
-        $contact = $contact->with('company')->find($contact->id);
+        if (auth()->user()->isAdmin()) {
+            $contact->user_id = null;
+            $contact->company_id = $request->company_id;
+        } else if (auth()->user()->isNotAdmin() && auth()->user()->isPartOfACompany()) {
+            $contact->user_id = auth()->id();
+            $contact->company_id = auth()->user()->company->id;
+        } else if (auth()->user()->isNotAdmin() && auth()->user()->isSolo()) {
+            $contact->user_id = auth()->id();
+            $contact->company_id = null;
+        }
+
+        $contact->save();
+
+        $contact->load('company');
 
         return response($contact, 200);
     }
@@ -84,17 +97,33 @@ class ContactController extends Controller
      */
     public function update(UpdateContactRequest $request, Contact $contact)
     {
-        $contact->update([
-            'name' => $request->name,
-            'address_line1' => $request->address_line1,
-            'address_line2' => $request->address_line2,
-            'zip' => $request->zip,
-            'city' => $request->city,
-            'phone_number' => $request->phone_number,
-            'fax' => $request->fax,
-            'email' => $request->email,
-            'company_id' => $request->company_id
-        ]);
+        $contact->name = $request->name;
+        $contact->address_line1 = $request->address_line1;
+        $contact->address_line2 = $request->address_line2;
+        $contact->zip = $request->zip;
+        $contact->city = $request->city;
+        $contact->phone_number = $request->phone_number;
+        $contact->fax = $request->fax;
+        $contact->email = $request->email;
+
+        if (auth()->user()->isAdmin()) {
+            $contact->company_id = $request->company_id;
+        }
+
+        $contact->save();
+
+
+//        $contact->update([
+//            'name' => $request->name,
+//            'address_line1' => $request->address_line1,
+//            'address_line2' => $request->address_line2,
+//            'zip' => $request->zip,
+//            'city' => $request->city,
+//            'phone_number' => $request->phone_number,
+//            'fax' => $request->fax,
+//            'email' => $request->email,
+//            'company_id' => $request->company_id
+//        ]);
 
         return response($contact, 200);
     }

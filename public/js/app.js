@@ -34736,12 +34736,41 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    companies: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
+  },
   data() {
     return {
       contact: {
@@ -34752,10 +34781,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         city: '',
         phone_number: '',
         fax: '',
-        email: ''
+        email: '',
+        company_id: null
       },
       errors: {}
     };
+  },
+  computed: {
+    userIsAdmin() {
+      return this.user.role === 'administrateur';
+    }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
@@ -34858,6 +34893,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -34869,6 +34906,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   props: {
     contact: {
+      type: Object,
+      required: true
+    },
+    companies: {
+      type: Array,
+      required: true
+    },
+    user: {
       type: Object,
       required: true
     }
@@ -34948,6 +34993,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -34963,6 +35012,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     AddContact: __WEBPACK_IMPORTED_MODULE_2__AddContact_vue___default.a,
     Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
+  },
+  props: {
+    companies: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
   },
   data() {
     return {
@@ -35208,6 +35267,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -35218,12 +35296,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     contact: {
       type: Object,
       required: true
+    },
+    companies: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
     }
   },
   data() {
     return {
       errors: {}
     };
+  },
+  computed: {
+    userIsAdmin() {
+      return this.user.role === 'administrateur';
+    }
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* default */]],
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(['toggleLoader']), {
@@ -73037,7 +73128,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('edit-contact', {
     attrs: {
-      "contact": _vm.contact
+      "contact": _vm.contact,
+      "companies": _vm.companies,
+      "user": _vm.user
     }
   })], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -73859,7 +73952,53 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.errors.email) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.email[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.email[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.userIsAdmin) ? _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "company_id"
+    }
+  }, [_vm._v("Société")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number.trim",
+      value: (_vm.contact.company_id),
+      expression: "contact.company_id",
+      modifiers: {
+        "number": true,
+        "trim": true
+      }
+    }],
+    staticClass: "modal__select",
+    attrs: {
+      "name": "company_id",
+      "id": "company_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return _vm._n(val)
+        });
+        _vm.$set(_vm.contact, "company_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Sélectionnez une société")]), _vm._v(" "), _vm._l((_vm.companies), function(company, index) {
+    return _c('option', {
+      domProps: {
+        "value": company.id
+      }
+    }, [_vm._v("\n              " + _vm._s(company.name) + "\n            ")])
+  })], 2), _vm._v(" "), (_vm.errors.company_id) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.company_id[0]) + "\n          ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",
@@ -74534,6 +74673,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "textContent": _vm._s(_vm.modelCount)
     }
   })]), _vm._v(" "), _c('add-contact', {
+    attrs: {
+      "companies": _vm.companies,
+      "user": _vm.user
+    },
     on: {
       "contactWasCreated": _vm.addContact
     }
@@ -74560,7 +74703,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: contact.id,
       staticClass: "card__container",
       attrs: {
-        "contact": contact
+        "contact": contact,
+        "companies": _vm.companies,
+        "user": _vm.user
       },
       on: {
         "contactWasDeleted": function($event) {
@@ -74765,12 +74910,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
-      rawName: "v-model.number",
+      rawName: "v-model",
       value: (_vm.contact.zip),
-      expression: "contact.zip",
-      modifiers: {
-        "number": true
-      }
+      expression: "contact.zip"
     }],
     staticClass: "modal__input",
     attrs: {
@@ -74785,10 +74927,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "zip", _vm._n($event.target.value))
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
+        _vm.$set(_vm.contact, "zip", $event.target.value)
       }
     }
   }), _vm._v(" "), (_vm.errors.zip) ? _c('div', {
@@ -74947,7 +75086,53 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), (_vm.errors.email) ? _c('div', {
     staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.email[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.email[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), (_vm.userIsAdmin) ? _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": "company_id"
+    }
+  }, [_vm._v("Société")]), _vm._v(" "), _c('select', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number.trim",
+      value: (_vm.contact.company_id),
+      expression: "contact.company_id",
+      modifiers: {
+        "number": true,
+        "trim": true
+      }
+    }],
+    staticClass: "modal__select",
+    attrs: {
+      "name": "company_id",
+      "id": "company_id"
+    },
+    on: {
+      "change": function($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return _vm._n(val)
+        });
+        _vm.$set(_vm.contact, "company_id", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+      }
+    }
+  }, [_c('option', {
+    attrs: {
+      "disabled": ""
+    }
+  }, [_vm._v("Sélectionnez une société")]), _vm._v(" "), _vm._l((_vm.companies), function(company, index) {
+    return _c('option', {
+      domProps: {
+        "value": company.id
+      }
+    }, [_vm._v("\n              " + _vm._s(company.name) + "\n            ")])
+  })], 2), _vm._v(" "), (_vm.errors.company_id) ? _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._v("\n            " + _vm._s(_vm.errors.company_id[0]) + "\n          ")]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
   }, [_c('button', {
     staticClass: "btn btn--grey",

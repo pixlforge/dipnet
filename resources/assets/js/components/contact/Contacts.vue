@@ -7,7 +7,9 @@
         <span v-text="modelCount"></span>
       </div>
 
-      <add-contact @contactWasCreated="addContact"></add-contact>
+      <add-contact :companies="companies"
+                   :user="user"
+                   @contactWasCreated="addContact"></add-contact>
     </div>
 
     <div class="main__container main__container--grey">
@@ -26,6 +28,8 @@
                    v-for="(contact, index) in contacts"
                    :key="contact.id"
                    :contact="contact"
+                   :companies="companies"
+                   :user="user"
                    @contactWasDeleted="removeContact(index)"></contact>
         </transition-group>
       </template>
@@ -57,6 +61,16 @@
       AddContact,
       Pagination,
       MoonLoader
+    },
+    props: {
+      companies: {
+        type: Array,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
+      }
     },
     data() {
       return {

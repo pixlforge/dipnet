@@ -73,7 +73,7 @@
                    name="zip"
                    id="zip"
                    class="modal__input"
-                   v-model.number="contact.zip"
+                   v-model="contact.zip"
                    required>
             <div class="modal__alert"
                  v-if="errors.zip">
@@ -137,6 +137,25 @@
             </div>
           </div>
 
+          <div class="modal__group"
+               v-if="userIsAdmin">
+            <label for="company_id" class="modal__label">Société</label>
+            <select name="company_id"
+                    id="company_id"
+                    class="modal__select"
+                    v-model.number.trim="contact.company_id">
+              <option disabled>Sélectionnez une société</option>
+              <option v-for="(company, index) in companies"
+                      :value="company.id">
+                {{ company.name }}
+              </option>
+            </select>
+            <div class="modal__alert"
+                 v-if="errors.company_id">
+              {{ errors.company_id[0] }}
+            </div>
+          </div>
+
           <div class="modal__buttons">
             <button class="btn btn--grey"
                     role="button"
@@ -163,6 +182,16 @@
   import { mapActions } from 'vuex'
 
   export default {
+    props: {
+      companies: {
+        type: Array,
+        required: true
+      },
+      user: {
+        type: Object,
+        required: true
+      }
+    },
     data() {
       return {
         contact: {
@@ -174,8 +203,14 @@
           phone_number: '',
           fax: '',
           email: '',
+          company_id: null
         },
         errors: {}
+      }
+    },
+    computed: {
+      userIsAdmin() {
+        return this.user.role === 'administrateur'
       }
     },
     mixins: [mixins],

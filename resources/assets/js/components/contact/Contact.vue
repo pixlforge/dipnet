@@ -60,7 +60,9 @@
         <i class="fal fa-times"></i>
       </div>
       <div title="Modifier">
-        <edit-contact :contact="contact"></edit-contact>
+        <edit-contact :contact="contact"
+                      :companies="companies"
+                      :user="user"></edit-contact>
       </div>
     </div>
   </div>
@@ -77,6 +79,14 @@
     },
     props: {
       contact: {
+        type: Object,
+        required: true
+      },
+      companies: {
+        type: Array,
+        required: true
+      },
+      user: {
         type: Object,
         required: true
       }

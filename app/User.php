@@ -169,6 +169,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks wheter the user is a part of a company.
+     *
+     * @return bool
+     */
+    public function isPartOfACompany()
+    {
+        return ! $this->is_solo;
+    }
+
+    /**
      * User is registered as not linked to any company.
      *
      * @return bool
