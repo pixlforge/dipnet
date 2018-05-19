@@ -185,11 +185,11 @@
     props: {
       companies: {
         type: Array,
-        required: true
+        required: false
       },
       user: {
         type: Object,
-        required: true
+        required: false
       }
     },
     data() {

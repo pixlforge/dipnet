@@ -34764,11 +34764,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   props: {
     companies: {
       type: Array,
-      required: true
+      required: false
     },
     user: {
       type: Object,
-      required: true
+      required: false
     }
   },
   data() {
