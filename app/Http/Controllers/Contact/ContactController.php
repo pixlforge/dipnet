@@ -112,19 +112,6 @@ class ContactController extends Controller
 
         $contact->save();
 
-
-//        $contact->update([
-//            'name' => $request->name,
-//            'address_line1' => $request->address_line1,
-//            'address_line2' => $request->address_line2,
-//            'zip' => $request->zip,
-//            'city' => $request->city,
-//            'phone_number' => $request->phone_number,
-//            'fax' => $request->fax,
-//            'email' => $request->email,
-//            'company_id' => $request->company_id
-//        ]);
-
         return response($contact, 200);
     }
 

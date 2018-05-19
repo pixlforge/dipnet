@@ -132,8 +132,7 @@ class ContactTest extends TestCase
             'city' => 'Courgenay',
             'phone_number' => '0123456789',
             'fax' => '0123456789',
-            'email' => 'celien@pixlforge.ch',
-            'company_id' => null
+            'email' => 'celien@pixlforge.ch'
         ]);
     }
 

@@ -37,6 +37,16 @@ class Company extends Model
     }
 
     /**
+     * Checks whether the company has a default business.
+     *
+     * @return bool
+     */
+    public function hasNoDefaultBusiness()
+    {
+        return $this->business_id === null;
+    }
+
+    /**
      * Business relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
