@@ -23,7 +23,8 @@ class ContactController extends Controller
     {
         if (auth()->user()->isAdmin()) {
             return new ContactsCollection(
-                Contact::orderBy('name')
+                Contact::with('company')
+                    ->orderBy('name')
                     ->paginate(25)
             );
         } else if (auth()->user()->isNotSolo()) {
