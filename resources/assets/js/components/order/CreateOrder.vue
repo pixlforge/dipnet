@@ -94,6 +94,7 @@
 
           <!--Add Contact-->
           <add-contact class="v-hidden"
+                       :user="user"
                        @contactWasCreated="addContact"></add-contact>
         </div>
 
@@ -182,6 +183,10 @@
         type: Array,
         required: true
       },
+      user: {
+        type: Object,
+        required: true
+      }
     },
     data() {
       return {

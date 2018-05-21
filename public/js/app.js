@@ -38649,6 +38649,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -38690,6 +38691,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     },
     articles: {
       type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
       required: true
     }
   },
@@ -71735,6 +71740,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })], 1)]), _vm._v(" "), _c('add-contact', {
     staticClass: "v-hidden",
+    attrs: {
+      "user": _vm.user
+    },
     on: {
       "contactWasCreated": _vm.addContact
     }

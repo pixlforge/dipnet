@@ -10,6 +10,7 @@
                   :contacts="{{ $contacts }}"
                   :deliveries="{{ $deliveries }}"
                   :documents="{{ $documents }}"
-                  :articles="{{ $articles }}"></create-order>
+                  :articles="{{ $articles }}"
+                  :user="{{ auth()->user() }}"></create-order>
   @endif
 @endsection
