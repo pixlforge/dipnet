@@ -12,7 +12,7 @@ class FormatTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function format_index_view_is_available()
+    public function format_index_view_is_available()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
@@ -22,7 +22,7 @@ class FormatTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_create_formats()
+    public function an_admin_can_create_formats()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
@@ -41,7 +41,7 @@ class FormatTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_update_formats()
+    public function an_admin_can_update_formats()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
@@ -74,7 +74,7 @@ class FormatTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_delete_formats()
+    public function an_admin_can_delete_formats()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);

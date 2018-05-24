@@ -14,7 +14,7 @@ class BusinessTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function an_admin_can_create_new_businesses()
+    public function an_admin_can_create_new_businesses()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
@@ -40,7 +40,7 @@ class BusinessTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_update_a_business()
+    public function an_admin_can_update_a_business()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
@@ -67,7 +67,7 @@ class BusinessTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_delete_a_business()
+    public function an_admin_can_delete_a_business()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
@@ -79,7 +79,7 @@ class BusinessTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_create_a_new_business()
+    public function a_user_can_create_a_new_business()
     {
         $user = factory(User::class)->create([
             'username' => 'John Doe',
@@ -112,7 +112,7 @@ class BusinessTest extends TestCase
     }
 
     /** @test */
-    function users_can_reach_the_business_show_page()
+    public function users_can_reach_the_business_show_page()
     {
         $company = factory(Company::class)->create([
             'name' => "John Doe's company"

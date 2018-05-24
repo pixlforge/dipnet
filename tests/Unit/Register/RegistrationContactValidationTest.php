@@ -21,7 +21,7 @@ class RegistrationContactValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_name_is_missing()
+    public function validation_fails_if_name_is_missing()
     {
         $this->json('POST', route('register.contact.store'), [
             'address_line1' => 'Castle Black, The Wall',
@@ -34,7 +34,7 @@ class RegistrationContactValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_address_is_missing()
+    public function validation_fails_if_address_is_missing()
     {
         $this->json('POST', route('register.contact.store'), [
             'name' => 'Castle Black',
@@ -47,7 +47,7 @@ class RegistrationContactValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_zip_is_missing()
+    public function validation_fails_if_zip_is_missing()
     {
         $this->json('POST', route('register.contact.store'), [
             'name' => 'Castle Black',
@@ -60,7 +60,7 @@ class RegistrationContactValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_city_is_missing()
+    public function validation_fails_if_city_is_missing()
     {
         $this->json('POST', route('register.contact.store'), [
             'name' => 'Castle Black',

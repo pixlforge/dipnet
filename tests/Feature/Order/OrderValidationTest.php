@@ -22,7 +22,7 @@ class OrderValidationTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_validate_orders()
+    public function guests_cannot_validate_orders()
     {
         $this->withExceptionHandling();
 
@@ -33,7 +33,7 @@ class OrderValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_there_is_no_delivery()
+    public function validation_fails_if_there_is_no_delivery()
     {
         $this->withExceptionHandling();
 
@@ -49,7 +49,7 @@ class OrderValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_passes_if_there_is_at_least_one_delivery_associated()
+    public function validation_passes_if_there_is_at_least_one_delivery_associated()
     {
         $this->withExceptionHandling();
 
@@ -75,7 +75,7 @@ class OrderValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_there_is_no_document_associated_to_a_delivery()
+    public function validation_fails_if_there_is_no_document_associated_to_a_delivery()
     {
         $this->withExceptionHandling();
 
@@ -93,7 +93,7 @@ class OrderValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_order_is_not_incomplete_before_validation()
+    public function validation_fails_if_order_is_not_incomplete_before_validation()
     {
         $this->withExceptionHandling();
 
@@ -114,7 +114,7 @@ class OrderValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_the_order_is_not_associated_with_a_business()
+    public function validation_fails_if_the_order_is_not_associated_with_a_business()
     {
         $this->withExceptionHandling();
 
@@ -135,7 +135,7 @@ class OrderValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_the_order_is_not_associated_with_a_contact()
+    public function validation_fails_if_the_order_is_not_associated_with_a_contact()
     {
         $this->withExceptionHandling();
 
@@ -154,9 +154,9 @@ class OrderValidationTest extends TestCase
         $this->postJson(route('orders.validation', $order), $order->toArray())
             ->assertStatus(422);
     }
-    
+
     /** @test */
-    function validation_fails_if_the_order_contains_a_delivery_not_associated_with_any_delivery_contact()
+    public function validation_fails_if_the_order_contains_a_delivery_not_associated_with_any_delivery_contact()
     {
         $this->withExceptionHandling();
 
@@ -178,7 +178,7 @@ class OrderValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_the_order_contains_a_delivery_without_a_delivery_date()
+    public function validation_fails_if_the_order_contains_a_delivery_without_a_delivery_date()
     {
         $this->withExceptionHandling();
 
@@ -201,7 +201,7 @@ class OrderValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_a_delivery_contains_a_document_without_a_print_article()
+    public function validation_fails_if_a_delivery_contains_a_document_without_a_print_article()
     {
         $this->withExceptionHandling();
 

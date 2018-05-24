@@ -14,7 +14,7 @@ class InvitationTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function members_of_a_company_can_send_invitations_by_email()
+    public function members_of_a_company_can_send_invitations_by_email()
     {
         Mail::fake();
 
@@ -34,7 +34,7 @@ class InvitationTest extends TestCase
     }
 
     /** @test */
-    function cannot_invite_using_a_registered_email_address()
+    public function cannot_invite_using_a_registered_email_address()
     {
         $this->withExceptionHandling();
 
@@ -54,7 +54,7 @@ class InvitationTest extends TestCase
     }
 
     /** @test */
-    function it_should_contain_the_name_of_the_user_who_created_the_invitation()
+    public function it_should_contain_the_name_of_the_user_who_created_the_invitation()
     {
         Mail::fake();
 
@@ -75,7 +75,7 @@ class InvitationTest extends TestCase
     }
 
     /** @test */
-    function it_can_resend_invitations()
+    public function it_can_resend_invitations()
     {
         Mail::fake();
 
@@ -101,7 +101,7 @@ class InvitationTest extends TestCase
     }
 
     /** @test */
-    function an_invitation_can_be_cancelled()
+    public function an_invitation_can_be_cancelled()
     {
         Mail::fake();
 

@@ -12,7 +12,7 @@ class ContactTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function contact_index_view_is_available()
+    public function contact_index_view_is_available()
     {
         $this->signIn();
 
@@ -22,7 +22,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_create_contacts()
+    public function authorized_users_can_create_contacts()
     {
         $user = factory(User::class)->create([
             'username' => 'John Doe',
@@ -54,9 +54,9 @@ class ContactTest extends TestCase
             'company_id' => $user->company_id
         ]);
     }
-    
+
     /** @test */
-    function user_contact_validation_fails_if_name_is_missing()
+    public function user_contact_validation_fails_if_name_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -81,7 +81,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_update_contacts()
+    public function authorized_users_can_update_contacts()
     {
         $user = factory(User::class)->create([
             'username' => 'John Doe',
@@ -137,7 +137,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function authorized_users_can_delete_contacts()
+    public function authorized_users_can_delete_contacts()
     {
         $user = factory(User::class)->create();
         $this->signIn($user);
@@ -155,7 +155,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function new_users_must_first_confirm_their_email_address_before_creating_contacts()
+    public function new_users_must_first_confirm_their_email_address_before_creating_contacts()
     {
         $user = factory(User::class)->states('email-not-confirmed')->create();
         $this->signIn($user);
@@ -168,7 +168,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_name_is_shorter_than_3_characters()
+    public function user_contact_validation_fails_if_name_is_shorter_than_3_characters()
     {
         $this->withExceptionHandling();
 
@@ -191,7 +191,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_name_is_longer_than_45_characters()
+    public function user_contact_validation_fails_if_name_is_longer_than_45_characters()
     {
         $this->withExceptionHandling();
 
@@ -214,7 +214,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_address_line1_is_missing()
+    public function user_contact_validation_fails_if_address_line1_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -236,7 +236,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_address_line1_is_not_of_type_string()
+    public function user_contact_validation_fails_if_address_line1_is_not_of_type_string()
     {
         $this->withExceptionHandling();
 
@@ -259,7 +259,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_address_line1_is_shorter_than_3_characters()
+    public function user_contact_validation_fails_if_address_line1_is_shorter_than_3_characters()
     {
         $this->withExceptionHandling();
 
@@ -282,7 +282,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_address_line1_is_longer_than_255_characters()
+    public function user_contact_validation_fails_if_address_line1_is_longer_than_255_characters()
     {
         $this->withExceptionHandling();
 
@@ -305,7 +305,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_address_line2_is_not_of_type_string()
+    public function user_contact_validation_fails_if_address_line2_is_not_of_type_string()
     {
         $this->withExceptionHandling();
 
@@ -328,7 +328,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_address_line2_is_shorter_than_3_characters()
+    public function user_contact_validation_fails_if_address_line2_is_shorter_than_3_characters()
     {
         $this->withExceptionHandling();
 
@@ -351,7 +351,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_address_line2_is_longer_than_255_characters()
+    public function user_contact_validation_fails_if_address_line2_is_longer_than_255_characters()
     {
         $this->withExceptionHandling();
 
@@ -374,7 +374,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_zip_is_missing()
+    public function user_contact_validation_fails_if_zip_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -396,7 +396,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_zip_is_not_of_type_string()
+    public function user_contact_validation_fails_if_zip_is_not_of_type_string()
     {
         $this->withExceptionHandling();
 
@@ -419,7 +419,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_zip_is_shorter_than_4_characters()
+    public function user_contact_validation_fails_if_zip_is_shorter_than_4_characters()
     {
         $this->withExceptionHandling();
 
@@ -442,7 +442,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_zip_is_longer_than_16_characters()
+    public function user_contact_validation_fails_if_zip_is_longer_than_16_characters()
     {
         $this->withExceptionHandling();
 
@@ -465,7 +465,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_city_is_missing()
+    public function user_contact_validation_fails_if_city_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -487,7 +487,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_city_is_not_of_type_string()
+    public function user_contact_validation_fails_if_city_is_not_of_type_string()
     {
         $this->withExceptionHandling();
 
@@ -510,7 +510,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_city_is_shorter_than_2_characters()
+    public function user_contact_validation_fails_if_city_is_shorter_than_2_characters()
     {
         $this->withExceptionHandling();
 
@@ -533,7 +533,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_city_is_longer_than_45_characters()
+    public function user_contact_validation_fails_if_city_is_longer_than_45_characters()
     {
         $this->withExceptionHandling();
 
@@ -556,7 +556,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_phone_number_is_not_of_type_string()
+    public function user_contact_validation_fails_if_phone_number_is_not_of_type_string()
     {
         $this->withExceptionHandling();
 
@@ -579,7 +579,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_phone_number_is_longer_than_45_characters()
+    public function user_contact_validation_fails_if_phone_number_is_longer_than_45_characters()
     {
         $this->withExceptionHandling();
 
@@ -602,7 +602,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_fax_is_not_of_type_string()
+    public function user_contact_validation_fails_if_fax_is_not_of_type_string()
     {
         $this->withExceptionHandling();
 
@@ -625,7 +625,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_fax_is_longer_than_45_characters()
+    public function user_contact_validation_fails_if_fax_is_longer_than_45_characters()
     {
         $this->withExceptionHandling();
 
@@ -648,7 +648,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_email_is_missing()
+    public function user_contact_validation_fails_if_email_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -670,7 +670,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_email_is_not_a_valid_email_format()
+    public function user_contact_validation_fails_if_email_is_not_a_valid_email_format()
     {
         $this->withExceptionHandling();
 
@@ -693,7 +693,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function user_contact_validation_fails_if_email_is_longer_than_45_characters()
+    public function user_contact_validation_fails_if_email_is_longer_than_45_characters()
     {
         $this->withExceptionHandling();
 
@@ -716,7 +716,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    function admin_contact_validation_fails_if_company_does_not_exist()
+    public function admin_contact_validation_fails_if_company_does_not_exist()
     {
         $this->withExceptionHandling();
 
@@ -739,12 +739,3 @@ class ContactTest extends TestCase
         $this->assertCount(0, Contact::all());
     }
 }
-
-
-
-
-
-
-
-
-

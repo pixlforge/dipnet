@@ -26,7 +26,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_access_the_deliveries_index_page()
+    public function an_admin_can_access_the_deliveries_index_page()
     {
         $this->actingAs($this->admin);
 
@@ -36,7 +36,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_access_the_deliveries_index_page()
+    public function guests_cannot_access_the_deliveries_index_page()
     {
         $this->withExceptionHandling();
 
@@ -45,7 +45,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function users_who_are_not_admins_cannot_access_the_deliveries_index_page()
+    public function users_who_are_not_admins_cannot_access_the_deliveries_index_page()
     {
         $this->withExceptionHandling();
 
@@ -56,7 +56,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function admins_can_create_new_deliveries()
+    public function admins_can_create_new_deliveries()
     {
         $this->withoutExceptionHandling();
 
@@ -76,7 +76,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function users_who_are_not_admins_can_create_new_deliveries()
+    public function users_who_are_not_admins_can_create_new_deliveries()
     {
         $this->withoutExceptionHandling();
 
@@ -96,7 +96,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_create_deliveries()
+    public function guests_cannot_create_deliveries()
     {
         $this->withExceptionHandling();
 
@@ -114,7 +114,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function admins_can_update_deliveries()
+    public function admins_can_update_deliveries()
     {
         $this->actingAs($this->admin);
 
@@ -132,7 +132,7 @@ class DeliveryTest extends TestCase
 
         $this->putJson(route('deliveries.update', $delivery), [
             'reference' => 'abcdef',
-            'note' => "Lorem ipsum dolor sit amet.",
+            'note' => 'Lorem ipsum dolor sit amet.',
             'order_id' => $order->id
         ])->assertStatus(200);
 
@@ -143,13 +143,13 @@ class DeliveryTest extends TestCase
         ]);
         $this->assertDatabaseHas('deliveries', [
             'reference' => 'abcdef',
-            'note' => "Lorem ipsum dolor sit amet.",
+            'note' => 'Lorem ipsum dolor sit amet.',
             'order_id' => $order->id
         ]);
     }
 
     /** @test */
-    function guests_cannot_update_deliveries()
+    public function guests_cannot_update_deliveries()
     {
         $this->withExceptionHandling();
 
@@ -167,13 +167,13 @@ class DeliveryTest extends TestCase
 
         $this->putJson(route('deliveries.update', $delivery), [
             'reference' => 'abcdef',
-            'note' => "Lorem ipsum dolor sit amet.",
+            'note' => 'Lorem ipsum dolor sit amet.',
             'order_id' => $order->id
         ])->assertStatus(401);
 
         $this->assertDatabaseMissing('deliveries', [
             'reference' => 'abcdef',
-            'note' => "Lorem ipsum dolor sit amet.",
+            'note' => 'Lorem ipsum dolor sit amet.',
             'order_id' => $order->id
         ]);
         $this->assertDatabaseHas('deliveries', [
@@ -182,9 +182,9 @@ class DeliveryTest extends TestCase
             'order_id' => $order->id
         ]);
     }
-    
+
     /** @test */
-    function users_who_are_not_admins_can_update_their_companys_deliveries()
+    public function users_who_are_not_admins_can_update_their_companys_deliveries()
     {
         $this->withoutExceptionHandling();
 
@@ -234,7 +234,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function admins_can_delete_deliveries()
+    public function admins_can_delete_deliveries()
     {
         $this->actingAs($this->admin);
 
@@ -249,7 +249,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_delete_deliveries()
+    public function guests_cannot_delete_deliveries()
     {
         $this->withExceptionHandling();
 
@@ -264,7 +264,7 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    function users_who_are_not_admins_can_delete_their_companys_deliveries()
+    public function users_who_are_not_admins_can_delete_their_companys_deliveries()
     {
         $this->withoutExceptionHandling();
 

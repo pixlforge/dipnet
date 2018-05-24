@@ -12,7 +12,7 @@ class UserTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function an_admin_can_view_all_users()
+    public function an_admin_can_view_all_users()
     {
         $user = factory(User::class)->states('admin')->create([
             'username' => 'John Doe'
@@ -25,7 +25,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_create_a_new_user()
+    public function an_admin_can_create_a_new_user()
     {
         Mail::fake();
 
@@ -48,7 +48,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_create_users()
+    public function guests_cannot_create_users()
     {
         $this->withExceptionHandling();
 
@@ -68,7 +68,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function users_who_are_not_admins_cannot_create_users()
+    public function users_who_are_not_admins_cannot_create_users()
     {
         $this->withExceptionHandling();
 
@@ -91,7 +91,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_update_a_user()
+    public function an_admin_can_update_a_user()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
@@ -126,7 +126,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_update_a_users_password()
+    public function an_admin_can_update_a_users_password()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
@@ -148,7 +148,7 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_delete_a_user()
+    public function an_admin_can_delete_a_user()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);

@@ -15,7 +15,7 @@ class ArticleDocumentTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function a_document_can_be_updated_by_an_admin_with_multiple_options()
+    public function a_document_can_be_updated_by_an_admin_with_multiple_options()
     {
         $this->withoutExceptionHandling();
 
@@ -34,7 +34,7 @@ class ArticleDocumentTest extends TestCase
 
         $this->assertCount(0, $document->articles);
 
-        $this->patchJson(route('documents.update',[
+        $this->patchJson(route('documents.update', [
             $document->delivery->order,
             $document->delivery,
             $document
@@ -48,7 +48,7 @@ class ArticleDocumentTest extends TestCase
     }
 
     /** @test */
-    function a_documents_options_can_be_cloned_to_those_related_to_the_same_delivery()
+    public function a_documents_options_can_be_cloned_to_those_related_to_the_same_delivery()
     {
         $this->withoutExceptionHandling();
 
@@ -83,7 +83,7 @@ class ArticleDocumentTest extends TestCase
         $this->assertCount(0, $documentTwo->articles);
         $this->assertCount(0, $documentThree->articles);
 
-        $this->patchJson(route('documents.update',[
+        $this->patchJson(route('documents.update', [
             $documentOne->delivery->order,
             $documentOne->delivery,
             $documentOne

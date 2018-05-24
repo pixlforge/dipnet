@@ -13,7 +13,7 @@ class CompanyTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function an_admin_can_view_all_companies()
+    public function an_admin_can_view_all_companies()
     {
         $user = factory(User::class)->states('admin')->create([
             'username' => 'John Doe'
@@ -26,7 +26,7 @@ class CompanyTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_create_new_companies()
+    public function an_admin_can_create_new_companies()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);
@@ -45,7 +45,7 @@ class CompanyTest extends TestCase
     }
 
     /** @test */
-    function a_company_can_be_updated()
+    public function a_company_can_be_updated()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->actingAs($admin);
@@ -86,7 +86,7 @@ class CompanyTest extends TestCase
     }
 
     /** @test */
-    function a_company_can_be_deleted()
+    public function a_company_can_be_deleted()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->signIn($admin);

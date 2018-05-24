@@ -33,7 +33,7 @@ class DeleteDocumentTest extends TestCase
     }
 
     /** @test */
-    function users_can_delete_documents_from_a_delivery()
+    public function users_can_delete_documents_from_a_delivery()
     {
         $user = factory(User::class)->create([
             'company_id' => function () {
@@ -72,7 +72,7 @@ class DeleteDocumentTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_delete_documents_from_existing_deliveries()
+    public function guests_cannot_delete_documents_from_existing_deliveries()
     {
         $this->withExceptionHandling();
 
@@ -88,7 +88,7 @@ class DeleteDocumentTest extends TestCase
     }
 
     /** @test */
-    function users_cannot_delete_documents_they_do_not_own()
+    public function users_cannot_delete_documents_they_do_not_own()
     {
         $this->withExceptionHandling();
 

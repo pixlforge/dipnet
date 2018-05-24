@@ -9,9 +9,9 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 class AddAvatarTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     /** @test */
-    function members_without_an_avatar_are_assigned_a_random_one()
+    public function members_without_an_avatar_are_assigned_a_random_one()
     {
         $user = factory(User::class)->create([
             'username' => 'John Doe',

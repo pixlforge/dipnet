@@ -15,7 +15,7 @@ class CreateOrderTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function confirmed_users_can_access_the_orders_index_view()
+    public function confirmed_users_can_access_the_orders_index_view()
     {
         $this->withoutExceptionHandling();
 
@@ -28,7 +28,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function unconfirmed_users_can_access_the_orders_index_view()
+    public function unconfirmed_users_can_access_the_orders_index_view()
     {
         $user = factory(User::class)->states('email-not-confirmed')->create();
         $this->actingAs($user);
@@ -39,7 +39,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_access_the_orders_index_view()
+    public function guests_cannot_access_the_orders_index_view()
     {
         $this->withExceptionHandling();
 
@@ -48,7 +48,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function a_confirmed_user_can_create_a_new_order()
+    public function a_confirmed_user_can_create_a_new_order()
     {
         $user = factory(User::class)->create([
             'company_id' => function () {
@@ -71,7 +71,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_create_new_orders()
+    public function guests_cannot_create_new_orders()
     {
         $this->withExceptionHandling();
 
@@ -80,7 +80,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function unconfirmed_users_cannot_create_new_orders()
+    public function unconfirmed_users_cannot_create_new_orders()
     {
         $this->withExceptionHandling();
 
@@ -92,7 +92,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function confirmed_users_can_delete_their_orders()
+    public function confirmed_users_can_delete_their_orders()
     {
         $this->withoutExceptionHandling();
 
@@ -129,7 +129,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function confirmed_users_cannot_delete_orders_they_do_not_own()
+    public function confirmed_users_cannot_delete_orders_they_do_not_own()
     {
         $this->withExceptionHandling();
 
@@ -176,7 +176,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_delete_orders()
+    public function guests_cannot_delete_orders()
     {
         $this->withExceptionHandling();
 
@@ -212,7 +212,7 @@ class CreateOrderTest extends TestCase
     }
 
     /** @test */
-    function an_order_can_be_completed()
+    public function an_order_can_be_completed()
     {
         Mail::fake();
 

@@ -11,16 +11,16 @@ class ProfileTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function authenticated_users_have_a_profile()
+    public function authenticated_users_have_a_profile()
     {
         $this->signIn();
 
-        $this->get("/profile")
+        $this->get('/profile')
             ->assertViewIs('profiles.profile');
     }
 
     /** @test */
-    function an_authenticated_user_can_update_his_own_profile()
+    public function an_authenticated_user_can_update_his_own_profile()
     {
         $this->withoutExceptionHandling();
 

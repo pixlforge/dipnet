@@ -12,7 +12,7 @@ class CompanyDefaultBusinessTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function a_company_has_a_default_business()
+    public function a_company_has_a_default_business()
     {
         $company = factory(Company::class)->create([
             'name' => 'John Doe\'s company',

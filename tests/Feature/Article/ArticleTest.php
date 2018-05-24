@@ -12,7 +12,7 @@ class ArticleTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function an_admin_can_reach_the_articles_index_view()
+    public function an_admin_can_reach_the_articles_index_view()
     {
         $user = factory(User::class)->create(['role' => 'administrateur']);
         $this->signIn($user);
@@ -22,7 +22,7 @@ class ArticleTest extends TestCase
     }
 
     /** @test */
-    function an_admin_can_create_new_articles()
+    public function an_admin_can_create_new_articles()
     {
         $user = factory(User::class)->create(['role' => 'administrateur']);
         $this->signIn($user);
@@ -42,7 +42,7 @@ class ArticleTest extends TestCase
     }
 
     /** @test */
-    function an_article_can_be_updated()
+    public function an_article_can_be_updated()
     {
         $user = factory(User::class)->states(['admin'])->create();
         $this->signIn($user);
@@ -67,7 +67,7 @@ class ArticleTest extends TestCase
     }
 
     /** @test */
-    function an_article_can_be_deleted()
+    public function an_article_can_be_deleted()
     {
         $user = factory(User::class)->states(['admin'])->create();
         $this->signIn($user);

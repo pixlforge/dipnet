@@ -22,7 +22,7 @@ class RegistationCompanyValidationTest extends TestCase
     }
 
     /** @test */
-    function it_fails_if_name_is_too_short()
+    public function it_fails_if_name_is_too_short()
     {
         $this->json('POST', route('register.company.store'), [
             'name' => 'K'
@@ -30,7 +30,7 @@ class RegistationCompanyValidationTest extends TestCase
     }
 
     /** @test */
-    function it_fails_if_name_is_too_long()
+    public function it_fails_if_name_is_too_long()
     {
         // Name is 68 characters
         $this->json('POST', route('register.company.store'), [
@@ -39,7 +39,7 @@ class RegistationCompanyValidationTest extends TestCase
     }
 
     /** @test */
-    function it_fails_if_name_already_exists()
+    public function it_fails_if_name_already_exists()
     {
         factory(Company::class)->create(['name' => 'The Night\'s Watch']);
 

@@ -23,7 +23,7 @@ class DeliveryValidationTest extends TestCase
     }
 
     /** @test */
-    function store_delivery_validation_fails_if_no_order_is_provided()
+    public function store_delivery_validation_fails_if_no_order_is_provided()
     {
         $this->withExceptionHandling();
 
@@ -40,7 +40,7 @@ class DeliveryValidationTest extends TestCase
     }
 
     /** @test */
-    function update_delivery_validation_fails_if_no_reference_is_provided()
+    public function update_delivery_validation_fails_if_no_reference_is_provided()
     {
         $this->withExceptionHandling();
 
@@ -59,13 +59,13 @@ class DeliveryValidationTest extends TestCase
         ]);
 
         $this->putJson(route('deliveries.update', $delivery), [
-            'note' => "Lorem ipsum dolor sit amet.",
+            'note' => 'Lorem ipsum dolor sit amet.',
             'order_id' => $order->id
         ])->assertStatus(422);
 
         $this->assertDatabaseMissing('deliveries', [
             'reference' => 'abcdef',
-            'note' => "Lorem ipsum dolor sit amet.",
+            'note' => 'Lorem ipsum dolor sit amet.',
             'order_id' => $order->id
         ]);
         $this->assertDatabaseHas('deliveries', [
@@ -76,7 +76,7 @@ class DeliveryValidationTest extends TestCase
     }
 
     /** @test */
-    function update_delivery_validation_fails_if_reference_already_exists()
+    public function update_delivery_validation_fails_if_reference_already_exists()
     {
         $this->withExceptionHandling();
 
@@ -102,13 +102,13 @@ class DeliveryValidationTest extends TestCase
 
         $this->putJson(route('deliveries.update', $delivery), [
             'reference' => 'abcdef',
-            'note' => "Lorem ipsum dolor sit amet.",
+            'note' => 'Lorem ipsum dolor sit amet.',
             'order_id' => $order->id
         ])->assertStatus(422);
 
         $this->assertDatabaseMissing('deliveries', [
             'reference' => 'abcdef',
-            'note' => "Lorem ipsum dolor sit amet.",
+            'note' => 'Lorem ipsum dolor sit amet.',
             'order_id' => $order->id
         ]);
         $this->assertDatabaseHas('deliveries', [

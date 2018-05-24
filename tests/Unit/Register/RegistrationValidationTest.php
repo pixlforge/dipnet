@@ -10,7 +10,7 @@ class RegistrationValidationTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function validation_fails_if_username_is_missing()
+    public function validation_fails_if_username_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -22,7 +22,7 @@ class RegistrationValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_email_is_missing()
+    public function validation_fails_if_email_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -34,7 +34,7 @@ class RegistrationValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_password_is_missing()
+    public function validation_fails_if_password_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -45,7 +45,7 @@ class RegistrationValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_password_is_incorrect()
+    public function validation_fails_if_password_is_incorrect()
     {
         $this->withExceptionHandling();
 
@@ -58,7 +58,7 @@ class RegistrationValidationTest extends TestCase
     }
 
     /** @test */
-    function validation_fails_if_password_confirmation_does_not_match()
+    public function validation_fails_if_password_confirmation_does_not_match()
     {
         $this->withExceptionHandling();
 

@@ -13,7 +13,7 @@ class OrderAdminTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function admins_can_access_the_show_page()
+    public function admins_can_access_the_show_page()
     {
         $this->withoutExceptionHandling();
 
@@ -28,7 +28,7 @@ class OrderAdminTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_access_the_show_page()
+    public function guests_cannot_access_the_show_page()
     {
         $this->withExceptionHandling();
 
@@ -39,7 +39,7 @@ class OrderAdminTest extends TestCase
     }
 
     /** @test */
-    function users_who_are_not_admins_cannot_access_the_show_page()
+    public function users_who_are_not_admins_cannot_access_the_show_page()
     {
         $this->withExceptionHandling();
 
@@ -53,7 +53,7 @@ class OrderAdminTest extends TestCase
     }
 
     /** @test */
-    function admins_can_add_a_note_only_admins_can_see()
+    public function admins_can_add_a_note_only_admins_can_see()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->actingAs($admin);
@@ -74,7 +74,7 @@ class OrderAdminTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_add_an_admin_note()
+    public function guests_cannot_add_an_admin_note()
     {
         $delivery = factory(Delivery::class)->create([
             'order_id' => function () {
@@ -92,7 +92,7 @@ class OrderAdminTest extends TestCase
     }
 
     /** @test */
-    function users_who_are_not_admins_cannot_add_admin_notes()
+    public function users_who_are_not_admins_cannot_add_admin_notes()
     {
         $this->withExceptionHandling();
 
@@ -115,7 +115,7 @@ class OrderAdminTest extends TestCase
     }
 
     /** @test */
-    function admins_can_access_the_delivery_receipt()
+    public function admins_can_access_the_delivery_receipt()
     {
         $admin = factory(User::class)->states('admin')->create();
         $this->actingAs($admin);

@@ -29,7 +29,7 @@ class CreateDocumentTest extends TestCase
     }
 
     /** @test */
-    function users_can_add_a_new_document_to_a_delivery()
+    public function users_can_add_a_new_document_to_a_delivery()
     {
         Storage::fake('local');
 
@@ -51,7 +51,7 @@ class CreateDocumentTest extends TestCase
     }
 
     /** @test */
-    function document_validation_fails_if_the_user_uploads_a_zip()
+    public function document_validation_fails_if_the_user_uploads_a_zip()
     {
         $this->withExceptionHandling();
 
@@ -75,7 +75,7 @@ class CreateDocumentTest extends TestCase
     }
 
     /** @test */
-    function document_validation_fails_if_the_user_uploads_a_rar()
+    public function document_validation_fails_if_the_user_uploads_a_rar()
     {
         $this->withExceptionHandling();
 
@@ -99,7 +99,7 @@ class CreateDocumentTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_upload_documents()
+    public function guests_cannot_upload_documents()
     {
         $this->withExceptionHandling();
 

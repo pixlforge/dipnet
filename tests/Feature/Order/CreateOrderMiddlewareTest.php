@@ -11,7 +11,7 @@ class CreateOrderMiddlewareTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function users_associated_with_a_company_without_a_default_business_are_redirected()
+    public function users_associated_with_a_company_without_a_default_business_are_redirected()
     {
         $this->withoutExceptionHandling();
 
@@ -23,7 +23,7 @@ class CreateOrderMiddlewareTest extends TestCase
     }
 
     /** @test */
-    function admins_are_not_redirected_by_the_middleware()
+    public function admins_are_not_redirected_by_the_middleware()
     {
         $user = factory(User::class)->create();
         $this->actingAs($user);
@@ -33,7 +33,7 @@ class CreateOrderMiddlewareTest extends TestCase
     }
 
     /** @test */
-    function users_registered_as_solo_are_not_redirected_by_the_middleware()
+    public function users_registered_as_solo_are_not_redirected_by_the_middleware()
     {
         $user = factory(User::class)->states('solo')->create();
         $this->actingAs($user);

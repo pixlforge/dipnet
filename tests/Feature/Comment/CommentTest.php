@@ -13,7 +13,7 @@ class CommentTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function users_can_comment_a_business()
+    public function users_can_comment_a_business()
     {
         $this->withoutExceptionHandling();
 
@@ -43,7 +43,7 @@ class CommentTest extends TestCase
     }
 
     /** @test */
-    function guests_cannot_comment_on_businesses()
+    public function guests_cannot_comment_on_businesses()
     {
         $this->withExceptionHandling();
 
@@ -66,7 +66,7 @@ class CommentTest extends TestCase
     }
 
     /** @test */
-    function users_cannot_comment_on_businesses_their_company_is_not_associated_with()
+    public function users_cannot_comment_on_businesses_their_company_is_not_associated_with()
     {
         $this->withExceptionHandling();
 

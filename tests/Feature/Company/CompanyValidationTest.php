@@ -20,7 +20,7 @@ class CompanyValidationTest extends TestCase
     }
 
     /** @test */
-    function update_validation_fails_if_no_default_business_is_provided_by_users()
+    public function update_validation_fails_if_no_default_business_is_provided_by_users()
     {
         $this->withExceptionHandling();
 
@@ -41,7 +41,7 @@ class CompanyValidationTest extends TestCase
     }
 
     /** @test */
-    function update_validation_fails_if_business_provided_by_admins_does_not_exist()
+    public function update_validation_fails_if_business_provided_by_admins_does_not_exist()
     {
         $this->withExceptionHandling();
 

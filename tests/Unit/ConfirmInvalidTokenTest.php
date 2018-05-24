@@ -10,7 +10,7 @@ class ConfirmInvalidTokenTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function confirming_an_invalid_token()
+    public function confirming_an_invalid_token()
     {
         $this->signIn();
 

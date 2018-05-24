@@ -20,7 +20,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function guests_can_reach_the_register_view()
+    public function guests_can_reach_the_register_view()
     {
         $this->get(route('register.index'))
             ->assertStatus(200)
@@ -28,7 +28,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function guests_can_register_a_new_account()
+    public function guests_can_register_a_new_account()
     {
         $this->json('POST', route('register.store'), [
             'username' => 'John Doe',
@@ -44,7 +44,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function a_confirmation_email_is_sent_upon_registration()
+    public function a_confirmation_email_is_sent_upon_registration()
     {
         $this->json('POST', route('register.store'), [
             'username' => 'John Doe',
@@ -62,7 +62,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function an_associated_contact_can_be_created_after_registering_a_new_account()
+    public function an_associated_contact_can_be_created_after_registering_a_new_account()
     {
         $user = factory(User::class)
             ->states('not-confirmed')
@@ -94,7 +94,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function an_associated_company_can_be_created_after_registering_a_new_account()
+    public function an_associated_company_can_be_created_after_registering_a_new_account()
     {
         $user = factory(User::class)
             ->states('not-confirmed')
@@ -133,7 +133,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function a_newly_registered_user_should_be_associated_with_the_company_he_created()
+    public function a_newly_registered_user_should_be_associated_with_the_company_he_created()
     {
         $user = factory(User::class)
             ->states(['not-confirmed', 'no-company'])
@@ -176,7 +176,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function a_newly_registered_users_contact_should_be_associated_with_the_company_he_created()
+    public function a_newly_registered_users_contact_should_be_associated_with_the_company_he_created()
     {
         $user = factory(User::class)
             ->states(['not-confirmed', 'no-company'])
@@ -223,7 +223,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function it_redirects_the_user_if_account_contact_is_not_confirmed()
+    public function it_redirects_the_user_if_account_contact_is_not_confirmed()
     {
         $user = factory(User::class)
             ->states('contact-not-confirmed')
@@ -235,7 +235,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function a_user_without_any_associated_contact_can_add_a_contact()
+    public function a_user_without_any_associated_contact_can_add_a_contact()
     {
         $user = factory(User::class)
             ->states('contact-not-confirmed')
@@ -261,7 +261,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function it_redirects_the_user_if_account_company_is_not_confirmed()
+    public function it_redirects_the_user_if_account_company_is_not_confirmed()
     {
         $user = factory(User::class)
             ->states(['company-not-confirmed', 'no-company'])
@@ -273,7 +273,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_register_as_self()
+    public function a_user_can_register_as_self()
     {
         $this->postJson(route('register.store'), [
             'username' => 'John Doe',
@@ -300,7 +300,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function users_can_fully_confirm_their_email_addresses()
+    public function users_can_fully_confirm_their_email_addresses()
     {
         Mail::fake();
 
@@ -326,7 +326,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function registering_using_an_existing_company_name_should_fail()
+    public function registering_using_an_existing_company_name_should_fail()
     {
         $this->withExceptionHandling();
 
@@ -397,7 +397,7 @@ class GuestsCanRegisterTest extends TestCase
     }
 
     /** @test */
-    function confirmation_email_can_be_sent_again()
+    public function confirmation_email_can_be_sent_again()
     {
         Mail::fake();
 
