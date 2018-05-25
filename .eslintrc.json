@@ -3,7 +3,5 @@
         "eslint:recommended",
         "plugin:vue/recommended"
     ],
-    "rules": {
-        "no-undef": 0
-    }
+    "rules": {}
 }
