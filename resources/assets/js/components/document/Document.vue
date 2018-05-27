@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="card__img">
-      <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet point image">
+      <img
+        src="/img/placeholders/contact-bullet.jpg"
+        alt="Bullet point image">
     </div>
 
     <div class="card__title">
@@ -49,21 +50,15 @@
 </template>
 
 <script>
-  import moment from 'moment'
-  import mixins from '../../mixins'
+import mixins from "../../mixins";
 
-  export default {
-    props: {
-      document: {
-        type: Object,
-        required: true
-      }
-    },
-    mixins: [mixins],
-    methods: {
-      getDate(date) {
-        return moment(date).locale(this.momentLocale).format(this.momentFormat)
-      },
+export default {
+  mixins: [mixins],
+  props: {
+    document: {
+      type: Object,
+      required: true
     }
   }
+};
 </script>

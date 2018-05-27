@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="card__img">
-      <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet point image">
+      <img
+        src="/img/placeholders/contact-bullet.jpg"
+        alt="Bullet point image">
     </div>
 
     <div class="card__title">
@@ -32,54 +33,44 @@
     </div>
 
     <div class="card__controls">
-      <div title="Supprimer"
-           role="button"
-           @click="destroy">
-        <i class="fal fa-times"></i>
+      <div
+        title="Supprimer"
+        role="button"
+        @click="destroy">
+        <i class="fal fa-times"/>
       </div>
       <div title="Modifier">
-        <edit-company :company="company"></edit-company>
+        <edit-company :company="company"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import EditCompany from './EditCompany.vue'
-  import moment from 'moment'
-  import mixins from '../../mixins'
+import EditCompany from "./EditCompany.vue";
+import mixins from "../../mixins";
 
-  export default {
-    components: {
-      EditCompany
-    },
-    props: {
-      company: {
-        type: Object,
-        required: true
-      }
-    },
-    data() {
-      return {
-        open: false
-      }
-    },
-    mixins: [mixins],
-    methods: {
-      /**
-       * Delete a company.
-       */
-      destroy() {
-        axios.delete(route('companies.destroy', [this.company.id]))
-        this.$emit('companyWasDeleted', this.company.id)
-      },
-
-      /**
-       * Get the formatted dates.
-       */
-      getDate(date) {
-        return moment(date).locale(this.momentLocale).format(this.momentFormat)
-      },
+export default {
+  components: {
+    EditCompany
+  },
+  mixins: [mixins],
+  props: {
+    company: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      open: false
+    };
+  },
+  methods: {
+    destroy() {
+      window.axios.delete(window.route("companies.destroy", [this.company.id]));
+      this.$emit("companyWasDeleted", this.company.id);
     }
   }
+};
 </script>

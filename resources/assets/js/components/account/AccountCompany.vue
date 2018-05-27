@@ -1,14 +1,18 @@
 <template>
-  <div class="register__container"
-       @keyup.enter="createCompany">
+  <div
+    class="register__container"
+    @keyup.enter="createCompany">
     <section class="register__summary-section">
-      <div class="register__logo register__logo--summary"
-           aria-hidden="true">
-        <img :src="logoBw" :alt="`${appName} logo`">
+      <div
+        class="register__logo register__logo--summary"
+        aria-hidden="true">
+        <img
+          :src="logoBw"
+          :alt="`${appName} logo`">
       </div>
       <div class="register__summary">
         <div class="register__summary-item register__summary-item--done">
-          <span class="badge__summary"><i class="fa fa-check"></i></span>
+          <span class="badge__summary"><i class="fa fa-check"/></span>
           <span class="register__summary-label">Création de votre compte</span>
         </div>
 
@@ -36,74 +40,80 @@
         <div class="form__group">
           <label for="name">Nom de la société</label>
           <span class="form__required">*</span>
-          <input type="text"
-                 name="name"
-                 id="name"
-                 class="form__input"
-                 v-model.trim="company.name"
-                 required autofocus>
-          <div class="form__alert"
-               v-if="errors.name">
+          <input
+            id="name"
+            v-model.trim="company.name"
+            type="text"
+            name="name"
+            class="form__input"
+            required
+            autofocus>
+          <div
+            v-if="errors.name"
+            class="form__alert">
             {{ errors.name[0] }}
           </div>
         </div>
 
         <div class="register__buttons">
-          <button class="btn btn--red"
-                  @click="createCompany">
-            <i class="fal fa-check"></i>
+          <button
+            class="btn btn--red"
+            @click="createCompany">
+            <i class="fal fa-check"/>
             Terminer l'enregistrement
           </button>
         </div>
       </div>
     </section>
 
-    <moon-loader :loading="loaderState"
-                 :color="loader.color"
-                 :size="loader.size"></moon-loader>
+    <moon-loader
+      :loading="loaderState"
+      :color="loader.color"
+      :size="loader.size"/>
   </div>
 </template>
 
 <script>
-  import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
-  import mixins from '../../mixins'
-  import { mapGetters } from 'vuex'
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import mixins from "../../mixins";
+import { mapGetters } from "vuex";
 
-  export default {
-    components: {
-      MoonLoader,
-    },
-    data() {
-      return {
-        company: {
-          name: ''
-        },
-        errors: {}
-      }
-    },
-    mixins: [mixins],
-    computed: {
-      ...mapGetters([
-        'loaderState'
-      ])
-    },
-    methods: {
-      createCompany() {
-        this.$store.dispatch('toggleLoader')
-        axios.post(route('register.company.store'), this.company).then(() => {
-          this.company = {}
-          flash({
-            message: 'Félicitations! Votre compte a bien été mis à jour!',
-            level: 'success'
-          })
+export default {
+  components: {
+    MoonLoader
+  },
+  mixins: [mixins],
+  data() {
+    return {
+      company: {
+        name: ""
+      },
+      errors: {}
+    };
+  },
+  computed: {
+    ...mapGetters(["loaderState"])
+  },
+  methods: {
+    createCompany() {
+      this.$store.dispatch("toggleLoader");
+      window.axios
+        .post(window.route("register.company.store"), this.company)
+        .then(() => {
+          this.company = {};
+          window.flash({
+            message: "Félicitations! Votre compte a bien été mis à jour!",
+            level: "success"
+          });
           setTimeout(() => {
-            window.location = route('index')
-          }, 1000)
-        }).catch(error => {
-          this.$store.dispatch('toggleLoader')
-          this.errors = error.response.data.errors
+            window.location = window.route("index");
+          }, 1000);
         })
-      }
+        .catch(error => {
+          this.$store.dispatch("toggleLoader");
+          this.errors = error.response.data.errors;
+        });
     }
   }
+};
 </script>

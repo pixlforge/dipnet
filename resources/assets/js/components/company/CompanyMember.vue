@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="card__img">
-      <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet point image">
+      <img
+        src="/img/placeholders/contact-bullet.jpg"
+        alt="Bullet point image">
     </div>
 
     <div class="card__title">
@@ -14,30 +15,29 @@
       {{ user.email }}
     </div>
 
-    <div class="card__meta"></div>
-
+    <div class="card__meta"/>
   </div>
 </template>
 
 <script>
-  import SendConfirmationEmailAgain from '../register/SendConfirmationEmailAgain.vue'
-  import mixins from '../../mixins'
+import SendConfirmationEmailAgain from "../register/SendConfirmationEmailAgain.vue";
+import mixins from "../../mixins";
 
-  export default {
-    components: {
-      SendConfirmationEmailAgain
-    },
-    props: {
-      user: {
-        type: Object,
-        required: true
-      }
-    },
-    mixins: [mixins],
-    methods: {
-      destroy() {
-        alert('delete user')
-      }
+export default {
+  components: {
+    SendConfirmationEmailAgain
+  },
+  mixins: [mixins],
+  props: {
+    user: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    destroy() {
+      alert("delete user");
     }
   }
+};
 </script>

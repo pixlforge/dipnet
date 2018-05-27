@@ -21,74 +21,74 @@
           <li>{{ delivery.contact.email }}</li>
         </ul>
       </div>
-      <div class="delivery__delivery-note" v-if="delivery.note">
+      <div
+        v-if="delivery.note"
+        class="delivery__delivery-note">
         <h5>Note</h5>
         {{ delivery.note }}
       </div>
     </div>
 
-    <preview-document class="document__container document__container--preview"
-                      v-for="(document, index) in deliveryDocuments"
-                      :key="document.id"
-                      :order="order"
-                      :delivery="delivery"
-                      :document="document"
-                      :options="document.articles"></preview-document>
+    <preview-document
+      v-for="document in deliveryDocuments"
+      :key="document.id"
+      :order="order"
+      :delivery="delivery"
+      :document="document"
+      :options="document.articles"
+      class="document__container document__container--preview"/>
   </div>
 </template>
 
 <script>
-  import PreviewDocument from './PreviewDocument.vue'
-  import moment from 'moment'
-  import mixins from '../../mixins'
-  import { mapGetters } from 'vuex'
+import PreviewDocument from "./PreviewDocument.vue";
+import moment from "moment";
+import mixins from "../../mixins";
+import { mapGetters } from "vuex";
 
-  export default {
-    components: {
-      PreviewDocument
+export default {
+  components: {
+    PreviewDocument
+  },
+  mixins: [mixins],
+  props: {
+    order: {
+      type: Object,
+      required: true
     },
-    props: {
-      order: {
-        type: Object,
-        required: true
-      },
-      delivery: {
-        type: Object,
-        required: true
-      },
-      documents: {
-        type: Array,
-        required: true
-      },
+    delivery: {
+      type: Object,
+      required: true
     },
-    data() {
-      return {
-        selectedContact: 'Contact',
-        showNote: false,
-      }
+    documents: {
+      type: Array,
+      required: true
+    }
+  },
+  data() {
+    return {
+      selectedContact: "Contact",
+      showNote: false
+    };
+  },
+  computed: {
+    ...mapGetters(["listContacts", "listDeliveries"]),
+    toDeliverAt() {
+      return moment(this.delivery.to_deliver_at).format("LL [à] HH[h]mm");
     },
-    mixins: [mixins],
-    computed: {
-      ...mapGetters([
-        'listContacts',
-        'listDeliveries'
-      ]),
-      toDeliverAt() {
-        return moment(this.delivery.to_deliver_at).format('LL [à] HH[h]mm')
-      },
-      deliveryDocuments() {
-        return this.documents.filter(document => {
-          return document.delivery_id == this.delivery.id
-        })
-      },
-    },
-    created() {
-      /**
-       * Preselect the delivery's delivery dropdown contact.
-       */
-      if (this.delivery.contact) {
-        this.selectedContact = this.delivery.contact.name
-      }
-    },
+    deliveryDocuments() {
+      return this.documents.filter(document => {
+        return document.delivery_id == this.delivery.id;
+      });
+    }
+  },
+  created() {
+    /**
+     * Preselect the delivery's delivery dropdown contact.
+     */
+    if (this.delivery.contact) {
+      this.selectedContact = this.delivery.contact.name;
+    }
   }
+};
 </script>

@@ -1,94 +1,123 @@
 <template>
   <div>
-    <div role="button"
-         @click="toggleModal">
-      <i class="fal fa-pencil"></i>
+    <div
+      role="button"
+      @click="toggleModal">
+      <i class="fal fa-pencil"/>
     </div>
 
     <transition name="fade">
-      <div class="modal__background"
-           v-if="showModal"
-           @click="toggleModal">
-      </div>
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click="toggleModal"/>
     </transition>
 
     <transition name="slide">
-      <div class="modal__slider"
-           v-if="showModal"
-           @keyup.esc="toggleModal"
-           @keyup.enter="updateFormat">
+      <div
+        v-if="showModal"
+        class="modal__slider"
+        @keyup.esc="toggleModal"
+        @keyup.enter="updateFormat">
 
         <div class="modal__container">
           <h2 class="modal__title">Modifier {{ format.name }}</h2>
 
           <div class="modal__group">
-            <label for="name" class="modal__label">Nom</label>
+            <label
+              for="name"
+              class="modal__label">
+              Nom
+            </label>
             <span class="modal__required">*</span>
-            <input type="text"
-                   name="name"
-                   id="name"
-                   class="modal__input"
-                   v-model.trim="format.name"
-                   required autofocus>
-            <div class="modal__alert"
-                 v-if="errors.name">
+            <input
+              id="name"
+              v-model.trim="format.name"
+              type="text"
+              name="name"
+              class="modal__input"
+              required
+              autofocus>
+            <div
+              v-if="errors.name"
+              class="modal__alert">
               {{ errors.name[0] }}
             </div>
           </div>
 
           <div class="modal__group">
-            <label for="height" class="modal__label">Hauteur (mm)</label>
+            <label
+              for="height"
+              class="modal__label">
+              Hauteur (mm)
+            </label>
             <span class="modal__required">*</span>
-            <input type="number"
-                   name="height"
-                   id="height"
-                   class="modal__input"
-                   v-model.number="format.height">
-            <div class="modal__alert"
-                 v-if="errors.height">
+            <input
+              id="height"
+              v-model.number="format.height"
+              type="number"
+              name="height"
+              class="modal__input">
+            <div
+              v-if="errors.height"
+              class="modal__alert">
               {{ errors.height[0] }}
             </div>
           </div>
 
           <div class="modal__group">
-            <label for="width" class="modal__label">Largeur (mm)</label>
+            <label
+              for="width"
+              class="modal__label">
+              Largeur (mm)
+            </label>
             <span class="modal__required">*</span>
-            <input type="number"
-                   name="width"
-                   id="width"
-                   class="modal__input"
-                   v-model.number="format.width">
-            <div class="modal__alert"
-                 v-if="errors.width">
+            <input
+              id="width"
+              v-model.number="format.width"
+              type="number"
+              name="width"
+              class="modal__input">
+            <div
+              v-if="errors.width"
+              class="modal__alert">
               {{ errors.width[0] }}
             </div>
           </div>
 
           <div class="modal__group">
-            <label for="surface" class="modal__label">Surface (mm<sup>2</sup>)</label>
-            <input type="number"
-                   name="surface"
-                   id="surface"
-                   class="modal__input modal__input--disabled"
-                   :value="widthTimesHeight"
-                   disabled>
-            <div class="modal__alert"
-                 v-if="errors.surface">
+            <label
+              for="surface"
+              class="modal__label">
+              Surface (mm<sup>2</sup>)
+            </label>
+            <input
+              id="surface"
+              :value="widthTimesHeight"
+              type="number"
+              name="surface"
+              class="modal__input modal__input--disabled"
+              disabled>
+            <div
+              v-if="errors.surface"
+              class="modal__alert">
               {{ errors.surface[0] }}
             </div>
           </div>
 
           <div class="modal__buttons">
-            <button class="btn btn--grey"
-                    role="button"
-                    @click.stop="toggleModal">
-              <i class="fal fa-times"></i>
+            <button
+              class="btn btn--grey"
+              role="button"
+              @click.stop="toggleModal">
+              <i class="fal fa-times"/>
               Annuler
             </button>
-            <button class="btn btn--red"
-                    role="button"
-                    @click.prevent="updateFormat">
-              <i class="fal fa-check"></i>
+            <button
+              class="btn btn--red"
+              role="button"
+              @click.prevent="updateFormat">
+              <i class="fal fa-check"/>
               Mettre à jour
             </button>
           </div>
@@ -99,48 +128,50 @@
 </template>
 
 <script>
-  import mixins from '../../mixins'
-  import { eventBus } from '../../app'
-  import { mapActions } from 'vuex'
+import mixins from "../../mixins";
+import { eventBus } from "../../app";
+import { mapActions } from "vuex";
 
-  export default {
-    props: {
-      format: {
-        type: Object,
-        required: true
-      }
-    },
-    data() {
-      return {
-        errors: {}
-      }
-    },
-    computed: {
-      widthTimesHeight() {
-        if (this.format.width && this.format.height) {
-          return this.format.width * this.format.height
-        } else {
-          return 0
-        }
-      }
-    },
-    mixins: [mixins],
-    methods: {
-      ...mapActions([
-        'toggleLoader'
-      ]),
-      updateFormat() {
-        this.$store.dispatch('toggleLoader')
-        axios.put(route('formats.update', [this.format.id]), this.format).then(() => {
-          eventBus.$emit('formatWasUpdated', this.format);
-        }).then(() => {
-          this.$store.dispatch('toggleLoader')
-          this.toggleModal()
-        }).catch(error => {
-          this.$store.dispatch('toggleLoader')
-          this.errors = error.response.data
-        })
+export default {
+  mixins: [mixins],
+  props: {
+    format: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      errors: {}
+    };
+  },
+  computed: {
+    widthTimesHeight() {
+      if (this.format.width && this.format.height) {
+        return this.format.width * this.format.height;
+      } else {
+        return 0;
       }
     }
+  },
+  methods: {
+    ...mapActions(["toggleLoader"]),
+    updateFormat() {
+      this.$store.dispatch("toggleLoader");
+      window.axios
+        .put(window.route("formats.update", [this.format.id]), this.format)
+        .then(() => {
+          eventBus.$emit("formatWasUpdated", this.format);
+        })
+        .then(() => {
+          this.$store.dispatch("toggleLoader");
+          this.toggleModal();
+        })
+        .catch(error => {
+          this.$store.dispatch("toggleLoader");
+          this.errors = error.response.data;
+        });
+    }
   }
+};
 </script>

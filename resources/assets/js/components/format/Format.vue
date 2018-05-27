@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="card__img">
-      <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet point image">
+      <img
+        src="/img/placeholders/contact-bullet.jpg"
+        alt="Bullet point image">
     </div>
 
     <div class="card__title">
@@ -36,47 +37,44 @@
     </div>
 
     <div class="card__controls">
-      <div title="Supprimer"
-           role="button"
-           @click="destroy">
-        <i class="fal fa-times"></i>
+      <div
+        title="Supprimer"
+        role="button"
+        @click="destroy">
+        <i class="fal fa-times"/>
       </div>
       <div title="Modifier">
-        <edit-format :format="format"></edit-format>
+        <edit-format :format="format"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import EditFormat from './EditFormat.vue'
-  import moment from 'moment'
-  import mixins from '../../mixins'
+import EditFormat from "./EditFormat.vue";
+import mixins from "../../mixins";
 
-  export default {
-    components: {
-      EditFormat
-    },
-    props: {
-      format: {
-        type: Object,
-        required: true
-      }
-    },
-    computed: {
-      widthTimesHeight() {
-        return this.format.height * this.format.width
-      }
-    },
-    mixins: [mixins],
-    methods: {
-      destroy() {
-        axios.delete(route('formats.destroy', [this.format.id]))
-        this.$emit('formatWasDeleted', this.format.id)
-      },
-      getDate(date) {
-        return moment(date).locale(this.momentLocale).format(this.momentFormat)
-      }
+export default {
+  components: {
+    EditFormat
+  },
+  mixins: [mixins],
+  props: {
+    format: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    widthTimesHeight() {
+      return this.format.height * this.format.width;
+    }
+  },
+  methods: {
+    destroy() {
+      window.axios.delete(window.route("formats.destroy", [this.format.id]));
+      this.$emit("formatWasDeleted", this.format.id);
     }
   }
+};
 </script>

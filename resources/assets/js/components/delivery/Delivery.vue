@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="card__img">
-      <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet point image">
+      <img
+        src="/img/placeholders/contact-bullet.jpg"
+        alt="Bullet point image">
     </div>
 
     <div class="card__title">
@@ -22,7 +23,7 @@
       </div>
       <div v-if="delivery.contact">
         <span class="card__label">Contact</span>
-        {{ delivery.contact.name}}
+        {{ delivery.contact.name }}
       </div>
       <div v-if="delivery.to_delivery_at">
         <span class="card__label">Date</span>
@@ -44,30 +45,24 @@
 </template>
 
 <script>
-  import moment from 'moment'
-  import mixins from '../../mixins'
+import mixins from "../../mixins";
 
-  export default {
-    props: {
-      delivery: {
-        type: Object,
-        required: true
+export default {
+  mixins: [mixins],
+  props: {
+    delivery: {
+      type: Object,
+      required: true
+    }
+  },
+  computed: {
+    deliveryNote() {
+      if (this.delivery.note.length > 45) {
+        return this.delivery.note.substr(0, 45) + "...";
+      } else {
+        return this.delivery.note;
       }
-    },
-    computed: {
-      deliveryNote() {
-        if (this.delivery.note.length > 45) {
-          return this.delivery.note.substr(0, 45) + '...'
-        } else {
-          return this.delivery.note
-        }
-      }
-    },
-    mixins: [mixins],
-    methods: {
-      getDate(date) {
-        return moment(date).locale(this.momentLocale).format(this.momentFormat)
-      },
     }
   }
+};
 </script>

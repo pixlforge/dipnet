@@ -9,123 +9,131 @@
         <span v-else>Aucune commande</span>
       </div>
 
-      <button class="btn btn--red-large"
-              role="button"
-              @click="redirect()">
-        <i class="fal fa-plus-circle"></i>
+      <button
+        class="btn btn--red-large"
+        role="button"
+        @click="redirect()">
+        <i class="fal fa-plus-circle"/>
         Nouvelle commande
       </button>
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination class="pagination pagination--top"
-                  v-if="meta.total > 25"
-                  :meta="meta"
-                  @paginationSwitched="getOrders"></pagination>
+      <pagination
+        v-if="meta.total > 25"
+        :meta="meta"
+        class="pagination pagination--top"
+        @paginationSwitched="getOrders"/>
 
       <template v-if="!orders.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucune commande.</p>
       </template>
 
       <template v-else>
-        <transition-group name="pagination" tag="div" mode="out-in">
-          <order class="card__container"
-                 v-for="(order, index) in orders"
-                 :key="order.id"
-                 :order="order"
-                 :user-role="userRole"
-                 @orderWasDeleted="removeOrder"></order>
+        <transition-group
+          name="pagination"
+          tag="div"
+          mode="out-in">
+          <order
+            v-for="order in orders"
+            :key="order.id"
+            :order="order"
+            :user-role="userRole"
+            class="card__container"
+            @orderWasDeleted="removeOrder"/>
         </transition-group>
       </template>
 
-      <pagination class="pagination pagination--bottom"
-                  v-if="meta.total > 25"
-                  :meta="meta"
-                  @paginationSwitched="getOrders"></pagination>
+      <pagination
+        v-if="meta.total > 25"
+        :meta="meta"
+        class="pagination pagination--bottom"
+        @paginationSwitched="getOrders"/>
     </div>
 
-    <moon-loader :loading="loaderState"
-                 :color="loader.color"
-                 :size="loader.size"></moon-loader>
+    <moon-loader
+      :loading="loaderState"
+      :color="loader.color"
+      :size="loader.size"/>
   </div>
 </template>
 
 <script>
-  import Pagination from '../pagination/Pagination'
-  import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
-  import Order from './Order.vue'
-  import AddOrder from './CreateOrder.vue'
-  import mixins from '../../mixins'
-  import { eventBus } from '../../app'
-  import { mapGetters } from 'vuex'
+import Pagination from "../pagination/Pagination";
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import Order from "./Order.vue";
+import AddOrder from "./CreateOrder.vue";
+import mixins from "../../mixins";
+import { mapGetters } from "vuex";
 
-  export default {
-    components: {
-      Order,
-      AddOrder,
-      Pagination,
-      MoonLoader
-    },
-    props: {
-      userRole: {
-        type: String,
-        required: true
-      }
-    },
-    data() {
-      return {
-        orders: [],
-        meta: {},
-        errors: {},
-        fetching: false,
-        modelNameSingular: 'commande',
-        modelNamePlural: 'commandes',
-        modelGender: 'F'
-      }
-    },
-    computed: {
-      ...mapGetters([
-        'loaderState'
-      ])
-    },
-    mixins: [mixins],
-    methods: {
-      getOrders(page = 1) {
-        this.$store.dispatch('toggleLoader')
-        this.fetching = true
+export default {
+  components: {
+    Order,
+    AddOrder,
+    Pagination,
+    MoonLoader
+  },
+  mixins: [mixins],
+  props: {
+    userRole: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      orders: [],
+      meta: {},
+      errors: {},
+      fetching: false,
+      modelNameSingular: "commande",
+      modelNamePlural: "commandes",
+      modelGender: "F"
+    };
+  },
+  computed: {
+    ...mapGetters(["loaderState"])
+  },
+  mounted() {
+    this.getOrders();
+  },
+  methods: {
+    getOrders(page = 1) {
+      this.$store.dispatch("toggleLoader");
+      this.fetching = true;
 
-        axios.get(route('api.orders.index'), {
+      window.axios
+        .get(window.route("api.orders.index"), {
           params: {
             page
           }
-        }).then(response => {
-          this.orders = response.data.data
-          this.meta = response.data.meta
-          this.$store.dispatch('toggleLoader')
-          this.fetching = false
-        }).catch(error => {
-          this.errors = error.response.data
-          this.$store.dispatch('toggleLoader')
-          this.fetching = false
         })
-      },
-      redirect() {
-        window.location = route('orders.create.start')
-      },
-      removeOrder(payload) {
-        let index
-        index = this.orders.findIndex(order => {
-          return order.id === payload.id
+        .then(response => {
+          this.orders = response.data.data;
+          this.meta = response.data.meta;
+          this.$store.dispatch("toggleLoader");
+          this.fetching = false;
         })
-        this.orders.splice(index, 1)
-        flash({
-          message: 'Suppression de la commande réussie.',
-          level: 'success'
-        })
-      }
+        .catch(error => {
+          this.errors = error.response.data;
+          this.$store.dispatch("toggleLoader");
+          this.fetching = false;
+        });
     },
-    mounted() {
-      this.getOrders()
+    redirect() {
+      window.location = window.route("orders.create.start");
+    },
+    removeOrder(payload) {
+      let index;
+      index = this.orders.findIndex(order => {
+        return order.id === payload.id;
+      });
+      this.orders.splice(index, 1);
+      window.flash({
+        message: "Suppression de la commande réussie.",
+        level: "success"
+      });
     }
   }
+};
 </script>

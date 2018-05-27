@@ -1,27 +1,32 @@
 <template>
   <div>
     <div class="card__img">
-      <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet point image">
+      <img
+        src="/img/placeholders/contact-bullet.jpg"
+        alt="Bullet point image">
     </div>
 
     <div class="card__title">
-      <a :href="createRoute"
-         v-if="order.status === 'incomplète'">
+      <a
+        v-if="order.status === 'incomplète'"
+        :href="createRoute">
         {{ order.reference }}
       </a>
-      <a :href="showRoute"
-         v-if="order.status !== 'incomplète' && userRole === 'utilisateur'">
+      <a
+        v-if="order.status !== 'incomplète' && userRole === 'utilisateur'"
+        :href="showRoute">
         {{ order.reference }}
       </a>
-      <a :href="adminRoute"
-         v-if="order.status !== 'incomplète' && userRole === 'administrateur'">
+      <a
+        v-if="order.status !== 'incomplète' && userRole === 'administrateur'"
+        :href="adminRoute">
         {{ order.reference }}
       </a>
     </div>
 
-    <div class="badge"
-         :class="statusClass">
+    <div
+      :class="statusClass"
+      class="badge">
       {{ order.status | capitalize }}
     </div>
 
@@ -53,61 +58,66 @@
     </div>
 
     <div class="card__controls card__controls--order">
-      <div v-if="order.status === 'incomplète'"
-           title="Supprimer"
-           role="button"
-           @click="destroy">
-        <i class="fal fa-times"></i>
+      <div
+        v-if="order.status === 'incomplète'"
+        title="Supprimer"
+        role="button"
+        @click="destroy">
+        <i class="fal fa-times"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import moment from 'moment'
-  import mixins from '../../mixins'
+import mixins from "../../mixins";
 
-  export default {
-    props: {
-      order: {
-        type: Object,
-        required: true
-      },
-      userRole: {
-        type: String,
-        required: false
-      },
-      displayUser: {
-        type: Boolean,
-        required: false
+export default {
+  mixins: [mixins],
+  props: {
+    order: {
+      type: Object,
+      required: true
+    },
+    userRole: {
+      type: String,
+      required: false,
+      default: () => {
+        return "";
       }
     },
-    mixins: [mixins],
-    computed: {
-      statusClass() {
-        if (this.order.status === 'incomplète') return 'badge--danger'
-        if (this.order.status === 'envoyée') return 'badge--warning'
-        if (this.order.status === 'traitée') return 'badge--success'
-      },
-      createRoute() {
-        return route('orders.create.end', [this.order.reference])
-      },
-      showRoute() {
-        return route('orders.complete.show', [this.order.reference])
-      },
-      adminRoute() {
-        return route('orders.show', [this.order.reference])
-      }
-    },
-    methods: {
-      getDate(date) {
-        return moment(date).locale(this.momentLocale).format(this.momentFormat)
-      },
-      destroy() {
-        axios.delete(route('orders.destroy', [this.order.reference])).then(() => {
-          this.$emit('orderWasDeleted', this.order)
-        })
+    displayUser: {
+      type: Boolean,
+      required: false,
+      default: () => {
+        return false;
       }
     }
+  },
+  computed: {
+    statusClass() {
+      if (this.order.status === "incomplète") return "badge--danger";
+      if (this.order.status === "envoyée") return "badge--warning";
+      if (this.order.status === "traitée") return "badge--success";
+    },
+    createRoute() {
+      return window.route("orders.create.end", [this.order.reference]);
+    },
+    showRoute() {
+      return window.route("orders.complete.show", [this.order.reference]);
+    },
+    adminRoute() {
+      return window.route("orders.show", [this.order.reference]);
+    }
+  },
+  methods: {
+    destroy() {
+      window.axios
+        .delete(window.route("orders.destroy", [this.order.reference]))
+        .then(() => {
+          this.$emit("orderWasDeleted", this.order);
+        });
+    }
   }
+};
 </script>

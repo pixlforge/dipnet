@@ -1,14 +1,18 @@
 <template>
-  <div class="register__container"
-       @keyup.enter="createCompany">
+  <div
+    class="register__container"
+    @keyup.enter="createCompany">
     <section class="register__summary-section">
-      <div class="register__logo register__logo--summary"
-           aria-hidden="true">
-        <img :src="logoBw" :alt="`${appName} logo`">
+      <div
+        class="register__logo register__logo--summary"
+        aria-hidden="true">
+        <img
+          :src="logoBw"
+          :alt="`${appName} logo`">
       </div>
       <div class="register__summary">
         <div class="register__summary-item register__summary-item--done">
-          <span class="badge__summary"><i class="fa fa-check"></i></span>
+          <span class="badge__summary"><i class="fa fa-check"/></span>
           <span class="register__summary-label">Création de votre compte</span>
         </div>
 
@@ -36,23 +40,27 @@
         <div class="form__group">
           <label for="name">Nom de la société</label>
           <span class="form__required">*</span>
-          <input type="text"
-                 name="name"
-                 id="name"
-                 class="form__input"
-                 v-model.trim="company.name"
-                 required autofocus>
-          <div class="form__alert"
-               v-if="errors.name">
+          <input
+            id="name"
+            v-model.trim="company.name"
+            type="text"
+            name="name"
+            class="form__input"
+            required
+            autofocus>
+          <div
+            v-if="errors.name"
+            class="form__alert">
             {{ errors.name[0] }}
           </div>
         </div>
 
         <div class="register__buttons">
-          <button class="btn btn--red"
-                  role="button"
-                  @click="createCompany">
-            <i class="fal fa-check"></i>
+          <button
+            class="btn btn--red"
+            role="button"
+            @click="createCompany">
+            <i class="fal fa-check"/>
             Terminer l'enregistrement
           </button>
         </div>
@@ -62,39 +70,42 @@
 </template>
 
 <script>
-  import mixins from '../../mixins'
+import mixins from "../../mixins";
 
-  export default {
-    data() {
-      return {
-        company: {
-          name: ''
-        },
-        errors: {}
-      }
-    },
-    mixins: [mixins],
-    methods: {
-      createCompany() {
-        this.$store.dispatch('toggleLoader')
-        axios.post(route('register.company.store'), this.company).then(() => {
-          this.company = {}
-          this.$emit('companyCreated')
-        }).catch(error => {
-          this.$store.dispatch('toggleLoader')
-          this.errors = error.response.data.errors
+export default {
+  mixins: [mixins],
+  data() {
+    return {
+      company: {
+        name: ""
+      },
+      errors: {}
+    };
+  },
+  methods: {
+    createCompany() {
+      this.$store.dispatch("toggleLoader");
+      window.axios
+        .post(window.route("register.company.store"), this.company)
+        .then(() => {
+          this.company = {};
+          this.$emit("companyCreated");
         })
-      }
+        .catch(error => {
+          this.$store.dispatch("toggleLoader");
+          this.errors = error.response.data.errors;
+        });
     }
   }
+};
 </script>
 
 <style scoped>
-  a {
-    cursor: pointer;
-  }
+a {
+  cursor: pointer;
+}
 
-  .company-logo-container {
-    position: fixed;
-  }
+.company-logo-container {
+  position: fixed;
+}
 </style>

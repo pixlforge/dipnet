@@ -3,45 +3,53 @@
     <h2 class="modal__title">Avatar</h2>
 
     <div class="modal__group">
-      <label for="avatar"
-             class="btn btn--red">
-        <i class="fal fa-folder-open"></i>
+      <label
+        for="avatar"
+        class="btn btn--red">
+        <i class="fal fa-folder-open"/>
         Sélectionner une image
       </label>
-      <input type="file"
-             name="avatar"
-             id="avatar"
-             class="v-hidden"
-             @change="fileChange">
-      <div class="modal__alert"
-           v-if="errors.length">
+      <input
+        id="avatar"
+        type="file"
+        name="avatar"
+        class="v-hidden"
+        @change="fileChange">
+      <div
+        v-if="errors.length"
+        class="modal__alert">
         {{ errors[0] }}
       </div>
     </div>
 
     <div class="modal__group">
-      <img :src="newAvatar.path"
-           class="avatar__img"
-           alt="Avatar à modifier"
-           v-if="newAvatar.path">
+      <img
+        v-if="newAvatar.path"
+        :src="newAvatar.path"
+        class="avatar__img"
+        alt="Avatar à modifier">
 
-      <img :src="avatar"
-           class="avatar__img"
-           alt="Avatar actuel"
-           v-if="avatar && !newAvatar.path">
+      <img
+        v-if="avatar && !newAvatar.path"
+        :src="avatar"
+        class="avatar__img"
+        alt="Avatar actuel">
 
-      <img :src="randomAvatarPath"
-           alt="Avatar par défaut"
-           v-if="!newAvatar.path && !avatar"
-           style="width: 200px;">
+      <img
+        v-if="!newAvatar.path && !avatar"
+        :src="randomAvatarPath"
+        alt="Avatar par défaut"
+        style="width: 200px;">
     </div>
 
-    <div class="modal__buttons modal__buttons--avatar"
-         v-if="newAvatar.id">
-      <button class="btn btn--red"
-              role="button"
-              @click.prevent="update">
-        <i class="fal fa-upload"></i>
+    <div
+      v-if="newAvatar.id"
+      class="modal__buttons modal__buttons--avatar">
+      <button
+        class="btn btn--red"
+        role="button"
+        @click.prevent="update">
+        <i class="fal fa-upload"/>
         Mettre à jour l'avatar
       </button>
     </div>
@@ -49,81 +57,89 @@
 </template>
 
 <script>
-  import mixins from '../../mixins'
+import mixins from "../../mixins";
 
-  export default {
-    props: {
-      avatar: {
-        type: String,
-        required: true
+export default {
+  mixins: [mixins],
+  props: {
+    avatar: {
+      type: String,
+      required: true
+    },
+    randomAvatar: {
+      type: String,
+      required: true
+    }
+  },
+  data() {
+    return {
+      newAvatar: {
+        id: null,
+        path: this.avatar
       },
-      randomAvatar: {
-        type: String,
-        required: true
-      }
+      endpoint: "/profile/avatar",
+      errors: {},
+      sendAs: "avatar"
+    };
+  },
+  computed: {
+    randomAvatarPath() {
+      return "img/placeholders/" + this.randomAvatar;
+    }
+  },
+  methods: {
+    fileChange(event) {
+      this.upload(event);
     },
-    data() {
-      return {
-        newAvatar: {
-          id: null,
-          path: this.avatar
-        },
-        endpoint: '/profile/avatar',
-        errors: {},
-        sendAs: 'avatar'
-      }
-    },
-    computed: {
-      randomAvatarPath() {
-        return 'img/placeholders/' + this.randomAvatar
-      }
-    },
-    mixins: [mixins],
-    methods: {
-      fileChange(event) {
-        this.upload(event)
-      },
-      upload(event) {
-        this.$store.dispatch('toggleLoader')
-        axios.post(this.endpoint, this.packageUploads(event)).then(response => {
-          this.$store.dispatch('toggleLoader')
-          this.newAvatar = response.data
-          flash({
-            message: "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
-            level: 'success'
-          })
-        }).catch(error => {
-          this.$store.dispatch('toggleLoader')
+    upload(event) {
+      this.$store.dispatch("toggleLoader");
+      window.axios
+        .post(this.endpoint, this.packageUploads(event))
+        .then(response => {
+          this.$store.dispatch("toggleLoader");
+          this.newAvatar = response.data;
+          window.flash({
+            message:
+              "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
+            level: "success"
+          });
         })
-      },
-      packageUploads(event) {
-        const fileData = new FormData()
-        fileData.append(this.sendAs, event.target.files[0])
-        return fileData
-      },
-      update() {
-        this.$store.dispatch('toggleLoader')
-        axios.patch('/profile/avatar', {
+        .catch(() => {
+          this.$store.dispatch("toggleLoader");
+        });
+    },
+    packageUploads(event) {
+      const fileData = new FormData();
+      fileData.append(this.sendAs, event.target.files[0]);
+      return fileData;
+    },
+    update() {
+      this.$store.dispatch("toggleLoader");
+      window.axios
+        .patch("/profile/avatar", {
           avatar: {
             id: this.newAvatar.id
           }
-        }).then(() => {
-          this.$store.dispatch('toggleLoader')
-          flash({
-            message: "Votre avatar a bien été mis à jour.",
-            level: 'success'
-          })
-          setTimeout(() => {
-            window.location = route('profile.index')
-          }, 500)
-        }).catch(() => {
-          this.$store.dispatch('toggleLoader')
-          flash({
-            message: "Il y a eu un problème, votre compte n'a pas été mis à jour.",
-            level: 'danger'
-          })
         })
-      }
+        .then(() => {
+          this.$store.dispatch("toggleLoader");
+          window.flash({
+            message: "Votre avatar a bien été mis à jour.",
+            level: "success"
+          });
+          setTimeout(() => {
+            window.location = window.route("profile.index");
+          }, 500);
+        })
+        .catch(() => {
+          this.$store.dispatch("toggleLoader");
+          window.flash({
+            message:
+              "Il y a eu un problème, votre compte n'a pas été mis à jour.",
+            level: "danger"
+          });
+        });
     }
   }
+};
 </script>

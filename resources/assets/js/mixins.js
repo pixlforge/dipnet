@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export default {
   data() {
     return {
@@ -6,7 +8,7 @@ export default {
         size: '96px'
       },
       showModal: false,
-      appName: Laravel.appName,
+      appName: window.Laravel.appName,
       momentFormat: 'LLL',
       momentLocale: 'fr'
     }
@@ -25,7 +27,6 @@ export default {
         }
       }
     },
-
     logoColor() {
       if (this.appName === 'Dipnet') {
         return '/img/logos/dip-logo-md.png'
@@ -33,7 +34,6 @@ export default {
         return '/img/logos/multicop-logo-md.png'
       }
     },
-
     logoBw() {
       if (this.appName === 'Dipnet') {
         return '/img/logos/dip-logo-white-md.png'
@@ -41,20 +41,17 @@ export default {
         return '/img/logos/multicop-logo-white-md.png'
       }
     },
-
     /**
      * Routes
      */
     loginRoute() {
-      return route('login')
+      return window.route('login')
     },
-
     forgottenRoute() {
-      return route('password.request')
+      return window.route('password.request')
     },
-
     registerRoute() {
-      return route('register.index')
+      return window.route('register.index')
     },
   },
   filters: {
@@ -66,9 +63,14 @@ export default {
     }
   },
   methods: {
+    getDate(date) {
+      return moment(date)
+        .locale(this.momentLocale)
+        .format(this.momentFormat);
+    },
     redirectIfNotConfirmed(error) {
       if (error.response.status === 403) {
-        flash({
+        window.flash({
           message: "Vous devez d'abord confirmer votre adresse e-mail.",
           level: 'danger'
         })
@@ -89,7 +91,7 @@ export default {
       this.redirectUser()
     },
     congratulateUponRegistration() {
-      flash({
+      window.flash({
         message: 'Félicitations! Votre compte est fin prêt!',
         level: 'success'
       })

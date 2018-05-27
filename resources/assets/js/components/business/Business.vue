@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="card__img">
-      <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet point image">
+      <img
+        src="/img/placeholders/contact-bullet.jpg"
+        alt="Bullet point image">
     </div>
 
     <div class="card__title">
@@ -43,57 +44,57 @@
     </div>
 
     <div class="card__controls">
-      <div title="Supprimer"
-           role="button"
-           @click="destroy">
-        <i class="fal fa-times"></i>
+      <div
+        title="Supprimer"
+        role="button"
+        @click="destroy">
+        <i class="fal fa-times"/>
       </div>
       <div>
-        <edit-business :business="business"
-                       :companies="companies"
-                       :contacts="contacts"
-                       :user="user"></edit-business>
+        <edit-business
+          :business="business"
+          :companies="companies"
+          :contacts="contacts"
+          :user="user"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import EditBusiness from './EditBusiness.vue'
-  import mixins from '../../mixins'
-  import moment from 'moment'
+import EditBusiness from "./EditBusiness.vue";
+import mixins from "../../mixins";
 
-  export default {
-    components: {
-      EditBusiness
+export default {
+  components: {
+    EditBusiness
+  },
+  mixins: [mixins],
+  props: {
+    business: {
+      type: Object,
+      required: true
     },
-    props: {
-      business: {
-        type: Object,
-        required: true
-      },
-      companies: {
-        type: Array,
-        required: true
-      },
-      contacts: {
-        type: Array,
-        required: true
-      },
-      user: {
-        type: Object,
-        required: true
-      }
+    companies: {
+      type: Array,
+      required: true
     },
-    mixins: [mixins],
-    methods: {
-      destroy() {
-        axios.delete(route('businesses.destroy', [this.business.id]))
-        this.$emit('businessWasDeleted', this.business.id)
-      },
-      getDate(date) {
-        return moment(date).locale(this.momentLocale).format(this.momentFormat)
-      }
+    contacts: {
+      type: Array,
+      required: true
+    },
+    user: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    destroy() {
+      window.axios.delete(
+        window.route("businesses.destroy", [this.business.id])
+      );
+      this.$emit("businessWasDeleted", this.business.id);
     }
   }
+};
 </script>

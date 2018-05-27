@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="card__img">
-      <img src="/img/placeholders/contact-bullet.jpg"
-           alt="Bullet point image">
+      <img
+        src="/img/placeholders/contact-bullet.jpg"
+        alt="Bullet point image">
     </div>
 
     <div class="card__title">
@@ -32,41 +33,38 @@
     </div>
 
     <div class="card__controls">
-      <div title="Supprimer"
-           @click="destroy">
-        <i class="fal fa-times"></i>
+      <div
+        title="Supprimer"
+        @click="destroy">
+        <i class="fal fa-times"/>
       </div>
       <div title="Modifier">
-        <edit-article :article="article"></edit-article>
+        <edit-article :article="article"/>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import EditArticle from './EditArticle.vue'
-  import moment from 'moment'
-  import mixins from '../../mixins'
+import EditArticle from "./EditArticle.vue";
+import mixins from "../../mixins";
 
-  export default {
-    components: {
-      EditArticle
-    },
-    props: {
-      article: {
-        type: Object,
-        required: true
-      }
-    },
-    mixins: [mixins],
-    methods: {
-      destroy() {
-        axios.delete(route('articles.destroy', [this.article.id]))
-        this.$emit('articleWasDeleted', this.article.id)
-      },
-      getDate(date) {
-        return moment(date).locale(this.momentLocale).format(this.momentFormat)
-      }
+export default {
+  components: {
+    EditArticle
+  },
+  mixins: [mixins],
+  props: {
+    article: {
+      type: Object,
+      required: true
+    }
+  },
+  methods: {
+    destroy() {
+      window.axios.delete(window.route("articles.destroy", [this.article.id]));
+      this.$emit("articleWasDeleted", this.article.id);
     }
   }
+};
 </script>

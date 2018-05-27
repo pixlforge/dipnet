@@ -3,27 +3,32 @@
     <div class="header__container">
       <div class="profile__header">
         <h1 class="header__title">{{ user.username }}</h1>
-        <div class="profile__icon profile__icon--success"
-             v-if="user.email_confirmed">
-          <i class="fal fa-check-circle"></i>
+        <div
+          v-if="user.email_confirmed"
+          class="profile__icon profile__icon--success">
+          <i class="fal fa-check-circle"/>
         </div>
-        <div class="profile__icon profile__icon--warning"
-             v-else>
-          <i class="fal fa-times-circle"></i>
+        <div
+          v-else
+          class="profile__icon profile__icon--warning">
+          <i class="fal fa-times-circle"/>
         </div>
       </div>
 
       <div class="profile__header profile__header--second">
-        <p class="profile__header-item"
-           v-if="!user.email_confirmed">
+        <p
+          v-if="!user.email_confirmed"
+          class="profile__header-item">
           Compte non vérifié
         </p>
-        <send-confirmation-email-again class="profile__header-item"
-                                       v-if="!user.email_confirmed"></send-confirmation-email-again>
-        <update-profile class="profile__header-item"
-                        :user="user"
-                        :avatar="avatar"
-                        :random-avatar="randomAvatar"></update-profile>
+        <send-confirmation-email-again
+          v-if="!user.email_confirmed"
+          class="profile__header-item"/>
+        <update-profile
+          :user="user"
+          :avatar="avatar"
+          :random-avatar="randomAvatar"
+          class="profile__header-item"/>
       </div>
     </div>
 
@@ -32,8 +37,14 @@
 
         <div class="profile__box-item">
           <div class="profile__avatar">
-            <img :src="avatar" alt="Avatar" v-if="avatar">
-            <img :src="randomAvatarPath" alt="Avatar" v-else>
+            <img
+              v-if="avatar"
+              :src="avatar"
+              alt="Avatar">
+            <img
+              v-else
+              :src="randomAvatarPath"
+              alt="Avatar">
           </div>
         </div>
 
@@ -48,8 +59,9 @@
           </div>
         </div>
 
-        <div class="profile__box-item"
-             v-if="userIsNotAdmin">
+        <div
+          v-if="userIsNotAdmin"
+          class="profile__box-item">
           <div class="profile__item">
             <h3>Membre de</h3>
             <p>{{ user.company.name }}</p>
@@ -70,64 +82,57 @@
       </div>
     </div>
 
-    <moon-loader :loading="loaderState"
-                 :color="loader.color"
-                 :size="loader.size"></moon-loader>
+    <moon-loader
+      :loading="loaderState"
+      :color="loader.color"
+      :size="loader.size"/>
   </div>
 </template>
 
 <script>
-  import SendConfirmationEmailAgain from '../register/SendConfirmationEmailAgain.vue'
-  import UpdateProfile from './UpdateProfile.vue'
-  import MoonLoader from 'vue-spinner/src/MoonLoader.vue'
-  import moment from 'moment'
-  import mixins from '../../mixins'
-  import { mapGetters } from 'vuex'
+import SendConfirmationEmailAgain from "../register/SendConfirmationEmailAgain.vue";
+import UpdateProfile from "./UpdateProfile.vue";
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import mixins from "../../mixins";
+import { mapGetters } from "vuex";
 
-  export default {
-    components: {
-      SendConfirmationEmailAgain,
-      UpdateProfile,
-      MoonLoader
+export default {
+  components: {
+    SendConfirmationEmailAgain,
+    UpdateProfile,
+    MoonLoader
+  },
+  mixins: [mixins],
+  props: {
+    user: {
+      type: Object,
+      required: true
     },
-    props: {
-      user: {
-        type: Object,
-        required: true
-      },
-      orders: {
-        type: Number,
-        required: true
-      },
-      businesses: {
-        type: Number,
-        required: true
-      },
-      avatar: {
-        type: String,
-        required: true
-      },
-      randomAvatar: {
-        type: String,
-        required: true
-      }
+    orders: {
+      type: Number,
+      required: true
     },
-    mixins: [mixins],
-    computed: {
-      ...mapGetters([
-        'loaderState'
-      ]),
-      randomAvatarPath() {
-        return 'img/placeholders/' + this.randomAvatar
-      },
-      userIsNotAdmin() {
-        return this.user.role !== 'administrateur'
-      }
+    businesses: {
+      type: Number,
+      required: true
     },
-    methods: {
-      getDate(date) {
-        return moment(date).locale(this.momentLocale).format(this.momentFormat)
-      }
+    avatar: {
+      type: String,
+      required: true
+    },
+    randomAvatar: {
+      type: String,
+      required: true
+    }
+  },
+  computed: {
+    ...mapGetters(["loaderState"]),
+    randomAvatarPath() {
+      return "img/placeholders/" + this.randomAvatar;
+    },
+    userIsNotAdmin() {
+      return this.user.role !== "administrateur";
     }
   }
+};
 </script>
