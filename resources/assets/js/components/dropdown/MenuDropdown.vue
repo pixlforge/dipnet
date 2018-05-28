@@ -38,6 +38,9 @@
           <a :href="routeArticles">Articles</a>
         </li>
         <li v-if="userIsAdmin">
+          <a :href="routeTicker">Ticker</a>
+        </li>
+        <li v-if="userIsAdmin">
           <a :href="routeUsers">Utilisateurs</a>
         </li>
         <li>
@@ -101,6 +104,9 @@ export default {
     },
     routeUsers() {
       return window.route("users.index");
+    },
+    routeTicker() {
+      return window.route("ticker.index");
     },
     routeLegacyApp() {
       if (this.appName === "Dipnet") {

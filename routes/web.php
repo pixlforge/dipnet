@@ -146,7 +146,6 @@ Route::prefix('/orders')->namespace('Document')->group(function () {
     Route::post('/{order}/{delivery}/clone', 'DocumentOptionController@store')->name('documents.clone.options');
 });
 
-
 /**
  * Formats
  */
@@ -243,6 +242,16 @@ Route::prefix('/search')->namespace('Search')->group(function () {
 });
 
 /**
+ * Ticker
+ */
+Route::prefix('/ticker')->namespace('Ticker')->group(function () {
+    Route::get('/', 'TickerController@index')->name('tickers.index');
+    Route::post('/', 'TickerController@store')->name('tickers.store');
+    Route::put('/{ticker}', 'TickerController@update')->name('tickers.update');
+    Route::delete('/{ticker}', 'TickerController@destroy')->name('tickers.destroy');
+});
+
+/**
  * User
  */
 Route::prefix('/users')->namespace('User')->group(function () {
@@ -268,7 +277,7 @@ Route::middleware(['admin'])->group(function () {
             'order_id' => $order->id
         ]);
 
-        foreach($deliveries as $delivery) {
+        foreach ($deliveries as $delivery) {
             factory(\Dipnet\Document::class, 3)->create([
                 'delivery_id' => $delivery->id
             ]);
@@ -289,7 +298,7 @@ Route::middleware(['admin'])->group(function () {
             'order_id' => $order->id
         ]);
 
-        foreach($deliveries as $delivery) {
+        foreach ($deliveries as $delivery) {
             factory(\Dipnet\Document::class, 3)->create([
                 'delivery_id' => $delivery->id
             ]);
