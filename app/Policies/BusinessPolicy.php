@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Business;
 use App\User;
+use App\Business;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BusinessPolicy
@@ -21,7 +21,7 @@ class BusinessPolicy
     {
         if ($user->isNotSolo()) {
             return $user->company_id === $business->company_id;
-        } else if ($user->isSolo()) {
+        } elseif ($user->isSolo()) {
             return $user->id === $business->user_id;
         }
     }
