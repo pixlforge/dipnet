@@ -33,16 +33,6 @@ class AdminSeeder extends Seeder
         ]);
 
         factory(User::class)->create([
-            'username' => 'Aurore',
-            'password' => bcrypt('bebold'),
-            'role' => 'administrateur',
-            'email' => 'aurore@bebold.ch',
-            'email_confirmed' => 1,
-            'company_id' => null,
-            'confirmation_token' => null
-        ]);
-
-        factory(User::class)->create([
             'username' => 'Gilles',
             'password' => bcrypt('dipnet'),
             'role' => 'administrateur',
