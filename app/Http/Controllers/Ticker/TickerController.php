@@ -23,6 +23,8 @@ class TickerController extends Controller
 
     public function store(StoreTickerRequest $request)
     {
+        $this->setTickersInactive($request);
+
         $ticker = new Ticker;
         $ticker->body = $request->body;
         $ticker->active = $request->active;
@@ -33,6 +35,8 @@ class TickerController extends Controller
 
     public function update(UpdateTickerRequest $request, Ticker $ticker)
     {
+        $this->setTickersInactive($request);
+
         $ticker->body = $request->body;
         $ticker->active = $request->active;
         $ticker->save();
@@ -45,5 +49,16 @@ class TickerController extends Controller
         $ticker->delete();
 
         return response(null, 201);
+    }
+
+    protected function setTickersInactive($request)
+    {
+        if ($request->active) {
+            $tickers = Ticker::all();
+            foreach ($tickers as $ticker) {
+                $ticker->active = false;
+                $ticker->save();
+            }
+        }
     }
 }

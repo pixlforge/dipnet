@@ -4,5 +4,5 @@
 
 @section ('content')
   @include ('layouts.partials._nav')
-  <tickers :tickers="{{ $tickers }}"/>
+  <tickers/>
 @endsection

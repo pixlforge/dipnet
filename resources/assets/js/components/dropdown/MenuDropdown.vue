@@ -106,7 +106,7 @@ export default {
       return window.route("users.index");
     },
     routeTicker() {
-      return window.route("ticker.index");
+      return window.route("tickers.index");
     },
     routeLegacyApp() {
       if (this.appName === "Dipnet") {

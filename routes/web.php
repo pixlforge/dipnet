@@ -41,6 +41,10 @@ Route::prefix('/api')->namespace('Api')->group(function () {
         Route::get('/', 'OrderController@index')->name('api.orders.index');
     });
 
+    Route::prefix('/tickers')->namespace('Ticker')->group(function () {
+        Route::get('/', 'TickerController@index')->name('api.tickers.index');
+    });
+
     Route::prefix('/users')->namespace('User')->group(function () {
         Route::get('/', 'UserController@index')->name('api.users.index');
     });

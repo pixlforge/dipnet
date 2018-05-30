@@ -23,6 +23,20 @@ class TickerTest extends TestCase
     }
 
     /** @test */
+    public function admins_can_fetch_a_paginated_list_of_all_ticker_entries()
+    {
+        $this->withoutExceptionHandling();
+
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
+
+        factory(Ticker::class, 50)->create();
+
+        $response = $this->getJson(route('api.tickers.index'));
+        $response->assertStatus(200);
+    }
+
+    /** @test */
     public function admins_can_create_ticker_entries()
     {
         $this->withoutExceptionHandling();
@@ -400,5 +414,66 @@ class TickerTest extends TestCase
             ->assertRedirect(route('login'));
 
         $this->assertNull($ticker->fresh()->deleted_at);
+    }
+
+    /** @test */
+    public function storing_a_ticker_as_active_sets_every_other_ticker_to_inactive()
+    {
+        $this->withoutExceptionHandling();
+
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
+
+        factory(Ticker::class)->states('active')->create();
+
+        $tickers = Ticker::where('active', true)->get();
+        $this->assertCount(1, $tickers);
+
+        $this->postJson(route('tickers.store'), [
+            'body' => 'Something',
+            'active' => true
+        ])->assertStatus(200);
+
+        $tickers = Ticker::all();
+        $this->assertCount(2, $tickers);
+
+        $tickers = Ticker::where('active', true)->get();
+        $this->assertCount(1, $tickers);
+    }
+
+    /** @test */
+    public function updating_a_ticker_as_active_sets_every_other_ticker_to_inactive()
+    {
+        $this->withoutExceptionHandling();
+
+        $admin = factory(User::class)->states('admin')->create();
+        $this->signIn($admin);
+
+        $tickerOne = factory(Ticker::class)->states('active')->create([
+            'body' => 'First ticker'
+        ]);
+        $tickerTwo = factory(Ticker::class)->create([
+            'body' => 'Something'
+        ]);
+
+        $tickers = Ticker::where('active', true)->get();
+        $this->assertCount(1, $tickers);
+
+        $this->putJson(route('tickers.update', $tickerTwo->id), [
+            'body' => 'Something different',
+            'active' => true
+        ])->assertStatus(200);
+
+        $tickers = Ticker::where('active', true)->get();
+        $this->assertCount(1, $tickers);
+
+        $this->assertDatabaseHas('tickers', [
+            'body' => 'Something different',
+            'active' => true
+        ]);
+        $this->assertDatabaseMissing('tickers', [
+            'body' => 'First ticker',
+            'active' => true
+        ]);
     }
 }
