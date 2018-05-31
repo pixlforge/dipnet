@@ -43,6 +43,9 @@ Route::prefix('/api')->namespace('Api')->group(function () {
 
     Route::prefix('/tickers')->namespace('Ticker')->group(function () {
         Route::get('/', 'TickerController@index')->name('api.tickers.index');
+
+        // Cookies
+        Route::post('/cookies', 'TickerCookieController@store')->name('api.tickers.cookies.store');
     });
 
     Route::prefix('/users')->namespace('User')->group(function () {

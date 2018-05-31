@@ -2,12 +2,11 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\CompanyHasDefaultBusiness;
-use App\Http\Middleware\UserAccountDetails;
+use App\Http\Middleware\UserIsAdmin;
 use App\Http\Middleware\UserEmailConfirmed;
 use App\Http\Middleware\UserAccountCompanyInfo;
 use App\Http\Middleware\UserAccountContactInfo;
-use App\Http\Middleware\UserIsAdmin;
+use App\Http\Middleware\CompanyHasDefaultBusiness;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel

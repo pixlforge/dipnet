@@ -32,6 +32,7 @@ Vue.component('add-default-business', require('./components/business/AddDefaultB
 Vue.component('login', require('./components/login/Login'));
 Vue.component('show-business', require('./components/business/ShowBusiness'));
 Vue.component('tickers', require('./components/ticker/Tickers'));
+Vue.component('active-ticker', require('./components/ticker/ActiveTicker'));
 
 export const eventBus = new Vue()
 

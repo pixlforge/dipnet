@@ -18,18 +18,22 @@
   {{--Scripts--}}
   <script>
     window.Laravel = {!! json_encode([
-            'csrfToken' => csrf_token(),
-            'appName' => config('app.name')
-        ]) !!};
+      'csrfToken' => csrf_token(),
+      'appName' => config('app.name')
+    ]) !!};
   </script>
   <script src="{{ mix('js/app.js') }}" defer></script>
 </head>
 <body id="body">
 <div id="app">
   @yield ('content')
-  <flash message="{{ session('flash') }}"
-         level="{{ session('level') }}">
+  <flash
+    message="{{ session('flash') }}"
+    level="{{ session('level') }}">
   </flash>
+  <active-ticker
+    :ticker="{{ $ticker ? $ticker : collect() }}"
+    cookie="{{ Cookie::get('ticker') }}"/>
 </div>
 </body>
 </html>

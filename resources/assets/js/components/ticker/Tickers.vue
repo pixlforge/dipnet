@@ -33,7 +33,7 @@
             :key="ticker.id"
             :ticker="ticker"
             class="card__container"
-            @tickertWasDeleted="removeTicker(index)"/>
+            @tickerWasDeleted="removeTicker(index)"/>
         </transition-group>
       </template>
 
@@ -130,8 +130,14 @@ export default {
         message: "La création du ticker a réussi.",
         level: "success"
       });
+    },
+    removeTicker(index) {
+      this.tickers.splice(index, 1);
+      window.flash({
+        message: "Suppression du ticker réussie.",
+        level: "success"
+      });
     }
   }
 };
 </script>
-
