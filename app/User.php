@@ -165,7 +165,7 @@ class User extends Authenticatable
      */
     public function isNotAdmin()
     {
-        return ! $this->isAdmin();
+        return !$this->isAdmin();
     }
 
     /**
@@ -175,7 +175,7 @@ class User extends Authenticatable
      */
     public function isPartOfACompany()
     {
-        return ! $this->is_solo;
+        return !$this->is_solo;
     }
 
     /**
@@ -382,7 +382,7 @@ class User extends Authenticatable
      */
     public function avatarPath()
     {
-        if (! $this->avatar_id) {
+        if (!$this->avatar_id) {
             return null;
         }
 
