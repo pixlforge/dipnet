@@ -59,10 +59,10 @@ class ContactController extends Controller
         if (auth()->user()->isAdmin()) {
             $contact->user_id = null;
             $contact->company_id = $request->company_id;
-        } else if (auth()->user()->isNotAdmin() && auth()->user()->isPartOfACompany()) {
+        } elseif (auth()->user()->isNotAdmin() && auth()->user()->isPartOfACompany()) {
             $contact->user_id = auth()->id();
             $contact->company_id = auth()->user()->company->id;
-        } else if (auth()->user()->isNotAdmin() && auth()->user()->isSolo()) {
+        } elseif (auth()->user()->isNotAdmin() && auth()->user()->isSolo()) {
             $contact->user_id = auth()->id();
             $contact->company_id = null;
         }
