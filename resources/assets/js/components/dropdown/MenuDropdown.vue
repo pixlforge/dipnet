@@ -100,7 +100,7 @@ export default {
       return window.route("formats.index");
     },
     routeArticles() {
-      return window.route("articles.index");
+      return window.route("admin.articles.index");
     },
     routeUsers() {
       return window.route("users.index");

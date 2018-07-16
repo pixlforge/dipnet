@@ -36579,7 +36579,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return window.route("formats.index");
     },
     routeArticles() {
-      return window.route("articles.index");
+      return window.route("admin.articles.index");
     },
     routeUsers() {
       return window.route("users.index");
