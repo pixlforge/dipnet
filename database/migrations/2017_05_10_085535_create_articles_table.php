@@ -16,9 +16,9 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('reference', 45)->unique()->index();
-            $table->string('description', 45)->nullable();
-			$table->enum('type', ['impression', 'option']);
-			$table->boolean('greyscale')->default(false);
+            $table->string('description', 100)->nullable();
+            $table->enum('type', ['impression', 'option']);
+            $table->boolean('greyscale')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -54,6 +54,22 @@ Route::prefix('/api')->namespace('Api')->group(function () {
 });
 
 /**
+ * Admin
+ */
+Route::prefix('/admin')->namespace('Admin')->group(function () {
+    
+    /**
+     * Articles
+     */
+    Route::prefix('/articles')->namespace('Article')->group(function () {
+        Route::get('/', 'ArticleController@index')->name('admin.articles.index');
+        Route::post('/', 'ArticleController@store')->name('admin.articles.store');
+        Route::patch('/{article}', 'ArticleController@update')->name('admin.articles.update');
+        Route::delete('/{article}', 'ArticleController@destroy')->name('admin.articles.destroy');
+    });
+});
+
+/**
  * Account
  */
 Route::prefix('/account')->namespace('Account')->group(function () {
@@ -66,12 +82,12 @@ Route::prefix('/account')->namespace('Account')->group(function () {
 /**
  * Article
  */
-Route::prefix('/articles')->namespace('Article')->group(function () {
-    Route::get('/', 'ArticleController@index')->name('articles.index');
-    Route::post('/', 'ArticleController@store')->name('articles.store');
-    Route::put('/{article}', 'ArticleController@update')->name('articles.update');
-    Route::delete('/{article}', 'ArticleController@destroy')->name('articles.destroy');
-});
+// Route::prefix('/articles')->namespace('Article')->group(function () {
+    // Route::get('/', 'ArticleController@index')->name('articles.index');
+    // Route::post('/', 'ArticleController@store')->name('articles.store');
+    // Route::put('/{article}', 'ArticleController@update')->name('articles.update');
+    // Route::delete('/{article}', 'ArticleController@destroy')->name('articles.destroy');
+// });
 
 /**
  * Business

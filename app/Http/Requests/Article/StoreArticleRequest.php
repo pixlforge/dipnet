@@ -24,10 +24,10 @@ class StoreArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'reference' => 'required|unique:articles,id,:id|min:3|max:45',
-            'description' => 'nullable|string|max:45',
-            'type' => 'required|in:impression,option',
-            'greyscale' => 'required|boolean'
+            'reference' => 'required|string|unique:articles|min:3|max:45',
+            'description' => 'nullable|string|min:3|max:45',
+            'type' => 'required|string|in:impression,option',
+            'greyscale' => 'required|boolean',
         ];
     }
 
@@ -43,10 +43,13 @@ class StoreArticleRequest extends FormRequest
             'reference.unique' => 'Cette référence est déjà utilisée.',
             'reference.min' => 'Minimum 3 caractères.',
             'reference.max' => 'Maximum 45 caractères.',
+
             'description.string' => 'La description doit être du texte.',
             'description.max' => 'Maximum 45 caractères.',
+
             'type.required' => 'Veuillez sélectionner un type.',
             'type.in' => 'Veuillez sélectionner un type parmi ceux proposés.',
+
             'greyscale.required' => 'Veuillez sélectionner une valeur.',
             'greyscale.boolean' => 'La valeur doit être vrai ou faux.'
         ];
