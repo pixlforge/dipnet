@@ -62,7 +62,9 @@ export default {
   },
   methods: {
     destroy() {
-      window.axios.delete(window.route("articles.destroy", [this.article.id]));
+      window.axios.delete(
+        window.route("admin.articles.destroy", [this.article.id])
+      );
       this.$emit("articleWasDeleted", this.article.id);
     }
   }

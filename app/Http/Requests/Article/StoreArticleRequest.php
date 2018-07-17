@@ -6,36 +6,21 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreArticleRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     *
-     * @return bool
-     */
     public function authorize()
     {
         return auth()->user()->isAdmin();
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array
-     */
     public function rules()
     {
         return [
-            'reference' => 'required|string|unique:articles|min:3|max:45',
+            'reference' => 'required|string|unique:articles,id,:reference|min:3|max:45',
             'description' => 'nullable|string|min:3|max:45',
             'type' => 'required|string|in:impression,option',
             'greyscale' => 'required|boolean',
         ];
     }
 
-    /**
-     * Get the error messages for the defined validation rules.
-     *
-     * @return array
-     */
     public function messages()
     {
         return [

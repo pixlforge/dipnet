@@ -154,7 +154,7 @@ export default {
     addArticle() {
       this.$store.dispatch("toggleLoader");
       window.axios
-        .post(window.route("articles.store"), this.article)
+        .post(window.route("admin.articles.store"), this.article)
         .then(response => {
           this.article.id = response.data.id;
           this.$emit("articleWasCreated", this.article);

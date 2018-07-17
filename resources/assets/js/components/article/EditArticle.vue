@@ -147,7 +147,10 @@ export default {
     updateArticle() {
       this.$store.dispatch("toggleLoader");
       window.axios
-        .put(window.route("articles.update", [this.article.id]), this.article)
+        .patch(
+          window.route("admin.articles.update", [this.article.id]),
+          this.article
+        )
         .then(() => {
           eventBus.$emit("articleWasUpdated", this.article);
         })

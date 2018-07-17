@@ -32150,7 +32150,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     addArticle() {
       this.$store.dispatch("toggleLoader");
-      window.axios.post(window.route("articles.store"), this.article).then(response => {
+      window.axios.post(window.route("admin.articles.store"), this.article).then(response => {
         this.article.id = response.data.id;
         this.$emit("articleWasCreated", this.article);
       }).then(() => {
@@ -32238,7 +32238,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     destroy() {
-      window.axios.delete(window.route("articles.destroy", [this.article.id]));
+      window.axios.delete(window.route("admin.articles.destroy", [this.article.id]));
       this.$emit("articleWasDeleted", this.article.id);
     }
   }
@@ -32569,7 +32569,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     updateArticle() {
       this.$store.dispatch("toggleLoader");
-      window.axios.put(window.route("articles.update", [this.article.id]), this.article).then(() => {
+      window.axios.patch(window.route("admin.articles.update", [this.article.id]), this.article).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit("articleWasUpdated", this.article);
       }).then(() => {
         this.$store.dispatch("toggleLoader");
