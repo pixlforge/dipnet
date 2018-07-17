@@ -101,7 +101,10 @@ export default {
     update() {
       this.$store.dispatch("toggleLoader");
       window.axios
-        .put(window.route("tickers.update", [this.ticker.id]), this.ticker)
+        .patch(
+          window.route("admin.tickers.update", [this.ticker.id]),
+          this.ticker
+        )
         .then(() => {
           eventBus.$emit("tickerWasUpdated", this.ticker);
         })

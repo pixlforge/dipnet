@@ -102,7 +102,7 @@ export default {
     add() {
       this.$store.dispatch("toggleLoader");
       window.axios
-        .post(window.route("tickers.store"), this.ticker)
+        .post(window.route("admin.tickers.store"), this.ticker)
         .then(res => {
           this.ticker = res.data;
           this.$emit("tickerWasCreated", this.ticker);

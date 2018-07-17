@@ -58,7 +58,9 @@ export default {
   },
   methods: {
     destroy() {
-      window.axios.delete(window.route("tickers.destroy", [this.ticker.id]));
+      window.axios.delete(
+        window.route("admin.tickers.destroy", [this.ticker.id])
+      );
       this.$emit("tickerWasDeleted", this.ticker.id);
     }
   }

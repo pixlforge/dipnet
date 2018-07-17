@@ -106,7 +106,7 @@ export default {
       return window.route("users.index");
     },
     routeTicker() {
-      return window.route("tickers.index");
+      return window.route("admin.tickers.index");
     },
     routeLegacyApp() {
       if (this.appName === "Dipnet") {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Ticker;
+namespace App\Http\Controllers\Admin\Ticker;
 
 use App\Ticker;
 use App\Http\Controllers\Controller;
@@ -11,14 +11,14 @@ class TickerController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['admin']);
+        $this->middleware('admin');
     }
 
     public function index()
     {
         $tickers = Ticker::all();
 
-        return view('tickers.index', compact('tickers'));
+        return view('admin.tickers.index', compact('tickers'));
     }
 
     public function store(StoreTickerRequest $request)

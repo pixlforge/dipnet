@@ -1,6 +1,6 @@
 @extends ('layouts.app')
 
-@section ('title', 'Tickers')
+@section ('title', 'Liste de tous les tickers')
 
 @section ('content')
   @include ('layouts.partials._nav')

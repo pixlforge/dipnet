@@ -77,6 +77,16 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::patch('/{format}', 'FormatController@update')->name('admin.formats.update');
         Route::delete('/{format}', 'FormatController@destroy')->name('admin.formats.destroy');
     });
+
+    /**
+     * Ticker
+     */
+    Route::prefix('/tickers')->namespace('Ticker')->group(function () {
+        Route::get('/', 'TickerController@index')->name('admin.tickers.index');
+        Route::post('/', 'TickerController@store')->name('admin.tickers.store');
+        Route::patch('/{ticker}', 'TickerController@update')->name('admin.tickers.update');
+        Route::delete('/{ticker}', 'TickerController@destroy')->name('admin.tickers.destroy');
+    });
 });
 
 /**
@@ -257,12 +267,12 @@ Route::prefix('/search')->namespace('Search')->group(function () {
 /**
  * Ticker
  */
-Route::prefix('/ticker')->namespace('Ticker')->group(function () {
-    Route::get('/', 'TickerController@index')->name('tickers.index');
-    Route::post('/', 'TickerController@store')->name('tickers.store');
-    Route::put('/{ticker}', 'TickerController@update')->name('tickers.update');
-    Route::delete('/{ticker}', 'TickerController@destroy')->name('tickers.destroy');
-});
+// Route::prefix('/ticker')->namespace('Ticker')->group(function () {
+//     Route::get('/', 'TickerController@index')->name('tickers.index');
+//     Route::post('/', 'TickerController@store')->name('tickers.store');
+//     Route::put('/{ticker}', 'TickerController@update')->name('tickers.update');
+//     Route::delete('/{ticker}', 'TickerController@destroy')->name('tickers.destroy');
+// });
 
 /**
  * User

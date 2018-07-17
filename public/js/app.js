@@ -36585,7 +36585,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return window.route("users.index");
     },
     routeTicker() {
-      return window.route("tickers.index");
+      return window.route("admin.tickers.index");
     },
     routeLegacyApp() {
       if (this.appName === "Dipnet") {
@@ -42281,7 +42281,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     add() {
       this.$store.dispatch("toggleLoader");
-      window.axios.post(window.route("tickers.store"), this.ticker).then(res => {
+      window.axios.post(window.route("admin.tickers.store"), this.ticker).then(res => {
         this.ticker = res.data;
         this.$emit("tickerWasCreated", this.ticker);
         this.$store.dispatch("toggleLoader");
@@ -42410,7 +42410,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     update() {
       this.$store.dispatch("toggleLoader");
-      window.axios.put(window.route("tickers.update", [this.ticker.id]), this.ticker).then(() => {
+      window.axios.patch(window.route("admin.tickers.update", [this.ticker.id]), this.ticker).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit("tickerWasUpdated", this.ticker);
       }).then(() => {
         this.$store.dispatch("toggleLoader");
@@ -42492,7 +42492,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     destroy() {
-      window.axios.delete(window.route("tickers.destroy", [this.ticker.id]));
+      window.axios.delete(window.route("admin.tickers.destroy", [this.ticker.id]));
       this.$emit("tickerWasDeleted", this.ticker.id);
     }
   }
