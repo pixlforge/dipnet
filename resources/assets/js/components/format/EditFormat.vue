@@ -94,7 +94,7 @@
             <input
               id="surface"
               :value="widthTimesHeight"
-              type="number"
+              type="text"
               name="surface"
               class="modal__input modal__input--disabled"
               disabled>
@@ -148,7 +148,7 @@ export default {
   computed: {
     widthTimesHeight() {
       if (this.format.width && this.format.height) {
-        return this.format.width * this.format.height;
+        return (this.format.width * this.format.height).toLocaleString("fr");
       } else {
         return 0;
       }
@@ -159,7 +159,10 @@ export default {
     updateFormat() {
       this.$store.dispatch("toggleLoader");
       window.axios
-        .put(window.route("formats.update", [this.format.id]), this.format)
+        .patch(
+          window.route("admin.formats.update", [this.format.id]),
+          this.format
+        )
         .then(() => {
           eventBus.$emit("formatWasUpdated", this.format);
         })

@@ -72,7 +72,9 @@ export default {
   },
   methods: {
     destroy() {
-      window.axios.delete(window.route("formats.destroy", [this.format.id]));
+      window.axios.delete(
+        window.route("admin.formats.destroy", [this.format.id])
+      );
       this.$emit("formatWasDeleted", this.format.id);
     }
   }

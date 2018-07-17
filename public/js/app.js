@@ -36576,7 +36576,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return window.route("documents.index");
     },
     routeFormats() {
-      return window.route("formats.index");
+      return window.route("admin.formats.index");
     },
     routeArticles() {
       return window.route("admin.articles.index");
@@ -36939,7 +36939,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   computed: {
     widthTimesHeight() {
       if (this.format.width && this.format.height) {
-        return this.format.width * this.format.height;
+        return (this.format.width * this.format.height).toLocaleString("fr");
       } else {
         return 0;
       }
@@ -36948,7 +36948,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     addFormat() {
       this.$store.dispatch("toggleLoader");
-      window.axios.post(window.route("formats.store"), this.format).then(response => {
+      window.axios.post(window.route("admin.formats.store"), this.format).then(response => {
         this.format = response.data;
         this.$emit("formatWasCreated", this.format);
         this.$store.dispatch("toggleLoader");
@@ -37123,7 +37123,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   computed: {
     widthTimesHeight() {
       if (this.format.width && this.format.height) {
-        return this.format.width * this.format.height;
+        return (this.format.width * this.format.height).toLocaleString("fr");
       } else {
         return 0;
       }
@@ -37132,7 +37132,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     updateFormat() {
       this.$store.dispatch("toggleLoader");
-      window.axios.put(window.route("formats.update", [this.format.id]), this.format).then(() => {
+      window.axios.patch(window.route("admin.formats.update", [this.format.id]), this.format).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit("formatWasUpdated", this.format);
       }).then(() => {
         this.$store.dispatch("toggleLoader");
@@ -37228,7 +37228,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     destroy() {
-      window.axios.delete(window.route("formats.destroy", [this.format.id]));
+      window.axios.delete(window.route("admin.formats.destroy", [this.format.id]));
       this.$emit("formatWasDeleted", this.format.id);
     }
   }
@@ -72092,7 +72092,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal__input modal__input--disabled",
     attrs: {
       "id": "surface",
-      "type": "number",
+      "type": "text",
       "name": "surface",
       "disabled": ""
     },

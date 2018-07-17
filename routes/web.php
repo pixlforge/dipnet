@@ -67,6 +67,16 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::patch('/{article}', 'ArticleController@update')->name('admin.articles.update');
         Route::delete('/{article}', 'ArticleController@destroy')->name('admin.articles.destroy');
     });
+
+    /**
+     * Formats
+     */
+    Route::prefix('/formats')->namespace('Format')->group(function () {
+        Route::get('/', 'FormatController@index')->name('admin.formats.index');
+        Route::post('/', 'FormatController@store')->name('admin.formats.store');
+        Route::patch('/{format}', 'FormatController@update')->name('admin.formats.update');
+        Route::delete('/{format}', 'FormatController@destroy')->name('admin.formats.destroy');
+    });
 });
 
 /**
@@ -78,16 +88,6 @@ Route::prefix('/account')->namespace('Account')->group(function () {
     Route::get('/company', 'AccountController@company')->name('account.company');
     Route::patch('/update', 'AccountController@update')->name('account.update');
 });
-
-/**
- * Article
- */
-// Route::prefix('/articles')->namespace('Article')->group(function () {
-    // Route::get('/', 'ArticleController@index')->name('articles.index');
-    // Route::post('/', 'ArticleController@store')->name('articles.store');
-    // Route::put('/{article}', 'ArticleController@update')->name('articles.update');
-    // Route::delete('/{article}', 'ArticleController@destroy')->name('articles.destroy');
-// });
 
 /**
  * Business
@@ -167,16 +167,6 @@ Route::prefix('/orders')->namespace('Document')->group(function () {
     Route::patch('/{order}/{delivery}/{document}', 'DocumentController@update')->name('documents.update');
     Route::delete('/{order}/{delivery}/{document}', 'DocumentController@destroy')->name('documents.destroy');
     Route::post('/{order}/{delivery}/clone', 'DocumentOptionController@store')->name('documents.clone.options');
-});
-
-/**
- * Formats
- */
-Route::prefix('/formats')->namespace('Format')->group(function () {
-    Route::get('/', 'FormatController@index')->name('formats.index');
-    Route::post('/', 'FormatController@store')->name('formats.store');
-    Route::put('/{format}', 'FormatController@update')->name('formats.update');
-    Route::delete('/{format}', 'FormatController@destroy')->name('formats.destroy');
 });
 
 /**

@@ -97,7 +97,7 @@ export default {
       return window.route("documents.index");
     },
     routeFormats() {
-      return window.route("formats.index");
+      return window.route("admin.formats.index");
     },
     routeArticles() {
       return window.route("admin.articles.index");

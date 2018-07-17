@@ -148,7 +148,7 @@ export default {
   computed: {
     widthTimesHeight() {
       if (this.format.width && this.format.height) {
-        return this.format.width * this.format.height;
+        return (this.format.width * this.format.height).toLocaleString("fr");
       } else {
         return 0;
       }
@@ -159,7 +159,7 @@ export default {
     addFormat() {
       this.$store.dispatch("toggleLoader");
       window.axios
-        .post(window.route("formats.store"), this.format)
+        .post(window.route("admin.formats.store"), this.format)
         .then(response => {
           this.format = response.data;
           this.$emit("formatWasCreated", this.format);

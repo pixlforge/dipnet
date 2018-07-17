@@ -24,7 +24,7 @@ class StoreFormatRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:2|max:45',
+            'name' => 'required|string|min:2|max:45',
             'height' => 'required|numeric',
             'width' => 'required|numeric',
         ];
@@ -39,11 +39,15 @@ class StoreFormatRequest extends FormRequest
     {
         return [
             'name.required' => 'Veuillez entrer un nom, entre 2 et 45 caractères.',
-            'name.unique' => 'Un format portant ce nom existe déjà.',
+            'name.required' => 'Le nom doit être une chaîne de caractères.',
             'name.min' => 'Minimum 2 caractères.',
             'name.max' => 'Maximum 45 caractères.',
+
             'height.required' => 'Veuillez entrer une hauteur.',
-            'width.required' => 'Veuillez entrer une largeur.'
+            'height.numeric' => 'La hauteur doit être un nombre.',
+            
+            'width.required' => 'Veuillez entrer une largeur.',
+            'width.numeric' => 'La largeur doit être un nombre.',
         ];
     }
 }
