@@ -20,8 +20,8 @@ class CreateContactsTable extends Migration
             $table->string('address_line2')->nullable();
             $table->string('zip', 16);
             $table->string('city', 45);
-            $table->string('phone_number', 45)->nullable();
-            $table->string('fax', 45)->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('fax')->nullable();
             $table->string('email', 45);
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('company_id')->nullable();
