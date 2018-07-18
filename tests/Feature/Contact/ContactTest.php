@@ -533,7 +533,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    public function user_contact_validation_fails_if_city_is_longer_than_45_characters()
+    public function user_contact_validation_fails_if_city_is_longer_than_255_characters()
     {
         $this->withExceptionHandling();
 
@@ -545,7 +545,7 @@ class ContactTest extends TestCase
             'address_line1' => 'Street Name2e',
             'address_line2' => 'Old House',
             'zip' => '2950',
-            'city' => str_repeat('a', 46),
+            'city' => str_repeat('a', 256),
             'phone_number' => '0123456789',
             'fax' => '0123456789',
             'email' => 'derry@example.com'
@@ -579,7 +579,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    public function user_contact_validation_fails_if_phone_number_is_longer_than_45_characters()
+    public function user_contact_validation_fails_if_phone_number_is_longer_than_255_characters()
     {
         $this->withExceptionHandling();
 
@@ -592,7 +592,7 @@ class ContactTest extends TestCase
             'address_line2' => 'Old House',
             'zip' => '2950',
             'city' => 'Courgenay',
-            'phone_number' => str_repeat('1', 46),
+            'phone_number' => str_repeat('1', 256),
             'fax' => '0123456789',
             'email' => 'derry@example.com'
         ]);
@@ -625,7 +625,7 @@ class ContactTest extends TestCase
     }
 
     /** @test */
-    public function user_contact_validation_fails_if_fax_is_longer_than_45_characters()
+    public function user_contact_validation_fails_if_fax_is_longer_than_255_characters()
     {
         $this->withExceptionHandling();
 
@@ -639,7 +639,7 @@ class ContactTest extends TestCase
             'zip' => '2950',
             'city' => 'Courgenay',
             'phone_number' => '123456789',
-            'fax' => str_repeat('1', 46),
+            'fax' => str_repeat('1', 256),
             'email' => 'derry@example.com'
         ]);
         $response->assertStatus(422);

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreArticleRequest extends FormRequest
 {
@@ -14,7 +15,13 @@ class StoreArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'reference' => 'required|string|unique:articles,id,:reference|min:3|max:45',
+            'reference' => [
+                'required',
+                'string',
+                Rule::unique('articles')->ignore($this->id),
+                'min:3',
+                'max:45',
+            ],
             'description' => 'nullable|string|min:3|max:45',
             'type' => 'required|string|in:impression,option',
             'greyscale' => 'required|boolean',
