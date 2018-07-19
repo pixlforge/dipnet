@@ -1,8 +1,8 @@
-@extends ('layouts.app')
+@extends('layouts.app')
 
-@section ('title', 'Utilisateurs')
+@section('title', "Liste de tous les utilisateurs")
 
-@section ('content')
+@section('content')
   @include ('layouts.partials._nav')
   <users :companies="{{ $companies }}"></users>
 @endsection

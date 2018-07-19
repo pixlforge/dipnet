@@ -36582,7 +36582,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return window.route("admin.articles.index");
     },
     routeUsers() {
-      return window.route("users.index");
+      return window.route("admin.users.index");
     },
     routeTicker() {
       return window.route("admin.tickers.index");
@@ -42880,7 +42880,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         this.user.company_id = null;
       }
       this.$store.dispatch("toggleLoader");
-      window.axios.post(window.route("users.store"), this.user).then(response => {
+      window.axios.post(window.route("admin.users.store"), this.user).then(response => {
         this.user = response.data;
         this.$emit("userWasCreated", this.user);
         this.$store.dispatch("toggleLoader");
@@ -43122,7 +43122,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     updateUser() {
       this.$store.dispatch("toggleLoader");
-      window.axios.put(window.route("users.update", [this.currentUser.id]), this.currentUser).then(() => {
+      window.axios.patch(window.route("admin.users.update", [this.currentUser.id]), this.currentUser).then(() => {
         __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit("userWasUpdated", this.currentUser);
       }).then(() => {
         this.$store.dispatch("toggleLoader");
@@ -43257,7 +43257,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   methods: {
     destroy() {
-      window.axios.delete(window.route("users.destroy", [this.user.id]));
+      window.axios.delete(window.route("admin.users.destroy", [this.user.id]));
       this.$emit("userWasDeleted", this.user.id);
     }
   }

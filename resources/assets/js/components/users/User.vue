@@ -108,7 +108,7 @@ export default {
   },
   methods: {
     destroy() {
-      window.axios.delete(window.route("users.destroy", [this.user.id]));
+      window.axios.delete(window.route("admin.users.destroy", [this.user.id]));
       this.$emit("userWasDeleted", this.user.id);
     }
   }

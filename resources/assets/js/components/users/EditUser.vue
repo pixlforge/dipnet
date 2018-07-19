@@ -220,8 +220,8 @@ export default {
     updateUser() {
       this.$store.dispatch("toggleLoader");
       window.axios
-        .put(
-          window.route("users.update", [this.currentUser.id]),
+        .patch(
+          window.route("admin.users.update", [this.currentUser.id]),
           this.currentUser
         )
         .then(() => {

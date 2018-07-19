@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\User;
+namespace App\Http\Controllers\Admin\User;
 
 use App\User;
 use App\Company;
@@ -12,34 +12,18 @@ use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
-    /**
-     * UserController constructor.
-     */
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware('admin');
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $companies = Company::orderBy('name')->get();
 
-        return view('users.index', [
-            'companies' => $companies
-        ]);
+        return view('admin.users.index', compact('companies'));
     }
 
-    /**
-     * Store a new user.
-     *
-     * @param StoreUserRequest $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
     public function store(StoreUserRequest $request)
     {
         $user = new User;
@@ -52,7 +36,7 @@ class UserController extends Controller
 
         if ($request->role === 'administrateur') {
             $user->is_solo = false;
-        } else if ($request->role === 'utilisateur' && $request->company_id) {
+        } elseif ($request->role === 'utilisateur' && $request->company_id) {
             $user->company_id = $request->company_id;
             $user->company_confirmed = true;
         } else {
@@ -66,13 +50,6 @@ class UserController extends Controller
         return response($user, 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param User $user
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
     public function show(User $user)
     {
         $this->authorize('view', $user);
@@ -80,34 +57,28 @@ class UserController extends Controller
         return view('users.show', compact('user'));
     }
 
-    /**
-     * Update a user.
-     *
-     * @param UpdateUserRequest $request
-     * @param User $user
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->username = $request->username;
         $user->role = $request->role;
         $user->email = $request->email;
         $user->email_confirmed = $this->getEmailStatus($user->email_confirmed);
-
+        
         if ($request->role === 'administrateur') {
             $user->company_id = null;
             $user->is_solo = false;
-        } else if ($user->isNotSolo() && $request->company_id === null) {
-            $user->company_id = null;
-            $user->is_solo = true;
-        } else if ($user->isSolo() && $request->company_id !== null) {
+        } elseif ($user->isNotSolo() && $request->has('company_id')) {
             $user->company_id = $request->company_id;
             $user->is_solo = false;
-        } else {
+        } elseif ($user->isNotSolo() && !$request->has('company_id')) {
+            $user->company_id = null;
+            $user->is_solo = true;
+        } elseif ($user->isSolo() && $request->has('company_id')) {
             $user->company_id = $request->company_id;
+            $user->is_solo = false;
         }
 
-        if ($request->password) {
+        if ($request->has('password')) {
             $user->password = bcrypt($request->password);
         }
 
@@ -116,14 +87,6 @@ class UserController extends Controller
         return response($user, 200);
     }
 
-    /**
-     * Delete the User.
-     *
-     * @param User $user
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     * @throws \Exception
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
@@ -133,10 +96,6 @@ class UserController extends Controller
         return response(null, 204);
     }
 
-    /**
-     * @param $status
-     * @return int
-     */
     protected function getEmailStatus($status): int
     {
         if ($status == 1 && empty($request->email_confirmed)) {
@@ -147,11 +106,6 @@ class UserController extends Controller
         return $emailStatus;
     }
 
-    /**
-     * Send a confirmation email to a newly registered user.
-     *
-     * @param $user
-     */
     protected function sendConfirmationEmail($user)
     {
         Mail::to($user)

@@ -87,6 +87,16 @@ Route::prefix('/admin')->namespace('Admin')->group(function () {
         Route::patch('/{ticker}', 'TickerController@update')->name('admin.tickers.update');
         Route::delete('/{ticker}', 'TickerController@destroy')->name('admin.tickers.destroy');
     });
+
+    /**
+     * Users
+     */
+    Route::prefix('/utilisateurs')->namespace('User')->group(function () {
+        Route::get('/', 'UserController@index')->name('admin.users.index');
+        Route::post('/', 'UserController@store')->name('admin.users.store');
+        Route::patch('/{user}', 'UserController@update')->name('admin.users.update');
+        Route::delete('/{user}', 'UserController@destroy')->name('admin.users.destroy');
+    });
 });
 
 /**
@@ -262,26 +272,6 @@ Route::get('/', 'Order\OrderController@index')->name('index');
 Route::prefix('/search')->namespace('Search')->group(function () {
     Route::post('/', 'SearchController@search')->name('search.query');
     Route::get('/testing', 'SearchController@testing')->name('search.testing');
-});
-
-/**
- * Ticker
- */
-// Route::prefix('/ticker')->namespace('Ticker')->group(function () {
-//     Route::get('/', 'TickerController@index')->name('tickers.index');
-//     Route::post('/', 'TickerController@store')->name('tickers.store');
-//     Route::put('/{ticker}', 'TickerController@update')->name('tickers.update');
-//     Route::delete('/{ticker}', 'TickerController@destroy')->name('tickers.destroy');
-// });
-
-/**
- * User
- */
-Route::prefix('/users')->namespace('User')->group(function () {
-    Route::get('/', 'UserController@index')->name('users.index');
-    Route::post('/', 'UserController@store')->name('users.store');
-    Route::put('/{user}', 'UserController@update')->name('users.update');
-    Route::delete('/{user}', 'UserController@destroy')->name('users.destroy');
 });
 
 /**

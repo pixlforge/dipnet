@@ -65,4 +65,5 @@ $factory->state(User::class, 'user', [
 
 $factory->state(User::class, 'solo', [
     'is_solo' => true,
+    'company_id' => null,
 ]);

@@ -103,7 +103,7 @@ export default {
       return window.route("admin.articles.index");
     },
     routeUsers() {
-      return window.route("users.index");
+      return window.route("admin.users.index");
     },
     routeTicker() {
       return window.route("admin.tickers.index");

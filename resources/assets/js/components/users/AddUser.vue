@@ -217,7 +217,7 @@ export default {
       }
       this.$store.dispatch("toggleLoader");
       window.axios
-        .post(window.route("users.store"), this.user)
+        .post(window.route("admin.users.store"), this.user)
         .then(response => {
           this.user = response.data;
           this.$emit("userWasCreated", this.user);
