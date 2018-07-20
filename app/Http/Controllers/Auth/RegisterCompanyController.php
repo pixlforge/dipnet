@@ -27,7 +27,6 @@ class RegisterCompanyController extends Controller
         $company = Company::create([
             'name' => $request->name,
             'description' => $request->description,
-            'created_by_username' => auth()->user()->username
         ]);
 
         auth()->user()->confirmCompany();

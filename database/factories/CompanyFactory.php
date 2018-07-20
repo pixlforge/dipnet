@@ -1,13 +1,13 @@
 <?php
 
+use App\Company;
 use Faker\Generator as Faker;
 
-$factory->define(App\Company::class, function (Faker $faker) {
+$factory->define(Company::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'status' => 'temporaire',
         'description' => $faker->catchPhrase,
         'business_id' => null,
-        'created_by_username' => $faker->userName,
     ];
 });

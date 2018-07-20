@@ -18,7 +18,6 @@ class CreateCompaniesTable extends Migration
             $table->string('name', 45)->index();
             $table->enum('status', ['temporaire', 'permanent'])->default('temporaire');
             $table->string('description')->nullable();
-            $table->string('created_by_username', 45);
             $table->timestamps();
             $table->softDeletes();
         });
