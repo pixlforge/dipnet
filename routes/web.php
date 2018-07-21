@@ -1,192 +1,254 @@
 <?php
 
+use App\User;
+use App\Order;
+use App\Delivery;
+use App\Document;
+use App\Mail\InvitationEmail;
+use App\Mail\RegistrationEmailConfirmation;
+use App\Mail\AdminOrderCompleteNotification;
+use App\Mail\CustomerOrderCompleteConfirmation;
+
+/**
+ * Homepage
+ */
+Route::get('/', 'Order\OrderController@index')->name('index');
+
 /**
  * Auth
  */
 Auth::routes();
+Route::get('/logout', 'Auth\LogoutController')->name('logout');
 
 /**
- * Api
+ * API
  */
-Route::prefix('/api')->namespace('Api')->group(function () {
-    Route::prefix('/articles')->namespace('Article')->group(function () {
-        Route::get('/', 'ArticleController@index')->name('api.articles.index');
-    });
+Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
 
-    Route::prefix('/businesses')->namespace('Business')->group(function () {
-        Route::get('/', 'BusinessController@index')->name('api.businesses.index');
-    });
-
-    Route::prefix('/contacts')->namespace('Contact')->group(function () {
-        Route::get('/', 'ContactController@index')->name('api.contacts.index');
-    });
-
-    Route::prefix('/companies')->namespace('Company')->group(function () {
-        Route::get('/', 'CompanyController@index')->name('api.companies.index');
-    });
-
-    Route::prefix('/deliveries')->namespace('Delivery')->group(function () {
-        Route::get('/', 'DeliveryController@index')->name('api.deliveries.index');
-    });
-
-    Route::prefix('/documents')->namespace('Document')->group(function () {
-        Route::get('/', 'DocumentController@index')->name('api.documents.index');
-    });
-
-    Route::prefix('/formats')->namespace('Format')->group(function () {
-        Route::get('/', 'FormatController@index')->name('api.formats.index');
-    });
-
-    Route::prefix('/orders')->namespace('Order')->group(function () {
-        Route::get('/', 'OrderController@index')->name('api.orders.index');
-    });
-
-    Route::prefix('/tickers')->namespace('Ticker')->group(function () {
-        Route::get('/', 'TickerController@index')->name('api.tickers.index');
-
-        // Cookies
-        Route::post('/cookies', 'TickerCookieController@store')->name('api.tickers.cookies.store');
-    });
-
-    Route::prefix('/users')->namespace('User')->group(function () {
-        Route::get('/', 'UserController@index')->name('api.users.index');
-    });
-});
-
-/**
- * Admin
- */
-Route::prefix('/admin')->namespace('Admin')->group(function () {
-    
     /**
      * Articles
      */
-    Route::prefix('/articles')->namespace('Article')->group(function () {
-        Route::get('/', 'ArticleController@index')->name('admin.articles.index');
-        Route::post('/', 'ArticleController@store')->name('admin.articles.store');
-        Route::patch('/{article}', 'ArticleController@update')->name('admin.articles.update');
-        Route::delete('/{article}', 'ArticleController@destroy')->name('admin.articles.destroy');
+    Route::prefix('/articles')->namespace('Article')->name('articles.')->group(function () {
+        Route::get('/{sort?}', 'ArticleController@index')->name('index');
+    });
+
+    /**
+     * Businesses
+     */
+    Route::prefix('/businesses')->namespace('Business')->name('businesses.')->group(function () {
+        Route::get('/', 'BusinessController@index')->name('index');
+    });
+
+    /**
+     * Contacts
+     */
+    Route::prefix('/contacts')->namespace('Contact')->name('contacts.')->group(function () {
+        Route::get('/', 'ContactController@index')->name('index');
+    });
+
+    /**
+     * Companies
+     */
+    Route::prefix('/companies')->namespace('Company')->name('companies.')->group(function () {
+        Route::get('/{sort?}', 'CompanyController@index')->name('index');
+    });
+
+    /**
+     * Deliveries
+     */
+    Route::prefix('/deliveries')->namespace('Delivery')->name('deliveries.')->group(function () {
+        Route::get('/', 'DeliveryController@index')->name('index');
+    });
+
+    /**
+     * Documents
+     */
+    Route::prefix('/documents')->namespace('Document')->name('documents.')->group(function () {
+        Route::get('/', 'DocumentController@index')->name('index');
     });
 
     /**
      * Formats
      */
-    Route::prefix('/formats')->namespace('Format')->group(function () {
-        Route::get('/', 'FormatController@index')->name('admin.formats.index');
-        Route::post('/', 'FormatController@store')->name('admin.formats.store');
-        Route::patch('/{format}', 'FormatController@update')->name('admin.formats.update');
-        Route::delete('/{format}', 'FormatController@destroy')->name('admin.formats.destroy');
+    Route::prefix('/formats')->namespace('Format')->name('formats.')->group(function () {
+        Route::get('/{sort?}', 'FormatController@index')->name('index');
     });
 
     /**
-     * Ticker
+     * Orders
      */
-    Route::prefix('/tickers')->namespace('Ticker')->group(function () {
-        Route::get('/', 'TickerController@index')->name('admin.tickers.index');
-        Route::post('/', 'TickerController@store')->name('admin.tickers.store');
-        Route::patch('/{ticker}', 'TickerController@update')->name('admin.tickers.update');
-        Route::delete('/{ticker}', 'TickerController@destroy')->name('admin.tickers.destroy');
+    Route::prefix('/orders')->namespace('Order')->name('orders.')->group(function () {
+        Route::get('/', 'OrderController@index')->name('index');
+    });
+
+    /**
+     * Tickers
+     */
+    Route::prefix('/tickers')->namespace('Ticker')->name('tickers.')->group(function () {
+        Route::get('/{sort?}', 'TickerController@index')->name('index');
+
+        // Cookies
+        Route::name('cookies.')->group(function () {
+            Route::post('/cookies', 'TickerCookieController@store')->name('store');
+        });
     });
 
     /**
      * Users
      */
-    Route::prefix('/utilisateurs')->namespace('User')->group(function () {
-        Route::get('/', 'UserController@index')->name('admin.users.index');
-        Route::post('/', 'UserController@store')->name('admin.users.store');
-        Route::patch('/{user}', 'UserController@update')->name('admin.users.update');
-        Route::delete('/{user}', 'UserController@destroy')->name('admin.users.destroy');
+    Route::prefix('/users')->namespace('User')->name('users.')->group(function () {
+        Route::get('/{sort?}', 'UserController@index')->name('index');
+    });
+});
+
+/**
+ * ADMIN
+ */
+Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
+    
+    /**
+     * Articles
+     */
+    Route::prefix('/articles')->namespace('Article')->name('articles.')->group(function () {
+        Route::get('/', 'ArticleController@index')->name('index');
+        Route::post('/', 'ArticleController@store')->name('store');
+        Route::patch('/{article}', 'ArticleController@update')->name('update');
+        Route::delete('/{article}', 'ArticleController@destroy')->name('destroy');
+    });
+
+    /**
+     * Companies
+     */
+    Route::prefix('/societes')->namespace('Company')->name('companies.')->group(function () {
+        Route::get('/', 'CompanyController@index')->name('index');
+        Route::post('/', 'CompanyController@store')->name('store');
+        Route::patch('/{company}', 'CompanyController@update')->name('update');
+        Route::delete('/{company}', 'CompanyController@destroy')->name('destroy');
+    });
+
+    /**
+     * Contacts
+     */
+    Route::prefix('/contacts')->namespace('Contact')->name('contacts.')->group(function () {
+        Route::get('/', 'ContactController@index')->name('index');
+    });
+
+    /**
+     * Formats
+     */
+    Route::prefix('/formats')->namespace('Format')->name('formats.')->group(function () {
+        Route::get('/', 'FormatController@index')->name('index');
+        Route::post('/', 'FormatController@store')->name('store');
+        Route::patch('/{format}', 'FormatController@update')->name('update');
+        Route::delete('/{format}', 'FormatController@destroy')->name('destroy');
+    });
+
+    /**
+     * Tickers
+     */
+    Route::prefix('/tickers')->namespace('Ticker')->name('tickers.')->group(function () {
+        Route::get('/', 'TickerController@index')->name('index');
+        Route::post('/', 'TickerController@store')->name('store');
+        Route::patch('/{ticker}', 'TickerController@update')->name('update');
+        Route::delete('/{ticker}', 'TickerController@destroy')->name('destroy');
+    });
+
+    /**
+     * Users
+     */
+    Route::prefix('/utilisateurs')->namespace('User')->name('users.')->group(function () {
+        Route::get('/', 'UserController@index')->name('index');
+        Route::post('/', 'UserController@store')->name('store');
+        Route::patch('/{user}', 'UserController@update')->name('update');
+        Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     });
 });
 
 /**
  * Account
  */
-Route::prefix('/account')->namespace('Account')->group(function () {
-    Route::get('/', 'AccountController@account')->name('account.account');
-    Route::get('/contact', 'AccountController@contact')->name('account.contact');
-    Route::get('/company', 'AccountController@company')->name('account.company');
-    Route::patch('/update', 'AccountController@update')->name('account.update');
+Route::prefix('/account')->namespace('Account')->name('account.')->group(function () {
+    Route::get('/', 'AccountController@account')->name('account');
+    Route::get('/contact', 'AccountController@contact')->name('contact');
+    Route::get('/company', 'AccountController@company')->name('company');
+    Route::patch('/update', 'AccountController@update')->name('update');
 });
 
 /**
  * Business
  */
-Route::prefix('/businesses')->namespace('Business')->group(function () {
-    Route::get('/', 'BusinessController@index')->name('businesses.index');
-    Route::get('/create', 'BusinessController@create')->name('businesses.create');
-    Route::post('/', 'BusinessController@store')->name('businesses.store');
-    Route::get('/{business}/show', 'BusinessController@show')->name('businesses.show');
-    Route::put('/{business}', 'BusinessController@update')->name('businesses.update');
-    Route::delete('/{business}', 'BusinessController@destroy')->name('businesses.destroy');
+Route::prefix('/businesses')->namespace('Business')->name('businesses.')->group(function () {
+    Route::get('/', 'BusinessController@index')->name('index');
+    Route::get('/create', 'BusinessController@create')->name('create');
+    Route::post('/', 'BusinessController@store')->name('store');
+    Route::get('/{business}/show', 'BusinessController@show')->name('show');
+    Route::put('/{business}', 'BusinessController@update')->name('update');
+    Route::delete('/{business}', 'BusinessController@destroy')->name('destroy');
 });
 
 /**
  * Comment
  */
-Route::prefix('/comments')->namespace('Comment')->group(function () {
-    Route::post('/{business}', 'CommentController@store')->name('comments.store');
+Route::prefix('/comments')->namespace('Comment')->name('comments.')->group(function () {
+    Route::post('/{business}', 'CommentController@store')->name('store');
 });
 
 /**
  * Company
  */
-Route::prefix('/companies')->namespace('Company')->group(function () {
-    Route::get('/', 'CompanyController@index')->name('companies.index');
-    Route::post('/', 'CompanyController@store')->name('companies.store');
-    Route::get('/{company}', 'CompanyController@show')->name('companies.show');
-    Route::put('/{company}', 'CompanyController@update')->name('companies.update');
-    Route::delete('/{company}', 'CompanyController@destroy')->name('companies.destroy');
+Route::prefix('/companies')->namespace('Company')->name('companies.')->group(function () {
+    Route::get('/', 'CompanyController@index')->name('index');
+    Route::post('/', 'CompanyController@store')->name('store');
+    Route::get('/{company}', 'CompanyController@show')->name('show');
+    Route::put('/{company}', 'CompanyController@update')->name('update');
+    Route::delete('/{company}', 'CompanyController@destroy')->name('destroy');
 });
 
 /**
  * Contact
  */
-Route::prefix('/contacts')->namespace('Contact')->group(function () {
-    Route::get('/', 'ContactController@index')->name('contacts.index');
-    Route::post('/', 'ContactController@store')->name('contacts.store');
-    Route::put('/{contact}', 'ContactController@update')->name('contacts.update');
-    Route::delete('/{contact}', 'ContactController@destroy')->name('contacts.destroy');
+Route::prefix('/contacts')->namespace('Contact')->name('contacts.')->group(function () {
+    Route::get('/', 'ContactController@index')->name('index');
+    Route::post('/', 'ContactController@store')->name('store');
+    Route::put('/{contact}', 'ContactController@update')->name('update');
+    Route::delete('/{contact}', 'ContactController@destroy')->name('destroy');
 });
 
 /**
  * Deliveries
  */
-Route::prefix('/deliveries')->namespace('Delivery')->group(function () {
-    Route::get('/', 'DeliveryController@index')->name('deliveries.index');
-    Route::post('/', 'DeliveryController@store')->name('deliveries.store');
-    Route::put('/{delivery}', 'DeliveryController@update')->name('deliveries.update');
-    Route::delete('/{delivery}', 'DeliveryController@destroy')->name('deliveries.destroy');
+Route::prefix('/deliveries')->namespace('Delivery')->name('deliveries.')->group(function () {
+    Route::get('/', 'DeliveryController@index')->name('index');
+    Route::post('/', 'DeliveryController@store')->name('store');
+    Route::put('/{delivery}', 'DeliveryController@update')->name('update');
+    Route::delete('/{delivery}', 'DeliveryController@destroy')->name('destroy');
 
-    Route::get('/{delivery}/receipt/show', 'DeliveryReceiptController@show')->name('deliveries.receipts.show');
+    /**
+     * Receipt
+     */
+    Route::get('/{delivery}/receipt/show', 'DeliveryReceiptController@show')->name('receipts.show');
 
     /**
      * Note
      */
-    Route::put('/{delivery}/note', 'DeliveryNoteController@update')->name('deliveries.note.update');
-    Route::delete('/{delivery}/note', 'DeliveryNoteController@destroy')->name('deliveries.note.destroy');
-    Route::patch('/{delivery}/note/admin', 'DeliveryAdminNoteController@update')->name('deliveries.admin.note.update');
-});
-
-/**
- * Order validation
- */
-Route::prefix('/orders')->namespace('Order')->group(function () {
-    Route::post('/{order}/validation', 'OrderValidationController@validation')->name('orders.validation');
+    Route::put('/{delivery}/note', 'DeliveryNoteController@update')->name('note.update');
+    Route::delete('/{delivery}/note', 'DeliveryNoteController@destroy')->name('note.destroy');
+    Route::patch('/{delivery}/note/admin', 'DeliveryAdminNoteController@update')->name('admin.note.update');
 });
 
 /**
  * Documents
  */
-Route::prefix('/documents')->namespace('Document')->group(function () {
-    Route::get('/', 'DocumentController@index')->name('documents.index');
-});
+Route::prefix('/documents')->namespace('Document')->name('documents.')->group(function () {
+    Route::get('/', 'DocumentController@index')->name('index');
+    Route::post('/{order}/{delivery}', 'DocumentController@store')->name('store');
+    Route::patch('/{order}/{delivery}/{document}', 'DocumentController@update')->name('update');
+    Route::delete('/{order}/{delivery}/{document}', 'DocumentController@destroy')->name('destroy');
 
-Route::prefix('/orders')->namespace('Document')->group(function () {
-    Route::post('/{order}/{delivery}', 'DocumentController@store')->name('documents.store');
-    Route::patch('/{order}/{delivery}/{document}', 'DocumentController@update')->name('documents.update');
-    Route::delete('/{order}/{delivery}/{document}', 'DocumentController@destroy')->name('documents.destroy');
-    Route::post('/{order}/{delivery}/clone', 'DocumentOptionController@store')->name('documents.clone.options');
+    /**
+     * Clone
+     */
+    Route::post('/{order}/{delivery}/clone', 'DocumentOptionController@store')->name('clone.options');
 });
 
 /**
@@ -200,129 +262,135 @@ Route::prefix('/invitation')->namespace('Invitations')->group(function () {
 });
 
 /**
- * Logout
- */
-Route::get('/logout', 'Auth\LogoutController')->name('logout');
-
-/**
- * Mailables
- */
-Route::get('/mailable/registration', function () {
-    $user = factory('App\User')->states('mailable-tests-only')->make();
-    return new \App\Mail\RegistrationEmailConfirmation($user);
-});
-Route::get('/mailable/invitation', function () {
-    $user = factory('App\User')->states('mailable-tests-only')->make();
-    return new \App\Mail\InvitationEmail($user);
-});
-
-/**
  * Orders
  */
-Route::prefix('/orders')->namespace('Order')->group(function () {
-    Route::get('/', 'OrderController@index')->name('orders.index');
-    Route::get('/{order}/show', 'OrderController@show')->name('orders.show');
-    Route::get('/create', 'OrderController@create')->name('orders.create.start');
-    Route::get('/{order}/create', 'OrderController@create')->name('orders.create.end');
-    Route::put('/{order}', 'OrderController@update')->name('orders.update');
-    Route::delete('/{order}', 'OrderController@destroy')->name('orders.destroy');
-    Route::patch('/{order}/complete', 'CompleteOrderController@update')->name('orders.complete');
-    Route::get('/{order}/complete/show', 'CompleteOrderController@show')->name('orders.complete.show');
+Route::prefix('/orders')->namespace('Order')->name('orders.')->group(function () {
+    Route::get('/', 'OrderController@index')->name('index');
+    Route::get('/{order}/show', 'OrderController@show')->name('show');
+    Route::get('/create', 'OrderController@create')->name('create.start');
+    Route::get('/{order}/create', 'OrderController@create')->name('create.end');
+    Route::put('/{order}', 'OrderController@update')->name('update');
+    Route::delete('/{order}', 'OrderController@destroy')->name('destroy');
 
-    Route::get('/{order}/receipt/show', 'OrderReceiptController@show')->name('orders.receipts.show');
-    Route::put('/{order}/status', 'OrderStatusController@update')->name('orders.status.update');
+    /**
+     * Completion
+     */
+    Route::name('complete.')->group(function () {
+        Route::patch('/{order}/complete', 'CompleteOrderController@update')->name('update');
+        Route::get('/{order}/complete/show', 'CompleteOrderController@show')->name('show');
+    });
+
+    /**
+     * Validation
+     */
+    Route::post('/{order}/validation', 'OrderValidationController@validation')->name('validation');
+
+    /**
+     * Receipt
+     */
+    Route::get('/{order}/receipt/show', 'OrderReceiptController@show')->name('receipts.show');
+
+    /**
+     * Status
+     */
+    Route::put('/{order}/status', 'OrderStatusController@update')->name('status.update');
 });
 
 /**
  * Profiles
  */
-Route::prefix('/profile')->namespace('Profiles')->group(function () {
-    Route::get('/', 'ProfileController@index')->name('profile.index');
-    Route::patch('/{user}', 'ProfileController@update')->name('profile.update');
+Route::prefix('/profile')->namespace('Profiles')->name('profile.')->group(function () {
+    Route::get('/', 'ProfileController@index')->name('index');
+    Route::patch('/{user}', 'ProfileController@update')->name('update');
 
     /**
      * Avatar
      */
-    Route::post('/avatar', 'AvatarController@store')->name('profile.avatar.store');
+    Route::post('/avatar', 'AvatarController@store')->name('avatar.store');
 });
 
 /**
  * Register
  */
-Route::prefix('/register')->namespace('Auth')->group(function () {
-    Route::get('/', 'RegisterController@index')->name('register.index');
-    Route::post('/', 'RegisterController@store')->name('register.store');
+Route::prefix('/register')->namespace('Auth')->name('register.')->group(function () {
+    Route::get('/', 'RegisterController@index')->name('index');
+    Route::post('/', 'RegisterController@store')->name('store');
 
-    Route::post('/contact', 'RegisterContactController@store')->name('register.contact.store');
-    Route::post('/contact-only', 'RegisterContactOnlyController@store')->name('register.contact-only.store');
-    Route::post('/company', 'RegisterCompanyController@store')->name('register.company.store');
+    Route::post('/contact', 'RegisterContactController@store')->name('contact.store');
+    Route::post('/contact-only', 'RegisterContactOnlyController@store')->name('contact-only.store');
+    Route::post('/company', 'RegisterCompanyController@store')->name('company.store');
 
-    Route::get('/confirm', 'RegisterConfirmationController@index')->name('register.confirm');
-    Route::put('/send-again', 'RegisterConfirmationController@update')->name('register.confirm.update');
+    /**
+     * Confirmation
+     */
+    Route::name('confirm.')->group(function () {
+        Route::get('/confirm', 'RegisterConfirmationController@index')->name('index');
+        Route::put('/send-again', 'RegisterConfirmationController@update')->name('update');
+    });
 });
-
-/**
- * Root
- */
-Route::get('/', 'Order\OrderController@index')->name('index');
 
 /**
  * Search
  */
-Route::prefix('/search')->namespace('Search')->group(function () {
-    Route::post('/', 'SearchController@search')->name('search.query');
-    Route::get('/testing', 'SearchController@testing')->name('search.testing');
+Route::prefix('/search')->namespace('Search')->name('search.')->group(function () {
+    Route::post('/', 'SearchController@search')->name('query');
+    Route::get('/testing', 'SearchController@testing')->name('testing');
 });
 
 /**
  * Mailables
  */
-Route::middleware(['admin'])->group(function () {
+Route::middleware('admin')->group(function () {
+
     /**
-     * Customer confirmation email.
+     * User account registration
      */
-    Route::get('/mailables/order/confirmation', function () {
-        $order = factory(\Dipnet\Order::class)->create([
-            'status' => 'envoyée'
-        ]);
-
-        $deliveries = factory(\Dipnet\Delivery::class, 3)->create([
-            'order_id' => $order->id
-        ]);
-
-        foreach ($deliveries as $delivery) {
-            factory(\Dipnet\Document::class, 3)->create([
-                'delivery_id' => $delivery->id
-            ]);
-        }
-
-        return new \Dipnet\Mail\CustomerOrderCompleteConfirmation($order);
+    Route::get('/mailables/registration', function () {
+        $user = factory(User::class)->states('mailable-tests-only')->make();
+        return new RegistrationEmailConfirmation($user);
     });
 
     /**
-     * Admin order notification.
+     * User account invitation
      */
-    Route::get('/mailables/order/notification', function () {
-        $order = factory(\Dipnet\Order::class)->create([
-            'status' => 'envoyée'
-        ]);
-
-        $deliveries = factory(\Dipnet\Delivery::class, 3)->create([
-            'order_id' => $order->id
-        ]);
+    Route::get('/mailable/invitation', function () {
+        $user = factory(User::class)->states('mailable-tests-only')->make();
+        return new InvitationEmail($user);
+    });
+    
+    /**
+     * User order confirmation
+     */
+    Route::get('/mailables/order/confirmation', function () {
+        $order = factory(Order::class)->create(['status' => 'envoyée']);
+        $deliveries = factory(Delivery::class, 3)->create(['order_id' => $order->id]);
 
         foreach ($deliveries as $delivery) {
-            factory(\Dipnet\Document::class, 3)->create([
+            factory(Document::class, 3)->create(['delivery_id' => $delivery->id]);
+        }
+
+        return new CustomerOrderCompleteConfirmation($order);
+    });
+
+    /**
+     * Admin order notification
+     */
+    Route::get('/mailables/order/notification', function () {
+        $order = factory(Order::class)->create(['status' => 'envoyée']);
+        $deliveries = factory(Delivery::class, 3)->create(['order_id' => $order->id]);
+        
+        foreach ($deliveries as $delivery) {
+            factory(Document::class, 3)->create([
                 'delivery_id' => $delivery->id
             ]);
         }
 
-        return new \Dipnet\Mail\AdminOrderCompleteNotification($order);
+        return new AdminOrderCompleteNotification($order);
     });
 });
 
 /**
- * Errors
+ * 404
  */
 Route::fallback(function () {
     return response()->view('errors.notfound', [], 404);
