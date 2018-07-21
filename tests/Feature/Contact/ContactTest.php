@@ -11,49 +11,9 @@ class ContactTest extends TestCase
 {
     use RefreshDatabase;
 
-    /** @test */
-    public function contact_index_view_is_available()
-    {
-        $this->signIn();
-
-        $response = $this->get(route('contacts.index'));
-
-        $response->assertViewIs('contacts.index');
-    }
-
-    /** @test */
-    public function authorized_users_can_create_contacts()
-    {
-        $user = factory(User::class)->create([
-            'username' => 'John Doe',
-            'email' => 'johndoe@example.com'
-        ]);
-        $this->signIn($user);
-
-        $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
-            'address_line1' => 'Neibolt St',
-            'address_line2' => 'Old House',
-            'zip' => '43210',
-            'city' => 'Derry',
-            'phone_number' => '0123456789',
-            'fax' => '0123456789',
-            'email' => 'derry@example.com'
-        ])->assertStatus(200);
-
-        $this->assertDatabaseHas('contacts', [
-            'name' => 'Derry',
-            'address_line1' => 'Neibolt St',
-            'address_line2' => 'Old House',
-            'zip' => '43210',
-            'city' => 'Derry',
-            'phone_number' => '0123456789',
-            'fax' => '0123456789',
-            'email' => 'derry@example.com',
-            'user_id' => $user->id,
-            'company_id' => $user->company_id
-        ]);
-    }
+    /**
+     * THIS IS THE OLD CONTACT TEST FILE
+     */
 
     /** @test */
     public function user_contact_validation_fails_if_name_is_missing()

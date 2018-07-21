@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Contact;
+namespace App\Http\Controllers\Admin\Contact;
 
 use App\Company;
 use App\Contact;
@@ -12,20 +12,14 @@ class ContactController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware([
-        //     'auth',
-        //     'user.account.contact',
-        //     'user.account.company'
-        // ]);
-        // $this->middleware('user.email.confirmed')->except('index');
-
-        $this->middleware('auth');
-        $this->middleware('user.email.confirmed');
+        $this->middleware('admin');
     }
 
     public function index()
     {
-        return view('contacts.index');
+        $companies = Company::all();
+
+        return view('admin.contacts.index', compact('companies'));
     }
 
     public function store(StoreContactRequest $request)
@@ -39,24 +33,13 @@ class ContactController extends Controller
         $contact->phone_number = $request->phone_number;
         $contact->fax = $request->fax;
         $contact->email = $request->email;
-        $contact->user_id = auth()->id();
-
-        if ($request->user()->isPartOfACompany()) {
-            $contact->company_id = auth()->user()->company->id;
-        } elseif ($request->user()->isSolo()) {
-            $contact->company_id = null;
-        }
+        $contact->company_id = $request->company_id;
 
         $contact->save();
 
         $contact->load('company');
 
         return response($contact, 200);
-    }
-
-    public function show(Contact $contact)
-    {
-        return view('contacts.show', compact('contact'));
     }
 
     public function update(UpdateContactRequest $request, Contact $contact)
@@ -69,10 +52,7 @@ class ContactController extends Controller
         $contact->phone_number = $request->phone_number;
         $contact->fax = $request->fax;
         $contact->email = $request->email;
-
-        // if ($request->user()->isAdmin()) {
-        //     $contact->company_id = $request->company_id;
-        // }
+        $contact->company_id = $request->company_id;
 
         $contact->save();
 
