@@ -10,19 +10,11 @@ use App\Mail\AdminOrderCompleteNotification;
 use App\Mail\CustomerOrderCompleteConfirmation;
 
 /**
- * Homepage
+ * --------------------------------------------------------------------------------------
+ * API ROUTES
+ * --------------------------------------------------------------------------------------
  */
-Route::get('/', 'Order\OrderController@index')->name('index');
 
-/**
- * Auth
- */
-Auth::routes();
-Route::get('/logout', 'Auth\LogoutController')->name('logout');
-
-/**
- * API
- */
 Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
 
     /**
@@ -102,8 +94,11 @@ Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
 });
 
 /**
- * ADMIN
+ * --------------------------------------------------------------------------------------
+ * ADMIN ROUTES
+ * --------------------------------------------------------------------------------------
  */
+
 Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
     
     /**
@@ -163,6 +158,17 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
         Route::delete('/{user}', 'UserController@destroy')->name('destroy');
     });
 });
+
+/**
+ * Homepage
+ */
+Route::get('/', 'Order\OrderController@index')->name('index');
+
+/**
+ * Auth
+ */
+Auth::routes();
+Route::get('/logout', 'Auth\LogoutController')->name('logout');
 
 /**
  * Account
