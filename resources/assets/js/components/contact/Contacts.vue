@@ -7,6 +7,16 @@
         <span v-text="modelCount"/>
       </div>
 
+      <div>
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
+      </div>
+
       <add-contact
         :companies="companies"
         :user="user"
@@ -56,6 +66,7 @@
 
 <script>
 import Pagination from "../pagination/Pagination";
+import AppSelect from "../select/AppSelect";
 import Contact from "./Contact.vue";
 import AddContact from "./AddContact.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
@@ -68,6 +79,7 @@ export default {
     Contact,
     AddContact,
     Pagination,
+    AppSelect,
     MoonLoader
   },
   mixins: [mixins],
@@ -85,6 +97,12 @@ export default {
     return {
       contacts: [],
       meta: {},
+      sort: "",
+      sortOptions: [
+        { label: "Aucun", value: "" },
+        { label: "Nom", value: "name" },
+        { label: "Date de création", value: "created_at" }
+      ],
       errors: {},
       fetching: false,
       modelNameSingular: "contact",
@@ -109,7 +127,7 @@ export default {
       this.fetching = true;
 
       window.axios
-        .get(window.route("api.contacts.index"), {
+        .get(window.route("api.contacts.index", this.sort.value), {
           params: {
             page
           }
@@ -125,6 +143,10 @@ export default {
           this.$store.dispatch("toggleLoader");
           this.fetching = false;
         });
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getContacts();
     },
     addContact(contact) {
       this.contacts.unshift(contact);

@@ -57,6 +57,7 @@ $factory->state(User::class, 'no-company', [
 
 $factory->state(User::class, 'admin', [
     'role' => 'administrateur',
+    'company_id' => null,
 ]);
 
 $factory->state(User::class, 'user', [

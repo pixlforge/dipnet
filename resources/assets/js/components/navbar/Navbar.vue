@@ -123,7 +123,11 @@ export default {
       return window.route("businesses.index");
     },
     routeContacts() {
-      return window.route("contacts.index");
+      if (this.userRole === "administrateur") {
+        return window.route("admin.contacts.index");
+      } else {
+        return window.route("contacts.index");
+      }
     },
     routeCompany() {
       return window.route("companies.show", [this.userCompanyId]);

@@ -1,9 +1,9 @@
-@extends ('layouts.app')
+@extends('layouts.app')
 
-@section ('title', 'Bulletin de livraison référence ' . $delivery->reference)
+@section('title', 'Bulletin de livraison référence ' . $delivery->reference)
 
-@section ('content')
-  @include ('layouts.partials._nav')
+@section('content')
+  @include('layouts.partials._nav')
   <div class="receipt__header">
     @if (config('app.name') === 'Dipnet')
       <img class="receipt__logo"
@@ -22,7 +22,7 @@
   <div class="receipt__content">
     <div class="receipt__container">
 
-      {{--First row--}}
+      {{-- First row --}}
       <div class="receipt__row">
         <div class="receipt__item">
           <h2 class="receipt__item-title">Date de la commande</h2>
@@ -38,14 +38,14 @@
         </div>
       </div>
 
-      {{--Second row--}}
+      {{-- Second row --}}
       <div class="receipt__row">
         <div class="receipt__item">
           <h2 class="receipt__item-title">Commandé par</h2>
           <ul class="receipt__item-list">
-            <li>{{ $company->name }}</li>
-            <li>{{ $company->description }}</li>
-            <li>{{ $company->status }}</li>
+            <li>{{ optional($company)->name }}</li>
+            <li>{{ optional($company)->description }}</li>
+            <li>{{ optional($company)->status }}</li>
             <br>
             <li>{{ $user->username }}</li>
             <li>{{ $user->email }}</li>
@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      {{--Third row--}}
+      {{-- Third row --}}
       <div class="receipt__row">
         <div class="receipt__item">
           <h2 class="receipt__item-title">Affaire</h2>
@@ -93,7 +93,7 @@
         </div>
       </div>
 
-      {{--Fourth row--}}
+      {{-- Fourth row --}}
       <div class="receipt__row">
         <div class="receipt__item">
           <h2 class="receipt__item-title">Commentaire</h2>
@@ -122,14 +122,14 @@
           <th>Hauteur</th>
           <th>Nb. Orig.</th>
         </tr>
-        @foreach ($documents as $document)
+        @foreach($documents as $document)
           <tr>
             <td>{{ $document->filename }}</td>
             <td>{{ $document->article->description }}</td>
             <td>{{ ucfirst($document->finish) }}</td>
             <td>
               <ol>
-                @foreach ($document->articles as $option)
+                @foreach($document->articles as $option)
                   <li>{{ $option->description }}</li>
                 @endforeach
               </ol>
@@ -143,5 +143,4 @@
       </table>
     </div>
   </div>
-
 @endsection

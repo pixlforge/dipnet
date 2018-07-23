@@ -8,22 +8,21 @@ use App\Http\Resources\FormatsCollection;
 
 class FormatController extends Controller
 {
-    /**
-     * FormatController constructor.
-     */
     public function __construct()
     {
-        $this->middleware(['admin']);
+        $this->middleware('admin');
     }
 
-    /**
-     * @return FormatsCollection
-     */
-    public function index()
+    public function index($sort = 'name')
     {
-        return new FormatsCollection(
-            Format::orderBy('name')
-                ->paginate(25)
-        );
+        if ($sort === 'height' || $sort === 'width' || $sort === 'created_at') {
+            return new FormatsCollection(
+                Format::orderBy($sort, 'desc')->paginate(25)
+            );
+        } else {
+            return new FormatsCollection(
+                Format::orderBy($sort)->paginate(25)
+            );
+        }
     }
 }

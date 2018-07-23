@@ -35,7 +35,7 @@ Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
      * Contacts
      */
     Route::prefix('/contacts')->namespace('Contact')->name('contacts.')->group(function () {
-        Route::get('/', 'ContactController@index')->name('index');
+        Route::get('/{sort?}', 'ContactController@index')->name('index');
     });
 
     /**
@@ -112,6 +112,16 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
     });
 
     /**
+     * Businesses
+     */
+    Route::prefix('/affaires')->namespace('Business')->name('businesses.')->group(function () {
+        Route::get('/', 'BusinessController@index')->name('index');
+        Route::post('/', 'BusinessController@store')->name('store');
+        Route::patch('/{business}', 'BusinessController@update')->name('update');
+        Route::delete('/{business}', 'BusinessController@destroy')->name('destroy');
+    });
+
+    /**
      * Companies
      */
     Route::prefix('/societes')->namespace('Company')->name('companies.')->group(function () {
@@ -126,6 +136,9 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
      */
     Route::prefix('/contacts')->namespace('Contact')->name('contacts.')->group(function () {
         Route::get('/', 'ContactController@index')->name('index');
+        Route::post('/', 'ContactController@store')->name('store');
+        Route::patch('/{contact}', 'ContactController@update')->name('update');
+        Route::delete('/{contact}', 'ContactController@destroy')->name('destroy');
     });
 
     /**

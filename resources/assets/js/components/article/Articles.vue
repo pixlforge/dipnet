@@ -7,6 +7,16 @@
         <span v-text="modelCount"/>
       </div>
 
+      <div>
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
+      </div>
+
       <add-article @articleWasCreated="addArticle"/>
     </div>
 
@@ -51,6 +61,7 @@
 
 <script>
 import Pagination from "../pagination/Pagination";
+import AppSelect from "../select/AppSelect";
 import Article from "./Article.vue";
 import AddArticle from "./AddArticle.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
@@ -63,6 +74,7 @@ export default {
     "app-article": Article,
     AddArticle,
     Pagination,
+    AppSelect,
     MoonLoader
   },
   mixins: [mixins],
@@ -70,6 +82,15 @@ export default {
     return {
       articles: [],
       meta: {},
+      sort: "",
+      sortOptions: [
+        { label: "Aucun", value: "" },
+        { label: "Référence", value: "reference" },
+        { label: "Description", value: "description" },
+        { label: "Type", value: "type" },
+        { label: "Niveaux de gris", value: "greyscale" },
+        { label: "Date de création", value: "created_at" }
+      ],
       errors: {},
       fetching: false,
       modelNameSingular: "article",
@@ -89,14 +110,11 @@ export default {
     this.getArticles();
   },
   methods: {
-    /**
-     * Fetch the articles paginated data.
-     */
     getArticles(page = 1) {
       this.$store.dispatch("toggleLoader");
       this.fetching = true;
       window.axios
-        .get(window.route("api.articles.index"), {
+        .get(window.route("api.articles.index", this.sort.value), {
           params: {
             page
           }
@@ -113,9 +131,10 @@ export default {
           this.fetching = false;
         });
     },
-    /**
-     * Add a new article to the list.
-     */
+    selectSort(sort) {
+      this.sort = sort;
+      this.getArticles();
+    },
     addArticle(article) {
       this.articles.unshift(article);
       window.flash({
@@ -123,9 +142,6 @@ export default {
         level: "success"
       });
     },
-    /**
-     * Update the article details.
-     */
     updateArticle(data) {
       for (let article of this.articles) {
         if (data.id === article.id) {
@@ -141,9 +157,6 @@ export default {
         level: "success"
       });
     },
-    /**
-     * Remove an article from the list.
-     */
     removeArticle(index) {
       this.articles.splice(index, 1);
       window.flash({

@@ -7,6 +7,16 @@
         <span v-text="modelCount"/>
       </div>
 
+      <div>
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
+      </div>
+
       <add-company @companyWasCreated="addCompany"/>
     </div>
 
@@ -51,6 +61,7 @@
 
 <script>
 import Pagination from "../pagination/Pagination";
+import AppSelect from "../select/AppSelect";
 import Company from "./Company.vue";
 import AddCompany from "./AddCompany.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
@@ -63,6 +74,7 @@ export default {
     Company,
     AddCompany,
     Pagination,
+    AppSelect,
     MoonLoader
   },
   mixins: [mixins],
@@ -70,6 +82,13 @@ export default {
     return {
       companies: [],
       meta: {},
+      sort: "",
+      sortOptions: [
+        { label: "Aucun", value: "" },
+        { label: "Nom", value: "name" },
+        { label: "Status", value: "status" },
+        { label: "Date de création", value: "created_at" }
+      ],
       errors: {},
       fetching: false,
       modelNameSingular: "société",
@@ -94,7 +113,7 @@ export default {
       this.fetching = true;
 
       window.axios
-        .get(window.route("api.companies.index"), {
+        .get(window.route("api.companies.index", this.sort.value), {
           params: {
             page
           }
@@ -110,6 +129,10 @@ export default {
           this.$store.dispatch("toggleLoader");
           this.fetching = false;
         });
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getCompanies();
     },
     addCompany(company) {
       this.companies.unshift(company);

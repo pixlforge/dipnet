@@ -7,6 +7,16 @@
         <span v-text="modelCount"/>
       </div>
 
+      <div>
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
+      </div>
+
       <add-ticker
         :tickers="tickers"
         @tickerWasCreated="addTicker"/>
@@ -53,6 +63,7 @@
 
 <script>
 import Pagination from "../pagination/Pagination";
+import AppSelect from "../select/AppSelect";
 import AddTicker from "./AddTicker";
 import Ticker from "./Ticker";
 import MoonLoader from "vue-spinner/src/MoonLoader";
@@ -63,6 +74,7 @@ import { mapGetters } from "vuex";
 export default {
   components: {
     Pagination,
+    AppSelect,
     AddTicker,
     Ticker,
     MoonLoader
@@ -73,6 +85,12 @@ export default {
       tickers: [],
       meta: {},
       errors: {},
+      sort: "",
+      sortOptions: [
+        { label: "Aucun", value: "" },
+        { label: "Actif", value: "active" },
+        { label: "Date de création", value: "created_at" }
+      ],
       fetching: false,
       modelNameSingular: "ticker",
       modelNamePlural: "tickers",
@@ -102,7 +120,7 @@ export default {
       this.fetching = true;
 
       window.axios
-        .get(window.route("api.tickers.index"), {
+        .get(window.route("api.tickers.index", this.sort.value), {
           params: {
             page
           }
@@ -118,6 +136,10 @@ export default {
           this.$store.dispatch("toggleLoader");
           this.fetching = false;
         });
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getTickers();
     },
     addTicker(ticker) {
       if (ticker.active) {

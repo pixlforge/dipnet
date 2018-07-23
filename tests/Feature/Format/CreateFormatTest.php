@@ -2,10 +2,10 @@
 
 namespace Tests\Feature\Format;
 
-use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\User;
 use App\Format;
+use Tests\TestCase;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateFormatTest extends TestCase
 {

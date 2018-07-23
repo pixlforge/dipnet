@@ -70,10 +70,6 @@ class ContactController extends Controller
         $contact->fax = $request->fax;
         $contact->email = $request->email;
 
-        // if ($request->user()->isAdmin()) {
-        //     $contact->company_id = $request->company_id;
-        // }
-
         $contact->save();
 
         return response($contact, 200);

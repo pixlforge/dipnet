@@ -7,6 +7,16 @@
         <span v-text="modelCount"/>
       </div>
 
+      <div>
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
+      </div>
+
       <add-format @formatWasCreated="addFormat"/>
     </div>
 
@@ -51,6 +61,7 @@
 
 <script>
 import Pagination from "../pagination/Pagination";
+import AppSelect from "../select/AppSelect";
 import Format from "./Format.vue";
 import AddFormat from "./AddFormat.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
@@ -63,6 +74,7 @@ export default {
     Format,
     AddFormat,
     Pagination,
+    AppSelect,
     MoonLoader
   },
   mixins: [mixins],
@@ -70,6 +82,14 @@ export default {
     return {
       formats: [],
       meta: {},
+      sort: "",
+      sortOptions: [
+        { label: "Aucun", value: "" },
+        { label: "Nom", value: "name" },
+        { label: "Hauteur", value: "height" },
+        { label: "Largeur", value: "width" },
+        { label: "Date de création", value: "created_at" }
+      ],
       errors: {},
       fetching: false,
       modelNameSingular: "format",
@@ -94,7 +114,7 @@ export default {
       this.fetching = true;
 
       window.axios
-        .get(window.route("api.formats.index"), {
+        .get(window.route("api.formats.index", this.sort.value), {
           params: {
             page
           }
@@ -110,6 +130,10 @@ export default {
           this.$store.dispatch("toggleLoader");
           this.fetching = false;
         });
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getFormats();
     },
     addFormat(format) {
       this.formats.unshift(format);

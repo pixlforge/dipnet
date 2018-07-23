@@ -8,19 +8,27 @@ use App\Http\Resources\CompaniesCollection;
 
 class CompanyController extends Controller
 {
-    /**
-     * CompanyController constructor.
-     */
     public function __construct()
     {
-        $this->middleware(['admin']);
+        $this->middleware('admin');
     }
 
-    /**
-     * @return CompaniesCollection
-     */
-    public function index()
+    public function index($sort = null)
     {
-        return new CompaniesCollection(Company::orderBy('name')->paginate(25));
+        if ($sort) {
+            if ($sort === 'created_at') {
+                return new CompaniesCollection(
+                    Company::orderBy($sort, 'desc')->orderBy('name')->paginate(25)
+                );
+            } else {
+                return new CompaniesCollection(
+                    Company::orderBy($sort)->orderBy('name')->paginate(25)
+                );
+            }
+        } else {
+            return new CompaniesCollection(
+                Company::orderBy('name')->paginate(25)
+            );
+        }
     }
 }

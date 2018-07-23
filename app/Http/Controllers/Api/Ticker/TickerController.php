@@ -8,10 +8,10 @@ use App\Ticker;
 
 class TickerController extends Controller
 {
-    public function index()
+    public function index($sort = 'active')
     {
         return new TickersCollection(
-            Ticker::orderBy('active', 'desc')->latest()->paginate(25)
+            Ticker::orderBy($sort, 'desc')->latest()->paginate(25)
         );
     }
 }

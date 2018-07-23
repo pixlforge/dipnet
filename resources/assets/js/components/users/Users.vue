@@ -7,6 +7,16 @@
         <span v-text="modelCount"/>
       </div>
 
+      <div>
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
+      </div>
+
       <add-user
         :companies="companies"
         @userWasCreated="addUser"/>
@@ -48,6 +58,7 @@
 
 <script>
 import Pagination from "../pagination/Pagination";
+import AppSelect from "../select/AppSelect";
 import AddUser from "./AddUser";
 import User from "./User.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
@@ -60,6 +71,7 @@ export default {
     User,
     AddUser,
     Pagination,
+    AppSelect,
     MoonLoader
   },
   mixins: [mixins],
@@ -73,6 +85,14 @@ export default {
     return {
       users: [],
       meta: {},
+      sort: "",
+      sortOptions: [
+        { label: "Aucun", value: "" },
+        { label: "Nom d'utilisateur", value: "username" },
+        { label: "Email", value: "email" },
+        { label: "Rôle", value: "role" },
+        { label: "Date de création", value: "created_at" }
+      ],
       modelNameSingular: "utilisateur",
       modelNamePlural: "utilisateurs",
       modelGender: "M"
@@ -93,7 +113,7 @@ export default {
     getUsers(page = 1) {
       this.$store.dispatch("toggleLoader");
       window.axios
-        .get(window.route("api.users.index"), {
+        .get(window.route("api.users.index", this.sort.value), {
           params: {
             page
           }
@@ -103,6 +123,10 @@ export default {
           this.meta = response.data.meta;
           this.$store.dispatch("toggleLoader");
         });
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getUsers();
     },
     addUser(user) {
       this.users.unshift(user);

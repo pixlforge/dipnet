@@ -223,7 +223,7 @@ class CreateOrderTest extends TestCase
 
         $order = factory(Order::class)->create();
 
-        $this->patchJson(route('orders.complete', $order), $order->toArray())
+        $this->patchJson(route('orders.complete.update', $order), $order->toArray())
             ->assertStatus(200);
 
         $this->assertEquals('envoyée', $order->fresh()->status);

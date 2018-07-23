@@ -88,7 +88,7 @@ export default {
       return window.route("logout");
     },
     routeCompanies() {
-      return window.route("companies.index");
+      return window.route("admin.companies.index");
     },
     routeDeliveries() {
       return window.route("deliveries.index");
