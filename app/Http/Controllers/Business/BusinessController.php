@@ -13,19 +13,11 @@ use App\Http\Requests\Business\UpdateBusinessRequest;
 
 class BusinessController extends Controller
 {
-    /**
-     * BusinessController constructor.
-     */
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware('auth');
     }
 
-    /**
-     * Display a listing of all Businesses.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
     public function index()
     {
         $companies = collect();
@@ -35,7 +27,7 @@ class BusinessController extends Controller
         if (auth()->user()->isAdmin()) {
             $companies = Company::orderBy('name')->get();
             $contacts = Contact::orderBy('name')->get();
-        } else if (auth()->user()->isNotSolo()) {
+        } elseif (auth()->user()->isNotSolo()) {
             $businessIds = [];
             foreach (auth()->user()->company->business as $business) {
                 array_push($businessIds, $business->id);
@@ -45,7 +37,7 @@ class BusinessController extends Controller
             $contacts = Contact::where('company_id', auth()->user()->company->id)
                 ->orderBy('name')
                 ->get();
-        } else if (auth()->user()->isSolo()) {
+        } elseif (auth()->user()->isSolo()) {
             $contacts = Contact::where('user_id', auth()->id())
                 ->orderBy('name')
                 ->get();
@@ -58,28 +50,6 @@ class BusinessController extends Controller
         ]);
     }
 
-    /**
-     * Create business page.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function create()
-    {
-        $company = auth()->user()->company;
-        $contacts = Contact::where('company_id', auth()->user()->company_id)->get();
-
-        return view('businesses.create', [
-            'company' => $company,
-            'contacts' => $contacts
-        ]);
-    }
-
-    /**
-     * Store a Business.
-     *
-     * @param StoreBusinessRequest $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
     public function store(StoreBusinessRequest $request)
     {
         $business = new Business;
@@ -103,26 +73,19 @@ class BusinessController extends Controller
 
         $business->save();
 
-        if ($request->has('setDefault') && auth()->user()->isNotSolo()) {
-            $company = Company::find($request->company_id);
-            $company->business_id = $business->id;
-            $company->save();
-        }
+        // if ($request->has('setDefault') && auth()->user()->isNotSolo()) {
+        //     $company = Company::find($request->company_id);
+        //     $company->business_id = $business->id;
+        //     $company->save();
+        // }
 
-        $this->setCompanyDefaultBusiness($business);
+        // $this->setCompanyDefaultBusiness($business);
 
         $business = $business->with('company', 'contact')->find($business->id);
 
         return response($business, 200);
     }
 
-    /**
-     * Display the specified Business.
-     *
-     * @param Business $business
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
     public function show(Business $business)
     {
         $this->authorize('view', $business);
@@ -161,13 +124,6 @@ class BusinessController extends Controller
         ]);
     }
 
-    /**
-     * Update the Business.
-     *
-     * @param UpdateBusinessRequest $request
-     * @param Business $business
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
     public function update(UpdateBusinessRequest $request, Business $business)
     {
         $business->name = $request->name;
@@ -181,14 +137,6 @@ class BusinessController extends Controller
         return response($business, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param Business $business
-     * @return \Illuminate\Http\Response
-     * @throws \Exception
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
     public function destroy(Business $business)
     {
         $this->authorize('delete', $business);
@@ -198,9 +146,6 @@ class BusinessController extends Controller
         return response(null, 204);
     }
 
-    /**
-     * @param $business
-     */
     protected function setCompanyDefaultBusiness($business)
     {
         if (auth()->user()->isNotAdmin() && auth()->user()->isPartOfACompany()) {

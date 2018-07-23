@@ -8,17 +8,11 @@ use App\Http\Resources\BusinessesCollection;
 
 class BusinessController extends Controller
 {
-    /**
-     * BusinessController constructor.
-     */
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware('auth');
     }
 
-    /**
-     * @return BusinessesCollection
-     */
     public function index()
     {
         if (auth()->user()->isAdmin()) {
@@ -27,14 +21,14 @@ class BusinessController extends Controller
                     ->orderBy('name')
                     ->paginate(25)
             );
-        } else if (auth()->user()->isNotSolo()) {
+        } elseif (auth()->user()->isNotSolo()) {
             return new BusinessesCollection(
                 Business::where('company_id', auth()->user()->company->id)
                     ->with('company', 'contact')
                     ->orderBy('name')
                     ->paginate(25)
             );
-        } else {
+        } elseif (auth()->user()->isSolo()) {
             return new BusinessesCollection(
                 Business::where('user_id', auth()->id())
                     ->with('contact')
