@@ -28,7 +28,7 @@ Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
      * Businesses
      */
     Route::prefix('/businesses')->namespace('Business')->name('businesses.')->group(function () {
-        Route::get('/', 'BusinessController@index')->name('index');
+        Route::get('/{sort?}', 'BusinessController@index')->name('index');
     });
 
     /**

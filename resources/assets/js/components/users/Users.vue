@@ -62,16 +62,17 @@ import AppSelect from "../select/AppSelect";
 import AddUser from "./AddUser";
 import User from "./User.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+
 import mixins from "../../mixins";
 import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    User,
-    AddUser,
     Pagination,
     AppSelect,
+    AddUser,
+    User,
     MoonLoader
   },
   mixins: [mixins],

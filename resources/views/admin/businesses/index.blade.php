@@ -8,6 +8,7 @@
     :companies="{{ $companies }}"
     :contacts="{{ $contacts }}"
     :user="{{ auth()->user() }}"
+    :users="{{ $users }}"
     :orders="{{ $orders }}">
   </businesses>
 @endsection

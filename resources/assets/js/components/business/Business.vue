@@ -22,11 +22,11 @@
     </div>
 
     <div class="card__meta">
-      <div>
+      <div v-if="business.company">
         <span class="card__label">Société</span>
         {{ business.company.name | capitalize }}
       </div>
-      <div>
+      <div v-if="business.contact">
         <span class="card__label">Contact</span>
         {{ business.contact.name | capitalize }}
       </div>
@@ -55,7 +55,8 @@
           :business="business"
           :companies="companies"
           :contacts="contacts"
-          :user="user"/>
+          :user="user"
+          :users="users"/>
       </div>
     </div>
   </div>
@@ -85,6 +86,10 @@ export default {
     },
     user: {
       type: Object,
+      required: true
+    },
+    users: {
+      type: Array,
       required: true
     }
   },

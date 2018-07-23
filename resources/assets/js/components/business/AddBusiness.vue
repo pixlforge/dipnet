@@ -26,6 +26,7 @@
         <div class="modal__container">
           <h2 class="modal__title">Nouvelle affaire</h2>
 
+          <!-- Name -->
           <div class="modal__group">
             <label
               for="name"
@@ -48,28 +49,7 @@
             </div>
           </div>
 
-          <div
-            v-if="user.role === 'administrateur'"
-            class="modal__group">
-            <label
-              for="reference"
-              class="modal__label">
-              Référence
-            </label>
-            <input
-              id="reference"
-              v-model.trim="business.reference"
-              type="text"
-              name="reference"
-              class="modal__input"
-              required>
-            <div
-              v-if="errors.reference"
-              class="modal__alert">
-              {{ errors.reference[0] }}
-            </div>
-          </div>
-
+          <!-- Description -->
           <div class="modal__group">
             <label
               for="description"
@@ -90,6 +70,37 @@
             </div>
           </div>
 
+          <!-- User -->
+          <template v-if="userIsAdmin">
+            <div class="modal__group">
+              <label
+                for="user_id"
+                class="modal__label">
+                Utilisateur
+              </label>
+              <span class="modal__required">*</span>
+              <select
+                id="user_id"
+                v-model.number.trim="business.user_id"
+                name="user_id"
+                class="modal__select"
+                @input="business.company_id = ''">
+                <option
+                  v-for="user in users"
+                  :key="user.id"
+                  :value="user.id">
+                  {{ user.username }}
+                </option>
+              </select>
+              <div
+                v-if="errors.user_id"
+                class="modal__alert">
+                {{ errors.user_id[0] }}
+              </div>
+            </div>
+          </template>
+
+          <!-- Company -->
           <template v-if="userIsAdmin">
             <div class="modal__group">
               <label
@@ -102,7 +113,8 @@
                 id="company_id"
                 v-model.number.trim="business.company_id"
                 name="company_id"
-                class="modal__select">
+                class="modal__select"
+                @input="business.user_id = ''">
                 <option disabled>Sélectionnez une société</option>
                 <option
                   v-for="company in companies"
@@ -119,6 +131,7 @@
             </div>
           </template>
 
+          <!-- Contact -->
           <div class="modal__group">
             <label
               for="contact_id"
@@ -131,7 +144,6 @@
               v-model.number="business.contact_id"
               name="contact_id"
               class="modal__select">
-              <option disabled>Sélectionnez un contact</option>
               <option
                 v-for="contact in filteredContacts"
                 :key="contact.id"
@@ -146,6 +158,7 @@
             </div>
           </div>
 
+          <!-- Folder Color -->
           <div class="modal__group">
             <label
               for="folder_color"
@@ -210,14 +223,18 @@ export default {
     user: {
       type: Object,
       required: true
+    },
+    users: {
+      type: Array,
+      required: true
     }
   },
   data() {
     return {
       business: {
         name: "",
-        reference: "",
         description: "",
+        user_id: "",
         company_id: "",
         contact_id: "",
         folder_color: ""
@@ -249,7 +266,7 @@ export default {
         this.business.company_id = this.user.company.id;
       }
       window.axios
-        .post(window.route("businesses.store"), this.business)
+        .post(window.route("admin.businesses.store"), this.business)
         .then(response => {
           this.business = response.data;
           this.$emit("businessWasCreated", this.business);

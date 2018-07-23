@@ -16,8 +16,8 @@ class StoreBusinessRequest extends FormRequest
         return [
             'name' => 'required|string|min:3|max:45',
             'description' => 'nullable|string|max:45',
-            'user_id' => 'required_without:company_id|exists:users,id',
-            'company_id' => 'required_without:user_id|exists:companies,id',
+            'user_id' => 'required_without:company_id|nullable|exists:users,id',
+            'company_id' => 'required_without:user_id|nullable|exists:companies,id',
             'contact_id' => 'nullable|exists:contacts,id',
             'folder_color' => 'nullable|in:red,orange,purple,blue'
         ];
@@ -34,7 +34,10 @@ class StoreBusinessRequest extends FormRequest
             'description.string' => 'La description doit être une chaîne de caractères.',
             'description.max' => 'Maximum 45 caractères.',
 
-            'company_id.required' => 'Veuillez sélectionner une société.',
+            'user_id.required_without' => 'Veuillez sélectionner un utilisateur ou une société.',
+            'user_id.exists' => 'Veuillez sélectionner un utilisateur parmi ceux proposés.',
+
+            'company_id.required_without' => 'Veuillez sélectionner une société ou un utilisateur.',
             'company_id.exists' => 'Veuillez sélectionner une société parmi celles proposées.',
 
             'contact_id.required' => 'Veuillez sélectionner un contact.',

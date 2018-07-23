@@ -120,7 +120,11 @@ export default {
       return window.route("orders.index");
     },
     routeBusinesses() {
-      return window.route("businesses.index");
+      if (this.userRole === "administrateur") {
+        return window.route("admin.businesses.index");
+      } else {
+        return window.route("businesses.index");
+      }
     },
     routeContacts() {
       if (this.userRole === "administrateur") {

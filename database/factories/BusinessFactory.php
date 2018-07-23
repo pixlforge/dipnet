@@ -10,7 +10,7 @@ use App\Http\Hashids\HashidsGenerator;
 $factory->define(Business::class, function (Faker $faker) {
     return [
         'name' => $faker->unique()->company,
-        'reference' => HashidsGenerator::generateFor($faker->numberBetween(1, 999), 'businesses'),
+        'reference' => HashidsGenerator::generateFor($faker->numberBetween(1, 999999999), 'businesses'),
         'description' => $faker->catchPhrase,
         'user_id' => null,
         'company_id' => null,

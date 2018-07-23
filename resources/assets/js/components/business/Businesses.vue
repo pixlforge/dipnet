@@ -9,10 +9,21 @@
         <span v-else>Aucune affaire</span>
       </div>
 
+      <div>
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
+      </div>
+
       <add-business
         :companies="companies"
         :contacts="contacts"
         :user="user"
+        :users="users"
         @businessWasCreated="addBusiness"/>
     </div>
 
@@ -56,6 +67,7 @@
             :companies="companies"
             :contacts="contacts"
             :user="user"
+            :users="users"
             class="card__container"
             @businessWasDeleted="removeBusiness(index)"/>
         </transition-group>
@@ -77,20 +89,23 @@
 
 <script>
 import Pagination from "../pagination/Pagination";
+import AppSelect from "../select/AppSelect";
 import Business from "./Business.vue";
 import UserBusiness from "./UserBusiness";
 import AddBusiness from "./AddBusiness.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+
 import mixins from "../../mixins";
 import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
+    Pagination,
+    AppSelect,
     Business,
     UserBusiness,
     AddBusiness,
-    Pagination,
     MoonLoader
   },
   mixins: [mixins],
@@ -107,6 +122,10 @@ export default {
       type: Object,
       required: true
     },
+    users: {
+      type: Array,
+      required: true
+    },
     orders: {
       type: Array,
       required: true
@@ -116,6 +135,13 @@ export default {
     return {
       businesses: [],
       meta: {},
+      sort: "",
+      sortOptions: [
+        { label: "Aucun", value: "" },
+        { label: "Nom", value: "name" },
+        { label: "Référence", value: "reference" },
+        { label: "Date de création", value: "created_at" }
+      ],
       errors: {},
       fetching: false,
       modelNameSingular: "affaire",
@@ -140,7 +166,7 @@ export default {
       this.fetching = true;
 
       window.axios
-        .get(window.route("api.businesses.index"), {
+        .get(window.route("api.businesses.index", this.sort.value), {
           params: {
             page
           }
@@ -156,6 +182,10 @@ export default {
           this.$store.dispatch("toggleLoader");
           this.fetching = false;
         });
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getBusinesses();
     },
     addBusiness(business) {
       this.businesses.unshift(business);

@@ -6,6 +6,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Builder;
 
 class User extends Authenticatable
 {
@@ -25,6 +26,11 @@ class User extends Authenticatable
         'company_confirmed' => 'boolean',
         'is_solo' => 'boolean',
     ];
+
+    public function scopeOnlyUsers(Builder $builder)
+    {
+        return $builder->where('role', 'utilisateur');
+    }
 
     public function confirm()
     {

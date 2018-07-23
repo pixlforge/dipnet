@@ -13,28 +13,54 @@ class BusinessController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function index($sort = 'name')
     {
         if (auth()->user()->isAdmin()) {
-            return new BusinessesCollection(
-                Business::with('company', 'contact')
-                    ->orderBy('name')
-                    ->paginate(25)
-            );
+            if ($sort === 'created_at') {
+                return new BusinessesCollection(
+                    Business::with('company', 'contact')
+                        ->orderBy($sort, 'desc')
+                        ->paginate(25)
+                );
+            } else {
+                return new BusinessesCollection(
+                    Business::with('company', 'contact')
+                        ->orderBy($sort)
+                        ->paginate(25)
+                );
+            }
         } elseif (auth()->user()->isNotSolo()) {
-            return new BusinessesCollection(
-                Business::where('company_id', auth()->user()->company->id)
-                    ->with('company', 'contact')
-                    ->orderBy('name')
-                    ->paginate(25)
-            );
+            if ($sort === 'created_at') {
+                return new BusinessesCollection(
+                    Business::where('company_id', auth()->user()->company->id)
+                        ->with('company', 'contact')
+                        ->orderBy($sort, 'desc')
+                        ->paginate(25)
+                );
+            } else {
+                return new BusinessesCollection(
+                    Business::where('company_id', auth()->user()->company->id)
+                        ->with('company', 'contact')
+                        ->orderBy($sort)
+                        ->paginate(25)
+                );
+            }
         } elseif (auth()->user()->isSolo()) {
-            return new BusinessesCollection(
-                Business::where('user_id', auth()->id())
-                    ->with('contact')
-                    ->orderBy('name')
-                    ->paginate(25)
-            );
+            if ($sort === 'created_at') {
+                return new BusinessesCollection(
+                    Business::where('user_id', auth()->id())
+                        ->with('contact')
+                        ->orderBy($sort, 'desc')
+                        ->paginate(25)
+                );
+            } else {
+                return new BusinessesCollection(
+                    Business::where('user_id', auth()->id())
+                        ->with('contact')
+                        ->orderBy($sort)
+                        ->paginate(25)
+                );
+            }
         }
     }
 }

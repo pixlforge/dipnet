@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Business\StoreBusinessRequest;
 use App\Http\Hashids\HashidsGenerator;
 use App\Http\Requests\Business\UpdateBusinessRequest;
+use App\User;
 
 class BusinessController extends Controller
 {
@@ -23,8 +24,9 @@ class BusinessController extends Controller
         $companies = Company::all();
         $contacts = Contact::all();
         $orders = Order::all();
+        $users = User::onlyUsers()->get(['id', 'username', 'email']);
 
-        return view('admin.businesses.index', compact('companies', 'contacts', 'orders'));
+        return view('admin.businesses.index', compact('companies', 'contacts', 'orders', 'users'));
     }
 
     public function store(StoreBusinessRequest $request)
