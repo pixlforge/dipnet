@@ -300,11 +300,6 @@ Route::prefix('/orders')->namespace('Order')->name('orders.')->group(function ()
     });
 
     /**
-     * Validation
-     */
-    Route::post('/{order}/validation', 'OrderValidationController@validation')->name('validation');
-
-    /**
      * Receipt
      */
     Route::get('/{order}/receipt/show', 'OrderReceiptController@show')->name('receipts.show');
