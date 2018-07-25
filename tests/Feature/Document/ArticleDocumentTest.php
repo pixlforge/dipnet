@@ -22,7 +22,9 @@ class ArticleDocumentTest extends TestCase
         $admin = factory(User::class)->states('admin')->create();
         $this->actingAs($admin);
 
-        $document = factory(Document::class)->create();
+        $order = factory(Order::class)->create();
+        $delivery = factory(Delivery::class)->create(['order_id' => $order->id]);
+        $document = factory(Document::class)->create(['delivery_id' => $delivery->id]);
         $article1 = factory(Article::class)->create([
             'description' => 'Reliure Wiro',
             'type' => 'option'

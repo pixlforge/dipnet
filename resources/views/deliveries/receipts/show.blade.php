@@ -47,8 +47,8 @@
             <li>{{ optional($company)->description }}</li>
             <li>{{ optional($company)->status }}</li>
             <br>
-            <li>{{ $user->username }}</li>
-            <li>{{ $user->email }}</li>
+            <li>{{ optional($user)->username }}</li>
+            <li>{{ optional($user)->email }}</li>
           </ul>
         </div>
         <div class="receipt__item">

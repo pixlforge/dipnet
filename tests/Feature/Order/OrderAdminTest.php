@@ -7,6 +7,7 @@ use App\Order;
 use App\Delivery;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Business;
 
 class OrderAdminTest extends TestCase
 {
@@ -120,14 +121,12 @@ class OrderAdminTest extends TestCase
         $admin = factory(User::class)->states('admin')->create();
         $this->actingAs($admin);
 
-        $delivery = factory(Delivery::class)->create([
-            'order_id' => function () {
-                return factory(Order::class)->create();
-            }
-        ]);
+        $business = factory(Business::class)->create();
+        $order = factory(Order::class)->states('add-contact')->create(['business_id' => $business->id]);
+        $delivery = factory(Delivery::class)->states('add-contact')->create(['order_id' => $order->id]);
 
-        $this->get(route('deliveries.receipts.show', $delivery))
-            ->assertStatus(200)
-            ->assertViewIs('deliveries.receipts.show');
+        $response = $this->get(route('deliveries.receipts.show', $delivery));
+        $response->assertOk();
+        $response->assertViewIs('deliveries.receipts.show');
     }
 }

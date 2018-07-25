@@ -1,20 +1,41 @@
 <?php
 
-use Carbon\Carbon;
+use App\Order;
+use App\Contact;
+use App\Delivery;
 use Faker\Generator as Faker;
+use App\Http\Hashids\HashidsGenerator;
 
-$factory->define(App\Delivery::class, function (Faker $faker) {
+$factory->define(Delivery::class, function (Faker $faker) {
     return [
-        'reference' => uniqid(),
+        'reference' => HashidsGenerator::generateFor($faker->numberBetween(1, 999999999), 'deliveries'),
         'note' => null,
         'admin_note' => null,
-        'order_id' => function() {
-            return factory(App\Order::class)->create()->id;
-        },
-        'contact_id' => function() {
-            return factory(App\Contact::class)->create()->id;
-        },
-        'to_deliver_at' => Carbon::now()->addWeeks(2),
+        'order_id' => null,
+        'contact_id' => null,
+        'to_deliver_at' => null,
         'deleted_at' => null
+    ];
+});
+
+$factory->state(Delivery::class, 'add-order', function () {
+    return [
+        'order_id' => function () {
+            return factory(Order::class)->create()->id;
+        },
+    ];
+});
+
+$factory->state(Delivery::class, 'add-contact', function () {
+    return [
+        'contact_id' => function () {
+            return factory(Contact::class)->create()->id;
+        },
+    ];
+});
+
+$factory->state(Delivery::class, 'add-delivery-date', function () {
+    return [
+        'to_deliver_at' => now()->addWeeks(2),
     ];
 });

@@ -45,6 +45,7 @@ $factory->state(User::class, 'contact-not-confirmed', [
 
 $factory->state(User::class, 'company-not-confirmed', [
     'company_confirmed' => false,
+    'company_id' => null,
 ]);
 
 $factory->state(User::class, 'mailable-tests-only', [

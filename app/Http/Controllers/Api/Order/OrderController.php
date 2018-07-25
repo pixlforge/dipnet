@@ -8,17 +8,11 @@ use App\Http\Resources\OrdersCollection;
 
 class OrderController extends Controller
 {
-    /**
-     * OrderController constructor.
-     */
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware('auth');
     }
 
-    /**
-     * @return OrdersCollection
-     */
     public function index()
     {
         if (auth()->user()->isAdmin()) {

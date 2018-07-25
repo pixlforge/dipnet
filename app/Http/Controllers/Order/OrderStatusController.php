@@ -8,18 +8,11 @@ use Illuminate\Http\Request;
 
 class OrderStatusController extends Controller
 {
-    /**
-     * OrderStatusController constructor.
-     */
     public function __construct()
     {
-        $this->middleware(['admin']);
+        $this->middleware('admin');
     }
 
-    /**
-     * @param Order $order
-     * @param Request $request
-     */
     public function update(Order $order, Request $request)
     {
         $order->status = $request->status;
