@@ -53,14 +53,15 @@ class CompleteOrderRequest extends FormRequest
             
             'deliveries.*.id.exists' => "Aucune livraison portant cette référence n'existe.",
 
-            'deliveries.*.contact_id.required' => "Aucun contact de livraison n'est spécifié pour la livraison.",
+            'deliveries.*.*.contact_id.required' => "Aucun contact de livraison n'est spécifié pour la livraison.",
+            'deliveries.*.*.contact_id.exists' => "Aucun contact de livraison portant cette référence n'existe.",
 
             'deliveries.*.*.to_deliver_at.required' => 'Une date de livraison est requise.',
 
-            'deliveries.*.documents.required' => 'Les documents relatifs à la livraison sont requis.',
-            'deliveries.*.documents.min' => 'La livraison doit contenir au minimum un document.',
+            'deliveries.*.*.documents.required' => 'Les documents relatifs à la livraison sont requis.',
+            'deliveries.*.*.documents.min' => 'La livraison doit contenir au minimum un document.',
 
-            'deliveries.*.documents.*.id.exists' => "Aucun document portant cette référence n'existe.",
+            'deliveries.*.*.documents.*.id.exists' => "Aucun document portant cette référence n'existe.",
 
             'deliveries.*.*.documents.*.article_id.required' => "Une option d'impression est requise.",
         ];
