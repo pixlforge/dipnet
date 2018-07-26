@@ -45,17 +45,6 @@ class DeliveryTest extends TestCase
     }
 
     /** @test */
-    public function users_who_are_not_admins_cannot_access_the_deliveries_index_page()
-    {
-        $this->withExceptionHandling();
-
-        $this->actingAs($this->user);
-
-        $this->get(route('deliveries.index'))
-            ->assertStatus(403);
-    }
-
-    /** @test */
     public function admins_can_create_new_deliveries()
     {
         $this->withoutExceptionHandling();

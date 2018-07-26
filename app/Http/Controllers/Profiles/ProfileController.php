@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers\Profiles;
 
-use App\User;
 use App\Contact;
 use App\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\UpdateProfileRequest;
 
 class ProfileController extends Controller
 {
-    /**
-     * ProfileController constructor.
-     */
     public function __construct()
     {
         $this->middleware([
@@ -23,19 +18,13 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Profile index.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
     public function index()
     {
         $this->authorize('view', Profile::class);
 
         $contacts = Contact::where('company_id', auth()->user()->company->id)
-            ->get()
-            ->sortBy('name');
+            ->orderBy('name')
+            ->get();
 
         $ordersCount = auth()->user()->orders_count;
 
@@ -48,10 +37,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * @param Request $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
     public function update(Request $request)
     {
         if ($request->avatar['id']) {

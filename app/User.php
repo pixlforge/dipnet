@@ -12,13 +12,9 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
-    protected $dates = [
-        'deleted_at',
-    ];
+    protected $dates = ['deleted_at'];
 
-    protected $hidden = [
-        'remember_token',
-    ];
+    protected $hidden = ['remember_token'];
 
     protected $casts = [
         'email_confirmed' => 'boolean',

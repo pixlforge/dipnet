@@ -21,9 +21,6 @@ class CompanyController extends Controller
         return view('admin.companies.index');
     }
 
-    /**
-     * Render the profile view for the company
-     */
     public function show(Company $company)
     {
         $invitations = Invitation::where('company_id', $company->id)->get();

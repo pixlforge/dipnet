@@ -3,25 +3,16 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Contact;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Register\RegisterContactRequest;
 
 class RegisterContactOnlyController extends Controller
 {
-    /**
-     * RegisterContactController constructor.
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Create a new contact and associate a newly created user with it.
-     *
-     * @param RegisterContactRequest $request
-     */
     public function store(RegisterContactRequest $request)
     {
         $contact = new Contact;

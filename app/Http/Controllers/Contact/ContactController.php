@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Contact;
 
-use App\Company;
 use App\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\StoreContactRequest;
@@ -12,13 +11,6 @@ class ContactController extends Controller
 {
     public function __construct()
     {
-        // $this->middleware([
-        //     'auth',
-        //     'user.account.contact',
-        //     'user.account.company'
-        // ]);
-        // $this->middleware('user.email.confirmed')->except('index');
-
         $this->middleware('auth');
         $this->middleware('user.email.confirmed');
     }

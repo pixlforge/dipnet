@@ -8,19 +8,13 @@ use App\Http\Resources\DeliveriesCollection;
 
 class DeliveryController extends Controller
 {
-    /**
-     * DeliveryController constructor.
-     */
     public function __construct()
     {
-        $this->middleware(['admin']);
+        $this->middleware('admin');
     }
 
-    /**
-     * @return DeliveriesCollection
-     */
     public function index()
     {
-        return new DeliveriesCollection(Delivery::latest()->with(['order', 'contact'])->paginate(25));
+        return new DeliveriesCollection(Delivery::latest()->with('order', 'contact')->paginate(25));
     }
 }

@@ -10,13 +10,9 @@ class Ticker extends Model
 {
     use SoftDeletes;
 
-    protected $dates = [
-        'deleted_at',
-    ];
+    protected $dates = ['deleted_at'];
 
-    protected $casts = [
-        'active' => 'boolean',
-    ];
+    protected $casts = ['active' => 'boolean'];
 
     public function scopeActive(Builder $builder)
     {

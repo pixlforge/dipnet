@@ -11,12 +11,6 @@ class Company extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $fillable = [
-        'name',
-        'status',
-        'description',
-    ];
-
     protected static function boot()
     {
         parent::boot();

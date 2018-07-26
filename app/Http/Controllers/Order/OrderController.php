@@ -15,9 +15,11 @@ class OrderController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('user.account.contact');
-        $this->middleware('user.account.company');
+        $this->middleware([
+            'auth',
+            'user.account.contact',
+            'user.account.company',
+        ]);
         $this->middleware('user.email.confirmed')->except('index');
         $this->middleware('business')->only('create');
     }

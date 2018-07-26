@@ -6,23 +6,14 @@ use App\Business;
 use App\Comment;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Comment\StoreCommentRequest;
-use Illuminate\Support\Facades\Gate;
 
 class CommentController extends Controller
 {
-    /**
-     * CommentController constructor.
-     */
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware('auth');
     }
 
-    /**
-     * @param Business $business
-     * @param StoreCommentRequest $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
     public function store(Business $business, StoreCommentRequest $request)
     {
         if (auth()->user()->company_id !== $business->company_id) {

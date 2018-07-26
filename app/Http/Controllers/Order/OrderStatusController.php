@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Order;
 
-use App\Http\Controllers\Controller;
 use App\Order;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrderStatusController extends Controller
 {

@@ -9,16 +9,11 @@ use App\Mail\RegistrationEmailConfirmation;
 
 class RegisterConfirmationController extends Controller
 {
-    /**
-     * Confirm the user registration.
-     *
-     * @return \Illuminate\Http\RedirectResponse
-     */
     public function index()
     {
         $user = User::where('confirmation_token', request('token'))->first();
 
-        if (! $user) {
+        if (!$user) {
             return redirect()
                 ->route('index')
                 ->with('flash', 'La confirmation de votre compte a échoué. Le code de confirmation est invalide.')
@@ -40,9 +35,6 @@ class RegisterConfirmationController extends Controller
         }
     }
 
-    /**
-     * Update the user's confirmation token and send the confirmation email again.
-     */
     public function update()
     {
         $user = User::whereEmail(auth()->user()->email)->first();

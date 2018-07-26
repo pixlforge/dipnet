@@ -10,12 +10,11 @@ class DeliveryNoteController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['auth']);
+        $this->middleware('auth');
     }
 
     public function update(Request $request, Delivery $delivery)
     {
-        // authorize
         $delivery->note = $request->note;
         $delivery->save();
 
@@ -24,7 +23,6 @@ class DeliveryNoteController extends Controller
 
     public function destroy(Delivery $delivery)
     {
-        // authorize
         $delivery->note = null;
         $delivery->save();
 

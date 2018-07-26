@@ -3,14 +3,10 @@
 namespace App\Http\Controllers\Account;
 
 use App\Http\Requests\Profile\UpdateProfileRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class AccountController extends Controller
 {
-    /**
-     * AccountController constructor.
-     */
     public function __construct()
     {
         $this->middleware('auth');
@@ -26,12 +22,6 @@ class AccountController extends Controller
         return view('account.company');
     }
 
-    /**
-     * Update account info.
-     *
-     * @param UpdateProfileRequest $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
     public function update(UpdateProfileRequest $request)
     {
         $request->user()->username = $request->username;

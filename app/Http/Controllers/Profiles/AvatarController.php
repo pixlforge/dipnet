@@ -11,20 +11,11 @@ class AvatarController extends Controller
 {
     protected $imageManager;
 
-    /**
-     * AvatarController constructor.
-     *
-     * @param $imageManager
-     */
     public function __construct(ImageManager $imageManager)
     {
         $this->imageManager = $imageManager;
     }
 
-    /**
-     * @param AvatarUploadRequest $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
     public function store(AvatarUploadRequest $request)
     {
         $this->imageManager->make($request->file('avatar')->getPathName())
@@ -34,9 +25,7 @@ class AvatarController extends Controller
             ->encode('jpg')
             ->save(config('avatar.path.absolute') . $path = '/' . uniqid(true) . '.jpg');
 
-        $avatar = Avatar::create([
-            'path' => $path
-        ]);
+        $avatar = Avatar::create(['path' => $path]);
 
         return response([
             'id' => $avatar->id,

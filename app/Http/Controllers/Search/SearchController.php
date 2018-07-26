@@ -11,11 +11,11 @@ use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
-    /**
-     * Return search results.
-     *
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function search()
     {
         if (auth()->user()->isAdmin()) {
@@ -55,7 +55,7 @@ class SearchController extends Controller
                 ->toArray();
         }
 
-        if (! auth()->user()->isAdmin()) {
+        if (!auth()->user()->isAdmin()) {
 
             // Search for the orders placed by the user.
             $orders = Order::select(['id', 'reference'])
