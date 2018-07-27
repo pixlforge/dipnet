@@ -79,9 +79,6 @@ export default {
         }, 2500)
       }
     },
-    toggleLoader() {
-      this.loader.loading = !this.loader.loading
-    },
     toggleModal() {
       this.showModal = !this.showModal
       document.getElementById('body').classList.toggle('modal__open')

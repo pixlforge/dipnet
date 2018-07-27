@@ -3,5 +3,8 @@
         "eslint:recommended",
         "plugin:vue/recommended"
     ],
-    "rules": {}
+    "rules": {},
+    "parserOptions": {
+        "ecmaVersion": 2017
+    }
 }

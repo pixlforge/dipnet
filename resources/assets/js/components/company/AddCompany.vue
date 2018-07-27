@@ -52,6 +52,7 @@
               class="modal__label">
               Statut
             </label>
+            <span class="modal__required">*</span>
             <select
               id="status"
               v-model.trim="company.status"
@@ -130,17 +131,21 @@ export default {
     addCompany() {
       this.$store.dispatch("toggleLoader");
       window.axios
-        .post(window.route("companies.store"), this.company)
-        .then(response => {
-          this.company = response.data;
+        .post(window.route("admin.companies.store"), this.company)
+        .then(res => {
+          this.company = res.data;
           this.$emit("companyWasCreated", this.company);
           this.$store.dispatch("toggleLoader");
           this.toggleModal();
+          window.flash({
+            message: "La création de la société a réussi.",
+            level: "success"
+          });
           this.company = {};
         })
-        .catch(error => {
+        .catch(err => {
           this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
+          this.errors = err.response.data.errors;
         });
     }
   }

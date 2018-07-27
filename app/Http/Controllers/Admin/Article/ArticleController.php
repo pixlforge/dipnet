@@ -6,6 +6,7 @@ use App\Article;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
+use App\Http\Hashids\HashidsGenerator;
 
 class ArticleController extends Controller
 {
@@ -22,10 +23,12 @@ class ArticleController extends Controller
     public function store(StoreArticleRequest $request)
     {
         $article = new Article;
-        $article->reference = $request->reference;
         $article->description = $request->description;
         $article->type = $request->type;
         $article->greyscale = $request->greyscale;
+        $article->save();
+
+        $article->reference = HashidsGenerator::generateFor($article->id, 'articles');
         $article->save();
 
         return response($article, 200);
@@ -33,7 +36,6 @@ class ArticleController extends Controller
 
     public function update(UpdateArticleRequest $request, Article $article)
     {
-        $article->reference = $request->reference;
         $article->description = $request->description;
         $article->type = $request->type;
         $article->greyscale = $request->greyscale;

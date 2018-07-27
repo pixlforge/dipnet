@@ -19,30 +19,12 @@
         @keyup.enter="updateArticle">
 
         <div class="modal__container">
-          <h2 class="modal__title">Modifier {{ article.reference }}</h2>
+          <h2 class="modal__title">
+            Modifier l'article
+            <strong>{{ article.reference }}</strong>
+          </h2>
 
-          <div class="modal__group">
-            <label
-              for="reference"
-              class="modal__label">
-              Référence
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="reference"
-              v-model.trim="article.reference"
-              type="text"
-              name="reference"
-              class="modal__input"
-              required
-              autofocus>
-            <div
-              v-if="errors.reference"
-              class="modal__alert">
-              {{ errors.reference[0] }}
-            </div>
-          </div>
-
+          <!-- Description -->
           <div class="modal__group">
             <label
               for="description"
@@ -63,6 +45,7 @@
             </div>
           </div>
 
+          <!-- Type -->
           <div class="modal__group">
             <label
               for="type"
@@ -85,6 +68,7 @@
             </div>
           </div>
 
+          <!-- Article Type -->
           <transition
             name="fade"
             mode="out-in">
@@ -153,8 +137,6 @@ export default {
         )
         .then(() => {
           eventBus.$emit("articleWasUpdated", this.article);
-        })
-        .then(() => {
           this.$store.dispatch("toggleLoader");
           this.toggleModal();
         })

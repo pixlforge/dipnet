@@ -24,29 +24,6 @@
         <div class="modal__container">
           <h2 class="modal__title">Nouvel article</h2>
 
-          <!--Reference-->
-          <div class="modal__group">
-            <label
-              for="reference"
-              class="modal__label">
-              Référence
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="reference"
-              v-model.trim="article.reference"
-              type="text"
-              name="reference"
-              class="modal__input"
-              required
-              autofocus>
-            <div
-              v-if="errors.reference"
-              class="modal__alert">
-              {{ errors.reference[0] }}
-            </div>
-          </div>
-
           <!--Description-->
           <div class="modal__group">
             <label
@@ -141,7 +118,6 @@ export default {
   data() {
     return {
       article: {
-        reference: "",
         description: "",
         type: "",
         greyscale: false
@@ -155,11 +131,9 @@ export default {
       this.$store.dispatch("toggleLoader");
       window.axios
         .post(window.route("admin.articles.store"), this.article)
-        .then(response => {
-          this.article.id = response.data.id;
+        .then(res => {
+          this.article = res.data;
           this.$emit("articleWasCreated", this.article);
-        })
-        .then(() => {
           this.$store.dispatch("toggleLoader");
           this.toggleModal();
           this.article = {};

@@ -102,6 +102,10 @@ export default {
     ...mapGetters(["loaderState"])
   },
   created() {
+    eventBus.$on("articleWasCreated", article => {
+      this.articles.unshift(article);
+    });
+
     eventBus.$on("articleWasUpdated", data => {
       this.updateArticle(data);
     });

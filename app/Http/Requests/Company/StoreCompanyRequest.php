@@ -28,7 +28,7 @@ class StoreCompanyRequest extends FormRequest
             'name.min' => 'Minimum 3 caractères.',
             'name.max' => 'Maximum 45 caractères',
 
-            'status.required' => 'Veuillez sélectionner un status.',
+            'status.required' => 'Veuillez sélectionner un statut.',
             'status.string' => 'Le statut doit être une chaîne de caractères.',
             'status.in' => 'Veuillez sélectionner un status parmi ceux proposés',
             

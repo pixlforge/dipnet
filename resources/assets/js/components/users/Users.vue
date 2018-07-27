@@ -17,9 +17,12 @@
         </AppSelect>
       </div>
 
-      <add-user
-        :companies="companies"
-        @userWasCreated="addUser"/>
+      <button
+        class="btn btn--red-large"
+        @click="toggleUserCreationPanel">
+        <i class="fal fa-plus-circle"/>
+        Nouvel utilisateur
+      </button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -48,6 +51,21 @@
         class="pagination pagination--bottom"
         @paginationSwitched="getUsers"/>
     </div>
+
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click="toggleUserCreationPanel"/>
+    </transition>
+    
+    <transition name="slide">
+      <add-user
+        v-if="showUserCreationPanel"
+        :companies="companies"
+        @add-user:created="addUser"
+        @add-user:close="toggleUserCreationPanel"/>
+    </transition>
 
     <moon-loader
       :loading="loaderState"
@@ -85,6 +103,7 @@ export default {
   data() {
     return {
       users: [],
+      showUserCreationPanel: false,
       meta: {},
       sort: "",
       sortOptions: [
@@ -111,6 +130,10 @@ export default {
     this.getUsers();
   },
   methods: {
+    toggleUserCreationPanel() {
+      this.showUserCreationPanel = !this.showUserCreationPanel;
+      this.toggleModal();
+    },
     getUsers(page = 1) {
       this.$store.dispatch("toggleLoader");
       window.axios

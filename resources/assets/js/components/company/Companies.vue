@@ -136,10 +136,6 @@ export default {
     },
     addCompany(company) {
       this.companies.unshift(company);
-      window.flash({
-        message: "La création de la société a réussi.",
-        level: "success"
-      });
     },
     updateCompany(data) {
       for (let company of this.companies) {
