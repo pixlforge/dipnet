@@ -7,13 +7,13 @@
     </div>
 
     <div class="card__title">
-      {{ user.username| capitalize }}
+      {{ user.username | capitalize }}
     </div>
 
     <div class="card__meta">
       <div>
         <span class="card__label">Role</span>
-        {{ user.role| capitalize }}
+        {{ user.role | capitalize }}
       </div>
       <div>
         <span class="card__label">Email</span>
@@ -67,37 +67,30 @@
     </div>
 
     <div class="card__controls">
-      <div
-        title="Supprimer"
+      <button
         role="button"
-        @click="destroy">
+        title="Supprimer"
+        @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </div>
-      <div title="Modifier">
-        <edit-user
-          :user="user"
-          :companies="companies"/>
-      </div>
+      </button>
+      <button
+        role="button"
+        title="Modifier"
+        @click.prevent="edit">
+        <i class="fal fa-pencil"/>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import EditUser from "./EditUser.vue";
-import mixins from "../../mixins";
+import { filters, dates } from "../../mixins";
 
 export default {
-  components: {
-    EditUser
-  },
-  mixins: [mixins],
+  mixins: [filters, dates],
   props: {
     user: {
       type: Object,
-      required: true
-    },
-    companies: {
-      type: Array,
       required: true
     }
   },
@@ -107,9 +100,12 @@ export default {
     }
   },
   methods: {
+    edit() {
+      this.$emit("edit-user:open", this.user);
+    },
     destroy() {
       window.axios.delete(window.route("admin.users.destroy", [this.user.id]));
-      this.$emit("userWasDeleted", this.user.id);
+      this.$emit("user:deleted", this.user.id);
     }
   }
 };

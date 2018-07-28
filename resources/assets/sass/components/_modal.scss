@@ -115,6 +115,10 @@
     margin-top: 5rem;
     color: $dark-grey;
 
+    :first-child {
+      margin-right: 1rem;
+    }
+
     &--avatar {
       margin-bottom: 5rem;
     }

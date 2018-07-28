@@ -18,56 +18,66 @@
       </div>
 
       <button
+        role="button"
         class="btn btn--red-large"
-        @click="toggleUserCreationPanel">
+        @click="openAddPanel">
         <i class="fal fa-plus-circle"/>
         Nouvel utilisateur
       </button>
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getUsers"/>
+        @pagination:switched="getUsers"/>
 
       <transition-group
         name="pagination"
         tag="div"
         mode="out-in">
-        <user
+        <User
           v-for="(user, index) in users"
           :key="user.id"
           :user="user"
-          :companies="companies"
           class="card__container"
-          @userWasDeleted="removeUser(index)"/>
+          @edit-user:open="openEditPanel"
+          @user:deleted="removeUser(index)"/>
       </transition-group>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getUsers"/>
+        @pagination:switched="getUsers"/>
     </div>
 
     <transition name="fade">
       <div
         v-if="showModal"
         class="modal__background"
-        @click="toggleUserCreationPanel"/>
+        @click.prevent="closePanels"/>
     </transition>
     
     <transition name="slide">
-      <add-user
-        v-if="showUserCreationPanel"
+      <AddUser
+        v-if="showAddPanel"
         :companies="companies"
-        @add-user:created="addUser"
-        @add-user:close="toggleUserCreationPanel"/>
+        @user:created="addUser"
+        @add-user:close="closePanels"/>
     </transition>
 
-    <moon-loader
+    <transition name="slide">
+      <EditUser
+        v-if="showEditPanel"
+        :user="modelToEdit"
+        :companies="companies"
+        @user:updated="updateUser"
+        @edit-user:close="closePanels"/>
+    </transition>
+
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -78,22 +88,24 @@
 import Pagination from "../pagination/Pagination";
 import AppSelect from "../select/AppSelect";
 import AddUser from "./AddUser";
+import EditUser from "./EditUser";
 import User from "./User.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import mixins from "../../mixins";
+import { loader, modal, panels, modelCount } from "../../mixins";
 import { eventBus } from "../../app";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     Pagination,
     AppSelect,
     AddUser,
+    EditUser,
     User,
     MoonLoader
   },
-  mixins: [mixins],
+  mixins: [loader, modal, panels, modelCount],
   props: {
     companies: {
       type: Array,
@@ -103,7 +115,9 @@ export default {
   data() {
     return {
       users: [],
-      showUserCreationPanel: false,
+      modelToEdit: {},
+      showAddPanel: false,
+      showEditPanel: false,
       meta: {},
       sort: "",
       sortOptions: [
@@ -122,7 +136,7 @@ export default {
     ...mapGetters(["loaderState"])
   },
   created() {
-    eventBus.$on("userWasUpdated", data => {
+    eventBus.$on("user:updated", data => {
       this.updateUser(data);
     });
   },
@@ -130,23 +144,16 @@ export default {
     this.getUsers();
   },
   methods: {
-    toggleUserCreationPanel() {
-      this.showUserCreationPanel = !this.showUserCreationPanel;
-      this.toggleModal();
-    },
-    getUsers(page = 1) {
-      this.$store.dispatch("toggleLoader");
-      window.axios
-        .get(window.route("api.users.index", this.sort.value), {
-          params: {
-            page
-          }
-        })
-        .then(response => {
-          this.users = response.data.data;
-          this.meta = response.data.meta;
-          this.$store.dispatch("toggleLoader");
-        });
+    ...mapActions(["toggleLoader"]),
+    async getUsers(page = 1) {
+      this.toggleLoader();
+      let res = await window.axios.get(
+        window.route("api.users.index", this.sort.value),
+        { params: { page } }
+      );
+      this.users = res.data.data;
+      this.meta = res.data.meta;
+      this.toggleLoader();
     },
     selectSort(sort) {
       this.sort = sort;
@@ -160,18 +167,14 @@ export default {
       });
     },
     updateUser(data) {
-      for (let user of this.users) {
-        if (data.id === user.id) {
-          user.username = data.username;
-          user.email = data.email;
-          user.role = data.role;
-        }
-      }
+      let index = this.users.findIndex(user => user.id === data.id);
+      this.users[index] = data;
       window.flash({
         message:
           "Les modifications apportées à l'utilisateur ont été enregistrées.",
         level: "success"
       });
+      this.closePanels();
     },
     removeUser(index) {
       this.users.splice(index, 1);

@@ -1,190 +1,123 @@
 <template>
-  <div>
-    <div
-      role="button"
-      @click="toggleModal">
-      <i class="fal fa-pencil"/>
-    </div>
+  <div
+    class="modal__slider"
+    @keyup.enter="updateUser">
 
-    <transition name="fade">
-      <div
-        v-if="showModal"
-        class="modal__background"
-        @click="toggleModal"/>
-    </transition>
+    <form
+      class="modal__container"
+      @submit.prevent>
+      <h2 class="modal__title">Modifier <strong>{{ user.username }}</strong></h2>
 
-    <transition name="slide">
-      <div
-        v-if="showModal"
-        class="modal__slider"
-        @keyup.esc="toggleModal"
-        @keyup.enter="updateUser">
+      <!-- Username -->
+      <ModalInput
+        id="username"
+        ref="focus"
+        v-model="currentUser.username"
+        type="text"
+        required>
+        <template slot="label">Nom d'utilisateur</template>
+        <template
+          v-if="errors.username"
+          slot="errors">
+          {{ errors.username[0] }}
+        </template>
+      </ModalInput>
 
-        <div class="modal__container">
-          <h2 class="modal__title">Modifier {{ user.username }}</h2>
+      <!-- E-mail -->
+      <ModalInput
+        id="email"
+        v-model="currentUser.email"
+        type="email"
+        required>
+        <template slot="label">Adresse E-mail</template>
+        <template
+          v-if="errors.email"
+          slot="errors">
+          {{ errors.email[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="username"
-              class="modal__label">
-              Nom d'utilisateur
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="username"
-              v-model.trim="currentUser.username"
-              type="text"
-              name="username"
-              class="modal__input"
-              required
-              autofocus>
-            <div
-              v-if="errors.username"
-              class="modal__alert">
-              {{ errors.username[0] }}
-            </div>
-          </div>
+      <!-- Password -->
+      <ModalInput
+        id="password"
+        v-model="currentUser.password"
+        type="password">
+        <template slot="label">Mot de passe</template>
+        <template
+          v-if="errors.password"
+          slot="errors">
+          {{ errors.password[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="email"
-              class="modal__label">
-              Email
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="email"
-              v-model.trim="currentUser.email"
-              type="email"
-              name="email"
-              class="modal__input"
-              required
-              autofocus>
-            <div
-              v-if="errors.email"
-              class="modal__alert">
-              {{ errors.email[0] }}
-            </div>
-          </div>
+      <!-- Password Confirmation -->
+      <ModalInput
+        id="password_confirmation"
+        v-model="currentUser.password_confirmation"
+        type="password">
+        <template slot="label">Confirmation</template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="password"
-              class="modal__label">
-              Mot de passe
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="password"
-              v-model.trim="currentUser.password"
-              type="password"
-              name="password"
-              class="modal__input"
-              required>
-            <div
-              v-if="errors.password"
-              class="modal__alert">
-              {{ errors.password[0] }}
-            </div>
-          </div>
+      <!-- Role -->
+      <ModalSelect
+        id="role"
+        :options="optionsForRole"
+        v-model="currentUser.role"
+        required>
+        <template slot="label">Rôle</template>
+        <template
+          v-if="errors.role"
+          slot="errors">
+          {{ errors.role[0] }}
+        </template>
+      </ModalSelect>
 
-          <div class="modal__group">
-            <label
-              for="password_confirmation"
-              class="modal__label">Confirmation</label>
-            <span class="modal__required">*</span>
-            <input
-              id="password_confirmation"
-              v-model.trim="currentUser.password_confirmation"
-              type="password"
-              name="password_confirmation"
-              class="modal__input"
-              required>
-            <div
-              v-if="errors.password_confirmation"
-              class="modal__alert">
-              {{ errors.password_confirmation[0] }}
-            </div>
-          </div>
+      <!-- Company -->
+      <ModalSelect
+        v-if="userIsNotAdmin"
+        id="company_id"
+        :options="optionsForCompany"
+        v-model="currentUser.company_id">
+        <template slot="label">Société</template>
+        <template
+          v-if="errors.company_id"
+          slot="errors">
+          {{ errors.company_id[0] }}
+        </template>
+      </ModalSelect>
 
-          <div class="modal__group">
-            <label
-              for="role"
-              class="modal__label">
-              Rôle
-            </label>
-            <select
-              id="role"
-              v-model.trim="currentUser.role"
-              name="role"
-              class="modal__select">
-              <option disabled>Sélectionnez un rôle</option>
-              <option value="utilisateur">Utilisateur</option>
-              <option value="administrateur">Administrateur</option>
-            </select>
-            <div
-              v-if="errors.role"
-              class="modal__alert">
-              {{ errors.role[0] }}
-            </div>
-          </div>
-
-          <div
-            v-if="userIsNotAdmin"
-            class="modal__group">
-            <label
-              for="company_id"
-              class="modal__label">
-              Société
-            </label>
-            <select
-              id="company_id"
-              v-model.trim="currentUser.company_id"
-              name="company_id"
-              class="modal__select">
-              <option disabled>Sélectionnez une société</option>
-              <option
-                v-for="(company, index) in companies"
-                :key="index"
-                :value="company.id">
-                {{ company.name }}
-              </option>
-            </select>
-            <div
-              v-if="errors.company_id"
-              class="modal__alert">
-              {{ errors.company_id[0] }}
-            </div>
-          </div>
-
-          <div class="modal__buttons">
-            <button
-              class="btn btn--grey"
-              role="button"
-              @click.stop="toggleModal">
-              <i class="fal fa-times"/>
-              Annuler
-            </button>
-            <button
-              class="btn btn--red"
-              role="button"
-              @click.prevent="updateUser">
-              <i class="fal fa-check"/>
-              Mettre à jour
-            </button>
-          </div>
-        </div>
+      <div class="modal__buttons">
+        <button
+          role="button"
+          class="btn btn--red">
+          <i class="fal fa-check"/>
+          Mettre à jour
+        </button>
+        <button
+          class="btn btn--grey"
+          role="button"
+          @click.prevent="$emit('edit-user:close')">
+          <i class="fal fa-times"/>
+          Annuler
+        </button>
       </div>
-    </transition>
+    </form>
   </div>
 </template>
 
 <script>
-import mixins from "../../mixins";
-import { eventBus } from "../../app";
+import ModalInput from "../forms/ModalInput";
+import ModalSelect from "../forms/ModalSelect";
+
+import { loader, modal } from "../../mixins";
+import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
+  components: {
+    ModalInput,
+    ModalSelect
+  },
+  mixins: [loader, modal],
   props: {
     user: {
       type: Object,
@@ -201,12 +134,17 @@ export default {
         id: this.user.id,
         username: this.user.username,
         email: this.user.email,
-        password: null,
-        password_confirmation: null,
+        password: "",
+        password_confirmation: "",
         role: this.user.role,
         company_id: this.user.company_id
       },
-      errors: {}
+      errors: {},
+      optionsForRole: [
+        { label: "Utilisateur", value: "utilisateur" },
+        { label: "Administrateur", value: "administrateur" }
+      ],
+      optionsForCompany: []
     };
   },
   computed: {
@@ -216,28 +154,29 @@ export default {
       );
     }
   },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
+
+    this.optionsForCompany = this.companies.map(company => {
+      return { label: company.name, value: company.id };
+    });
+  },
   methods: {
-    updateUser() {
-      this.$store.dispatch("toggleLoader");
-      window.axios
-        .patch(
-          window.route("admin.users.update", [this.currentUser.id]),
+    ...mapActions(["toggleLoader"]),
+    async updateUser() {
+      this.toggleLoader();
+      try {
+        let res = await window.axios.patch(
+          window.route("admin.users.update", [this.user.id]),
           this.currentUser
-        )
-        .then(() => {
-          eventBus.$emit("userWasUpdated", this.currentUser);
-        })
-        .then(() => {
-          this.$store.dispatch("toggleLoader");
-          this.toggleModal();
-          this.currentUser.password = null;
-          this.currentUser.password_confirmation = null;
-        })
-        .catch(() => {
-          this.$store.dispatch("toggleLoader");
-          this.currentUser.password = null;
-          this.currentUser.password_confirmation = null;
-        });
+        );
+        this.toggleLoader();
+        this.toggleModal();
+        this.$emit("user:updated", res.data);
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };
