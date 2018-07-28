@@ -56,13 +56,13 @@
 
     <div class="card__controls">
       <div
-        title="Supprimer"
         role="button"
+        title="Supprimer"
         @click="destroy">
         <i class="fal fa-times"/>
       </div>
       <div title="Modifier">
-        <edit-contact
+        <EditContact
           :contact="contact"
           :companies="companies"
           :user="user"/>
@@ -73,13 +73,11 @@
 
 <script>
 import EditContact from "./EditContact.vue";
-import mixins from "../../mixins";
 
 export default {
   components: {
     EditContact
   },
-  mixins: [mixins],
   props: {
     contact: {
       type: Object,
@@ -97,7 +95,7 @@ export default {
   methods: {
     destroy() {
       window.axios.delete(window.route("contacts.destroy", [this.contact.id]));
-      this.$emit("contactWasDeleted", this.contact.id);
+      this.$emit("contact:deleted", this.contact.id);
     }
   }
 };

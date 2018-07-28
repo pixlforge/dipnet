@@ -1,18 +1,6 @@
 import moment from "moment";
 
-export default {
-  data() {
-    return {
-      loader: {
-        color: '#fff',
-        size: '96px'
-      },
-      showModal: false,
-      appName: window.Laravel.appName,
-      momentFormat: 'LLL',
-      momentLocale: 'fr'
-    }
-  },
+export const modelCount = {
   computed: {
     modelCount() {
       if (this.meta.total > 1) {
@@ -27,6 +15,19 @@ export default {
         }
       }
     },
+  },
+};
+
+export const appName = {
+  data() {
+    return {
+      appName: window.Laravel.appName,
+    };
+  },
+};
+
+export const logo = {
+  computed: {
     logoColor() {
       if (this.appName === 'Dipnet') {
         return '/img/logos/dip-logo-md.png'
@@ -41,9 +42,98 @@ export default {
         return '/img/logos/multicop-logo-white-md.png'
       }
     },
-    /**
-     * Routes
-     */
+  }
+};
+
+export const filters = {
+  filters: {
+    capitalize(value) {
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    }
+  },
+};
+
+export const loader = {
+  data() {
+    return {
+      loader: {
+        color: '#fff',
+        size: '96px'
+      },
+    }
+  },
+};
+
+export const dates = {
+  data() {
+    return {
+      momentFormat: 'LLL',
+      momentLocale: 'fr'
+    };
+  },
+  methods: {
+    getDate(date) {
+      return moment(date)
+        .locale(this.momentLocale)
+        .format(this.momentFormat);
+    },
+  }
+};
+
+export const modal = {
+  data() {
+    return {
+      showModal: false,
+    }
+  },
+  methods: {
+    toggleModal() {
+      this.showModal = !this.showModal
+      document.getElementById('body').classList.toggle('modal__open')
+    },
+  }
+};
+
+export const panels = {
+  mounted() {
+    this.bindEscapeKey();
+  },
+  methods: {
+    openAddPanel() {
+      this.showAddPanel = true;
+      this.toggleModal();
+    },
+    openEditPanel(model) {
+      this.modelToEdit = model;
+      this.showEditPanel = true;
+      this.toggleModal();
+    },
+    closePanels() {
+      this.showAddPanel = false;
+      this.showEditPanel = false;
+      this.toggleModal();
+    },
+    bindEscapeKey() {
+      const escapeHandler = event => {
+        if (event.key === "Escape" && (this.showAddPanel || this.showEditPanel)) {
+          this.showAddPanel = false;
+          this.showEditPanel = false;
+          this.toggleModal();
+        }
+      };
+      document.addEventListener("keydown", escapeHandler);
+
+      this.$once("hook:destroyed", () => {
+        document.removeEventListener("keydown", escapeHandler);
+      });
+    }
+  }
+};
+
+export const registration = {
+  computed: {
     loginRoute() {
       return window.route('login')
     },
@@ -54,20 +144,7 @@ export default {
       return window.route('register.index')
     },
   },
-  filters: {
-    capitalize(value) {
-      if (!value) return ''
-
-      value = value.toString()
-      return value.charAt(0).toUpperCase() + value.slice(1)
-    }
-  },
   methods: {
-    getDate(date) {
-      return moment(date)
-        .locale(this.momentLocale)
-        .format(this.momentFormat);
-    },
     redirectIfNotConfirmed(error) {
       if (error.response.status === 403) {
         window.flash({
@@ -78,10 +155,6 @@ export default {
           window.location.pathname = '/profile'
         }, 2500)
       }
-    },
-    toggleModal() {
-      this.showModal = !this.showModal
-      document.getElementById('body').classList.toggle('modal__open')
     },
     finishRegistration() {
       this.congratulateUponRegistration()

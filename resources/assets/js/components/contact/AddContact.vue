@@ -1,8 +1,8 @@
 <template>
   <div>
     <button
-      class="btn btn--red-large"
       role="button"
+      class="btn btn--red-large"
       @click="toggleModal">
       <i class="fal fa-plus-circle"/>
       Nouveau contact
@@ -218,15 +218,15 @@
 
           <div class="modal__buttons">
             <button
-              class="btn btn--grey"
               role="button"
+              class="btn btn--grey"
               @click.stop="toggleModal">
               <i class="fal fa-times"/>
               Annuler
             </button>
             <button
-              class="btn btn--red"
               role="button"
+              class="btn btn--red"
               @click.prevent="addContact">
               <i class="fal fa-check"/>
               Ajouter
@@ -239,12 +239,10 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { eventBus } from "../../app";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     companies: {
       type: Array,
@@ -283,25 +281,25 @@ export default {
     }
   },
   created() {
-    eventBus.$on("dropdownAddContact", () => this.toggleModal());
+    eventBus.$on("dropdown:add-contact", () => this.toggleModal());
   },
   methods: {
     ...mapActions(["toggleLoader"]),
     addContact() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(window.route("contacts.store"), this.contact)
-        .then(response => {
-          this.contact = response.data;
-          this.$emit("contactWasCreated", this.contact);
-          this.$store.dispatch("toggleLoader");
+        .then(res => {
+          this.contact = res.data;
+          this.$emit("contact:created", this.contact);
+          this.toggleLoader();
           this.toggleModal();
           this.contact = {};
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
-          this.redirectIfNotConfirmed(error);
+        .catch(err => {
+          this.toggleLoader();
+          this.errors = err.response.data.errors;
+          this.redirectIfNotConfirmed(err);
         });
     }
   }

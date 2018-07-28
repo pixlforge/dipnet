@@ -57,8 +57,8 @@
 
         <div class="register__buttons">
           <button
-            class="btn btn--red"
             role="button"
+            class="btn btn--red"
             @click="createCompany">
             <i class="fal fa-check"/>
             Terminer l'enregistrement
@@ -70,10 +70,11 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
+import { appName, logo, registration } from "../../mixins";
+import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
+  mixins: [appName, logo, registration],
   data() {
     return {
       company: {
@@ -83,18 +84,20 @@ export default {
     };
   },
   methods: {
-    createCompany() {
-      this.$store.dispatch("toggleLoader");
-      window.axios
-        .post(window.route("register.company.store"), this.company)
-        .then(() => {
-          this.company = {};
-          this.$emit("companyCreated");
-        })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
-        });
+    ...mapActions(["toggleLoader"]),
+    async createCompany() {
+      this.toggleLoader();
+      try {
+        await window.axios.post(
+          window.route("register.company.store"),
+          this.company
+        );
+        this.$emit("company:created");
+        this.company = {};
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };

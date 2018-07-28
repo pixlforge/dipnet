@@ -17,15 +17,15 @@
         </AppSelect>
       </div>
 
-      <add-company @companyWasCreated="addCompany"/>
+      <AddCompany @company:created="addCompany"/>
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getCompanies"/>
+        @pagination:switched="getCompanies"/>
 
       <template v-if="!companies.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucune société.</p>
@@ -36,23 +36,23 @@
           name="pagination"
           tag="div"
           mode="out-in">
-          <company
+          <Company
             v-for="(company, index) in companies"
             :key="company.id"
             :company="company"
             class="card__container"
-            @companyWasDeleted="removeCompany(index)"/>
+            @company:deleted="removeCompany(index)"/>
         </transition-group>
       </template>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getCompanies"/>
+        @pagination:switched="getCompanies"/>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -65,19 +65,18 @@ import AppSelect from "../select/AppSelect";
 import Company from "./Company.vue";
 import AddCompany from "./AddCompany.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
 import { eventBus } from "../../app";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
-    Company,
-    AddCompany,
     Pagination,
     AppSelect,
+    Company,
+    AddCompany,
     MoonLoader
   },
-  mixins: [mixins],
   data() {
     return {
       companies: [],
@@ -100,7 +99,7 @@ export default {
     ...mapGetters(["loaderState"])
   },
   created() {
-    eventBus.$on("companyWasUpdated", data => {
+    eventBus.$on("company:created", data => {
       this.updateCompany(data);
     });
   },
@@ -108,25 +107,25 @@ export default {
     this.getCompanies();
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     getCompanies(page = 1) {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       this.fetching = true;
-
       window.axios
         .get(window.route("api.companies.index", this.sort.value), {
           params: {
             page
           }
         })
-        .then(response => {
-          this.companies = response.data.data;
-          this.meta = response.data.meta;
-          this.$store.dispatch("toggleLoader");
+        .then(res => {
+          this.companies = res.data.data;
+          this.meta = res.data.meta;
+          this.toggleLoader();
           this.fetching = false;
         })
-        .catch(error => {
-          this.errors = error.response.data;
-          this.$store.dispatch("toggleLoader");
+        .catch(err => {
+          this.errors = err.response.data;
+          this.toggleLoader();
           this.fetching = false;
         });
     },

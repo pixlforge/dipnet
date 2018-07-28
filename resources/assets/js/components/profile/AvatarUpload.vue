@@ -57,10 +57,9 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
+import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     avatar: {
       type: String,
@@ -88,16 +87,17 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     fileChange(event) {
       this.upload(event);
     },
     upload(event) {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(this.endpoint, this.packageUploads(event))
-        .then(response => {
-          this.$store.dispatch("toggleLoader");
-          this.newAvatar = response.data;
+        .then(res => {
+          this.toggleLoader();
+          this.newAvatar = res.data;
           window.flash({
             message:
               "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
@@ -105,7 +105,7 @@ export default {
           });
         })
         .catch(() => {
-          this.$store.dispatch("toggleLoader");
+          this.toggleLoader();
         });
     },
     packageUploads(event) {
@@ -114,7 +114,7 @@ export default {
       return fileData;
     },
     update() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .patch("/profile/avatar", {
           avatar: {
@@ -122,7 +122,7 @@ export default {
           }
         })
         .then(() => {
-          this.$store.dispatch("toggleLoader");
+          this.toggleLoader();
           window.flash({
             message: "Votre avatar a bien été mis à jour.",
             level: "success"
@@ -132,7 +132,7 @@ export default {
           }, 500);
         })
         .catch(() => {
-          this.$store.dispatch("toggleLoader");
+          this.toggleLoader();
           window.flash({
             message:
               "Il y a eu un problème, votre compte n'a pas été mis à jour.",

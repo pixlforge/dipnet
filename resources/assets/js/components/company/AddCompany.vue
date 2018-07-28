@@ -111,11 +111,9 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   data() {
     return {
       company: {
@@ -129,13 +127,13 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     addCompany() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(window.route("admin.companies.store"), this.company)
         .then(res => {
           this.company = res.data;
-          this.$emit("companyWasCreated", this.company);
-          this.$store.dispatch("toggleLoader");
+          this.$emit("company:created", this.company);
+          this.toggleLoader();
           this.toggleModal();
           window.flash({
             message: "La création de la société a réussi.",
@@ -144,8 +142,8 @@ export default {
           this.company = {};
         })
         .catch(err => {
-          this.$store.dispatch("toggleLoader");
           this.errors = err.response.data.errors;
+          this.toggleLoader();
         });
     }
   }

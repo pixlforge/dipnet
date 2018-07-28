@@ -9,11 +9,9 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     invitation: {
       type: Object,
@@ -23,11 +21,11 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     resend() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .put(window.route("invitation.update"), this.invitation)
         .then(() => {
-          this.$store.dispatch("toggleLoader");
+          this.toggleLoader();
           window.flash({
             message: `L'invitation a bien été renvoyée à l'adresse ${
               this.invitation.email
@@ -36,7 +34,7 @@ export default {
           });
         })
         .catch(() => {
-          this.$store.dispatch("toggleLoader");
+          this.toggleLoader();
         });
     }
   }

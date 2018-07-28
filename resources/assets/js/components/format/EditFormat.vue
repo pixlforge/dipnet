@@ -128,12 +128,12 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
+import { modal } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
+  mixins: [modal],
   props: {
     format: {
       type: Object,
@@ -157,22 +157,20 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     updateFormat() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .patch(
           window.route("admin.formats.update", [this.format.id]),
           this.format
         )
         .then(() => {
-          eventBus.$emit("formatWasUpdated", this.format);
-        })
-        .then(() => {
-          this.$store.dispatch("toggleLoader");
+          eventBus.$emit("format:updated", this.format);
+          this.toggleLoader();
           this.toggleModal();
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data;
+        .catch(err => {
+          this.errors = err.response.data;
+          this.toggleLoader();
         });
     }
   }

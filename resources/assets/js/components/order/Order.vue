@@ -70,10 +70,7 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
-
 export default {
-  mixins: [mixins],
   props: {
     order: {
       type: Object,

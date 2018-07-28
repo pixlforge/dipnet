@@ -44,7 +44,7 @@
         <i class="fal fa-times"/>
       </div>
       <div title="Modifier">
-        <edit-format :format="format"/>
+        <EditFormat :format="format"/>
       </div>
     </div>
   </div>
@@ -52,13 +52,14 @@
 
 <script>
 import EditFormat from "./EditFormat.vue";
-import mixins from "../../mixins";
+
+import { filters, dates } from "../../mixins";
 
 export default {
   components: {
     EditFormat
   },
-  mixins: [mixins],
+  mixins: [filters, dates],
   props: {
     format: {
       type: Object,
@@ -75,7 +76,7 @@ export default {
       window.axios.delete(
         window.route("admin.formats.destroy", [this.format.id])
       );
-      this.$emit("formatWasDeleted", this.format.id);
+      this.$emit("format:deleted", this.format.id);
     }
   }
 };

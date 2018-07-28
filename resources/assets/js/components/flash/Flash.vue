@@ -42,9 +42,6 @@ export default {
     window.events.$on("flash", data => this.flash(data));
   },
   methods: {
-    /**
-     * Flash the alert.
-     */
     flash(data) {
       if (data) {
         this.body = data.message;
@@ -53,9 +50,6 @@ export default {
       this.show = true;
       this.hide();
     },
-    /**
-     * Hide the alert.
-     */
     hide() {
       setTimeout(() => {
         this.show = false;

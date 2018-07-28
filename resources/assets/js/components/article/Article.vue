@@ -39,7 +39,7 @@
         <i class="fal fa-times"/>
       </div>
       <div title="Modifier">
-        <edit-article :article="article"/>
+        <EditArticle :article="article"/>
       </div>
     </div>
   </div>
@@ -47,13 +47,11 @@
 
 <script>
 import EditArticle from "./EditArticle.vue";
-import mixins from "../../mixins";
 
 export default {
   components: {
     EditArticle
   },
-  mixins: [mixins],
   props: {
     article: {
       type: Object,
@@ -65,7 +63,7 @@ export default {
       window.axios.delete(
         window.route("admin.articles.destroy", [this.article.id])
       );
-      this.$emit("articleWasDeleted", this.article.id);
+      this.$emit("article:deleted", this.article.id);
     }
   }
 };

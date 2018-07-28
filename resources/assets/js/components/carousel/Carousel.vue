@@ -1,6 +1,6 @@
 <template>
   <div>
-    <carousel
+    <Carousel
       :per-page="perPage"
       :autoplay="autoplay"
       :autoplay-timeout="autoplayTimeout"
@@ -47,7 +47,7 @@
         </div>
       </slide>
 
-    </carousel>
+    </Carousel>
   </div>
 </template>
 

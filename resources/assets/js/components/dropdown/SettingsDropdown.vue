@@ -23,10 +23,7 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
-
 export default {
-  mixins: [mixins],
   props: {
     label: {
       type: String,
@@ -43,34 +40,33 @@ export default {
     };
   },
   created() {
-    document.addEventListener("click", this.documentClick);
-  },
-  destroyed() {
-    document.removeEventListener("click", this.documentClick);
+    const escapeHandler = event => {
+      if (event.key === "Escape" && this.open) {
+        this.open = false;
+      }
+    };
+    document.addEventListener("keydown", escapeHandler);
+
+    const clickHandler = event => {
+      let element = this.$refs.dropdownMenu;
+      let target = event.target;
+      if (element !== target && !element.contains(target)) {
+        this.open = false;
+      }
+    };
+    document.addEventListener("click", clickHandler);
+
+    this.$once("hook:destroyed", () => {
+      document.removeEventListener("keydown", escapeHandler);
+      document.removeEventListener("click", clickHandler);
+    });
   },
   methods: {
-    /**
-     * Toggle the open state of the dropdown list.
-     */
     toggleOpen() {
       this.open = !this.open;
     },
-    /**
-     * Retrieve the reference of the active dropdown and close
-     * it if another element is clicked.
-     */
-    documentClick(event) {
-      let el = this.$refs.dropdownMenu;
-      let target = event.target;
-      if (el !== target && !el.contains(target)) {
-        this.open = false;
-      }
-    },
-    /**
-     * Select an item from the list.
-     */
     selectItem(item) {
-      this.$emit("itemSelected", item);
+      this.$emit("item:selected", item);
       this.toggleOpen();
     }
   }

@@ -8,7 +8,7 @@
         <button
           role="button"
           class="ticker__close"
-          @click="close">
+          @click.prevent="close">
           <i class="fal fa-times"/>
         </button>
       </div>

@@ -60,20 +60,21 @@
 
 <script>
 import Pagination from "../pagination/Pagination";
-import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import Order from "./Order.vue";
 import AddOrder from "./CreateOrder.vue";
-import mixins from "../../mixins";
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+
+import { loader } from "../../mixins";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
+    Pagination,
     Order,
     AddOrder,
-    Pagination,
     MoonLoader
   },
-  mixins: [mixins],
+  mixins: [loader],
   props: {
     userRole: {
       type: String,

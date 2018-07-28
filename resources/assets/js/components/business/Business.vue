@@ -45,13 +45,13 @@
 
     <div class="card__controls">
       <div
-        title="Supprimer"
         role="button"
+        title="Supprimer"
         @click="destroy">
         <i class="fal fa-times"/>
       </div>
       <div>
-        <edit-business
+        <EditBusiness
           :business="business"
           :companies="companies"
           :contacts="contacts"
@@ -64,13 +64,11 @@
 
 <script>
 import EditBusiness from "./EditBusiness.vue";
-import mixins from "../../mixins";
 
 export default {
   components: {
     EditBusiness
   },
-  mixins: [mixins],
   props: {
     business: {
       type: Object,
@@ -98,7 +96,7 @@ export default {
       window.axios.delete(
         window.route("businesses.destroy", [this.business.id])
       );
-      this.$emit("businessWasDeleted", this.business.id);
+      this.$emit("business:deleted", this.business.id);
     }
   }
 };

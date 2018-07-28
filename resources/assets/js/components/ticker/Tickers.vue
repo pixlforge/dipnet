@@ -17,17 +17,17 @@
         </AppSelect>
       </div>
 
-      <add-ticker
+      <AddTicker
         :tickers="tickers"
-        @tickerWasCreated="addTicker"/>
+        @ticker:created="addTicker"/>
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getTickers"/>
+        @pagination:switched="getTickers"/>
 
       <template v-if="!tickers.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun ticker.</p>
@@ -38,23 +38,23 @@
           name="pagination"
           tag="div"
           mode="out-in">
-          <ticker
+          <Ticker
             v-for="(ticker, index) in tickers"
             :key="ticker.id"
             :ticker="ticker"
             class="card__container"
-            @tickerWasDeleted="removeTicker(index)"/>
+            @ticker:deleted="removeTicker(index)"/>
         </transition-group>
       </template>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getTickers"/>
+        @pagination:switched="getTickers"/>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -67,7 +67,7 @@ import AppSelect from "../select/AppSelect";
 import AddTicker from "./AddTicker";
 import Ticker from "./Ticker";
 import MoonLoader from "vue-spinner/src/MoonLoader";
-import mixins from "../../mixins";
+
 import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
 
@@ -79,7 +79,6 @@ export default {
     Ticker,
     MoonLoader
   },
-  mixins: [mixins],
   data() {
     return {
       tickers: [],

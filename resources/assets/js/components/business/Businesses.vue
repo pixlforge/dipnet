@@ -19,20 +19,20 @@
         </AppSelect>
       </div>
 
-      <add-business
+      <AddBusiness
         :companies="companies"
         :contacts="contacts"
         :user="user"
         :users="users"
-        @businessWasCreated="addBusiness"/>
+        @business:created="addBusiness"/>
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getBusinesses"/>
+        @pagination:switched="getBusinesses"/>
 
       <template v-if="!businesses.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucune affaire.</p>
@@ -44,13 +44,13 @@
             name="pagination"
             tag="div"
             mode="out-in">
-            <user-business
+            <UserBusiness
               v-for="(business, index) in businesses"
               :key="business.id"
               :business="business"
               :orders="orders"
               :user="user"
-              @businessWasDeleted="removeBusiness(index)"/>
+              @business:deleted="removeBusiness(index)"/>
           </transition-group>
         </div>
       </template>
@@ -60,7 +60,7 @@
           name="pagination"
           tag="div"
           mode="out-in">
-          <business
+          <Business
             v-for="(business, index) in businesses"
             :key="business.id"
             :business="business"
@@ -69,18 +69,18 @@
             :user="user"
             :users="users"
             class="card__container"
-            @businessWasDeleted="removeBusiness(index)"/>
+            @business:deleted="removeBusiness(index)"/>
         </transition-group>
       </template>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getBusinesses"/>
+        @pagination:switched="getBusinesses"/>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -95,9 +95,8 @@ import UserBusiness from "./UserBusiness";
 import AddBusiness from "./AddBusiness.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import mixins from "../../mixins";
 import { eventBus } from "../../app";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
@@ -108,7 +107,6 @@ export default {
     AddBusiness,
     MoonLoader
   },
-  mixins: [mixins],
   props: {
     companies: {
       type: Array,
@@ -153,16 +151,15 @@ export default {
     ...mapGetters(["loaderState"])
   },
   created() {
-    eventBus.$on("businessWasUpdated", data => {
-      this.updateBusiness(data);
-    });
+    eventBus.$on("business:updated", data => this.updateBusiness(data));
   },
   mounted() {
     this.getBusinesses();
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     getBusinesses(page = 1) {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       this.fetching = true;
 
       window.axios
@@ -171,15 +168,15 @@ export default {
             page
           }
         })
-        .then(response => {
-          this.businesses = response.data.data;
-          this.meta = response.data.meta;
-          this.$store.dispatch("toggleLoader");
+        .then(res => {
+          this.businesses = res.data.data;
+          this.meta = res.data.meta;
+          this.toggleLoader();
           this.fetching = false;
         })
-        .catch(error => {
-          this.errors = error.response.data;
-          this.$store.dispatch("toggleLoader");
+        .catch(err => {
+          this.errors = err.response.data;
+          this.toggleLoader();
           this.fetching = false;
         });
     },

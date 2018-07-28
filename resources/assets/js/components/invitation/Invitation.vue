@@ -34,11 +34,9 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   data() {
     return {
       invitation: {
@@ -50,19 +48,17 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     sendInvitation() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(window.route("invitation.store"), this.invitation)
-        .then(response => {
-          this.$store.dispatch("toggleLoader");
-          this.$emit("invitationWasAdded", response.data);
-        })
-        .then(() => {
+        .then(res => {
+          this.toggleLoader();
+          this.$emit("invitation:created", res.data);
           this.invitation = {};
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
+        .catch(err => {
+          this.errors = err.response.data.errors;
+          this.toggleLoader();
         });
     }
   }

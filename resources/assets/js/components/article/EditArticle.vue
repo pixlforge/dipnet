@@ -111,11 +111,10 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { eventBus } from "../../app";
+import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     article: {
       type: Object,
@@ -128,20 +127,21 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     updateArticle() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .patch(
           window.route("admin.articles.update", [this.article.id]),
           this.article
         )
         .then(() => {
-          eventBus.$emit("articleWasUpdated", this.article);
-          this.$store.dispatch("toggleLoader");
+          eventBus.$emit("article:updated", this.article);
+          this.toggleLoader();
           this.toggleModal();
         })
         .catch(() => {
-          this.$store.dispatch("toggleLoader");
+          this.toggleLoader();
         });
     }
   }

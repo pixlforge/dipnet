@@ -66,7 +66,7 @@
       </div>
     </section>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -75,14 +75,15 @@
 
 <script>
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
-import { mapGetters } from "vuex";
+
+import { appName, logo, loader } from "../../mixins";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     MoonLoader
   },
-  mixins: [mixins],
+  mixins: [appName, logo, loader],
   data() {
     return {
       company: {
@@ -95,8 +96,9 @@ export default {
     ...mapGetters(["loaderState"])
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     createCompany() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(window.route("register.company.store"), this.company)
         .then(() => {
@@ -110,8 +112,8 @@ export default {
           }, 1000);
         })
         .catch(error => {
-          this.$store.dispatch("toggleLoader");
           this.errors = error.response.data.errors;
+          this.toggleLoader();
         });
     }
   }

@@ -1,13 +1,13 @@
 <template>
   <div>
     <h2 class="comments__title">Commentaires</h2>
-    <add-comment
+    <AddComment
       :business="business"
       :avatar-path="avatarPath"
       :random-avatar="randomAvatar"
-      @postedComment="addComment"/>
+      @comment:posted="addComment"/>
     <transition-group name="highlight">
-      <comment
+      <Comment
         v-for="comment in currentComments"
         :key="comment.id"
         :comment="comment"/>

@@ -17,15 +17,15 @@
         </AppSelect>
       </div>
 
-      <add-article @articleWasCreated="addArticle"/>
+      <AddArticle @article:created="addArticle"/>
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getArticles"/>
+        @pagination:switched="getArticles"/>
 
       <template v-if="!articles.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun article.</p>
@@ -36,23 +36,23 @@
           name="pagination"
           tag="div"
           mode="out-in">
-          <app-article
+          <Article
             v-for="(article, index) in articles"
             :key="article.id"
             :article="article"
             class="card__container"
-            @articleWasDeleted="removeArticle(index)"/>
+            @article:deleted="removeArticle(index)"/>
         </transition-group>
       </template>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getArticles"/>
+        @pagination:switched="getArticles"/>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -65,19 +65,18 @@ import AppSelect from "../select/AppSelect";
 import Article from "./Article.vue";
 import AddArticle from "./AddArticle.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
 import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    "app-article": Article,
-    AddArticle,
     Pagination,
     AppSelect,
+    Article,
+    AddArticle,
     MoonLoader
   },
-  mixins: [mixins],
   data() {
     return {
       articles: [],

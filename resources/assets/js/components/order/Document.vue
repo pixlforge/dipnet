@@ -81,7 +81,7 @@
 
 <script>
 import ArticleDropdown from "./ArticleDropdown";
-import mixins from "../../mixins";
+
 import { eventBus } from "../../app";
 import { mapGetters, mapActions } from "vuex";
 
@@ -89,7 +89,6 @@ export default {
   components: {
     ArticleDropdown
   },
-  mixins: [mixins],
   props: {
     order: {
       type: Object,

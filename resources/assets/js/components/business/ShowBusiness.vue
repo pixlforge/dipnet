@@ -2,23 +2,23 @@
   <div>
     <div class="header__container">
       <h1 class="header__title">{{ business.name }}</h1>
-      <edit-business
+      <EditBusiness
         :business="business"
         :contacts="contacts"
         :user="user">
         <button
-          class="btn btn--red"
-          role="button">
+          role="button"
+          class="btn btn--red">
           <i class="fal fa-pencil"/>
           Modifier
         </button>
-      </edit-business>
+      </EditBusiness>
     </div>
 
     <div class="main__container main__container--grey">
       <div class="business__container">
         <div class="business__orders">
-          <order
+          <Order
             v-for="order in orders"
             :key="order.id"
             :order="order"
@@ -31,7 +31,7 @@
           </p>
         </div>
         <div class="business__comments">
-          <comments
+          <Comments
             :business="business"
             :avatar-path="avatarPath"
             :random-avatar="randomAvatar"
@@ -41,7 +41,7 @@
       </div>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -53,7 +53,7 @@ import Comments from "../comment/Comments";
 import Order from "../order/Order";
 import EditBusiness from "./EditBusiness";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
 import { mapGetters } from "vuex";
 
 export default {
@@ -63,7 +63,6 @@ export default {
     EditBusiness,
     MoonLoader
   },
-  mixins: [mixins],
   props: {
     business: {
       type: Object,

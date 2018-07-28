@@ -130,11 +130,11 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
+import { modal } from "../../mixins";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
+  mixins: [modal],
   data() {
     return {
       format: {
@@ -157,19 +157,19 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     addFormat() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(window.route("admin.formats.store"), this.format)
-        .then(response => {
-          this.format = response.data;
-          this.$emit("formatWasCreated", this.format);
-          this.$store.dispatch("toggleLoader");
+        .then(res => {
+          this.format = res.data;
+          this.$emit("format:created", this.format);
+          this.toggleLoader();
           this.toggleModal();
           this.format = {};
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
+        .catch(err => {
+          this.errors = err.response.data.errors;
+          this.toggleLoader();
         });
     }
   }

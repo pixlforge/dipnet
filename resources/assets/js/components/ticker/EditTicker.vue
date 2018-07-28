@@ -79,12 +79,10 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { eventBus } from "../../app";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     ticker: {
       type: Object,
@@ -99,22 +97,20 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     update() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .patch(
           window.route("admin.tickers.update", [this.ticker.id]),
           this.ticker
         )
         .then(() => {
-          eventBus.$emit("tickerWasUpdated", this.ticker);
-        })
-        .then(() => {
-          this.$store.dispatch("toggleLoader");
+          eventBus.$emit("ticker:updated", this.ticker);
+          this.toggleLoader();
           this.toggleModal();
         })
         .catch(err => {
-          this.$store.dispatch("toggleLoader");
           this.errors = err.response.data;
+          this.toggleLoader();
         });
     }
   }

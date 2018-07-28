@@ -17,15 +17,15 @@
         </AppSelect>
       </div>
 
-      <add-format @formatWasCreated="addFormat"/>
+      <AddFormat @format:created="addFormat"/>
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getFormats"/>
+        @pagination:switched="getFormats"/>
 
       <template v-if="!formats.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun format.</p>
@@ -36,23 +36,23 @@
           name="pagination"
           tag="div"
           mode="out-in">
-          <format
+          <Format
             v-for="(format, index) in formats"
             :key="format.id"
             :format="format"
             class="card__container"
-            @formatWasDeleted="removeFormat(index)"/>
+            @format:deleted="removeFormat(index)"/>
         </transition-group>
       </template>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getFormats"/>
+        @pagination:switched="getFormats"/>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -65,19 +65,20 @@ import AppSelect from "../select/AppSelect";
 import Format from "./Format.vue";
 import AddFormat from "./AddFormat.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
+import { loader, modelCount } from "../../mixins";
 import { eventBus } from "../../app";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
-    Format,
-    AddFormat,
     Pagination,
     AppSelect,
+    Format,
+    AddFormat,
     MoonLoader
   },
-  mixins: [mixins],
+  mixins: [loader, modelCount],
   data() {
     return {
       formats: [],
@@ -101,7 +102,7 @@ export default {
     ...mapGetters(["loaderState"])
   },
   created() {
-    eventBus.$on("formatWasUpdated", data => {
+    eventBus.$on("format:updated", data => {
       this.updateFormat(data);
     });
   },
@@ -109,25 +110,25 @@ export default {
     this.getFormats();
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     getFormats(page = 1) {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       this.fetching = true;
-
       window.axios
         .get(window.route("api.formats.index", this.sort.value), {
           params: {
             page
           }
         })
-        .then(response => {
-          this.formats = response.data.data;
-          this.meta = response.data.meta;
-          this.$store.dispatch("toggleLoader");
+        .then(res => {
+          this.formats = res.data.data;
+          this.meta = res.data.meta;
+          this.toggleLoader();
           this.fetching = false;
         })
-        .catch(error => {
-          this.errors = error.response.data;
-          this.$store.dispatch("toggleLoader");
+        .catch(err => {
+          this.errors = err.response.data;
+          this.toggleLoader();
           this.fetching = false;
         });
     },

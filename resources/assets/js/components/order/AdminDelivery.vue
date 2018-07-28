@@ -10,10 +10,10 @@
           <div class="admin-delivery__label-container">
             <h3 class="admin-delivery__label">Livraison à</h3>
             <h3 class="admin-delivery__label">
-              <contact-dropdown
+              <ContactDropdown
                 :label="selectedDeliveryContact"
                 :company-id="order.business.company_id"
-                @itemSelected="selectDeliveryContact"/>
+                @item:selected="selectDeliveryContact"/>
             </h3>
           </div>
           <ul class="admin-delivery__contact-info">
@@ -29,7 +29,7 @@
         <div class="admin-delivery__second-meta">
           <div class="admin-delivery__label-container">
             <h3 class="admin-delivery__label">Le</h3>
-            <datepicker
+            <Datepicker
               :date="startTime"
               :option="option"
               :limit="limit"
@@ -67,7 +67,7 @@
     </div>
 
     <div class="delivery__document-container">
-      <admin-document
+      <AdminDocument
         v-for="document in deliveryDocuments"
         :key="document.id"
         :order="order"
@@ -84,8 +84,8 @@
 import AdminDocument from "./AdminDocument";
 import ContactDropdown from "../dropdown/ContactDropdown";
 import Datepicker from "vue-datepicker";
+
 import moment from "moment";
-import mixins from "../../mixins";
 
 export default {
   components: {
@@ -93,7 +93,6 @@ export default {
     ContactDropdown,
     Datepicker
   },
-  mixins: [mixins],
   props: {
     order: {
       type: Object,

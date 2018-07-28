@@ -21,13 +21,11 @@
 
 <script>
 import SendConfirmationEmailAgain from "../register/SendConfirmationEmailAgain.vue";
-import mixins from "../../mixins";
 
 export default {
   components: {
     SendConfirmationEmailAgain
   },
-  mixins: [mixins],
   props: {
     user: {
       type: Object,

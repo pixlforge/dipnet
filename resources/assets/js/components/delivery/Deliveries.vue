@@ -11,11 +11,11 @@
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getDeliveries"/>
+        @pagination:switched="getDeliveries"/>
 
       <template v-if="!deliveries.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucune livraison.</p>
@@ -26,23 +26,23 @@
           name="pagination"
           tag="div"
           mode="out-in">
-          <delivery
+          <Delivery
             v-for="(delivery, index) in deliveries"
             :key="delivery.id"
             :delivery="delivery"
             class="card__container"
-            @deliveryWasDeleted="removeDelivery(index)"/>
+            @delivery:deleted="removeDelivery(index)"/>
         </transition-group>
       </template>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getDeliveries"/>
+        @pagination:switched="getDeliveries"/>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -53,16 +53,15 @@
 import Pagination from "../pagination/Pagination";
 import Delivery from "./Delivery";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    Delivery,
     Pagination,
+    Delivery,
     MoonLoader
   },
-  mixins: [mixins],
   data() {
     return {
       deliveries: [],

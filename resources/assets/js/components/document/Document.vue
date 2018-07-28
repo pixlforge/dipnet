@@ -50,10 +50,7 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
-
 export default {
-  mixins: [mixins],
   props: {
     document: {
       type: Object,

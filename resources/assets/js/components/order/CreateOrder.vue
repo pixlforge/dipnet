@@ -166,7 +166,7 @@ import PreviewDelivery from "./PreviewDelivery";
 import AddContact from "../contact/AddContact.vue";
 import Dropdown from "../dropdown/Dropdown";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
 import { eventBus } from "../../app";
 import { mapActions, mapGetters } from "vuex";
 
@@ -178,7 +178,6 @@ export default {
     Dropdown,
     MoonLoader
   },
-  mixins: [mixins],
   props: {
     order: {
       type: Object,

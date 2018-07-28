@@ -3,28 +3,33 @@
     <transition
       name="fade"
       mode="out-in">
-      <register-menu
+      <RegisterMenu
         v-if="showRegistrationMenu"
         :app-name="appName"
-        @registrationSelection="selection"/>
-      <register-join-infos
+        @registration:selection="selection"/>
+
+      <RegisterJoinInfos
         v-if="showJoinInfos"
-        @backToMenu="backToMenu"/>
-      <register-account
+        @back-to:menu="backToMenu"/>
+
+      <RegisterAccount
         v-if="showAccountForm"
         :registration-type="registrationType"
         :invitation="invitation"
-        @accountCreated="accountCreated"/>
-      <register-contact
+        @account:created="accountCreated"/>
+
+      <RegisterContact
         v-if="showContactForm"
         :registration-type="registrationType"
         :invitation="invitation"
-        @contactCreated="contactCreated"/>
-      <register-company
+        @contact:created="contactCreated"/>
+        
+      <RegisterCompany
         v-if="showCompanyForm"
-        @companyCreated="companyCreated"/>
+        @company:created="companyCreated"/>
     </transition>
-    <moon-loader
+    
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -32,25 +37,26 @@
 </template>
 
 <script>
-import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import RegisterMenu from "./RegisterMenu.vue";
 import RegisterJoinInfos from "./RegisterJoinInfos.vue";
 import RegisterAccount from "./RegisterAccount.vue";
 import RegisterContact from "./RegisterContact.vue";
 import RegisterCompany from "./RegisterCompany.vue";
-import mixins from "../../mixins";
-import { mapGetters } from "vuex";
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+
+import { appName, loader, registration } from "../../mixins";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
-    MoonLoader,
     RegisterMenu,
     RegisterJoinInfos,
     RegisterAccount,
     RegisterContact,
-    RegisterCompany
+    RegisterCompany,
+    MoonLoader
   },
-  mixins: [mixins],
+  mixins: [appName, loader, registration],
   props: {
     token: {
       type: String,
@@ -71,30 +77,29 @@ export default {
   computed: {
     ...mapGetters(["loaderState"])
   },
-  created() {
+  async mounted() {
     /**
      * Get the invitation token and try to confirm it.
      */
     if (this.token) {
       this.registrationType = "join";
-      this.$store.dispatch("toggleLoader");
-      window.axios
-        .post(window.route("invitation.confirm"), {
+      this.toggleLoader();
+      try {
+        let res = await window.axios.post(window.route("invitation.confirm"), {
           token: this.token
-        })
-        .then(response => {
-          this.invitation = response.data;
-          this.showAccountForm = true;
-          this.$store.dispatch("toggleLoader");
-        })
-        .catch(() => {
-          this.$store.dispatch("toggleLoader");
         });
+        this.invitation = res.data;
+        this.showAccountForm = true;
+        this.toggleLoader();
+      } catch (err) {
+        this.toggleLoader();
+      }
     } else {
       this.showRegistrationMenu = true;
     }
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     /**
      * Registration selection type.
      */

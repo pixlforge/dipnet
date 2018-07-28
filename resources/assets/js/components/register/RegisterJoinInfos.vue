@@ -16,7 +16,7 @@
 
         <div
           class="register__back"
-          @click="backToMenu">
+          @click.prevent="$emit('back-to:menu')">
           <i class="fal fa-arrow-left fa-2x"/>
         </div>
       </div>
@@ -28,24 +28,20 @@
           :src="logoBw"
           :alt="`${appName} logo`">
       </div>
-      <carousel/>
+      <Carousel/>
     </section>
   </div>
 </template>
 
 <script>
 import Carousel from "../carousel/Carousel";
-import mixins from "../../mixins";
+
+import { appName, logo } from "../../mixins";
 
 export default {
   components: {
     Carousel
   },
-  mixins: [mixins],
-  methods: {
-    backToMenu() {
-      this.$emit("backToMenu");
-    }
-  }
+  mixins: [appName, logo]
 };
 </script>

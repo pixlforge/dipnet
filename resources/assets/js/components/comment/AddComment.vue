@@ -16,8 +16,8 @@
       class="comments__textarea"
       placeholder="Votre commentaire ici..."/>
     <button
-      class="btn btn--red"
       role="button"
+      class="btn btn--red"
       @click="addComment">
       <i class="fal fa-paper-plane"/>
       Envoyer
@@ -26,10 +26,9 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
+import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     business: {
       type: Object,
@@ -53,22 +52,23 @@ export default {
     };
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     addComment() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(window.route("comments.store", [this.business.id]), this.comment)
-        .then(response => {
-          this.$store.dispatch("toggleLoader");
-          this.$emit("postedComment", {
-            id: response.data.id,
+        .then(res => {
+          this.toggleLoader();
+          this.$emit("comment:posted", {
+            id: res.data.id,
             body: this.comment.body
           });
           this.comment.body = "";
           this.errors = {};
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data;
+        .catch(err => {
+          this.errors = err.response.data;
+          this.toggleLoader();
         });
     }
   }

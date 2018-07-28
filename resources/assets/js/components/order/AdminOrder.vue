@@ -46,7 +46,7 @@
 import AdminDelivery from "./AdminDelivery";
 import AddContact from "../contact/AddContact.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
 import { mapActions, mapGetters } from "vuex";
 
 export default {
@@ -55,7 +55,6 @@ export default {
     AddContact,
     MoonLoader
   },
-  mixins: [mixins],
   props: {
     order: {
       type: Object,

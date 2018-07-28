@@ -110,11 +110,9 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   data() {
     return {
       article: {
@@ -128,19 +126,19 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     addArticle() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(window.route("admin.articles.store"), this.article)
         .then(res => {
           this.article = res.data;
-          this.$emit("articleWasCreated", this.article);
-          this.$store.dispatch("toggleLoader");
+          this.$emit("article:created", this.article);
+          this.toggleLoader();
           this.toggleModal();
           this.article = {};
         })
         .catch(error => {
-          this.$store.dispatch("toggleLoader");
           this.errors = error.response.data.errors;
+          this.toggleLoader();
         });
     }
   }

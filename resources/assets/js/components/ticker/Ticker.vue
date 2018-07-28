@@ -29,13 +29,13 @@
 
     <div class="card__controls">
       <div
-        title="Supprimer"
         role="button"
+        title="Supprimer"
         @click="destroy">
         <i class="fal fa-times"/>
       </div>
       <div title="Modifier">
-        <edit-ticker :ticker="ticker"/>
+        <EditTicker :ticker="ticker"/>
       </div>
     </div>
   </div>
@@ -43,13 +43,11 @@
 
 <script>
 import EditTicker from "./EditTicker";
-import mixins from "../../mixins";
 
 export default {
   components: {
     EditTicker
   },
-  mixins: [mixins],
   props: {
     ticker: {
       type: Object,
@@ -61,7 +59,7 @@ export default {
       window.axios.delete(
         window.route("admin.tickers.destroy", [this.ticker.id])
       );
-      this.$emit("tickerWasDeleted", this.ticker.id);
+      this.$emit("ticker:deleted", this.ticker.id);
     }
   }
 };

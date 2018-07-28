@@ -11,9 +11,9 @@
     </div>
 
     <div class="header__container">
-      <invite-member
+      <InviteMember
         class="invitation__container"
-        @invitationWasAdded="addInvitation"/>
+        @invitation:created="addInvitation"/>
     </div>
 
     <div class="company__container">
@@ -22,12 +22,12 @@
         <transition-group
           name="highlight"
           tag="div">
-          <company-member
+          <CompanyMember
             v-for="(user, index) in company.user"
             :key="index"
             :user="user"
             class="card__container"
-            @memberWasDeleted="removeMember(index)"/>
+            @member:removed="removeMember(index)"/>
         </transition-group>
       </div>
 
@@ -41,12 +41,12 @@
         <transition-group
           name="highlight"
           tag="div">
-          <invited-member
+          <InvitedMember
             v-for="(invitation, index) in invitations"
             :key="index"
             :invitation="invitation"
             class="card__container"
-            @invitationWasDeleted="removeInvitation(index)"/>
+            @invitation:deleted="removeInvitation(index)"/>
         </transition-group>
       </div>
 
@@ -59,30 +59,29 @@
         <div class="company__options">
           <div class="company__option">
             <label class="company__label">Affaire par défaut :</label>
-            <settings-dropdown
+            <SettingsDropdown
               :label="selectedBusiness"
               :items="businesses"
-              @itemSelected="selectBusiness"/>
+              @item:selected="selectBusiness"/>
           </div>
         </div>
       </div>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
   </div>
-
 </template>
 
 <script>
-import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import CompanyMember from "./CompanyMember.vue";
 import InviteMember from "../invitation/Invitation.vue";
 import InvitedMember from "../invitation/InvitedMember.vue";
 import SettingsDropdown from "../dropdown/SettingsDropdown";
-import mixins from "../../mixins";
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+
 import { mapGetters } from "vuex";
 
 export default {
@@ -90,10 +89,9 @@ export default {
     CompanyMember,
     InviteMember,
     InvitedMember,
-    MoonLoader,
-    SettingsDropdown
+    SettingsDropdown,
+    MoonLoader
   },
-  mixins: [mixins],
   props: {
     company: {
       type: Object,

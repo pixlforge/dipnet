@@ -42,15 +42,14 @@
 
 <script>
 import PreviewDocument from "./PreviewDocument.vue";
+
 import moment from "moment";
-import mixins from "../../mixins";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
     PreviewDocument
   },
-  mixins: [mixins],
   props: {
     order: {
       type: Object,

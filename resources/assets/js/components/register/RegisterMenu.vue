@@ -13,20 +13,20 @@
         <button
           class="register__btn register__btn--red"
           role="button"
-          @click="addCompany">
+          @click.prevent="$emit('registration:selection', 'add')">
           Je désire enregistrer ma société
         </button>
         <button
           class="register__btn register__btn--orange"
           role="button"
-          @click="joinCompany">
+          @click.prevent="$emit('registration:selection', 'join')">
           Je désire rejoindre ma société
         </button>
         <button
           class="register__btn register__btn--purple"
           role="button"
-          @click="asSelf">
-          Je désire commander à mon nom
+          @click.prevent="$emit('registration:selection', 'self')">
+          Je désire commander en mon nom
         </button>
         <div class="register__login">
           Vous disposez déjà d'un compte?
@@ -47,30 +47,20 @@
           :src="logoBw"
           :alt="`${appName} logo`">
       </div>
-      <carousel/>
+      <Carousel/>
     </section>
   </div>
 </template>
 
 <script>
 import Carousel from "../carousel/Carousel";
-import mixins from "../../mixins";
+
+import { appName, logo, registration } from "../../mixins";
 
 export default {
   components: {
     Carousel
   },
-  mixins: [mixins],
-  methods: {
-    joinCompany() {
-      this.$emit("registrationSelection", "join");
-    },
-    addCompany() {
-      this.$emit("registrationSelection", "add");
-    },
-    asSelf() {
-      this.$emit("registrationSelection", "self");
-    }
-  }
+  mixins: [appName, logo, registration]
 };
 </script>

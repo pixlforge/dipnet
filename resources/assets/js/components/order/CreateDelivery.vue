@@ -3,77 +3,86 @@
     <div class="delivery__header">
       <div class="delivery__header-box">
         <div class="delivery__details">
-          <div class="badge__order"
-               v-text="deliveryNumber">
-          </div>
+          <div
+            class="badge__order"
+            v-text="deliveryNumber"/>
           <h3 class="delivery__label">Livraison à</h3>
           <h3 class="delivery__label delivery__label--dropdown">
-            <dropdown :label="selectedContact"
-                      :list-items="listContacts"
-                      :add-contact-component="true"
-                      @itemSelected="selectContact"></dropdown>
+            <dropdown
+              :label="selectedContact"
+              :list-items="listContacts"
+              :add-contact-component="true"
+              @itemSelected="selectContact"/>
           </h3>
         </div>
       </div>
       <div class="delivery__header-box">
         <div class="delivery__details">
           <h3 class="delivery__label">Le</h3>
-          <datepicker :date="startTime"
-                      :option="option"
-                      :limit="limit"
-                      :to-deliver-at="delivery.to_deliver_at"
-                      @change="updateDeliveryDate"></datepicker>
+          <datepicker
+            :date="startTime"
+            :option="option"
+            :limit="limit"
+            :to-deliver-at="delivery.to_deliver_at"
+            @change="updateDeliveryDate"/>
         </div>
       </div>
       <div class="delivery__controls">
-        <div class="delivery__icon-destroy"
-             role="button"
-             v-if="listDeliveries.length > 1"
-             @click="removeDelivery">
-          <i class="fal fa-times"></i>
+        <div
+          v-if="listDeliveries.length > 1"
+          class="delivery__icon-destroy"
+          role="button"
+          @click="removeDelivery">
+          <i class="fal fa-times"/>
         </div>
-        <p class="delivery__note-control"
-           role="button"
-           @click="removeNote"
-           v-if="showNote">
+        <p
+          v-if="showNote"
+          class="delivery__note-control"
+          role="button"
+          @click="removeNote">
           Retirer la note
         </p>
-        <p class="delivery__note-control"
-           role="button"
-           @click="toggleNote"
-           v-else>
+        <p
+          v-else
+          class="delivery__note-control"
+          role="button"
+          @click="toggleNote">
           Ajouter une note
         </p>
       </div>
     </div>
     <transition name="fade">
-      <textarea class="delivery__textarea"
-                placeholder="Faîtes nous part de vos commentaires pour cette livraison ici."
-                v-if="showNote"
-                v-model="delivery.note"
-                @blur="updateNote"></textarea>
+      <textarea
+        v-if="showNote"
+        v-model="delivery.note"
+        class="delivery__textarea"
+        placeholder="Faîtes nous part de vos commentaires pour cette livraison ici."
+        @blur="updateNote"/>
     </transition>
     <transition-group name="order">
-      <document class="document__container"
-                v-for="(document, index) in deliveryDocuments"
-                :key="document.id"
-                :order="order"
-                :delivery="delivery"
-                :document="document"
-                :options="document.articles"></document>
+      <document
+        v-for="document in deliveryDocuments"
+        :key="document.id"
+        :order="order"
+        :delivery="delivery"
+        :document="document"
+        :options="document.articles"
+        class="document__container"/>
     </transition-group>
-    <div :id="'delivery-file-upload-' + delivery.id" class="dropzone"></div>
+    <div
+      :id="'delivery-file-upload-' + delivery.id"
+      class="dropzone"/>
   </div>
 </template>
 
 <script>
 import AddContact from "../contact/AddContact.vue";
 import Document from "./Document.vue";
-import Dropzone from "dropzone";
 import Dropdown from "../dropdown/Dropdown";
 import Datepicker from "vue-datepicker";
+
+import Dropzone from "dropzone";
 import moment from "moment";
-import mixins from "../../mixins";
 import { mapGetters } from "vuex";
 
 export default {
@@ -206,88 +215,6 @@ export default {
       this.determineDropzoneStyle();
     }
   },
-  mixins: [mixins],
-  methods: {
-    /**
-     * Select and update the delivery contact.
-     */
-    selectContact(contact) {
-      this.selectedContact = contact.name;
-      this.delivery.contact_id = contact.id;
-      this.delivery.contact = contact;
-      this.update();
-    },
-    /**
-     * Update the delivery.
-     */
-    update() {
-      axios.put(
-        route("deliveries.update", [this.delivery.reference]),
-        this.delivery
-      );
-    },
-    /**
-     * Delete a delivery.
-     */
-    removeDelivery() {
-      this.$emit("removeDelivery", this.delivery);
-    },
-    /**
-     * Toggle the visibility of the note textarea.
-     */
-    toggleNote() {
-      this.showNote = !this.showNote;
-    },
-    /**
-     * Update the delivery note.
-     */
-    updateNote() {
-      axios.put(
-        route("deliveries.note.update", [this.delivery.reference]),
-        this.delivery
-      );
-    },
-    /**
-     * Remove an existing note.
-     */
-    removeNote() {
-      axios
-        .delete(
-          route("deliveries.note.destroy", [this.delivery.reference]),
-          this.delivery
-        )
-        .then(() => {
-          this.delivery.note = "";
-          this.showNote = false;
-          flash({
-            message: "La note a été supprimée.",
-            level: "success"
-          });
-        });
-    },
-    /**
-     * Update the delivery date.
-     */
-    updateDeliveryDate(date) {
-      this.delivery.to_deliver_at = moment(date, "LL HH:mm").format(
-        "YYYY-MM-DD HH:mm:ss"
-      );
-      this.update();
-    },
-    /**
-     * Determine the styles of the Dropzone container.
-     */
-    determineDropzoneStyle() {
-      const templateHTML = document.getElementById(
-        "delivery-file-upload-" + this.delivery.id
-      );
-      if (this.deliveryDocuments.length) {
-        templateHTML.classList.add("dropzone--small");
-      } else {
-        templateHTML.classList.remove("dropzone--small");
-      }
-    }
-  },
   created() {
     /**
      * Preselect the delivery's delivery dropdown contact.
@@ -317,7 +244,7 @@ export default {
     Dropzone.autoDiscover = false;
     let drop = new Dropzone("#delivery-file-upload-" + this.delivery.id, {
       createImageThumbnails: false,
-      url: route("documents.store", [
+      url: window.route("documents.store", [
         this.order.reference,
         this.delivery.reference
       ]),
@@ -338,7 +265,7 @@ export default {
       file.id = response.id;
       this.$store.dispatch("addDocument", response);
       file.previewElement.classList.add("dz-hidden");
-      flash({
+      window.flash({
         message: "Votre document a bien été téléchargé!",
         level: "success"
       });
@@ -347,15 +274,15 @@ export default {
      * Dropzone on removed file hook.
      */
     drop.on("removedfile", file => {
-      axios
+      window.axios
         .delete(
-          route("documents.destroy", [
+          window.route("documents.destroy", [
             this.order.reference,
             this.delivery.reference,
             file.id
           ])
         )
-        .catch(error => {
+        .catch(() => {
           drop.emit("addedfile", {
             id: file.id,
             name: file.name,
@@ -364,6 +291,87 @@ export default {
         });
     });
     this.determineDropzoneStyle();
+  },
+  methods: {
+    /**
+     * Select and update the delivery contact.
+     */
+    selectContact(contact) {
+      this.selectedContact = contact.name;
+      this.delivery.contact_id = contact.id;
+      this.delivery.contact = contact;
+      this.update();
+    },
+    /**
+     * Update the delivery.
+     */
+    update() {
+      window.axios.put(
+        window.route("deliveries.update", [this.delivery.reference]),
+        this.delivery
+      );
+    },
+    /**
+     * Delete a delivery.
+     */
+    removeDelivery() {
+      this.$emit("removeDelivery", this.delivery);
+    },
+    /**
+     * Toggle the visibility of the note textarea.
+     */
+    toggleNote() {
+      this.showNote = !this.showNote;
+    },
+    /**
+     * Update the delivery note.
+     */
+    updateNote() {
+      window.axios.put(
+        window.route("deliveries.note.update", [this.delivery.reference]),
+        this.delivery
+      );
+    },
+    /**
+     * Remove an existing note.
+     */
+    removeNote() {
+      window.axios
+        .delete(
+          window.route("deliveries.note.destroy", [this.delivery.reference]),
+          this.delivery
+        )
+        .then(() => {
+          this.delivery.note = "";
+          this.showNote = false;
+          window.flash({
+            message: "La note a été supprimée.",
+            level: "success"
+          });
+        });
+    },
+    /**
+     * Update the delivery date.
+     */
+    updateDeliveryDate(date) {
+      this.delivery.to_deliver_at = moment(date, "LL HH:mm").format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      this.update();
+    },
+    /**
+     * Determine the styles of the Dropzone container.
+     */
+    determineDropzoneStyle() {
+      const templateHTML = document.getElementById(
+        "delivery-file-upload-" + this.delivery.id
+      );
+      if (this.deliveryDocuments.length) {
+        templateHTML.classList.add("dropzone--small");
+      } else {
+        templateHTML.classList.remove("dropzone--small");
+      }
+    }
   }
 };
 </script>

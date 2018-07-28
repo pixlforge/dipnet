@@ -17,18 +17,18 @@
         </AppSelect>
       </div>
 
-      <add-contact
+      <AddContact
         :companies="companies"
         :user="user"
-        @contactWasCreated="addContact"/>
+        @contact:created="addContact"/>
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getContacts"/>
+        @pagination:switched="getContacts"/>
 
       <template v-if="!contacts.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun contact.</p>
@@ -39,25 +39,25 @@
           name="pagination"
           tag="div"
           mode="out-in">
-          <contact
+          <Contact
             v-for="(contact, index) in contacts"
             :key="contact.id"
             :contact="contact"
             :companies="companies"
             :user="user"
             class="card__container"
-            @contactWasDeleted="removeContact(index)"/>
+            @contact:deleted="removeContact(index)"/>
         </transition-group>
       </template>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getContacts"/>
+        @pagination:switched="getContacts"/>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -70,19 +70,18 @@ import AppSelect from "../select/AppSelect";
 import Contact from "./Contact.vue";
 import AddContact from "./AddContact.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
 import { eventBus } from "../../app";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
-    Contact,
-    AddContact,
     Pagination,
     AppSelect,
+    Contact,
+    AddContact,
     MoonLoader
   },
-  mixins: [mixins],
   props: {
     companies: {
       type: Array,
@@ -114,7 +113,7 @@ export default {
     ...mapGetters(["loaderState"])
   },
   created() {
-    eventBus.$on("contactWasUpdated", data => {
+    eventBus.$on("contact:updated", data => {
       this.updateContact(data);
     });
   },
@@ -122,25 +121,25 @@ export default {
     this.getContacts();
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     getContacts(page = 1) {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       this.fetching = true;
-
       window.axios
         .get(window.route("api.contacts.index", this.sort.value), {
           params: {
             page
           }
         })
-        .then(response => {
-          this.contacts = response.data.data;
-          this.meta = response.data.meta;
-          this.$store.dispatch("toggleLoader");
+        .then(res => {
+          this.contacts = res.data.data;
+          this.meta = res.data.meta;
+          this.toggleLoader();
           this.fetching = false;
         })
-        .catch(error => {
-          this.errors = error.response.data;
-          this.$store.dispatch("toggleLoader");
+        .catch(err => {
+          this.errors = err.response.data;
+          this.toggleLoader();
           this.fetching = false;
         });
     },

@@ -15,10 +15,10 @@
       <div class="document__options-container">
         <div class="document__option">
           <h4 class="document__option-label">Format</h4>
-          <format-dropdown
+          <FormatDropdown
             :list-items="formats"
             label="Format"
-            @itemSelected="selectFormat"/>
+            @item:selected="selectFormat"/>
           <div class="document__size">
             <div class="document__size-group">
               <h4 class="document__option-label">Largeur</h4>
@@ -42,26 +42,26 @@
 
         <div class="document__option">
           <h4 class="document__option-label">Type d'impression</h4>
-          <article-dropdown
+          <ArticleDropdown
             :label="listSelectedPrintType"
             type="print"
-            @itemSelected="selectPrintType"/>
+            @item:selected="selectPrintType"/>
         </div>
 
         <div class="document__option">
           <h4 class="document__option-label">Finition</h4>
-          <article-dropdown
+          <ArticleDropdown
             :label="listSelectedFinish"
             type="finish"
-            @itemSelected="selectFinish"/>
+            @item:selected="selectFinish"/>
         </div>
 
         <div class="document__option">
           <h4 class="document__option-label">Options</h4>
-          <article-dropdown
+          <ArticleDropdown
             label="Ajouter une option"
             type="option"
-            @itemSelected="selectOption"/>
+            @item:selected="selectOption"/>
           <ul class="document__list">
             <li
               v-for="option in listSelectedOptions"
@@ -96,17 +96,17 @@
     </div>
     <div class="document__controls">
       <div
+        role="button"
         class="document__icon-delete"
         title="Supprimer"
-        role="button"
         @click="destroy">
         <i class="fal fa-times"/>
       </div>
 
       <div
+        role="button"
         class="document__icon-clone"
         title="Copier"
-        role="button"
         @click="clone">
         <i class="fal fa-copy"/>
       </div>
@@ -117,7 +117,7 @@
 <script>
 import ArticleDropdown from "./ArticleDropdown";
 import FormatDropdown from "../dropdown/FormatDropdown";
-import mixins from "../../mixins";
+
 import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
 
@@ -126,7 +126,6 @@ export default {
     ArticleDropdown,
     FormatDropdown
   },
-  mixins: [mixins],
   props: {
     order: {
       type: Object,
@@ -364,7 +363,7 @@ export default {
       });
     },
     destroy() {
-      eventBus.$emit("removeDocument", {
+      eventBus.$emit("document:remove", {
         document: this.currentDocument,
         orderReference: this.currentOrder.reference,
         deliveryReference: this.currentDelivery.reference

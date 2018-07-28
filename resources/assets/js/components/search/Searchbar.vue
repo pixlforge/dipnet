@@ -7,7 +7,7 @@
       type="text"
       class="searchbar__input"
       placeholder="Rechercher"
-      @keyup="research">
+      @keyup.prevent="research">
     <transition name="fade">
       <ul
         v-if="search.query.length > 1"

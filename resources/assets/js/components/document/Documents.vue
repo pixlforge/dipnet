@@ -11,11 +11,11 @@
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getDocuments"/>
+        @pagination:switched="getDocuments"/>
 
       <template v-if="!documents.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun document.</p>
@@ -26,23 +26,23 @@
           name="pagination"
           tag="div"
           mode="out-in">
-          <document
+          <Document
             v-for="(document, index) in documents"
             :key="document.id"
             :document="document"
             class="card__container"
-            @documentWasDeleted="removeDocument(index)"/>
+            @document:deleted="removeDocument(index)"/>
         </transition-group>
       </template>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getDocuments"/>
+        @pagination:switched="getDocuments"/>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -53,16 +53,15 @@
 import Pagination from "../pagination/Pagination";
 import Document from "./Document";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
-import { mapGetters } from "vuex";
+
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
-    Document,
     Pagination,
+    Document,
     MoonLoader
   },
-  mixins: [mixins],
   data() {
     return {
       documents: [],
@@ -81,8 +80,9 @@ export default {
     this.getDocuments();
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     getDocuments(page = 1) {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       this.fetching = true;
 
       window.axios
@@ -91,15 +91,15 @@ export default {
             page
           }
         })
-        .then(response => {
-          this.documents = response.data.data;
-          this.meta = response.data.meta;
-          this.$store.dispatch("toggleLoader");
+        .then(res => {
+          this.documents = res.data.data;
+          this.meta = res.data.meta;
+          this.toggleLoader();
           this.fetching = false;
         })
-        .catch(error => {
-          this.errors = error.response.data;
-          this.$store.dispatch("toggleLoader");
+        .catch(err => {
+          this.errors = err.response.data;
+          this.toggleLoader();
           this.fetching = false;
         });
     }

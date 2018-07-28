@@ -80,11 +80,9 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { mapGetters } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     type: {
       type: String,
@@ -114,16 +112,9 @@ export default {
     document.removeEventListener("click", this.documentClick);
   },
   methods: {
-    /**
-     * Toggle the open state of the dropdown list.
-     */
     toggleOpen() {
       this.open = !this.open;
     },
-    /**
-     * Retrieve the reference of the active dropdown and close
-     * it if another element is clicked.
-     */
     documentClick(event) {
       let el = this.$refs.dropdownMenu;
       let target = event.target;
@@ -131,9 +122,6 @@ export default {
         this.open = false;
       }
     },
-    /**
-     * Select an item from the list.
-     */
     selectItem(item) {
       this.$emit("itemSelected", item);
       this.toggleOpen();

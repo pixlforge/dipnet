@@ -9,7 +9,7 @@
         </a>
       </div>
       <div class="navbar__searchbar">
-        <searchbar/>
+        <Searchbar/>
       </div>
     </div>
     <div class="navbar__second-section">
@@ -47,7 +47,7 @@
           v-else
           :src="'/' + randomAvatar"
           alt="Avatar">
-        <menu-dropdown
+        <Menu
           :label="userName"
           :user-role="userRole"
           class="navbar__user-name"/>
@@ -64,12 +64,12 @@
 
 <script>
 import Searchbar from "../search/Searchbar";
-import MenuDropdown from "../dropdown/MenuDropdown";
+import Menu from "./Menu";
 
 export default {
   components: {
     Searchbar,
-    MenuDropdown
+    Menu
   },
   props: {
     appName: {

@@ -85,15 +85,15 @@
 
           <div class="modal__buttons">
             <button
-              class="btn btn--grey"
               role="button"
+              class="btn btn--grey"
               @click.stop="toggleModal">
               <i class="fal fa-times"/>
               Annuler
             </button>
             <button
-              class="btn btn--red"
               role="button"
+              class="btn btn--red"
               @click.prevent="updateCompany">
               <i class="fal fa-check"/>
               Mettre à jour
@@ -106,12 +106,10 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { eventBus } from "../../app";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     company: {
       type: Object,
@@ -124,25 +122,23 @@ export default {
     };
   },
   created() {
-    eventBus.$on("openEditCompany", () => {
+    eventBus.$on("open:edit-company", () => {
       this.toggleModal();
     });
   },
   methods: {
     ...mapActions(["toggleLoader"]),
     updateCompany() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .put(window.route("companies.update", [this.company.id]), this.company)
         .then(() => {
-          eventBus.$emit("companyWasUpdated", this.company);
-        })
-        .then(() => {
-          this.$store.dispatch("toggleLoader");
+          eventBus.$emit("company:updated", this.company);
+          this.toggleLoader();
           this.toggleModal();
         })
         .catch(() => {
-          this.$store.dispatch("toggleLoader");
+          this.toggleLoader();
         });
     }
   }

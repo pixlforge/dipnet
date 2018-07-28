@@ -1,7 +1,7 @@
 <template>
   <div
-    title="Modifier"
-    role="button">
+    role="button"
+    title="Modifier">
     <div @click="toggleModal">
       <slot>
         <div>
@@ -184,15 +184,15 @@
 
           <div class="modal__buttons">
             <button
-              class="btn btn--grey"
               role="button"
+              class="btn btn--grey"
               @click.stop="toggleModal">
               <i class="fal fa-times"/>
               Annuler
             </button>
             <button
-              class="btn btn--red"
               role="button"
+              class="btn btn--red"
               @click.prevent="updateBusiness">
               <i class="fal fa-check"/>
               Mettre à jour
@@ -205,12 +205,10 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { eventBus } from "../../app";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     business: {
       type: Object,
@@ -256,22 +254,20 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     updateBusiness() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .patch(
           window.route("admin.businesses.update", [this.business.id]),
           this.business
         )
         .then(() => {
-          eventBus.$emit("businessWasUpdated", this.business);
-        })
-        .then(() => {
-          this.$store.dispatch("toggleLoader");
+          eventBus.$emit("business:updated", this.business);
+          this.toggleLoader();
           this.toggleModal();
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data;
+        .catch(err => {
+          this.errors = err.response.data;
+          this.toggleLoader();
         });
     }
   }

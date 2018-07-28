@@ -93,10 +93,10 @@
           :src="logoBw"
           :alt="`${appName} logo`">
       </div>
-      <carousel/>
+      <Carousel/>
     </section>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -106,7 +106,8 @@
 <script>
 import Carousel from "../carousel/Carousel.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
+import { logo, appName, registration, loader } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -114,7 +115,7 @@ export default {
     Carousel,
     MoonLoader
   },
-  mixins: [mixins],
+  mixins: [logo, appName, registration, loader],
   data() {
     return {
       email: "",

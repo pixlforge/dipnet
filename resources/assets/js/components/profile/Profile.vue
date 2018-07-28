@@ -21,10 +21,10 @@
           class="profile__header-item">
           Compte non vérifié
         </p>
-        <send-confirmation-email-again
+        <SendConfirmationEmailAgain
           v-if="!user.email_confirmed"
           class="profile__header-item"/>
-        <update-profile
+        <UpdateProfile
           :user="user"
           :avatar="avatar"
           :random-avatar="randomAvatar"
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -93,7 +93,7 @@
 import SendConfirmationEmailAgain from "../register/SendConfirmationEmailAgain.vue";
 import UpdateProfile from "./UpdateProfile.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
+
 import { mapGetters } from "vuex";
 
 export default {
@@ -102,7 +102,6 @@ export default {
     UpdateProfile,
     MoonLoader
   },
-  mixins: [mixins],
   props: {
     user: {
       type: Object,

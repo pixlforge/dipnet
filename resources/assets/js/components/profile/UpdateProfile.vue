@@ -139,13 +139,13 @@
 
 <script>
 import AvatarUpload from "./AvatarUpload.vue";
-import mixins from "../../mixins";
+
+import { mapActions } from "vuex";
 
 export default {
   components: {
     AvatarUpload
   },
-  mixins: [mixins],
   props: {
     user: {
       type: Object,
@@ -169,12 +169,13 @@ export default {
     this.user.password = null;
   },
   methods: {
+    ...mapActions(["toggleLoader"]),
     updateProfile() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .patch(window.route("account.update"), this.user)
         .then(() => {
-          this.$store.dispatch("toggleLoader");
+          this.toggleLoader();
           this.toggleModal();
           this.errors = {};
           this.user.password = "";
@@ -184,9 +185,9 @@ export default {
             level: "success"
           });
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
+        .catch(err => {
+          this.errors = err.response.data.errors;
+          this.toggleLoader();
         });
     }
   }

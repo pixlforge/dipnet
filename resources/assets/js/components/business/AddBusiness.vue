@@ -12,8 +12,7 @@
       <div
         v-if="showModal"
         class="modal__background"
-        @click="toggleModal">$
-      </div>
+        @click="toggleModal"/>
     </transition>
 
     <transition name="slide">
@@ -206,11 +205,9 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     companies: {
       type: Array,
@@ -261,23 +258,23 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     addBusiness() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       if (!this.userIsAdmin) {
         this.business.company_id = this.user.company.id;
       }
       window.axios
         .post(window.route("admin.businesses.store"), this.business)
-        .then(response => {
-          this.business = response.data;
-          this.$emit("businessWasCreated", this.business);
-          this.$store.dispatch("toggleLoader");
+        .then(res => {
+          this.business = res.data;
+          this.$emit("business:created", this.business);
+          this.toggleLoader();
           this.toggleModal();
           this.business = {};
           this.errors = {};
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
+        .catch(err => {
+          this.errors = err.response.data.errors;
+          this.toggleLoader();
         });
     }
   }

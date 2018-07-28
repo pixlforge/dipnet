@@ -18,10 +18,10 @@
 
 <script>
 import moment from "moment";
-import mixins from "../../mixins";
+import { dates } from "../../mixins";
 
 export default {
-  mixins: [mixins],
+  mixins: [dates],
   props: {
     comment: {
       type: Object,

@@ -62,15 +62,15 @@
 
           <div class="modal__buttons">
             <button
-              class="btn btn--grey"
               role="button"
+              class="btn btn--grey"
               @click.stop="toggleModal">
               <i class="fal fa-times"/>
               Annuler
             </button>
             <button
-              class="btn btn--red"
               role="button"
+              class="btn btn--red"
               @click.prevent="add">
               <i class="fal fa-check"/>
               Ajouter
@@ -83,11 +83,9 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   data() {
     return {
       ticker: {
@@ -100,13 +98,13 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     add() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(window.route("admin.tickers.store"), this.ticker)
         .then(res => {
           this.ticker = res.data;
-          this.$emit("tickerWasCreated", this.ticker);
-          this.$store.dispatch("toggleLoader");
+          this.$emit("ticker:created", this.ticker);
+          this.toggleLoader();
           this.toggleModal();
           this.ticker = {
             body: "",
@@ -114,8 +112,8 @@ export default {
           };
         })
         .catch(err => {
-          this.$store.dispatch("toggleLoader");
           this.errors = err.response.data.errors;
+          this.toggleLoader();
         });
     }
   }

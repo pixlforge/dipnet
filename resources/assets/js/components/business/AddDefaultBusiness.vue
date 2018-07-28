@@ -17,8 +17,8 @@
           {{ context }} disposer d'une affaire par défaut. Cliquez sur le bouton pour en ajouter une.
         </p>
         <button
-          class="btn btn--red"
           role="button"
+          class="btn btn--red"
           @click="toggleAlert">
           <i class="fal fa-plus-circle"/>
           Ajouter
@@ -98,8 +98,8 @@
           </div>
         </form>
         <button
-          class="btn btn--red"
           role="button"
+          class="btn btn--red"
           @click="addBusiness">
           <i class="fal fa-check"/>
           Terminer
@@ -107,7 +107,7 @@
       </div>
     </transition>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -116,14 +116,12 @@
 
 <script>
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import mixins from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     MoonLoader
   },
-  mixins: [mixins],
   props: {
     company: {
       type: Object,
@@ -160,7 +158,7 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     addBusiness() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .post(window.route("businesses.store"), this.business)
         .then(() => {
@@ -172,9 +170,9 @@ export default {
             window.location = window.route("orders.create.start");
           }, 2000);
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
+        .catch(err => {
+          this.errors = err.response.data.errors;
+          this.toggleLoader();
         });
     },
     toggleAlert() {

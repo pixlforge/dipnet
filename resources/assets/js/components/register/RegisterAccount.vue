@@ -111,20 +111,22 @@
           :src="logoBw"
           :alt="`${appName} logo`">
       </div>
-      <carousel/>
+      <Carousel/>
     </section>
   </div>
 </template>
 
 <script>
 import Carousel from "../carousel/Carousel";
-import mixins from "../../mixins";
+
+import { appName, logo, registration } from "../../mixins";
+import { mapActions } from "vuex";
 
 export default {
   components: {
     Carousel
   },
-  mixins: [mixins],
+  mixins: [appName, logo, registration],
   props: {
     registrationType: {
       type: String,
@@ -142,7 +144,7 @@ export default {
         email: "",
         password: "",
         password_confirmation: "",
-        is_solo: this.dataRegistrationType === "self" ? true : false
+        is_solo: this.registrationType === "self" ? true : false
       },
       errors: {}
     };
@@ -153,22 +155,18 @@ export default {
     }
   },
   methods: {
-    /**
-     * Register the account.
-     */
-    registerAccount() {
-      this.$store.dispatch("toggleLoader");
-      window.axios
-        .post(window.route("register.store"), this.account)
-        .then(() => {
-          this.$store.dispatch("toggleLoader");
-          this.account = {};
-          this.$emit("accountCreated");
-        })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
-        });
+    ...mapActions(["toggleLoader"]),
+    async registerAccount() {
+      this.toggleLoader();
+      try {
+        await window.axios.post(window.route("register.store"), this.account);
+        this.toggleLoader();
+        this.$emit("account:created");
+        this.account = {};
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };

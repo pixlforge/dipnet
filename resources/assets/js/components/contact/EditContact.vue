@@ -214,15 +214,15 @@
 
           <div class="modal__buttons">
             <button
-              class="btn btn--grey"
               role="button"
+              class="btn btn--grey"
               @click.stop="toggleModal">
               <i class="fal fa-times"/>
               Annuler
             </button>
             <button
-              class="btn btn--red"
               role="button"
+              class="btn btn--red"
               @click.prevent="updateContact">
               <i class="fal fa-check"/>
               Mettre à jour
@@ -235,12 +235,10 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
 import { eventBus } from "../../app";
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
   props: {
     contact: {
       type: Object,
@@ -268,19 +266,19 @@ export default {
   methods: {
     ...mapActions(["toggleLoader"]),
     updateContact() {
-      this.$store.dispatch("toggleLoader");
+      this.toggleLoader();
       window.axios
         .put(window.route("contacts.update", [this.contact.id]), this.contact)
         .then(() => {
-          eventBus.$emit("contactWasUpdated", this.contact);
+          eventBus.$emit("contact:updated", this.contact);
         })
         .then(() => {
-          this.$store.dispatch("toggleLoader");
+          this.toggleLoader();
           this.toggleModal();
         })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data;
+        .catch(err => {
+          this.errors = err.response.data;
+          this.toggleLoader();
         });
     }
   }

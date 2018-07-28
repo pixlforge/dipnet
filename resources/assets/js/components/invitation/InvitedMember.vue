@@ -11,7 +11,7 @@
     </div>
 
     <div class="card__meta">
-      <resend-invitation :invitation="invitation"/>
+      <ResendInvitation :invitation="invitation"/>
     </div>
 
     <div class="card__controls">
@@ -26,13 +26,11 @@
 
 <script>
 import ResendInvitation from "./ResendInvitation.vue";
-import mixins from "../../mixins";
 
 export default {
   components: {
     ResendInvitation
   },
-  mixins: [mixins],
   props: {
     invitation: {
       type: Object,
@@ -44,7 +42,7 @@ export default {
       window.axios
         .delete(window.route("invitation.destroy", [this.invitation.id]))
         .then(() => {
-          this.$emit("invitationWasDeleted", this.invitation.id);
+          this.$emit("invitation:deleted", this.invitation.id);
           window.flash({
             message: "L'invitation a bien été annulée.",
             level: "success"

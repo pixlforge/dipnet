@@ -78,7 +78,7 @@ export default {
       if (page <= 0 || page > this.meta.last_page) {
         return;
       }
-      this.$emit("paginationSwitched", page);
+      this.$emit("pagination:switched", page);
     },
     goForwardOneSection() {
       this.switched(this.firstPageOfSection(this.section + 1));

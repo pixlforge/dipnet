@@ -19,12 +19,12 @@
       @input="$emit('input', $event.target.value)">
       <option
         value=""
-        disabled
         selected/>
       <option
         v-for="option in options"
         :key="option.value"
         :value="option.value"
+        :selected="value == option.value"
         v-text="option.label"/>
     </select>
     <div
@@ -42,8 +42,9 @@ export default {
       required: true
     },
     value: {
-      type: String,
-      required: true
+      type: [String, Number],
+      required: false,
+      default: ""
     },
     id: {
       type: String,

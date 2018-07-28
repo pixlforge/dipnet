@@ -164,8 +164,8 @@
 
         <div class="register__buttons">
           <button
-            class="btn btn--red"
             role="button"
+            class="btn btn--red"
             @click="createContact">
             <i class="fal fa-check"/>
             Créer le contact
@@ -177,10 +177,11 @@
 </template>
 
 <script>
-import mixins from "../../mixins";
+import { appName, logo } from "../../mixins";
+import { mapActions } from "vuex";
 
 export default {
-  mixins: [mixins],
+  mixins: [appName, logo],
   props: {
     registrationType: {
       type: String,
@@ -207,19 +208,21 @@ export default {
     };
   },
   methods: {
-    createContact() {
-      this.$store.dispatch("toggleLoader");
-      window.axios
-        .post(window.route("register.contact.store"), this.contact)
-        .then(() => {
-          this.contact = {};
-          this.$store.dispatch("toggleLoader");
-          this.$emit("contactCreated");
-        })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
-        });
+    ...mapActions(["toggleLoader"]),
+    async createContact() {
+      this.toggleLoader();
+      try {
+        await window.axios.post(
+          window.route("register.contact.store"),
+          this.contact
+        );
+        this.$emit("contact:created");
+        this.toggleLoader();
+        this.contact = {};
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };
