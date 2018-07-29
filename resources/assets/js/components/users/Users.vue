@@ -93,7 +93,6 @@ import User from "./User.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
 import { loader, modal, panels, modelCount } from "../../mixins";
-import { eventBus } from "../../app";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -132,11 +131,6 @@ export default {
   },
   computed: {
     ...mapGetters(["loaderState"])
-  },
-  created() {
-    eventBus.$on("user:updated", data => {
-      this.updateUser(data);
-    });
   },
   mounted() {
     this.getUsers();
@@ -177,7 +171,6 @@ export default {
           "Les modifications apportées à l'utilisateur ont été enregistrées.",
         level: "success"
       });
-      this.closePanels();
     },
     removeUser(index) {
       this.users.splice(index, 1);

@@ -90,6 +90,7 @@ export default {
           this.currentTicker
         );
         this.$emit("ticker:updated", res.data);
+        this.$emit("edit-ticker:close");
         this.toggleLoader();
       } catch (err) {
         this.errors = err.response.data;

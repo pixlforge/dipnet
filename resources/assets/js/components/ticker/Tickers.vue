@@ -130,17 +130,6 @@ export default {
   computed: {
     ...mapGetters(["loaderState"])
   },
-  created() {
-    eventBus.$on("ticker:updated", data => {
-      if (data.active) {
-        this.tickers.forEach(item => {
-          if (item.id !== data.id) {
-            item.active = false;
-          }
-        });
-      }
-    });
-  },
   mounted() {
     this.getTickers();
   },
@@ -182,13 +171,19 @@ export default {
     },
     updateTicker(data) {
       let index = this.tickers.findIndex(ticker => ticker.id === data.id);
+      if (data.active) {
+        this.tickers.forEach(ticker => {
+          if (ticker.id !== data.id) {
+            ticker.active = false;
+          }
+        });
+      }
       this.tickers[index] = data;
       window.flash({
         message:
           "Les modifications apportées à au ticker ont été enregistrées.",
         level: "success"
       });
-      this.closePanels();
     },
     removeTicker(index) {
       this.tickers.splice(index, 1);

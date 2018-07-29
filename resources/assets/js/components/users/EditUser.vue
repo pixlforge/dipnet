@@ -170,8 +170,8 @@ export default {
           this.currentUser
         );
         this.$emit("user:updated", res.data);
+        this.$emit("edit-user:close");
         this.toggleLoader();
-        this.toggleModal();
       } catch (err) {
         this.errors = err.response.data.errors;
         this.toggleLoader();

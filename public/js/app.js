@@ -32429,15 +32429,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_AppSelect__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_AppSelect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__select_AppSelect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Article_vue__ = __webpack_require__(273);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Article_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Article_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddArticle_vue__ = __webpack_require__(272);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddArticle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__AddArticle_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddArticle_vue__ = __webpack_require__(272);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddArticle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AddArticle_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditArticle_vue__ = __webpack_require__(275);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditArticle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__EditArticle_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Article_vue__ = __webpack_require__(273);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Article_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Article_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -32501,6 +32503,36 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -32516,34 +32548,26 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   components: {
     Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
     AppSelect: __WEBPACK_IMPORTED_MODULE_1__select_AppSelect___default.a,
-    Article: __WEBPACK_IMPORTED_MODULE_2__Article_vue___default.a,
-    AddArticle: __WEBPACK_IMPORTED_MODULE_3__AddArticle_vue___default.a,
-    MoonLoader: __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default.a
+    AddArticle: __WEBPACK_IMPORTED_MODULE_2__AddArticle_vue___default.a,
+    EditArticle: __WEBPACK_IMPORTED_MODULE_3__EditArticle_vue___default.a,
+    Article: __WEBPACK_IMPORTED_MODULE_4__Article_vue___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["d" /* modelCount */], __WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_6__mixins__["b" /* modal */], __WEBPACK_IMPORTED_MODULE_6__mixins__["c" /* panels */], __WEBPACK_IMPORTED_MODULE_6__mixins__["d" /* modelCount */]],
   data() {
     return {
       articles: [],
       meta: {},
+      errors: {},
       sort: "",
       sortOptions: [{ label: "Aucun", value: "" }, { label: "Référence", value: "reference" }, { label: "Description", value: "description" }, { label: "Type", value: "type" }, { label: "Niveaux de gris", value: "greyscale" }, { label: "Date de création", value: "created_at" }],
-      errors: {},
       fetching: false,
       modelNameSingular: "article",
       modelNamePlural: "articles",
       modelGender: "M"
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["loaderState"])),
-  created() {
-    __WEBPACK_IMPORTED_MODULE_6__app__["eventBus"].$on("articleWasCreated", article => {
-      this.articles.unshift(article);
-    });
-
-    __WEBPACK_IMPORTED_MODULE_6__app__["eventBus"].$on("articleWasUpdated", data => {
-      this.updateArticle(data);
-    });
-  },
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["b" /* mapGetters */])(["loaderState"])),
   mounted() {
     this.getArticles();
   },
@@ -42895,6 +42919,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         try {
           let res = yield window.axios.patch(window.route("admin.tickers.update", [_this.ticker.id]), _this.currentTicker);
           _this.$emit("ticker:updated", res.data);
+          _this.$emit("edit-ticker:close");
           _this.toggleLoader();
         } catch (err) {
           _this.errors = err.response.data;
@@ -43131,17 +43156,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     };
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["b" /* mapGetters */])(["loaderState"])),
-  created() {
-    __WEBPACK_IMPORTED_MODULE_7__app__["eventBus"].$on("ticker:updated", data => {
-      if (data.active) {
-        this.tickers.forEach(item => {
-          if (item.id !== data.id) {
-            item.active = false;
-          }
-        });
-      }
-    });
-  },
   mounted() {
     this.getTickers();
   },
@@ -43183,12 +43197,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     updateTicker(data) {
       let index = this.tickers.findIndex(ticker => ticker.id === data.id);
+      if (data.active) {
+        this.tickers.forEach(ticker => {
+          if (ticker.id !== data.id) {
+            ticker.active = false;
+          }
+        });
+      }
       this.tickers[index] = data;
       window.flash({
         message: "Les modifications apportées à au ticker ont été enregistrées.",
         level: "success"
       });
-      this.closePanels();
     },
     removeTicker(index) {
       this.tickers.splice(index, 1);
@@ -43572,8 +43592,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         try {
           let res = yield window.axios.patch(window.route("admin.users.update", [_this.user.id]), _this.currentUser);
           _this.$emit("user:updated", res.data);
+          _this.$emit("edit-user:close");
           _this.toggleLoader();
-          _this.toggleModal();
         } catch (err) {
           _this.errors = err.response.data.errors;
           _this.toggleLoader();
@@ -43721,8 +43741,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -43824,7 +43843,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
@@ -43853,16 +43871,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       modelGender: "M"
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["b" /* mapGetters */])(["loaderState"])),
-  created() {
-    __WEBPACK_IMPORTED_MODULE_7__app__["eventBus"].$on("user:updated", data => {
-      this.updateUser(data);
-    });
-  },
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["loaderState"])),
   mounted() {
     this.getUsers();
   },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     getUsers(page = 1) {
       var _this = this;
 
@@ -43897,7 +43910,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         message: "Les modifications apportées à l'utilisateur ont été enregistrées.",
         level: "success"
       });
-      this.closePanels();
     },
     removeUser(index) {
       this.users.splice(index, 1);
@@ -76461,11 +76473,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('AddArticle', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('button', {
+    staticClass: "btn btn--red-large",
+    attrs: {
+      "role": "button"
+    },
     on: {
-      "article:created": _vm.addArticle
+      "click": _vm.openAddPanel
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }, [_c('i', {
+    staticClass: "fal fa-plus-circle"
+  }), _vm._v("\n      Ajouter un article\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [(_vm.meta.total > 25) ? _c('Pagination', {
     staticClass: "pagination pagination--top",
@@ -76491,6 +76509,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "article": article
       },
       on: {
+        "edit-article:open": _vm.openEditPanel,
         "article:deleted": function($event) {
           _vm.removeArticle(index)
         }
@@ -76504,7 +76523,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "pagination:switched": _vm.getArticles
     }
-  }) : _vm._e()], 2), _vm._v(" "), _c('MoonLoader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal__background",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.closePanels($event)
+      }
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showAddPanel) ? _c('AddArticle', {
+    on: {
+      "article:created": _vm.addArticle,
+      "add-article:close": _vm.closePanels
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showEditPanel) ? _c('EditUser', {
+    attrs: {
+      "article": _vm.modelToEdit
+    },
+    on: {
+      "article:updated": _vm.updateArticle,
+      "edit-article:close": _vm.closePanels
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
