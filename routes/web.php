@@ -27,7 +27,7 @@ Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
     /**
      * Businesses
      */
-    Route::prefix('/businesses')->namespace('Business')->name('businesses.')->group(function () {
+    Route::prefix('/affaires')->namespace('Business')->name('businesses.')->group(function () {
         Route::get('/{sort?}', 'BusinessController@index')->name('index');
     });
 
@@ -41,14 +41,14 @@ Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
     /**
      * Companies
      */
-    Route::prefix('/companies')->namespace('Company')->name('companies.')->group(function () {
+    Route::prefix('/societes')->namespace('Company')->name('companies.')->group(function () {
         Route::get('/{sort?}', 'CompanyController@index')->name('index');
     });
 
     /**
      * Deliveries
      */
-    Route::prefix('/deliveries')->namespace('Delivery')->name('deliveries.')->group(function () {
+    Route::prefix('/livraisons')->namespace('Delivery')->name('deliveries.')->group(function () {
         Route::get('/', 'DeliveryController@index')->name('index');
     });
 
@@ -69,7 +69,7 @@ Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
     /**
      * Orders
      */
-    Route::prefix('/orders')->namespace('Order')->name('orders.')->group(function () {
+    Route::prefix('/commandes')->namespace('Order')->name('orders.')->group(function () {
         Route::get('/', 'OrderController@index')->name('index');
     });
 
@@ -88,7 +88,7 @@ Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
     /**
      * Users
      */
-    Route::prefix('/users')->namespace('User')->name('users.')->group(function () {
+    Route::prefix('/utilisateurs')->namespace('User')->name('users.')->group(function () {
         Route::get('/{sort?}', 'UserController@index')->name('index');
     });
 });
@@ -186,21 +186,21 @@ Route::get('/logout', 'Auth\LogoutController')->name('logout');
 /**
  * Account
  */
-Route::prefix('/account')->namespace('Account')->name('account.')->group(function () {
+Route::prefix('/compte')->namespace('Account')->name('account.')->group(function () {
     Route::get('/', 'AccountController@account')->name('account');
     Route::get('/contact', 'AccountController@contact')->name('contact');
-    Route::get('/company', 'AccountController@company')->name('company');
-    Route::patch('/update', 'AccountController@update')->name('update');
+    Route::get('/societe', 'AccountController@company')->name('company');
+    Route::patch('/mise-a-jour', 'AccountController@update')->name('update');
 });
 
 /**
  * Business
  */
-Route::prefix('/businesses')->namespace('Business')->name('businesses.')->group(function () {
+Route::prefix('/affaires')->namespace('Business')->name('businesses.')->group(function () {
     Route::get('/', 'BusinessController@index')->name('index');
-    Route::get('/create', 'BusinessController@create')->name('create');
+    Route::get('/creer', 'BusinessController@create')->name('create');
     Route::post('/', 'BusinessController@store')->name('store');
-    Route::get('/{business}/show', 'BusinessController@show')->name('show');
+    Route::get('/{business}/voir', 'BusinessController@show')->name('show');
     Route::put('/{business}', 'BusinessController@update')->name('update');
     Route::delete('/{business}', 'BusinessController@destroy')->name('destroy');
 });
@@ -208,14 +208,14 @@ Route::prefix('/businesses')->namespace('Business')->name('businesses.')->group(
 /**
  * Comment
  */
-Route::prefix('/comments')->namespace('Comment')->name('comments.')->group(function () {
+Route::prefix('/commentaires')->namespace('Comment')->name('comments.')->group(function () {
     Route::post('/{business}', 'CommentController@store')->name('store');
 });
 
 /**
  * Company
  */
-Route::prefix('/companies')->namespace('Company')->name('companies.')->group(function () {
+Route::prefix('/societes')->namespace('Company')->name('companies.')->group(function () {
     Route::get('/', 'CompanyController@index')->name('index');
     Route::post('/', 'CompanyController@store')->name('store');
     Route::get('/{company}', 'CompanyController@show')->name('show');
@@ -236,7 +236,7 @@ Route::prefix('/contacts')->namespace('Contact')->name('contacts.')->group(funct
 /**
  * Deliveries
  */
-Route::prefix('/deliveries')->namespace('Delivery')->name('deliveries.')->group(function () {
+Route::prefix('/livraisons')->namespace('Delivery')->name('deliveries.')->group(function () {
     Route::get('/', 'DeliveryController@index')->name('index');
     Route::post('/', 'DeliveryController@store')->name('store');
     Route::put('/{delivery}', 'DeliveryController@update')->name('update');
@@ -245,7 +245,7 @@ Route::prefix('/deliveries')->namespace('Delivery')->name('deliveries.')->group(
     /**
      * Receipt
      */
-    Route::get('/{delivery}/receipt/show', 'DeliveryReceiptController@show')->name('receipts.show');
+    Route::get('/{delivery}/quittance/voir', 'DeliveryReceiptController@show')->name('receipts.show');
 
     /**
      * Note
@@ -283,11 +283,11 @@ Route::prefix('/invitation')->namespace('Invitations')->group(function () {
 /**
  * Orders
  */
-Route::prefix('/orders')->namespace('Order')->name('orders.')->group(function () {
+Route::prefix('/commandes')->namespace('Order')->name('orders.')->group(function () {
     Route::get('/', 'OrderController@index')->name('index');
-    Route::get('/{order}/show', 'OrderController@show')->name('show');
+    Route::get('/{order}/voir', 'OrderController@show')->name('show');
     Route::get('/create', 'OrderController@create')->name('create.start');
-    Route::get('/{order}/create', 'OrderController@create')->name('create.end');
+    Route::get('/{order}/creer', 'OrderController@create')->name('create.end');
     Route::put('/{order}', 'OrderController@update')->name('update');
     Route::delete('/{order}', 'OrderController@destroy')->name('destroy');
 
@@ -295,19 +295,19 @@ Route::prefix('/orders')->namespace('Order')->name('orders.')->group(function ()
      * Completion
      */
     Route::name('complete.')->group(function () {
-        Route::patch('/{order}/complete', 'CompleteOrderController@update')->name('update');
-        Route::get('/{order}/complete/show', 'CompleteOrderController@show')->name('show');
+        Route::patch('/{order}/finaliser', 'CompleteOrderController@update')->name('update');
+        Route::get('/{order}/finaliser/voir', 'CompleteOrderController@show')->name('show');
     });
 
     /**
      * Receipt
      */
-    Route::get('/{order}/receipt/show', 'OrderReceiptController@show')->name('receipts.show');
+    Route::get('/{order}/quittance/voir', 'OrderReceiptController@show')->name('receipts.show');
 
     /**
      * Status
      */
-    Route::put('/{order}/status', 'OrderStatusController@update')->name('status.update');
+    Route::put('/{order}/statut', 'OrderStatusController@update')->name('status.update');
 });
 
 /**
@@ -326,7 +326,7 @@ Route::prefix('/profile')->namespace('Profiles')->name('profile.')->group(functi
 /**
  * Register
  */
-Route::prefix('/register')->namespace('Auth')->name('register.')->group(function () {
+Route::prefix('/inscription')->namespace('Auth')->name('register.')->group(function () {
     Route::get('/', 'RegisterController@index')->name('index');
     Route::post('/', 'RegisterController@store')->name('store');
 
@@ -338,15 +338,15 @@ Route::prefix('/register')->namespace('Auth')->name('register.')->group(function
      * Confirmation
      */
     Route::name('confirm.')->group(function () {
-        Route::get('/confirm', 'RegisterConfirmationController@index')->name('index');
-        Route::put('/send-again', 'RegisterConfirmationController@update')->name('update');
+        Route::get('/confirmation', 'RegisterConfirmationController@index')->name('index');
+        Route::put('/renvoyer', 'RegisterConfirmationController@update')->name('update');
     });
 });
 
 /**
  * Search
  */
-Route::prefix('/search')->namespace('Search')->name('search.')->group(function () {
+Route::prefix('/recherche')->namespace('Search')->name('search.')->group(function () {
     Route::post('/', 'SearchController@search')->name('query');
     Route::get('/testing', 'SearchController@testing')->name('testing');
 });
