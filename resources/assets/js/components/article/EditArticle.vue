@@ -1,122 +1,90 @@
 <template>
-  <div>
-    <div @click="toggleModal">
-      <i class="fal fa-pencil"/>
-    </div>
+  <div class="modal__slider">
+    <form
+      class="modal__container"
+      @submit.prevent="updateArticle">
+      <h2 class="modal__title">Modifier l'article <strong>{{ article.reference }}</strong></h2>
 
-    <transition name="fade">
-      <div
-        v-if="showModal"
-        class="modal__background"
-        @click="toggleModal"/>
-    </transition>
+      <!-- Description -->
+      <ModalInput
+        id="description"
+        ref="focus"
+        v-model="currentArticle.description"
+        type="text"
+        required>
+        <template slot="label">Description</template>
+        <template
+          v-if="errors.description"
+          slot="errors">
+          {{ errors.description[0] }}
+        </template>
+      </ModalInput>
 
-    <transition name="slide">
-      <div
-        v-if="showModal"
-        class="modal__slider"
-        @keyup.esc="toggleModal"
-        @keyup.enter="updateArticle">
+      <!-- Type -->
+      <ModalSelect
+        id="type"
+        :options="optionsForType"
+        v-model="currentArticle.type"
+        required>
+        <template slot="label">Type</template>
+        <template
+          v-if="errors.type"
+          slot="errors">
+          {{ errors.type[0] }}
+        </template>
+      </ModalSelect>
 
-        <div class="modal__container">
-          <h2 class="modal__title">
-            Modifier l'article
-            <strong>{{ article.reference }}</strong>
-          </h2>
+      <!-- Greyscale -->
+      <transition
+        name="fade"
+        mode="out-in">
+        <ModalCheckbox
+          v-if="currentArticle.type === 'impression'"
+          id="active"
+          v-model="currentArticle.greyscale">
+          <template slot="label">Niveaux de gris</template>
+          <template
+            v-if="errors.greyscale"
+            slot="errors">
+            {{ errors.greyscale[0] }}
+          </template>
+        </ModalCheckbox>
+      </transition>
 
-          <!-- Description -->
-          <div class="modal__group">
-            <label
-              for="description"
-              class="modal__label">
-              Description
-            </label>
-            <input
-              id="description"
-              v-model.trim="article.description"
-              type="text"
-              name="description"
-              class="modal__input"
-              required>
-            <div
-              v-if="errors.description"
-              class="modal__alert">
-              {{ errors.description[0] }}
-            </div>
-          </div>
-
-          <!-- Type -->
-          <div class="modal__group">
-            <label
-              for="type"
-              class="modal__label">
-              Type
-            </label>
-            <select
-              id="type"
-              v-model.trim="article.type"
-              name="type"
-              class="modal__select">
-              <option disabled>Sélectionnez un type</option>
-              <option value="option">Option</option>
-              <option value="impression">Impression</option>
-            </select>
-            <div
-              v-if="errors.type"
-              class="modal__alert">
-              {{ errors.type[0] }}
-            </div>
-          </div>
-
-          <!-- Article Type -->
-          <transition
-            name="fade"
-            mode="out-in">
-            <div
-              v-if="article.type === 'impression'"
-              class="modal__group">
-              <label
-                for="greyscale"
-                class="modal__label">
-                <input
-                  id="greyscale"
-                  v-model="article.greyscale"
-                  type="checkbox"
-                  name="greyscale">
-                Niveaux de gris
-              </label>
-            </div>
-          </transition>
-
-          <div class="modal__buttons">
-            <button
-              class="btn btn--grey"
-              role="button"
-              @click.stop="toggleModal">
-              <i class="fal fa-times"/>
-              Annuler
-            </button>
-            <button
-              class="btn btn--red"
-              role="button"
-              @click.prevent="updateArticle">
-              <i class="fal fa-check"/>
-              Mettre à jour
-            </button>
-          </div>
-        </div>
+      <!-- Controls -->
+      <div class="modal__buttons">
+        <button
+          type="submit"
+          role="button"
+          class="btn btn--red">
+          <i class="fal fa-check"/>
+          Mettre à jour
+        </button>
+        <button
+          role="button"
+          class="btn btn--grey"
+          @click.prevent="$emit('edit-article:close')">
+          <i class="fal fa-times"/>
+          Annuler
+        </button>
       </div>
-    </transition>
+    </form>
   </div>
 </template>
 
 <script>
-import { modal } from "../../mixins";
-import { eventBus } from "../../app";
+import ModalInput from "../forms/ModalInput";
+import ModalSelect from "../forms/ModalSelect";
+import ModalCheckbox from "../forms/ModalCheckbox";
+
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [modal],
+  components: {
+    ModalInput,
+    ModalSelect,
+    ModalCheckbox
+  },
   props: {
     article: {
       type: Object,
@@ -125,26 +93,38 @@ export default {
   },
   data() {
     return {
-      errors: {}
+      currentArticle: {
+        id: this.article.id,
+        description: this.article.description,
+        type: this.article.type,
+        greyscale: this.article.greyscale
+      },
+      errors: {},
+      optionsForType: [
+        { label: "Option", value: "option" },
+        { label: "Impression", value: "impression" }
+      ]
     };
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    updateArticle() {
+    async updateArticle() {
       this.toggleLoader();
-      window.axios
-        .patch(
+      try {
+        let res = await window.axios.patch(
           window.route("admin.articles.update", [this.article.id]),
-          this.article
-        )
-        .then(() => {
-          eventBus.$emit("article:updated", this.article);
-          this.toggleLoader();
-          this.toggleModal();
-        })
-        .catch(() => {
-          this.toggleLoader();
-        });
+          this.currentArticle
+        );
+        this.$emit("article:updated", res.data);
+        this.$emit("edit-article:close");
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.toggleLoader();
+      }
     }
   }
 };

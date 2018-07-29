@@ -17,7 +17,13 @@
         </AppSelect>
       </div>
 
-      <AddArticle @article:created="addArticle"/>
+      <button
+        role="button"
+        class="btn btn--red-large"
+        @click="openAddPanel">
+        <i class="fal fa-plus-circle"/>
+        Ajouter un article
+      </button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -41,6 +47,7 @@
             :key="article.id"
             :article="article"
             class="card__container"
+            @edit-article:open="openEditPanel"
             @article:deleted="removeArticle(index)"/>
         </transition-group>
       </template>
@@ -52,6 +59,28 @@
         @pagination:switched="getArticles"/>
     </div>
 
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click.prevent="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <AddArticle
+        v-if="showAddPanel"
+        @article:created="addArticle"
+        @add-article:close="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <EditArticle
+        v-if="showEditPanel"
+        :article="modelToEdit"
+        @article:updated="updateArticle"
+        @edit-article:close="closePanels"/>
+    </transition>
+
     <MoonLoader
       :loading="loaderState"
       :color="loader.color"
@@ -62,27 +91,29 @@
 <script>
 import Pagination from "../pagination/Pagination";
 import AppSelect from "../select/AppSelect";
-import Article from "./Article.vue";
 import AddArticle from "./AddArticle.vue";
+import EditArticle from "./EditArticle.vue";
+import Article from "./Article.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import { modelCount, loader } from "../../mixins";
-import { eventBus } from "../../app";
-import { mapGetters } from "vuex";
+import { loader, modal, panels, modelCount } from "../../mixins";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     Pagination,
     AppSelect,
-    Article,
     AddArticle,
+    EditArticle,
+    Article,
     MoonLoader
   },
-  mixins: [modelCount, loader],
+  mixins: [loader, modal, panels, modelCount],
   data() {
     return {
       articles: [],
       meta: {},
+      errors: {},
       sort: "",
       sortOptions: [
         { label: "Aucun", value: "" },
@@ -92,7 +123,6 @@ export default {
         { label: "Niveaux de gris", value: "greyscale" },
         { label: "Date de création", value: "created_at" }
       ],
-      errors: {},
       fetching: false,
       modelNameSingular: "article",
       modelNamePlural: "articles",
@@ -102,39 +132,28 @@ export default {
   computed: {
     ...mapGetters(["loaderState"])
   },
-  created() {
-    eventBus.$on("articleWasCreated", article => {
-      this.articles.unshift(article);
-    });
-
-    eventBus.$on("articleWasUpdated", data => {
-      this.updateArticle(data);
-    });
-  },
   mounted() {
     this.getArticles();
   },
   methods: {
-    getArticles(page = 1) {
-      this.$store.dispatch("toggleLoader");
+    ...mapActions(["toggleLoader"]),
+    async getArticles(page = 1) {
+      this.toggleLoader();
       this.fetching = true;
-      window.axios
-        .get(window.route("api.articles.index", this.sort.value), {
-          params: {
-            page
-          }
-        })
-        .then(response => {
-          this.articles = response.data.data;
-          this.meta = response.data.meta;
-          this.$store.dispatch("toggleLoader");
-          this.fetching = false;
-        })
-        .catch(error => {
-          this.errors = error.response.data;
-          this.$store.dispatch("toggleLoader");
-          this.fetching = false;
-        });
+      try {
+        let res = await window.axios.get(
+          window.route("api.articles.index", this.sort.value),
+          { params: { page } }
+        );
+        this.articles = res.data.data;
+        this.meta = res.data.meta;
+        this.fetching = false;
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.fetching = false;
+        this.toggleLoader();
+      }
     },
     selectSort(sort) {
       this.sort = sort;
@@ -148,14 +167,8 @@ export default {
       });
     },
     updateArticle(data) {
-      for (let article of this.articles) {
-        if (data.id === article.id) {
-          article.reference = data.reference;
-          article.description = data.description;
-          article.type = data.type;
-          article.category_id = data.category_id;
-        }
-      }
+      let index = this.articles.findIndex(article => article.id === data.id);
+      this.articles[index] = data;
       window.flash({
         message:
           "Les modifications apportées à l'article ont été enregistrées.",

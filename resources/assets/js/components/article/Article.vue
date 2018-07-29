@@ -33,14 +33,18 @@
     </div>
 
     <div class="card__controls">
-      <div
+      <button
+        role="button"
         title="Supprimer"
-        @click="destroy">
+        @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </div>
-      <div title="Modifier">
-        <EditArticle :article="article"/>
-      </div>
+      </button>
+      <button
+        role="button"
+        title="Modifier"
+        @click.prevent="edit">
+        <i class="fal fa-pencil"/>
+      </button>
     </div>
   </div>
 </template>
@@ -62,6 +66,9 @@ export default {
     }
   },
   methods: {
+    edit() {
+      this.$emit("edit-article:open", this.article);
+    },
     destroy() {
       window.axios.delete(
         window.route("admin.articles.destroy", [this.article.id])

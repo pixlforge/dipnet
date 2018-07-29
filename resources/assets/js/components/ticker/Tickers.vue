@@ -97,7 +97,6 @@ import Ticker from "./Ticker";
 import MoonLoader from "vue-spinner/src/MoonLoader";
 
 import { loader, modal, panels, modelCount } from "../../mixins";
-import { eventBus } from "../../app";
 import { mapGetters, mapActions } from "vuex";
 
 export default {

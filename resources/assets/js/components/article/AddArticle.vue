@@ -1,120 +1,88 @@
 <template>
-  <div>
-    <button
-      class="btn btn--red-large"
-      @click="toggleModal">
-      <i class="fal fa-plus-circle"/>
-      Nouvel article
-    </button>
+  <div class="modal__slider">
+    <form
+      class="modal__container"
+      @submit.prevent="addArticle">
+      <h2 class="modal__title">Ajouter un <strong>article</strong></h2>
 
-    <transition name="fade">
-      <div
-        v-if="showModal"
-        class="modal__background"
-        @click="toggleModal"/>
-    </transition>
+      <!-- Description -->
+      <ModalInput
+        id="description"
+        ref="focus"
+        v-model="article.description"
+        type="text"
+        required>
+        <template slot="label">Description</template>
+        <template
+          v-if="errors.description"
+          slot="errors">
+          {{ errors.description[0] }}
+        </template>
+      </ModalInput>
 
-    <transition name="slide">
-      <div
-        v-if="showModal"
-        class="modal__slider"
-        @keyup.esc="toggleModal"
-        @keyup.enter="addArticle">
+      <!-- Type -->
+      <ModalSelect
+        id="type"
+        :options="optionsForType"
+        v-model="article.type"
+        required>
+        <template slot="label">Type</template>
+        <template
+          v-if="errors.type"
+          slot="errors">
+          {{ errors.type[0] }}
+        </template>
+      </ModalSelect>
 
-        <div class="modal__container">
-          <h2 class="modal__title">Nouvel article</h2>
+      <!-- Greyscale -->
+      <transition
+        name="fade"
+        mode="out-in">
+        <ModalCheckbox
+          v-if="article.type === 'impression'"
+          id="active"
+          v-model="article.greyscale">
+          <template slot="label">Niveaux de gris</template>
+          <template
+            v-if="errors.greyscale"
+            slot="errors">
+            {{ errors.greyscale[0] }}
+          </template>
+        </ModalCheckbox>
+      </transition>
 
-          <!--Description-->
-          <div class="modal__group">
-            <label
-              for="description"
-              class="modal__label">
-              Description
-            </label>
-            <input
-              id="description"
-              v-model.trim="article.description"
-              type="text"
-              name="description"
-              class="modal__input"
-              required>
-            <div
-              v-if="errors.description"
-              class="modal__alert">
-              {{ errors.description[0] }}
-            </div>
-          </div>
-
-          <!--Type-->
-          <div class="modal__group">
-            <label
-              for="type"
-              class="modal__label">
-              Type
-            </label>
-            <select
-              id="type"
-              v-model.trim="article.type"
-              name="type"
-              class="modal__select">
-              <option disabled>Sélectionnez un type</option>
-              <option value="option">Option</option>
-              <option value="impression">Impression</option>
-            </select>
-            <div
-              v-if="errors.type"
-              class="modal__alert">
-              {{ errors.type[0] }}
-            </div>
-          </div>
-
-          <!--Greyscale-->
-          <transition
-            name="fade"
-            mode="out-in">
-            <div
-              v-if="article.type === 'impression'"
-              class="modal__group">
-              <label
-                for="greyscale"
-                class="modal__label">
-                <input
-                  id="greyscale"
-                  v-model="article.greyscale"
-                  type="checkbox"
-                  name="greyscale">
-                Niveaux de gris
-              </label>
-            </div>
-          </transition>
-
-          <!--Buttons-->
-          <div class="modal__buttons">
-            <button
-              class="btn btn--grey"
-              @click.stop="toggleModal">
-              <i class="fal fa-times"/>
-              Annuler
-            </button>
-            <button
-              class="btn btn--red"
-              @click.prevent="addArticle">
-              <i class="fal fa-check"/>
-              Ajouter
-            </button>
-          </div>
-        </div>
+      <!--Buttons-->
+      <div class="modal__buttons">
+        <button
+          class="btn btn--grey"
+          @click.stop="toggleModal">
+          <i class="fal fa-times"/>
+          Annuler
+        </button>
+        <button
+          class="btn btn--red"
+          @click.prevent="addArticle">
+          <i class="fal fa-check"/>
+          Ajouter
+        </button>
       </div>
-    </transition>
+    </form>
   </div>
 </template>
 
 <script>
-import { modal } from "../../mixins";
+import ModalInput from "../forms/ModalInput";
+import ModalSelect from "../forms/ModalSelect";
+import ModalCheckbox from "../forms/ModalCheckbox";
+
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [modal],
+  components: {
+    ModalInput,
+    ModalSelect,
+    ModalCheckbox
+  },
   data() {
     return {
       article: {
@@ -122,26 +90,33 @@ export default {
         type: "",
         greyscale: false
       },
-      errors: {}
+      errors: {},
+      optionsForType: [
+        { label: "Option", value: "option" },
+        { label: "Impression", value: "impression" }
+      ]
     };
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    addArticle() {
+    async addArticle() {
       this.toggleLoader();
-      window.axios
-        .post(window.route("admin.articles.store"), this.article)
-        .then(res => {
-          this.article = res.data;
-          this.$emit("article:created", this.article);
-          this.toggleLoader();
-          this.toggleModal();
-          this.article = {};
-        })
-        .catch(error => {
-          this.errors = error.response.data.errors;
-          this.toggleLoader();
-        });
+      try {
+        let res = await window.axios.post(
+          window.route("admin.articles.store"),
+          this.article
+        );
+        this.article = res.data;
+        this.$emit("article:created", this.article);
+        this.$emit("add-article:close");
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };
