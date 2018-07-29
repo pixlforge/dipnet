@@ -97,6 +97,13 @@ export const modal = {
 };
 
 export const panels = {
+  data() {
+    return {
+      modelToEdit: {},
+      showAddPanel: false,
+      showEditPanel: false,
+    };
+  },
   mounted() {
     this.bindEscapeKey();
   },

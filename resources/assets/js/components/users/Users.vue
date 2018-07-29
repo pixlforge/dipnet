@@ -22,7 +22,7 @@
         class="btn btn--red-large"
         @click="openAddPanel">
         <i class="fal fa-plus-circle"/>
-        Nouvel utilisateur
+        Ajouter un utilisateur
       </button>
     </div>
 
@@ -115,10 +115,8 @@ export default {
   data() {
     return {
       users: [],
-      modelToEdit: {},
-      showAddPanel: false,
-      showEditPanel: false,
       meta: {},
+      errors: {},
       sort: "",
       sortOptions: [
         { label: "Aucun", value: "" },
@@ -147,13 +145,18 @@ export default {
     ...mapActions(["toggleLoader"]),
     async getUsers(page = 1) {
       this.toggleLoader();
-      let res = await window.axios.get(
-        window.route("api.users.index", this.sort.value),
-        { params: { page } }
-      );
-      this.users = res.data.data;
-      this.meta = res.data.meta;
-      this.toggleLoader();
+      try {
+        let res = await window.axios.get(
+          window.route("api.users.index", this.sort.value),
+          { params: { page } }
+        );
+        this.users = res.data.data;
+        this.meta = res.data.meta;
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.toggleLoader();
+      }
     },
     selectSort(sort) {
       this.sort = sort;

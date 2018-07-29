@@ -17,9 +17,13 @@
         </AppSelect>
       </div>
 
-      <AddTicker
-        :tickers="tickers"
-        @ticker:created="addTicker"/>
+      <button
+        role="button"
+        class="btn btn--red-large"
+        @click="openAddPanel">
+        <i class="fal fa-plus-circle"/>
+        Ajouter un ticker
+      </button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -43,6 +47,7 @@
             :key="ticker.id"
             :ticker="ticker"
             class="card__container"
+            @edit-ticker:open="openEditPanel"
             @ticker:deleted="removeTicker(index)"/>
         </transition-group>
       </template>
@@ -53,6 +58,28 @@
         class="pagination pagination--bottom"
         @pagination:switched="getTickers"/>
     </div>
+
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click.prevent="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <AddTicker
+        v-if="showAddPanel"
+        @ticker:created="addTicker"
+        @add-ticker:close="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <EditTicker
+        v-if="showEditPanel"
+        :ticker="modelToEdit"
+        @ticker:updated="updateTicker"
+        @edit-ticker:close="closePanels"/>
+    </transition>
 
     <MoonLoader
       :loading="loaderState"
@@ -65,22 +92,24 @@
 import Pagination from "../pagination/Pagination";
 import AppSelect from "../select/AppSelect";
 import AddTicker from "./AddTicker";
+import EditTicker from "./EditTicker";
 import Ticker from "./Ticker";
 import MoonLoader from "vue-spinner/src/MoonLoader";
 
-import { loader, modelCount } from "../../mixins";
+import { loader, modal, panels, modelCount } from "../../mixins";
 import { eventBus } from "../../app";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     Pagination,
     AppSelect,
     AddTicker,
+    EditTicker,
     Ticker,
     MoonLoader
   },
-  mixins: [loader, modelCount],
+  mixins: [loader, modal, panels, modelCount],
   data() {
     return {
       tickers: [],
@@ -102,7 +131,7 @@ export default {
     ...mapGetters(["loaderState"])
   },
   created() {
-    eventBus.$on("tickerWasUpdated", data => {
+    eventBus.$on("ticker:updated", data => {
       if (data.active) {
         this.tickers.forEach(item => {
           if (item.id !== data.id) {
@@ -116,27 +145,24 @@ export default {
     this.getTickers();
   },
   methods: {
-    getTickers(page = 1) {
-      this.$store.dispatch("toggleLoader");
+    ...mapActions(["toggleLoader"]),
+    async getTickers(page = 1) {
+      this.toggleLoader();
       this.fetching = true;
-
-      window.axios
-        .get(window.route("api.tickers.index", this.sort.value), {
-          params: {
-            page
-          }
-        })
-        .then(res => {
-          this.tickers = res.data.data;
-          this.meta = res.data.meta;
-          this.$store.dispatch("toggleLoader");
-          this.fetching = false;
-        })
-        .catch(err => {
-          this.errors = err.response.data;
-          this.$store.dispatch("toggleLoader");
-          this.fetching = false;
-        });
+      try {
+        let res = await window.axios.get(
+          window.route("api.tickers.index", this.sort.value),
+          { params: { page } }
+        );
+        this.tickers = res.data.data;
+        this.meta = res.data.meta;
+        this.fetching = false;
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.fetching = false;
+        this.toggleLoader();
+      }
     },
     selectSort(sort) {
       this.sort = sort;
@@ -153,6 +179,16 @@ export default {
         message: "La création du ticker a réussi.",
         level: "success"
       });
+    },
+    updateTicker(data) {
+      let index = this.tickers.findIndex(ticker => ticker.id === data.id);
+      this.tickers[index] = data;
+      window.flash({
+        message:
+          "Les modifications apportées à au ticker ont été enregistrées.",
+        level: "success"
+      });
+      this.closePanels();
     },
     removeTicker(index) {
       this.tickers.splice(index, 1);

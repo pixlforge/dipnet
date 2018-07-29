@@ -5636,7 +5636,7 @@ const modelCount = {
     }
   }
 };
-/* harmony export (immutable) */ __webpack_exports__["b"] = modelCount;
+/* harmony export (immutable) */ __webpack_exports__["d"] = modelCount;
 
 
 const appName = {
@@ -5646,7 +5646,7 @@ const appName = {
     };
   }
 };
-/* harmony export (immutable) */ __webpack_exports__["g"] = appName;
+/* harmony export (immutable) */ __webpack_exports__["h"] = appName;
 
 
 const logo = {
@@ -5667,7 +5667,7 @@ const logo = {
     }
   }
 };
-/* harmony export (immutable) */ __webpack_exports__["f"] = logo;
+/* harmony export (immutable) */ __webpack_exports__["g"] = logo;
 
 
 const filters = {
@@ -5679,7 +5679,7 @@ const filters = {
     }
   }
 };
-/* harmony export (immutable) */ __webpack_exports__["c"] = filters;
+/* harmony export (immutable) */ __webpack_exports__["e"] = filters;
 
 
 const loader = {
@@ -5708,7 +5708,7 @@ const dates = {
     }
   }
 };
-/* harmony export (immutable) */ __webpack_exports__["d"] = dates;
+/* harmony export (immutable) */ __webpack_exports__["f"] = dates;
 
 
 const modal = {
@@ -5724,10 +5724,17 @@ const modal = {
     }
   }
 };
-/* harmony export (immutable) */ __webpack_exports__["e"] = modal;
+/* harmony export (immutable) */ __webpack_exports__["b"] = modal;
 
 
 const panels = {
+  data() {
+    return {
+      modelToEdit: {},
+      showAddPanel: false,
+      showEditPanel: false
+    };
+  },
   mounted() {
     this.bindEscapeKey();
   },
@@ -5762,7 +5769,7 @@ const panels = {
     }
   }
 };
-/* harmony export (immutable) */ __webpack_exports__["i"] = panels;
+/* harmony export (immutable) */ __webpack_exports__["c"] = panels;
 
 
 const registration = {
@@ -5806,7 +5813,7 @@ const registration = {
     }
   }
 };
-/* harmony export (immutable) */ __webpack_exports__["h"] = registration;
+/* harmony export (immutable) */ __webpack_exports__["i"] = registration;
 
 
 /***/ }),
@@ -31902,7 +31909,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   components: {
     MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* logo */], __WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* loader */]],
   data() {
     return {
       company: {
@@ -32132,7 +32139,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   components: {
     MoonLoader: __WEBPACK_IMPORTED_MODULE_0_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* logo */], __WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* loader */]],
   props: {
     user: {
       type: Object,
@@ -32304,7 +32311,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   data() {
     return {
       article: {
@@ -32397,7 +32404,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     EditArticle: __WEBPACK_IMPORTED_MODULE_0__EditArticle_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["c" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["d" /* dates */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* dates */]],
   props: {
     article: {
       type: Object,
@@ -32513,7 +32520,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     AddArticle: __WEBPACK_IMPORTED_MODULE_3__AddArticle_vue___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["b" /* modelCount */], __WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["d" /* modelCount */], __WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */]],
   data() {
     return {
       articles: [],
@@ -32723,7 +32730,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   props: {
     article: {
       type: Object,
@@ -32970,7 +32977,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   props: {
     companies: {
       type: Array,
@@ -33310,7 +33317,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     EditBusiness: __WEBPACK_IMPORTED_MODULE_0__EditBusiness_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["c" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["d" /* dates */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* dates */]],
   props: {
     business: {
       type: Object,
@@ -33796,7 +33803,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   props: {
     business: {
       type: Object,
@@ -34233,7 +34240,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["d" /* dates */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* dates */]],
   props: {
     comment: {
       type: Object,
@@ -34463,7 +34470,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   data() {
     return {
       company: {
@@ -34596,7 +34603,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     AddCompany: __WEBPACK_IMPORTED_MODULE_3__AddCompany_vue___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["b" /* modelCount */], __WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["d" /* modelCount */], __WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */]],
   data() {
     return {
       companies: [],
@@ -34734,7 +34741,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     EditCompany: __WEBPACK_IMPORTED_MODULE_0__EditCompany_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["c" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["d" /* dates */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* dates */]],
   props: {
     company: {
       type: Object,
@@ -34927,7 +34934,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   props: {
     company: {
       type: Object,
@@ -35387,7 +35394,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   props: {
     companies: {
       type: Array,
@@ -35537,7 +35544,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     EditContact: __WEBPACK_IMPORTED_MODULE_0__EditContact_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["c" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["d" /* dates */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* dates */]],
   props: {
     contact: {
       type: Object,
@@ -35666,7 +35673,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     AddContact: __WEBPACK_IMPORTED_MODULE_3__AddContact_vue___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["b" /* modelCount */], __WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["d" /* modelCount */], __WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */]],
   props: {
     companies: {
       type: Array,
@@ -36011,7 +36018,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   props: {
     contact: {
       type: Object,
@@ -36133,7 +36140,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     Delivery: __WEBPACK_IMPORTED_MODULE_1__Delivery___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["b" /* modelCount */], __WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["d" /* modelCount */], __WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* loader */]],
   data() {
     return {
       deliveries: [],
@@ -36391,7 +36398,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     Document: __WEBPACK_IMPORTED_MODULE_1__Document___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["b" /* modelCount */], __WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["d" /* modelCount */], __WEBPACK_IMPORTED_MODULE_3__mixins__["a" /* loader */]],
   data() {
     return {
       documents: [],
@@ -36568,7 +36575,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["c" /* filters */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* filters */]],
   props: {
     label: {
       type: String,
@@ -37006,7 +37013,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   data() {
     return {
       format: {
@@ -37189,7 +37196,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
   props: {
     format: {
       type: Object,
@@ -37295,7 +37302,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     EditFormat: __WEBPACK_IMPORTED_MODULE_0__EditFormat_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["c" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["d" /* dates */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* dates */]],
   props: {
     format: {
       type: Object,
@@ -37416,7 +37423,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     AddFormat: __WEBPACK_IMPORTED_MODULE_3__AddFormat_vue___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_5__mixins__["b" /* modelCount */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_5__mixins__["d" /* modelCount */]],
   data() {
     return {
       formats: [],
@@ -37952,7 +37959,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     Carousel: __WEBPACK_IMPORTED_MODULE_0__carousel_Carousel_vue___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_1_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["f" /* logo */], __WEBPACK_IMPORTED_MODULE_2__mixins__["g" /* appName */], __WEBPACK_IMPORTED_MODULE_2__mixins__["h" /* registration */], __WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_2__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_2__mixins__["i" /* registration */], __WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* loader */]],
   data() {
     return {
       email: "",
@@ -38054,7 +38061,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["c" /* filters */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* filters */]],
   props: {
     label: {
       type: String,
@@ -41572,7 +41579,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     RegisterCompany: __WEBPACK_IMPORTED_MODULE_4__RegisterCompany_vue___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["g" /* appName */], __WEBPACK_IMPORTED_MODULE_6__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_6__mixins__["h" /* registration */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_6__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_6__mixins__["i" /* registration */]],
   props: {
     token: {
       type: String,
@@ -41806,7 +41813,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   components: {
     Carousel: __WEBPACK_IMPORTED_MODULE_0__carousel_Carousel___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* logo */], __WEBPACK_IMPORTED_MODULE_1__mixins__["h" /* registration */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_1__mixins__["i" /* registration */]],
   props: {
     registrationType: {
       type: String,
@@ -41942,7 +41949,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["g" /* appName */], __WEBPACK_IMPORTED_MODULE_0__mixins__["f" /* logo */], __WEBPACK_IMPORTED_MODULE_0__mixins__["h" /* registration */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_0__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_0__mixins__["i" /* registration */]],
   data() {
     return {
       company: {
@@ -42165,7 +42172,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["g" /* appName */], __WEBPACK_IMPORTED_MODULE_0__mixins__["f" /* logo */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_0__mixins__["g" /* logo */]],
   props: {
     registrationType: {
       type: String,
@@ -42264,7 +42271,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     Carousel: __WEBPACK_IMPORTED_MODULE_0__carousel_Carousel___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* logo */]]
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* logo */]]
 });
 
 /***/ }),
@@ -42339,7 +42346,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   components: {
     Carousel: __WEBPACK_IMPORTED_MODULE_0__carousel_Carousel___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* logo */], __WEBPACK_IMPORTED_MODULE_1__mixins__["h" /* registration */]]
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_1__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_1__mixins__["i" /* registration */]]
 });
 
 /***/ }),
@@ -42675,9 +42682,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forms_ModalCheckbox__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forms_ModalCheckbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__forms_ModalCheckbox__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 //
 //
@@ -42734,41 +42746,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  components: {
+    ModalInput: __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default.a,
+    ModalCheckbox: __WEBPACK_IMPORTED_MODULE_1__forms_ModalCheckbox___default.a
+  },
   data() {
     return {
       ticker: {
@@ -42778,22 +42766,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       errors: {}
     };
   },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
-    add() {
-      this.toggleLoader();
-      window.axios.post(window.route("admin.tickers.store"), this.ticker).then(res => {
-        this.ticker = res.data;
-        this.$emit("ticker:created", this.ticker);
-        this.toggleLoader();
-        this.toggleModal();
-        this.ticker = {
-          body: "",
-          active: false
-        };
-      }).catch(err => {
-        this.errors = err.response.data.errors;
-        this.toggleLoader();
-      });
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
+  },
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+    addTicker() {
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        try {
+          let res = yield window.axios.post(window.route("admin.tickers.store"), _this.ticker);
+          _this.$emit("ticker:created", res.data);
+          _this.$emit("add-ticker:close");
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data.errors;
+          _this.toggleLoader();
+        }
+      })();
     }
   })
 });
@@ -42804,10 +42795,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forms_ModalCheckbox__ = __webpack_require__(437);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forms_ModalCheckbox___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__forms_ModalCheckbox__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 //
 //
@@ -42864,38 +42859,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* modal */]],
+  components: {
+    ModalInput: __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default.a,
+    ModalCheckbox: __WEBPACK_IMPORTED_MODULE_1__forms_ModalCheckbox___default.a
+  },
   props: {
     ticker: {
       type: Object,
@@ -42904,20 +42878,29 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   data() {
     return {
+      currentTicker: {
+        id: this.ticker.id,
+        body: this.ticker.body,
+        active: this.ticker.active
+      },
       errors: {}
     };
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(["toggleLoader"]), {
-    update() {
-      this.toggleLoader();
-      window.axios.patch(window.route("admin.tickers.update", [this.ticker.id]), this.ticker).then(() => {
-        __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit("ticker:updated", this.ticker);
-        this.toggleLoader();
-        this.toggleModal();
-      }).catch(err => {
-        this.errors = err.response.data;
-        this.toggleLoader();
-      });
+    updateTicker() {
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        try {
+          let res = yield window.axios.patch(window.route("admin.tickers.update", [_this.ticker.id]), _this.currentTicker);
+          _this.$emit("ticker:updated", res.data);
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data;
+          _this.toggleLoader();
+        }
+      })();
     }
   })
 });
@@ -42928,9 +42911,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditTicker__ = __webpack_require__(332);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditTicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditTicker__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
 //
 //
 //
@@ -42974,16 +42955,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    EditTicker: __WEBPACK_IMPORTED_MODULE_0__EditTicker___default.a
-  },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["c" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["d" /* dates */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_0__mixins__["f" /* dates */]],
   props: {
     ticker: {
       type: Object,
@@ -42991,6 +42970,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    edit() {
+      this.$emit("edit-ticker:open", this.ticker);
+    },
     destroy() {
       window.axios.delete(window.route("admin.tickers.destroy", [this.ticker.id]));
       this.$emit("ticker:deleted", this.ticker.id);
@@ -43010,14 +42992,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_AppSelect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__select_AppSelect__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddTicker__ = __webpack_require__(331);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddTicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AddTicker__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Ticker__ = __webpack_require__(333);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__Ticker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__Ticker__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditTicker__ = __webpack_require__(332);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditTicker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__EditTicker__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Ticker__ = __webpack_require__(333);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Ticker___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Ticker__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__app__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 //
 //
@@ -43082,6 +43068,34 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -43098,10 +43112,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
     AppSelect: __WEBPACK_IMPORTED_MODULE_1__select_AppSelect___default.a,
     AddTicker: __WEBPACK_IMPORTED_MODULE_2__AddTicker___default.a,
-    Ticker: __WEBPACK_IMPORTED_MODULE_3__Ticker___default.a,
-    MoonLoader: __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader___default.a
+    EditTicker: __WEBPACK_IMPORTED_MODULE_3__EditTicker___default.a,
+    Ticker: __WEBPACK_IMPORTED_MODULE_4__Ticker___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_5__mixins__["b" /* modelCount */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_6__mixins__["b" /* modal */], __WEBPACK_IMPORTED_MODULE_6__mixins__["c" /* panels */], __WEBPACK_IMPORTED_MODULE_6__mixins__["d" /* modelCount */]],
   data() {
     return {
       tickers: [],
@@ -43115,9 +43130,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       modelGender: "M"
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["loaderState"])),
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["b" /* mapGetters */])(["loaderState"])),
   created() {
-    __WEBPACK_IMPORTED_MODULE_6__app__["eventBus"].$on("tickerWasUpdated", data => {
+    __WEBPACK_IMPORTED_MODULE_7__app__["eventBus"].$on("ticker:updated", data => {
       if (data.active) {
         this.tickers.forEach(item => {
           if (item.id !== data.id) {
@@ -43130,25 +43145,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   mounted() {
     this.getTickers();
   },
-  methods: {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     getTickers(page = 1) {
-      this.$store.dispatch("toggleLoader");
-      this.fetching = true;
+      var _this = this;
 
-      window.axios.get(window.route("api.tickers.index", this.sort.value), {
-        params: {
-          page
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        _this.fetching = true;
+        try {
+          let res = yield window.axios.get(window.route("api.tickers.index", _this.sort.value), { params: { page } });
+          _this.tickers = res.data.data;
+          _this.meta = res.data.meta;
+          _this.fetching = false;
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data;
+          _this.fetching = false;
+          _this.toggleLoader();
         }
-      }).then(res => {
-        this.tickers = res.data.data;
-        this.meta = res.data.meta;
-        this.$store.dispatch("toggleLoader");
-        this.fetching = false;
-      }).catch(err => {
-        this.errors = err.response.data;
-        this.$store.dispatch("toggleLoader");
-        this.fetching = false;
-      });
+      })();
     },
     selectSort(sort) {
       this.sort = sort;
@@ -43166,6 +43181,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: "success"
       });
     },
+    updateTicker(data) {
+      let index = this.tickers.findIndex(ticker => ticker.id === data.id);
+      this.tickers[index] = data;
+      window.flash({
+        message: "Les modifications apportées à au ticker ont été enregistrées.",
+        level: "success"
+      });
+      this.closePanels();
+    },
     removeTicker(index) {
       this.tickers.splice(index, 1);
       window.flash({
@@ -43173,7 +43197,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         level: "success"
       });
     }
-  }
+  })
 });
 
 /***/ }),
@@ -43191,8 +43215,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-//
-//
 //
 //
 //
@@ -43356,8 +43378,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         _this.toggleLoader();
         try {
           let res = yield window.axios.post(window.route("admin.users.store"), _this.user);
-          _this.user = res.data;
-          _this.$emit("user:created", _this.user);
+          _this.$emit("user:created", res.data);
           _this.$emit("add-user:close");
           _this.toggleLoader();
         } catch (err) {
@@ -43491,7 +43512,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
 
 
 
@@ -43504,7 +43524,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     ModalInput: __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default.a,
     ModalSelect: __WEBPACK_IMPORTED_MODULE_1__forms_ModalSelect___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_2__mixins__["e" /* modal */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_2__mixins__["b" /* modal */]],
   props: {
     user: {
       type: Object,
@@ -43551,9 +43571,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         _this.toggleLoader();
         try {
           let res = yield window.axios.patch(window.route("admin.users.update", [_this.user.id]), _this.currentUser);
+          _this.$emit("user:updated", res.data);
           _this.toggleLoader();
           _this.toggleModal();
-          _this.$emit("user:updated", res.data);
         } catch (err) {
           _this.errors = err.response.data.errors;
           _this.toggleLoader();
@@ -43659,7 +43679,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["c" /* filters */], __WEBPACK_IMPORTED_MODULE_0__mixins__["d" /* dates */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_0__mixins__["f" /* dates */]],
   props: {
     user: {
       type: Object,
@@ -43814,7 +43834,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     User: __WEBPACK_IMPORTED_MODULE_4__User_vue___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_6__mixins__["e" /* modal */], __WEBPACK_IMPORTED_MODULE_6__mixins__["i" /* panels */], __WEBPACK_IMPORTED_MODULE_6__mixins__["b" /* modelCount */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_6__mixins__["b" /* modal */], __WEBPACK_IMPORTED_MODULE_6__mixins__["c" /* panels */], __WEBPACK_IMPORTED_MODULE_6__mixins__["d" /* modelCount */]],
   props: {
     companies: {
       type: Array,
@@ -43824,10 +43844,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   data() {
     return {
       users: [],
-      modelToEdit: {},
-      showAddPanel: false,
-      showEditPanel: false,
       meta: {},
+      errors: {},
       sort: "",
       sortOptions: [{ label: "Aucun", value: "" }, { label: "Nom d'utilisateur", value: "username" }, { label: "Email", value: "email" }, { label: "Rôle", value: "role" }, { label: "Date de création", value: "created_at" }],
       modelNameSingular: "utilisateur",
@@ -43850,10 +43868,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return _asyncToGenerator(function* () {
         _this.toggleLoader();
-        let res = yield window.axios.get(window.route("api.users.index", _this.sort.value), { params: { page } });
-        _this.users = res.data.data;
-        _this.meta = res.data.meta;
-        _this.toggleLoader();
+        try {
+          let res = yield window.axios.get(window.route("api.users.index", _this.sort.value), { params: { page } });
+          _this.users = res.data.data;
+          _this.meta = res.data.meta;
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data;
+          _this.toggleLoader();
+        }
       })();
     },
     selectSort(sort) {
@@ -70657,18 +70680,13 @@ module.exports = Component.exports
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal__slider",
-    on: {
-      "keyup": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
-        _vm.updateUser($event)
-      }
-    }
+    staticClass: "modal__slider"
   }, [_c('form', {
     staticClass: "modal__container",
     on: {
       "submit": function($event) {
         $event.preventDefault();
+        _vm.updateUser($event)
       }
     }
   }, [_c('h2', {
@@ -70791,6 +70809,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('button', {
     staticClass: "btn btn--red",
     attrs: {
+      "type": "submit",
       "role": "button"
     }
   }, [_c('i', {
@@ -73688,14 +73707,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('AddTicker', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('button', {
+    staticClass: "btn btn--red-large",
     attrs: {
-      "tickers": _vm.tickers
+      "role": "button"
     },
     on: {
-      "ticker:created": _vm.addTicker
+      "click": _vm.openAddPanel
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }, [_c('i', {
+    staticClass: "fal fa-plus-circle"
+  }), _vm._v("\n      Ajouter un ticker\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [(_vm.meta.total > 25) ? _c('Pagination', {
     staticClass: "pagination pagination--top",
@@ -73721,6 +73743,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "ticker": ticker
       },
       on: {
+        "edit-ticker:open": _vm.openEditPanel,
         "ticker:deleted": function($event) {
           _vm.removeTicker(index)
         }
@@ -73734,7 +73757,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "pagination:switched": _vm.getTickers
     }
-  }) : _vm._e()], 2), _vm._v(" "), _c('MoonLoader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal__background",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.closePanels($event)
+      }
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showAddPanel) ? _c('AddTicker', {
+    on: {
+      "ticker:created": _vm.addTicker,
+      "add-ticker:close": _vm.closePanels
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showEditPanel) ? _c('EditTicker', {
+    attrs: {
+      "ticker": _vm.modelToEdit
+    },
+    on: {
+      "ticker:updated": _vm.updateTicker,
+      "edit-ticker:close": _vm.closePanels
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -75637,7 +75693,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-plus-circle"
-  }), _vm._v("\n      Nouvel utilisateur\n    ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n      Ajouter un utilisateur\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [(_vm.meta.total > 25) ? _c('Pagination', {
     staticClass: "pagination pagination--top",
@@ -78264,25 +78320,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__label"
   }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.ticker.updated_at)) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('div', {
+  }, [_c('button', {
     attrs: {
       "role": "button",
       "title": "Supprimer"
     },
     on: {
-      "click": _vm.destroy
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.destroy($event)
+      }
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('button', {
     attrs: {
+      "role": "button",
       "title": "Modifier"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.edit($event)
+      }
     }
-  }, [_c('EditTicker', {
-    attrs: {
-      "ticker": _vm.ticker
-    }
-  })], 1)])])
+  }, [_c('i', {
+    staticClass: "fal fa-pencil"
+  })])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -79661,23 +79725,16 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal__slider",
-    on: {
-      "keyup": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
-        _vm.addUser($event)
-      }
-    }
+    staticClass: "modal__slider"
   }, [_c('form', {
     staticClass: "modal__container",
     on: {
       "submit": function($event) {
         $event.preventDefault();
+        _vm.addUser($event)
       }
     }
-  }, [_c('h2', {
-    staticClass: "modal__title"
-  }, [_vm._v("Nouvel utilisateur")]), _vm._v(" "), _c('ModalInput', {
+  }, [_vm._m(0), _vm._v(" "), _c('ModalInput', {
     ref: "focus",
     attrs: {
       "id": "username",
@@ -79779,7 +79836,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
-  }, [_vm._m(0), _vm._v(" "), _c('button', {
+  }, [_vm._m(1), _vm._v(" "), _c('button', {
     staticClass: "btn btn--grey",
     attrs: {
       "role": "button"
@@ -79794,6 +79851,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times"
   }), _vm._v("\n        Annuler\n      ")])])], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('h2', {
+    staticClass: "modal__title"
+  }, [_vm._v("Ajouter un "), _c('strong', [_vm._v("utilisateur")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
     staticClass: "btn btn--red",
     attrs: {
@@ -80155,155 +80216,80 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('button', {
-    staticClass: "btn btn--red-large",
-    attrs: {
-      "role": "button"
-    },
+  return _c('div', {
+    staticClass: "modal__slider"
+  }, [_c('form', {
+    staticClass: "modal__container",
     on: {
-      "click": _vm.toggleModal
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-plus-circle"
-  }), _vm._v("\n    Nouveau ticker\n  ")]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "fade"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__background",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "slide"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__slider",
-    on: {
-      "keyup": [function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27, $event.key)) { return null; }
-        _vm.toggleModal($event)
-      }, function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
-        _vm.add($event)
-      }]
-    }
-  }, [_c('div', {
-    staticClass: "modal__container"
-  }, [_c('h2', {
-    staticClass: "modal__title"
-  }, [_vm._v("Nouveau ticker")]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "name"
-    }
-  }, [_vm._v("\n            Contenu\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.ticker.body),
-      expression: "ticker.body",
-      modifiers: {
-        "trim": true
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.addTicker($event)
       }
-    }],
-    staticClass: "modal__input",
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('ModalInput', {
+    ref: "focus",
     attrs: {
       "id": "ticker",
       "type": "text",
-      "name": "ticker",
-      "required": "",
-      "autofocus": ""
+      "required": ""
     },
-    domProps: {
-      "value": (_vm.ticker.body)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.ticker, "body", $event.target.value.trim())
+    model: {
+      value: (_vm.ticker.body),
+      callback: function($$v) {
+        _vm.$set(_vm.ticker, "body", $$v)
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "ticker.body"
     }
-  }), _vm._v(" "), (_vm.errors.body) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.body[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Contenu")]), _vm._v(" "), (_vm.errors.body) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.body[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalCheckbox', {
     attrs: {
-      "for": "active"
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
+      "id": "active"
+    },
+    model: {
       value: (_vm.ticker.active),
+      callback: function($$v) {
+        _vm.$set(_vm.ticker, "active", $$v)
+      },
       expression: "ticker.active"
-    }],
-    attrs: {
-      "id": "active",
-      "type": "checkbox",
-      "name": "active"
-    },
-    domProps: {
-      "checked": Array.isArray(_vm.ticker.active) ? _vm._i(_vm.ticker.active, null) > -1 : (_vm.ticker.active)
-    },
-    on: {
-      "change": function($event) {
-        var $$a = _vm.ticker.active,
-          $$el = $event.target,
-          $$c = $$el.checked ? (true) : (false);
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && (_vm.ticker.active = $$a.concat([$$v]))
-          } else {
-            $$i > -1 && (_vm.ticker.active = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-          }
-        } else {
-          _vm.$set(_vm.ticker, "active", $$c)
-        }
-      }
     }
-  }), _vm._v("\n            Actif\n          ")])]), _vm._v(" "), _c('div', {
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Actif")]), _vm._v(" "), (_vm.errors.active) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.active[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
-  }, [_c('button', {
+  }, [_vm._m(1), _vm._v(" "), _c('button', {
     staticClass: "btn btn--grey",
     attrs: {
       "role": "button"
     },
     on: {
       "click": function($event) {
-        $event.stopPropagation();
-        _vm.toggleModal($event)
+        $event.preventDefault();
+        _vm.$emit('add-ticker:close')
       }
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
+  }), _vm._v("\n        Annuler\n      ")])])], 1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('h2', {
+    staticClass: "modal__title"
+  }, [_vm._v("Ajouter un "), _c('strong', [_vm._v("ticker")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
     staticClass: "btn btn--red",
     attrs: {
+      "type": "submit",
       "role": "button"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.add($event)
-      }
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n            Ajouter\n          ")])])])]) : _vm._e()])], 1)
-},staticRenderFns: []}
+  }), _vm._v("\n        Ajouter\n      ")])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -80317,151 +80303,80 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', {
+    staticClass: "modal__slider"
+  }, [_c('form', {
+    staticClass: "modal__container",
     on: {
-      "click": _vm.toggleModal
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-pencil"
-  })]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "fade"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__background",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "slide"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__slider",
-    on: {
-      "keyup": [function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27, $event.key)) { return null; }
-        _vm.toggleModal($event)
-      }, function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
-        _vm.update($event)
-      }]
-    }
-  }, [_c('div', {
-    staticClass: "modal__container"
-  }, [_c('h2', {
-    staticClass: "modal__title"
-  }, [_vm._v("Modifier le ticker")]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "body"
-    }
-  }, [_vm._v("\n            Contenu\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.ticker.body),
-      expression: "ticker.body",
-      modifiers: {
-        "trim": true
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.updateTicker($event)
       }
-    }],
-    staticClass: "modal__input",
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('ModalInput', {
+    ref: "focus",
     attrs: {
-      "id": "body",
+      "id": "ticker",
       "type": "text",
-      "name": "body",
-      "required": "",
-      "autofocus": ""
+      "required": ""
     },
-    domProps: {
-      "value": (_vm.ticker.body)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.ticker, "body", $event.target.value.trim())
+    model: {
+      value: (_vm.currentTicker.body),
+      callback: function($$v) {
+        _vm.$set(_vm.currentTicker, "body", $$v)
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "currentTicker.body"
     }
-  }), _vm._v(" "), (_vm.errors.body) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.body[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Contenu")]), _vm._v(" "), (_vm.errors.body) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.body[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalCheckbox', {
     attrs: {
-      "for": "active"
-    }
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.ticker.active),
-      expression: "ticker.active"
-    }],
-    attrs: {
-      "id": "active",
-      "type": "checkbox",
-      "name": "active"
+      "id": "active"
     },
-    domProps: {
-      "checked": Array.isArray(_vm.ticker.active) ? _vm._i(_vm.ticker.active, null) > -1 : (_vm.ticker.active)
-    },
-    on: {
-      "change": function($event) {
-        var $$a = _vm.ticker.active,
-          $$el = $event.target,
-          $$c = $$el.checked ? (true) : (false);
-        if (Array.isArray($$a)) {
-          var $$v = null,
-            $$i = _vm._i($$a, $$v);
-          if ($$el.checked) {
-            $$i < 0 && (_vm.ticker.active = $$a.concat([$$v]))
-          } else {
-            $$i > -1 && (_vm.ticker.active = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
-          }
-        } else {
-          _vm.$set(_vm.ticker, "active", $$c)
-        }
-      }
+    model: {
+      value: (_vm.currentTicker.active),
+      callback: function($$v) {
+        _vm.$set(_vm.currentTicker, "active", $$v)
+      },
+      expression: "currentTicker.active"
     }
-  }), _vm._v("\n            Actif\n          ")])]), _vm._v(" "), _c('div', {
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Actif")]), _vm._v(" "), (_vm.errors.active) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.active[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
-  }, [_c('button', {
+  }, [_vm._m(1), _vm._v(" "), _c('button', {
     staticClass: "btn btn--grey",
     attrs: {
       "role": "button"
     },
     on: {
       "click": function($event) {
-        $event.stopPropagation();
-        _vm.toggleModal($event)
+        $event.preventDefault();
+        _vm.$emit('edit-ticker:close')
       }
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
+  }), _vm._v("\n        Annuler\n      ")])])], 1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('h2', {
+    staticClass: "modal__title"
+  }, [_vm._v("Modifier le "), _c('strong', [_vm._v("ticker")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
     staticClass: "btn btn--red",
     attrs: {
+      "type": "submit",
       "role": "button"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.update($event)
-      }
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n            Mettre à jour\n          ")])])])]) : _vm._e()])], 1)
-},staticRenderFns: []}
+  }), _vm._v("\n        Mettre à jour\n      ")])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -80666,6 +80581,131 @@ module.exports = function listToStyles (parentId, list) {
 __webpack_require__(4);
 module.exports = __webpack_require__(151);
 
+
+/***/ }),
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    value: {
+      type: [Boolean, String],
+      required: true
+    },
+    id: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: false,
+      default() {
+        return this.id;
+      }
+    }
+  }
+});
+
+/***/ }),
+/* 437 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(436),
+  /* template */
+  __webpack_require__(438),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "/Users/celienboillat/Webdev/Projects/dipnet/resources/assets/js/components/forms/ModalCheckbox.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] ModalCheckbox.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-edef77cc", Component.options)
+  } else {
+    hotAPI.reload("data-v-edef77cc", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 438 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal__group"
+  }, [_c('label', {
+    staticClass: "modal__label",
+    attrs: {
+      "for": _vm.id
+    }
+  }, [_c('input', {
+    attrs: {
+      "id": _vm.id,
+      "name": _vm.name,
+      "type": "checkbox"
+    },
+    domProps: {
+      "checked": _vm.value
+    },
+    on: {
+      "input": function($event) {
+        _vm.$emit('input', $event.target.checked)
+      }
+    }
+  }), _vm._v(" "), _vm._t("label")], 2), _vm._v(" "), _c('div', {
+    staticClass: "modal__alert"
+  }, [_vm._t("errors")], 2)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-edef77cc", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

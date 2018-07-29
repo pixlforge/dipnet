@@ -1,12 +1,9 @@
 <template>
-  <div
-    class="modal__slider"
-    @keyup.enter="addUser">
-
+  <div class="modal__slider">
     <form
       class="modal__container"
-      @submit.prevent>
-      <h2 class="modal__title">Nouvel utilisateur</h2>
+      @submit.prevent="addUser">
+      <h2 class="modal__title">Ajouter un <strong>utilisateur</strong></h2>
 
       <!-- Username -->
       <ModalInput
@@ -88,6 +85,7 @@
         </template>
       </ModalSelect>
 
+      <!-- Controls -->
       <div class="modal__buttons">
         <button
           type="submit"
@@ -167,8 +165,7 @@ export default {
           window.route("admin.users.store"),
           this.user
         );
-        this.user = res.data;
-        this.$emit("user:created", this.user);
+        this.$emit("user:created", res.data);
         this.$emit("add-user:close");
         this.toggleLoader();
       } catch (err) {

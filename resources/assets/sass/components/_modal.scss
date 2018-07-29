@@ -53,6 +53,7 @@
   &__label {
     font-size: 1.4rem;
     color: $scorpion;
+    user-select: none;
   }
 
   &__required {

@@ -1,11 +1,8 @@
 <template>
-  <div
-    class="modal__slider"
-    @keyup.enter="updateUser">
-
+  <div class="modal__slider">
     <form
       class="modal__container"
-      @submit.prevent>
+      @submit.prevent="updateUser">
       <h2 class="modal__title">Modifier <strong>{{ user.username }}</strong></h2>
 
       <!-- Username -->
@@ -86,8 +83,10 @@
         </template>
       </ModalSelect>
 
+      <!-- Controls -->
       <div class="modal__buttons">
         <button
+          type="submit"
           role="button"
           class="btn btn--red">
           <i class="fal fa-check"/>
@@ -170,9 +169,9 @@ export default {
           window.route("admin.users.update", [this.user.id]),
           this.currentUser
         );
+        this.$emit("user:updated", res.data);
         this.toggleLoader();
         this.toggleModal();
-        this.$emit("user:updated", res.data);
       } catch (err) {
         this.errors = err.response.data.errors;
         this.toggleLoader();

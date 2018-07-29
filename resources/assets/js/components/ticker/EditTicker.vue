@@ -1,90 +1,69 @@
 <template>
-  <div>
-    <div @click="toggleModal">
-      <i class="fal fa-pencil"/>
-    </div>
+  <div class="modal__slider">
+    <form
+      class="modal__container"
+      @submit.prevent="updateTicker">
+      <h2 class="modal__title">Modifier le <strong>ticker</strong></h2>
 
-    <transition name="fade">
-      <div
-        v-if="showModal"
-        class="modal__background"
-        @click="toggleModal"/>
-    </transition>
+      <!-- Body -->
+      <ModalInput
+        id="ticker"
+        ref="focus"
+        v-model="currentTicker.body"
+        type="text"
+        required>
+        <template slot="label">Contenu</template>
+        <template
+          v-if="errors.body"
+          slot="errors">
+          {{ errors.body[0] }}
+        </template>
+      </ModalInput>
 
-    <transition name="slide">
-      <div
-        v-if="showModal"
-        class="modal__slider"
-        @keyup.esc="toggleModal"
-        @keyup.enter="update">
+      <!-- Active -->
+      <ModalCheckbox
+        id="active"
+        v-model="currentTicker.active">
+        <template slot="label">Actif</template>
+        <template
+          v-if="errors.active"
+          slot="errors">
+          {{ errors.active[0] }}
+        </template>
+      </ModalCheckbox>
 
-        <div class="modal__container">
-          <h2 class="modal__title">Modifier le ticker</h2>
-
-          <div class="modal__group">
-            <label
-              for="body"
-              class="modal__label">
-              Contenu
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="body"
-              v-model.trim="ticker.body"
-              type="text"
-              name="body"
-              class="modal__input"
-              required
-              autofocus>
-            <div
-              v-if="errors.body"
-              class="modal__alert">
-              {{ errors.body[0] }}
-            </div>
-          </div>
-
-          <div class="modal__group">
-            <label
-              for="active"
-              class="modal__label">
-              <input
-                id="active"
-                v-model="ticker.active"
-                type="checkbox"
-                name="active">
-              Actif
-            </label>
-          </div>
-
-          <div class="modal__buttons">
-            <button
-              class="btn btn--grey"
-              role="button"
-              @click.stop="toggleModal">
-              <i class="fal fa-times"/>
-              Annuler
-            </button>
-            <button
-              class="btn btn--red"
-              role="button"
-              @click.prevent="update">
-              <i class="fal fa-check"/>
-              Mettre à jour
-            </button>
-          </div>
-        </div>
+      <!-- Controls -->
+      <div class="modal__buttons">
+        <button
+          type="submit"
+          role="button"
+          class="btn btn--red">
+          <i class="fal fa-check"/>
+          Mettre à jour
+        </button>
+        <button
+          role="button"
+          class="btn btn--grey"
+          @click.prevent="$emit('edit-ticker:close')">
+          <i class="fal fa-times"/>
+          Annuler
+        </button>
       </div>
-    </transition>
+    </form>
   </div>
 </template>
 
 <script>
-import { modal } from "../../mixins";
-import { eventBus } from "../../app";
+import ModalInput from "../forms/ModalInput";
+import ModalCheckbox from "../forms/ModalCheckbox";
+
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [modal],
+  components: {
+    ModalInput,
+    ModalCheckbox
+  },
   props: {
     ticker: {
       type: Object,
@@ -93,27 +72,29 @@ export default {
   },
   data() {
     return {
+      currentTicker: {
+        id: this.ticker.id,
+        body: this.ticker.body,
+        active: this.ticker.active
+      },
       errors: {}
     };
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    update() {
+    async updateTicker() {
       this.toggleLoader();
-      window.axios
-        .patch(
+      try {
+        let res = await window.axios.patch(
           window.route("admin.tickers.update", [this.ticker.id]),
-          this.ticker
-        )
-        .then(() => {
-          eventBus.$emit("ticker:updated", this.ticker);
-          this.toggleLoader();
-          this.toggleModal();
-        })
-        .catch(err => {
-          this.errors = err.response.data;
-          this.toggleLoader();
-        });
+          this.currentTicker
+        );
+        this.$emit("ticker:updated", res.data);
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.toggleLoader();
+      }
     }
   }
 };
