@@ -111,9 +111,11 @@
 </template>
 
 <script>
+import { modal } from "../../mixins";
 import { mapActions } from "vuex";
 
 export default {
+  mixins: [modal],
   data() {
     return {
       company: {

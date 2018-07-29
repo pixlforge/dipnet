@@ -49,10 +49,13 @@
 <script>
 import EditCompany from "./EditCompany.vue";
 
+import { filters, dates } from "../../mixins";
+
 export default {
   components: {
     EditCompany
   },
+  mixins: [filters, dates],
   props: {
     company: {
       type: Object,

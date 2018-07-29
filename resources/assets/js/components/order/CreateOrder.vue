@@ -167,6 +167,7 @@ import AddContact from "../contact/AddContact.vue";
 import Dropdown from "../dropdown/Dropdown";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
+import { loader } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapActions, mapGetters } from "vuex";
 
@@ -178,6 +179,7 @@ export default {
     Dropdown,
     MoonLoader
   },
+  mixins: [loader],
   props: {
     order: {
       type: Object,

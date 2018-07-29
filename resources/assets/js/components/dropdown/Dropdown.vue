@@ -28,10 +28,12 @@
 </template>
 
 <script>
+import { filters } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
 
 export default {
+  mixins: [filters],
   props: {
     label: {
       type: String,

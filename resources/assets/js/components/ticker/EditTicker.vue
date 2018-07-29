@@ -79,10 +79,12 @@
 </template>
 
 <script>
+import { modal } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapActions } from "vuex";
 
 export default {
+  mixins: [modal],
   props: {
     ticker: {
       type: Object,

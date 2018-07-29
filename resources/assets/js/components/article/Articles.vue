@@ -66,6 +66,7 @@ import Article from "./Article.vue";
 import AddArticle from "./AddArticle.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
+import { modelCount, loader } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
 
@@ -77,6 +78,7 @@ export default {
     AddArticle,
     MoonLoader
   },
+  mixins: [modelCount, loader],
   data() {
     return {
       articles: [],

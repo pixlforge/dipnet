@@ -54,6 +54,7 @@ import Pagination from "../pagination/Pagination";
 import Document from "./Document";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
+import { modelCount, loader } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -62,6 +63,7 @@ export default {
     Document,
     MoonLoader
   },
+  mixins: [modelCount, loader],
   data() {
     return {
       documents: [],

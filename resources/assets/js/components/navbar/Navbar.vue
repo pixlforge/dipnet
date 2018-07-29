@@ -134,7 +134,11 @@ export default {
       }
     },
     routeCompany() {
-      return window.route("companies.show", [this.userCompanyId]);
+      if (this.userRole === "administrateur") {
+        return window.route("admin.companies.index");
+      } else {
+        return window.route("companies.show", [this.userCompanyId]);
+      }
     }
   }
 };

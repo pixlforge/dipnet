@@ -95,6 +95,7 @@ import UserBusiness from "./UserBusiness";
 import AddBusiness from "./AddBusiness.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
+import { loader } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapGetters, mapActions } from "vuex";
 
@@ -107,6 +108,7 @@ export default {
     AddBusiness,
     MoonLoader
   },
+  mixins: [loader],
   props: {
     companies: {
       type: Array,

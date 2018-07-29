@@ -74,10 +74,13 @@
 <script>
 import EditContact from "./EditContact.vue";
 
+import { filters, dates } from "../../mixins";
+
 export default {
   components: {
     EditContact
   },
+  mixins: [filters, dates],
   props: {
     contact: {
       type: Object,

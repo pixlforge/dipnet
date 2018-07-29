@@ -54,6 +54,7 @@ import Pagination from "../pagination/Pagination";
 import Delivery from "./Delivery";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
+import { modelCount, loader } from "../../mixins";
 import { mapGetters } from "vuex";
 
 export default {
@@ -62,6 +63,7 @@ export default {
     Delivery,
     MoonLoader
   },
+  mixins: [modelCount, loader],
   data() {
     return {
       deliveries: [],

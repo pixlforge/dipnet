@@ -44,10 +44,13 @@
 <script>
 import EditTicker from "./EditTicker";
 
+import { filters, dates } from "../../mixins";
+
 export default {
   components: {
     EditTicker
   },
+  mixins: [filters, dates],
   props: {
     ticker: {
       type: Object,

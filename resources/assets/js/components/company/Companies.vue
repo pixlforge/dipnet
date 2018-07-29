@@ -66,6 +66,7 @@ import Company from "./Company.vue";
 import AddCompany from "./AddCompany.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
+import { modelCount, loader } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapGetters, mapActions } from "vuex";
 
@@ -77,6 +78,7 @@ export default {
     AddCompany,
     MoonLoader
   },
+  mixins: [modelCount, loader],
   data() {
     return {
       companies: [],

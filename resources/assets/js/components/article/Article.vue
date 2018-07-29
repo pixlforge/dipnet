@@ -48,10 +48,13 @@
 <script>
 import EditArticle from "./EditArticle.vue";
 
+import { filters, dates } from "../../mixins";
+
 export default {
   components: {
     EditArticle
   },
+  mixins: [filters, dates],
   props: {
     article: {
       type: Object,

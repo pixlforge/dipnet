@@ -71,6 +71,7 @@ import Contact from "./Contact.vue";
 import AddContact from "./AddContact.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
+import { modelCount, loader } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapGetters, mapActions } from "vuex";
 
@@ -82,6 +83,7 @@ export default {
     AddContact,
     MoonLoader
   },
+  mixins: [modelCount, loader],
   props: {
     companies: {
       type: Array,

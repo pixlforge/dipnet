@@ -68,6 +68,7 @@ import AddTicker from "./AddTicker";
 import Ticker from "./Ticker";
 import MoonLoader from "vue-spinner/src/MoonLoader";
 
+import { loader, modelCount } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
 
@@ -79,6 +80,7 @@ export default {
     Ticker,
     MoonLoader
   },
+  mixins: [loader, modelCount],
   data() {
     return {
       tickers: [],
