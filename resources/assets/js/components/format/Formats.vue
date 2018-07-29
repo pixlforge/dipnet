@@ -17,7 +17,13 @@
         </AppSelect>
       </div>
 
-      <AddFormat @format:created="addFormat"/>
+      <button
+        role="button"
+        class="btn btn--red-large"
+        @click="openAddPanel">
+        <i class="fal fa-plus-circle"/>
+        Ajouter un format
+      </button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -41,6 +47,7 @@
             :key="format.id"
             :format="format"
             class="card__container"
+            @edit-format:open="openEditPanel"
             @format:deleted="removeFormat(index)"/>
         </transition-group>
       </template>
@@ -52,6 +59,28 @@
         @pagination:switched="getFormats"/>
     </div>
 
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click.prevent="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <AddFormat
+        v-if="showAddPanel"
+        @format:created="addFormat"
+        @add-format:close="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <EditFormat
+        v-if="showEditPanel"
+        :format="modelToEdit"
+        @format:updated="updateFormat"
+        @edit-format:close="closePanels"/>
+    </transition>
+
     <MoonLoader
       :loading="loaderState"
       :color="loader.color"
@@ -62,27 +91,29 @@
 <script>
 import Pagination from "../pagination/Pagination";
 import AppSelect from "../select/AppSelect";
-import Format from "./Format.vue";
 import AddFormat from "./AddFormat.vue";
+import EditFormat from "./EditFormat.vue";
+import Format from "./Format.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import { loader, modelCount } from "../../mixins";
-import { eventBus } from "../../app";
+import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     Pagination,
     AppSelect,
-    Format,
     AddFormat,
+    EditFormat,
+    Format,
     MoonLoader
   },
-  mixins: [loader, modelCount],
+  mixins: [loader, modal, panels, modelCount],
   data() {
     return {
       formats: [],
       meta: {},
+      errors: {},
       sort: "",
       sortOptions: [
         { label: "Aucun", value: "" },
@@ -91,7 +122,6 @@ export default {
         { label: "Largeur", value: "width" },
         { label: "Date de création", value: "created_at" }
       ],
-      errors: {},
       fetching: false,
       modelNameSingular: "format",
       modelNamePlural: "formats",
@@ -101,36 +131,28 @@ export default {
   computed: {
     ...mapGetters(["loaderState"])
   },
-  created() {
-    eventBus.$on("format:updated", data => {
-      this.updateFormat(data);
-    });
-  },
   mounted() {
     this.getFormats();
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    getFormats(page = 1) {
+    async getFormats(page = 1) {
       this.toggleLoader();
       this.fetching = true;
-      window.axios
-        .get(window.route("api.formats.index", this.sort.value), {
-          params: {
-            page
-          }
-        })
-        .then(res => {
-          this.formats = res.data.data;
-          this.meta = res.data.meta;
-          this.toggleLoader();
-          this.fetching = false;
-        })
-        .catch(err => {
-          this.errors = err.response.data;
-          this.toggleLoader();
-          this.fetching = false;
-        });
+      try {
+        let res = await window.axios.get(
+          window.route("api.formats.index", this.sort.value),
+          { params: { page } }
+        );
+        this.formats = res.data.data;
+        this.meta = res.data.meta;
+        this.fetching = false;
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.fetching = false;
+        this.toggleLoader();
+      }
     },
     selectSort(sort) {
       this.sort = sort;
@@ -144,14 +166,8 @@ export default {
       });
     },
     updateFormat(data) {
-      for (let format of this.formats) {
-        if (data.id === format.id) {
-          format.name = data.name;
-          format.height = data.height;
-          format.width = data.width;
-          format.surface = data.surface;
-        }
-      }
+      let index = this.formats.findIndex(format => format.id === data.id);
+      this.formats[index] = data;
       window.flash({
         message: "Les modifications apportées au format ont été enregistrées.",
         level: "success"

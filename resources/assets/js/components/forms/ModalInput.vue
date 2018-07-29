@@ -16,6 +16,8 @@
       :autofocus="autofocus"
       :required="required"
       :value="value"
+      :disabled="disabled"
+      :class="{ 'modal__input--disabled': disabled }"
       class="modal__input"
       @input="$emit('input', $event.target.value)">
     <div
@@ -29,8 +31,9 @@
 export default {
   props: {
     value: {
-      type: String,
-      required: true
+      type: [String, Number],
+      required: false,
+      default: null
     },
     id: {
       type: String,
@@ -54,6 +57,11 @@ export default {
       default: false
     },
     autofocus: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       required: false,
       default: false

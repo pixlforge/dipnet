@@ -37,28 +37,26 @@
     </div>
 
     <div class="card__controls">
-      <div
-        title="Supprimer"
+      <button
         role="button"
-        @click="destroy">
+        title="Supprimer"
+        @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </div>
-      <div title="Modifier">
-        <EditFormat :format="format"/>
-      </div>
+      </button>
+      <button
+        role="button"
+        title="Modifier"
+        @click.prevent="edit">
+        <i class="fal fa-pencil"/>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import EditFormat from "./EditFormat.vue";
-
 import { filters, dates } from "../../mixins";
 
 export default {
-  components: {
-    EditFormat
-  },
   mixins: [filters, dates],
   props: {
     format: {
@@ -72,6 +70,9 @@ export default {
     }
   },
   methods: {
+    edit() {
+      this.$emit("edit-format:open", this.format);
+    },
     destroy() {
       window.axios.delete(
         window.route("admin.formats.destroy", [this.format.id])

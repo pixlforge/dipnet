@@ -54,6 +54,11 @@
     font-size: 1.4rem;
     color: $scorpion;
     user-select: none;
+
+    small {
+      font-size: 1.1rem;
+      color: $light-grey;
+    }
   }
 
   &__required {

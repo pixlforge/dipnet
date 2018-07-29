@@ -32394,9 +32394,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditArticle_vue__ = __webpack_require__(147);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditArticle_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditArticle_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
 //
 //
 //
@@ -32448,16 +32446,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    EditArticle: __WEBPACK_IMPORTED_MODULE_0__EditArticle_vue___default.a
-  },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* dates */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_0__mixins__["f" /* dates */]],
   props: {
     article: {
       type: Object,
@@ -36938,193 +36931,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
-  data() {
-    return {
-      format: {
-        name: "",
-        height: null,
-        width: null
-      },
-      errors: {}
-    };
-  },
-  computed: {
-    widthTimesHeight() {
-      if (this.format.width && this.format.height) {
-        return (this.format.width * this.format.height).toLocaleString("fr");
-      } else {
-        return 0;
-      }
-    }
-  },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
-    addFormat() {
-      this.toggleLoader();
-      window.axios.post(window.route("admin.formats.store"), this.format).then(res => {
-        this.format = res.data;
-        this.$emit("format:created", this.format);
-        this.toggleLoader();
-        this.toggleModal();
-        this.format = {};
-      }).catch(err => {
-        this.errors = err.response.data.errors;
-        this.toggleLoader();
-      });
-    }
-  })
-});
-
-/***/ }),
-/* 211 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(2);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 //
 //
@@ -37159,153 +36971,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* modal */]],
-  props: {
-    format: {
-      type: Object,
-      required: true
-    }
-  },
-  data() {
-    return {
-      errors: {}
-    };
-  },
-  computed: {
-    widthTimesHeight() {
-      if (this.format.width && this.format.height) {
-        return (this.format.width * this.format.height).toLocaleString("fr");
-      } else {
-        return 0;
-      }
-    }
-  },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(["toggleLoader"]), {
-    updateFormat() {
-      this.toggleLoader();
-      window.axios.patch(window.route("admin.formats.update", [this.format.id]), this.format).then(() => {
-        __WEBPACK_IMPORTED_MODULE_1__app__["eventBus"].$emit("format:updated", this.format);
-        this.toggleLoader();
-        this.toggleModal();
-      }).catch(err => {
-        this.errors = err.response.data;
-        this.toggleLoader();
-      });
-    }
-  })
-});
-
-/***/ }),
-/* 212 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditFormat_vue__ = __webpack_require__(305);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__EditFormat_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__EditFormat_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(3);
 //
 //
 //
@@ -37365,9 +37030,274 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    EditFormat: __WEBPACK_IMPORTED_MODULE_0__EditFormat_vue___default.a
+    ModalInput: __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["f" /* dates */]],
+  data() {
+    return {
+      format: {
+        name: "",
+        height: null,
+        width: null
+      },
+      errors: {}
+    };
+  },
+  computed: {
+    widthTimesHeight() {
+      if (this.format.width && this.format.height) {
+        return (this.format.width * this.format.height).toLocaleString("fr");
+      } else {
+        return 0;
+      }
+    }
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
+  },
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+    addFormat() {
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        try {
+          let res = yield window.axios.post(window.route("admin.formats.store"), _this.format);
+          _this.format = res.data;
+          _this.$emit("format:created", _this.format);
+          _this.$emit("add-format:close");
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data.errors;
+          _this.toggleLoader();
+        }
+      })();
+    }
+  })
+});
+
+/***/ }),
+/* 211 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    ModalInput: __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default.a
+  },
+  props: {
+    format: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      currentFormat: {
+        id: this.format.id,
+        name: this.format.name,
+        height: this.format.height,
+        width: this.format.width
+      },
+      errors: {}
+    };
+  },
+  computed: {
+    widthTimesHeight() {
+      if (this.currentFormat.width && this.currentFormat.height) {
+        return (this.currentFormat.width * this.currentFormat.height).toLocaleString("fr");
+      } else {
+        return 0;
+      }
+    }
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
+  },
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+    updateFormat() {
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        try {
+          let res = yield window.axios.patch(window.route("admin.formats.update", [_this.format.id]), _this.currentFormat);
+          _this.$emit("format:updated", res.data);
+          _this.$emit("edit-format:close");
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data;
+          _this.toggleLoader();
+        }
+      })();
+    }
+  })
+});
+
+/***/ }),
+/* 212 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* filters */], __WEBPACK_IMPORTED_MODULE_0__mixins__["f" /* dates */]],
   props: {
     format: {
       type: Object,
@@ -37380,6 +37310,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
+    edit() {
+      this.$emit("edit-format:open", this.format);
+    },
     destroy() {
       window.axios.delete(window.route("admin.formats.destroy", [this.format.id]));
       this.$emit("format:deleted", this.format.id);
@@ -37397,17 +37330,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__pagination_Pagination__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_AppSelect__ = __webpack_require__(8);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_AppSelect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__select_AppSelect__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Format_vue__ = __webpack_require__(306);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__Format_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__Format_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddFormat_vue__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__AddFormat_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__AddFormat_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddFormat_vue__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__AddFormat_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__AddFormat_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditFormat_vue__ = __webpack_require__(305);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__EditFormat_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__EditFormat_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Format_vue__ = __webpack_require__(306);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__Format_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__Format_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -37484,18 +37449,19 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   components: {
     Pagination: __WEBPACK_IMPORTED_MODULE_0__pagination_Pagination___default.a,
     AppSelect: __WEBPACK_IMPORTED_MODULE_1__select_AppSelect___default.a,
-    Format: __WEBPACK_IMPORTED_MODULE_2__Format_vue___default.a,
-    AddFormat: __WEBPACK_IMPORTED_MODULE_3__AddFormat_vue___default.a,
-    MoonLoader: __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default.a
+    AddFormat: __WEBPACK_IMPORTED_MODULE_2__AddFormat_vue___default.a,
+    EditFormat: __WEBPACK_IMPORTED_MODULE_3__EditFormat_vue___default.a,
+    Format: __WEBPACK_IMPORTED_MODULE_4__Format_vue___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_5_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_5__mixins__["d" /* modelCount */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_6__mixins__["b" /* modal */], __WEBPACK_IMPORTED_MODULE_6__mixins__["c" /* panels */], __WEBPACK_IMPORTED_MODULE_6__mixins__["d" /* modelCount */]],
   data() {
     return {
       formats: [],
       meta: {},
+      errors: {},
       sort: "",
       sortOptions: [{ label: "Aucun", value: "" }, { label: "Nom", value: "name" }, { label: "Hauteur", value: "height" }, { label: "Largeur", value: "width" }, { label: "Date de création", value: "created_at" }],
-      errors: {},
       fetching: false,
       modelNameSingular: "format",
       modelNamePlural: "formats",
@@ -37503,32 +37469,28 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     };
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["loaderState"])),
-  created() {
-    __WEBPACK_IMPORTED_MODULE_6__app__["eventBus"].$on("format:updated", data => {
-      this.updateFormat(data);
-    });
-  },
   mounted() {
     this.getFormats();
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     getFormats(page = 1) {
-      this.toggleLoader();
-      this.fetching = true;
-      window.axios.get(window.route("api.formats.index", this.sort.value), {
-        params: {
-          page
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        _this.fetching = true;
+        try {
+          let res = yield window.axios.get(window.route("api.formats.index", _this.sort.value), { params: { page } });
+          _this.formats = res.data.data;
+          _this.meta = res.data.meta;
+          _this.fetching = false;
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data;
+          _this.fetching = false;
+          _this.toggleLoader();
         }
-      }).then(res => {
-        this.formats = res.data.data;
-        this.meta = res.data.meta;
-        this.toggleLoader();
-        this.fetching = false;
-      }).catch(err => {
-        this.errors = err.response.data;
-        this.toggleLoader();
-        this.fetching = false;
-      });
+      })();
     },
     selectSort(sort) {
       this.sort = sort;
@@ -37542,14 +37504,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       });
     },
     updateFormat(data) {
-      for (let format of this.formats) {
-        if (data.id === format.id) {
-          format.name = data.name;
-          format.height = data.height;
-          format.width = data.width;
-          format.surface = data.surface;
-        }
-      }
+      let index = this.formats.findIndex(format => format.id === data.id);
+      this.formats[index] = data;
       window.flash({
         message: "Les modifications apportées au format ont été enregistrées.",
         level: "success"
@@ -37645,12 +37601,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     value: {
-      type: String,
-      required: true
+      type: [String, Number],
+      required: false,
+      default: null
     },
     id: {
       type: String,
@@ -37674,6 +37633,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       default: false
     },
     autofocus: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       required: false,
       default: false
@@ -72366,212 +72330,114 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    attrs: {
-      "role": "button"
-    },
+  return _c('div', {
+    staticClass: "modal__slider"
+  }, [_c('form', {
+    staticClass: "modal__container",
     on: {
-      "click": _vm.toggleModal
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-pencil"
-  })]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "fade"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__background",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "slide"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__slider",
-    on: {
-      "keyup": [function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27, $event.key)) { return null; }
-        _vm.toggleModal($event)
-      }, function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
+      "submit": function($event) {
+        $event.preventDefault();
         _vm.updateFormat($event)
-      }]
+      }
     }
-  }, [_c('div', {
-    staticClass: "modal__container"
   }, [_c('h2', {
     staticClass: "modal__title"
-  }, [_vm._v("Modifier " + _vm._s(_vm.format.name))]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "name"
-    }
-  }, [_vm._v("\n            Nom\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.format.name),
-      expression: "format.name",
-      modifiers: {
-        "trim": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_vm._v("Modifier le format "), _c('strong', [_vm._v(_vm._s(_vm.format.name))])]), _vm._v(" "), _c('ModalInput', {
+    ref: "focus",
     attrs: {
       "id": "name",
       "type": "text",
-      "name": "name",
-      "required": "",
-      "autofocus": ""
+      "required": ""
     },
-    domProps: {
-      "value": (_vm.format.name)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "name", $event.target.value.trim())
+    model: {
+      value: (_vm.currentFormat.name),
+      callback: function($$v) {
+        _vm.$set(_vm.currentFormat, "name", $$v)
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "currentFormat.name"
     }
-  }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "height"
-    }
-  }, [_vm._v("\n            Hauteur (mm)\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.number",
-      value: (_vm.format.height),
-      expression: "format.height",
-      modifiers: {
-        "number": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Nom")]), _vm._v(" "), (_vm.errors.name) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.name[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
       "id": "height",
       "type": "number",
-      "name": "height"
+      "required": ""
     },
-    domProps: {
-      "value": (_vm.format.height)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "height", _vm._n($event.target.value))
+    model: {
+      value: (_vm.currentFormat.height),
+      callback: function($$v) {
+        _vm.$set(_vm.currentFormat, "height", _vm._n($$v))
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "currentFormat.height"
     }
-  }), _vm._v(" "), (_vm.errors.height) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.height[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "width"
-    }
-  }, [_vm._v("\n            Largeur (mm)\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.number",
-      value: (_vm.format.width),
-      expression: "format.width",
-      modifiers: {
-        "number": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Hauteur "), _c('small', [_vm._v("(mm)")])]), _vm._v(" "), (_vm.errors.height) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.height[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
       "id": "width",
       "type": "number",
-      "name": "width"
+      "required": ""
     },
-    domProps: {
-      "value": (_vm.format.width)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "width", _vm._n($event.target.value))
+    model: {
+      value: (_vm.currentFormat.width),
+      callback: function($$v) {
+        _vm.$set(_vm.currentFormat, "width", _vm._n($$v))
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "currentFormat.width"
     }
-  }), _vm._v(" "), (_vm.errors.width) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.width[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "surface"
-    }
-  }, [_vm._v("\n            Surface (mm"), _c('sup', [_vm._v("2")]), _vm._v(")\n          ")]), _vm._v(" "), _c('input', {
-    staticClass: "modal__input modal__input--disabled",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Largeur "), _c('small', [_vm._v("(mm)")])]), _vm._v(" "), (_vm.errors.width) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.width[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
       "id": "surface",
       "type": "text",
-      "name": "surface",
       "disabled": ""
     },
-    domProps: {
-      "value": _vm.widthTimesHeight
+    model: {
+      value: (_vm.widthTimesHeight),
+      callback: function($$v) {
+        _vm.widthTimesHeight = $$v
+      },
+      expression: "widthTimesHeight"
     }
-  }), _vm._v(" "), (_vm.errors.surface) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.surface[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Largeur "), _c('small', [_vm._v("(mm"), _c('sup', [_vm._v("2")]), _vm._v(")")])]), _vm._v(" "), (_vm.errors.surface) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.surface[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
-  }, [_c('button', {
+  }, [_vm._m(0), _vm._v(" "), _c('button', {
     staticClass: "btn btn--grey",
     attrs: {
       "role": "button"
     },
     on: {
       "click": function($event) {
-        $event.stopPropagation();
-        _vm.toggleModal($event)
+        $event.preventDefault();
+        _vm.$emit('edit-format:close')
       }
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
+  }), _vm._v("\n        Annuler\n      ")])])], 1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
     staticClass: "btn btn--red",
     attrs: {
+      "type": "submit",
       "role": "button"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.updateFormat($event)
-      }
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n            Mettre à jour\n          ")])])])]) : _vm._e()])], 1)
-},staticRenderFns: []}
+  }), _vm._v("\n        Mettre à jour\n      ")])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -72759,12 +72625,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }) : _vm._e(), _vm._v(" "), _c('input', {
     staticClass: "modal__input",
+    class: {
+      'modal__input--disabled': _vm.disabled
+    },
     attrs: {
       "type": _vm.type,
       "id": _vm.id,
       "name": _vm.name,
       "autofocus": _vm.autofocus,
-      "required": _vm.required
+      "required": _vm.required,
+      "disabled": _vm.disabled
     },
     domProps: {
       "value": _vm.value
@@ -73226,11 +73096,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('AddFormat', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('button', {
+    staticClass: "btn btn--red-large",
+    attrs: {
+      "role": "button"
+    },
     on: {
-      "format:created": _vm.addFormat
+      "click": _vm.openAddPanel
     }
-  })], 1), _vm._v(" "), _c('div', {
+  }, [_c('i', {
+    staticClass: "fal fa-plus-circle"
+  }), _vm._v("\n      Ajouter un format\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [(_vm.meta.total > 25) ? _c('Pagination', {
     staticClass: "pagination pagination--top",
@@ -73256,6 +73132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "format": format
       },
       on: {
+        "edit-format:open": _vm.openEditPanel,
         "format:deleted": function($event) {
           _vm.removeFormat(index)
         }
@@ -73269,7 +73146,40 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "pagination:switched": _vm.getFormats
     }
-  }) : _vm._e()], 2), _vm._v(" "), _c('MoonLoader', {
+  }) : _vm._e()], 2), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal__background",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.closePanels($event)
+      }
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showAddPanel) ? _c('AddFormat', {
+    on: {
+      "format:created": _vm.addFormat,
+      "add-format:close": _vm.closePanels
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showEditPanel) ? _c('EditFormat', {
+    attrs: {
+      "format": _vm.modelToEdit
+    },
+    on: {
+      "format:updated": _vm.updateFormat,
+      "edit-format:close": _vm.closePanels
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -79212,213 +79122,116 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('button', {
-    staticClass: "btn btn--red-large",
-    attrs: {
-      "role": "button"
-    },
+  return _c('div', {
+    staticClass: "modal__slider"
+  }, [_c('form', {
+    staticClass: "modal__container",
     on: {
-      "click": _vm.toggleModal
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-plus-circle"
-  }), _vm._v("\n    Nouveau format\n  ")]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "fade"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__background",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "slide"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__slider",
-    on: {
-      "keyup": [function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27, $event.key)) { return null; }
-        _vm.toggleModal($event)
-      }, function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
+      "submit": function($event) {
+        $event.preventDefault();
         _vm.addFormat($event)
-      }]
-    }
-  }, [_c('div', {
-    staticClass: "modal__container"
-  }, [_c('h2', {
-    staticClass: "modal__title"
-  }, [_vm._v("Nouveau format")]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "name"
-    }
-  }, [_vm._v("\n            Nom\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.format.name),
-      expression: "format.name",
-      modifiers: {
-        "trim": true
       }
-    }],
-    staticClass: "modal__input",
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('ModalInput', {
+    ref: "focus",
     attrs: {
       "id": "name",
       "type": "text",
-      "name": "name",
-      "required": "",
-      "autofocus": ""
+      "required": ""
     },
-    domProps: {
-      "value": (_vm.format.name)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "name", $event.target.value.trim())
+    model: {
+      value: (_vm.format.name),
+      callback: function($$v) {
+        _vm.$set(_vm.format, "name", $$v)
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "format.name"
     }
-  }), _vm._v(" "), (_vm.errors.name) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.name[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "height"
-    }
-  }, [_vm._v("\n            Hauteur (mm)\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.number",
-      value: (_vm.format.height),
-      expression: "format.height",
-      modifiers: {
-        "number": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Nom")]), _vm._v(" "), (_vm.errors.name) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.name[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
       "id": "height",
       "type": "number",
-      "name": "height"
+      "required": ""
     },
-    domProps: {
-      "value": (_vm.format.height)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "height", _vm._n($event.target.value))
+    model: {
+      value: (_vm.format.height),
+      callback: function($$v) {
+        _vm.$set(_vm.format, "height", _vm._n($$v))
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "format.height"
     }
-  }), _vm._v(" "), (_vm.errors.height) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.height[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "width"
-    }
-  }, [_vm._v("\n            Largeur (mm)\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.number",
-      value: (_vm.format.width),
-      expression: "format.width",
-      modifiers: {
-        "number": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Hauteur "), _c('small', [_vm._v("(mm)")])]), _vm._v(" "), (_vm.errors.height) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.height[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
       "id": "width",
       "type": "number",
-      "name": "width"
+      "required": ""
     },
-    domProps: {
-      "value": (_vm.format.width)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.format, "width", _vm._n($event.target.value))
+    model: {
+      value: (_vm.format.width),
+      callback: function($$v) {
+        _vm.$set(_vm.format, "width", _vm._n($$v))
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "format.width"
     }
-  }), _vm._v(" "), (_vm.errors.width) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.width[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "surface"
-    }
-  }, [_vm._v("\n            Surface (mm"), _c('sup', [_vm._v("2")]), _vm._v(")\n          ")]), _vm._v(" "), _c('input', {
-    staticClass: "modal__input modal__input--disabled",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Largeur "), _c('small', [_vm._v("(mm)")])]), _vm._v(" "), (_vm.errors.width) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.width[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
       "id": "surface",
       "type": "text",
-      "name": "surface",
       "disabled": ""
     },
-    domProps: {
-      "value": _vm.widthTimesHeight
+    model: {
+      value: (_vm.widthTimesHeight),
+      callback: function($$v) {
+        _vm.widthTimesHeight = $$v
+      },
+      expression: "widthTimesHeight"
     }
-  }), _vm._v(" "), (_vm.errors.surface) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.surface[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Largeur "), _c('small', [_vm._v("(mm"), _c('sup', [_vm._v("2")]), _vm._v(")")])]), _vm._v(" "), (_vm.errors.surface) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.surface[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
-  }, [_c('button', {
+  }, [_vm._m(1), _vm._v(" "), _c('button', {
     staticClass: "btn btn--grey",
     attrs: {
       "role": "button"
     },
     on: {
       "click": function($event) {
-        $event.stopPropagation();
-        _vm.toggleModal($event)
+        $event.preventDefault();
+        _vm.$emit('add-format:close')
       }
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
+  }), _vm._v("\n        Annuler\n      ")])])], 1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('h2', {
+    staticClass: "modal__title"
+  }, [_vm._v("Ajouter un "), _c('strong', [_vm._v("format")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
     staticClass: "btn btn--red",
     attrs: {
+      "type": "submit",
       "role": "button"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.addFormat($event)
-      }
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n            Ajouter\n          ")])])])]) : _vm._e()])], 1)
-},staticRenderFns: []}
+  }), _vm._v("\n        Ajouter\n      ")])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -80127,25 +79940,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__label"
   }, [_vm._v("Modifié")]), _vm._v("\n      " + _vm._s(_vm.getDate(_vm.format.updated_at)) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('div', {
+  }, [_c('button', {
     attrs: {
-      "title": "Supprimer",
-      "role": "button"
+      "role": "button",
+      "title": "Supprimer"
     },
     on: {
-      "click": _vm.destroy
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.destroy($event)
+      }
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('button', {
     attrs: {
+      "role": "button",
       "title": "Modifier"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.edit($event)
+      }
     }
-  }, [_c('EditFormat', {
-    attrs: {
-      "format": _vm.format
-    }
-  })], 1)])])
+  }, [_c('i', {
+    staticClass: "fal fa-pencil"
+  })])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"

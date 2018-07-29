@@ -1,139 +1,97 @@
 <template>
-  <div>
-    <div
-      role="button"
-      @click="toggleModal">
-      <i class="fal fa-pencil"/>
-    </div>
+  <div class="modal__slider">
+    <form
+      class="modal__container"
+      @submit.prevent="updateFormat">
+      <h2 class="modal__title">Modifier le format <strong>{{ format.name }}</strong></h2>
 
-    <transition name="fade">
-      <div
-        v-if="showModal"
-        class="modal__background"
-        @click="toggleModal"/>
-    </transition>
+      <!-- Name -->
+      <ModalInput
+        id="name"
+        ref="focus"
+        v-model="currentFormat.name"
+        type="text"
+        required>
+        <template slot="label">Nom</template>
+        <template
+          v-if="errors.name"
+          slot="errors">
+          {{ errors.name[0] }}
+        </template>
+      </ModalInput>
 
-    <transition name="slide">
-      <div
-        v-if="showModal"
-        class="modal__slider"
-        @keyup.esc="toggleModal"
-        @keyup.enter="updateFormat">
+      <!-- Height -->
+      <ModalInput
+        id="height"
+        v-model.number="currentFormat.height"
+        type="number"
+        required>
+        <template slot="label">Hauteur <small>(mm)</small></template>
+        <template
+          v-if="errors.height"
+          slot="errors">
+          {{ errors.height[0] }}
+        </template>
+      </ModalInput>
 
-        <div class="modal__container">
-          <h2 class="modal__title">Modifier {{ format.name }}</h2>
+      <!-- Width -->
+      <ModalInput
+        id="width"
+        v-model.number="currentFormat.width"
+        type="number"
+        required>
+        <template slot="label">Largeur <small>(mm)</small></template>
+        <template
+          v-if="errors.width"
+          slot="errors">
+          {{ errors.width[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="name"
-              class="modal__label">
-              Nom
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="name"
-              v-model.trim="format.name"
-              type="text"
-              name="name"
-              class="modal__input"
-              required
-              autofocus>
-            <div
-              v-if="errors.name"
-              class="modal__alert">
-              {{ errors.name[0] }}
-            </div>
-          </div>
+      <!-- Surface -->
+      <ModalInput
+        id="surface"
+        v-model="widthTimesHeight"
+        type="text"
+        disabled>
+        <template slot="label">Largeur <small>(mm<sup>2</sup>)</small></template>
+        <template
+          v-if="errors.surface"
+          slot="errors">
+          {{ errors.surface[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="height"
-              class="modal__label">
-              Hauteur (mm)
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="height"
-              v-model.number="format.height"
-              type="number"
-              name="height"
-              class="modal__input">
-            <div
-              v-if="errors.height"
-              class="modal__alert">
-              {{ errors.height[0] }}
-            </div>
-          </div>
-
-          <div class="modal__group">
-            <label
-              for="width"
-              class="modal__label">
-              Largeur (mm)
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="width"
-              v-model.number="format.width"
-              type="number"
-              name="width"
-              class="modal__input">
-            <div
-              v-if="errors.width"
-              class="modal__alert">
-              {{ errors.width[0] }}
-            </div>
-          </div>
-
-          <div class="modal__group">
-            <label
-              for="surface"
-              class="modal__label">
-              Surface (mm<sup>2</sup>)
-            </label>
-            <input
-              id="surface"
-              :value="widthTimesHeight"
-              type="text"
-              name="surface"
-              class="modal__input modal__input--disabled"
-              disabled>
-            <div
-              v-if="errors.surface"
-              class="modal__alert">
-              {{ errors.surface[0] }}
-            </div>
-          </div>
-
-          <div class="modal__buttons">
-            <button
-              class="btn btn--grey"
-              role="button"
-              @click.stop="toggleModal">
-              <i class="fal fa-times"/>
-              Annuler
-            </button>
-            <button
-              class="btn btn--red"
-              role="button"
-              @click.prevent="updateFormat">
-              <i class="fal fa-check"/>
-              Mettre à jour
-            </button>
-          </div>
-        </div>
+      <!-- Controls -->
+      <div class="modal__buttons">
+        <button
+          type="submit"
+          role="button"
+          class="btn btn--red">
+          <i class="fal fa-check"/>
+          Mettre à jour
+        </button>
+        <button
+          role="button"
+          class="btn btn--grey"
+          @click.prevent="$emit('edit-format:close')">
+          <i class="fal fa-times"/>
+          Annuler
+        </button>
       </div>
-    </transition>
+    </form>
   </div>
 </template>
 
 <script>
-import { modal } from "../../mixins";
-import { eventBus } from "../../app";
+import ModalInput from "../forms/ModalInput";
+
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [modal],
+  components: {
+    ModalInput
+  },
   props: {
     format: {
       type: Object,
@@ -142,36 +100,45 @@ export default {
   },
   data() {
     return {
+      currentFormat: {
+        id: this.format.id,
+        name: this.format.name,
+        height: this.format.height,
+        width: this.format.width
+      },
       errors: {}
     };
   },
   computed: {
     widthTimesHeight() {
-      if (this.format.width && this.format.height) {
-        return (this.format.width * this.format.height).toLocaleString("fr");
+      if (this.currentFormat.width && this.currentFormat.height) {
+        return (
+          this.currentFormat.width * this.currentFormat.height
+        ).toLocaleString("fr");
       } else {
         return 0;
       }
     }
   },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
+  },
   methods: {
     ...mapActions(["toggleLoader"]),
-    updateFormat() {
+    async updateFormat() {
       this.toggleLoader();
-      window.axios
-        .patch(
+      try {
+        let res = await window.axios.patch(
           window.route("admin.formats.update", [this.format.id]),
-          this.format
-        )
-        .then(() => {
-          eventBus.$emit("format:updated", this.format);
-          this.toggleLoader();
-          this.toggleModal();
-        })
-        .catch(err => {
-          this.errors = err.response.data;
-          this.toggleLoader();
-        });
+          this.currentFormat
+        );
+        this.$emit("format:updated", res.data);
+        this.$emit("edit-format:close");
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.toggleLoader();
+      }
     }
   }
 };
