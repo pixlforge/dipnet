@@ -1,121 +1,86 @@
 <template>
-  <div>
-    <button
-      class="btn btn--red-large"
-      @click="toggleModal">
-      <i class="fal fa-plus-circle"/>
-      Nouvelle société
-    </button>
+  <div class="modal__slider">
+    <form
+      class="modal__container"
+      @submit.prevent="addCompany">
+      <h2 class="modal__title">Ajouter une <strong>société</strong></h2>
 
-    <transition name="fade">
-      <div
-        v-if="showModal"
-        class="modal__background"
-        @click="toggleModal"/>
-    </transition>
+      <!-- Name -->
+      <ModalInput
+        id="name"
+        ref="focus"
+        v-model="company.name"
+        type="text"
+        required>
+        <template slot="label">Nom</template>
+        <template
+          v-if="errors.name"
+          slot="errors">
+          {{ errors.name[0] }}
+        </template>
+      </ModalInput>
 
-    <transition name="slide">
-      <div
-        v-if="showModal"
-        class="modal__slider"
-        @keyup.esc="toggleModal"
-        @keyup.enter="addCompany">
+      <!-- Status -->
+      <ModalSelect
+        id="status"
+        :options="optionsForStatus"
+        v-model="company.status"
+        required>
+        <template slot="label">Statut</template>
+        <template
+          v-if="errors.status"
+          slot="errors">
+          {{ errors.status[0] }}
+        </template>
+      </ModalSelect>
 
-        <div class="modal__container">
-          <h2 class="modal__title">Nouvelle société</h2>
+      <!-- Description -->
+      <ModalInput
+        id="description"
+        ref="focus"
+        v-model="company.description"
+        type="text"
+        required>
+        <template slot="label">Description</template>
+        <template
+          v-if="errors.description"
+          slot="errors">
+          {{ errors.description[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="name"
-              class="modal__label">
-              Nom
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="name"
-              v-model.trim="company.name"
-              type="text"
-              name="name"
-              class="modal__input"
-              required
-              autofocus>
-            <div
-              v-if="errors.name"
-              class="modal__alert">
-              {{ errors.name[0] }}
-            </div>
-          </div>
-
-          <div class="modal__group">
-            <label
-              for="status"
-              class="modal__label">
-              Statut
-            </label>
-            <span class="modal__required">*</span>
-            <select
-              id="status"
-              v-model.trim="company.status"
-              name="status"
-              class="modal__select">
-              <option disabled>Sélectionnez un statut</option>
-              <option value="temporaire">Temporaire</option>
-              <option value="permanent">Permanent</option>
-            </select>
-            <div
-              v-if="errors.status"
-              class="modal__alert">
-              {{ errors.status[0] }}
-            </div>
-          </div>
-
-          <div class="modal__group">
-            <label
-              for="description"
-              class="modal__label">
-              Description
-            </label>
-            <input
-              id="description"
-              v-model.trim="company.description"
-              type="text"
-              name="description"
-              class="modal__input">
-            <div
-              v-if="errors.description"
-              class="modal__alert">
-              {{ errors.description[0] }}
-            </div>
-          </div>
-
-          <div class="modal__buttons">
-            <button
-              class="btn btn--grey"
-              role="button"
-              @click.stop="toggleModal">
-              <i class="fal fa-times"/>
-              Annuler
-            </button>
-            <button
-              class="btn btn--red"
-              role="button"
-              @click.prevent="addCompany">
-              <i class="fal fa-check"/>
-              Ajouter
-            </button>
-          </div>
-        </div>
+      <!-- Controls -->
+      <div class="modal__buttons">
+        <button
+          type="submit"
+          role="button"
+          class="btn btn--red">
+          <i class="fal fa-check"/>
+          Ajouter
+        </button>
+        <button
+          role="button"
+          class="btn btn--grey"
+          @click.prevent="$emit('add-company:close')">
+          <i class="fal fa-times"/>
+          Annuler
+        </button>
       </div>
-    </transition>
+    </form>
   </div>
 </template>
 
 <script>
-import { modal } from "../../mixins";
+import ModalInput from "../forms/ModalInput";
+import ModalSelect from "../forms/ModalSelect";
+
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [modal],
+  components: {
+    ModalInput,
+    ModalSelect
+  },
   data() {
     return {
       company: {
@@ -123,30 +88,30 @@ export default {
         status: "",
         description: ""
       },
-      errors: {}
+      errors: {},
+      optionsForStatus: [
+        { label: "Temporaire", value: "temporaire" },
+        { label: "Permanent", value: "permanent" }
+      ]
     };
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    addCompany() {
+    async addCompany() {
       this.toggleLoader();
-      window.axios
-        .post(window.route("admin.companies.store"), this.company)
-        .then(res => {
-          this.company = res.data;
-          this.$emit("company:created", this.company);
-          this.toggleLoader();
-          this.toggleModal();
-          window.flash({
-            message: "La création de la société a réussi.",
-            level: "success"
-          });
-          this.company = {};
-        })
-        .catch(err => {
-          this.errors = err.response.data.errors;
-          this.toggleLoader();
-        });
+      try {
+        let res = await window.axios.post(
+          window.route("admin.companies.store"),
+          this.company
+        );
+        this.company = res.data;
+        this.$emit("company:created", this.company);
+        this.$emit("add-company:close");
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };

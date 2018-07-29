@@ -17,7 +17,13 @@
         </AppSelect>
       </div>
 
-      <AddCompany @company:created="addCompany"/>
+      <button
+        role="button"
+        class="btn btn--red-large"
+        @click="openAddPanel">
+        <i class="fal fa-plus-circle"/>
+        Ajouter une société
+      </button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -41,6 +47,7 @@
             :key="company.id"
             :company="company"
             class="card__container"
+            @edit-company:open="openEditPanel"
             @company:deleted="removeCompany(index)"/>
         </transition-group>
       </template>
@@ -52,6 +59,28 @@
         @pagination:switched="getCompanies"/>
     </div>
 
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click.prevent="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <AddCompany
+        v-if="showAddPanel"
+        @company:created="addCompany"
+        @add-company:close="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <EditCompany
+        v-if="showEditPanel"
+        :company="modelToEdit"
+        @company:updated="updateCompany"
+        @edit-company:close="closePanels"/>
+    </transition>
+
     <MoonLoader
       :loading="loaderState"
       :color="loader.color"
@@ -62,27 +91,29 @@
 <script>
 import Pagination from "../pagination/Pagination";
 import AppSelect from "../select/AppSelect";
-import Company from "./Company.vue";
 import AddCompany from "./AddCompany.vue";
+import EditCompany from "./EditCompany.vue";
+import Company from "./Company.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import { modelCount, loader } from "../../mixins";
-import { eventBus } from "../../app";
+import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     Pagination,
     AppSelect,
-    Company,
     AddCompany,
+    EditCompany,
+    Company,
     MoonLoader
   },
-  mixins: [modelCount, loader],
+  mixins: [loader, modal, panels, modelCount],
   data() {
     return {
       companies: [],
       meta: {},
+      errors: {},
       sort: "",
       sortOptions: [
         { label: "Aucun", value: "" },
@@ -90,7 +121,6 @@ export default {
         { label: "Status", value: "status" },
         { label: "Date de création", value: "created_at" }
       ],
-      errors: {},
       fetching: false,
       modelNameSingular: "société",
       modelNamePlural: "sociétés",
@@ -100,36 +130,28 @@ export default {
   computed: {
     ...mapGetters(["loaderState"])
   },
-  created() {
-    eventBus.$on("company:created", data => {
-      this.updateCompany(data);
-    });
-  },
   mounted() {
     this.getCompanies();
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    getCompanies(page = 1) {
+    async getCompanies(page = 1) {
       this.toggleLoader();
       this.fetching = true;
-      window.axios
-        .get(window.route("api.companies.index", this.sort.value), {
-          params: {
-            page
-          }
-        })
-        .then(res => {
-          this.companies = res.data.data;
-          this.meta = res.data.meta;
-          this.toggleLoader();
-          this.fetching = false;
-        })
-        .catch(err => {
-          this.errors = err.response.data;
-          this.toggleLoader();
-          this.fetching = false;
-        });
+      try {
+        let res = await window.axios.get(
+          window.route("api.companies.index", this.sort.value),
+          { params: { page } }
+        );
+        this.companies = res.data.data;
+        this.meta = res.data.meta;
+        this.fetching = false;
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.fetching = false;
+        this.toggleLoader();
+      }
     },
     selectSort(sort) {
       this.sort = sort;
@@ -137,15 +159,14 @@ export default {
     },
     addCompany(company) {
       this.companies.unshift(company);
+      window.flash({
+        message: "La création de la société a réussi.",
+        level: "success"
+      });
     },
     updateCompany(data) {
-      for (let company of this.companies) {
-        if (data.id === company.id) {
-          company.name = data.name;
-          company.status = data.status;
-          company.description = data.description;
-        }
-      }
+      let index = this.companies.findIndex(company => company.id === data.id);
+      this.companies[index] = data;
       window.flash({
         message:
           "Les modifications apportées à la société ont été enregistrées.",

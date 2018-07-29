@@ -33,28 +33,26 @@
     </div>
 
     <div class="card__controls">
-      <div
+      <button
         role="button"
         title="Supprimer"
-        @click="destroy">
+        @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </div>
-      <div title="Modifier">
-        <EditCompany :company="company"/>
-      </div>
+      </button>
+      <button
+        role="button"
+        title="Modifier"
+        @click.prevent="edit">
+        <i class="fal fa-pencil"/>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import EditCompany from "./EditCompany.vue";
-
 import { filters, dates } from "../../mixins";
 
 export default {
-  components: {
-    EditCompany
-  },
   mixins: [filters, dates],
   props: {
     company: {
@@ -62,12 +60,10 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      open: false
-    };
-  },
   methods: {
+    edit() {
+      this.$emit("edit-company:open", this.company);
+    },
     destroy() {
       window.axios.delete(window.route("companies.destroy", [this.company.id]));
       this.$emit("company:deleted", this.company.id);

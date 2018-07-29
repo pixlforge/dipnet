@@ -1,117 +1,86 @@
 <template>
-  <div>
-    <div @click="toggleModal">
-      <i class="fal fa-pencil"/>
-    </div>
+  <div class="modal__slider">
+    <form
+      class="modal__container"
+      @submit.prevent="updateCompany">
+      <h2 class="modal__title">Modifier la société <strong>{{ company.name }}</strong></h2>
 
-    <transition name="fade">
-      <div
-        v-if="showModal"
-        class="modal__background"
-        @click="toggleModal"/>
-    </transition>
+      <!-- Name -->
+      <ModalInput
+        id="name"
+        ref="focus"
+        v-model="currentCompany.name"
+        type="text"
+        required>
+        <template slot="label">Nom</template>
+        <template
+          v-if="errors.name"
+          slot="errors">
+          {{ errors.name[0] }}
+        </template>
+      </ModalInput>
 
-    <transition name="slide">
-      <div
-        v-if="showModal"
-        class="modal__slider"
-        @keyup.esc="toggleModal"
-        @keyup.enter="updateCompany">
-        <div class="modal__container">
-          <h2 class="modal__title">Modifier {{ company.name }}</h2>
+      <!-- Status -->
+      <ModalSelect
+        id="status"
+        :options="optionsForStatus"
+        v-model="currentCompany.status"
+        required>
+        <template slot="label">Statut</template>
+        <template
+          v-if="errors.status"
+          slot="errors">
+          {{ errors.status[0] }}
+        </template>
+      </ModalSelect>
 
-          <div class="modal__group">
-            <label
-              for="name"
-              class="modal__label">
-              Nom  
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="name"
-              v-model.trim="company.name"
-              type="text"
-              name="name"
-              class="modal__input"
-              required
-              autofocus>
-            <div
-              v-if="errors.name"
-              class="modal__alert">
-              {{ errors.name[0] }}
-            </div>
-          </div>
+      <!-- Description -->
+      <ModalInput
+        id="description"
+        ref="focus"
+        v-model="currentCompany.description"
+        type="text"
+        required>
+        <template slot="label">Description</template>
+        <template
+          v-if="errors.description"
+          slot="errors">
+          {{ errors.description[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="status"
-              class="modal__label">
-              Statut
-            </label>
-            <select
-              id="status"
-              v-model.trim="company.status"
-              name="status"
-              class="modal__select">
-              <option disabled>Sélectionnez un statut</option>
-              <option value="temporaire">Temporaire</option>
-              <option value="permanent">Permanent</option>
-            </select>
-            <div
-              v-if="errors.status"
-              class="modal__alert">
-              {{ errors.status[0] }}
-            </div>
-          </div>
-
-          <div class="modal__group">
-            <label
-              for="description"
-              class="modal__label">
-              Description
-            </label>
-            <input
-              id="description"
-              v-model.trim="company.description"
-              type="text"
-              name="description"
-              class="modal__input">
-            <div
-              v-if="errors.description"
-              class="modal__alert">
-              {{ errors.description[0] }}
-            </div>
-          </div>
-
-          <div class="modal__buttons">
-            <button
-              role="button"
-              class="btn btn--grey"
-              @click.stop="toggleModal">
-              <i class="fal fa-times"/>
-              Annuler
-            </button>
-            <button
-              role="button"
-              class="btn btn--red"
-              @click.prevent="updateCompany">
-              <i class="fal fa-check"/>
-              Mettre à jour
-            </button>
-          </div>
-        </div>
+      <!-- Controls -->
+      <div class="modal__buttons">
+        <button
+          type="submit"
+          role="button"
+          class="btn btn--red">
+          <i class="fal fa-check"/>
+          Mettre à jour
+        </button>
+        <button
+          role="button"
+          class="btn btn--grey"
+          @click.prevent="$emit('edit-company:close')">
+          <i class="fal fa-times"/>
+          Annuler
+        </button>
       </div>
-    </transition>
+    </form>
   </div>
 </template>
 
 <script>
-import { modal } from "../../mixins";
-import { eventBus } from "../../app";
+import ModalInput from "../forms/ModalInput";
+import ModalSelect from "../forms/ModalSelect";
+
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [modal],
+  components: {
+    ModalInput,
+    ModalSelect
+  },
   props: {
     company: {
       type: Object,
@@ -120,28 +89,38 @@ export default {
   },
   data() {
     return {
-      errors: {}
+      currentCompany: {
+        id: this.company.id,
+        name: this.company.name,
+        status: this.company.status,
+        description: this.company.description
+      },
+      errors: {},
+      optionsForStatus: [
+        { label: "Temporaire", value: "temporaire" },
+        { label: "Permanent", value: "permanent" }
+      ]
     };
   },
-  created() {
-    eventBus.$on("open:edit-company", () => {
-      this.toggleModal();
-    });
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    updateCompany() {
+    async updateCompany() {
       this.toggleLoader();
-      window.axios
-        .put(window.route("companies.update", [this.company.id]), this.company)
-        .then(() => {
-          eventBus.$emit("company:updated", this.company);
-          this.toggleLoader();
-          this.toggleModal();
-        })
-        .catch(() => {
-          this.toggleLoader();
-        });
+      try {
+        let res = await window.axios.patch(
+          window.route("admin.companies.update", [this.company.id]),
+          this.currentCompany
+        );
+        this.$emit("company:updated", res.data);
+        this.$emit("edit-company:close");
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };
