@@ -45,7 +45,10 @@
 </template>
 
 <script>
+import { dates } from "../../mixins";
+
 export default {
+  mixins: [dates],
   props: {
     delivery: {
       type: Object,
