@@ -32340,8 +32340,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
 
 
 
@@ -77945,12 +77943,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Type")]), _vm._v(" "), (_vm.errors.type) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.type[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "fade",
-      "mode": "out-in"
-    }
-  }, [(_vm.article.type === 'impression') ? _c('ModalCheckbox', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.type[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), (_vm.article.type === 'impression') ? _c('ModalCheckbox', {
     attrs: {
       "id": "active"
     },
@@ -77965,33 +77958,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Niveaux de gris")]), _vm._v(" "), (_vm.errors.greyscale) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n          " + _vm._s(_vm.errors.greyscale[0]) + "\n        ")]) : _vm._e()], 2) : _vm._e()], 1), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.greyscale[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
-  }, [_c('button', {
+  }, [_vm._m(1), _vm._v(" "), _c('button', {
     staticClass: "btn btn--grey",
+    attrs: {
+      "role": "button"
+    },
     on: {
       "click": function($event) {
-        $event.stopPropagation();
-        _vm.toggleModal($event)
+        $event.preventDefault();
+        _vm.$emit('add-article:close')
       }
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  }), _vm._v("\n        Annuler\n      ")]), _vm._v(" "), _c('button', {
-    staticClass: "btn btn--red",
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.addArticle($event)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-check"
-  }), _vm._v("\n        Ajouter\n      ")])])], 1)])
+  }), _vm._v("\n        Annuler\n      ")])])], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('h2', {
     staticClass: "modal__title"
   }, [_vm._v("Ajouter un "), _c('strong', [_vm._v("article")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn--red",
+    attrs: {
+      "type": "submit",
+      "role": "button"
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n        Ajouter\n      ")])
 }]}
 module.exports.render._withStripped = true
 if (false) {

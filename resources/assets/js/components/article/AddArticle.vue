@@ -35,35 +35,33 @@
       </ModalSelect>
 
       <!-- Greyscale -->
-      <transition
-        name="fade"
-        mode="out-in">
-        <ModalCheckbox
-          v-if="article.type === 'impression'"
-          id="active"
-          v-model="article.greyscale">
-          <template slot="label">Niveaux de gris</template>
-          <template
-            v-if="errors.greyscale"
-            slot="errors">
-            {{ errors.greyscale[0] }}
-          </template>
-        </ModalCheckbox>
-      </transition>
+      <ModalCheckbox
+        v-if="article.type === 'impression'"
+        id="active"
+        v-model="article.greyscale">
+        <template slot="label">Niveaux de gris</template>
+        <template
+          v-if="errors.greyscale"
+          slot="errors">
+          {{ errors.greyscale[0] }}
+        </template>
+      </ModalCheckbox>
 
-      <!--Buttons-->
+      <!-- Controls -->
       <div class="modal__buttons">
         <button
-          class="btn btn--grey"
-          @click.stop="toggleModal">
-          <i class="fal fa-times"/>
-          Annuler
-        </button>
-        <button
-          class="btn btn--red"
-          @click.prevent="addArticle">
+          type="submit"
+          role="button"
+          class="btn btn--red">
           <i class="fal fa-check"/>
           Ajouter
+        </button>
+        <button
+          role="button"
+          class="btn btn--grey"
+          @click.prevent="$emit('add-article:close')">
+          <i class="fal fa-times"/>
+          Annuler
         </button>
       </div>
     </form>
