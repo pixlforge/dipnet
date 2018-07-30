@@ -33,9 +33,12 @@
         class="pagination pagination--top"
         @pagination:switched="getTickers"/>
 
-      <template v-if="!tickers.length && !fetching">
-        <p class="paragraph__no-model-found">Il n'existe encore aucun ticker.</p>
-      </template>
+      <div
+        v-if="!tickers.length && !fetching"
+        class="main__no-results">
+        <p>Il n'existe encore aucun ticker.</p>
+        <IllustrationNoData/>
+      </div>
 
       <template v-else>
         <transition-group
@@ -95,6 +98,7 @@ import AddTicker from "./AddTicker";
 import EditTicker from "./EditTicker";
 import Ticker from "./Ticker";
 import MoonLoader from "vue-spinner/src/MoonLoader";
+import IllustrationNoData from "../illustrations/IllustrationNoData";
 
 import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
@@ -106,7 +110,8 @@ export default {
     AddTicker,
     EditTicker,
     Ticker,
-    MoonLoader
+    MoonLoader,
+    IllustrationNoData
   },
   mixins: [loader, modal, panels, modelCount],
   data() {

@@ -17,9 +17,12 @@
         class="pagination pagination--top"
         @pagination:switched="getDeliveries"/>
 
-      <template v-if="!deliveries.length && !fetching">
-        <p class="paragraph__no-model-found">Il n'existe encore aucune livraison.</p>
-      </template>
+      <div
+        v-if="!deliveries.length && !fetching"
+        class="main__no-results">
+        <p>Il n'existe encore aucune livraison.</p>
+        <IllustrationNoData/>
+      </div>
 
       <template v-else>
         <transition-group
@@ -53,6 +56,7 @@
 import Pagination from "../pagination/Pagination";
 import Delivery from "./Delivery";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import IllustrationNoData from "../illustrations/IllustrationNoData";
 
 import { modelCount, loader } from "../../mixins";
 import { mapGetters } from "vuex";
@@ -61,7 +65,8 @@ export default {
   components: {
     Pagination,
     Delivery,
-    MoonLoader
+    MoonLoader,
+    IllustrationNoData
   },
   mixins: [modelCount, loader],
   data() {

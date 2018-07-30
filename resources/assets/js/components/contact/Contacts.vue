@@ -33,9 +33,12 @@
         class="pagination pagination--top"
         @pagination:switched="getContacts"/>
 
-      <template v-if="!contacts.length && !fetching">
-        <p class="paragraph__no-model-found">Il n'existe encore aucun contact.</p>
-      </template>
+      <div
+        v-if="!contacts.length && !fetching"
+        class="main__no-results">
+        <p>Il n'existe encore aucun contact.</p>
+        <IllustrationNoData/>
+      </div>
 
       <template v-else>
         <transition-group
@@ -101,6 +104,7 @@ import AddContact from "./AddContact.vue";
 import EditContact from "./EditContact.vue";
 import Contact from "./Contact.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import IllustrationNoData from "../illustrations/IllustrationNoData";
 
 import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
@@ -112,7 +116,8 @@ export default {
     AddContact,
     EditContact,
     Contact,
-    MoonLoader
+    MoonLoader,
+    IllustrationNoData
   },
   mixins: [loader, modal, panels, modelCount],
   props: {

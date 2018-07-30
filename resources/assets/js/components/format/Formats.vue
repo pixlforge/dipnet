@@ -33,9 +33,12 @@
         class="pagination pagination--top"
         @pagination:switched="getFormats"/>
 
-      <template v-if="!formats.length && !fetching">
-        <p class="paragraph__no-model-found">Il n'existe encore aucun format.</p>
-      </template>
+      <div
+        v-if="!formats.length && !fetching"
+        class="main__no-results">
+        <p>Il n'existe encore aucun format.</p>
+        <IllustrationNoData/>
+      </div>
 
       <template v-else>
         <transition-group
@@ -95,6 +98,7 @@ import AddFormat from "./AddFormat.vue";
 import EditFormat from "./EditFormat.vue";
 import Format from "./Format.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import IllustrationNoData from "../illustrations/IllustrationNoData";
 
 import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
@@ -106,7 +110,8 @@ export default {
     AddFormat,
     EditFormat,
     Format,
-    MoonLoader
+    MoonLoader,
+    IllustrationNoData
   },
   mixins: [loader, modal, panels, modelCount],
   data() {

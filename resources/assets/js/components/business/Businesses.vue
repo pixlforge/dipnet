@@ -4,9 +4,7 @@
       <h1 class="header__title">Affaires</h1>
 
       <div class="header__stats">
-        <span v-if="meta.total > 1">{{ meta.total }} affaires</span>
-        <span v-else-if="meta.total === 1">{{ meta.total }} affaire</span>
-        <span v-else>Aucune affaire</span>
+        <span v-text="modelCount"/>
       </div>
 
       <div>
@@ -34,9 +32,12 @@
         class="pagination pagination--top"
         @pagination:switched="getBusinesses"/>
 
-      <template v-if="!businesses.length && !fetching">
-        <p class="paragraph__no-model-found">Il n'existe encore aucune affaire.</p>
-      </template>
+      <div
+        v-if="!businesses.length && !fetching"
+        class="main__no-results">
+        <p>Il n'existe encore aucune affaire.</p>
+        <IllustrationNoData/>
+      </div>
 
       <template v-if="businesses.length && user.role === 'utilisateur'">
         <div class="user-business__container">
@@ -80,6 +81,36 @@
         @pagination:switched="getBusinesses"/>
     </div>
 
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click.prevent="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <AddBusiness
+        v-if="showAddPanel"
+        :companies="companies"
+        :contacts="contacts"
+        :user="user"
+        :users="users"
+        @business:created="addBusiness"
+        @add-business:close="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <EditBusiness
+        v-if="showEditPanel"
+        :business="modelToEdit"
+        :companies="companies"
+        :contacts="contacts"
+        :user="user"
+        :users="users"
+        @business:updated="addBusiness"
+        @edit-business:close="closePanels"/>
+    </transition>
+
     <MoonLoader
       :loading="loaderState"
       :color="loader.color"
@@ -90,25 +121,28 @@
 <script>
 import Pagination from "../pagination/Pagination";
 import AppSelect from "../select/AppSelect";
+import AddBusiness from "./AddBusiness.vue";
+import EditBusiness from "./EditBusiness.vue";
 import Business from "./Business.vue";
 import UserBusiness from "./UserBusiness";
-import AddBusiness from "./AddBusiness.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import IllustrationNoData from "../illustrations/IllustrationNoData";
 
-import { loader } from "../../mixins";
-import { eventBus } from "../../app";
+import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     Pagination,
     AppSelect,
+    AddBusiness,
+    EditBusiness,
     Business,
     UserBusiness,
-    AddBusiness,
-    MoonLoader
+    MoonLoader,
+    IllustrationNoData
   },
-  mixins: [loader],
+  mixins: [loader, modal, panels, modelCount],
   props: {
     companies: {
       type: Array,
@@ -135,6 +169,7 @@ export default {
     return {
       businesses: [],
       meta: {},
+      errors: {},
       sort: "",
       sortOptions: [
         { label: "Aucun", value: "" },
@@ -142,7 +177,6 @@ export default {
         { label: "Référence", value: "reference" },
         { label: "Date de création", value: "created_at" }
       ],
-      errors: {},
       fetching: false,
       modelNameSingular: "affaire",
       modelNamePlural: "affaires",
@@ -152,35 +186,28 @@ export default {
   computed: {
     ...mapGetters(["loaderState"])
   },
-  created() {
-    eventBus.$on("business:updated", data => this.updateBusiness(data));
-  },
   mounted() {
     this.getBusinesses();
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    getBusinesses(page = 1) {
+    async getBusinesses(page = 1) {
       this.toggleLoader();
       this.fetching = true;
-
-      window.axios
-        .get(window.route("api.businesses.index", this.sort.value), {
-          params: {
-            page
-          }
-        })
-        .then(res => {
-          this.businesses = res.data.data;
-          this.meta = res.data.meta;
-          this.toggleLoader();
-          this.fetching = false;
-        })
-        .catch(err => {
-          this.errors = err.response.data;
-          this.toggleLoader();
-          this.fetching = false;
-        });
+      try {
+        let res = await window.axios.get(
+          window.route("api.businesses.index", this.sort.value),
+          { params: { page } }
+        );
+        this.businesses = res.data.data;
+        this.meta = res.data.meta;
+        this.fetching = false;
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.fetching = false;
+        this.toggleLoader();
+      }
     },
     selectSort(sort) {
       this.sort = sort;
@@ -194,15 +221,10 @@ export default {
       });
     },
     updateBusiness(data) {
-      for (let business of this.businesses) {
-        if (data.id === business.id) {
-          business.name = data.name;
-          business.reference = data.reference;
-          business.description = data.description;
-          business.company_id = data.company_id;
-          business.contact_id = data.contact_id;
-        }
-      }
+      let index = this.businesses.findIndex(
+        business => business.id === data.id
+      );
+      this.businesses[index] = data;
       window.flash({
         message:
           "Les modifications apportées à l'affaire ont été enregistrées.",

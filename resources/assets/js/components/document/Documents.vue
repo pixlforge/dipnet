@@ -17,12 +17,12 @@
         class="pagination pagination--top"
         @pagination:switched="getDocuments"/>
 
-      <template v-if="!documents.length && !fetching">
-        <p class="paragraph__no-model-found">Il n'existe encore aucun document.</p>
-        <p class="paragraph__no-model-found">
-          <IllustrationFileSearching/>
-        </p>
-      </template>
+      <div
+        v-if="!documents.length && !fetching"
+        class="main__no-results">
+        <p>Il n'existe encore aucun document.</p>
+        <IllustrationNoData/>
+      </div>
 
       <template v-else>
         <transition-group
@@ -56,7 +56,7 @@
 import Pagination from "../pagination/Pagination";
 import Document from "./Document";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import IllustrationFileSearching from "../illustrations/IllustrationFileSearching";
+import IllustrationNoData from "../illustrations/IllustrationNoData";
 
 import { modelCount, loader } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
@@ -66,7 +66,7 @@ export default {
     Pagination,
     Document,
     MoonLoader,
-    IllustrationFileSearching
+    IllustrationNoData
   },
   mixins: [modelCount, loader],
   data() {

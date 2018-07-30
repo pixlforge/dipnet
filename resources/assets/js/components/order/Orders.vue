@@ -25,9 +25,12 @@
         class="pagination pagination--top"
         @paginationSwitched="getOrders"/>
 
-      <template v-if="!orders.length && !fetching">
-        <p class="paragraph__no-model-found">Il n'existe encore aucune commande.</p>
-      </template>
+      <div
+        v-if="!orders.length && !fetching"
+        class="main__no-results">
+        <p>Il n'existe encore aucune commande.</p>
+        <IllustrationFileSearching/>
+      </div>
 
       <template v-else>
         <transition-group
@@ -59,20 +62,22 @@
 </template>
 
 <script>
-import Pagination from "../pagination/Pagination";
 import Order from "./Order.vue";
 import AddOrder from "./CreateOrder.vue";
+import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import IllustrationFileSearching from "../illustrations/IllustrationFileSearching";
 
 import { loader } from "../../mixins";
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    Pagination,
     Order,
     AddOrder,
-    MoonLoader
+    Pagination,
+    MoonLoader,
+    IllustrationFileSearching
   },
   mixins: [loader],
   props: {

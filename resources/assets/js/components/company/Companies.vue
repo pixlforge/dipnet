@@ -33,9 +33,12 @@
         class="pagination pagination--top"
         @pagination:switched="getCompanies"/>
 
-      <template v-if="!companies.length && !fetching">
-        <p class="paragraph__no-model-found">Il n'existe encore aucune société.</p>
-      </template>
+      <div
+        v-if="!companies.length && !fetching"
+        class="main__no-results">
+        <p>Il n'existe encore aucune société.</p>
+        <IllustrationNoData/>
+      </div>
 
       <template v-else>
         <transition-group
@@ -95,6 +98,7 @@ import AddCompany from "./AddCompany.vue";
 import EditCompany from "./EditCompany.vue";
 import Company from "./Company.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import IllustrationNoData from "../illustrations/IllustrationNoData";
 
 import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
@@ -106,7 +110,8 @@ export default {
     AddCompany,
     EditCompany,
     Company,
-    MoonLoader
+    MoonLoader,
+    IllustrationNoData
   },
   mixins: [loader, modal, panels, modelCount],
   data() {
