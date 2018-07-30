@@ -91,54 +91,51 @@ export default {
     fileChange(event) {
       this.upload(event);
     },
-    upload(event) {
+    async upload(event) {
       this.toggleLoader();
-      window.axios
-        .post(this.endpoint, this.packageUploads(event))
-        .then(res => {
-          this.toggleLoader();
-          this.newAvatar = res.data;
-          window.flash({
-            message:
-              "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
-            level: "success"
-          });
-        })
-        .catch(() => {
-          this.toggleLoader();
+      try {
+        let res = await window.axios.post(
+          this.endpoint,
+          this.packageUploads(event)
+        );
+        this.toggleLoader();
+        this.newAvatar = res.data;
+        window.flash({
+          message:
+            "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
+          level: "success"
         });
+      } catch (err) {
+        this.toggleLoader();
+      }
     },
     packageUploads(event) {
       const fileData = new FormData();
       fileData.append(this.sendAs, event.target.files[0]);
       return fileData;
     },
-    update() {
+    async update() {
       this.toggleLoader();
-      window.axios
-        .patch("/profile/avatar", {
-          avatar: {
-            id: this.newAvatar.id
-          }
-        })
-        .then(() => {
-          this.toggleLoader();
-          window.flash({
-            message: "Votre avatar a bien été mis à jour.",
-            level: "success"
-          });
-          setTimeout(() => {
-            window.location = window.route("profile.index");
-          }, 500);
-        })
-        .catch(() => {
-          this.toggleLoader();
-          window.flash({
-            message:
-              "Il y a eu un problème, votre compte n'a pas été mis à jour.",
-            level: "danger"
-          });
+      try {
+        await window.axios.patch("/profile/avatar", {
+          avatar: { id: this.newAvatar.id }
         });
+        this.toggleLoader();
+        window.flash({
+          message: "Votre avatar a bien été mis à jour.",
+          level: "success"
+        });
+        setTimeout(() => {
+          window.location = window.route("profile.index");
+        }, 500);
+      } catch (err) {
+        this.toggleLoader();
+        window.flash({
+          message:
+            "Il y a eu un problème, votre compte n'a pas été mis à jour.",
+          level: "danger"
+        });
+      }
     }
   }
 };

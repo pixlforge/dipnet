@@ -21,14 +21,18 @@
           class="profile__header-item">
           Compte non vérifié
         </p>
+
         <SendConfirmationEmailAgain
           v-if="!user.email_confirmed"
           class="profile__header-item"/>
-        <UpdateProfile
-          :user="user"
-          :avatar="avatar"
-          :random-avatar="randomAvatar"
-          class="profile__header-item"/>
+
+        <button
+          class="btn btn--red"
+          role="button"
+          @click="openEditPanel">
+          <i class="fal fa-pencil"/>
+          Éditer mon compte
+        </button>
       </div>
     </div>
 
@@ -82,6 +86,23 @@
       </div>
     </div>
 
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click.prevent="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <UpdateProfile
+        v-if="showEditPanel"
+        :user="user"
+        :avatar="avatar"
+        :random-avatar="randomAvatar"
+        @profile:updated="profileUpdated"
+        @update-profile:close="closePanels"/>
+    </transition>
+
     <MoonLoader
       :loading="loaderState"
       :color="loader.color"
@@ -95,7 +116,7 @@ import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import SendConfirmationEmailAgain from "../register/SendConfirmationEmailAgain.vue";
 
 import { mapGetters } from "vuex";
-import { dates, loader } from "../../mixins";
+import { dates, loader, modal, panels } from "../../mixins";
 
 export default {
   components: {
@@ -103,7 +124,7 @@ export default {
     UpdateProfile,
     MoonLoader
   },
-  mixins: [dates, loader],
+  mixins: [dates, loader, modal, panels],
   props: {
     user: {
       type: Object,
@@ -133,6 +154,14 @@ export default {
     },
     userIsNotAdmin() {
       return this.user.role !== "administrateur";
+    }
+  },
+  methods: {
+    profileUpdated() {
+      window.flash({
+        message: "Votre compte a été mis à jour avec succès!",
+        level: "success"
+      });
     }
   }
 };

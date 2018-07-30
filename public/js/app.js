@@ -41068,6 +41068,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 //
 //
 //
@@ -41161,17 +41163,22 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.upload(event);
     },
     upload(event) {
-      this.toggleLoader();
-      window.axios.post(this.endpoint, this.packageUploads(event)).then(res => {
-        this.toggleLoader();
-        this.newAvatar = res.data;
-        window.flash({
-          message: "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
-          level: "success"
-        });
-      }).catch(() => {
-        this.toggleLoader();
-      });
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        try {
+          let res = yield window.axios.post(_this.endpoint, _this.packageUploads(event));
+          _this.toggleLoader();
+          _this.newAvatar = res.data;
+          window.flash({
+            message: "Avatar valide. Vous pouvez sauver cette image en tant qu'avatar personnel.",
+            level: "success"
+          });
+        } catch (err) {
+          _this.toggleLoader();
+        }
+      })();
     },
     packageUploads(event) {
       const fileData = new FormData();
@@ -41179,27 +41186,30 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       return fileData;
     },
     update() {
-      this.toggleLoader();
-      window.axios.patch("/profile/avatar", {
-        avatar: {
-          id: this.newAvatar.id
+      var _this2 = this;
+
+      return _asyncToGenerator(function* () {
+        _this2.toggleLoader();
+        try {
+          yield window.axios.patch("/profile/avatar", {
+            avatar: { id: _this2.newAvatar.id }
+          });
+          _this2.toggleLoader();
+          window.flash({
+            message: "Votre avatar a bien été mis à jour.",
+            level: "success"
+          });
+          setTimeout(function () {
+            window.location = window.route("profile.index");
+          }, 500);
+        } catch (err) {
+          _this2.toggleLoader();
+          window.flash({
+            message: "Il y a eu un problème, votre compte n'a pas été mis à jour.",
+            level: "danger"
+          });
         }
-      }).then(() => {
-        this.toggleLoader();
-        window.flash({
-          message: "Votre avatar a bien été mis à jour.",
-          level: "success"
-        });
-        setTimeout(() => {
-          window.location = window.route("profile.index");
-        }, 500);
-      }).catch(() => {
-        this.toggleLoader();
-        window.flash({
-          message: "Il y a eu un problème, votre compte n'a pas été mis à jour.",
-          level: "danger"
-        });
-      });
+      })();
     }
   })
 });
@@ -41311,6 +41321,27 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -41325,7 +41356,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     UpdateProfile: __WEBPACK_IMPORTED_MODULE_0__UpdateProfile_vue___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_1_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["f" /* dates */], __WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["f" /* dates */], __WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_4__mixins__["b" /* modal */], __WEBPACK_IMPORTED_MODULE_4__mixins__["c" /* panels */]],
   props: {
     user: {
       type: Object,
@@ -41355,7 +41386,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     userIsNotAdmin() {
       return this.user.role !== "administrateur";
     }
-  })
+  }),
+  methods: {
+    profileUpdated() {
+      window.flash({
+        message: "Votre compte a été mis à jour avec succès!",
+        level: "success"
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -41364,10 +41403,14 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AvatarUpload_vue__ = __webpack_require__(324);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__AvatarUpload_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__AvatarUpload_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AvatarUpload_vue__ = __webpack_require__(324);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__AvatarUpload_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__AvatarUpload_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 //
 //
@@ -41457,57 +41500,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+
 
 
 
@@ -41515,7 +41508,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    AvatarUpload: __WEBPACK_IMPORTED_MODULE_0__AvatarUpload_vue___default.a
+    ModalInput: __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default.a,
+    AvatarUpload: __WEBPACK_IMPORTED_MODULE_1__AvatarUpload_vue___default.a
   },
   props: {
     user: {
@@ -41533,29 +41527,35 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   data() {
     return {
+      currentUser: {
+        id: this.user.id,
+        username: this.user.username,
+        email: this.user.email,
+        password: "",
+        password_confirmation: ""
+      },
       errors: {}
     };
   },
   mounted() {
-    this.user.password = null;
+    this.$refs.focus.$el.children[2].focus();
   },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     updateProfile() {
-      this.toggleLoader();
-      window.axios.patch(window.route("account.update"), this.user).then(() => {
-        this.toggleLoader();
-        this.toggleModal();
-        this.errors = {};
-        this.user.password = "";
-        this.user.password_confirmation = "";
-        window.flash({
-          message: "Votre compte a été mis à jour avec succès!",
-          level: "success"
-        });
-      }).catch(err => {
-        this.errors = err.response.data.errors;
-        this.toggleLoader();
-      });
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        try {
+          yield window.axios.patch(window.route("account.update"), _this.currentUser);
+          _this.$emit("profile:updated");
+          _this.$emit("update-profile:close");
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data.errors;
+          _this.toggleLoader();
+        }
+      })();
     }
   })
 });
@@ -72325,240 +72325,119 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('button', {
-    staticClass: "btn btn--red",
-    attrs: {
-      "role": "button"
-    },
+  return _c('div', {
+    staticClass: "modal__slider"
+  }, [_c('form', {
+    staticClass: "modal__container",
     on: {
-      "click": _vm.toggleModal
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-pencil"
-  }), _vm._v("\n    Éditer mon compte\n  ")]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "fade"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__background",
-    on: {
-      "click": _vm.toggleModal
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "slide"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__slider",
-    on: {
-      "keyup": [function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "esc", 27, $event.key)) { return null; }
-        _vm.toggleModal($event)
-      }, function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key)) { return null; }
+      "submit": function($event) {
+        $event.preventDefault();
         _vm.updateProfile($event)
-      }]
+      }
     }
-  }, [_c('div', {
-    staticClass: "modal__container"
-  }, [_c('avatar-upload', {
+  }, [_c('AvatarUpload', {
     attrs: {
       "avatar": _vm.avatar,
       "random-avatar": _vm.randomAvatar
     }
-  }), _vm._v(" "), _c('h2', {
-    staticClass: "modal__title"
-  }, [_vm._v("Mise à jour des informations du compte")]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "username"
-    }
-  }, [_vm._v("\n            Nom\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.user.username),
-      expression: "user.username",
-      modifiers: {
-        "trim": true
-      }
-    }],
-    staticClass: "modal__input",
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('ModalInput', {
+    ref: "focus",
     attrs: {
       "id": "username",
       "type": "text",
-      "name": "username",
-      "required": "",
-      "autofocus": ""
+      "required": ""
     },
-    domProps: {
-      "value": (_vm.user.username)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.user, "username", $event.target.value.trim())
+    model: {
+      value: (_vm.currentUser.username),
+      callback: function($$v) {
+        _vm.$set(_vm.currentUser, "username", $$v)
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "currentUser.username"
     }
-  }), _vm._v(" "), (_vm.errors.username) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.username[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "email"
-    }
-  }, [_vm._v("\n            Email\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.user.email),
-      expression: "user.email",
-      modifiers: {
-        "trim": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Nom d'utilisateur")]), _vm._v(" "), (_vm.errors.username) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.username[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
       "id": "email",
       "type": "email",
-      "name": "email",
       "required": ""
     },
-    domProps: {
-      "value": (_vm.user.email)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.user, "email", $event.target.value.trim())
+    model: {
+      value: (_vm.currentUser.email),
+      callback: function($$v) {
+        _vm.$set(_vm.currentUser, "email", $$v)
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "currentUser.email"
     }
-  }), _vm._v(" "), (_vm.errors.email) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.email[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "password"
-    }
-  }, [_vm._v("\n            Password\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.user.password),
-      expression: "user.password",
-      modifiers: {
-        "trim": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Adresse E-mail")]), _vm._v(" "), (_vm.errors.email) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.email[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
       "id": "password",
-      "type": "password",
-      "name": "password",
-      "required": ""
+      "type": "password"
     },
-    domProps: {
-      "value": (_vm.user.password)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.user, "password", $event.target.value.trim())
+    model: {
+      value: (_vm.currentUser.password),
+      callback: function($$v) {
+        _vm.$set(_vm.currentUser, "password", $$v)
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "currentUser.password"
     }
-  }), _vm._v(" "), (_vm.errors.password) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.password[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "modal__group"
-  }, [_c('label', {
-    staticClass: "modal__label",
-    attrs: {
-      "for": "password_confirmation"
-    }
-  }, [_vm._v("\n            Confirmation du mot de passe\n          ")]), _vm._v(" "), _c('span', {
-    staticClass: "modal__required"
-  }, [_vm._v("*")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.user.password_confirmation),
-      expression: "user.password_confirmation",
-      modifiers: {
-        "trim": true
-      }
-    }],
-    staticClass: "modal__input",
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Mot de passe")]), _vm._v(" "), (_vm.errors.password) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.password[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
       "id": "password_confirmation",
-      "type": "password",
-      "name": "password_confirmation",
-      "required": ""
+      "type": "password"
     },
-    domProps: {
-      "value": (_vm.user.password_confirmation)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.user, "password_confirmation", $event.target.value.trim())
+    model: {
+      value: (_vm.currentUser.password_confirmation),
+      callback: function($$v) {
+        _vm.$set(_vm.currentUser, "password_confirmation", $$v)
       },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
+      expression: "currentUser.password_confirmation"
     }
-  }), _vm._v(" "), (_vm.errors.password_confirmation) ? _c('div', {
-    staticClass: "modal__alert"
-  }, [_vm._v("\n            " + _vm._s(_vm.errors.password_confirmation[0]) + "\n          ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Mot de passe")]), _vm._v(" "), (_vm.errors.password_confirmation) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.password_confirmation[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
-  }, [_c('button', {
+  }, [_vm._m(1), _vm._v(" "), _c('button', {
     staticClass: "btn btn--grey",
     attrs: {
       "role": "button"
     },
     on: {
       "click": function($event) {
-        $event.stopPropagation();
-        _vm.toggleModal($event)
+        $event.preventDefault();
+        _vm.$emit('update-profile:close');
       }
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  }), _vm._v("\n            Annuler\n          ")]), _vm._v(" "), _c('button', {
+  }), _vm._v("\n        Annuler\n      ")])])], 1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('h2', {
+    staticClass: "modal__title"
+  }, [_vm._v("Mise à jour de votre "), _c('strong', [_vm._v("compte")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
     staticClass: "btn btn--red",
     attrs: {
+      "type": "submit",
       "role": "button"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.updateProfile($event)
-      }
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
-  }), _vm._v("\n            Mettre à jour\n          ")])])], 1)]) : _vm._e()])], 1)
-},staticRenderFns: []}
+  }), _vm._v("\n        Mettre à jour\n      ")])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -76926,14 +76805,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "profile__header-item"
   }, [_vm._v("\n        Compte non vérifié\n      ")]) : _vm._e(), _vm._v(" "), (!_vm.user.email_confirmed) ? _c('SendConfirmationEmailAgain', {
     staticClass: "profile__header-item"
-  }) : _vm._e(), _vm._v(" "), _c('UpdateProfile', {
-    staticClass: "profile__header-item",
+  }) : _vm._e(), _vm._v(" "), _c('button', {
+    staticClass: "btn btn--red",
     attrs: {
-      "user": _vm.user,
-      "avatar": _vm.avatar,
-      "random-avatar": _vm.randomAvatar
+      "role": "button"
+    },
+    on: {
+      "click": _vm.openEditPanel
     }
-  })], 1)]), _vm._v(" "), _c('div', {
+  }, [_c('i', {
+    staticClass: "fal fa-pencil"
+  }), _vm._v("\n        Éditer mon compte\n      ")])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "profile__container"
   }, [_c('div', {
     staticClass: "profile__box"
@@ -76965,7 +76847,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "profile__item"
   }, [_c('h3', [_vm._v("Réalisation de")]), _vm._v(" "), (_vm.orders == 0) ? _c('span', [_vm._v("Aucune commande")]) : _vm._e(), _vm._v(" "), (_vm.orders == 1) ? _c('span', [_vm._v(_vm._s(_vm.orders) + " commande")]) : _vm._e(), _vm._v(" "), (_vm.orders > 1) ? _c('span', [_vm._v(" " + _vm._s(_vm.orders) + " commandes")]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "profile__item"
-  }, [_c('h3', [_vm._v("Participe à")]), _vm._v(" "), (_vm.businesses == 0) ? _c('span', [_vm._v("Aucune affaire")]) : _vm._e(), _vm._v(" "), (_vm.businesses == 1) ? _c('span', [_vm._v(_vm._s(_vm.businesses) + " affaire")]) : _vm._e(), _vm._v(" "), (_vm.businesses > 1) ? _c('span', [_vm._v(" " + _vm._s(_vm.businesses) + " affaires")]) : _vm._e()])]) : _vm._e()])]), _vm._v(" "), _c('MoonLoader', {
+  }, [_c('h3', [_vm._v("Participe à")]), _vm._v(" "), (_vm.businesses == 0) ? _c('span', [_vm._v("Aucune affaire")]) : _vm._e(), _vm._v(" "), (_vm.businesses == 1) ? _c('span', [_vm._v(_vm._s(_vm.businesses) + " affaire")]) : _vm._e(), _vm._v(" "), (_vm.businesses > 1) ? _c('span', [_vm._v(" " + _vm._s(_vm.businesses) + " affaires")]) : _vm._e()])]) : _vm._e()])]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal__background",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.closePanels($event)
+      }
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showEditPanel) ? _c('UpdateProfile', {
+    attrs: {
+      "user": _vm.user,
+      "avatar": _vm.avatar,
+      "random-avatar": _vm.randomAvatar
+    },
+    on: {
+      "profile:updated": _vm.profileUpdated,
+      "update-profile:close": _vm.closePanels
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
