@@ -17,10 +17,13 @@
         </AppSelect>
       </div>
 
-      <AddContact
-        :companies="companies"
-        :user="user"
-        @contact:created="addContact"/>
+      <button
+        role="button"
+        class="btn btn--red-large"
+        @click="openAddPanel">
+        <i class="fal fa-plus-circle"/>
+        Ajouter un contact
+      </button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -46,6 +49,7 @@
             :companies="companies"
             :user="user"
             class="card__container"
+            @edit-contact:open="openEditPanel"
             @contact:deleted="removeContact(index)"/>
         </transition-group>
       </template>
@@ -57,6 +61,32 @@
         @pagination:switched="getContacts"/>
     </div>
 
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click.prevent="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <AddContact
+        v-if="showAddPanel"
+        :companies="companies"
+        :user="user"
+        @contact:created="addContact"
+        @add-contact:close="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <EditContact
+        v-if="showEditPanel"
+        :contact="modelToEdit"
+        :companies="companies"
+        :user="user"
+        @contact:updated="updateContact"
+        @edit-contact:close="closePanels"/>
+    </transition>
+
     <MoonLoader
       :loading="loaderState"
       :color="loader.color"
@@ -67,23 +97,24 @@
 <script>
 import Pagination from "../pagination/Pagination";
 import AppSelect from "../select/AppSelect";
-import Contact from "./Contact.vue";
 import AddContact from "./AddContact.vue";
+import EditContact from "./EditContact.vue";
+import Contact from "./Contact.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import { modelCount, loader } from "../../mixins";
-import { eventBus } from "../../app";
+import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     Pagination,
     AppSelect,
-    Contact,
     AddContact,
+    EditContact,
+    Contact,
     MoonLoader
   },
-  mixins: [modelCount, loader],
+  mixins: [loader, modal, panels, modelCount],
   props: {
     companies: {
       type: Array,
@@ -98,13 +129,13 @@ export default {
     return {
       contacts: [],
       meta: {},
+      errors: {},
       sort: "",
       sortOptions: [
         { label: "Aucun", value: "" },
         { label: "Nom", value: "name" },
         { label: "Date de création", value: "created_at" }
       ],
-      errors: {},
       fetching: false,
       modelNameSingular: "contact",
       modelNamePlural: "contacts",
@@ -114,36 +145,28 @@ export default {
   computed: {
     ...mapGetters(["loaderState"])
   },
-  created() {
-    eventBus.$on("contact:updated", data => {
-      this.updateContact(data);
-    });
-  },
   mounted() {
     this.getContacts();
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    getContacts(page = 1) {
+    async getContacts(page = 1) {
       this.toggleLoader();
       this.fetching = true;
-      window.axios
-        .get(window.route("api.contacts.index", this.sort.value), {
-          params: {
-            page
-          }
-        })
-        .then(res => {
-          this.contacts = res.data.data;
-          this.meta = res.data.meta;
-          this.toggleLoader();
-          this.fetching = false;
-        })
-        .catch(err => {
-          this.errors = err.response.data;
-          this.toggleLoader();
-          this.fetching = false;
-        });
+      try {
+        let res = await window.axios.get(
+          window.route("api.contacts.index", this.sort.value),
+          { params: { page } }
+        );
+        this.contacts = res.data.data;
+        this.meta = res.data.meta;
+        this.fetching = false;
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data;
+        this.fetching = false;
+        this.toggleLoader();
+      }
     },
     selectSort(sort) {
       this.sort = sort;
@@ -157,19 +180,8 @@ export default {
       });
     },
     updateContact(data) {
-      for (let contact of this.contacts) {
-        if (data.id === contact.id) {
-          contact.name = data.name;
-          contact.address_line1 = data.address_line1;
-          contact.address_line2 = data.address_line2;
-          contact.zip = data.zip;
-          contact.city = data.city;
-          contact.phone_number = data.phone_number;
-          contact.fax = data.fax;
-          contact.email = data.email;
-          contact.company_id = data.company_id;
-        }
-      }
+      let index = this.contacts.findIndex(contact => contact.id === data.id);
+      this.contacts[index] = data;
       window.flash({
         message: "Les modifications apportées au contact ont été enregistrées.",
         level: "success"

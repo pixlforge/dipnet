@@ -1,246 +1,166 @@
 <template>
-  <div>
-    <div @click="toggleModal">
-      <i class="fal fa-pencil"/>
-    </div>
+  <div class="modal__slider">
+    <form
+      class="modal__container"
+      @submit.prevent="updateContact">
+      <h2 class="modal__title">Modifier le contact <strong>{{ contact.name }}</strong></h2>
 
-    <transition name="fade">
-      <div
-        v-if="showModal"
-        class="modal__background"
-        @click="toggleModal"/>
-    </transition>
+      <!-- Name -->
+      <ModalInput
+        id="name"
+        ref="focus"
+        v-model="currentContact.name"
+        type="text"
+        required>
+        <template slot="label">Nom</template>
+        <template
+          v-if="errors.description"
+          slot="errors">
+          {{ errors.description[0] }}
+        </template>
+      </ModalInput>
 
-    <transition name="slide">
-      <div
-        v-if="showModal"
-        class="modal__slider"
-        @keyup.esc="toggleModal"
-        @keyup.enter="updateContact">
+      <!-- Address line 1 -->
+      <ModalInput
+        id="address_line1"
+        v-model="currentContact.address_line1"
+        type="text"
+        required>
+        <template slot="label">Adresse ligne 1</template>
+        <template
+          v-if="errors.address_line1"
+          slot="errors">
+          {{ errors.address_line1[0] }}
+        </template>
+      </ModalInput>
 
-        <div class="modal__container">
-          <h2 class="modal__title">Modifier {{ contact.name }}</h2>
+      <!-- Address line 2 -->
+      <ModalInput
+        id="address_line2"
+        v-model="currentContact.address_line2"
+        type="text">
+        <template slot="label">Adresse ligne 2</template>
+        <template
+          v-if="errors.address_line2"
+          slot="errors">
+          {{ errors.address_line2[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="name"
-              class="modal__label">
-              Nom
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="name"
-              v-model.trim="contact.name"
-              type="text"
-              name="name"
-              class="modal__input"
-              required
-              autofocus>
-            <div
-              v-if="errors.name"
-              class="modal__alert">
-              {{ errors.name[0] }}
-            </div>
-          </div>
+      <!-- Zip -->
+      <ModalInput
+        id="zip"
+        v-model="currentContact.zip"
+        type="text"
+        required>
+        <template slot="label">NPA</template>
+        <template
+          v-if="errors.zip"
+          slot="errors">
+          {{ errors.zip[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="address_line1"
-              class="modal__label">
-              Adresse ligne 1
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="address_line1"
-              v-model.trim="contact.address_line1"
-              type="text"
-              name="address_line1"
-              class="modal__input"
-              required>
-            <div
-              v-if="errors.address_line1"
-              class="modal__alert">
-              {{ errors.address_line1[0] }}
-            </div>
-          </div>
+      <!-- City -->
+      <ModalInput
+        id="city"
+        v-model="currentContact.city"
+        type="text"
+        required>
+        <template slot="label">Localité</template>
+        <template
+          v-if="errors.city"
+          slot="errors">
+          {{ errors.city[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="address_line2"
-              class="modal__label">
-              Adresse ligne 2
-            </label>
-            <input
-              id="address_line2"
-              v-model.trim="contact.address_line2"
-              type="text"
-              name="address_line2"
-              class="modal__input">
-            <div
-              v-if="errors.address_line2"
-              class="modal__alert">
-              {{ errors.address_line2[0] }}
-            </div>
-          </div>
+      <!-- Phone number -->
+      <ModalInput
+        id="phone_number"
+        v-model="currentContact.phone_number"
+        type="text">
+        <template slot="label">Téléphone</template>
+        <template
+          v-if="errors.phone_number"
+          slot="errors">
+          {{ errors.phone_number[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="zip"
-              class="modal__label">
-              NPA
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="zip"
-              v-model.trim="contact.zip"
-              type="text"
-              name="zip"
-              class="modal__input"
-              required>
-            <div
-              v-if="errors.zip"
-              class="modal__alert">
-              {{ errors.zip[0] }}
-            </div>
-          </div>
+      <!-- Fax -->
+      <ModalInput
+        id="fax"
+        v-model="currentContact.fax"
+        type="text">
+        <template slot="label">Fax</template>
+        <template
+          v-if="errors.fax"
+          slot="errors">
+          {{ errors.fax[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="city"
-              class="modal__label">
-              Localité
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="city"
-              v-model.trim="contact.city"
-              type="text"
-              name="city"
-              class="modal__input"
-              required>
-            <div
-              v-if="errors.city"
-              class="modal__alert">
-              {{ errors.city[0] }}
-            </div>
-          </div>
+      <!-- Email -->
+      <ModalInput
+        id="email"
+        v-model="currentContact.email"
+        type="email"
+        required>
+        <template slot="label">E-mail</template>
+        <template
+          v-if="errors.email"
+          slot="errors">
+          {{ errors.email[0] }}
+        </template>
+      </ModalInput>
 
-          <div class="modal__group">
-            <label
-              for="phone_number"
-              class="modal__label">
-              Téléphone
-            </label>
-            <input
-              id="phone_number"
-              v-model.trim="contact.phone_number"
-              type="text"
-              name="phone_number"
-              class="modal__input">
-            <div
-              v-if="errors.phone_number"
-              class="modal__alert">
-              {{ errors.phone_number[0] }}
-            </div>
-          </div>
+      <!-- Company -->
+      <ModalSelect
+        v-if="userIsAdmin"
+        id="company_id"
+        :options="optionsForCompany"
+        v-model="currentContact.company_id">
+        <template slot="label">Société</template>
+        <template
+          v-if="errors.company_id"
+          slot="errors">
+          {{ errors.company_id[0] }}
+        </template>
+      </ModalSelect>
 
-          <div class="modal__group">
-            <label
-              for="fax"
-              class="modal__label">
-              Fax
-            </label>
-            <input
-              id="fax"
-              v-model.trim="contact.fax"
-              type="text"
-              name="fax"
-              class="modal__input">
-            <div
-              v-if="errors.fax"
-              class="modal__alert">
-              {{ errors.fax[0] }}
-            </div>
-          </div>
-
-          <div class="modal__group">
-            <label
-              for="email"
-              class="modal__label">
-              Email
-            </label>
-            <span class="modal__required">*</span>
-            <input
-              id="email"
-              v-model.trim="contact.email"
-              type="email"
-              name="email"
-              class="modal__input"
-              required>
-            <div
-              v-if="errors.email"
-              class="modal__alert">
-              {{ errors.email[0] }}
-            </div>
-          </div>
-
-          <div
-            v-if="userIsAdmin"
-            class="modal__group">
-            <label
-              for="company_id"
-              class="modal__label">
-              Société
-            </label>
-            <select
-              id="company_id"
-              v-model.number.trim="contact.company_id"
-              name="company_id"
-              class="modal__select">
-              <option disabled>Sélectionnez une société</option>
-              <option
-                v-for="company in companies"
-                :key="company.id"
-                :value="company.id">
-                {{ company.name }}
-              </option>
-            </select>
-            <div
-              v-if="errors.company_id"
-              class="modal__alert">
-              {{ errors.company_id[0] }}
-            </div>
-          </div>
-
-          <div class="modal__buttons">
-            <button
-              role="button"
-              class="btn btn--grey"
-              @click.stop="toggleModal">
-              <i class="fal fa-times"/>
-              Annuler
-            </button>
-            <button
-              role="button"
-              class="btn btn--red"
-              @click.prevent="updateContact">
-              <i class="fal fa-check"/>
-              Mettre à jour
-            </button>
-          </div>
-        </div>
+      <!-- Controls -->
+      <div class="modal__buttons">
+        <button
+          type="submit"
+          role="button"
+          class="btn btn--red">
+          <i class="fal fa-check"/>
+          Mettre à jour
+        </button>
+        <button
+          role="button"
+          class="btn btn--grey"
+          @click.prevent="$emit('edit-contact:close')">
+          <i class="fal fa-times"/>
+          Annuler
+        </button>
       </div>
-    </transition>
+    </form>
   </div>
 </template>
 
 <script>
-import { modal } from "../../mixins";
-import { eventBus } from "../../app";
+import ModalInput from "../forms/ModalInput";
+import ModalSelect from "../forms/ModalSelect";
+
 import { mapActions } from "vuex";
 
 export default {
-  mixins: [modal],
+  components: {
+    ModalInput,
+    ModalSelect
+  },
   props: {
     contact: {
       type: Object,
@@ -257,31 +177,55 @@ export default {
   },
   data() {
     return {
-      errors: {}
+      currentContact: {
+        id: this.contact.id,
+        name: this.contact.name,
+        address_line1: this.contact.address_line1,
+        address_line2: this.contact.address_line2,
+        zip: this.contact.zip,
+        city: this.contact.city,
+        phone_number: this.contact.phone_number,
+        fax: this.contact.fax,
+        email: this.contact.email,
+        company_id: this.contact.company_id
+      },
+      errors: {},
+      optionsForCompany: []
     };
   },
   computed: {
     userIsAdmin() {
       return this.user.role === "administrateur";
+    },
+    endpoint() {
+      return this.user.role === "administrateur"
+        ? "admin.contacts.update"
+        : "contacts.update";
     }
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
+
+    this.optionsForCompany = this.companies.map(company => {
+      return { label: company.name, value: company.id };
+    });
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    updateContact() {
+    async updateContact() {
       this.toggleLoader();
-      window.axios
-        .put(window.route("contacts.update", [this.contact.id]), this.contact)
-        .then(() => {
-          eventBus.$emit("contact:updated", this.contact);
-        })
-        .then(() => {
-          this.toggleLoader();
-          this.toggleModal();
-        })
-        .catch(err => {
-          this.errors = err.response.data;
-          this.toggleLoader();
-        });
+      try {
+        let res = await window.axios.patch(
+          window.route(this.endpoint, [this.contact.id]),
+          this.currentContact
+        );
+        this.$emit("contact:updated", res.data);
+        this.$emit("edit-contact:close");
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };

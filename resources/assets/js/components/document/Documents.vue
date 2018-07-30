@@ -19,6 +19,9 @@
 
       <template v-if="!documents.length && !fetching">
         <p class="paragraph__no-model-found">Il n'existe encore aucun document.</p>
+        <p class="paragraph__no-model-found">
+          <IllustrationFileSearching/>
+        </p>
       </template>
 
       <template v-else>
@@ -53,6 +56,7 @@
 import Pagination from "../pagination/Pagination";
 import Document from "./Document";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import IllustrationFileSearching from "../illustrations/IllustrationFileSearching";
 
 import { modelCount, loader } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
@@ -61,7 +65,8 @@ export default {
   components: {
     Pagination,
     Document,
-    MoonLoader
+    MoonLoader,
+    IllustrationFileSearching
   },
   mixins: [modelCount, loader],
   data() {

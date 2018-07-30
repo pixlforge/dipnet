@@ -55,31 +55,26 @@
     </div>
 
     <div class="card__controls">
-      <div
+      <button
         role="button"
         title="Supprimer"
-        @click="destroy">
+        @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </div>
-      <div title="Modifier">
-        <EditContact
-          :contact="contact"
-          :companies="companies"
-          :user="user"/>
-      </div>
+      </button>
+      <button
+        role="button"
+        title="Modifier"
+        @click.prevent="edit">
+        <i class="fal fa-pencil"/>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import EditContact from "./EditContact.vue";
-
 import { filters, dates } from "../../mixins";
 
 export default {
-  components: {
-    EditContact
-  },
   mixins: [filters, dates],
   props: {
     contact: {
@@ -96,6 +91,9 @@ export default {
     }
   },
   methods: {
+    edit() {
+      this.$emit("edit-contact:open", this.contact);
+    },
     destroy() {
       window.axios.delete(window.route("contacts.destroy", [this.contact.id]));
       this.$emit("contact:deleted", this.contact.id);
