@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import Searchbar from "../search/Searchbar";
 import Menu from "./Menu";
+import Searchbar from "../search/Searchbar";
 
 export default {
   components: {

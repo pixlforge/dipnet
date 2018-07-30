@@ -118,8 +118,8 @@
 import ArticleDropdown from "./ArticleDropdown";
 import FormatDropdown from "../dropdown/FormatDropdown";
 
-import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
+import { eventBus } from "../../app";
 
 export default {
   components: {

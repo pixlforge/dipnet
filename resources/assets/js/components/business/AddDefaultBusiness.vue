@@ -116,6 +116,7 @@
 
 <script>
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+
 import { mapGetters, mapActions } from "vuex";
 
 export default {

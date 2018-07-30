@@ -68,8 +68,8 @@ import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import IllustrationFileSearching from "../illustrations/IllustrationFileSearching";
 
-import { loader } from "../../mixins";
 import { mapGetters } from "vuex";
+import { loader } from "../../mixins";
 
 export default {
   components: {

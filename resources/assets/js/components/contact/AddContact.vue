@@ -154,8 +154,8 @@
 import ModalInput from "../forms/ModalInput";
 import ModalSelect from "../forms/ModalSelect";
 
-import { eventBus } from "../../app";
 import { mapActions } from "vuex";
+import { eventBus } from "../../app";
 
 export default {
   components: {

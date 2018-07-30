@@ -90,11 +90,12 @@
 </template>
 
 <script>
-import SendConfirmationEmailAgain from "../register/SendConfirmationEmailAgain.vue";
 import UpdateProfile from "./UpdateProfile.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import SendConfirmationEmailAgain from "../register/SendConfirmationEmailAgain.vue";
 
 import { mapGetters } from "vuex";
+import { dates, loader } from "../../mixins";
 
 export default {
   components: {
@@ -102,6 +103,7 @@ export default {
     UpdateProfile,
     MoonLoader
   },
+  mixins: [dates, loader],
   props: {
     user: {
       type: Object,

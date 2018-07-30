@@ -76,14 +76,14 @@
 </template>
 
 <script>
-import AddContact from "../contact/AddContact.vue";
 import Document from "./Document.vue";
-import Dropdown from "../dropdown/Dropdown";
 import Datepicker from "vue-datepicker";
+import Dropdown from "../dropdown/Dropdown";
+import AddContact from "../contact/AddContact.vue";
 
+import { mapGetters } from "vuex";
 import Dropzone from "dropzone";
 import moment from "moment";
-import { mapGetters } from "vuex";
 
 export default {
   components: {

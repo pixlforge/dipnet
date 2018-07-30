@@ -92,24 +92,24 @@
 </template>
 
 <script>
-import Pagination from "../pagination/Pagination";
-import AppSelect from "../select/AppSelect";
+import Ticker from "./Ticker";
 import AddTicker from "./AddTicker";
 import EditTicker from "./EditTicker";
-import Ticker from "./Ticker";
+import AppSelect from "../select/AppSelect";
+import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader";
 import IllustrationNoData from "../illustrations/IllustrationNoData";
 
-import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
+import { loader, modal, panels, modelCount } from "../../mixins";
 
 export default {
   components: {
-    Pagination,
-    AppSelect,
+    Ticker,
     AddTicker,
     EditTicker,
-    Ticker,
+    AppSelect,
+    Pagination,
     MoonLoader,
     IllustrationNoData
   },

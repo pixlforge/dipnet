@@ -81,17 +81,17 @@
 </template>
 
 <script>
+import Datepicker from "vue-datepicker";
 import AdminDocument from "./AdminDocument";
 import ContactDropdown from "../dropdown/ContactDropdown";
-import Datepicker from "vue-datepicker";
 
 import moment from "moment";
 
 export default {
   components: {
+    Datepicker,
     AdminDocument,
-    ContactDropdown,
-    Datepicker
+    ContactDropdown
   },
   props: {
     order: {

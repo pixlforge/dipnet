@@ -47,19 +47,20 @@ export default {
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    sendInvitation() {
+    async sendInvitation() {
       this.toggleLoader();
-      window.axios
-        .post(window.route("invitation.store"), this.invitation)
-        .then(res => {
-          this.toggleLoader();
-          this.$emit("invitation:created", res.data);
-          this.invitation = {};
-        })
-        .catch(err => {
-          this.errors = err.response.data.errors;
-          this.toggleLoader();
-        });
+      try {
+        let res = await window.axios.post(
+          window.route("invitation.store"),
+          this.invitation
+        );
+        this.toggleLoader();
+        this.$emit("invitation:created", res.data);
+        this.invitation = {};
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };

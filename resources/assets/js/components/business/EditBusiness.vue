@@ -205,12 +205,10 @@
 </template>
 
 <script>
-import { modal } from "../../mixins";
-import { eventBus } from "../../app";
 import { mapActions } from "vuex";
+import { eventBus } from "../../app";
 
 export default {
-  mixins: [modal],
   props: {
     business: {
       type: Object,

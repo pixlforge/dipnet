@@ -85,23 +85,23 @@
 </template>
 
 <script>
-import Pagination from "../pagination/Pagination";
-import AppSelect from "../select/AppSelect";
+import User from "./User.vue";
 import AddUser from "./AddUser";
 import EditUser from "./EditUser";
-import User from "./User.vue";
+import AppSelect from "../select/AppSelect";
+import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
+import { loader, modal, panels, modelCount } from "../../mixins";
 
 export default {
   components: {
-    Pagination,
-    AppSelect,
+    User,
     AddUser,
     EditUser,
-    User,
+    AppSelect,
+    Pagination,
     MoonLoader
   },
   mixins: [loader, modal, panels, modelCount],

@@ -70,8 +70,8 @@
 </template>
 
 <script>
-import { appName, logo, registration } from "../../mixins";
 import { mapActions } from "vuex";
+import { appName, logo, registration } from "../../mixins";
 
 export default {
   mixins: [appName, logo, registration],

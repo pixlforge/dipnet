@@ -38,22 +38,22 @@
 
 <script>
 import RegisterMenu from "./RegisterMenu.vue";
-import RegisterJoinInfos from "./RegisterJoinInfos.vue";
 import RegisterAccount from "./RegisterAccount.vue";
 import RegisterContact from "./RegisterContact.vue";
 import RegisterCompany from "./RegisterCompany.vue";
+import RegisterJoinInfos from "./RegisterJoinInfos.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import { appName, loader, registration } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
+import { appName, loader, registration } from "../../mixins";
 
 export default {
   components: {
     RegisterMenu,
-    RegisterJoinInfos,
     RegisterAccount,
     RegisterContact,
     RegisterCompany,
+    RegisterJoinInfos,
     MoonLoader
   },
   mixins: [appName, loader, registration],

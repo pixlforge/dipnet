@@ -20,22 +20,23 @@ export default {
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    resend() {
+    async resend() {
       this.toggleLoader();
-      window.axios
-        .put(window.route("invitation.update"), this.invitation)
-        .then(() => {
-          this.toggleLoader();
-          window.flash({
-            message: `L'invitation a bien été renvoyée à l'adresse ${
-              this.invitation.email
-            }`,
-            level: "success"
-          });
-        })
-        .catch(() => {
-          this.toggleLoader();
+      try {
+        await window.axios.put(
+          window.route("invitation.update"),
+          this.invitation
+        );
+        this.toggleLoader();
+        window.flash({
+          message: `L'invitation a bien été renvoyée à l'adresse ${
+            this.invitation.email
+          }`,
+          level: "success"
         });
+      } catch (err) {
+        this.toggleLoader();
+      }
     }
   }
 };

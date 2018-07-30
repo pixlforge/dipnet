@@ -76,8 +76,8 @@
 <script>
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import { appName, logo, loader } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
+import { appName, logo, loader } from "../../mixins";
 
 export default {
   components: {

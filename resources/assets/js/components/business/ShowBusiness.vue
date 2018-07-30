@@ -49,18 +49,18 @@
 </template>
 
 <script>
-import Comments from "../comment/Comments";
 import Order from "../order/Order";
 import EditBusiness from "./EditBusiness";
+import Comments from "../comment/Comments";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
 import { mapGetters } from "vuex";
 
 export default {
   components: {
-    Comments,
     Order,
     EditBusiness,
+    Comments,
     MoonLoader
   },
   props: {

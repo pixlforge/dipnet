@@ -108,8 +108,8 @@
 import ModalInput from "../forms/ModalInput";
 import ModalSelect from "../forms/ModalSelect";
 
-import { loader, modal } from "../../mixins";
 import { mapActions } from "vuex";
+import { loader, modal } from "../../mixins";
 
 export default {
   components: {

@@ -107,8 +107,8 @@
 import Carousel from "../carousel/Carousel.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import { logo, appName, registration, loader } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
+import { logo, appName, registration, loader } from "../../mixins";
 
 export default {
   components: {
@@ -129,26 +129,24 @@ export default {
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    login() {
-      this.$store.dispatch("toggleLoader");
-      window.axios
-        .post(window.route("login"), {
+    async login() {
+      this.toggleLoader();
+      try {
+        await window.axios.post(window.route("login"), {
           email: this.email,
           password: this.password
-        })
-        .then(() => {
-          window.flash({
-            message: "Bienvenue!",
-            level: "success"
-          });
-          setTimeout(() => {
-            window.location = window.route("index");
-          }, 1000);
-        })
-        .catch(error => {
-          this.$store.dispatch("toggleLoader");
-          this.errors = error.response.data.errors;
         });
+        window.flash({
+          message: "Bienvenue!",
+          level: "success"
+        });
+        setTimeout(() => {
+          window.location = window.route("index");
+        }, 1000);
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };

@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import { filters } from "../../mixins";
-import { eventBus } from "../../app";
 import { mapGetters } from "vuex";
+import { eventBus } from "../../app";
+import { filters } from "../../mixins";
 
 export default {
   mixins: [filters],

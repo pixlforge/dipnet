@@ -161,14 +161,14 @@
 </template>
 
 <script>
-import CreateDelivery from "./CreateDelivery.vue";
-import PreviewDelivery from "./PreviewDelivery";
-import AddContact from "../contact/AddContact.vue";
 import Dropdown from "../dropdown/Dropdown";
+import PreviewDelivery from "./PreviewDelivery";
+import CreateDelivery from "./CreateDelivery.vue";
+import AddContact from "../contact/AddContact.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
-import { loader } from "../../mixins";
 import { eventBus } from "../../app";
+import { loader } from "../../mixins";
 import { mapActions, mapGetters } from "vuex";
 
 export default {

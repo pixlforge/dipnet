@@ -38,23 +38,23 @@ export default {
     }
   },
   methods: {
-    destroy() {
-      window.axios
-        .delete(window.route("invitation.destroy", [this.invitation.id]))
-        .then(() => {
-          this.$emit("invitation:deleted", this.invitation.id);
-          window.flash({
-            message: "L'invitation a bien été annulée.",
-            level: "success"
-          });
-        })
-        .catch(() => {
-          window.flash({
-            message:
-              "L'invitation n'a pas été annulée. Une erreur s'est produite.",
-            level: "danger"
-          });
+    async destroy() {
+      try {
+        await window.axios.delete(
+          window.route("invitation.destroy", [this.invitation.id])
+        );
+        this.$emit("invitation:deleted", this.invitation.id);
+        window.flash({
+          message: "L'invitation a bien été annulée.",
+          level: "success"
         });
+      } catch (err) {
+        window.flash({
+          message:
+            "L'invitation n'a pas été annulée. Une erreur s'est produite.",
+          level: "danger"
+        });
+      }
     }
   }
 };

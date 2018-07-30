@@ -119,26 +119,26 @@
 </template>
 
 <script>
-import Pagination from "../pagination/Pagination";
+import Business from "./Business.vue";
+import UserBusiness from "./UserBusiness";
 import AppSelect from "../select/AppSelect";
 import AddBusiness from "./AddBusiness.vue";
 import EditBusiness from "./EditBusiness.vue";
-import Business from "./Business.vue";
-import UserBusiness from "./UserBusiness";
+import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import IllustrationNoData from "../illustrations/IllustrationNoData";
 
-import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
+import { loader, modal, panels, modelCount } from "../../mixins";
 
 export default {
   components: {
-    Pagination,
+    Business,
+    UserBusiness,
     AppSelect,
     AddBusiness,
     EditBusiness,
-    Business,
-    UserBusiness,
+    Pagination,
     MoonLoader,
     IllustrationNoData
   },

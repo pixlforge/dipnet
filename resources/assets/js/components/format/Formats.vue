@@ -92,24 +92,24 @@
 </template>
 
 <script>
-import Pagination from "../pagination/Pagination";
-import AppSelect from "../select/AppSelect";
+import Format from "./Format.vue";
 import AddFormat from "./AddFormat.vue";
 import EditFormat from "./EditFormat.vue";
-import Format from "./Format.vue";
+import AppSelect from "../select/AppSelect";
+import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import IllustrationNoData from "../illustrations/IllustrationNoData";
 
-import { loader, modal, panels, modelCount } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
+import { loader, modal, panels, modelCount } from "../../mixins";
 
 export default {
   components: {
-    Pagination,
-    AppSelect,
+    Format,
     AddFormat,
     EditFormat,
-    Format,
+    AppSelect,
+    Pagination,
     MoonLoader,
     IllustrationNoData
   },

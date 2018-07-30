@@ -21,13 +21,13 @@
 </template>
 
 <script>
-import AddComment from "./AddComment";
 import Comment from "./Comment";
+import AddComment from "./AddComment";
 
 export default {
   components: {
-    AddComment,
-    Comment
+    Comment,
+    AddComment
   },
   props: {
     business: {

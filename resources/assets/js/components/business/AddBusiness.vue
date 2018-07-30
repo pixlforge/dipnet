@@ -205,8 +205,8 @@
 </template>
 
 <script>
-import { modal } from "../../mixins";
 import { mapActions } from "vuex";
+import { modal } from "../../mixins";
 
 export default {
   mixins: [modal],

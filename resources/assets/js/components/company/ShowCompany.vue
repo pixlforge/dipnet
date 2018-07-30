@@ -78,9 +78,9 @@
 <script>
 import CompanyMember from "./CompanyMember.vue";
 import InviteMember from "../invitation/Invitation.vue";
+import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import InvitedMember from "../invitation/InvitedMember.vue";
 import SettingsDropdown from "../dropdown/SettingsDropdown";
-import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
 import { mapGetters } from "vuex";
 
@@ -88,9 +88,9 @@ export default {
   components: {
     CompanyMember,
     InviteMember,
+    MoonLoader,
     InvitedMember,
-    SettingsDropdown,
-    MoonLoader
+    SettingsDropdown
   },
   props: {
     company: {

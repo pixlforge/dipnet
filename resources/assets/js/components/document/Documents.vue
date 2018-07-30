@@ -53,8 +53,8 @@
 </template>
 
 <script>
-import Pagination from "../pagination/Pagination";
 import Document from "./Document";
+import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import IllustrationNoData from "../illustrations/IllustrationNoData";
 
@@ -63,8 +63,8 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
-    Pagination,
     Document,
+    Pagination,
     MoonLoader,
     IllustrationNoData
   },
