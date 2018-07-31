@@ -83,6 +83,7 @@ import InvitedMember from "../invitation/InvitedMember.vue";
 import SettingsDropdown from "../dropdown/SettingsDropdown";
 
 import { mapGetters } from "vuex";
+import { appName, loader } from "../../mixins";
 
 export default {
   components: {
@@ -92,6 +93,7 @@ export default {
     InvitedMember,
     SettingsDropdown
   },
+  mixins: [appName, loader],
   props: {
     company: {
       type: Object,

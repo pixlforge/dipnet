@@ -3,7 +3,7 @@
 
 Vous avez été invité par {{ $invitation->created_by }} à créer un compte sur la plateforme {{ config('app.name') }} et rejoindre {{ $invitation->company->name }}.
 
-@component('mail::button', ['url' => url('/register?token=' . $invitation->token), 'color' => 'red'])
+@component('mail::button', ['url' => route('register.index', ['token' => $invitation->token]), 'color' => 'red'])
     Rejoindre {{ $invitation->company->name }}
 @endcomponent
 

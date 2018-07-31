@@ -23,7 +23,10 @@
 </template>
 
 <script>
+import { filters } from "../../mixins";
+
 export default {
+  mixins: [filters],
   props: {
     label: {
       type: String,
