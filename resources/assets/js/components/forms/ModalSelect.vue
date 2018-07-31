@@ -39,7 +39,10 @@ export default {
   props: {
     options: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     },
     value: {
       type: [String, Number],
