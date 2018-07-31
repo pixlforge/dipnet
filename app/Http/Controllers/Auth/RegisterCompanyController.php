@@ -17,6 +17,7 @@ class RegisterCompanyController extends Controller
     {
         $company = new Company;
         $company->name = $request->name;
+        $company->slug = str_slug($request->name);
         $company->description = $request->description;
         $company->save();
 

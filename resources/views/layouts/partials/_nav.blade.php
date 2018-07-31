@@ -6,5 +6,5 @@
           user-name="{{ auth()->user()->username }}"
           user-role="{{ auth()->user()->role }}"
           user-company-name="{{ auth()->user()->company->name }}"
-          user-company-id="{{ auth()->user()->company->id }}"></navbar>
+          user-company-slug="{{ auth()->user()->company->slug }}"></navbar>
 </header>

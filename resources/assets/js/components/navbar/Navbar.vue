@@ -100,7 +100,7 @@ export default {
       type: String,
       required: true
     },
-    userCompanyId: {
+    userCompanySlug: {
       type: String,
       required: true
     }
@@ -137,7 +137,7 @@ export default {
       if (this.userRole === "administrateur") {
         return window.route("admin.companies.index");
       } else {
-        return window.route("companies.show", [this.userCompanyId]);
+        return window.route("companies.show", [this.userCompanySlug]);
       }
     }
   }

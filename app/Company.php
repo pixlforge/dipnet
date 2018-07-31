@@ -20,6 +20,11 @@ class Company extends Model
         });
     }
 
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
     public function hasNoDefaultBusiness()
     {
         return $this->business_id === null;

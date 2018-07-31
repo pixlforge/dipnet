@@ -39,8 +39,7 @@
         id="description"
         ref="focus"
         v-model="currentCompany.description"
-        type="text"
-        required>
+        type="text">
         <template slot="label">Description</template>
         <template
           v-if="errors.description"
@@ -111,7 +110,7 @@ export default {
       this.toggleLoader();
       try {
         let res = await window.axios.patch(
-          window.route("admin.companies.update", [this.company.id]),
+          window.route("admin.companies.update", [this.company.slug]),
           this.currentCompany
         );
         this.$emit("company:updated", res.data);

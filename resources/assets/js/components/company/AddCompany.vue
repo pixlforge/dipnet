@@ -39,8 +39,7 @@
         id="description"
         ref="focus"
         v-model="company.description"
-        type="text"
-        required>
+        type="text">
         <template slot="label">Description</template>
         <template
           v-if="errors.description"

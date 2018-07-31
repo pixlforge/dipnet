@@ -34460,7 +34460,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
 
 
 
@@ -34927,7 +34926,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
 
 
 
@@ -34967,7 +34965,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       return _asyncToGenerator(function* () {
         _this.toggleLoader();
         try {
-          let res = yield window.axios.patch(window.route("admin.companies.update", [_this.company.id]), _this.currentCompany);
+          let res = yield window.axios.patch(window.route("admin.companies.update", [_this.company.slug]), _this.currentCompany);
           _this.$emit("company:updated", res.data);
           _this.$emit("edit-company:close");
           _this.toggleLoader();
@@ -34997,6 +34995,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown__ = __webpack_require__(303);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -35085,6 +35084,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     CompanyMember: __WEBPACK_IMPORTED_MODULE_0__CompanyMember_vue___default.a,
@@ -35093,6 +35093,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     InvitedMember: __WEBPACK_IMPORTED_MODULE_3__invitation_InvitedMember_vue___default.a,
     SettingsDropdown: __WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown___default.a
   },
+  mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_6__mixins__["a" /* loader */]],
   props: {
     company: {
       type: Object,
@@ -36666,6 +36667,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
 //
 //
 //
@@ -36691,7 +36693,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 
+
+
 /* harmony default export */ __webpack_exports__["default"] = ({
+  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["e" /* filters */]],
   props: {
     label: {
       type: String,
@@ -38260,7 +38265,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: String,
       required: true
     },
-    userCompanyId: {
+    userCompanySlug: {
       type: String,
       required: true
     }
@@ -38297,7 +38302,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       if (this.userRole === "administrateur") {
         return window.route("admin.companies.index");
       } else {
-        return window.route("companies.show", [this.userCompanyId]);
+        return window.route("companies.show", [this.userCompanySlug]);
       }
     }
   }
@@ -72739,8 +72744,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "focus",
     attrs: {
       "id": "description",
-      "type": "text",
-      "required": ""
+      "type": "text"
     },
     model: {
       value: (_vm.company.description),
@@ -79037,8 +79041,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     ref: "focus",
     attrs: {
       "id": "description",
-      "type": "text",
-      "required": ""
+      "type": "text"
     },
     model: {
       value: (_vm.currentCompany.description),
