@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="register__container"
-    @keyup.enter="createContact">
+  <div class="register__container">
     <section class="register__summary-section">
       <div
         class="register__logo register__logo--summary"
@@ -45,142 +43,131 @@
     </section>
 
     <section class="register__form-section">
-      <div class="register__form">
-        <h1 class="register__title">Votre premier contact</h1>
+      <form
+        class="register__form"
+        @submit.prevent="createContact">
+        <h1 class="register__title">Votre premier <strong>contact</strong></h1>
 
-        <div class="form__group">
-          <label for="name">Prénom et Nom / Contact</label>
-          <span class="form__required">*</span>
-          <input
-            id="name"
-            v-model.trim="contact.name"
-            type="text"
-            name="name"
-            class="form__input"
-            required
-            autofocus>
-          <div
+        <!-- Username -->
+        <ModalInput
+          id="username"
+          ref="focus"
+          v-model="contact.name"
+          type="text"
+          required>
+          <template slot="label">Prénom et Nom / Contact</template>
+          <template
             v-if="errors.name"
-            class="form__alert">
+            slot="errors">
             {{ errors.name[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="address_line1">Adresse ligne 1</label>
-          <span class="form__required">*</span>
-          <input
-            id="address_line1"
-            v-model.trim="contact.address_line1"
-            type="text"
-            name="address_line1"
-            class="form__input"
-            required>
-          <div
+        <!-- Address line 1 -->
+        <ModalInput
+          id="address_line1"
+          v-model="contact.address_line1"
+          type="text"
+          required>
+          <template slot="label">Adresse ligne 1</template>
+          <template
             v-if="errors.address_line1"
-            class="form__alert">
+            slot="errors">
             {{ errors.address_line1[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="address_line2">Adresse ligne 2</label>
-          <input
-            id="address_line2"
-            v-model.trim="contact.address_line2"
-            type="text"
-            name="address_line2"
-            class="form__input">
-          <div
+        <!-- Address line 2 -->
+        <ModalInput
+          id="address_line2"
+          v-model="contact.address_line2"
+          type="text">
+          <template slot="label">Adresse ligne 2</template>
+          <template
             v-if="errors.address_line2"
-            class="form__alert">
+            slot="errors">
             {{ errors.address_line2[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="zip">NPA</label>
-          <span class="form__required">*</span>
-          <input
-            id="zip"
-            v-model.trim="contact.zip"
-            type="text"
-            name="zip"
-            class="form__input"
-            required>
-          <div
+        <!-- Zip -->
+        <ModalInput
+          id="zip"
+          v-model="contact.zip"
+          type="text"
+          required>
+          <template slot="label">NPA</template>
+          <template
             v-if="errors.zip"
-            class="form__alert">
+            slot="errors">
             {{ errors.zip[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="city">Localité</label>
-          <span class="form__required">*</span>
-          <input
-            id="city"
-            v-model.trim="contact.city"
-            type="text"
-            name="city"
-            class="form__input"
-            required>
-          <div
+        <!-- City -->
+        <ModalInput
+          id="city"
+          v-model="contact.city"
+          type="text"
+          required>
+          <template slot="label">Localité</template>
+          <template
             v-if="errors.city"
-            class="form__alert">
+            slot="errors">
             {{ errors.city[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="phone_number">Téléphone</label>
-          <input
-            id="phone_number"
-            v-model.trim="contact.phone_number"
-            type="text"
-            name="phone_number"
-            class="form__input">
-          <div
+        <!-- Phone number -->
+        <ModalInput
+          id="phone_number"
+          v-model="contact.phone_number"
+          type="text">
+          <template slot="label">Téléphone</template>
+          <template
             v-if="errors.phone_number"
-            class="form__alert">
+            slot="errors">
             {{ errors.phone_number[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="fax">Fax</label>
-          <input
-            id="fax"
-            v-model.trim="contact.fax"
-            type="text"
-            name="fax"
-            class="form__input">
-          <div
+        <!-- Fax -->
+        <ModalInput
+          id="fax"
+          v-model="contact.fax"
+          type="text">
+          <template slot="label">Fax</template>
+          <template
             v-if="errors.fax"
-            class="form__alert">
+            slot="errors">
             {{ errors.fax[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
         <div class="register__buttons">
           <button
+            type="submit"
             role="button"
-            class="btn btn--red"
-            @click="createContact">
+            class="btn btn--red">
             <i class="fal fa-check"/>
             Créer le contact
           </button>
         </div>
-      </div>
+      </form>
     </section>
   </div>
 </template>
 
 <script>
+import ModalInput from "../forms/ModalInput";
+
 import { mapActions } from "vuex";
 import { appName, logo } from "../../mixins";
 
 export default {
+  components: {
+    ModalInput
+  },
   mixins: [appName, logo],
   props: {
     registrationType: {
@@ -206,6 +193,9 @@ export default {
       },
       errors: {}
     };
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
   },
   methods: {
     ...mapActions(["toggleLoader"]),

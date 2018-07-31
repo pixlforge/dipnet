@@ -77,32 +77,32 @@ export default {
   computed: {
     ...mapGetters(["loaderState"])
   },
-  async mounted() {
-    /**
-     * Get the invitation token and try to confirm it.
-     */
-    if (this.token) {
-      this.registrationType = "join";
-      this.toggleLoader();
-      try {
-        let res = await window.axios.post(window.route("invitation.confirm"), {
-          token: this.token
-        });
-        this.invitation = res.data;
-        this.showAccountForm = true;
-        this.toggleLoader();
-      } catch (err) {
-        this.toggleLoader();
-      }
-    } else {
-      this.showRegistrationMenu = true;
-    }
+  mounted() {
+    this.confirmToken();
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    /**
-     * Registration selection type.
-     */
+    async confirmToken() {
+      if (this.token) {
+        this.registrationType = "join";
+        this.toggleLoader();
+        try {
+          let res = await window.axios.post(
+            window.route("invitation.confirm"),
+            {
+              token: this.token
+            }
+          );
+          this.invitation = res.data;
+          this.showAccountForm = true;
+          this.toggleLoader();
+        } catch (err) {
+          this.toggleLoader();
+        }
+      } else {
+        this.showRegistrationMenu = true;
+      }
+    },
     selection(event) {
       this.registrationType = event;
       this.showRegistrationMenu = false;
@@ -112,16 +112,10 @@ export default {
         this.showAccountForm = true;
       }
     },
-    /**
-     * Account was created.
-     */
     accountCreated() {
       this.showAccountForm = false;
       this.showContactForm = true;
     },
-    /**
-     * Contact was created.
-     */
     contactCreated() {
       if (this.registrationType === "add") {
         this.showContactForm = false;
@@ -134,15 +128,9 @@ export default {
         this.finishRegistration();
       }
     },
-    /**
-     * Company was created.
-     */
     companyCreated() {
       this.finishRegistration();
     },
-    /**
-     * Get the user back to the menu.
-     */
     backToMenu() {
       this.showJoinInfos = false;
       this.showRegistrationMenu = true;

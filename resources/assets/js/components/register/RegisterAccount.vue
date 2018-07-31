@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="register__container"
-    @keyup.enter="registerAccount">
+  <div class="register__container">
     <section class="register__first-section">
       <div
         class="login__logo login__logo--color"
@@ -10,83 +8,73 @@
           :src="logoColor"
           :alt="`${appName} logo`">
       </div>
-      <div class="register__form">
+      <form
+        class="register__form"
+        @submit.prevent="registerAccount">
         <h1 class="register__title">Création du compte</h1>
 
-        <div class="form__group">
-          <label for="username">Nom d'utilisateur</label>
-          <span class="form__required">*</span>
-          <input
-            id="username"
-            v-model.trim="account.username"
-            type="text"
-            name="username"
-            class="form__input"
-            required
-            autofocus>
-          <div
+        <!-- Username -->
+        <ModalInput
+          id="username"
+          ref="focus"
+          v-model="account.username"
+          type="text"
+          required>
+          <template slot="label">Nom d'utilisateur</template>
+          <template
             v-if="errors.username"
-            class="form__alert">
+            slot="errors">
             {{ errors.username[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="email">Email</label>
-          <span class="form__required">*</span>
-          <input
-            id="email"
-            v-model.trim="account.email"
-            type="email"
-            name="email"
-            class="form__input"
-            required>
-          <div
+        <!-- Email -->
+        <ModalInput
+          id="email"
+          v-model="account.email"
+          type="email"
+          required>
+          <template slot="label">Adresse E-mail</template>
+          <template
             v-if="errors.email"
-            class="form__alert">
+            slot="errors">
             {{ errors.email[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="password">Mot de passe</label>
-          <span class="form__required">*</span>
-          <input
-            id="password"
-            v-model.trim="account.password"
-            type="password"
-            name="password"
-            class="form__input"
-            required>
-          <div
+        <!-- Password -->
+        <ModalInput
+          id="password"
+          v-model="account.password"
+          type="password"
+          required>
+          <template slot="label">Mot de passe</template>
+          <template
             v-if="errors.password"
-            class="form__alert">
+            slot="errors">
             {{ errors.password[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="password_confirmation">Mot de passe</label>
-          <span class="form__required">*</span>
-          <input
-            id="password_confirmation"
-            v-model.trim="account.password_confirmation"
-            type="password"
-            name="password_confirmation"
-            class="form__input"
-            required>
-          <div
+        <!-- Password confirmation -->
+        <ModalInput
+          id="password_confirmation"
+          v-model="account.password_confirmation"
+          type="password"
+          required>
+          <template slot="label">Confirmation</template>
+          <template
             v-if="errors.password_confirmation"
-            class="form__alert">
+            slot="errors">
             {{ errors.password_confirmation[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
         <div class="register__buttons">
           <button
-            class="btn btn--red"
+            type="submit"
             role="button"
-            @click="registerAccount">
+            class="btn btn--red">
             <i class="fal fa-check"/>
             Créer le compte
           </button>
@@ -100,7 +88,7 @@
             Connectez-vous
           </a>
         </div>
-      </div>
+      </form>
     </section>
 
     <section class="login__second-section">
@@ -118,13 +106,15 @@
 
 <script>
 import Carousel from "../carousel/Carousel";
+import ModalInput from "../forms/ModalInput";
 
 import { mapActions } from "vuex";
 import { appName, logo, registration } from "../../mixins";
 
 export default {
   components: {
-    Carousel
+    Carousel,
+    ModalInput
   },
   mixins: [appName, logo, registration],
   props: {
@@ -148,6 +138,9 @@ export default {
       },
       errors: {}
     };
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
   },
   created() {
     if (this.invitation) {

@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="login__container"
-    @keyup.enter="login">
+  <div class="login__container">
     <section class="login__first-section">
       <div
         class="login__logo login__logo--color"
@@ -10,58 +8,57 @@
           :src="logoColor"
           :alt="`${appName} logo`">
       </div>
-      <div class="login__form">
+      <form
+        class="login__form"
+        @submit.prevent="login">
         <h1 class="login__title">Connexion</h1>
 
-        <div class="form__group">
-          <label for="email">Email</label>
-          <span class="form__required">*</span>
-          <input
-            id="email"
-            v-model.trim="email"
-            type="text"
-            name="email"
-            class="form__input"
-            required
-            autofocus>
-          <div
+        <!-- Email -->
+        <ModalInput
+          id="email"
+          ref="focus"
+          v-model="email"
+          type="email"
+          required>
+          <template slot="label">Adresse E-mail</template>
+          <template
             v-if="errors.email"
-            class="form__alert">
+            slot="errors">
             {{ errors.email[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <div class="form__group">
-          <label for="password">Mot de passe</label>
-          <span class="form__required">*</span>
-          <input
-            id="password"
-            v-model.trim="password"
-            type="password"
-            name="password"
-            class="form__input"
-            required>
-          <div
+        <!-- Password -->
+        <ModalInput
+          id="password"
+          v-model="password"
+          type="password"
+          required>
+          <template slot="label">Mot de passe</template>
+          <template
             v-if="errors.password"
-            class="form__alert">
+            slot="errors">
             {{ errors.password[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
-        <label for="remember">
-          <input
-            id="remember"
-            :checked="remember"
-            type="checkbox"
-            name="remember">
-          Se rappeler
-        </label>
+        <!-- Remember -->
+        <ModalCheckbox
+          id="remember"
+          v-model="remember">
+          <template slot="label">Se rappeler de moi</template>
+          <template
+            v-if="errors.remember"
+            slot="errors">
+            {{ errors.remember[0] }}
+          </template>
+        </ModalCheckbox>
 
         <div class="login__buttons">
           <button
-            class="btn btn--red"
+            type="submit"
             role="button"
-            @click="login">
+            class="btn btn--red">
             <i class="fal fa-key"/>
             Connexion
           </button>
@@ -82,7 +79,7 @@
             Enregistrez-vous
           </a>
         </div>
-      </div>
+      </form>
     </section>
 
     <section class="login__second-section">
@@ -104,7 +101,9 @@
 </template>
 
 <script>
+import ModalInput from "../forms/ModalInput";
 import Carousel from "../carousel/Carousel.vue";
+import ModalCheckbox from "../forms/ModalCheckbox";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
 import { mapGetters, mapActions } from "vuex";
@@ -112,7 +111,9 @@ import { logo, appName, registration, loader } from "../../mixins";
 
 export default {
   components: {
+    ModalInput,
     Carousel,
+    ModalCheckbox,
     MoonLoader
   },
   mixins: [logo, appName, registration, loader],
@@ -126,6 +127,9 @@ export default {
   },
   computed: {
     ...mapGetters(["loaderState"])
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
   },
   methods: {
     ...mapActions(["toggleLoader"]),

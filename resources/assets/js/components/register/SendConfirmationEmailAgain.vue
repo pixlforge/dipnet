@@ -18,7 +18,6 @@ export default {
     ...mapActions(["toggleLoader"]),
     async sendConfirmationAgain() {
       this.toggleLoader();
-
       try {
         await window.axios.put(window.route("register.confirm.update"));
         this.toggleLoader();

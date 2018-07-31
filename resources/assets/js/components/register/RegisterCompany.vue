@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="register__container"
-    @keyup.enter="createCompany">
+  <div class="register__container">
     <section class="register__summary-section">
       <div
         class="register__logo register__logo--summary"
@@ -34,46 +32,50 @@
     </section>
 
     <section class="register__form-section">
-      <div class="register__form">
-        <h1 class="register__title">Votre société</h1>
+      <form
+        class="register__form"
+        @submit.prevent="createCompany">
+        <h1 class="register__title">Votre <strong>société</strong></h1>
 
-        <div class="form__group">
-          <label for="name">Nom de la société</label>
-          <span class="form__required">*</span>
-          <input
-            id="name"
-            v-model.trim="company.name"
-            type="text"
-            name="name"
-            class="form__input"
-            required
-            autofocus>
-          <div
+        <!-- Name -->
+        <ModalInput
+          id="name"
+          ref="focus"
+          v-model="company.name"
+          type="text"
+          required>
+          <template slot="label">Nom de la société</template>
+          <template
             v-if="errors.name"
-            class="form__alert">
+            slot="errors">
             {{ errors.name[0] }}
-          </div>
-        </div>
+          </template>
+        </ModalInput>
 
         <div class="register__buttons">
           <button
+            type="submit"
             role="button"
-            class="btn btn--red"
-            @click="createCompany">
+            class="btn btn--red">
             <i class="fal fa-check"/>
             Terminer l'enregistrement
           </button>
         </div>
-      </div>
+      </form>
     </section>
   </div>
 </template>
 
 <script>
+import ModalInput from "../forms/ModalInput";
+
 import { mapActions } from "vuex";
 import { appName, logo, registration } from "../../mixins";
 
 export default {
+  components: {
+    ModalInput
+  },
   mixins: [appName, logo, registration],
   data() {
     return {
@@ -82,6 +84,9 @@ export default {
       },
       errors: {}
     };
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
   },
   methods: {
     ...mapActions(["toggleLoader"]),
