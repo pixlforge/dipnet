@@ -17,12 +17,19 @@
         </AppSelect>
       </div>
 
-      <AddBusiness
+      <!-- <AddBusiness
         :companies="companies"
         :contacts="contacts"
         :user="user"
         :users="users"
-        @business:created="addBusiness"/>
+        @business:created="addBusiness"/> -->
+      <button
+        role="button"
+        class="btn btn--red-large"
+        @click="openAddPanel">
+        <i class="fal fa-plus-circle"/>
+        Ajouter une affaire
+      </button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -51,6 +58,7 @@
               :business="business"
               :orders="orders"
               :user="user"
+              @edit-business:open="openEditPanel"
               @business:deleted="removeBusiness(index)"/>
           </transition-group>
         </div>
@@ -70,6 +78,7 @@
             :user="user"
             :users="users"
             class="card__container"
+            @edit-business:open="openEditPanel"
             @business:deleted="removeBusiness(index)"/>
         </transition-group>
       </template>
@@ -107,7 +116,7 @@
         :contacts="contacts"
         :user="user"
         :users="users"
-        @business:updated="addBusiness"
+        @business:updated="updateBusiness"
         @edit-business:close="closePanels"/>
     </transition>
 

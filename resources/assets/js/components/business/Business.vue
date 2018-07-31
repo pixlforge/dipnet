@@ -44,33 +44,26 @@
     </div>
 
     <div class="card__controls">
-      <div
+      <button
         role="button"
         title="Supprimer"
-        @click="destroy">
+        @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </div>
-      <div>
-        <EditBusiness
-          :business="business"
-          :companies="companies"
-          :contacts="contacts"
-          :user="user"
-          :users="users"/>
-      </div>
+      </button>
+      <button
+        role="button"
+        title="Modifier"
+        @click.prevent="edit">
+        <i class="fal fa-pencil"/>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
-import EditBusiness from "./EditBusiness.vue";
-
 import { filters, dates } from "../../mixins";
 
 export default {
-  components: {
-    EditBusiness
-  },
   mixins: [filters, dates],
   props: {
     business: {
@@ -95,6 +88,9 @@ export default {
     }
   },
   methods: {
+    edit() {
+      this.$emit("edit-business:open", this.business);
+    },
     destroy() {
       window.axios.delete(
         window.route("businesses.destroy", [this.business.id])
