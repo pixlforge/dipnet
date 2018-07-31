@@ -14,7 +14,7 @@ class RegisterAccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required|string|unique:users|min:2|max:255',
+            'username' => 'required|string|min:2|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed'
         ];
@@ -25,7 +25,6 @@ class RegisterAccountRequest extends FormRequest
         return [
             'username.required' => 'Veuillez entrer un nom d\'utilisateur.',
             'username.string' => 'Le nom d\'utilisateur doit être une chaîne de caractères.',
-            'username.unique' => 'Ce nom d\'utilisateur est déjà utilisé.',
             'username.min' => 'Minimum 2 caractères.',
             'username.max' => 'Maximum 255 caractères.',
 

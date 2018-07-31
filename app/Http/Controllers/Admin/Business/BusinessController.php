@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Business;
 
+use App\User;
 use App\Order;
 use App\Contact;
 use App\Company;
@@ -10,7 +11,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Business\StoreBusinessRequest;
 use App\Http\Hashids\HashidsGenerator;
 use App\Http\Requests\Business\UpdateBusinessRequest;
-use App\User;
 
 class BusinessController extends Controller
 {
