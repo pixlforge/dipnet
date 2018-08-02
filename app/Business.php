@@ -13,6 +13,11 @@ class Business extends Model
 
     protected $casts = ['company_id' => 'integer'];
 
+    public function getRouteKeyName()
+    {
+        return 'reference';
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

@@ -161,7 +161,10 @@ export default {
     },
     users: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     },
     orders: {
       type: Array,

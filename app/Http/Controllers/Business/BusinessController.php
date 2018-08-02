@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Business;
 
 use App\Order;
 use App\Comment;
-use App\Company;
 use App\Contact;
 use App\Business;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Business\StoreBusinessRequest;
+use App\Http\Hashids\HashidsGenerator;
 use App\Http\Requests\Business\UpdateBusinessRequest;
+use App\Http\Requests\Business\StoreUserBusinessRequest;
 
 class BusinessController extends Controller
 {
@@ -24,56 +24,51 @@ class BusinessController extends Controller
         $contacts = collect();
         $orders = collect();
 
-        if (auth()->user()->isAdmin()) {
-            $companies = Company::orderBy('name')->get();
-            $contacts = Contact::orderBy('name')->get();
-        } elseif (auth()->user()->isNotSolo()) {
+        if (auth()->user()->isPartOfACompany()) {
             $businessIds = [];
             foreach (auth()->user()->company->business as $business) {
                 array_push($businessIds, $business->id);
             }
             $orders = Order::whereIn('business_id', $businessIds)->get();
-
-            $contacts = Contact::where('company_id', auth()->user()->company->id)
-                ->orderBy('name')
-                ->get();
+            $contacts = Contact::where('company_id', auth()->user()->company->id)->orderBy('name')->get();
         } elseif (auth()->user()->isSolo()) {
-            $contacts = Contact::where('user_id', auth()->id())
-                ->orderBy('name')
-                ->get();
+            // $contacts = Contact::where('user_id', auth()->id())->orderBy('name')->get();
         }
 
-        return view('businesses.index', [
-            'companies' => $companies,
-            'contacts' => $contacts,
-            'orders' => $orders
-        ]);
+        return view('businesses.index', compact('businesses', 'contacts', 'companies', 'orders'));
     }
 
-    public function store(StoreBusinessRequest $request)
+    public function store(StoreUserBusinessRequest $request)
     {
         $business = new Business;
         $business->name = $request->name;
         $business->description = $request->description;
-        $business->user_id = auth()->id();
-        $business->company_id = $request->company_id;
-        $business->contact_id = $request->contact_id;
 
-        if ($request->reference) {
-            $business->reference = $request->reference;
-        } else {
-            $business->reference = date('Ymd') . '-' . substr(str_slug(auth()->user()->company->name), 0, 8) . '-bus-' . str_random(5);
+        if (auth()->user()->isPartOfACompany()) {
+            $business->user_id = null;
+            $business->company_id = auth()->user()->company->id;
+        } elseif (auth()->user()->isSolo()) {
+            $business->user_id = auth()->id();
+            $business->company_id = null;
         }
 
-        if ($request->folder_color) {
+        $business->contact_id = $request->contact_id;
+
+        if ($request->has('folder_color')) {
             $business->folder_color = $request->folder_color;
         } else {
             $business->folder_color = array_random(['red', 'orange', 'purple', 'blue']);
         }
-
         $business->save();
-
-        $business = $business->with('company', 'contact')->find($business->id);
+        
+        $business->reference = HashidsGenerator::generateFor($business->id, 'businesses');
+        $business->save();
+    
+        if (auth()->user()->isPartOfACompany()) {
+            $business = $business->with('company', 'contact')->find($business->id);
+        } elseif (auth()->user()->isSolo()) {
+            $business = $business->with('contact')->find($business->id);
+        }
 
         return response($business, 200);
     }
@@ -82,59 +77,37 @@ class BusinessController extends Controller
     {
         $this->authorize('view', $business);
 
-        if (auth()->user()->isAdmin()) {
-            $contacts = Contact::orderBy('name')
-                ->latest()
-                ->get();
-        } elseif (auth()->user()->isNotAdmin() && auth()->user()->isNotSolo()) {
-            $contacts = Contact::where('company_id', auth()->user()->company_id)
-                ->orderBy('name')
-                ->latest()
-                ->get();
-        } else {
-            $contacts = Contact::where('user_id', auth()->id())
-                ->orderBy('name')
-                ->latest()
-                ->get();
+        if (auth()->user()->isPartOfACompany()) {
+            $contacts = Contact::where('company_id', auth()->user()->company_id)->orderBy('name')->latest()->get();
+        } elseif (auth()->user()->isSolo()) {
+            $contacts = Contact::where('user_id', auth()->id())->orderBy('name')->latest()->get();
         }
 
-        $orders = Order::with('user')
-            ->where('business_id', $business->id)
-            ->latest()
-            ->get();
+        $orders = Order::with('user')->where('business_id', $business->id)->latest()->get();
+        $comments = Comment::with('user', 'user.avatar')->where('business_id', $business->id)->latest()->get();
 
-        $comments = Comment::with('user', 'user.avatar')
-            ->where('business_id', $business->id)
-            ->latest()
-            ->get();
-
-        return view('businesses.show', [
-            'business' => $business,
-            'contacts' => $contacts,
-            'orders' => $orders,
-            'comments' => $comments
-        ]);
+        return view('businesses.show', compact('business', 'contacts', 'orders', 'comments'));
     }
 
-    public function update(UpdateBusinessRequest $request, Business $business)
-    {
-        $business->name = $request->name;
-        $business->reference = $request->reference;
-        $business->description = $request->description;
-        $business->company_id = $request->company_id;
-        $business->contact_id = $request->contact_id;
-        $business->folder_color = $request->folder_color;
-        $business->save();
+    // public function update(UpdateBusinessRequest $request, Business $business)
+    // {
+    //     $business->name = $request->name;
+    //     $business->reference = $request->reference;
+    //     $business->description = $request->description;
+    //     $business->company_id = $request->company_id;
+    //     $business->contact_id = $request->contact_id;
+    //     $business->folder_color = $request->folder_color;
+    //     $business->save();
 
-        return response($business, 200);
-    }
+    //     return response($business, 200);
+    // }
 
-    public function destroy(Business $business)
-    {
-        $this->authorize('delete', $business);
+    // public function destroy(Business $business)
+    // {
+    //     $this->authorize('delete', $business);
 
-        $business->delete();
+    //     $business->delete();
 
-        return response(null, 204);
-    }
+    //     return response(null, 204);
+    // }
 }

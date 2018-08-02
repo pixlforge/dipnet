@@ -35,7 +35,7 @@ class CommentTest extends TestCase
 
         $this->assertCount(0, $business->comments);
 
-        $this->postJson(route('comments.store', $business->id), [
+        $this->postJson(route('comments.store', $business), [
             'body' => 'Some people have an ability to write placeholder text... It\'s an art you\'re basically born with. You either have it or you don\'t.'
         ])->assertStatus(200);
 
@@ -87,7 +87,7 @@ class CommentTest extends TestCase
         ]);
         $this->signIn($user);
 
-        $this->postJson(route('comments.store', $business->id), [
+        $this->postJson(route('comments.store', $business), [
             'body' => 'Some people have an ability to write placeholder text... It\'s an art you\'re basically born with. You either have it or you don\'t.'
         ])->assertStatus(403);
 

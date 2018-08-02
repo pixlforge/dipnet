@@ -187,6 +187,7 @@ class DefaultBusinessTest extends TestCase
         $business = Business::first();
         
         $this->assertTrue($company->hasDefaultBusiness());
+        $this->assertEquals($company->id, $business->company_id);
         $this->assertEquals($business->id, $company->business_id);
     }
 

@@ -8,9 +8,9 @@ use App\Contact;
 use App\Company;
 use App\Business;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Business\StoreBusinessRequest;
 use App\Http\Hashids\HashidsGenerator;
-use App\Http\Requests\Business\UpdateBusinessRequest;
+use App\Http\Requests\Business\StoreAdminBusinessRequest;
+use App\Http\Requests\Business\UpdateAdminBusinessRequest;
 
 class BusinessController extends Controller
 {
@@ -29,7 +29,7 @@ class BusinessController extends Controller
         return view('admin.businesses.index', compact('companies', 'contacts', 'orders', 'users'));
     }
 
-    public function store(StoreBusinessRequest $request)
+    public function store(StoreAdminBusinessRequest $request)
     {
         $business = new Business;
         $business->name = $request->name;
@@ -55,7 +55,7 @@ class BusinessController extends Controller
         return response($business, 200);
     }
 
-    public function update(UpdateBusinessRequest $request, Business $business)
+    public function update(UpdateAdminBusinessRequest $request, Business $business)
     {
         $business->name = $request->name;
         $business->description = $request->description;

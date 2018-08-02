@@ -7,6 +7,7 @@ use App\Business;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Business\StoreCompanyDefaultBusinessRequest;
 use App\Http\Requests\Business\UpdateCompanyDefaultBusinessRequest;
+use App\Http\Hashids\HashidsGenerator;
 
 class CompanyDefaultBusinessController extends Controller
 {
@@ -23,6 +24,10 @@ class CompanyDefaultBusinessController extends Controller
         $business->name = $request->name;
         $business->description = $request->description;
         $business->contact_id = $request->contact_id;
+        $business->company()->associate($company);
+        $business->save();
+
+        $business->reference = HashidsGenerator::generateFor($business->id, 'businesses');
         $business->save();
 
         $company->defaultBusiness()->associate($business);

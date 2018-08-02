@@ -141,7 +141,10 @@ export default {
     },
     users: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     }
   },
   data() {
@@ -183,6 +186,13 @@ export default {
     },
     userIsAdmin() {
       return this.user.role === "administrateur";
+    },
+    endpoint() {
+      if (this.userIsAdmin) {
+        return "admin.businesses.update";
+      } else {
+        return "businesses.update";
+      }
     }
   },
   mounted() {
@@ -202,7 +212,7 @@ export default {
       this.toggleLoader();
       try {
         let res = await window.axios.patch(
-          window.route("admin.businesses.update", [this.business.id]),
+          window.route(this.endpoint, [this.business.id]),
           this.currentBusiness
         );
         this.$emit("business:updated", res.data);

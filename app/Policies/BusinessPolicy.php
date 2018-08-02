@@ -10,13 +10,6 @@ class BusinessPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * User has permission to view every Business.
-     *
-     * @param User $user
-     * @param Business $business
-     * @return mixed
-     */
     public function view(User $user, Business $business)
     {
         if ($user->isNotSolo()) {
@@ -26,11 +19,6 @@ class BusinessPolicy
         }
     }
 
-    /**
-     * User has permission to delete the Business.
-     *
-     * @return mixed
-     */
     public function delete()
     {
         return auth()->user()->isAdmin();

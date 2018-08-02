@@ -179,6 +179,13 @@ export default {
     },
     userIsAdmin() {
       return this.user.role === "administrateur";
+    },
+    endpoint() {
+      if (this.userIsAdmin) {
+        return "admin.businesses.store";
+      } else {
+        return "businesses.store";
+      }
     }
   },
   mounted() {
@@ -201,7 +208,7 @@ export default {
       }
       try {
         let res = await window.axios.post(
-          window.route("admin.businesses.store"),
+          window.route(this.endpoint),
           this.business
         );
         this.$emit("business:created", res.data);

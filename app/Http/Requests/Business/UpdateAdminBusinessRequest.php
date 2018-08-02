@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Business;
 
-class UpdateBusinessRequest extends StoreBusinessRequest
+class UpdateAdminBusinessRequest extends StoreAdminBusinessRequest
 {
     public function authorize()
     {

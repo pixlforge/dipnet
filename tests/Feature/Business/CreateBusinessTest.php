@@ -7,6 +7,7 @@ use App\Company;
 use App\Business;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Contact;
 
 class CreateBusinessTest extends TestCase
 {
@@ -57,7 +58,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function users_cannot_create_new_businesses()
+    public function users_cannot_create_new_businesses_in_the_admin_panel()
     {
         $this->withExceptionHandling();
 
@@ -79,7 +80,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function guests_cannot_create_new_businesses()
+    public function guests_cannot_create_new_businesses_in_the_admin_panel()
     {
         $this->withExceptionHandling();
 
@@ -95,6 +96,79 @@ class CreateBusinessTest extends TestCase
             'company_id' => $company->id,
         ]);
         $response->assertRedirect(route('login'));
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
+    public function users_associated_with_a_company_can_create_businesses_for_their_company()
+    {
+        $this->withoutExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => "Fête de l'Hiver",
+            'description' => 'Lorem ipsum dolor sit amet',
+            'contact_id' => $contact->id,
+            'folder_color' => 'blue',
+        ]);
+        $response->assertOk();
+        $this->assertCount(1, Business::all());
+        $business = Business::first();
+        $this->assertEquals($company->id, $business->company_id);
+        $this->assertNull($business->user_id);
+    }
+
+    /** @test */
+    public function solo_users_can_create_businesses_associated_with_themselves()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $contact = factory(Contact::class)->create(['user_id' => $user->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertTrue($user->isSolo());
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => "Fête de l'Hiver",
+            'description' => 'Lorem ipsum dolor sit amet',
+            'contact_id' => $contact->id,
+            'folder_color' => 'blue',
+        ]);
+        $response->assertOk();
+        $this->assertCount(1, Business::all());
+        $business = Business::first();
+        $this->assertEquals($user->id, $business->user_id);
+        $this->assertNull($business->company_id);
+    }
+
+    /** @test */
+    public function guests_cannot_create_new_businesses()
+    {
+        $this->withExceptionHandling();
+
+        $this->assertGuest();
+
+        $contact = factory(Contact::class)->create();
+
+        $this->assertCount(0, Business::all());
+        
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => "Fête de l'Hiver",
+            'description' => 'Lorem ipsum dolor sit amet',
+            'contact_id' => $contact->id,
+            'folder_color' => 'blue',
+        ]);
+        $response->assertStatus(401);
         $this->assertCount(0, Business::all());
     }
 

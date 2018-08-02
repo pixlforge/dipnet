@@ -198,11 +198,10 @@ Route::prefix('/compte')->namespace('Account')->name('account.')->group(function
  */
 Route::prefix('/affaires')->namespace('Business')->name('businesses.')->group(function () {
     Route::get('/', 'BusinessController@index')->name('index');
-    Route::get('/creer', 'BusinessController@create')->name('create');
     Route::post('/', 'BusinessController@store')->name('store');
-    Route::get('/{business}/voir', 'BusinessController@show')->name('show');
-    Route::put('/{business}', 'BusinessController@update')->name('update');
-    Route::delete('/{business}', 'BusinessController@destroy')->name('destroy');
+    Route::get('/{business}/details', 'BusinessController@show')->name('show');
+    // Route::patch('/{business}', 'BusinessController@update')->name('update');
+    // Route::delete('/{business}', 'BusinessController@destroy')->name('destroy');
 });
 
 /**

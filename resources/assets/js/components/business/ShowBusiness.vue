@@ -2,17 +2,14 @@
   <div>
     <div class="header__container">
       <h1 class="header__title">{{ business.name }}</h1>
-      <EditBusiness
-        :business="business"
-        :contacts="contacts"
-        :user="user">
-        <button
-          role="button"
-          class="btn btn--red">
-          <i class="fal fa-pencil"/>
-          Modifier
-        </button>
-      </EditBusiness>
+
+      <button
+        role="button"
+        class="btn btn--red"
+        @click.prevent="openEditPanel">
+        <i class="fal fa-edit"/>
+        Mettre à jour
+      </button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -41,6 +38,28 @@
       </div>
     </div>
 
+    <!-- <EditBusiness
+      :business="business"
+      :contacts="contacts"
+      :user="user"/> -->
+
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click.prevent="closePanels"/>
+    </transition>
+
+    <transition name="slide">
+      <EditBusiness
+        v-if="showEditPanel"
+        :business="business"
+        :contacts="contacts"
+        :user="user"
+        @business:updated="updateBusiness"
+        @edit-business:close="closePanels"/>
+    </transition>
+
     <MoonLoader
       :loading="loaderState"
       :color="loader.color"
@@ -55,6 +74,7 @@ import Comments from "../comment/Comments";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
 import { mapGetters } from "vuex";
+import { loader, modal, panels } from "../../mixins";
 
 export default {
   components: {
@@ -63,6 +83,7 @@ export default {
     Comments,
     MoonLoader
   },
+  mixins: [loader, modal, panels],
   props: {
     business: {
       type: Object,
@@ -95,6 +116,16 @@ export default {
   },
   computed: {
     ...mapGetters(["loaderState"])
+  },
+  methods: {
+    updateBusiness(data) {
+      this.business = data;
+      window.flash({
+        message:
+          "Les modifications apportées à l'affaire ont été enregistrées.",
+        level: "success"
+      });
+    }
   }
 };
 </script>

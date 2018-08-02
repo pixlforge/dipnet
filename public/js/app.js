@@ -33012,6 +33012,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     userIsAdmin() {
       return this.user.role === "administrateur";
+    },
+    endpoint() {
+      if (this.userIsAdmin) {
+        return "admin.businesses.store";
+      } else {
+        return "businesses.store";
+      }
     }
   },
   mounted() {
@@ -33035,7 +33042,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           _this.business.company_id = _this.user.company.id;
         }
         try {
-          let res = yield window.axios.post(window.route("admin.businesses.store"), _this.business);
+          let res = yield window.axios.post(window.route(_this.endpoint), _this.business);
           _this.$emit("business:created", res.data);
           _this.$emit("add-business:close");
           _this.toggleLoader();
@@ -33346,7 +33353,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     users: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     },
     orders: {
       type: Array,
@@ -33577,7 +33587,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     users: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     }
   },
   data() {
@@ -33614,6 +33627,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     userIsAdmin() {
       return this.user.role === "administrateur";
+    },
+    endpoint() {
+      if (this.userIsAdmin) {
+        return "admin.businesses.update";
+      } else {
+        return "businesses.update";
+      }
     }
   },
   mounted() {
@@ -33634,7 +33654,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       return _asyncToGenerator(function* () {
         _this.toggleLoader();
         try {
-          let res = yield window.axios.patch(window.route("admin.businesses.update", [_this.business.id]), _this.currentBusiness);
+          let res = yield window.axios.patch(window.route(_this.endpoint, [_this.business.id]), _this.currentBusiness);
           _this.$emit("business:updated", res.data);
           _this.$emit("edit-business:close");
           _this.toggleLoader();
@@ -33662,6 +33682,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -33714,6 +33735,26 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -33729,6 +33770,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     Comments: __WEBPACK_IMPORTED_MODULE_2__comment_Comments___default.a,
     MoonLoader: __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a
   },
+  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_5__mixins__["b" /* modal */], __WEBPACK_IMPORTED_MODULE_5__mixins__["c" /* panels */]],
   props: {
     business: {
       type: Object,
@@ -33759,7 +33801,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       required: true
     }
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(["loaderState"]))
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(["loaderState"])),
+  methods: {
+    updateBusiness(data) {
+      this.business = data;
+      window.flash({
+        message: "Les modifications apportées à l'affaire ont été enregistrées.",
+        level: "success"
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -33824,11 +33875,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       } else {
         return `${count} commandes`;
       }
-    }
-  },
-  methods: {
-    showBusiness() {
-      window.location = window.route("businesses.show", [this.business.id]);
+    },
+    routeShowBusiness() {
+      return window.route("businesses.show", [this.business.reference]);
     }
   }
 });
@@ -34471,7 +34520,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
             window.location = window.route("orders.create.start");
           }, 1000);
         } catch (err) {
-          // this.errors = err.response.data.errors;
+          _this.errors = err.response.data.errors;
           _this.toggleLoader();
         }
       })();
@@ -74497,20 +74546,20 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__container"
   }, [_c('h1', {
     staticClass: "header__title"
-  }, [_vm._v(_vm._s(_vm.business.name))]), _vm._v(" "), _c('EditBusiness', {
-    attrs: {
-      "business": _vm.business,
-      "contacts": _vm.contacts,
-      "user": _vm.user
-    }
-  }, [_c('button', {
+  }, [_vm._v(_vm._s(_vm.business.name))]), _vm._v(" "), _c('button', {
     staticClass: "btn btn--red",
     attrs: {
       "role": "button"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.openEditPanel($event)
+      }
     }
   }, [_c('i', {
-    staticClass: "fal fa-pencil"
-  }), _vm._v("\n        Modifier\n      ")])])], 1), _vm._v(" "), _c('div', {
+    staticClass: "fal fa-edit"
+  }), _vm._v("\n      Mettre à jour\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [_c('div', {
     staticClass: "business__container"
@@ -74537,7 +74586,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "comments": _vm.comments,
       "user": _vm.user
     }
-  })], 1)])]), _vm._v(" "), _c('MoonLoader', {
+  })], 1)])]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal__background",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.closePanels($event)
+      }
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "slide"
+    }
+  }, [(_vm.showEditPanel) ? _c('EditBusiness', {
+    attrs: {
+      "business": _vm.business,
+      "contacts": _vm.contacts,
+      "user": _vm.user
+    },
+    on: {
+      "business:updated": _vm.updateBusiness,
+      "edit-business:close": _vm.closePanels
+    }
+  }) : _vm._e()], 1), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -76894,12 +76969,12 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "user-business__card",
-    on: {
-      "click": _vm.showBusiness
+    staticClass: "user-business__card"
+  }, [_c('a', {
+    staticClass: "user-business__card-content",
+    attrs: {
+      "href": _vm.routeShowBusiness
     }
-  }, [_c('div', {
-    staticClass: "user-business__card-content"
   }, [_c('img', {
     staticClass: "user-business__img",
     attrs: {

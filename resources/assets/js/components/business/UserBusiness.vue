@@ -1,15 +1,15 @@
 <template>
-  <div
-    class="user-business__card"
-    @click="showBusiness">
-    <div class="user-business__card-content">
+  <div class="user-business__card">
+    <a
+      :href="routeShowBusiness"
+      class="user-business__card-content">
       <img
         :src="iconColor"
         :alt="iconAlt"
         class="user-business__img">
       <h2 class="user-business__title">{{ business.name }}</h2>
       <p class="user-business__orders">{{ userOrders }}</p>
-    </div>
+    </a>
   </div>
 </template>
 
@@ -54,11 +54,9 @@ export default {
       } else {
         return `${count} commandes`;
       }
-    }
-  },
-  methods: {
-    showBusiness() {
-      window.location = window.route("businesses.show", [this.business.id]);
+    },
+    routeShowBusiness() {
+      return window.route("businesses.show", [this.business.reference]);
     }
   }
 };
