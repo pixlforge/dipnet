@@ -28,11 +28,6 @@ class Business extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function defaultForCompany()
-    {
-        return $this->belongsTo(Company::class, 'business_id', 'id');
-    }
-
     public function order()
     {
         return $this->hasMany(Order::class);

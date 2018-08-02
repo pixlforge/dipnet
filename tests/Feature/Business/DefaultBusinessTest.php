@@ -248,4 +248,213 @@ class DefaultBusinessTest extends TestCase
         $this->assertFalse($company->hasDefaultBusiness());
         $this->assertNull($business);
     }
+
+    /** @test */
+    public function new_default_business_creation_validation_fails_if_name_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+        $this->assertFalse($company->hasDefaultBusiness());
+        
+        $response = $this->postJson(route('companies.default.business.store', $company), [
+            'name' => '',
+            'description' => 'Lorem ipsum dolor sit amet',
+            'contact_id' => $contact->id,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
+        $this->assertCount(0, Business::all());
+        
+        $company = $company->fresh();
+        $business = Business::first();
+        
+        $this->assertFalse($company->hasDefaultBusiness());
+        $this->assertNull($business);
+    }
+
+    /** @test */
+    public function new_default_business_creation_validation_fails_if_name_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+        $this->assertFalse($company->hasDefaultBusiness());
+        
+        $response = $this->postJson(route('companies.default.business.store', $company), [
+            'name' => 123,
+            'description' => 'Lorem ipsum dolor sit amet',
+            'contact_id' => $contact->id,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
+        $this->assertCount(0, Business::all());
+        
+        $company = $company->fresh();
+        $business = Business::first();
+        
+        $this->assertFalse($company->hasDefaultBusiness());
+        $this->assertNull($business);
+    }
+
+    /** @test */
+    public function new_default_business_creation_validation_fails_if_name_is_too_short()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+        $this->assertFalse($company->hasDefaultBusiness());
+        
+        $response = $this->postJson(route('companies.default.business.store', $company), [
+            'name' => str_repeat('a', 2),
+            'description' => 'Lorem ipsum dolor sit amet',
+            'contact_id' => $contact->id,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
+        $this->assertCount(0, Business::all());
+        
+        $company = $company->fresh();
+        $business = Business::first();
+        
+        $this->assertFalse($company->hasDefaultBusiness());
+        $this->assertNull($business);
+    }
+
+    /** @test */
+    public function new_default_business_creation_validation_fails_if_name_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+        $this->assertFalse($company->hasDefaultBusiness());
+        
+        $response = $this->postJson(route('companies.default.business.store', $company), [
+            'name' => str_repeat('a', 46),
+            'description' => 'Lorem ipsum dolor sit amet',
+            'contact_id' => $contact->id,
+        ]);
+
+        $response->assertJsonValidationErrors('name');
+        $this->assertCount(0, Business::all());
+        
+        $company = $company->fresh();
+        $business = Business::first();
+        
+        $this->assertFalse($company->hasDefaultBusiness());
+        $this->assertNull($business);
+    }
+
+    /** @test */
+    public function new_default_business_creation_validation_fails_if_description_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+        $this->assertFalse($company->hasDefaultBusiness());
+        
+        $response = $this->postJson(route('companies.default.business.store', $company), [
+            'name' => "Fête de l'Hiver",
+            'description' => 123,
+            'contact_id' => $contact->id,
+        ]);
+
+        $response->assertJsonValidationErrors('description');
+        $this->assertCount(0, Business::all());
+        
+        $company = $company->fresh();
+        $business = Business::first();
+        
+        $this->assertFalse($company->hasDefaultBusiness());
+        $this->assertNull($business);
+    }
+
+    /** @test */
+    public function new_default_business_creation_validation_fails_if_description_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+        $this->assertFalse($company->hasDefaultBusiness());
+        
+        $response = $this->postJson(route('companies.default.business.store', $company), [
+            'name' => "Fête de l'Hiver",
+            'description' => str_repeat('a', 46),
+            'contact_id' => $contact->id,
+        ]);
+
+        $response->assertJsonValidationErrors('description');
+        $this->assertCount(0, Business::all());
+        
+        $company = $company->fresh();
+        $business = Business::first();
+        
+        $this->assertFalse($company->hasDefaultBusiness());
+        $this->assertNull($business);
+    }
+
+    /** @test */
+    public function new_default_business_creation_validation_fails_if_contact_does_not_exist()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+        $this->assertFalse($company->hasDefaultBusiness());
+        
+        $response = $this->postJson(route('companies.default.business.store', $company), [
+            'name' => "Fête de l'Hiver",
+            'description' => 'Lorem ipsum dolor sit amet',
+            'contact_id' => 999,
+        ]);
+
+        $response->assertJsonValidationErrors('contact_id');
+        $this->assertCount(0, Business::all());
+        
+        $company = $company->fresh();
+        $business = Business::first();
+        
+        $this->assertFalse($company->hasDefaultBusiness());
+        $this->assertNull($business);
+    }
 }
