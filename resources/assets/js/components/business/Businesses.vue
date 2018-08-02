@@ -17,12 +17,6 @@
         </AppSelect>
       </div>
 
-      <!-- <AddBusiness
-        :companies="companies"
-        :contacts="contacts"
-        :user="user"
-        :users="users"
-        @business:created="addBusiness"/> -->
       <button
         role="button"
         class="btn btn--red-large"

@@ -25,9 +25,14 @@ class Company extends Model
         return 'slug';
     }
 
+    public function hasDefaultBusiness()
+    {
+        return $this->business_id !== null;
+    }
+
     public function hasNoDefaultBusiness()
     {
-        return $this->business_id === null;
+        return !$this->hasDefaultBusiness();
     }
 
     public function business()
@@ -37,10 +42,10 @@ class Company extends Model
 
     public function defaultBusiness()
     {
-        return $this->hasOne(Business::class, 'id', 'business_id');
+        return $this->belongsTo(Business::class, 'business_id');
     }
 
-    public function contact()
+    public function contacts()
     {
         return $this->hasMany(Contact::class);
     }

@@ -113,14 +113,12 @@ import ModalInput from "../forms/ModalInput";
 import ModalSelect from "../forms/ModalSelect";
 
 import { mapActions } from "vuex";
-import { modal } from "../../mixins";
 
 export default {
   components: {
     ModalInput,
     ModalSelect
   },
-  mixins: [modal],
   props: {
     companies: {
       type: Array,
@@ -196,25 +194,23 @@ export default {
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    addBusiness() {
+    async addBusiness() {
       this.toggleLoader();
       if (!this.userIsAdmin) {
         this.business.company_id = this.user.company.id;
       }
-      window.axios
-        .post(window.route("admin.businesses.store"), this.business)
-        .then(res => {
-          this.business = res.data;
-          this.$emit("business:created", this.business);
-          this.toggleLoader();
-          this.toggleModal();
-          this.business = {};
-          this.errors = {};
-        })
-        .catch(err => {
-          this.errors = err.response.data.errors;
-          this.toggleLoader();
-        });
+      try {
+        let res = await window.axios.post(
+          window.route("admin.businesses.store"),
+          this.business
+        );
+        this.$emit("business:created", res.data);
+        this.$emit("add-business:close");
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };

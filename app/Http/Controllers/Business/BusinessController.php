@@ -73,14 +73,6 @@ class BusinessController extends Controller
 
         $business->save();
 
-        // if ($request->has('setDefault') && auth()->user()->isNotSolo()) {
-        //     $company = Company::find($request->company_id);
-        //     $company->business_id = $business->id;
-        //     $company->save();
-        // }
-
-        // $this->setCompanyDefaultBusiness($business);
-
         $business = $business->with('company', 'contact')->find($business->id);
 
         return response($business, 200);
@@ -144,16 +136,5 @@ class BusinessController extends Controller
         $business->delete();
 
         return response(null, 204);
-    }
-
-    protected function setCompanyDefaultBusiness($business)
-    {
-        if (auth()->user()->isNotAdmin() && auth()->user()->isPartOfACompany()) {
-            if (auth()->user()->company->hasNoDefaultBusiness()) {
-                $company = Company::where('id', auth()->user()->company->id)->firstOrFail();
-                $company->business_id = $business->id;
-                $company->save();
-            }
-        }
     }
 }

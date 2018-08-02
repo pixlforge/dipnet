@@ -18,7 +18,7 @@ class CompanyHasDefaultBusiness
         if (auth()->user()->isNotAdmin() &&
             auth()->user()->companyHasNoDefaultBusiness() &&
             auth()->user()->isNotSolo()) {
-            return redirect(route('businesses.create'));
+            return redirect(route('companies.default.business.edit'));
         }
 
         return $next($request);

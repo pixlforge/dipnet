@@ -216,11 +216,16 @@ Route::prefix('/commentaires')->namespace('Comment')->name('comments.')->group(f
  * Company
  */
 Route::prefix('/societes')->namespace('Company')->name('companies.')->group(function () {
-//     Route::get('/', 'CompanyController@index')->name('index');
-//     Route::post('/', 'CompanyController@store')->name('store');
     Route::get('/{company}', 'CompanyController@show')->name('show');
-//     Route::put('/{company}', 'CompanyController@update')->name('update');
-//     Route::delete('/{company}', 'CompanyController@destroy')->name('destroy');
+
+    /**
+     * Default Business
+     */
+    Route::prefix('/parametres/affaire')->name('default.business.')->group(function () {
+        Route::post('/{company}', 'CompanyDefaultBusinessController@store')->name('store');
+        Route::get('/par-defaut', 'CompanyDefaultBusinessController@edit')->name('edit');
+        Route::patch('/{company}', 'CompanyDefaultBusinessController@update')->name('update');
+    });
 });
 
 /**

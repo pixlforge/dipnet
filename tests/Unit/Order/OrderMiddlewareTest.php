@@ -129,7 +129,7 @@ class OrderMiddlewareTest extends TestCase
         $this->assertCount(0, Order::all());
         
         $response = $this->get(route('orders.create.start'));
-        $response->assertRedirect(route('businesses.create'));
+        $response->assertRedirect(route('companies.default.business.edit'));
         $this->assertCount(0, Order::all());
     }
 
