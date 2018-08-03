@@ -2,9 +2,6 @@
 
 namespace App\Providers;
 
-use App\Admin;
-use App\User;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -17,6 +14,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'App\Admin' => 'App\Policies\AdminPolicy',
         'App\Format' => 'App\Policies\FormatPolicy',
+        'App\Comment' => 'App\Policies\CommentPolicy',
         'App\Company' => 'App\Policies\CompanyPolicy',
         'App\Business' => 'App\Policies\BusinessPolicy',
         'App\Article' => 'App\Policies\ArticlePolicy',

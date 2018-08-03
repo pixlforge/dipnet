@@ -14,11 +14,9 @@ class CommentController extends Controller
         $this->middleware('auth');
     }
 
-    public function store(Business $business, StoreCommentRequest $request)
+    public function store(StoreCommentRequest $request, Business $business)
     {
-        if (auth()->user()->company_id !== $business->company_id) {
-            abort(403);
-        }
+        $this->authorize('comment', $business);
 
         $comment = new Comment;
         $comment->body = $request->body;
