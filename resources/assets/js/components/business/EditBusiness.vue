@@ -212,14 +212,14 @@ export default {
       this.toggleLoader();
       try {
         let res = await window.axios.patch(
-          window.route(this.endpoint, [this.business.id]),
+          window.route(this.endpoint, [this.business.reference]),
           this.currentBusiness
         );
         this.$emit("business:updated", res.data);
         this.$emit("edit-business:close");
         this.toggleLoader();
       } catch (err) {
-        this.errors = err.response.data;
+        this.errors = err.response.data.errors;
         this.toggleLoader();
       }
     }

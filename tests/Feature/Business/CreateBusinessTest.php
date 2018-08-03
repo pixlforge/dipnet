@@ -173,7 +173,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_name_is_missing()
+    public function admin_business_creation_validation_fails_if_name_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -195,7 +195,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_name_is_not_a_string()
+    public function admin_business_creation_validation_fails_if_name_is_not_a_string()
     {
         $this->withExceptionHandling();
 
@@ -217,7 +217,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_name_is_too_short()
+    public function admin_business_creation_validation_fails_if_name_is_too_short()
     {
         $this->withExceptionHandling();
 
@@ -239,7 +239,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_name_is_too_long()
+    public function admin_business_creation_validation_fails_if_name_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -261,7 +261,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_description_is_not_a_string()
+    public function admin_business_creation_validation_fails_if_description_is_not_a_string()
     {
         $this->withExceptionHandling();
 
@@ -283,7 +283,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_description_is_too_long()
+    public function admin_business_creation_validation_fails_if_description_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -305,7 +305,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_user_is_missing_when_company_is_also_missing()
+    public function admin_business_creation_validation_fails_if_user_is_missing_when_company_is_also_missing()
     {
         $this->withExceptionHandling();
 
@@ -326,7 +326,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_user_does_not_exist()
+    public function admin_business_creation_validation_fails_if_user_does_not_exist()
     {
         $this->withExceptionHandling();
 
@@ -348,7 +348,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_company_is_missing_when_user_is_also_missing()
+    public function admin_business_creation_validation_fails_if_company_is_missing_when_user_is_also_missing()
     {
         $this->withExceptionHandling();
 
@@ -369,7 +369,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_company_does_not_exist()
+    public function admin_business_creation_validation_fails_if_company_does_not_exist()
     {
         $this->withExceptionHandling();
 
@@ -391,7 +391,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_contact_does_not_exist()
+    public function admin_business_creation_validation_fails_if_contact_does_not_exist()
     {
         $this->withExceptionHandling();
 
@@ -413,7 +413,7 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function business_creation_validation_fails_if_folder_color_is_invalid()
+    public function admin_business_creation_validation_fails_if_folder_color_is_invalid()
     {
         $this->withExceptionHandling();
 
@@ -429,6 +429,189 @@ class CreateBusinessTest extends TestCase
             'name' => 'Fête Nationale',
             'description' => 'Lorem ipsum dolor sit amet.',
             'folder_color' => 'something-wrong',
+        ]);
+        $response->assertJsonValidationErrors('folder_color');
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
+    public function user_business_creation_validation_fails_if_name_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => '',
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'contact_id' => $contact->id,
+            'folder_color' => 'red',
+        ]);
+        $response->assertJsonValidationErrors('name');
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
+    public function user_business_creation_validation_fails_if_name_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => 123,
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'contact_id' => $contact->id,
+            'folder_color' => 'red',
+        ]);
+        $response->assertJsonValidationErrors('name');
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
+    public function user_business_creation_validation_fails_if_name_is_too_short()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => str_repeat('a', 2),
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'contact_id' => $contact->id,
+            'folder_color' => 'red',
+        ]);
+        $response->assertJsonValidationErrors('name');
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
+    public function user_business_creation_validation_fails_if_name_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => str_repeat('a', 46),
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'contact_id' => $contact->id,
+            'folder_color' => 'red',
+        ]);
+        $response->assertJsonValidationErrors('name');
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
+    public function user_business_creation_validation_fails_if_description_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => "Fête de l'Hiver",
+            'description' => 123,
+            'contact_id' => $contact->id,
+            'folder_color' => 'red',
+        ]);
+        $response->assertJsonValidationErrors('description');
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
+    public function user_business_creation_validation_fails_if_description_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => "Fête de l'Hiver",
+            'description' => str_repeat('a', 46),
+            'contact_id' => $contact->id,
+            'folder_color' => 'red',
+        ]);
+        $response->assertJsonValidationErrors('description');
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
+    public function user_business_creation_validation_fails_if_contact_is_invalid()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => "Fête de l'Hiver",
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'contact_id' => 999,
+            'folder_color' => 'red',
+        ]);
+        $response->assertJsonValidationErrors('contact_id');
+        $this->assertCount(0, Business::all());
+    }
+    
+    /** @test */
+    public function user_business_creation_validation_fails_if_folder_color_is_invalid()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => "Fête de l'Hiver",
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'contact_id' => $contact->id,
+            'folder_color' => 'invalid',
         ]);
         $response->assertJsonValidationErrors('folder_color');
         $this->assertCount(0, Business::all());

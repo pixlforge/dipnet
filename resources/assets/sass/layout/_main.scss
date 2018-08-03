@@ -30,5 +30,21 @@
       width: 40rem;
       height: auto;
     }
+
+    &--small {
+      margin: 0;
+      
+      p {
+        font-size: 1.8rem;
+        font-weight: 300;
+        text-align: center;
+        margin-top: 5rem;
+      }
+  
+      svg {
+        width: 30rem;
+        height: auto;
+      }
+    }
   }
 }

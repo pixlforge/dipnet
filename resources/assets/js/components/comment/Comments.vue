@@ -12,22 +12,28 @@
         :key="comment.id"
         :comment="comment"/>
     </transition-group>
-    <p
+    <div
       v-if="!currentComments.length"
-      class="paragraph__no-model-found paragraph__no-model-found--small">
-      Aucun commentaire n'a été posté pour le moment.
-    </p>
+      class="main__no-results main__no-results--small">
+      <p>
+        Aucun commentaire en rapport avec cette affaire n'a encore été posté pour le moment.<br>
+        Soyez le premier!
+      </p>
+      <IllustrationTakingNotes/>
+    </div>
   </div>
 </template>
 
 <script>
 import Comment from "./Comment";
 import AddComment from "./AddComment";
+import IllustrationTakingNotes from "../illustrations/IllustrationTakingNotes";
 
 export default {
   components: {
     Comment,
-    AddComment
+    AddComment,
+    IllustrationTakingNotes
   },
   props: {
     business: {

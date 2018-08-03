@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header__container">
-      <h1 class="header__title">{{ business.name }}</h1>
+      <h1 class="header__title">{{ currentBusiness.name }}</h1>
 
       <button
         role="button"
@@ -21,11 +21,12 @@
             :order="order"
             :display-user="true"
             class="card__container card__container--full"/>
-          <p
+          <div
             v-if="!orders.length"
-            class="paragraph__no-model-found paragraph__no-model-found--small">
-            Aucune commande n'a été enregistrée pour cette affaire.
-          </p>
+            class="main__no-results main__no-results--small">
+            <p>Aucune commande n'existe actuellement pour cette affaire.</p>
+            <IllustrationFileSearching/>
+          </div>
         </div>
         <div class="business__comments">
           <Comments
@@ -38,11 +39,6 @@
       </div>
     </div>
 
-    <!-- <EditBusiness
-      :business="business"
-      :contacts="contacts"
-      :user="user"/> -->
-
     <transition name="fade">
       <div
         v-if="showModal"
@@ -53,7 +49,7 @@
     <transition name="slide">
       <EditBusiness
         v-if="showEditPanel"
-        :business="business"
+        :business="currentBusiness"
         :contacts="contacts"
         :user="user"
         @business:updated="updateBusiness"
@@ -72,6 +68,7 @@ import Order from "../order/Order";
 import EditBusiness from "./EditBusiness";
 import Comments from "../comment/Comments";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import IllustrationFileSearching from "../illustrations/IllustrationFileSearching";
 
 import { mapGetters } from "vuex";
 import { loader, modal, panels } from "../../mixins";
@@ -81,7 +78,8 @@ export default {
     Order,
     EditBusiness,
     Comments,
-    MoonLoader
+    MoonLoader,
+    IllustrationFileSearching
   },
   mixins: [loader, modal, panels],
   props: {
@@ -114,12 +112,17 @@ export default {
       required: true
     }
   },
+  data() {
+    return {
+      currentBusiness: this.business
+    };
+  },
   computed: {
     ...mapGetters(["loaderState"])
   },
   methods: {
     updateBusiness(data) {
-      this.business = data;
+      this.currentBusiness = data;
       window.flash({
         message:
           "Les modifications apportées à l'affaire ont été enregistrées.",

@@ -8,8 +8,8 @@ use App\Contact;
 use App\Business;
 use App\Http\Controllers\Controller;
 use App\Http\Hashids\HashidsGenerator;
-use App\Http\Requests\Business\UpdateBusinessRequest;
 use App\Http\Requests\Business\StoreUserBusinessRequest;
+use App\Http\Requests\Business\UpdateUserBusinessRequest;
 
 class BusinessController extends Controller
 {
@@ -32,7 +32,7 @@ class BusinessController extends Controller
             $orders = Order::whereIn('business_id', $businessIds)->get();
             $contacts = Contact::where('company_id', auth()->user()->company->id)->orderBy('name')->get();
         } elseif (auth()->user()->isSolo()) {
-            // $contacts = Contact::where('user_id', auth()->id())->orderBy('name')->get();
+            $contacts = Contact::where('user_id', auth()->id())->orderBy('name')->get();
         }
 
         return view('businesses.index', compact('businesses', 'contacts', 'companies', 'orders'));
@@ -89,25 +89,16 @@ class BusinessController extends Controller
         return view('businesses.show', compact('business', 'contacts', 'orders', 'comments'));
     }
 
-    // public function update(UpdateBusinessRequest $request, Business $business)
-    // {
-    //     $business->name = $request->name;
-    //     $business->reference = $request->reference;
-    //     $business->description = $request->description;
-    //     $business->company_id = $request->company_id;
-    //     $business->contact_id = $request->contact_id;
-    //     $business->folder_color = $request->folder_color;
-    //     $business->save();
+    public function update(UpdateUserBusinessRequest $request, Business $business)
+    {
+        $this->authorize('update', $business);
+        
+        $business->name = $request->name;
+        $business->description = $request->description;
+        $business->contact_id = $request->contact_id;
+        $business->folder_color = $request->folder_color;
+        $business->save();
 
-    //     return response($business, 200);
-    // }
-
-    // public function destroy(Business $business)
-    // {
-    //     $this->authorize('delete', $business);
-
-    //     $business->delete();
-
-    //     return response(null, 204);
-    // }
+        return response($business, 200);
+    }
 }

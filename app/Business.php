@@ -11,7 +11,10 @@ class Business extends Model
 
     protected $dates = ['deleted_at'];
 
-    protected $casts = ['company_id' => 'integer'];
+    protected $casts = [
+        'company_id' => 'integer',
+        'user_id' => 'integer',
+    ];
 
     public function getRouteKeyName()
     {

@@ -42,6 +42,8 @@ class StoreAdminBusinessRequest extends FormRequest
 
             'contact_id.required' => 'Veuillez sélectionner un contact.',
             'contact_id.exists' => 'Veuillez sélectionner un contact parmi ceux proposés.',
+
+            'folder_color.exists' => 'Veuillez sélectionner une couleur parmi celles proposées.',
         ];
     }
 }
