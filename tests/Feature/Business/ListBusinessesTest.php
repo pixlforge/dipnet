@@ -77,6 +77,27 @@ class ListBusinessesTest extends TestCase
     }
 
     /** @test */
+    public function users_can_only_see_their_own_businesses()
+    {
+        $this->withoutExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $otherUser = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        factory(Business::class, 2)->create(['company_id' => $company->id]);
+        factory(Business::class, 3)->create(['user_id' => $otherUser->id]);
+
+        $this->assertCount(5, Business::all());
+
+        $response = $this->get(route('api.businesses.index'));
+        $response->assertOk();
+        $this->assertCount(2, $response->getData()->data);
+    }
+
+    /** @test */
     public function admins_can_fetch_businesses_via_the_api()
     {
         $this->withoutExceptionHandling();
