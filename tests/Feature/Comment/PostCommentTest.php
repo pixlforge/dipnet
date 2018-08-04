@@ -119,4 +119,88 @@ class PostCommentTest extends TestCase
         $response->assertStatus(401);
         $this->assertCount(0, Comment::all());
     }
+
+    /** @test */
+    public function store_comment_validation_fails_if_body_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $business = factory(Business::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Comment::all());
+
+        $response = $this->postJson(route('comments.store', $business), [
+            'body' => '',
+        ]);
+        
+        $response->assertJsonValidationErrors('body');
+        $this->assertCount(0, Comment::all());
+    }
+
+    /** @test */
+    public function store_comment_validation_fails_if_body_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $business = factory(Business::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Comment::all());
+
+        $response = $this->postJson(route('comments.store', $business), [
+            'body' => 123,
+        ]);
+        
+        $response->assertJsonValidationErrors('body');
+        $this->assertCount(0, Comment::all());
+    }
+
+    /** @test */
+    public function store_comment_validation_fails_if_body_is_too_short()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $business = factory(Business::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Comment::all());
+
+        $response = $this->postJson(route('comments.store', $business), [
+            'body' => str_repeat('a', 1),
+        ]);
+        
+        $response->assertJsonValidationErrors('body');
+        $this->assertCount(0, Comment::all());
+    }
+
+    /** @test */
+    public function store_comment_validation_fails_if_body_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $business = factory(Business::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Comment::all());
+
+        $response = $this->postJson(route('comments.store', $business), [
+            'body' => str_repeat('a', 3001),
+        ]);
+        
+        $response->assertJsonValidationErrors('body');
+        $this->assertCount(0, Comment::all());
+    }
 }

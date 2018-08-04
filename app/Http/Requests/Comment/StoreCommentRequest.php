@@ -14,7 +14,7 @@ class StoreCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'body' => 'required|min:2|max:3000'
+            'body' => 'required|string|min:2|max:3000'
         ];
     }
 
@@ -22,6 +22,7 @@ class StoreCommentRequest extends FormRequest
     {
         return [
             'body.required' => 'Un contenu est requis.',
+            'body.string' => 'Le commentaire doit être une chaîne de caractères.',
             'body.min' => 'Minimum 2 caractères.',
             'body.max' => 'Maximum 3000 caractères.',
         ];

@@ -34010,6 +34010,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
 //
 //
 //
@@ -34065,19 +34067,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     addComment() {
-      this.toggleLoader();
-      window.axios.post(window.route("comments.store", [this.business.id]), this.comment).then(res => {
-        this.toggleLoader();
-        this.$emit("comment:posted", {
-          id: res.data.id,
-          body: this.comment.body
-        });
-        this.comment.body = "";
-        this.errors = {};
-      }).catch(err => {
-        this.errors = err.response.data;
-        this.toggleLoader();
-      });
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        try {
+          let res = yield window.axios.post(window.route("comments.store", [_this.business.reference]), _this.comment);
+          _this.$emit("comment:posted", {
+            id: res.data.id,
+            body: _this.comment.body
+          });
+          _this.comment.body = "";
+          _this.errors = {};
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data.errors;
+          _this.toggleLoader();
+        }
+      })();
     }
   })
 });

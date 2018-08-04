@@ -53,23 +53,24 @@ export default {
   },
   methods: {
     ...mapActions(["toggleLoader"]),
-    addComment() {
+    async addComment() {
       this.toggleLoader();
-      window.axios
-        .post(window.route("comments.store", [this.business.id]), this.comment)
-        .then(res => {
-          this.toggleLoader();
-          this.$emit("comment:posted", {
-            id: res.data.id,
-            body: this.comment.body
-          });
-          this.comment.body = "";
-          this.errors = {};
-        })
-        .catch(err => {
-          this.errors = err.response.data;
-          this.toggleLoader();
+      try {
+        let res = await window.axios.post(
+          window.route("comments.store", [this.business.reference]),
+          this.comment
+        );
+        this.$emit("comment:posted", {
+          id: res.data.id,
+          body: this.comment.body
         });
+        this.comment.body = "";
+        this.errors = {};
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.toggleLoader();
+      }
     }
   }
 };
