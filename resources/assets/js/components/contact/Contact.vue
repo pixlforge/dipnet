@@ -90,12 +90,20 @@ export default {
       required: true
     }
   },
+  computed: {
+    userIsAdmin() {
+      return this.user.role === "administrateur";
+    },
+    endpoint() {
+      return this.userIsAdmin ? "admin.contacts.destroy" : "contacts.destroy";
+    }
+  },
   methods: {
     edit() {
       this.$emit("edit-contact:open", this.contact);
     },
     destroy() {
-      window.axios.delete(window.route("contacts.destroy", [this.contact.id]));
+      window.axios.delete(window.route(this.endpoint, [this.contact.id]));
       this.$emit("contact:deleted", this.contact.id);
     }
   }

@@ -2,16 +2,29 @@
 
 namespace App\Policies;
 
-use App\Contact;
 use App\User;
+use App\Contact;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ContactPolicy
 {
     use HandlesAuthorization;
 
+    public function update(User $user, Contact $contact)
+    {
+        if ($user->isPartOfACompany()) {
+            return $contact->company->id == $user->company->id;
+        } elseif ($user->isSolo()) {
+            return $contact->user_id == $user->id;
+        }
+    }
+
     public function delete(User $user, Contact $contact)
     {
-        return $user->id == $contact->user_id;
+        if ($user->isPartOfACompany()) {
+            return $contact->company->id == $user->company->id;
+        } elseif ($user->isSolo()) {
+            return $contact->user_id == $user->id;
+        }
     }
 }

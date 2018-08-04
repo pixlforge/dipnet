@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Contact;
 
 use App\Contact;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Contact\StoreContactRequest;
-use App\Http\Requests\Contact\UpdateContactRequest;
+use App\Http\Requests\Contact\StoreUserContactRequest;
+use App\Http\Requests\Contact\UpdateUserContactRequest;
 
 class ContactController extends Controller
 {
@@ -20,7 +20,7 @@ class ContactController extends Controller
         return view('contacts.index');
     }
 
-    public function store(StoreContactRequest $request)
+    public function store(StoreUserContactRequest $request)
     {
         $contact = new Contact();
         $contact->name = $request->name;
@@ -31,12 +31,11 @@ class ContactController extends Controller
         $contact->phone_number = $request->phone_number;
         $contact->fax = $request->fax;
         $contact->email = $request->email;
-        $contact->user_id = auth()->id();
-
+        
         if ($request->user()->isPartOfACompany()) {
-            $contact->company_id = auth()->user()->company->id;
+            $contact->company()->associate(auth()->user()->company);
         } elseif ($request->user()->isSolo()) {
-            $contact->company_id = null;
+            $contact->user()->associate(auth()->id());
         }
 
         $contact->save();
@@ -46,13 +45,10 @@ class ContactController extends Controller
         return response($contact, 200);
     }
 
-    public function show(Contact $contact)
+    public function update(UpdateUserContactRequest $request, Contact $contact)
     {
-        return view('contacts.show', compact('contact'));
-    }
+        $this->authorize('update', $contact);
 
-    public function update(UpdateContactRequest $request, Contact $contact)
-    {
         $contact->name = $request->name;
         $contact->address_line1 = $request->address_line1;
         $contact->address_line2 = $request->address_line2;
@@ -69,6 +65,8 @@ class ContactController extends Controller
 
     public function destroy(Contact $contact)
     {
+        $this->authorize('delete', $contact);
+
         $contact->delete();
 
         return response(null, 204);

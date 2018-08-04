@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Admin\Contact;
 use App\Company;
 use App\Contact;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Contact\StoreContactRequest;
-use App\Http\Requests\Contact\UpdateContactRequest;
+use App\Http\Requests\Contact\StoreAdminContactRequest;
+use App\Http\Requests\Contact\UpdateAdminContactRequest;
 
 class ContactController extends Controller
 {
@@ -22,7 +22,7 @@ class ContactController extends Controller
         return view('admin.contacts.index', compact('companies'));
     }
 
-    public function store(StoreContactRequest $request)
+    public function store(StoreAdminContactRequest $request)
     {
         $contact = new Contact();
         $contact->name = $request->name;
@@ -42,7 +42,7 @@ class ContactController extends Controller
         return response($contact, 200);
     }
 
-    public function update(UpdateContactRequest $request, Contact $contact)
+    public function update(UpdateAdminContactRequest $request, Contact $contact)
     {
         $contact->name = $request->name;
         $contact->address_line1 = $request->address_line1;

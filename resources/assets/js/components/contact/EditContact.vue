@@ -198,9 +198,7 @@ export default {
       return this.user.role === "administrateur";
     },
     endpoint() {
-      return this.user.role === "administrateur"
-        ? "admin.contacts.update"
-        : "contacts.update";
+      return this.userIsAdmin ? "admin.contacts.update" : "contacts.update";
     }
   },
   mounted() {

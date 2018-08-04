@@ -13,7 +13,7 @@ class ListContactsTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function admins_can_access_the_contacts_index_page()
+    public function admins_can_access_the_admin_contacts_index_page()
     {
         $this->withoutExceptionHandling();
 
@@ -28,7 +28,7 @@ class ListContactsTest extends TestCase
     }
 
     /** @test */
-    public function users_cannot_access_the_contacts_index_page()
+    public function users_cannot_access_the_admin_contacts_index_page()
     {
         $this->withExceptionHandling();
 
@@ -41,7 +41,7 @@ class ListContactsTest extends TestCase
     }
 
     /** @test */
-    public function guests_cannot_access_the_contacts_index_page()
+    public function guests_cannot_access_the_admin_contacts_index_page()
     {
         $this->withExceptionHandling();
 
@@ -49,6 +49,89 @@ class ListContactsTest extends TestCase
 
         $response = $this->get(route('admin.contacts.index'));
         $response->assertRedirect(route('login'));
+    }
+
+    /** @test */
+    public function users_can_access_the_user_contacts_index_page()
+    {
+        $this->withoutExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $response = $this->get(route('contacts.index'));
+        $response->assertOk();
+        $response->assertViewIs('contacts.index');
+        $response->assertSee('Liste de tous vos contacts');
+    }
+
+    /** @test */
+    public function users_with_pending_email_confirmation_cannot_access_the_user_contacts_index_page()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user', 'email-not-confirmed')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $response = $this->get(route('contacts.index'));
+        $response->assertRedirect(route('profile.index'));
+        $response->assertSessionHas(['flash' => "Vous devez d'abord confirmer votre adresse e-mail."]);
+    }
+
+    /** @test */
+    public function guests_cannot_access_the_user_contacts_index_page()
+    {
+        $this->withExceptionHandling();
+
+        $this->assertGuest();
+
+        $response = $this->get(route('contacts.index'));
+        $response->assertRedirect(route('login'));
+    }
+
+    /** @test */
+    public function users_associated_with_a_company_can_only_see_their_companys_contacts()
+    {
+        $this->withoutExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $otherCompany = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        factory(Contact::class, 2)->create(['company_id' => $company->id]);
+        factory(Contact::class, 3)->create(['company_id' => $otherCompany->id]);
+        
+        $this->assertCount(5, Contact::all());
+
+        $response = $this->get(route('api.contacts.index'));
+        $response->assertOk();
+        $this->assertCount(2, $response->getData()->data);
+    }
+
+    /** @test */
+    public function solo_users_can_only_see_their_own_contacts()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $otherUser = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        factory(Contact::class, 2)->create(['user_id' => $user->id]);
+        factory(Contact::class, 3)->create(['user_id' => $otherUser->id]);
+        
+        $this->assertCount(5, Contact::all());
+
+        $response = $this->get(route('api.contacts.index'));
+        $response->assertOk();
+        $this->assertCount(2, $response->getData()->data);
     }
 
     /** @test */

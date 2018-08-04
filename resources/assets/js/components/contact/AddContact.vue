@@ -198,6 +198,9 @@ export default {
   computed: {
     userIsAdmin() {
       return this.user.role === "administrateur";
+    },
+    endpoint() {
+      return this.userIsAdmin ? "admin.contacts.store" : "contacts.store";
     }
   },
   mounted() {
@@ -216,7 +219,7 @@ export default {
       this.toggleLoader();
       try {
         let res = await window.axios.post(
-          window.route("contacts.store"),
+          window.route(this.endpoint),
           this.contact
         );
         this.contact = res.data;

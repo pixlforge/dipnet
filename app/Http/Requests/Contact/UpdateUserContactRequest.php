@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests\Contact;
 
-class UpdateContactRequest extends StoreContactRequest
+class UpdateUserContactRequest extends StoreUserContactRequest
 {
     public function authorize()
     {

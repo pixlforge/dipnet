@@ -1,9 +1,10 @@
-@extends ('layouts.app')
+@extends('layouts.app')
 
-@section ('title', 'Contacts')
+@section('title', "Liste de tous vos contacts")
 
-@section ('content')
-  @include ('layouts.partials._nav')
-  <contacts :companies="{{ $companies }}"
-            :user="{{ auth()->user() }}"></contacts>
+@section('content')
+  @include('layouts.partials._nav')
+  <contacts
+    :companies="{{ isset($companies) ? $companies : collect() }}"
+    :user="{{ auth()->user() }}"></contacts>
 @endsection

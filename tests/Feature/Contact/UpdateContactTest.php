@@ -13,7 +13,7 @@ class UpdateContactTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function admins_can_update_existing_contacts()
+    public function admins_can_update_existing_admin_contacts()
     {
         $this->withoutExceptionHandling();
 
@@ -62,7 +62,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function users_cannot_update_existing_contacts()
+    public function users_cannot_update_existing_admin_contacts()
     {
         $this->withExceptionHandling();
 
@@ -111,7 +111,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function guests_cannot_update_existing_contacts()
+    public function guests_cannot_update_existing_admin_contacts()
     {
         $this->withExceptionHandling();
 
@@ -158,7 +158,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_name_is_missing()
+    public function admin_contact_update_validation_fails_if_name_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -207,7 +207,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_name_is_too_short()
+    public function admin_contact_update_validation_fails_if_name_is_too_short()
     {
         $this->withExceptionHandling();
 
@@ -256,7 +256,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_name_is_too_long()
+    public function admin_contact_update_validation_fails_if_name_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -305,7 +305,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_address_line_1_is_missing()
+    public function admin_contact_update_validation_fails_if_address_line_1_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -354,7 +354,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_address_line_1_is_not_a_string()
+    public function admin_contact_update_validation_fails_if_address_line_1_is_not_a_string()
     {
         $this->withExceptionHandling();
 
@@ -403,7 +403,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_address_line_1_is_too_short()
+    public function admin_contact_update_validation_fails_if_address_line_1_is_too_short()
     {
         $this->withExceptionHandling();
 
@@ -452,7 +452,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_address_line_1_is_too_long()
+    public function admin_contact_update_validation_fails_if_address_line_1_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -501,7 +501,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_address_line_2_is_not_a_string()
+    public function admin_contact_update_validation_fails_if_address_line_2_is_not_a_string()
     {
         $this->withExceptionHandling();
 
@@ -550,7 +550,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_address_line_2_is_too_short()
+    public function admin_contact_update_validation_fails_if_address_line_2_is_too_short()
     {
         $this->withExceptionHandling();
 
@@ -599,7 +599,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_address_line_2_is_too_long()
+    public function admin_contact_update_validation_fails_if_address_line_2_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -648,7 +648,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_zip_is_missing()
+    public function admin_contact_update_validation_fails_if_zip_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -697,7 +697,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_zip_is_not_a_string()
+    public function admin_contact_update_validation_fails_if_zip_is_not_a_string()
     {
         $this->withExceptionHandling();
 
@@ -746,7 +746,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_zip_is_too_short()
+    public function admin_contact_update_validation_fails_if_zip_is_too_short()
     {
         $this->withExceptionHandling();
 
@@ -795,7 +795,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_zip_is_too_long()
+    public function admin_contact_update_validation_fails_if_zip_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -844,7 +844,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_city_is_missing()
+    public function admin_contact_update_validation_fails_if_city_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -893,7 +893,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_city_is_not_a_string()
+    public function admin_contact_update_validation_fails_if_city_is_not_a_string()
     {
         $this->withExceptionHandling();
 
@@ -942,7 +942,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_city_is_too_short()
+    public function admin_contact_update_validation_fails_if_city_is_too_short()
     {
         $this->withExceptionHandling();
 
@@ -991,7 +991,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_city_is_too_long()
+    public function admin_contact_update_validation_fails_if_city_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -1040,7 +1040,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_phone_number_is_not_a_string()
+    public function admin_contact_update_validation_fails_if_phone_number_is_not_a_string()
     {
         $this->withExceptionHandling();
 
@@ -1089,7 +1089,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_phone_number_is_too_long()
+    public function admin_contact_update_validation_fails_if_phone_number_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -1138,7 +1138,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_fax_is_not_a_string()
+    public function admin_contact_update_validation_fails_if_fax_is_not_a_string()
     {
         $this->withExceptionHandling();
 
@@ -1187,7 +1187,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_fax_is_too_long()
+    public function admin_contact_update_validation_fails_if_fax_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -1236,7 +1236,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_email_is_missing()
+    public function admin_contact_update_validation_fails_if_email_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -1285,7 +1285,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_email_format_is_invalid()
+    public function admin_contact_update_validation_fails_if_email_format_is_invalid()
     {
         $this->withExceptionHandling();
 
@@ -1334,7 +1334,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_email_is_too_long()
+    public function admin_contact_update_validation_fails_if_email_is_too_long()
     {
         $this->withExceptionHandling();
 
@@ -1383,7 +1383,7 @@ class UpdateContactTest extends TestCase
     }
 
     /** @test */
-    public function contact_update_validation_fails_if_company_does_not_exist()
+    public function admin_contact_update_validation_fails_if_company_does_not_exist()
     {
         $this->withExceptionHandling();
 
@@ -1428,5 +1428,1239 @@ class UpdateContactTest extends TestCase
         $this->assertEquals('11111111', $contact->fax);
         $this->assertEquals('oldemail@example.com', $contact->email);
         $this->assertEquals('oldCompany', $contact->company->name);
+    }
+
+    /** @test */
+    public function users_can_update_their_own_contacts()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertOk();
+
+        $contact = $contact->fresh();
+        $this->assertEquals('New contact name', $contact->name);
+        $this->assertEquals('New address line 1', $contact->address_line1);
+        $this->assertEquals('New address line 2', $contact->address_line2);
+        $this->assertEquals('2000', $contact->zip);
+        $this->assertEquals('New city name', $contact->city);
+        $this->assertEquals('0123456789', $contact->phone_number);
+        $this->assertEquals('0123456789', $contact->fax);
+        $this->assertEquals('newemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function users_cannot_update_others_contacts()
+    {
+        $this->withExceptionHandling();
+        
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $otherUser = factory(User::class)->states('user', 'solo')->create();
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $otherUser->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertForbidden();
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_name_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => '',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('name');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_name_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 123,
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('name');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_name_is_too_short()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => str_repeat('a', 2),
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('name');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_name_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => str_repeat('a', 46),
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('name');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_address_line_1_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => '',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('address_line1');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_address_line_1_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 123,
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('address_line1');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_address_line_1_is_too_short()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => str_repeat('a', 2),
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('address_line1');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_address_line_1_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => str_repeat('a', 256),
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('address_line1');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_address_line_2_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 123,
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('address_line2');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_address_line_2_is_too_short()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => str_repeat('a', 2),
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('address_line2');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_address_line_2_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => str_repeat('a', 256),
+            'zip' => '2000',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('address_line2');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_zip_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '',
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('zip');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_zip_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => 123,
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('zip');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_zip_is_too_short()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => str_repeat('1', 3),
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('zip');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_zip_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => str_repeat('1', 17),
+            'city' => 'New city name',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('zip');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_city_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => '',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('city');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_city_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 123,
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('city');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_city_is_too_short()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => str_repeat('a', 1),
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('city');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_city_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => str_repeat('a', 256),
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('city');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_phone_number_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New contact city',
+            'phone_number' => 123,
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('phone_number');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_phone_number_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New contact city',
+            'phone_number' => str_repeat('a', 256),
+            'fax' => '0123456789',
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('phone_number');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_fax_is_not_a_string()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New contact city',
+            'phone_number' => '0123456789',
+            'fax' => 123,
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('fax');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_fax_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New contact city',
+            'phone_number' => '0123456789',
+            'fax' => str_repeat('a', 256),
+            'email' => 'newemail@example.com',
+        ]);
+        $response->assertJsonValidationErrors('fax');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_email_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New contact city',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => '',
+        ]);
+        $response->assertJsonValidationErrors('email');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_email_format_is_invalid()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New contact city',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => 'newemail@address',
+        ]);
+        $response->assertJsonValidationErrors('email');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
+    }
+
+    /** @test */
+    public function update_user_contact_validation_fails_if_email_format_is_too_long()
+    {
+        $this->withExceptionHandling();
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $contact = factory(Contact::class)->create([
+            'name' => 'Old contact name',
+            'address_line1' => 'Old address line 1',
+            'address_line2' => 'Old address line 2',
+            'zip' => '1000',
+            'city' => 'Old city name',
+            'phone_number' => str_repeat('1', 8),
+            'fax' => str_repeat('1', 8),
+            'email' => 'oldemail@example.com',
+            'user_id' => $user->id,
+        ]);
+
+        $response = $this->patchJson(route('contacts.update', $contact), [
+            'name' => 'New contact name',
+            'address_line1' => 'New address line 1',
+            'address_line2' => 'New address line 2',
+            'zip' => '2000',
+            'city' => 'New contact city',
+            'phone_number' => '0123456789',
+            'fax' => '0123456789',
+            'email' => str_repeat('a', 244) . '@address.com',
+        ]);
+        $response->assertJsonValidationErrors('email');
+
+        $contact = $contact->fresh();
+        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old address line 1', $contact->address_line1);
+        $this->assertEquals('Old address line 2', $contact->address_line2);
+        $this->assertEquals('1000', $contact->zip);
+        $this->assertEquals('Old city name', $contact->city);
+        $this->assertEquals('11111111', $contact->phone_number);
+        $this->assertEquals('11111111', $contact->fax);
+        $this->assertEquals('oldemail@example.com', $contact->email);
     }
 }

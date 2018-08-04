@@ -201,7 +201,6 @@ Route::prefix('/affaires')->namespace('Business')->name('businesses.')->group(fu
     Route::post('/', 'BusinessController@store')->name('store');
     Route::get('/{business}/details', 'BusinessController@show')->name('show');
     Route::patch('/{business}', 'BusinessController@update')->name('update');
-    // Route::delete('/{business}', 'BusinessController@destroy')->name('destroy');
 });
 
 /**
@@ -233,7 +232,7 @@ Route::prefix('/societes')->namespace('Company')->name('companies.')->group(func
 Route::prefix('/contacts')->namespace('Contact')->name('contacts.')->group(function () {
     Route::get('/', 'ContactController@index')->name('index');
     Route::post('/', 'ContactController@store')->name('store');
-    Route::put('/{contact}', 'ContactController@update')->name('update');
+    Route::patch('/{contact}', 'ContactController@update')->name('update');
     Route::delete('/{contact}', 'ContactController@destroy')->name('destroy');
 });
 

@@ -4,11 +4,11 @@ namespace App\Http\Requests\Contact;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreContactRequest extends FormRequest
+class StoreAdminContactRequest extends FormRequest
 {
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
 
     public function rules()
