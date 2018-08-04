@@ -15,7 +15,7 @@ class StoreAdminBusinessRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|max:45',
-            'description' => 'nullable|string|max:45',
+            'description' => 'nullable|string|max:255',
             'user_id' => 'required_without:company_id|nullable|exists:users,id',
             'company_id' => 'required_without:user_id|nullable|exists:companies,id',
             'contact_id' => 'nullable|exists:contacts,id',
@@ -32,7 +32,7 @@ class StoreAdminBusinessRequest extends FormRequest
             'name.max' => 'Maximum 45 caractères.',
 
             'description.string' => 'La description doit être une chaîne de caractères.',
-            'description.max' => 'Maximum 45 caractères.',
+            'description.max' => 'Maximum 255 caractères.',
 
             'user_id.required_without' => 'Veuillez sélectionner un utilisateur ou une société.',
             'user_id.exists' => 'Veuillez sélectionner un utilisateur parmi ceux proposés.',

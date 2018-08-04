@@ -61,6 +61,15 @@ small {
       margin-top: 5rem;
     }
   }
+
+  &__lead {
+    font-size: 2.4rem;
+    font-weight: 300;
+
+    &--business-description {
+      width: 100rem;
+    }
+  }
 }
 
 .text {

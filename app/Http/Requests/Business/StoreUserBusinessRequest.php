@@ -15,7 +15,7 @@ class StoreUserBusinessRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|max:45',
-            'description' => 'nullable|string|max:45',
+            'description' => 'nullable|string|max:255',
             'contact_id' => 'nullable|exists:contacts,id',
             'folder_color' => 'required|in:red,orange,purple,blue'
         ];
@@ -27,7 +27,7 @@ class StoreUserBusinessRequest extends FormRequest
             'name.required' => "Veuillez entrer un nom pour l'affaire.",
             'name.string' => 'Le nom doit être une chaîne de caractères.',
             'name.min' => 'Minimum 3 caractères.',
-            'name.max' => 'Maximum 45 caractères.',
+            'name.max' => 'Maximum 255 caractères.',
 
             'description.string' => 'La description doit être une chaîne de caractères.',
             'description.max' => 'Maximum 45 caractères.',

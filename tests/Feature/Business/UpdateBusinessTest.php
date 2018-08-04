@@ -405,7 +405,7 @@ class UpdateBusinessTest extends TestCase
 
         $response = $this->patchJson(route('admin.businesses.update', $business), [
             'name' => "Fête de l'Hiver",
-            'description' => str_repeat('a', 46),
+            'description' => str_repeat('a', 256),
             'company_id' => $otherCompany->id,
             'folder_color' => 'blue',
         ]);
@@ -1077,7 +1077,7 @@ class UpdateBusinessTest extends TestCase
 
         $response = $this->patchJson(route('businesses.update', $business), [
             'name' => "Fête de l'Hiver",
-            'description' => str_repeat('a', 46),
+            'description' => str_repeat('a', 256),
             'contact_id' => $contact->id,
             'folder_color' => 'blue',
         ]);

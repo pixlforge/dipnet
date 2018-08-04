@@ -33786,6 +33786,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -74626,7 +74632,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-edit"
-  }), _vm._v("\n      Mettre à jour\n    ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n      Mettre à jour\n    ")])]), _vm._v(" "), (_vm.business.description) ? _c('div', {
+    staticClass: "header__container"
+  }, [_c('p', {
+    staticClass: "paragraph__lead paragraph__lead--business-description"
+  }, [_vm._v(_vm._s(_vm.currentBusiness.description))])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [_c('div', {
     staticClass: "business__container"

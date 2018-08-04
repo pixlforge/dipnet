@@ -297,7 +297,7 @@ class CreateBusinessTest extends TestCase
 
         $response = $this->postJson(route('admin.businesses.store'), [
             'name' => 'Fête Nationale',
-            'description' => str_repeat('a', 46),
+            'description' => str_repeat('a', 256),
             'company_id' => $company->id,
         ]);
         $response->assertJsonValidationErrors('description');
@@ -564,7 +564,7 @@ class CreateBusinessTest extends TestCase
 
         $response = $this->postJson(route('businesses.store'), [
             'name' => "Fête de l'Hiver",
-            'description' => str_repeat('a', 46),
+            'description' => str_repeat('a', 256),
             'contact_id' => $contact->id,
             'folder_color' => 'red',
         ]);

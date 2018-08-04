@@ -12,6 +12,12 @@
       </button>
     </div>
 
+    <div
+      v-if="business.description"
+      class="header__container">
+      <p class="paragraph__lead paragraph__lead--business-description">{{ currentBusiness.description }}</p>
+    </div>
+
     <div class="main__container main__container--grey">
       <div class="business__container">
         <div class="business__orders">
