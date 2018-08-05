@@ -15,10 +15,10 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('reference')->unique()->index();
+            $table->string('reference')->nullable()->unique()->index();
             $table->text('note')->nullable();
             $table->text('admin_note')->nullable();
-            $table->unsignedInteger('order_id')->nullable();
+            $table->unsignedInteger('order_id');
             $table->unsignedInteger('contact_id')->nullable();
             $table->dateTime('to_deliver_at')->nullable();
             $table->timestamps();

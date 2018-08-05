@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Delivery;
 
+use App\Order;
 use App\Delivery;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Delivery\StoreDeliveryRequest;
-use App\Http\Requests\Delivery\UpdateDeliveryRequest;
+use App\Http\Hashids\HashidsGenerator;
+use App\Http\Requests\Delivery\UpdateUserDeliveryRequest;
 
 class DeliveryController extends Controller
 {
@@ -14,34 +16,27 @@ class DeliveryController extends Controller
         $this->middleware('auth');
     }
 
-    public function index()
+    public function store(Request $request, Order $order)
     {
-        return view('deliveries.index', compact('deliveries'));
-    }
+        $this->authorize('touch', $order);
 
-    public function store(StoreDeliveryRequest $request)
-    {
         $delivery = new Delivery;
-        $delivery->reference = date('Ymd') . '-' . substr(str_slug(auth()->user()->company->name), 0, 8) . '-del-' . str_random(5);
-        $delivery->order_id = $request->order_id;
+        $delivery->order()->associate($order);
+        $delivery->save();
+
+        $delivery->reference = HashidsGenerator::generateFor($delivery->id, 'deliveries');
         $delivery->save();
 
         return response($delivery, 200);
     }
 
-    public function update(UpdateDeliveryRequest $request, Delivery $delivery)
+    public function update(UpdateUserDeliveryRequest $request, Delivery $delivery)
     {
-        $this->authorize('update', $delivery);
+        $this->authorize('touch', $delivery);
 
-        $delivery->reference = $request->reference;
+        $delivery->note = $request->note;
         $delivery->contact_id = $request->contact_id;
-        $delivery->order_id = $request->order_id;
         $delivery->to_deliver_at = $request->to_deliver_at;
-
-        if ($request->has('note')) {
-            $delivery->note = $request->note;
-        }
-
         $delivery->save();
 
         return response($delivery, 200);
@@ -49,6 +44,8 @@ class DeliveryController extends Controller
 
     public function destroy(Delivery $delivery)
     {
+        $this->authorize('touch', $delivery);
+
         $delivery->delete();
 
         return response(null, 204);

@@ -2,55 +2,20 @@
 
 namespace App\Policies;
 
-use App\Delivery;
 use App\User;
+use App\Delivery;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class DeliveryPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * User has permission to view the delivery.
-     *
-     * @return bool
-     */
-    public function view()
+    public function touch(User $user, Delivery $delivery)
     {
-        return auth()->user()->isAdmin();
-    }
-
-    /**
-     * User has permission to update a delivery.
-     *
-     * @param User $user
-     * @param Delivery $delivery
-     * @return bool
-     */
-    public function update(User $user, Delivery $delivery)
-    {
-        if ($user->isAdmin()) {
-            return true;
-        } else if ($user->isSolo()) {
-            return $delivery->orderBelongsToUser();
-        } else {
-            return $delivery->belongsToUsersCompany();
-        }
-    }
-
-    /**
-     * User has permission to delete the delivery.
-     *
-     * @param User $user
-     * @param Delivery $delivery
-     * @return bool
-     */
-    public function delete(User $user, Delivery $delivery)
-    {
-        if ($user->isSolo()) {
-            return $delivery->orderBelongsToUser();
-        } else {
-            return $user->isAdmin() or $delivery->belongsToUsersCompany();
+        if ($user->isPartOfACompany()) {
+            return $delivery->order->company->id == $user->company->id;
+        } elseif ($user->isSolo()) {
+            return $delivery->order->user->id == $user->id;
         }
     }
 }

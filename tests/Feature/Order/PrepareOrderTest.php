@@ -619,6 +619,7 @@ class PrepareOrderTest extends TestCase
         $deliveries = [
            [
                $deliveryA = factory(Delivery::class)->create([
+                   'order_id' => $order->id,
                    'contact_id' => $contact->id,
                    'to_deliver_at' => now()->addWeeks(2),
                ]),

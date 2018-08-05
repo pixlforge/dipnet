@@ -28,16 +28,6 @@ class Delivery extends Model
         return 'reference';
     }
 
-    public function belongsToUsersCompany()
-    {
-        return auth()->user()->company->id === $this->order->business->company->id;
-    }
-
-    public function orderBelongsToUser()
-    {
-        return $this->order->user_id === auth()->id();
-    }
-
     public function contact()
     {
         return $this->belongsTo(Contact::class);

@@ -142,6 +142,14 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
     });
 
     /**
+     * Deliveries
+     */
+    Route::prefix('/livraisons')->namespace('Delivery')->name('deliveries.')->group(function () {
+        Route::get('/', 'DeliveryController@index')->name('index');
+        Route::patch('/{delivery}', 'DeliveryController@update')->name('update');
+    });
+
+    /**
      * Formats
      */
     Route::prefix('/formats')->namespace('Format')->name('formats.')->group(function () {
@@ -240,9 +248,8 @@ Route::prefix('/contacts')->namespace('Contact')->name('contacts.')->group(funct
  * Deliveries
  */
 Route::prefix('/livraisons')->namespace('Delivery')->name('deliveries.')->group(function () {
-    Route::get('/', 'DeliveryController@index')->name('index');
-    Route::post('/', 'DeliveryController@store')->name('store');
-    Route::put('/{delivery}', 'DeliveryController@update')->name('update');
+    Route::post('/{order}', 'DeliveryController@store')->name('store');
+    Route::patch('/{delivery}', 'DeliveryController@update')->name('update');
     Route::delete('/{delivery}', 'DeliveryController@destroy')->name('destroy');
 
     /**
