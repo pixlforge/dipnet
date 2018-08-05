@@ -11,18 +11,12 @@ $factory->define(Delivery::class, function (Faker $faker) {
         'reference' => HashidsGenerator::generateFor($faker->numberBetween(1, 999999999), 'deliveries'),
         'note' => null,
         'admin_note' => null,
-        'order_id' => null,
-        'contact_id' => null,
-        'to_deliver_at' => null,
-        'deleted_at' => null
-    ];
-});
-
-$factory->state(Delivery::class, 'add-order', function () {
-    return [
         'order_id' => function () {
             return factory(Order::class)->create()->id;
         },
+        'contact_id' => null,
+        'to_deliver_at' => null,
+        'deleted_at' => null
     ];
 });
 

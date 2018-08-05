@@ -49,7 +49,7 @@ Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
      * Deliveries
      */
     Route::prefix('/livraisons')->namespace('Delivery')->name('deliveries.')->group(function () {
-        Route::get('/', 'DeliveryController@index')->name('index');
+        Route::get('/{sort?}', 'DeliveryController@index')->name('index');
     });
 
     /**

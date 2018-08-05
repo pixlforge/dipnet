@@ -7,6 +7,16 @@
         <span v-text="modelCount"/>
       </div>
 
+      <div>
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
+      </div>
+
       <div/>
     </div>
 
@@ -54,16 +64,18 @@
 
 <script>
 import Delivery from "./Delivery";
+import AppSelect from "../select/AppSelect";
 import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import IllustrationNoData from "../illustrations/IllustrationNoData";
 
 import { modelCount, loader } from "../../mixins";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
     Delivery,
+    AppSelect,
     Pagination,
     MoonLoader,
     IllustrationNoData
@@ -74,6 +86,12 @@ export default {
       deliveries: [],
       meta: {},
       errors: {},
+      sort: "",
+      sortOptions: [
+        { label: "Aucun", value: "" },
+        { label: "Reference", value: "reference" },
+        { label: "Date de création", value: "created_at" }
+      ],
       fetching: false,
       modelNameSingular: "livraison",
       modelNamePlural: "livraisons",
@@ -87,27 +105,28 @@ export default {
     this.getDeliveries();
   },
   methods: {
-    getDeliveries(page = 1) {
-      this.$store.dispatch("toggleLoader");
+    ...mapActions(["toggleLoader"]),
+    async getDeliveries(page = 1) {
+      this.toggleLoader();
       this.fetching = true;
-
-      window.axios
-        .get(window.route("api.deliveries.index"), {
-          params: {
-            page
-          }
-        })
-        .then(response => {
-          this.deliveries = response.data.data;
-          this.meta = response.data.meta;
-          this.$store.dispatch("toggleLoader");
-          this.fetching = false;
-        })
-        .catch(error => {
-          this.errors = error.response.data;
-          this.$store.dispatch("toggleLoader");
-          this.fetching = false;
-        });
+      try {
+        let res = await window.axios.get(
+          window.route("api.deliveries.index", this.sort.value),
+          { params: { page } }
+        );
+        this.deliveries = res.data.data;
+        this.meta = res.data.meta;
+        this.fetching = false;
+        this.toggleLoader();
+      } catch (err) {
+        this.errors = err.response.data.errors;
+        this.fetching = false;
+        this.toggleLoader();
+      }
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getDeliveries();
     }
   }
 };

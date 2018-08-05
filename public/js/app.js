@@ -36106,15 +36106,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Delivery__ = __webpack_require__(299);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Delivery___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Delivery__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination_Pagination__ = __webpack_require__(8);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__pagination_Pagination__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__illustrations_IllustrationNoData__ = __webpack_require__(9);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__illustrations_IllustrationNoData___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__illustrations_IllustrationNoData__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_AppSelect__ = __webpack_require__(11);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__select_AppSelect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__select_AppSelect__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pagination_Pagination__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__pagination_Pagination__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__illustrations_IllustrationNoData__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__illustrations_IllustrationNoData___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__illustrations_IllustrationNoData__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
 //
 //
@@ -36170,6 +36174,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -36182,47 +36197,54 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     Delivery: __WEBPACK_IMPORTED_MODULE_0__Delivery___default.a,
-    Pagination: __WEBPACK_IMPORTED_MODULE_1__pagination_Pagination___default.a,
-    MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a,
-    IllustrationNoData: __WEBPACK_IMPORTED_MODULE_3__illustrations_IllustrationNoData___default.a
+    AppSelect: __WEBPACK_IMPORTED_MODULE_1__select_AppSelect___default.a,
+    Pagination: __WEBPACK_IMPORTED_MODULE_2__pagination_Pagination___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a,
+    IllustrationNoData: __WEBPACK_IMPORTED_MODULE_4__illustrations_IllustrationNoData___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["d" /* modelCount */], __WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* loader */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["d" /* modelCount */], __WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */]],
   data() {
     return {
       deliveries: [],
       meta: {},
       errors: {},
+      sort: "",
+      sortOptions: [{ label: "Aucun", value: "" }, { label: "Reference", value: "reference" }, { label: "Date de création", value: "created_at" }],
       fetching: false,
       modelNameSingular: "livraison",
       modelNamePlural: "livraisons",
       modelGender: "F"
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(["loaderState"])),
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(["loaderState"])),
   mounted() {
     this.getDeliveries();
   },
-  methods: {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     getDeliveries(page = 1) {
-      this.$store.dispatch("toggleLoader");
-      this.fetching = true;
+      var _this = this;
 
-      window.axios.get(window.route("api.deliveries.index"), {
-        params: {
-          page
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        _this.fetching = true;
+        try {
+          let res = yield window.axios.get(window.route("api.deliveries.index", _this.sort.value), { params: { page } });
+          _this.deliveries = res.data.data;
+          _this.meta = res.data.meta;
+          _this.fetching = false;
+          _this.toggleLoader();
+        } catch (err) {
+          _this.errors = err.response.data.errors;
+          _this.fetching = false;
+          _this.toggleLoader();
         }
-      }).then(response => {
-        this.deliveries = response.data.data;
-        this.meta = response.data.meta;
-        this.$store.dispatch("toggleLoader");
-        this.fetching = false;
-      }).catch(error => {
-        this.errors = error.response.data;
-        this.$store.dispatch("toggleLoader");
-        this.fetching = false;
-      });
+      })();
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getDeliveries();
     }
-  }
+  })
 });
 
 /***/ }),
@@ -75986,7 +76008,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('div')]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('div', [_c('AppSelect', {
+    attrs: {
+      "options": _vm.sortOptions
+    },
+    on: {
+      "input": function($event) {
+        _vm.selectSort(_vm.sort)
+      }
+    },
+    model: {
+      value: (_vm.sort),
+      callback: function($$v) {
+        _vm.sort = $$v
+      },
+      expression: "sort"
+    }
+  }, [_c('span', {
+    staticClass: "dropdown__title"
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('div')]), _vm._v(" "), _c('div', {
     staticClass: "main__container main__container--grey"
   }, [(_vm.meta.total > 25) ? _c('Pagination', {
     staticClass: "pagination pagination--top",

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 class Delivery extends Model
 {
@@ -26,6 +27,16 @@ class Delivery extends Model
     public function getRouteKeyName()
     {
         return 'reference';
+    }
+
+    public function scopeOwnedByUsersCompany(Builder $builder)
+    {
+        return $this->whereIn('order_id', auth()->user()->company->orders->pluck('id'));
+    }
+
+    public function scopeOwnedBySoloUser(Builder $builder)
+    {
+        return $this->whereIn('order_id', auth()->user()->orders->pluck('id'));
     }
 
     public function contact()
