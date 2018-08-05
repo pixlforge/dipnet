@@ -30,7 +30,7 @@ class StoreUserBusinessRequest extends FormRequest
             'name.max' => 'Maximum 255 caractères.',
 
             'description.string' => 'La description doit être une chaîne de caractères.',
-            'description.max' => 'Maximum 45 caractères.',
+            'description.max' => 'Maximum 255 caractères.',
 
             'contact_id.exists' => 'Veuillez sélectionner un contact parmi ceux proposés.',
 
