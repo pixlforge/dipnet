@@ -253,16 +253,9 @@ Route::prefix('/livraisons')->namespace('Delivery')->name('deliveries.')->group(
     Route::delete('/{delivery}', 'DeliveryController@destroy')->name('destroy');
 
     /**
-     * Receipt
+     * Receipts
      */
     Route::get('/{delivery}/quittance/voir', 'DeliveryReceiptController@show')->name('receipts.show');
-
-    /**
-     * Note
-     */
-    Route::put('/{delivery}/note', 'DeliveryNoteController@update')->name('note.update');
-    Route::delete('/{delivery}/note', 'DeliveryNoteController@destroy')->name('note.destroy');
-    Route::patch('/{delivery}/note/admin', 'DeliveryAdminNoteController@update')->name('admin.note.update');
 });
 
 /**
