@@ -21,6 +21,7 @@
     <div class="main__container main__container--grey">
       <div class="business__container">
         <div class="business__orders">
+          <h2 class="business__title">Commandes relatives</h2>
           <Order
             v-for="order in orders"
             :key="order.id"

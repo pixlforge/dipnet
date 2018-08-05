@@ -33792,6 +33792,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -38215,7 +38216,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return window.route("admin.companies.index");
     },
     routeDeliveries() {
-      return window.route("deliveries.index");
+      return window.route("admin.deliveries.index");
     },
     routeDocuments() {
       return window.route("documents.index");
@@ -47169,16 +47170,14 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       commit('hydrateDeliveries', payload);
     },
     addDelivery: ({ commit }, payload) => {
-      const orderId = {
-        order_id: payload.id
-      };
+      window.console.log(payload);
       return new Promise((resolve, reject) => {
         commit('toggleLoader');
-        axios.post(route('deliveries.store'), orderId).then(response => {
+        window.axios.post(window.route('deliveries.store', [payload.reference])).then(response => {
           commit('addDelivery', response.data);
           commit('toggleLoader');
           resolve();
-        }).catch(error => {
+        }).catch(() => {
           commit('toggleLoader');
           reject();
         });
@@ -47187,11 +47186,11 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     removeDelivery: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
         commit('toggleLoader');
-        axios.delete(route('deliveries.destroy', [payload.reference]), payload).then(() => {
+        window.axios.delete(window.route('deliveries.destroy', [payload.reference]), payload).then(() => {
           commit('removeDelivery', payload);
           commit('toggleLoader');
           resolve();
-        }).catch(error => {
+        }).catch(() => {
           commit('toggleLoader');
           reject();
         });
@@ -47206,22 +47205,22 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     updateDocument: ({ commit }, payload) => {
       commit('updateDocument', payload);
       return new Promise((resolve, reject) => {
-        const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id]);
-        axios.patch(endpoint, payload.document).then(() => resolve()).catch(error => reject(error));
+        const endpoint = window.route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id]);
+        window.axios.patch(endpoint, payload.document).then(() => resolve()).catch(error => reject(error));
       });
     },
     removeDocument: ({ commit }, payload) => {
       commit('removeDocument', payload.document);
       return new Promise((resolve, reject) => {
-        const endpoint = route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id]);
-        axios.delete(endpoint, payload.document).then(() => resolve()).catch(error => reject());
+        const endpoint = window.route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id]);
+        window.axios.delete(endpoint, payload.document).then(() => resolve()).catch(() => reject());
       });
     },
     cloneOptions: ({ commit }, payload) => {
       commit('toggleLoader');
       return new Promise((resolve, reject) => {
-        const endpoint = route('documents.clone.options', [payload.orderReference, payload.deliveryReference]);
-        axios.post(endpoint, {
+        const endpoint = window.route('documents.clone.options', [payload.orderReference, payload.deliveryReference]);
+        window.axios.post(endpoint, {
           print: payload.print,
           finish: payload.finish,
           quantity: payload.quantity,
@@ -47241,7 +47240,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
             height: payload.height
           });
           resolve();
-        }).catch(error => {
+        }).catch(() => {
           commit('toggleLoader');
           reject();
         });
@@ -74642,7 +74641,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "business__container"
   }, [_c('div', {
     staticClass: "business__orders"
-  }, [_vm._l((_vm.orders), function(order) {
+  }, [_c('h2', {
+    staticClass: "business__title"
+  }, [_vm._v("Commandes relatives")]), _vm._v(" "), _vm._l((_vm.orders), function(order) {
     return _c('Order', {
       key: order.id,
       staticClass: "card__container card__container--full",

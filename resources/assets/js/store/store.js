@@ -170,16 +170,14 @@ export const store = new Vuex.Store({
       commit('hydrateDeliveries', payload)
     },
     addDelivery: ({ commit }, payload) => {
-      const orderId = {
-        order_id: payload.id
-      }
+      window.console.log(payload);
       return new Promise((resolve, reject) => {
         commit('toggleLoader')
-        axios.post(route('deliveries.store'), orderId).then(response => {
+        window.axios.post(window.route('deliveries.store', [payload.reference])).then(response => {
           commit('addDelivery', response.data)
           commit('toggleLoader')
           resolve()
-        }).catch(error => {
+        }).catch(() => {
           commit('toggleLoader')
           reject()
         })
@@ -188,11 +186,11 @@ export const store = new Vuex.Store({
     removeDelivery: ({ commit }, payload) => {
       return new Promise((resolve, reject) => {
         commit('toggleLoader')
-        axios.delete(route('deliveries.destroy', [payload.reference]), payload).then(() => {
+        window.axios.delete(window.route('deliveries.destroy', [payload.reference]), payload).then(() => {
           commit('removeDelivery', payload)
           commit('toggleLoader')
           resolve()
-        }).catch(error => {
+        }).catch(() => {
           commit('toggleLoader')
           reject()
         })
@@ -207,8 +205,8 @@ export const store = new Vuex.Store({
     updateDocument: ({ commit }, payload) => {
       commit('updateDocument', payload)
       return new Promise((resolve, reject) => {
-        const endpoint = route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id])
-        axios.patch(endpoint, payload.document)
+        const endpoint = window.route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id])
+        window.axios.patch(endpoint, payload.document)
           .then(() => resolve())
           .catch(error => reject(error))
       })
@@ -216,40 +214,42 @@ export const store = new Vuex.Store({
     removeDocument: ({ commit }, payload) => {
       commit('removeDocument', payload.document)
       return new Promise((resolve, reject) => {
-        const endpoint = route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id])
-        axios.delete(endpoint, payload.document)
+        const endpoint = window.route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id])
+        window.axios.delete(endpoint, payload.document)
           .then(() => resolve())
-          .catch(error => reject())
+          .catch(() => reject())
       })
     },
     cloneOptions: ({ commit }, payload) => {
       commit('toggleLoader')
       return new Promise((resolve, reject) => {
-        const endpoint = route('documents.clone.options', [payload.orderReference, payload.deliveryReference])
-        axios.post(endpoint, {
+        const endpoint = window.route('documents.clone.options', [payload.orderReference, payload.deliveryReference])
+        window.axios.post(endpoint, {
           print: payload.print,
           finish: payload.finish,
           quantity: payload.quantity,
           options: payload.options,
           width: payload.width,
           height: payload.height
-        }).then(() => {
-          commit('toggleLoader')
-          commit('cloneOptions', {
-            deliveryId: payload.deliveryId,
-            print: payload.print,
-            finish: payload.finish,
-            quantity: payload.quantity,
-            options: payload.options,
-            optionModels: payload.optionModels,
-            width: payload.width,
-            height: payload.height
-          })
-          resolve()
-        }).catch(error => {
-          commit('toggleLoader')
-          reject()
         })
+          .then(() => {
+            commit('toggleLoader')
+            commit('cloneOptions', {
+              deliveryId: payload.deliveryId,
+              print: payload.print,
+              finish: payload.finish,
+              quantity: payload.quantity,
+              options: payload.options,
+              optionModels: payload.optionModels,
+              width: payload.width,
+              height: payload.height
+            })
+            resolve()
+          })
+          .catch(() => {
+            commit('toggleLoader')
+            reject()
+          })
       })
     },
   }

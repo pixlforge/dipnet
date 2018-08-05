@@ -9,6 +9,12 @@
     }
   }
 
+  &__title {
+    font-size: 2.4rem;
+    font-weight: 300;
+    margin-bottom: 4rem;
+  }
+
   &__orders {
     flex: 0 0 60%;
     padding-right: 1.5rem;

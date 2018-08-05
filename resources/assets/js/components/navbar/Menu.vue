@@ -91,7 +91,7 @@ export default {
       return window.route("admin.companies.index");
     },
     routeDeliveries() {
-      return window.route("deliveries.index");
+      return window.route("admin.deliveries.index");
     },
     routeDocuments() {
       return window.route("documents.index");
