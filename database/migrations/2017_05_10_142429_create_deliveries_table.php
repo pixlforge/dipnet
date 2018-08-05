@@ -24,7 +24,7 @@ class CreateDeliveriesTable extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('set null');
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('contact_id')->references('id')->on('contacts')->onDelete('set null');
         });
     }
