@@ -15,16 +15,13 @@ class CreateDocumentsTable extends Migration
     {
         Schema::create('documents', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('filename')->index();
-            $table->string('mime_type');
-            $table->bigInteger('size');
-            $table->integer('quantity')->default(1);
-            $table->enum('finish', ['roulé', 'plié']);
-            $table->unsignedInteger('delivery_id')->nullable();
-            $table->unsignedInteger('article_id')->nullable();
             $table->integer('width')->nullable();
             $table->integer('height')->nullable();
             $table->integer('nb_orig')->nullable();
+            $table->integer('quantity')->default(1);
+            $table->enum('finish', ['roulé', 'plié'])->default('roulé');
+            $table->unsignedInteger('delivery_id')->nullable();
+            $table->unsignedInteger('article_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

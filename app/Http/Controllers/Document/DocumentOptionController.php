@@ -28,6 +28,6 @@ class DocumentOptionController extends Controller
             $document->articles()->sync($request->options);
         }
 
-        return response(200);
+        return response(null, 200);
     }
 }

@@ -150,6 +150,13 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
     });
 
     /**
+     * Documents
+     */
+    Route::prefix('/documents')->namespace('Document')->name('documents.')->group(function () {
+        Route::get('/', 'DocumentController@index')->name('index');
+    });
+
+    /**
      * Formats
      */
     Route::prefix('/formats')->namespace('Format')->name('formats.')->group(function () {
@@ -262,10 +269,9 @@ Route::prefix('/livraisons')->namespace('Delivery')->name('deliveries.')->group(
  * Documents
  */
 Route::prefix('/documents')->namespace('Document')->name('documents.')->group(function () {
-    Route::get('/', 'DocumentController@index')->name('index');
-    Route::post('/{order}/{delivery}', 'DocumentController@store')->name('store');
-    Route::patch('/{order}/{delivery}/{document}', 'DocumentController@update')->name('update');
-    Route::delete('/{order}/{delivery}/{document}', 'DocumentController@destroy')->name('destroy');
+    Route::post('/{delivery}', 'DocumentController@store')->name('store');
+    Route::patch('/{document}', 'DocumentController@update')->name('update');
+    Route::delete('/{document}', 'DocumentController@destroy')->name('destroy');
 
     /**
      * Clone

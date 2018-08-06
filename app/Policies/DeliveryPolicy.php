@@ -13,9 +13,9 @@ class DeliveryPolicy
     public function touch(User $user, Delivery $delivery)
     {
         if ($user->isPartOfACompany()) {
-            return $delivery->order->company->id == $user->company->id;
+            return $delivery->order->company_id == $user->company->id;
         } elseif ($user->isSolo()) {
-            return $delivery->order->user->id == $user->id;
+            return $delivery->order->user_id == $user->id;
         }
     }
 }

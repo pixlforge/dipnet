@@ -4,8 +4,9 @@ namespace Tests\Feature\Document;
 
 use App\User;
 use App\Order;
-use App\Contact;
+use App\Company;
 use App\Delivery;
+use App\Document;
 use Tests\TestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
@@ -15,104 +16,158 @@ class CreateDocumentTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp()
-    {
-        parent::setUp();
-
-        $contact = factory(Contact::class)->create();
-        $this->order = factory(Order::class)->create();
-        $this->delivery = factory(Delivery::class)->create([
-            'order_id' => $this->order->id,
-            'contact_id' => $contact->id
-        ]);
-        $this->endpoint = ['order' => $this->order->reference, 'delivery' => $this->delivery->reference];
-    }
-
     /** @test */
-    public function users_can_add_a_new_document_to_a_delivery()
+    public function users_associated_with_a_company_can_add_new_documents()
     {
+        $this->withoutExceptionHandling();
+
         Storage::fake('local');
 
-        $user = factory(User::class)->create([
-            'username' => 'John Doe',
-            'email' => 'johndoe@example.com'
-        ]);
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
         $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
 
-        $this->assertCount(0, $this->delivery->documents);
+        $order = factory(Order::class)->create(['company_id' => $company->id]);
+        $delivery = factory(Delivery::class)->create(['order_id' => $order->id]);
 
-        $this->postJson(route('documents.store', $this->endpoint), [
+        $this->assertCount(0, Document::all());
+
+        $response = $this->postJson(route('documents.store', $delivery), [
             'file' => UploadedFile::fake()->create('flyer-2018.pdf')
         ]);
 
-        Storage::disk('local')
-            ->assertExists("orders/{$this->order->reference}/{$this->delivery->reference}/flyer-2018.pdf");
-        $this->assertCount(1, $this->delivery->fresh()->documents);
+        $response->assertOk();
+        $this->assertCount(1, Document::all());
+
+        $document = Document::first();
+        $this->assertFileExists($document->getFirstMedia('documents')->getPath());
+        $this->assertEquals($delivery->id, $document->delivery->id);
     }
 
     /** @test */
-    public function document_validation_fails_if_the_user_uploads_a_zip()
+    public function solo_users_can_add_new_documents()
+    {
+        $this->withoutExceptionHandling();
+
+        Storage::fake('local');
+
+        $user = factory(User::class)->states('user', 'solo')->create();
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $order = factory(Order::class)->create(['user_id' => $user->id]);
+        $delivery = factory(Delivery::class)->create(['order_id' => $order->id]);
+
+        $this->assertCount(0, Document::all());
+
+        $response = $this->postJson(route('documents.store', $delivery), [
+            'file' => UploadedFile::fake()->create('flyer-2018.pdf')
+        ]);
+
+        $response->assertOk();
+        $this->assertCount(1, Document::all());
+
+        $document = Document::first();
+        $this->assertFileExists($document->getFirstMedia('documents')->getPath());
+        $this->assertEquals($delivery->id, $document->delivery->id);
+    }
+
+    /** @test */
+    public function guests_cannot_add_new_documents()
     {
         $this->withExceptionHandling();
 
         Storage::fake('local');
 
-        $user = factory(User::class)->create([
-            'username' => 'John Doe',
-            'email' => 'johndoe@example.com'
+        $this->assertGuest();
+
+        $company = factory(Company::class)->create();
+        $order = factory(Order::class)->create(['company_id' => $company->id]);
+        $delivery = factory(Delivery::class)->create(['order_id' => $order->id]);
+
+        $this->assertCount(0, Document::all());
+
+        $response = $this->postJson(route('documents.store', $delivery), [
+            'file' => UploadedFile::fake()->create('flyer-2018.pdf')
         ]);
+
+        $response->assertStatus(401);
+        $this->assertCount(0, Document::all());
+    }
+
+    /** @test */
+    public function users_cannot_add_documents_to_others_deliveries()
+    {
+        $this->withExceptionHandling();
+
+        Storage::fake('local');
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
         $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
 
-        $this->assertCount(0, $this->delivery->documents);
+        $order = factory(Order::class)->create();
+        $delivery = factory(Delivery::class)->create(['order_id' => $order->id]);
 
-        $this->postJson(route('documents.store', $this->endpoint), [
+        $this->assertCount(0, Document::all());
+
+        $response = $this->postJson(route('documents.store', $delivery), [
+            'file' => UploadedFile::fake()->create('flyer-2018.pdf')
+        ]);
+
+        $response->assertForbidden();
+        $this->assertCount(0, Document::all());
+    }
+
+    /** @test */
+    public function add_document_validation_fails_if_uploaded_file_is_a_zip()
+    {
+        $this->withExceptionHandling();
+
+        Storage::fake('local');
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $order = factory(Order::class)->create(['company_id' => $company->id]);
+        $delivery = factory(Delivery::class)->create(['order_id' => $order->id]);
+
+        $this->assertCount(0, Document::all());
+
+        $response = $this->postJson(route('documents.store', $delivery), [
             'file' => UploadedFile::fake()->create('flyer-2018.zip')
-        ])->assertStatus(422);
-
-        Storage::disk('local')
-            ->assertMissing("orders/{$this->order->reference}/{$this->delivery->reference}/flyer-2018.zip");
-        $this->assertCount(0, $this->delivery->fresh()->documents);
-    }
-
-    /** @test */
-    public function document_validation_fails_if_the_user_uploads_a_rar()
-    {
-        $this->withExceptionHandling();
-
-        Storage::fake('local');
-
-        $user = factory(User::class)->create([
-            'username' => 'John Doe',
-            'email' => 'johndoe@example.com'
         ]);
-        $this->actingAs($user);
 
-        $this->assertCount(0, $this->delivery->documents);
-
-        $this->postJson(route('documents.store', $this->endpoint), [
-            'file' => UploadedFile::fake()->create('flyer-2018.rar')
-        ])->assertStatus(422);
-
-        Storage::disk('local')
-            ->assertMissing("orders/{$this->order->reference}/{$this->delivery->reference}/flyer-2018.rar");
-        $this->assertCount(0, $this->delivery->fresh()->documents);
+        $response->assertJsonValidationErrors('file');
+        $this->assertCount(0, Document::all());
     }
 
     /** @test */
-    public function guests_cannot_upload_documents()
+    public function add_document_validation_fails_if_uploaded_file_is_a_rar()
     {
         $this->withExceptionHandling();
 
         Storage::fake('local');
 
-        $this->assertCount(0, $this->delivery->documents);
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
 
-        $this->postJson(route('documents.store', $this->endpoint), [
-            'file' => UploadedFile::fake()->create('flyer-2018.pdf')
-        ])->assertStatus(401);
+        $order = factory(Order::class)->create(['company_id' => $company->id]);
+        $delivery = factory(Delivery::class)->create(['order_id' => $order->id]);
 
-        Storage::disk('local')
-            ->assertMissing("orders/{$this->order->reference}/{$this->delivery->reference}/flyer-2018.pdf");
-        $this->assertCount(0, $this->delivery->fresh()->documents);
+        $this->assertCount(0, Document::all());
+
+        $response = $this->postJson(route('documents.store', $delivery), [
+            'file' => UploadedFile::fake()->create('flyer-2018.rar')
+        ]);
+
+        $response->assertJsonValidationErrors('file');
+        $this->assertCount(0, Document::all());
     }
 }

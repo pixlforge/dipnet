@@ -8,13 +8,21 @@ class StoreDocumentRequest extends FormRequest
 {
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
 
     public function rules()
     {
         return [
             'file' => 'required|mimes:jpeg,png,gif,psd,svg,pdf,doc,docx,xls,xlsx,ppt,pps,pot,pptx'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'file.required' => 'Un fichier est requis.',
+            'file.mimes' => "Vous n'êtes pas autorisé à télécharger ce type de fichier.",
         ];
     }
 }
