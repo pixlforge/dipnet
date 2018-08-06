@@ -50,7 +50,10 @@
 </template>
 
 <script>
+import { filters, dates } from "../../mixins";
+
 export default {
+  mixins: [filters, dates],
   props: {
     document: {
       type: Object,
