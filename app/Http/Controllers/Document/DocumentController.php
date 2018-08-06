@@ -34,7 +34,7 @@ class DocumentController extends Controller
     public function update(UpdateDocumentRequest $request, Document $document)
     {
         $this->authorize('touch', $document);
-        
+
         $document->article_id = $request->article_id;
         $document->finish = $request->finish;
         $document->quantity = $request->quantity;
@@ -44,11 +44,20 @@ class DocumentController extends Controller
         $document->articles()->sync($request->options);
         $document->save();
 
-        return response(200);
+        return response($document, 200);
     }
 
     public function destroy(Document $document)
     {
+        $this->authorize('touch', $document);
+        
+        abort_if($document->delivery->order->status !== 'incomplète', 403, "Vous n'êtes pas autorisé à faire cela.");
+
+        if ($document->hasMedia()) {
+            $media = $document->getMedia();
+            $media->delete();
+        }
+
         $document->delete();
 
         return response(null, 204);

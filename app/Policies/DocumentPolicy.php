@@ -15,7 +15,7 @@ class DocumentPolicy
         if ($user->isPartOfACompany()) {
             return $document->delivery->order->company_id == $user->company->id;
         } elseif ($user->isSolo()) {
-            return $document->delivery->order->user->id == $user->id;
+            return $document->delivery->order->user_id == $user->id;
         }
     }
 }

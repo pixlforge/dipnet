@@ -23,7 +23,6 @@ class CreateDocumentsTable extends Migration
             $table->unsignedInteger('delivery_id')->nullable();
             $table->unsignedInteger('article_id')->nullable();
             $table->timestamps();
-            $table->softDeletes();
 
             $table->foreign('delivery_id')->references('id')->on('deliveries')->onDelete('cascade');
             $table->foreign('article_id')->references('id')->on('articles')->onDelete('set null');

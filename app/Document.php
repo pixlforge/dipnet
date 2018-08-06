@@ -4,14 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
 
 class Document extends Model implements HasMedia
 {
-    use SoftDeletes, HasMediaTrait;
-
-    protected $dates = ['deleted_at'];
+    use HasMediaTrait;
 
     public function belongsToUser()
     {
