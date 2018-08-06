@@ -10,19 +10,12 @@ class DocumentPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can delete the document.
-     *
-     * @param  \App\User  $user
-     * @param  \App\Document  $document
-     * @return mixed
-     */
-    public function delete(User $user, Document $document)
+    public function touch(User $user, Document $document)
     {
-        if ($user->isSolo()) {
-            return $document->belongsToUser();
-        } else {
-            return $document->belongsToUsersCompany();
+        if ($user->isPartOfACompany()) {
+            return $document->delivery->order->company_id == $user->company->id;
+        } elseif ($user->isSolo()) {
+            return $document->delivery->order->user->id == $user->id;
         }
     }
 }

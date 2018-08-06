@@ -60,9 +60,9 @@ class PrepareOrderTest extends TestCase
 
         // User adds documents to the delivery
         $documents = [
-            factory(Document::class)->create(['delivery_id' => $deliveryA->id]),
-            factory(Document::class)->create(['delivery_id' => $deliveryA->id]),
-            factory(Document::class)->create(['delivery_id' => $deliveryA->id]),
+            factory(Document::class)->states('with-article')->create(['delivery_id' => $deliveryA->id]),
+            factory(Document::class)->states('with-article')->create(['delivery_id' => $deliveryA->id]),
+            factory(Document::class)->states('with-article')->create(['delivery_id' => $deliveryA->id]),
         ];
         $deliveryA->documents = $documents;
 

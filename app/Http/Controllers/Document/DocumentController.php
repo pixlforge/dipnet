@@ -21,7 +21,7 @@ class DocumentController extends Controller
     public function store(StoreDocumentRequest $request, Delivery $delivery)
     {
         $this->authorize('touch', $delivery);
-        
+
         $document = new Document;
         $document->delivery()->associate($delivery);
         $document->save();
@@ -33,6 +33,8 @@ class DocumentController extends Controller
 
     public function update(UpdateDocumentRequest $request, Document $document)
     {
+        $this->authorize('touch', $document);
+        
         $document->article_id = $request->article_id;
         $document->finish = $request->finish;
         $document->quantity = $request->quantity;
