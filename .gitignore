@@ -13,3 +13,4 @@ npm-debug.log
 *.bak
 _ide_helper.php
 .DS_Store
+.phpunit.result.cache
