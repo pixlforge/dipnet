@@ -7,11 +7,17 @@ use Illuminate\Validation\Rule;
 
 class StoreUserRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -28,6 +34,9 @@ class StoreUserRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [

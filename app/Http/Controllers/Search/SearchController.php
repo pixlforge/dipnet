@@ -11,13 +11,25 @@ use App\Http\Controllers\Controller;
 
 class SearchController extends Controller
 {
+    /**
+     * SearchController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function search()
     {
+        $orders = [];
+        $companies = [];
+        $businesses = [];
+        $deliveries = [];
+        $contacts = [];
+
         if (auth()->user()->isAdmin()) {
             $orders = Order::select(['id', 'reference'])
                 ->where('reference', 'like', '%' . request('query') . '%')

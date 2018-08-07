@@ -4,11 +4,17 @@ namespace App\Http\Requests\User;
 
 class UpdateUserRequest extends StoreUserRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return array_merge(parent::rules(), [
@@ -16,6 +22,9 @@ class UpdateUserRequest extends StoreUserRequest
         ]);
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return array_merge(parent::messages(), []);

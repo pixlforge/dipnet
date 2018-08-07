@@ -9,16 +9,26 @@ use App\Http\Requests\Company\UpdateCompanyRequest;
 
 class CompanyController extends Controller
 {
+    /**
+     * CompanyController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
-    
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('admin.companies.index');
     }
 
+    /**
+     * @param StoreCompanyRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function store(StoreCompanyRequest $request)
     {
         $company = new Company;
@@ -31,6 +41,11 @@ class CompanyController extends Controller
         return response($company, 200);
     }
 
+    /**
+     * @param UpdateCompanyRequest $request
+     * @param Company $company
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(UpdateCompanyRequest $request, Company $company)
     {
         $company->name = $request->name;
@@ -41,6 +56,11 @@ class CompanyController extends Controller
         return response($company, 200);
     }
 
+    /**
+     * @param Company $company
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
     public function destroy(Company $company)
     {
         $company->delete();

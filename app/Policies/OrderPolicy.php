@@ -10,11 +10,20 @@ class OrderPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param User $user
+     * @return bool
+     */
     public function view(User $user)
     {
         return $user->isAdmin();
     }
 
+    /**
+     * @param User $user
+     * @param Order $order
+     * @return bool
+     */
     public function touch(User $user, Order $order)
     {
         if ($user->isPartOfACompany()) {
@@ -24,6 +33,11 @@ class OrderPolicy
         }
     }
 
+    /**
+     * @param User $user
+     * @param Order $order
+     * @return bool
+     */
     public function delete(User $user, Order $order)
     {
         return $user->company_id === $order->business->company->id;

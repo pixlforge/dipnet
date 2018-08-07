@@ -9,6 +9,10 @@ use App\Http\Controllers\Controller;
 
 class CompanyController extends Controller
 {
+    /**
+     * @param Company $company
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Company $company)
     {
         $invitations = Invitation::where('company_id', $company->id)->get();

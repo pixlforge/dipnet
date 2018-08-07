@@ -9,6 +9,9 @@ use App\Mail\RegistrationEmailConfirmation;
 
 class RegisterConfirmationController extends Controller
 {
+    /**
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function index()
     {
         $user = User::where('confirmation_token', request('token'))->first();
@@ -35,6 +38,9 @@ class RegisterConfirmationController extends Controller
         }
     }
 
+    /**
+     *
+     */
     public function update()
     {
         $user = User::whereEmail(auth()->user()->email)->first();

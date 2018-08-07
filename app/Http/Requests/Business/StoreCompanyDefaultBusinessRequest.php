@@ -6,11 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCompanyDefaultBusinessRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize()
     {
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -20,6 +26,9 @@ class StoreCompanyDefaultBusinessRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [

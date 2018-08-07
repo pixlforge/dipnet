@@ -10,6 +10,11 @@ class BusinessPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param User $user
+     * @param Business $business
+     * @return bool
+     */
     public function view(User $user, Business $business)
     {
         if ($user->isPartOfACompany()) {
@@ -19,6 +24,11 @@ class BusinessPolicy
         }
     }
 
+    /**
+     * @param User $user
+     * @param Business $business
+     * @return bool
+     */
     public function update(User $user, Business $business)
     {
         if ($user->isPartOfACompany()) {
@@ -28,11 +38,19 @@ class BusinessPolicy
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function delete()
     {
         return auth()->user()->isAdmin();
     }
 
+    /**
+     * @param User $user
+     * @param Business $business
+     * @return bool
+     */
     public function comment(User $user, Business $business)
     {
         if ($user->isPartOfACompany()) {

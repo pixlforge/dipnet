@@ -8,11 +8,18 @@ use App\Http\Resources\FormatsCollection;
 
 class FormatController extends Controller
 {
+    /**
+     * FormatController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
+    /**
+     * @param string $sort
+     * @return FormatsCollection
+     */
     public function index($sort = 'name')
     {
         if ($sort === 'height' || $sort === 'width' || $sort === 'created_at') {

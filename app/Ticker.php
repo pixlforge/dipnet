@@ -14,6 +14,10 @@ class Ticker extends Model
 
     protected $casts = ['active' => 'boolean'];
 
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
     public function scopeActive(Builder $builder)
     {
         return $builder->where('active', true);

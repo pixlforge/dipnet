@@ -6,11 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreUserContactRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize()
     {
-        return auth()->check();
+        return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -25,6 +31,9 @@ class StoreUserContactRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [

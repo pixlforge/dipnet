@@ -12,8 +12,12 @@ class DocumentOptionController extends Controller
 {
     /**
      * Clone a document's options to every document in a given delivery.
+     *
+     * @param Delivery $delivery
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
-    public function store(Order $order, Delivery $delivery, Request $request)
+    public function store(Delivery $delivery, Request $request)
     {
         $documents = Document::where('delivery_id', $delivery->id)->get();
 

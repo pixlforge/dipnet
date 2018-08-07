@@ -6,11 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterContactRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize()
     {
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -24,6 +30,9 @@ class RegisterContactRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [

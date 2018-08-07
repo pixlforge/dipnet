@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 
 class ProfileController extends Controller
 {
+    /**
+     * ProfileController constructor.
+     */
     public function __construct()
     {
         $this->middleware([
@@ -18,6 +21,10 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function index()
     {
         $this->authorize('view', Profile::class);
@@ -37,6 +44,10 @@ class ProfileController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(Request $request)
     {
         if ($request->avatar['id']) {

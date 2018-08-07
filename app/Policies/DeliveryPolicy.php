@@ -10,6 +10,11 @@ class DeliveryPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param User $user
+     * @param Delivery $delivery
+     * @return bool
+     */
     public function touch(User $user, Delivery $delivery)
     {
         if ($user->isPartOfACompany()) {

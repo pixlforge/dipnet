@@ -8,11 +8,17 @@ use App\Http\Requests\Register\RegisterContactRequest;
 
 class RegisterContactOnlyController extends Controller
 {
+    /**
+     * RegisterContactOnlyController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param RegisterContactRequest $request
+     */
     public function store(RegisterContactRequest $request)
     {
         $contact = new Contact;

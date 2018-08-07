@@ -6,11 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateAdminDeliveryRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize()
     {
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -21,6 +27,9 @@ class UpdateAdminDeliveryRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [

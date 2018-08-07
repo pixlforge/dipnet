@@ -8,11 +8,18 @@ use App\Http\Resources\ContactsCollection;
 
 class ContactController extends Controller
 {
+    /**
+     * ContactController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param string $sort
+     * @return ContactsCollection
+     */
     public function index($sort = 'name')
     {
         if (auth()->user()->isAdmin()) {

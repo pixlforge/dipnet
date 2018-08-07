@@ -7,11 +7,18 @@ use App\Http\Controllers\Controller;
 
 class DeliveryReceiptController extends Controller
 {
+    /**
+     * DeliveryReceiptController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
+    /**
+     * @param Delivery $delivery
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Delivery $delivery)
     {
         $order = $delivery->order;

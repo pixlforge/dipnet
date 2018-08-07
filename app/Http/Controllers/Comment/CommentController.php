@@ -9,11 +9,20 @@ use App\Http\Requests\Comment\StoreCommentRequest;
 
 class CommentController extends Controller
 {
+    /**
+     * CommentController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param StoreCommentRequest $request
+     * @param Business $business
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(StoreCommentRequest $request, Business $business)
     {
         $this->authorize('comment', $business);

@@ -9,17 +9,27 @@ use App\Http\Requests\Contact\UpdateUserContactRequest;
 
 class ContactController extends Controller
 {
+    /**
+     * ContactController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
         $this->middleware('user.email.confirmed');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('contacts.index');
     }
 
+    /**
+     * @param StoreUserContactRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function store(StoreUserContactRequest $request)
     {
         $contact = new Contact();
@@ -45,6 +55,12 @@ class ContactController extends Controller
         return response($contact, 200);
     }
 
+    /**
+     * @param UpdateUserContactRequest $request
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(UpdateUserContactRequest $request, Contact $contact)
     {
         $this->authorize('update', $contact);
@@ -63,6 +79,11 @@ class ContactController extends Controller
         return response($contact, 200);
     }
 
+    /**
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(Contact $contact)
     {
         $this->authorize('delete', $contact);

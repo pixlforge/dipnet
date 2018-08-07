@@ -10,11 +10,17 @@ use App\Http\Requests\Contact\UpdateAdminContactRequest;
 
 class ContactController extends Controller
 {
+    /**
+     * ContactController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $companies = Company::all();
@@ -22,6 +28,10 @@ class ContactController extends Controller
         return view('admin.contacts.index', compact('companies'));
     }
 
+    /**
+     * @param StoreAdminContactRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function store(StoreAdminContactRequest $request)
     {
         $contact = new Contact();
@@ -42,6 +52,11 @@ class ContactController extends Controller
         return response($contact, 200);
     }
 
+    /**
+     * @param UpdateAdminContactRequest $request
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(UpdateAdminContactRequest $request, Contact $contact)
     {
         $contact->name = $request->name;
@@ -59,6 +74,11 @@ class ContactController extends Controller
         return response($contact, 200);
     }
 
+    /**
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
     public function destroy(Contact $contact)
     {
         $contact->delete();

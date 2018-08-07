@@ -10,6 +10,9 @@ use App\Http\Requests\Document\UpdateDocumentRequest;
 
 class DocumentController extends Controller
 {
+    /**
+     * DocumentController constructor.
+     */
     public function __construct()
     {
         $this->middleware([
@@ -18,6 +21,12 @@ class DocumentController extends Controller
         ]);
     }
 
+    /**
+     * @param StoreDocumentRequest $request
+     * @param Delivery $delivery
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(StoreDocumentRequest $request, Delivery $delivery)
     {
         $this->authorize('touch', $delivery);
@@ -31,6 +40,12 @@ class DocumentController extends Controller
         return response($document, 200);
     }
 
+    /**
+     * @param UpdateDocumentRequest $request
+     * @param Document $document
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(UpdateDocumentRequest $request, Document $document)
     {
         $this->authorize('touch', $document);
@@ -47,6 +62,11 @@ class DocumentController extends Controller
         return response($document, 200);
     }
 
+    /**
+     * @param Document $document
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(Document $document)
     {
         $this->authorize('touch', $document);

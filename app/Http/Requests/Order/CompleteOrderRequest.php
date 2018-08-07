@@ -2,19 +2,23 @@
 
 namespace App\Http\Requests\Order;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CompleteOrderRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize()
     {
-        return Auth::check();
+        return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
-        // dd(request()->all());
         return [
             'status' => 'required|in:incomplète',
             'business_id' => 'required|exists:businesses,id',
@@ -31,6 +35,9 @@ class CompleteOrderRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [

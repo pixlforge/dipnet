@@ -13,6 +13,9 @@ use App\Http\Hashids\HashidsGenerator;
 
 class OrderController extends Controller
 {
+    /**
+     * OrderController constructor.
+     */
     public function __construct()
     {
         $this->middleware([
@@ -24,11 +27,19 @@ class OrderController extends Controller
         $this->middleware('business')->only('create');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('orders.index');
     }
 
+    /**
+     * @param Order $order
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function create(Order $order)
     {
         // Create an order if none exist and redirect along with the newly created order.
@@ -46,7 +57,7 @@ class OrderController extends Controller
         } elseif (auth()->user()->hasCompany()) {
             $businesses = Business::where('company_id', auth()->user()->company_id)->orderBy('name')->get();
             $contacts = Contact::where('company_id', auth()->user()->company_id)->orderBy('name')->get();
-        } elseif (auth()->user()->isSolo()) {
+        } else {
             $contacts = auth()->user()->contacts;
             $contactIds = [];
 
@@ -74,6 +85,11 @@ class OrderController extends Controller
         ]);
     }
 
+    /**
+     * @param Order $order
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function show(Order $order)
     {
         $this->authorize('view', Order::class);
@@ -99,6 +115,11 @@ class OrderController extends Controller
         ]);
     }
 
+    /**
+     * @param Request $request
+     * @param Order $order
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(Request $request, Order $order)
     {
         $order->business_id = $request->business_id;
@@ -108,6 +129,9 @@ class OrderController extends Controller
         return response($order, 200);
     }
 
+    /**
+     * @return Order
+     */
     protected function createSkeletonOrder()
     {
         $order = new Order;
@@ -122,6 +146,10 @@ class OrderController extends Controller
         return $order;
     }
 
+    /**
+     * @param Order $order
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
     protected function getOrderDeliveries(Order $order)
     {
         $deliveries = $order->deliveries()->with('contact')->where('order_id', $order->id)->get();

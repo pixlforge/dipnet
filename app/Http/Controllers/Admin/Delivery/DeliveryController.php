@@ -8,16 +8,27 @@ use App\Http\Requests\Delivery\UpdateAdminDeliveryRequest;
 
 class DeliveryController extends Controller
 {
+    /**
+     * DeliveryController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         return view('admin.deliveries.index');
     }
 
+    /**
+     * @param UpdateAdminDeliveryRequest $request
+     * @param Delivery $delivery
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(UpdateAdminDeliveryRequest $request, Delivery $delivery)
     {
         $delivery->note = $request->note;

@@ -10,6 +10,11 @@ class DocumentPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param User $user
+     * @param Document $document
+     * @return bool
+     */
     public function touch(User $user, Document $document)
     {
         if ($user->isPartOfACompany()) {

@@ -22,15 +22,20 @@ class UserController extends Controller
         'contact_confirmed',
     ];
 
+    /**
+     * UserController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
+    /**
+     * @param null $sort
+     * @return UsersCollection
+     */
     public function index($sort = null)
     {
-        $users = [];
-
         if ($sort) {
             if ($sort === 'created_at' || $sort === 'role') {
                 $users = User::orderBy($sort, 'desc')->paginate(25, $this->fields);

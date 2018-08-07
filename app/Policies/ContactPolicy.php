@@ -10,6 +10,11 @@ class ContactPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param User $user
+     * @param Contact $contact
+     * @return bool
+     */
     public function update(User $user, Contact $contact)
     {
         if ($user->isPartOfACompany()) {
@@ -19,6 +24,11 @@ class ContactPolicy
         }
     }
 
+    /**
+     * @param User $user
+     * @param Contact $contact
+     * @return bool
+     */
     public function delete(User $user, Contact $contact)
     {
         if ($user->isPartOfACompany()) {

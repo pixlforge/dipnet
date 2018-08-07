@@ -8,11 +8,18 @@ use App\Http\Resources\BusinessesCollection;
 
 class BusinessController extends Controller
 {
+    /**
+     * BusinessController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param string $sort
+     * @return BusinessesCollection
+     */
     public function index($sort = 'name')
     {
         if (auth()->user()->isAdmin()) {

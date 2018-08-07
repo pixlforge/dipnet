@@ -8,6 +8,10 @@ use App\Http\Resources\TickersCollection;
 
 class TickerController extends Controller
 {
+    /**
+     * @param string $sort
+     * @return TickersCollection
+     */
     public function index($sort = 'active')
     {
         return new TickersCollection(

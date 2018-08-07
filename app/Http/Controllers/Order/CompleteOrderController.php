@@ -11,11 +11,18 @@ use App\Http\Requests\Order\CompleteOrderRequest;
 
 class CompleteOrderController extends Controller
 {
+    /**
+     * CompleteOrderController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param Order $order
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(Order $order)
     {
         $order->load('business', 'contact', 'user', 'deliveries.contact', 'deliveries.documents.article', 'deliveries.documents.articles');
@@ -25,6 +32,11 @@ class CompleteOrderController extends Controller
         ]);
     }
 
+    /**
+     * @param CompleteOrderRequest $request
+     * @param Order $order
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(CompleteOrderRequest $request, Order $order)
     {
         $order->status = 'envoyée';

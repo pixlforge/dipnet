@@ -8,11 +8,18 @@ use App\Http\Resources\CompaniesCollection;
 
 class CompanyController extends Controller
 {
+    /**
+     * CompanyController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
+    /**
+     * @param null $sort
+     * @return CompaniesCollection
+     */
     public function index($sort = null)
     {
         if ($sort) {

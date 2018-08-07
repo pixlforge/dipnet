@@ -13,11 +13,19 @@ use App\Http\Requests\Business\UpdateUserBusinessRequest;
 
 class BusinessController extends Controller
 {
+    /**
+     * BusinessController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * Display a list of all the businesses owned by a user.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $companies = collect();
@@ -38,6 +46,12 @@ class BusinessController extends Controller
         return view('businesses.index', compact('businesses', 'contacts', 'companies', 'orders'));
     }
 
+    /**
+     * Store a user created business.
+     *
+     * @param StoreUserBusinessRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function store(StoreUserBusinessRequest $request)
     {
         $business = new Business;
@@ -73,6 +87,13 @@ class BusinessController extends Controller
         return response($business, 200);
     }
 
+    /**
+     * Show the details of a specific business.
+     *
+     * @param Business $business
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function show(Business $business)
     {
         $this->authorize('view', $business);
@@ -89,6 +110,14 @@ class BusinessController extends Controller
         return view('businesses.show', compact('business', 'contacts', 'orders', 'comments'));
     }
 
+    /**
+     * Update an existing business.
+     *
+     * @param UpdateUserBusinessRequest $request
+     * @param Business $business
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(UpdateUserBusinessRequest $request, Business $business)
     {
         $this->authorize('update', $business);

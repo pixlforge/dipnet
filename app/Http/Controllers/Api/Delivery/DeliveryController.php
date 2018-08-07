@@ -8,11 +8,18 @@ use App\Http\Resources\DeliveriesCollection;
 
 class DeliveryController extends Controller
 {
+    /**
+     * DeliveryController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param string $sort
+     * @return DeliveriesCollection
+     */
     public function index($sort = 'created_at')
     {
         if ($sort === 'created_at') {

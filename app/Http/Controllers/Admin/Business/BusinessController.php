@@ -14,11 +14,17 @@ use App\Http\Requests\Business\UpdateAdminBusinessRequest;
 
 class BusinessController extends Controller
 {
+    /**
+     * BusinessController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $companies = Company::all();
@@ -29,6 +35,10 @@ class BusinessController extends Controller
         return view('admin.businesses.index', compact('companies', 'contacts', 'orders', 'users'));
     }
 
+    /**
+     * @param StoreAdminBusinessRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function store(StoreAdminBusinessRequest $request)
     {
         $business = new Business;
@@ -55,6 +65,11 @@ class BusinessController extends Controller
         return response($business, 200);
     }
 
+    /**
+     * @param UpdateAdminBusinessRequest $request
+     * @param Business $business
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(UpdateAdminBusinessRequest $request, Business $business)
     {
         $business->name = $request->name;
@@ -69,6 +84,11 @@ class BusinessController extends Controller
         return response($business, 200);
     }
 
+    /**
+     * @param Business $business
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Exception
+     */
     public function destroy(Business $business)
     {
         $business->delete();

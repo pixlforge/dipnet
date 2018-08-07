@@ -11,11 +11,20 @@ use App\Http\Requests\Delivery\UpdateUserDeliveryRequest;
 
 class DeliveryController extends Controller
 {
+    /**
+     * DeliveryController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param Request $request
+     * @param Order $order
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(Request $request, Order $order)
     {
         $this->authorize('touch', $order);
@@ -30,6 +39,12 @@ class DeliveryController extends Controller
         return response($delivery, 200);
     }
 
+    /**
+     * @param UpdateUserDeliveryRequest $request
+     * @param Delivery $delivery
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(UpdateUserDeliveryRequest $request, Delivery $delivery)
     {
         $this->authorize('touch', $delivery);
@@ -42,6 +57,11 @@ class DeliveryController extends Controller
         return response($delivery, 200);
     }
 
+    /**
+     * @param Delivery $delivery
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(Delivery $delivery)
     {
         $this->authorize('touch', $delivery);

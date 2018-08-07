@@ -11,8 +11,6 @@ class InvitationPolicy
     use HandlesAuthorization;
 
     /**
-     * Authorize model's deletion.
-     *
      * @param User $user
      * @param Invitation $invitation
      * @return bool

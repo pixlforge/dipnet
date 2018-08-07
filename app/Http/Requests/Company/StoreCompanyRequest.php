@@ -6,11 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCompanyRequest extends FormRequest
 {
+    /**
+     * @return mixed
+     */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -20,6 +26,9 @@ class StoreCompanyRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [

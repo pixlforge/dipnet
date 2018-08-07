@@ -8,11 +8,17 @@ use App\Http\Requests\Register\RegisterCompanyRequest;
 
 class RegisterCompanyController extends Controller
 {
+    /**
+     * RegisterCompanyController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param RegisterCompanyRequest $request
+     */
     public function store(RegisterCompanyRequest $request)
     {
         $company = new Company;

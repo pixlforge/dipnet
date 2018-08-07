@@ -11,6 +11,9 @@ class Format extends Model
 
     protected $dates = ['deleted_at'];
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function document()
     {
         return $this->hasMany(Document::class);

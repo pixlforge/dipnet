@@ -10,9 +10,7 @@ class UserPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the user.
-     *
-     * @return mixed
+     * @return bool
      */
     public function view()
     {
@@ -20,8 +18,6 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can create users.
-     *
      * @return mixed
      */
     public function create()
@@ -30,24 +26,20 @@ class UserPolicy
     }
 
     /**
-     * Determine whether the user can update the user.
-     *
      * @param User $user
-     * @return mixed
+     * @return bool
      */
     public function update(User $user)
     {
-        return auth()->user()->role == 'administrateur';
+        return $user->role == 'administrateur';
     }
 
     /**
-     * Determine whether the user can delete the user.
-     *
      * @param User $user
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user)
     {
-        return auth()->user()->isAdmin();
+        return $user->isAdmin();
     }
 }

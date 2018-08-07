@@ -8,11 +8,18 @@ use App\Http\Resources\ArticlesCollection;
 
 class ArticleController extends Controller
 {
+    /**
+     * ArticleController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
+    /**
+     * @param null $sort
+     * @return ArticlesCollection
+     */
     public function index($sort = null)
     {
         if ($sort) {

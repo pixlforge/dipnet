@@ -2,8 +2,6 @@
 
 namespace App\Policies;
 
-use App\User;
-use App\Format;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class FormatPolicy
@@ -11,8 +9,6 @@ class FormatPolicy
     use HandlesAuthorization;
 
     /**
-     * User has permission to view the Format.
-     *
      * @return mixed
      */
     public function view()
@@ -21,8 +17,6 @@ class FormatPolicy
     }
 
     /**
-     * User has permission to delete the Format.
-     *
      * @return mixed
      */
     public function delete()

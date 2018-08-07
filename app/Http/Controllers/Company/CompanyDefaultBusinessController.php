@@ -11,11 +11,20 @@ use App\Http\Hashids\HashidsGenerator;
 
 class CompanyDefaultBusinessController extends Controller
 {
+    /**
+     * CompanyDefaultBusinessController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
+    /**
+     * @param StoreCompanyDefaultBusinessRequest $request
+     * @param Company $company
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function store(StoreCompanyDefaultBusinessRequest $request, Company $company)
     {
         $this->authorize('touch', $company);
@@ -36,6 +45,9 @@ class CompanyDefaultBusinessController extends Controller
         return response(null, 200);
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit()
     {
         if (auth()->user()->isPartOfACompany()) {
@@ -46,6 +58,12 @@ class CompanyDefaultBusinessController extends Controller
         return view('companies.default.business.edit', compact('company', 'businesses'));
     }
 
+    /**
+     * @param UpdateCompanyDefaultBusinessRequest $request
+     * @param Company $company
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function update(UpdateCompanyDefaultBusinessRequest $request, Company $company)
     {
         $this->authorize('touch', $company);

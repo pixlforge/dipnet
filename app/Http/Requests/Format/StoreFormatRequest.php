@@ -6,11 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreFormatRequest extends FormRequest
 {
+    /**
+     * @return bool
+     */
     public function authorize()
     {
-        return auth()->user()->isAdmin();
+        return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [
@@ -20,11 +26,14 @@ class StoreFormatRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function messages()
     {
         return [
             'name.required' => 'Veuillez entrer un nom, entre 2 et 45 caractères.',
-            'name.required' => 'Le nom doit être une chaîne de caractères.',
+            'name.string' => 'Le nom doit être une chaîne de caractères.',
             'name.min' => 'Minimum 2 caractères.',
             'name.max' => 'Maximum 45 caractères.',
 

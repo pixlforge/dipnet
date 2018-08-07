@@ -12,11 +12,17 @@ use App\Http\Requests\User\UpdateUserRequest;
 
 class UserController extends Controller
 {
+    /**
+     * UserController constructor.
+     */
     public function __construct()
     {
         $this->middleware('admin');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index()
     {
         $companies = Company::orderBy('name')->get();
@@ -24,6 +30,10 @@ class UserController extends Controller
         return view('admin.users.index', compact('companies'));
     }
 
+    /**
+     * @param StoreUserRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function store(StoreUserRequest $request)
     {
         $user = new User;
@@ -50,11 +60,20 @@ class UserController extends Controller
         return response($user, 200);
     }
 
+    /**
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(User $user)
     {
         return view('users.show', compact('user'));
     }
 
+    /**
+     * @param UpdateUserRequest $request
+     * @param User $user
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->username = $request->username;
@@ -85,6 +104,11 @@ class UserController extends Controller
         return response($user, 200);
     }
 
+    /**
+     * @param User $user
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
@@ -94,6 +118,10 @@ class UserController extends Controller
         return response(null, 204);
     }
 
+    /**
+     * @param $status
+     * @return int
+     */
     protected function getEmailStatus($status): int
     {
         if ($status == 1 && empty($request->email_confirmed)) {
@@ -104,6 +132,9 @@ class UserController extends Controller
         return $emailStatus;
     }
 
+    /**
+     * @param $user
+     */
     protected function sendConfirmationEmail($user)
     {
         Mail::to($user)

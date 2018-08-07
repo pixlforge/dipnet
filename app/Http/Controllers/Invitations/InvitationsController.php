@@ -11,11 +11,18 @@ use App\Http\Requests\Invitation\InvitationRequest;
 
 class InvitationsController extends Controller
 {
+    /**
+     * InvitationsController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth')->except('confirm');
     }
 
+    /**
+     * @param InvitationRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function store(InvitationRequest $request)
     {
         $invitation = new Invitation;
@@ -30,6 +37,9 @@ class InvitationsController extends Controller
         return response($invitation, 200);
     }
 
+    /**
+     * @param Request $request
+     */
     public function update(Request $request)
     {
         $invitation = Invitation::whereEmail($request->email)->first();
@@ -40,6 +50,10 @@ class InvitationsController extends Controller
         Mail::to($invitation)->queue(new InvitationEmail($invitation));
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     */
     public function confirm(Request $request)
     {
         $invitation = Invitation::where('token', $request->token)->first();
@@ -51,6 +65,11 @@ class InvitationsController extends Controller
         return response($invitation, 200);
     }
 
+    /**
+     * @param Invitation $invitation
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
     public function destroy(Invitation $invitation)
     {
         $this->authorize('delete', $invitation);
