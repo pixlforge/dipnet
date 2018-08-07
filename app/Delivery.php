@@ -12,11 +12,11 @@ class Delivery extends Model
 
     protected $dates = [
         'to_deliver_at',
-        'deleted_at'
+        'deleted_at',
     ];
 
     /**
-     *
+     * Deleting this model cascades to every associated document.
      */
     protected static function boot()
     {
@@ -28,6 +28,8 @@ class Delivery extends Model
     }
 
     /**
+     * Get the route key name for the model.
+     *
      * @return string
      */
     public function getRouteKeyName()
@@ -36,6 +38,8 @@ class Delivery extends Model
     }
 
     /**
+     * Fetch the deliveries that belong to the user's company.
+     *
      * @param Builder $builder
      * @return mixed
      */
@@ -45,6 +49,8 @@ class Delivery extends Model
     }
 
     /**
+     * Fetch the deliveries that belong to the user.
+     *
      * @param Builder $builder
      * @return mixed
      */
@@ -54,6 +60,8 @@ class Delivery extends Model
     }
 
     /**
+     * A delivery belongs to a contact.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contact()
@@ -62,6 +70,8 @@ class Delivery extends Model
     }
 
     /**
+     * A delivery may have many documents.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function documents()
@@ -70,6 +80,8 @@ class Delivery extends Model
     }
 
     /**
+     * A delivery belongs to an order.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function order()

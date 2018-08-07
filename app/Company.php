@@ -2,17 +2,18 @@
 
 namespace App;
 
+use App\Traits\HasDefaultBusiness;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Company extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasDefaultBusiness;
 
     protected $dates = ['deleted_at'];
 
     /**
-     *
+     * Get the associated user every time the company model is requested.
      */
     protected static function boot()
     {
@@ -24,6 +25,8 @@ class Company extends Model
     }
 
     /**
+     * Get the route key for the model.
+     *
      * @return string
      */
     public function getRouteKeyName()
@@ -32,22 +35,8 @@ class Company extends Model
     }
 
     /**
-     * @return bool
-     */
-    public function hasDefaultBusiness()
-    {
-        return $this->business_id !== null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function hasNoDefaultBusiness()
-    {
-        return !$this->hasDefaultBusiness();
-    }
-
-    /**
+     * A company may have many businesses.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function business()
@@ -56,14 +45,8 @@ class Company extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function defaultBusiness()
-    {
-        return $this->belongsTo(Business::class, 'business_id');
-    }
-
-    /**
+     * A company may have many contacts.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function contacts()
@@ -72,6 +55,8 @@ class Company extends Model
     }
 
     /**
+     * A company may have many users.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function user()
@@ -80,6 +65,8 @@ class Company extends Model
     }
 
     /**
+     * A company may have many invitations.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function invitations()
@@ -88,6 +75,8 @@ class Company extends Model
     }
 
     /**
+     * A company may have many orders.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function orders()

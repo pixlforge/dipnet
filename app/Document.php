@@ -11,6 +11,8 @@ class Document extends Model implements HasMedia
     use HasMediaTrait;
 
     /**
+     * Document belongs to the user.
+     *
      * @return bool
      */
     public function belongsToUser()
@@ -19,6 +21,8 @@ class Document extends Model implements HasMedia
     }
 
     /**
+     * Document belongs to the user's company.
+     *
      * @return bool
      */
     public function belongsToUsersCompany()
@@ -27,6 +31,8 @@ class Document extends Model implements HasMedia
     }
 
     /**
+     * A document belongs to an article.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function article()
@@ -35,6 +41,8 @@ class Document extends Model implements HasMedia
     }
 
     /**
+     * A document belongs to many articles.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function articles()
@@ -43,18 +51,12 @@ class Document extends Model implements HasMedia
     }
 
     /**
+     * A document belongs to a delivery.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function delivery()
     {
         return $this->belongsTo(Delivery::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function format()
-    {
-        return $this->belongsTo(Format::class);
     }
 }

@@ -12,9 +12,13 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at',
+    ];
 
-    protected $hidden = ['remember_token'];
+    protected $hidden = [
+        'remember_token',
+    ];
 
     protected $casts = [
         'email_confirmed' => 'boolean',
@@ -24,6 +28,8 @@ class User extends Authenticatable
     ];
 
     /**
+     * Fetch only the users whose role is user.
+     *
      * @param Builder $builder
      * @return Builder
      */
@@ -33,7 +39,7 @@ class User extends Authenticatable
     }
 
     /**
-     *
+     * Confirm a user account.
      */
     public function confirm()
     {
@@ -43,6 +49,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Generate a random confirmation token.
+     *
      * @param $field
      * @return string
      */
@@ -52,6 +60,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether a confirmation token exists.
+     *
      * @return mixed
      */
     public function hasConfirmationToken()
@@ -60,6 +70,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether the user confirmed his account.
+     *
      * @return mixed
      */
     public function isConfirmed()
@@ -68,6 +80,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether the user has confirmed his base mandatory contact.
+     *
      * @return mixed
      */
     public function hasConfirmedContact()
@@ -76,6 +90,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether a user associated with a company has confirmed his company.
+     *
      * @return mixed
      */
     public function hasConfirmedCompany()
@@ -84,6 +100,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Associate a user with an existing company.
+     *
      * @param $id
      */
     public function associateWithCompany($id)
@@ -93,6 +111,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Associate a user's mandatory contact with his company.
+     *
      * @param $id
      */
     public function associateContactWithCompany($id)
@@ -103,6 +123,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether the user was invited.
+     *
      * @return mixed
      */
     public function wasInvited()
@@ -111,6 +133,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether the user's role is admin.
+     *
      * @return bool
      */
     public function isAdmin()
@@ -119,6 +143,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether the user is not an admin.
+     *
      * @return bool
      */
     public function isNotAdmin()
@@ -127,6 +153,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether the user is part of a company.
+     *
      * @return bool
      */
     public function isPartOfACompany()
@@ -135,6 +163,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether the user is solo.
+     *
      * @return bool
      */
     public function isSolo()
@@ -143,6 +173,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether the user is not solo.
+     *
      * @return bool
      */
     public function isNotSolo()
@@ -151,6 +183,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Checks whether the user is not associated with a company.
+     *
      * @return bool
      */
     public function isNotAssociatedWithAnyCompany()
@@ -159,23 +193,7 @@ class User extends Authenticatable
     }
 
     /**
-     * @return bool
-     */
-    public function companyHasDefaultBusiness()
-    {
-        return $this->company->business_id !== null;
-    }
-
-    /**
-     * @return bool
-     */
-    public function companyHasNoDefaultBusiness()
-    {
-        return $this->company->business_id === null;
-    }
-
-    /**
-     *
+     * Confirm a user's contact.
      */
     public function confirmContact()
     {
@@ -184,7 +202,7 @@ class User extends Authenticatable
     }
 
     /**
-     *
+     * Confirm a user's company.
      */
     public function confirmCompany()
     {
@@ -193,14 +211,8 @@ class User extends Authenticatable
     }
 
     /**
-     * @return mixed
-     */
-    public function hasCompany()
-    {
-        return $this->company_id;
-    }
-
-    /**
+     * Get the count of associated orders.
+     *
      * @return int
      */
     public function getOrdersCountAttribute()
@@ -209,6 +221,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the count of associated businesses.
+     *
      * @return int
      */
     public function getBusinessesCountAttribute()
@@ -217,6 +231,8 @@ class User extends Authenticatable
     }
 
     /**
+     * A user belongs to a company.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company()
@@ -225,22 +241,8 @@ class User extends Authenticatable
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function deliveryComment()
-    {
-        return $this->hasMany(DeliveryComment::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function order()
-    {
-        return $this->hasMany(Order::class);
-    }
-
-    /**
+     * A user may have many orders.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function orders()
@@ -249,6 +251,8 @@ class User extends Authenticatable
     }
 
     /**
+     * An admin may manage many orders.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function manages()
@@ -257,6 +261,8 @@ class User extends Authenticatable
     }
 
     /**
+     * A user may have many comments.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function comments()
@@ -265,6 +271,8 @@ class User extends Authenticatable
     }
 
     /**
+     * A user may have many contacts.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function contacts()
@@ -273,22 +281,28 @@ class User extends Authenticatable
     }
 
     /**
+     * A user may have many deliveries through his contacts.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function deliveries()
     {
-        return $this->hasManyThrough('App\Delivery', 'App\Contact');
+        return $this->hasManyThrough(Delivery::class, Contact::class);
     }
 
     /**
+     * A user may have many businesses through his contacts.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function businesses()
     {
-        return $this->hasManyThrough('App\Business', 'App\Contact');
+        return $this->hasManyThrough(Business::class, Contact::class);
     }
 
     /**
+     * A user belongs to an avatar.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function avatar()
@@ -297,6 +311,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the user's avatar path.
+     *
      * @return null
      */
     public function avatarPath()
@@ -309,6 +325,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Get a random avatar for the user.
+     *
      * @return string
      */
     public function randomAvatar()
@@ -330,6 +348,8 @@ class User extends Authenticatable
     }
 
     /**
+     * Send a user a password reset link.
+     *
      * @param string $token
      */
     public function sendPasswordResetNotification($token)

@@ -16,8 +16,8 @@ class CompanyHasDefaultBusiness
     public function handle($request, Closure $next)
     {
         if (auth()->user()->isNotAdmin() &&
-            auth()->user()->companyHasNoDefaultBusiness() &&
-            auth()->user()->isNotSolo()) {
+        auth()->user()->isPartOfACompany() &&
+        auth()->user()->company->hasNoDefaultBusiness()) {
             return redirect(route('companies.default.business.edit'));
         }
 

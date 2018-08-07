@@ -9,13 +9,7 @@ class Format extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function document()
-    {
-        return $this->hasMany(Document::class);
-    }
+    protected $dates = [
+        'deleted_at',
+    ];
 }

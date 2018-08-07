@@ -9,7 +9,9 @@ class Business extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at',
+    ];
 
     protected $casts = [
         'company_id' => 'integer',

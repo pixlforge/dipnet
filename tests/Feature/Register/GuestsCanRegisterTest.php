@@ -295,7 +295,7 @@ class GuestsCanRegisterTest extends TestCase
             'city' => 'Moscow'
         ])->assertStatus(200);
 
-        $this->assertNull(auth()->user()->hasCompany());
+        $this->assertFalse(auth()->user()->isPartOfACompany());
         $this->get(route('index'))->assertStatus(200);
     }
 

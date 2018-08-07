@@ -10,6 +10,8 @@ class Comment extends Model
     use SoftDeletes;
 
     /**
+     * A comment belongs to a business.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function business()
@@ -18,6 +20,8 @@ class Comment extends Model
     }
 
     /**
+     * A comment belongs to a user.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()

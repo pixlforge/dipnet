@@ -10,9 +10,13 @@ class Order extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at',
+    ];
 
     /**
+     * Ge the route key for the model.
+     *
      * @return string
      */
     public function getRouteKeyName()
@@ -21,6 +25,8 @@ class Order extends Model
     }
 
     /**
+     * Fetch orders that are completed.
+     *
      * @param Builder $builder
      * @return Builder
      */
@@ -30,6 +36,8 @@ class Order extends Model
     }
 
     /**
+     * Fetch orders that belong to a company.
+     *
      * @param Builder $builder
      * @return Builder
      */
@@ -39,6 +47,8 @@ class Order extends Model
     }
 
     /**
+     * An order belongs to a business.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function business()
@@ -47,6 +57,18 @@ class Order extends Model
     }
 
     /**
+     * An order belongs to a company.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    /**
+     * An order belongs to a contact (billing).
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function contact()
@@ -55,6 +77,8 @@ class Order extends Model
     }
 
     /**
+     * An order may have many deliveries.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function deliveries()
@@ -63,22 +87,8 @@ class Order extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function managedBy()
-    {
-        return $this->belongsTo(User::class, 'manager_id');
-    }
-
-    /**
+     * An order may have many documents through its own deliveries.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function documents()
@@ -87,10 +97,22 @@ class Order extends Model
     }
 
     /**
+     * An order is managed by an admin.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function company()
+    public function managedBy()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(User::class, 'manager_id');
+    }
+
+    /**
+     * An order belongs to a user.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

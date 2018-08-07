@@ -9,9 +9,13 @@ class Contact extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at',
+    ];
 
     /**
+     * A contact may have many businesses.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function businesses()
@@ -20,6 +24,8 @@ class Contact extends Model
     }
 
     /**
+     * A contact belongs to a company.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company()
@@ -28,22 +34,8 @@ class Contact extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function deliveries()
-    {
-        return $this->hasMany(Delivery::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function order()
-    {
-        return $this->hasMany(Order::class);
-    }
-
-    /**
+     * A contact belongs to a user.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()

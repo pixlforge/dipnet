@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Invitation extends Model
 {
     /**
+     * Generate a random confirmation token.
+     *
      * @param $field
      * @return string
      */
@@ -16,6 +18,8 @@ class Invitation extends Model
     }
 
     /**
+     * An invitation belongs to a company.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function company()

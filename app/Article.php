@@ -10,11 +10,17 @@ class Article extends Model
 {
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = [
+        'deleted_at',
+    ];
     
-    protected $casts = ['greyscale' => 'boolean'];
+    protected $casts = [
+        'greyscale' => 'boolean',
+    ];
 
     /**
+     * Fetch articles where type is impression.
+     *
      * @param Builder $builder
      * @return Builder
      */
@@ -24,6 +30,8 @@ class Article extends Model
     }
 
     /**
+     * Fetch articles where type is option.
+     *
      * @param Builder $builder
      * @return Builder
      */
@@ -33,26 +41,12 @@ class Article extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function document()
-    {
-        return $this->hasMany(Document::class);
-    }
-
-    /**
+     * An article has many documents.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function documents()
     {
         return $this->belongsToMany(Document::class);
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
     }
 }
