@@ -17,6 +17,8 @@ class DocumentController extends Controller
     }
 
     /**
+     * Fetch documents.
+     *
      * @return DocumentsCollection
      */
     public function index()

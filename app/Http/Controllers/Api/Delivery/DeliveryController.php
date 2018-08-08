@@ -17,6 +17,8 @@ class DeliveryController extends Controller
     }
 
     /**
+     * Fetch deliveries.
+     *
      * @param string $sort
      * @return DeliveriesCollection
      */

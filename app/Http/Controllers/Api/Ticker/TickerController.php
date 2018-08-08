@@ -9,6 +9,8 @@ use App\Http\Resources\TickersCollection;
 class TickerController extends Controller
 {
     /**
+     * Fetch tickers.
+     *
      * @param string $sort
      * @return TickersCollection
      */

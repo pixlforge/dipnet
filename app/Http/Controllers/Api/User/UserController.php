@@ -31,6 +31,8 @@ class UserController extends Controller
     }
 
     /**
+     * Fetch users.
+     *
      * @param null $sort
      * @return UsersCollection
      */

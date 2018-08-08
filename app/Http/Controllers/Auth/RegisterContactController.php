@@ -17,6 +17,8 @@ class RegisterContactController extends Controller
     }
 
     /**
+     * Store a new contact and update the user's account status.
+     *
      * @param RegisterContactRequest $request
      */
     public function store(RegisterContactRequest $request)

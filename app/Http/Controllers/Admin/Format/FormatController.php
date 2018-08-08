@@ -18,6 +18,8 @@ class FormatController extends Controller
     }
 
     /**
+     * Display a list of all formats.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -26,6 +28,8 @@ class FormatController extends Controller
     }
 
     /**
+     * Store a new format.
+     *
      * @param StoreFormatRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -41,6 +45,8 @@ class FormatController extends Controller
     }
 
     /**
+     * Update an existing format.
+     *
      * @param UpdateFormatRequest $request
      * @param Format $format
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -56,6 +62,8 @@ class FormatController extends Controller
     }
 
     /**
+     * Delete an existing format.
+     *
      * @param Format $format
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception

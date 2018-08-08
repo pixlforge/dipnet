@@ -20,6 +20,8 @@ class CompleteOrderController extends Controller
     }
 
     /**
+     * Show a completed order's details.
+     *
      * @param Order $order
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
@@ -33,6 +35,8 @@ class CompleteOrderController extends Controller
     }
 
     /**
+     * Update an existing order's status.
+     *
      * @param CompleteOrderRequest $request
      * @param Order $order
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response

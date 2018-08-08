@@ -18,6 +18,8 @@ class CompanyController extends Controller
     }
 
     /**
+     * Display a list of all companies.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -26,6 +28,8 @@ class CompanyController extends Controller
     }
 
     /**
+     * Store a new company.
+     *
      * @param StoreCompanyRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -42,6 +46,8 @@ class CompanyController extends Controller
     }
 
     /**
+     * Update an existing company.
+     *
      * @param UpdateCompanyRequest $request
      * @param Company $company
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -57,6 +63,8 @@ class CompanyController extends Controller
     }
 
     /**
+     * Delete an existing company.
+     *
      * @param Company $company
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception

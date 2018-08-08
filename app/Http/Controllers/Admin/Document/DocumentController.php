@@ -15,6 +15,8 @@ class DocumentController extends Controller
     }
 
     /**
+     * Display a list of all documents.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()

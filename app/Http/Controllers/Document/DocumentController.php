@@ -22,6 +22,8 @@ class DocumentController extends Controller
     }
 
     /**
+     * Store a new document and save its associated file.
+     *
      * @param StoreDocumentRequest $request
      * @param Delivery $delivery
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -41,6 +43,8 @@ class DocumentController extends Controller
     }
 
     /**
+     * Update an existing document.
+     *
      * @param UpdateDocumentRequest $request
      * @param Document $document
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -63,6 +67,8 @@ class DocumentController extends Controller
     }
 
     /**
+     * Delete an existing document and its associated media.
+     *
      * @param Document $document
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException

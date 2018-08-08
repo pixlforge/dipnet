@@ -22,6 +22,8 @@ class AvatarController extends Controller
     }
 
     /**
+     * Store a new avatar.
+     *
      * @param AvatarUploadRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */

@@ -18,6 +18,8 @@ class CommentController extends Controller
     }
 
     /**
+     * Store a new comment.
+     *
      * @param StoreCommentRequest $request
      * @param Business $business
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response

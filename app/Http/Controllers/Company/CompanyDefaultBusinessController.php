@@ -20,6 +20,8 @@ class CompanyDefaultBusinessController extends Controller
     }
 
     /**
+     * Store a new business and set it as the default business for the user's company.
+     *
      * @param StoreCompanyDefaultBusinessRequest $request
      * @param Company $company
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -46,6 +48,8 @@ class CompanyDefaultBusinessController extends Controller
     }
 
     /**
+     * Show the edit default business page.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit()
@@ -59,6 +63,8 @@ class CompanyDefaultBusinessController extends Controller
     }
 
     /**
+     * Update the company's default business.
+     *
      * @param UpdateCompanyDefaultBusinessRequest $request
      * @param Company $company
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response

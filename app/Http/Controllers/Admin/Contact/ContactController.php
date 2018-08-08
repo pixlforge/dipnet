@@ -19,6 +19,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Display a list of all contacts.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -29,6 +31,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Store a new contact.
+     *
      * @param StoreAdminContactRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -53,6 +57,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Update an existing contact.
+     *
      * @param UpdateAdminContactRequest $request
      * @param Contact $contact
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -75,6 +81,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Delete an existing contact.
+     *
      * @param Contact $contact
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception

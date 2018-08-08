@@ -17,6 +17,8 @@ class RegisterContactOnlyController extends Controller
     }
 
     /**
+     * Store a new solo user's contact.
+     *
      * @param RegisterContactRequest $request
      */
     public function store(RegisterContactRequest $request)

@@ -17,6 +17,8 @@ class ArticleController extends Controller
     }
 
     /**
+     * Fetch articles.
+     *
      * @param null $sort
      * @return ArticlesCollection
      */

@@ -22,6 +22,8 @@ class ProfileController extends Controller
     }
 
     /**
+     * Display the the current user's profile.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -29,9 +31,7 @@ class ProfileController extends Controller
     {
         $this->authorize('view', Profile::class);
 
-        $contacts = Contact::where('company_id', auth()->user()->company->id)
-            ->orderBy('name')
-            ->get();
+        $contacts = Contact::where('company_id', auth()->user()->company->id)->orderBy('name')->get();
 
         $ordersCount = auth()->user()->orders_count;
 
@@ -45,6 +45,8 @@ class ProfileController extends Controller
     }
 
     /**
+     * Set the user's avatar.
+     *
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */

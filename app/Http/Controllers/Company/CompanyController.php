@@ -10,6 +10,8 @@ use App\Http\Controllers\Controller;
 class CompanyController extends Controller
 {
     /**
+     * Show a company's details.
+     *
      * @param Company $company
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

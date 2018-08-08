@@ -411,7 +411,7 @@ class GuestsCanRegisterTest extends TestCase
         $tokenBefore = $user->confirmation_token;
 
         // Send confirmation email again
-        $this->putJson(route('register.confirm.update'))->assertStatus(200);
+        $this->putJson(route('register.confirm.update'))->assertStatus(204);
 
         // Assert confirmation token was updated
         $this->assertNotEquals($tokenBefore, $user->fresh()->confirmation_token);

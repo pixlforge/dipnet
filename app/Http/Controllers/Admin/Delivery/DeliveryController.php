@@ -17,6 +17,8 @@ class DeliveryController extends Controller
     }
 
     /**
+     * Display a list of all deliveries.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -25,6 +27,8 @@ class DeliveryController extends Controller
     }
 
     /**
+     * Update an existing delivery.
+     *
      * @param UpdateAdminDeliveryRequest $request
      * @param Delivery $delivery
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response

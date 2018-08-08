@@ -23,6 +23,8 @@ class BusinessController extends Controller
     }
 
     /**
+     * Display a list of all businesses.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -36,6 +38,8 @@ class BusinessController extends Controller
     }
 
     /**
+     * Store a new business.
+     *
      * @param StoreAdminBusinessRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -66,6 +70,8 @@ class BusinessController extends Controller
     }
 
     /**
+     * Update an existing business.
+     *
      * @param UpdateAdminBusinessRequest $request
      * @param Business $business
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -85,6 +91,8 @@ class BusinessController extends Controller
     }
 
     /**
+     * Delete an existing business.
+     *
      * @param Business $business
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception

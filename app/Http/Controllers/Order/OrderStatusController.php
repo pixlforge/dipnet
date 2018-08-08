@@ -17,6 +17,8 @@ class OrderStatusController extends Controller
     }
 
     /**
+     * Update the order's details and set the current admin as the manager.
+     *
      * @param Order $order
      * @param Request $request
      */

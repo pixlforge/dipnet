@@ -16,6 +16,8 @@ class AccountController extends Controller
     }
 
     /**
+     * Display the account add contact page.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function contact()
@@ -24,6 +26,8 @@ class AccountController extends Controller
     }
 
     /**
+     * Display the account add company page.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function company()
@@ -32,6 +36,8 @@ class AccountController extends Controller
     }
 
     /**
+     * Update the user's account.
+     *
      * @param UpdateProfileRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */

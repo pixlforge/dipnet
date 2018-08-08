@@ -10,6 +10,8 @@ use App\Mail\RegistrationEmailConfirmation;
 class RegisterConfirmationController extends Controller
 {
     /**
+     * Confirm the user's account.
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function index()
@@ -39,7 +41,9 @@ class RegisterConfirmationController extends Controller
     }
 
     /**
+     * Regenerate the user confirmation token and send an email with the updated confirmation token.
      *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function update()
     {
@@ -52,5 +56,7 @@ class RegisterConfirmationController extends Controller
             Mail::to($user)
                 ->queue(new RegistrationEmailConfirmation($user));
         }
+
+        return response(null, 204);
     }
 }

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin\Article;
 
 use App\Article;
 use App\Http\Controllers\Controller;
+use App\Http\Hashids\HashidsGenerator;
 use App\Http\Requests\Article\StoreArticleRequest;
 use App\Http\Requests\Article\UpdateArticleRequest;
-use App\Http\Hashids\HashidsGenerator;
 
 class ArticleController extends Controller
 {
@@ -19,6 +19,8 @@ class ArticleController extends Controller
     }
 
     /**
+     * Display a list of all articles.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -27,6 +29,8 @@ class ArticleController extends Controller
     }
 
     /**
+     * Store a new article.
+     *
      * @param StoreArticleRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -45,6 +49,8 @@ class ArticleController extends Controller
     }
 
     /**
+     * Update an existing article.
+     *
      * @param UpdateArticleRequest $request
      * @param Article $article
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -60,6 +66,8 @@ class ArticleController extends Controller
     }
 
     /**
+     * Delete an existing article.
+     *
      * @param Article $article
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception

@@ -17,6 +17,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Fetch orders.
+     *
      * @return OrdersCollection
      */
     public function index()

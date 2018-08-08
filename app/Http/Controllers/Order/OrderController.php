@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Order;
 
 use App\Order;
-use App\Format;
 use App\Contact;
 use App\Article;
 use App\Business;
@@ -28,6 +27,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Display a list of the user's own orders.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -36,6 +37,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Store a new order and associate it with the user.
+     *
      * @param Order $order
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -86,36 +89,8 @@ class OrderController extends Controller
     }
 
     /**
-     * @param Order $order
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function show(Order $order)
-    {
-        $this->authorize('view', Order::class);
-
-        $order = Order::with(['business', 'contact'])->find($order->id);
-
-        $deliveries = $this->getOrderDeliveries($order);
-        $articles = Article::all();
-        $documents = $order->documents()->with('articles')->get();
-
-        $contacts = Contact::all();
-        $businesses = Business::all();
-        $formats = Format::all();
-
-        return view('orders.show', [
-            'order' => $order,
-            'deliveries' => $deliveries,
-            'articles' => $articles,
-            'documents' => $documents,
-            'businesses' => $businesses,
-            'contacts' => $contacts,
-            'formats' => $formats
-        ]);
-    }
-
-    /**
+     * Update an existing order's details.
+     *
      * @param Request $request
      * @param Order $order
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -130,6 +105,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Create the base order.
+     *
      * @return Order
      */
     protected function createSkeletonOrder()
@@ -147,6 +124,8 @@ class OrderController extends Controller
     }
 
     /**
+     * Get the order's deliveries.
+     *
      * @param Order $order
      * @return \Illuminate\Database\Eloquent\Collection
      */

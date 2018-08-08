@@ -18,6 +18,8 @@ class TickerController extends Controller
     }
 
     /**
+     * Display a list of all tickers.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -28,6 +30,8 @@ class TickerController extends Controller
     }
 
     /**
+     * Store a new ticker.
+     *
      * @param StoreTickerRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -44,6 +48,8 @@ class TickerController extends Controller
     }
 
     /**
+     * Update an existing ticker.
+     *
      * @param UpdateTickerRequest $request
      * @param Ticker $ticker
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -60,6 +66,8 @@ class TickerController extends Controller
     }
 
     /**
+     * Delete an existing ticker.
+     *
      * @param Ticker $ticker
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Exception
@@ -72,6 +80,8 @@ class TickerController extends Controller
     }
 
     /**
+     * Set all existing tickets as inactive.
+     *
      * @param $request
      */
     protected function setTickersInactive($request)

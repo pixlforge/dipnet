@@ -20,6 +20,8 @@ class DeliveryController extends Controller
     }
 
     /**
+     * Store a new delivery and associate it with its order.
+     *
      * @param Request $request
      * @param Order $order
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -40,6 +42,8 @@ class DeliveryController extends Controller
     }
 
     /**
+     * Update an existing delivery.
+     *
      * @param UpdateUserDeliveryRequest $request
      * @param Delivery $delivery
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -58,9 +62,11 @@ class DeliveryController extends Controller
     }
 
     /**
+     * Delete an existing delivery.
+     *
      * @param Delivery $delivery
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Auth\Access\AuthorizationException|\Exception
      */
     public function destroy(Delivery $delivery)
     {

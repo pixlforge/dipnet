@@ -16,6 +16,8 @@ class DeliveryReceiptController extends Controller
     }
 
     /**
+     * Show a delivery's receipt.
+     *
      * @param Delivery $delivery
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */

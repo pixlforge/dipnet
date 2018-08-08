@@ -17,6 +17,8 @@ class CompanyController extends Controller
     }
 
     /**
+     * Fetch companies.
+     *
      * @param null $sort
      * @return CompaniesCollection
      */

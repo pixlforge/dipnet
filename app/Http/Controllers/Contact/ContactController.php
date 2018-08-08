@@ -19,6 +19,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Display a list of the user's contacts.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -27,6 +29,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Store a new contact.
+     *
      * @param StoreUserContactRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -56,6 +60,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Update an existing contact.
+     *
      * @param UpdateUserContactRequest $request
      * @param Contact $contact
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -80,6 +86,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Delete an existing contact.
+     *
      * @param Contact $contact
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException

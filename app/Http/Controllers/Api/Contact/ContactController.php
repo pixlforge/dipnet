@@ -17,6 +17,8 @@ class ContactController extends Controller
     }
 
     /**
+     * Fetch contacts.
+     *
      * @param string $sort
      * @return ContactsCollection
      */

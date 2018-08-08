@@ -17,6 +17,8 @@ class RegisterCompanyController extends Controller
     }
 
     /**
+     * Store a new company and associate it with the user and his contact.
+     *
      * @param RegisterCompanyRequest $request
      */
     public function store(RegisterCompanyRequest $request)

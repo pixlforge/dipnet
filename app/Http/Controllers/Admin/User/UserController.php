@@ -21,6 +21,8 @@ class UserController extends Controller
     }
 
     /**
+     * Display a list of all users.
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
@@ -31,6 +33,8 @@ class UserController extends Controller
     }
 
     /**
+     * Store a new user.
+     *
      * @param StoreUserRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -61,15 +65,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param User $user
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function show(User $user)
-    {
-        return view('users.show', compact('user'));
-    }
-
-    /**
+     * Update an existing user.
+     *
      * @param UpdateUserRequest $request
      * @param User $user
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
@@ -105,6 +102,8 @@ class UserController extends Controller
     }
 
     /**
+     * Delete an existing user.
+     *
      * @param User $user
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -119,6 +118,8 @@ class UserController extends Controller
     }
 
     /**
+     * Get the email status.
+     *
      * @param $status
      * @return int
      */
@@ -133,6 +134,8 @@ class UserController extends Controller
     }
 
     /**
+     * Send a confirmation email to the user.
+     *
      * @param $user
      */
     protected function sendConfirmationEmail($user)

@@ -17,6 +17,8 @@ class BusinessController extends Controller
     }
 
     /**
+     * Fetch businesses.
+     *
      * @param string $sort
      * @return BusinessesCollection
      */

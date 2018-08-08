@@ -20,6 +20,8 @@ class InvitationsController extends Controller
     }
 
     /**
+     * Store a new invitation and send it.
+     *
      * @param InvitationRequest $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -38,6 +40,8 @@ class InvitationsController extends Controller
     }
 
     /**
+     * Regenerate an existing invitation and send it.
+     *
      * @param Request $request
      */
     public function update(Request $request)
@@ -51,6 +55,8 @@ class InvitationsController extends Controller
     }
 
     /**
+     * Confirm an invitation.
+     *
      * @param Request $request
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
@@ -66,6 +72,8 @@ class InvitationsController extends Controller
     }
 
     /**
+     * Delete an existing invitation.
+     *
      * @param Invitation $invitation
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      * @throws \Illuminate\Auth\Access\AuthorizationException

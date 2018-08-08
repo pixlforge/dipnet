@@ -17,6 +17,8 @@ class FormatController extends Controller
     }
 
     /**
+     * Fetch formats.
+     *
      * @param string $sort
      * @return FormatsCollection
      */

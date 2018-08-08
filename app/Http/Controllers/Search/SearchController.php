@@ -20,6 +20,8 @@ class SearchController extends Controller
     }
 
     /**
+     * Query the database.
+     *
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function search()

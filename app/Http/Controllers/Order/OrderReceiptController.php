@@ -16,6 +16,8 @@ class OrderReceiptController extends Controller
     }
 
     /**
+     * Show an existing order's receipt.
+     *
      * @param Order $order
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
