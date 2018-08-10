@@ -81,8 +81,10 @@
 
 <script>
 import { mapGetters } from "vuex";
+import { filters } from "../../mixins";
 
 export default {
+  mixins: [filters],
   props: {
     type: {
       type: String,

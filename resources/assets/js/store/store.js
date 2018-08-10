@@ -12,10 +12,7 @@ export const store = new Vuex.Store({
       types: {
         print: [],
         option: [],
-        finish: [
-          { name: 'roulé' },
-          { name: 'plié' }
-        ]
+        finish: ""
       }
     },
     businesses: [],
@@ -64,8 +61,12 @@ export const store = new Vuex.Store({
     toggleLoader: state => {
       state.loader.show = !state.loader.show
     },
-    hydrateArticleTypes: (state, payload) => {
-      payload.forEach(article => {
+    hydrateArticleTypes: (state, articles) => {
+      const formattedArticles = articles.map(article => {
+        return { value: article.id, label: article.description, type: article.type, greyscale: article.greyscale ? true : false };
+      });
+
+      formattedArticles.forEach(article => {
         if (article.type === 'impression') {
           state.articles.types.print.push(article)
         }
@@ -74,11 +75,15 @@ export const store = new Vuex.Store({
         }
       })
     },
-    hydrateBusinesses: (state, payload) => {
-      state.businesses = payload
+    hydrateBusinesses: (state, businesses) => {
+      state.businesses = businesses.map(business => {
+        return { label: business.name, value: business.id };
+      });
     },
-    hydrateContacts: (state, payload) => {
-      state.contacts = payload
+    hydrateContacts: (state, contacts) => {
+      state.contacts = contacts.map(contact => {
+        return { label: contact.name, value: contact.id };
+      });
     },
     addContact: (state, payload) => {
       state.contacts.push(payload)
@@ -169,32 +174,50 @@ export const store = new Vuex.Store({
     hydrateDeliveries: ({ commit }, payload) => {
       commit('hydrateDeliveries', payload)
     },
-    addDelivery: ({ commit }, payload) => {
-      window.console.log(payload);
-      return new Promise((resolve, reject) => {
-        commit('toggleLoader')
-        window.axios.post(window.route('deliveries.store', [payload.reference])).then(response => {
-          commit('addDelivery', response.data)
-          commit('toggleLoader')
-          resolve()
-        }).catch(() => {
-          commit('toggleLoader')
-          reject()
-        })
+    /**
+     * Update an existing order
+     */
+    async updateOrder({ commit }, order) {
+      await window.axios.patch(window.route("orders.update", [order.reference]), {
+        id: order.id,
+        status: order.status,
+        business_id: order.business.value,
+        contact_id: order.contact.value,
       })
     },
-    removeDelivery: ({ commit }, payload) => {
-      return new Promise((resolve, reject) => {
-        commit('toggleLoader')
-        window.axios.delete(window.route('deliveries.destroy', [payload.reference]), payload).then(() => {
-          commit('removeDelivery', payload)
-          commit('toggleLoader')
-          resolve()
-        }).catch(() => {
-          commit('toggleLoader')
-          reject()
-        })
-      })
+    /**
+     * Add a new delivery to the order.
+     */
+    async createDelivery({ commit }, orderReference) {
+      try {
+        commit('toggleLoader');
+        let res = await window.axios.post(window.route('deliveries.store', [orderReference]));
+        commit('addDelivery', res.data);
+        commit('toggleLoader');
+      } catch (err) {
+        commit('toggleLoader');
+      }
+    },
+    /**
+     * Update an existing delivery.
+     */
+    async updateDelivery({ commit }, delivery) {
+      await window.axios.patch(window.route('deliveries.update', [delivery.reference]), {
+        id: delivery.id,
+        reference: delivery.reference,
+        note: delivery.note,
+        admin_note: delivery.admin_note,
+        to_deliver_at: delivery.to_deliver_at,
+        order_id: delivery.order_id,
+        contact_id: delivery.contact.value
+      });
+    },
+    /**
+     * Delete an existing delivery.
+     */
+    deleteDelivery({ commit }, delivery) {
+      window.axios.delete(window.route('deliveries.destroy', [delivery.reference]));
+      commit('removeDelivery', delivery);
     },
     hydrateDocuments: ({ commit }, payload) => {
       commit('hydrateDocuments', payload)
@@ -202,14 +225,19 @@ export const store = new Vuex.Store({
     addDocument: ({ commit }, payload) => {
       commit('addDocument', payload)
     },
-    updateDocument: ({ commit }, payload) => {
-      commit('updateDocument', payload)
-      return new Promise((resolve, reject) => {
-        const endpoint = window.route('documents.update', [payload.orderReference, payload.deliveryReference, payload.document.id])
-        window.axios.patch(endpoint, payload.document)
-          .then(() => resolve())
-          .catch(error => reject(error))
-      })
+    /**
+     * Update an existing document.
+     */
+    async updateDocument({ commit }, document) {
+      await window.axios.patch(window.route("documents.update", [document.id]), {
+        id: document.id,
+        article_id: document.printType.value,
+        finish: document.finish.label,
+        quantity: document.quantity,
+        options: document.options.map(option => {
+          return { article_id: option.value }
+        })
+      });
     },
     removeDocument: ({ commit }, payload) => {
       commit('removeDocument', payload.document)

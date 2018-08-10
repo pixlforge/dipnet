@@ -38,6 +38,7 @@ class DocumentController extends Controller
         $document->save();
 
         $document->addMedia($request->file)->toMediaCollection('documents');
+        $document->getMedia();
 
         return response($document, 200);
     }

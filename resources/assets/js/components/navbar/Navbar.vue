@@ -135,7 +135,7 @@ export default {
     },
     routeCompany() {
       if (this.userRole === "administrateur") {
-        return window.route("admin.companies.index");
+        return;
       } else {
         return window.route("companies.show", [this.userCompanySlug]);
       }

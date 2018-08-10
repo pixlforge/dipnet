@@ -5,12 +5,12 @@
 @section ('content')
   @include ('layouts.partials._nav')
   @if ($order)
-    <create-order :order="{{ $order }}"
-                  :businesses="{{ $businesses }}"
-                  :contacts="{{ $contacts }}"
-                  :deliveries="{{ $deliveries }}"
-                  :documents="{{ $documents }}"
-                  :articles="{{ $articles }}"
-                  :user="{{ auth()->user() }}"></create-order>
+    <order-preparation :articles="{{ $articles }}"
+                       :businesses="{{ $businesses }}"
+                       :contacts="{{ $contacts }}"
+                       :deliveries="{{ $deliveries }}"
+                       :documents="{{ $documents }}"
+                       :order="{{ $order }}">
+    </order-preparation>
   @endif
 @endsection

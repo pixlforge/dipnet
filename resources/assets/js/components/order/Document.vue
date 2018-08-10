@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="document__container">
     <div class="document__image">
       <i
         :class="fileType"
@@ -7,42 +7,50 @@
     </div>
     <div class="document__content">
       <div class="document__header">
-        <h2 class="document__title">
-          {{ document.filename }}
-        </h2>
+        <h2 class="document__title">{{ document.media[0].file_name }}</h2>
       </div>
 
       <div class="document__options-container">
+
+        <!-- Print type -->
         <div class="document__option">
           <h4 class="document__option-label">Type d'impression</h4>
-          <article-dropdown
-            :label="listSelectedPrintType"
-            type="print"
-            @itemSelected="selectPrintType"/>
+          <AppSelect
+            :options="listArticlePrintTypes"
+            v-model="currentDocument.printType"
+            variant="printTypes"
+            @input="update">
+            {{ currentDocument.printType.label ? currentDocument.printType.label : 'Sélectionner' }}
+          </AppSelect>
         </div>
-
+        
+        <!-- Finish -->
         <div class="document__option">
           <h4 class="document__option-label">Finition</h4>
-          <article-dropdown
-            :label="listSelectedFinish"
-            type="finish"
-            @itemSelected="selectFinish"/>
+          <AppSelect
+            :options="optionsForFinish"
+            v-model="currentDocument.finish"
+            @input="update">
+            {{ currentDocument.finish.label ? currentDocument.finish.label : 'Sélectionner' | capitalize }}
+          </AppSelect>
         </div>
 
+        <!-- Options -->
         <div class="document__option">
           <h4 class="document__option-label">Options</h4>
-          <article-dropdown
-            label="Ajouter une option"
-            type="option"
-            @itemSelected="selectOption"/>
+          <AppSelect
+            :options="listArticleOptionTypes"
+            @input="addOption">
+            Sélectionner
+          </AppSelect>
           <ul class="document__list">
             <li
-              v-for="option in listSelectedOptions"
-              :key="option.id"
-              @click="removeOption(option.id)">
+              v-for="option in currentDocument.options"
+              :key="option.value"
+              @click.prevent="removeOption(option)">
               <i class="fal fa-plus"/>
               <i class="fal fa-minus"/>
-              <span>{{ option.description }}</span>
+              <span>{{ option.label }}</span>
             </li>
           </ul>
         </div>
@@ -51,44 +59,49 @@
         <div class="document__option">
           <h4 class="document__option-label">Quantité</h4>
           <input
-            v-model.number="listSelectedQuantity"
+            v-model.number="currentDocument.quantity"
             type="number"
             class="document__input"
-            @blur="update()">
+            @blur="checkQuantity">
         </div>
-
       </div>
     </div>
-    <div class="document__controls">
-      <div
-        class="document__icon-delete"
-        title="Supprimer"
-        role="button"
-        @click="destroy">
-        <i class="fal fa-times"/>
-      </div>
 
-      <div
-        class="document__icon-clone"
-        title="Copier"
+    <!-- Controls -->
+    <div class="document__controls">
+      <button
         role="button"
-        @click="clone">
+        title="Supprimer"
+        class="document__delete-button"
+        @click.prevent="destroy">
+        <i class="fal fa-times"/>
+      </button>
+
+      <button
+        role="button"
+        title="Copier"
+        class="document__copy-button"
+        @click.prevent="copy">
         <i class="fal fa-copy"/>
-      </div>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+import AppSelect from "../select/AppSelect";
 import ArticleDropdown from "./ArticleDropdown";
 
+import { filters } from "../../mixins";
 import { eventBus } from "../../app";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
+    AppSelect,
     ArticleDropdown
   },
+  mixins: [filters],
   props: {
     order: {
       type: Object,
@@ -111,17 +124,23 @@ export default {
     return {
       currentDocument: {
         id: this.document.id,
-        filename: this.document.filename,
-        mime_type: this.document.mime_type,
-        size: this.document.size,
-        quantity: this.document.quantity,
-        finish: this.document.finish,
-        delivery_id: this.document.delivery_id,
-        article_id: "",
-        options: []
+        printType: {
+          label: "",
+          type: "",
+          greyscale: null,
+          value: null
+        },
+        finish: {
+          label: this.document.finish ? this.document.finish : "plié",
+          value: null
+        },
+        options: [],
+        quantity: this.document.quantity
       },
-      selectedFinish: this.document.finish,
-      selectedOptions: this.options
+      optionsForFinish: [
+        { label: "plié", value: null },
+        { label: "roulé", value: null }
+      ]
     };
   },
   computed: {
@@ -130,78 +149,40 @@ export default {
       "listArticleOptionTypes",
       "listDocuments"
     ]),
-    listSelectedPrintType() {
-      let label = {};
-      if (this.currentDocument.article_id) {
-        label = this.listArticlePrintTypes.find(article => {
-          return article.id === this.currentDocument.article_id;
-        });
-      } else {
-        label = {
-          description: "Sélection",
-          greyscale: null
-        };
-      }
-      return label;
-    },
-    listSelectedFinish() {
-      return this.listDocuments.find(document => {
-        return document.id == this.currentDocument.id;
-      }).finish;
-    },
-    listSelectedOptions() {
-      return this.listDocuments.find(document => {
-        return document.id == this.currentDocument.id;
-      }).articles;
-    },
-    listSelectedQuantity: {
-      get() {
-        return this.listDocuments.find(document => {
-          return document.id == this.currentDocument.id;
-        }).quantity;
-      },
-      set(newValue) {
-        if (newValue < 1) {
-          this.currentDocument.quantity = 1;
-        } else {
-          this.currentDocument.quantity = newValue;
-        }
-      }
-    },
     fileType() {
       // Images
       if (
-        this.currentDocument.mime_type === "image/jpeg" ||
-        this.currentDocument.mime_type === "image/png" ||
-        this.currentDocument.mime_type === "image/gif" ||
-        this.currentDocument.mime_type === "image/vnd.adobe.photoshop" ||
-        this.currentDocument.mime_type === "application/postscript"
+        this.document.media[0].mime_type === "image/jpeg" ||
+        this.document.media[0].mime_type === "image/png" ||
+        this.document.media[0].mime_type === "image/gif" ||
+        this.document.media[0].mime_type === "image/vnd.adobe.photoshop" ||
+        this.document.media[0].mime_type === "application/postscript"
       ) {
         return "fa-file-image";
       }
       // PDF
-      if (this.currentDocument.mime_type === "application/pdf")
+      if (this.document.media[0].mime_type === "application/pdf")
         return "fa-file-pdf";
       // Word
       if (
-        this.currentDocument.mime_type === "application/msword" ||
-        this.currentDocument.mime_type ===
+        this.document.media[0].mime_type === "application/msword" ||
+        this.document.media[0].mime_type ===
           "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
       ) {
         return "fa-file-word";
       }
       // Excel
       if (
-        this.currentDocument.mime_type === "application/vnd.ms-excel" ||
-        this.currentDocument.mime_type ===
+        this.document.media[0].mime_type === "application/vnd.ms-excel" ||
+        this.document.media[0].mime_type ===
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
       ) {
         return "fa-file-excel";
       }
       // Powerpoint
       if (
-        this.currentDocument.mime_type === "application/vnd.ms-powerpoint" ||
-        this.currentDocument.mime_type ===
+        this.document.media[0].mime_type === "application/vnd.ms-powerpoint" ||
+        this.document.media[0].mime_type ===
           "application/vnd.openxmlformats-officedocument.presentationml.presentation"
       ) {
         return "fa-file-powerpoint";
@@ -210,98 +191,66 @@ export default {
     }
   },
   created() {
-    /**
-     * Fetch and copy cloned properties into this component's data.
-     */
-    eventBus.$on("clone", payload => {
-      if (payload.deliveryId === this.document.delivery_id) {
-        this.currentDocument.article_id = payload.article_id;
-        this.selectedPrintType = payload.selectedPrintType;
-        this.currentDocument.finish = payload.finish;
-        this.currentDocument.quantity = payload.quantity;
-        this.currentDocument.options = payload.options;
-        this.selectedOptions = payload.optionModels;
-      }
-    });
-    /**
-     * Preselect the print type.
-     */
-    if (
-      this.document.article_id !== null &&
-      typeof this.document.article_id !== "undefined"
-    ) {
-      const label = this.listArticlePrintTypes.find(article => {
-        return article.id === this.document.article_id;
-      });
-      this.selectedPrintType = label.description;
-      this.currentDocument.article_id = this.document.article_id;
-    } else {
-      this.selectedPrintType = "Sélection";
-    }
-    /**
-     * Preselect the quantity.
-     */
-    if (this.document.quantity > 1) {
-      this.currentDocument.quantity = this.document.quantity;
-    }
-    /**
-     * Populate the options array with the selected options.
-     */
-    if (typeof this.selectedOptions !== "undefined") {
-      this.selectedOptions.forEach(option => {
-        this.currentDocument.options.push(option.id);
-      });
-    }
+    this.copyDocumentDetails();
+  },
+  mounted() {
+    this.findSelectedOptions();
+    this.findSelectedPrintType();
   },
   methods: {
-    ...mapActions(["cloneOptions"]),
-    /**
-     * Clone a document's option to all documents related to that delivery.
-     */
-    clone() {
-      this.$store
-        .dispatch("cloneOptions", {
-          orderReference: this.order.reference,
-          deliveryReference: this.delivery.reference,
-          deliveryId: this.delivery.id,
-          print: this.currentDocument.article_id,
-          selectedPrintType: this.selectedPrintType,
-          finish: this.currentDocument.finish,
-          quantity: this.currentDocument.quantity,
-          options: this.currentDocument.options,
-          optionModels: this.selectedOptions
-        })
-        .then(() => {
-          eventBus.$emit("clone", {
-            deliveryId: this.delivery.id,
-            article_id: this.currentDocument.article_id,
-            selectedPrintType: this.selectedPrintType,
-            finish: this.currentDocument.finish,
-            quantity: this.currentDocument.quantity,
-            options: this.currentDocument.options,
-            optionModels: this.selectedOptions
-          });
-          window.flash({
-            message:
-              "Propriétés du document copiées à tous les autres documents de la livraison!",
-            level: "success"
-          });
-        });
-    },
-    /**
-     * Update a document's details
-     */
-    update() {
-      this.$store.dispatch("updateDocument", {
-        document: this.currentDocument,
-        orderReference: this.order.reference,
-        deliveryReference: this.delivery.reference,
-        options: this.selectedOptions
+    ...mapActions(["cloneOptions", "updateDocument"]),
+    copy() {
+      eventBus.$emit("copy", {
+        deliveryId: this.delivery.id,
+        document: this.currentDocument
       });
     },
-    /**
-     * Remove a document from the delivery.
-     */
+    removeOption(option) {
+      this.currentDocument.options.splice(
+        this.currentDocument.options.findIndex(item => {
+          return item.value === option.value;
+        }),
+        1
+      );
+      this.update();
+    },
+    addOption(option) {
+      const index = this.currentDocument.options.findIndex(item => {
+        return item.value === option.value;
+      });
+      if (index === -1) {
+        this.currentDocument.options.push(option);
+        this.update();
+      }
+    },
+    checkQuantity() {
+      if (this.currentDocument.quantity <= 0) {
+        this.currentDocument.quantity = 1;
+      }
+      this.update();
+    },
+    findSelectedOptions() {
+      this.currentDocument.options = this.options.map(option => {
+        return {
+          value: option.id,
+          label: option.description,
+          type: option.type,
+          greyscale: option.greyscale ? true : false
+        };
+      });
+    },
+    findSelectedPrintType() {
+      if (this.document.article_id) {
+        this.currentDocument.printType = this.listArticlePrintTypes.find(
+          article => {
+            return article.value === this.document.article_id;
+          }
+        );
+      }
+    },
+    async update() {
+      await this.updateDocument(this.currentDocument);
+    },
     destroy() {
       eventBus.$emit("removeDocument", {
         document: this.currentDocument,
@@ -309,52 +258,30 @@ export default {
         deliveryReference: this.delivery.reference
       });
     },
-    /**
-     * Set the selected print type from the dropdown.
-     */
-    selectPrintType(type) {
-      this.selectedPrintType = type.description;
-      this.currentDocument.article_id = type.id;
-      this.update();
-    },
-    /**
-     * Set the selected finish type from the dropdown.
-     */
-    selectFinish(finish) {
-      this.selectedFinish = finish.name;
-      this.currentDocument.finish = finish.name;
-      this.update();
-    },
-    /**
-     * Set the selected options from the dropdown.
-     */
-    selectOption(newOption) {
-      const index = this.selectedOptions.findIndex(option => {
-        return option.id === newOption.id;
+    copyDocumentDetails() {
+      eventBus.$on("copy", payload => {
+        const deliveryId = payload.deliveryId;
+        const document = payload.document;
+
+        if (
+          deliveryId === this.delivery.id &&
+          document.id !== this.document.id
+        ) {
+          this.currentDocument.printType = document.printType;
+          this.currentDocument.finish = document.finish;
+          this.currentDocument.quantity = document.quantity;
+          this.currentDocument.options = [];
+          document.options.forEach(option => {
+            const index = this.currentDocument.options.findIndex(item => {
+              return item.value === option.value;
+            });
+            if (index === -1) {
+              this.currentDocument.options.push(option);
+            }
+          });
+          this.update();
+        }
       });
-      if (index === -1) {
-        this.selectedOptions.unshift(newOption);
-        this.currentDocument.options.push(newOption.id);
-        this.update();
-      }
-    },
-    /**
-     * Remove an option.
-     */
-    removeOption(selectedOption) {
-      this.selectedOptions.splice(
-        this.selectedOptions.find(option => {
-          return option.id === selectedOption.id;
-        }),
-        1
-      );
-      this.currentDocument.options.splice(
-        this.currentDocument.options.findIndex(option => {
-          return option === selectedOption.id;
-        }),
-        1
-      );
-      this.update();
     }
   }
 };

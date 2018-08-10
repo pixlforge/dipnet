@@ -26,8 +26,11 @@ Vue.component('Companies', require('./components/company/Companies.vue'));
 Vue.component('Orders', require('./components/order/Orders.vue'));
 Vue.component('Documents', require('./components/document/Documents'));
 Vue.component('Deliveries', require('./components/delivery/Deliveries'));
+// Old
 Vue.component('CreateOrder', require('./components/order/CreateOrder.vue'));
 Vue.component('OrderAdmin', require('./components/order/AdminOrder'));
+// ./Old
+Vue.component('OrderPreparation', require('./components/order/OrderPreparation.vue'));
 Vue.component('AddDefaultBusiness', require('./components/company/AddDefaultBusiness'));
 Vue.component('Login', require('./components/login/Login'));
 Vue.component('ShowBusiness', require('./components/business/ShowBusiness'));

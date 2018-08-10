@@ -1,11 +1,13 @@
 .cov-datepicker {
-  width: 350px;
+  min-width: 10rem;
   padding: .5rem .5rem .5rem .2rem !important;
   line-height: 2 !important;
   transform: translateY(.1rem);
   z-index: 1;
+  margin-left: .5rem;
+  background-color: transparent;
 
   &:hover {
-    background-color: $alabaster !important;
+    background-color: $mercury !important;
   }
 }

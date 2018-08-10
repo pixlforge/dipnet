@@ -1,33 +1,35 @@
 .delivery {
-  background-color: $alabaster;
-  margin-top: 2rem;
-  padding-top: 4rem;
-  padding-bottom: 1rem;
-
   &__container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 10rem;
-
-    &--white {
-      background-color: $white;
-      margin-top: 3.3rem;
-      box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.1);
-
-      &:first-child {
-        margin-top: 8rem;
-      }
-    }
-
-    &--admin {
-      width: 84%;
-      margin: 0 auto 4rem auto;
-      background-color: $white;
-      box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.1);
-      padding-bottom: 2rem;
-    }
+    background-color: $alabaster;
+    margin-top: 2rem;
+    padding-top: 4rem;
+    padding-bottom: 1rem;
   }
+
+  // &__container {
+  //   width: 100%;
+  //   display: flex;
+  //   flex-direction: column;
+  //   padding-bottom: 10rem;
+
+  //   &--white {
+  //     background-color: $white;
+  //     margin-top: 3.3rem;
+  //     box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.1);
+
+  //     &:first-child {
+  //       margin-top: 8rem;
+  //     }
+  //   }
+
+  //   &--admin {
+  //     width: 84%;
+  //     margin: 0 auto 4rem auto;
+  //     background-color: $white;
+  //     box-shadow: 0 15px 18px 0 rgba(99, 99, 99, 0.1);
+  //     padding-bottom: 2rem;
+  //   }
+  // }
 
   &__header {
     width: 84vw;
@@ -68,15 +70,12 @@
   }
 
   &__details {
+    min-width: 40rem;
     display: flex;
     align-items: center;
-    width: 40rem;
 
     &--preview {
       width: 50rem;
-    }
-
-    &--admin {
     }
 
     &--secondary {
@@ -229,12 +228,14 @@
     }
   }
 
-  &__icon-destroy {
+  &__delete-button {
     position: absolute;
     right: -6rem;
     font-size: 2.5rem;
     color: $tundora;
     cursor: pointer;
+    border: none;
+    background-color: transparent;
 
     &:hover {
       .fa-times {
@@ -246,6 +247,8 @@
   &__note-control {
     cursor: pointer;
     margin-top: 1rem;
+    border: none;
+    background-color: transparent;
 
     &:hover {
       text-decoration: underline;

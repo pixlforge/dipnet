@@ -18,14 +18,14 @@
   }
 
   &__image {
-    width: 15%;
+    width: 15rem;
     display: flex;
     justify-content: center;
-    padding-top: 3.45rem;
+    padding-top: 3rem;
   }
 
   &__content {
-    width: 85%;
+    flex: 1 0 auto;
     margin-top: 1.5rem;
   }
 
@@ -72,7 +72,7 @@
     li {
       line-height: 2;
       padding: .5rem;
-      margin-left: -8px;
+      margin-left: -5px;
       display: flex;
       align-items: center;
       cursor: pointer;
@@ -150,27 +150,21 @@
   &__controls {
     display: flex;
     flex-direction: column;
+    margin-right: 4rem;
   }
 
-  &__icon-delete,
-  &__icon-clone {
+  &__delete-button,
+  &__copy-button {
     font-size: 2.5rem;
     padding: 1.5rem;
     cursor: pointer;
     transition: color .2s;
-  }
+    border: none;
+    background-color: transparent;
+    outline: none;
 
-  &__icon-delete {
     &:hover {
-      .fa-times {
-        color: $bg-red;
-      }
-    }
-  }
-
-  &__icon-clone {
-    &:hover {
-      .fa-copy {
+      svg {
         color: $bg-red;
       }
     }

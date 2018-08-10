@@ -179,4 +179,92 @@ export const registration = {
       }, 2500)
     }
   }
-}
+};
+
+export const datepicker = {
+  data() {
+    return {
+      startTime: {
+        time: ""
+      },
+      endTime: {
+        time: ""
+      },
+      option: {
+        type: "min",
+        week: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+        month: [
+          "Janvier",
+          "Février",
+          "Mars",
+          "Avril",
+          "Mai",
+          "Juin",
+          "Juillet",
+          "Août",
+          "Septembre",
+          "Octobre",
+          "Novembre",
+          "Décembre"
+        ],
+        format: "LL [à] HH[h]mm",
+        placeholder: "date de livraison",
+        inputStyle: {
+          display: "inline-block",
+          padding: "6px",
+          "line-height": "22px",
+          "font-size": "24px",
+          border: "0 solid #fff",
+          "box-shadow": "0 0 0 0 rgba(0, 0, 0, 0.2)",
+          background: "#f9f9f9",
+          "border-radius": "2px",
+          color: "#2b2b2b",
+          cursor: "pointer"
+        },
+        color: {
+          header: "#e84949",
+          headerText: "#fff"
+        },
+        buttons: {
+          ok: "Ok",
+          cancel: "Annuler"
+        },
+        overlayOpacity: 0.5,
+        dismissible: true
+      },
+      timeoption: {
+        type: "min",
+        week: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
+        month: [
+          "Janvier",
+          "Février",
+          "Mars",
+          "Avril",
+          "Mai",
+          "Juin",
+          "Juillet",
+          "Août",
+          "Septembre",
+          "Octobre",
+          "Novembre",
+          "Décembre"
+        ],
+        format: "LL HH:mm"
+      },
+      limit: [{ type: "weekday", available: [1, 2, 3, 4, 5] }]
+    };
+  },
+  methods: {
+    formatDeliveryDate(date) {
+      this.currentDelivery.to_deliver_at = moment(date, "LL HH:mm").format("YYYY-MM-DD HH:mm:ss");
+      this.update();
+    },
+    getSelectedDeliveryDate() {
+      if (this.delivery.to_deliver_at) {
+        this.option.placeholder = moment(this.delivery.to_deliver_at).format(
+          "LL [à] HH[h]mm"
+        );
+      }
+    }
+  }
+};

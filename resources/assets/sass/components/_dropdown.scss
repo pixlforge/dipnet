@@ -12,7 +12,7 @@
     position: relative;
 
     &:hover {
-      background-color: $alabaster;
+      background-color: $concrete;
     }
 
     .fa-caret-down {
@@ -25,6 +25,18 @@
       left: 12rem;
       width: 1.6rem;
       transform: translateY(3px);
+    }
+
+    &--large {
+      font-size: 2.4rem;
+      margin-left: .5rem;
+      min-width: 20rem;
+    }
+
+    &--darker {
+      &:hover {
+        background-color: $mercury;
+      }
     }
   }
 

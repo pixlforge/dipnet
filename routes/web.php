@@ -304,7 +304,7 @@ Route::prefix('/commandes')->namespace('Order')->name('orders.')->group(function
     Route::get('/{order}/voir', 'OrderController@show')->name('show');
     Route::get('/create', 'OrderController@create')->name('create.start');
     Route::get('/{order}/creer', 'OrderController@create')->name('create.end');
-    Route::put('/{order}', 'OrderController@update')->name('update');
+    Route::patch('/{order}', 'OrderController@update')->name('update');
     Route::delete('/{order}', 'OrderController@destroy')->name('destroy');
 
     /**

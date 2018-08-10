@@ -48,7 +48,6 @@ class OrderController extends Controller
         // Create an order if none exist and redirect along with the newly created order.
         if (!$order->exists) {
             $order = $this->createSkeletonOrder();
-
             return redirect()->route('orders.create.end', $order);
         }
 
@@ -57,17 +56,15 @@ class OrderController extends Controller
         if (auth()->user()->isAdmin()) {
             $businesses = Business::all();
             $contacts = Contact::all();
-        } elseif (auth()->user()->hasCompany()) {
+        } elseif (auth()->user()->isPartOfACompany()) {
             $businesses = Business::where('company_id', auth()->user()->company_id)->orderBy('name')->get();
             $contacts = Contact::where('company_id', auth()->user()->company_id)->orderBy('name')->get();
         } else {
             $contacts = auth()->user()->contacts;
             $contactIds = [];
-
             foreach ($contacts as $contact) {
                 array_push($contactIds, $contact->id);
             }
-
             $businesses = Business::whereIn('contact_id', $contactIds)->get();
         }
 
@@ -76,16 +73,15 @@ class OrderController extends Controller
 
         $articles = Article::all();
 
-        $documents = $order->documents()->with('articles')->get();
+        $documents = $order->documents()->with(['articles' => function ($query) {
+            $query->orderBy('description');
+        }])->get();
+        
+        foreach ($documents as $document) {
+            $document->getMedia();
+        }
 
-        return view('orders.create', [
-            'order' => $order,
-            'businesses' => $businesses,
-            'contacts' => $contacts,
-            'deliveries' => $deliveries,
-            'documents' => $documents,
-            'articles' => $articles
-        ]);
+        return view('orders.create', compact('order', 'businesses', 'contacts', 'deliveries', 'documents', 'articles'));
     }
 
     /**
