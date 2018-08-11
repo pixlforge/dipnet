@@ -1,19 +1,37 @@
 <template>
-  <div class="delivery__container">
+  <div
+    :class="previewContainerStyles"
+    class="delivery__container">
     <div class="delivery__header">
 
       <!-- Contact -->
       <div class="delivery__header-box">
         <div class="delivery__details">
-          <div class="badge__order">{{ count }}</div>
-          <h3 class="delivery__label">Livraison à</h3>
+          <div
+            v-if="!preview"
+            class="badge__order">
+            {{ count }}
+          </div>
+          <h3
+            :class="{ 'delivery__label--preview': preview }"
+            class="delivery__label">
+            Livraison à
+          </h3>
+          <h3
+            v-if="preview"
+            class="delivery__label delivery__label--bold delivery__label--preview">
+            {{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}
+          </h3>
           <AppSelect
+            v-else
             :options="listContacts"
             v-model="currentDelivery.contact"
+            :component="{ component: 'delivery', id: delivery.id }"
             large
             darker
+            allow-create-contact
             @input="update">
-            <p>{{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Aucun' }}</p>
+            <p>{{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}</p>
           </AppSelect>
         </div>
       </div>
@@ -21,8 +39,18 @@
       <!-- Datepicker -->
       <div class="delivery__header-box">
         <div class="delivery__details">
-          <h3 class="delivery__label">Le</h3>
+          <h3
+            :class="{ 'delivery__label--preview': preview }"
+            class="delivery__label">
+            Le
+          </h3>
+          <h3
+            v-if="preview"
+            class="delivery__label delivery__label--bold delivery__label--preview">
+            {{ deliveryDateString }}
+          </h3>
           <Datepicker
+            v-else
             :date="startTime"
             :option="option"
             :limit="limit"
@@ -36,7 +64,7 @@
 
         <!-- Delete delivery -->
         <button
-          v-if="listDeliveries.length > 1"
+          v-if="listDeliveries.length > 1 && !preview"
           role="button"
           class="delivery__delete-button"
           @click.prevent="remove">
@@ -45,7 +73,7 @@
 
         <!-- Remove note -->
         <button
-          v-if="showNote"
+          v-if="showNote && !preview"
           role="button"
           class="delivery__note-control"
           @click.prevent="removeNote">
@@ -54,7 +82,7 @@
 
         <!-- Add note -->
         <button
-          v-else
+          v-if="!showNote && !preview"
           role="button"
           class="delivery__note-control"
           @click.prevent="toggleNote">
@@ -64,14 +92,16 @@
     </div>
 
     <!-- Note -->
-    <transition name="fade">
-      <textarea
-        v-if="showNote"
-        v-model="currentDelivery.note"
-        class="delivery__textarea"
-        placeholder="Faîtes nous part de vos commentaires pour cette livraison ici."
-        @blur="update"/>
-    </transition>
+    <div v-if="!preview">
+      <transition name="fade">
+        <textarea
+          v-if="showNote"
+          v-model="currentDelivery.note"
+          class="delivery__textarea"
+          placeholder="Faîtes nous part de vos commentaires pour cette livraison ici."
+          @blur="update"/>
+      </transition>
+    </div>
 
     <!-- Documents -->
     <Document
@@ -80,10 +110,12 @@
       :order="order"
       :delivery="delivery"
       :document="document"
-      :options="document.articles"/>
+      :options="document.articles"
+      :preview="preview"/>
     
     <!-- Dropzone -->
     <div
+      v-show="!preview"
       :id="'delivery-file-upload-' + delivery.id"
       class="dropzone"/>
   </div>
@@ -95,6 +127,7 @@ import AppSelect from "../select/AppSelect";
 import Datepicker from "../datepicker/Datepicker";
 
 import Dropzone from "dropzone";
+import { eventBus } from "../../app";
 import { datepicker } from "../../mixins";
 import { mapGetters, mapActions } from "vuex";
 
@@ -117,6 +150,11 @@ export default {
     count: {
       type: Number,
       required: true
+    },
+    preview: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -126,7 +164,7 @@ export default {
         reference: this.delivery.reference,
         note: this.delivery.note,
         admin_note: this.delivery.admin_note,
-        to_deliver_at: "",
+        to_deliver_at: this.delivery.to_deliver_at,
         order_id: this.delivery.order_id,
         contact_id: this.delivery.contact_id,
         contact: {
@@ -135,7 +173,8 @@ export default {
         }
       },
       errors: {},
-      showNote: this.delivery.note ? true : false
+      showNote: this.delivery.note ? true : false,
+      deliveryDateString: "date à définir"
     };
   },
   computed: {
@@ -144,16 +183,24 @@ export default {
       return this.listDocuments.filter(document => {
         return document.delivery_id === this.delivery.id;
       });
+    },
+    previewContainerStyles() {
+      if (this.preview) {
+        return `bg-red-${this.count}` + " delivery__container--preview";
+      }
     }
+  },
+  created() {
+    this.onContactCreated();
   },
   mounted() {
     this.initDropzone();
-    this.findSelectedContact();
     this.determineDropzoneStyle();
+    this.findSelectedContact();
     this.getSelectedDeliveryDate();
   },
   methods: {
-    ...mapActions(["updateDelivery", "deleteDelivery"]),
+    ...mapActions(["updateDelivery", "deleteDelivery", "addContact"]),
     async update() {
       try {
         await this.updateDelivery(this.currentDelivery);
@@ -237,6 +284,26 @@ export default {
       } else {
         templateHTML.classList.remove("dropzone--small");
       }
+    },
+    onContactCreated() {
+      eventBus.$on("contact:created", payload => {
+        if (
+          payload.component === "delivery" &&
+          payload.id === this.delivery.id
+        ) {
+          this.addContact(payload.contact);
+          this.currentDelivery.contact = {
+            label: payload.contact.name,
+            value: payload.contact.id
+          };
+          this.currentDelivery.contact_id = payload.contact.id;
+          this.update();
+          window.flash({
+            message: "Contact ajouté avec succès!",
+            level: "success"
+          });
+        }
+      });
     }
   }
 };

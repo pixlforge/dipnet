@@ -1,15 +1,17 @@
 <template>
   <div ref="select">
     <div
-      :class="{ 'dropdown__label--large': large, 'dropdown__label--darker': darker }"
+      :class="{ 'dropdown__label--large': large, 'dropdown__label--darker': darker, 'dropdown__label--disabled': disabled }"
       role="button"
       class="dropdown__label"
       @click="toggleOpen">
       <span><slot/></span>
-      <i class="fas fa-caret-down"/>
+      <span v-if="!disabled">
+        <i class="fas fa-caret-down"/>
+      </span>
     </div>
     <div
-      v-if="open"
+      v-if="open && !disabled"
       class="dropdown__container">
 
       <!-- Print types list -->
@@ -51,13 +53,20 @@
 
       <!-- Standard list -->
       <ul
-        v-if="!variant"
+        v-if="!variant && !disabled"
         class="dropdown__list">
         <li
           v-for="option in options"
           :key="option.value"
-          @click="selectOption(option)">
+          @click.prevent="selectOption(option)">
           {{ option.label | capitalize }}
+        </li>
+        <hr v-if="allowCreateContact">
+        <li
+          v-if="allowCreateContact"
+          @click.prevent="openAddContactPanel">
+          <i class="fal fa-plus fa-sm"/>
+          Ajouter un contact
         </li>
       </ul>
     </div>
@@ -65,6 +74,7 @@
 </template>
 
 <script>
+import { eventBus } from "../../app";
 import { filters } from "../../mixins";
 
 export default {
@@ -88,6 +98,23 @@ export default {
       type: String,
       required: false,
       default: ""
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    allowCreateContact: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    component: {
+      type: Object,
+      required: false,
+      default() {
+        return {};
+      }
     }
   },
   data() {
@@ -124,8 +151,22 @@ export default {
     selectOption(option) {
       this.$emit("input", option);
       this.open = false;
+    },
+    openAddContactPanel() {
+      eventBus.$emit("add-contact:open", this.component);
+      this.open = false;
     }
   }
 };
 </script>
 
+<style scoped>
+li svg {
+  transform: translate(-2px, -2px);
+}
+
+hr {
+  color: #f9f9f9;
+  border-style: solid;
+}
+</style>

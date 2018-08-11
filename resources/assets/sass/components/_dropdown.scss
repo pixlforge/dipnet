@@ -38,6 +38,14 @@
         background-color: $mercury;
       }
     }
+
+    &--disabled {
+      cursor: default;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 
   &__title {

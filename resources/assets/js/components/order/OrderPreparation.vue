@@ -1,9 +1,21 @@
 <template>
   <div>
     <div class="header__container">
-      <h1 class="header__title">Nouvelle commande</h1>
-      <div class="order__header">
 
+      <!-- Page title -->
+      <h1 class="header__title">
+        <template v-if="!preview">
+          Nouvelle commande
+        </template>
+        <template v-else>
+          Prévisualisation de la commande
+        </template>
+      </h1>
+
+      <div
+        v-if="!preview"
+        class="order__header">
+        
         <!-- Business -->
         <div class="order__business">
           <h6 class="order__label">Affaire</h6>
@@ -21,36 +33,31 @@
           <AppSelect
             :options="listContacts"
             v-model="currentOrder.contact"
+            :component="{ component: 'order', id: order.id }"
+            allow-create-contact
             @input="update">
             <p><strong>{{ currentOrder.contact.label ? currentOrder.contact.label : 'Aucun' }}</strong></p>
           </AppSelect>
         </div>
-
       </div>
     </div>
 
     <!-- Deliveries -->
-    <Delivery
-      v-for="(delivery, index) in listDeliveries"
-      :key="delivery.id"
-      :delivery="delivery"
-      :order="order"
-      :count="index + 1"/>
-
-    <!-- <transition-group name="order">
-      <create-delivery
-        v-for="(delivery, index) in listDeliveries"
-        :key="index"
-        :order="order"
-        :delivery="delivery"
-        :delivery-number="index + 1"
-        :documents="documents"
-        class="delivery"
-        @removeDelivery="removeDelivery"/>
-    </transition-group> -->
+    <transition name="fade">
+      <div v-show="!animate">
+        <Delivery
+          v-for="(delivery, index) in listDeliveries"
+          :key="delivery.id"
+          :delivery="delivery"
+          :order="order"
+          :count="index + 1"
+          :preview="preview"/>
+      </div>
+    </transition>
 
     <!-- Add delivery button -->
     <div
+      v-if="!preview"
       role="button"
       class="order__controls"
       @click.prevent="addDelivery">
@@ -60,15 +67,88 @@
       </h4>
     </div>
 
-    <!-- Preview button -->
+    <!-- Preview footer -->
+    <transition name="fade">
+      <div v-if="preview && !animate">
+
+        <!-- Business recap -->
+        <div
+          v-if="getBusiness"
+          class="delivery__business">
+          <h2>
+            Associé à l'affaire
+            <strong>{{ getBusiness.name | capitalize }}</strong>
+          </h2>
+          <ul class="delivery__list">
+            <li>Nom: <strong>{{ getBusiness.name }}</strong></li>
+            <li>Référence: <strong>{{ getBusiness.reference }}</strong></li>
+          </ul>
+        </div>
+
+        <!-- Billing recap -->
+        <div
+          v-if="getBillingContact"
+          class="delivery__billed-to">
+          <h2>
+            Facturation à
+            <strong>{{ getBillingContact.name | capitalize }}</strong>
+          </h2>
+          <ul class="delivery__list">
+            <li>{{ getBillingContact.name }}</li>
+            <li>{{ getBillingContact.address_line1 }}</li>
+            <li>{{ getBillingContact.address_line2 }}</li>
+            <li>{{ getBillingContact.zip }} {{ getBillingContact.city }}</li>
+            <li>{{ getBillingContact.phone_number }}</li>
+            <li>{{ getBillingContact.fax }}</li>
+            <li>{{ getBillingContact.email }}</li>
+          </ul>
+        </div>
+
+        <!-- Terms -->
+        <div class="delivery__terms">
+          <label>
+            <input
+              v-model="terms"
+              type="checkbox">
+            <div>
+              J'ai lu et j'accepte les Conditions Générales de Vente (CGV)
+            </div>
+          </label>
+        </div>
+        <div
+          v-if="preview"
+          class="delivery__terms-link">
+          <p><a href="#">Conditions Générales de Vente</a></p>
+        </div>
+      </div>
+    </transition>
+
     <div class="order__footer">
-      <button
-        role="button"
-        class="btn btn--red"
-        @click.prevent="preview">
-        <i class="fal fa-search"/>
-        Aperçu de la commande
-      </button>
+      <transition
+        name="fade"
+        mode="out-in">
+        
+        <!-- Complete button -->
+        <button
+          v-if="preview && !animate"
+          :disabled="!terms"
+          role="button"
+          class="btn btn--red-big"
+          @click.prevent="completeOrder">
+          <i class="fal fa-paper-plane"/>
+          Finaliser et envoyer la commande
+        </button>
+        
+        <!-- Preview button -->
+        <button
+          v-if="!preview && !animate"
+          role="button"
+          class="btn btn--red"
+          @click.prevent="togglePreview">
+          <i class="fal fa-search"/>
+          Aperçu de la commande
+        </button>
+      </transition>
     </div>
 
     <transition name="fade">
@@ -82,6 +162,7 @@
     <transition name="slide">
       <AddContact
         v-if="showAddPanel"
+        :component="componentToSelectContact"
         @add-contact:close="closePanels"/>
     </transition>
 
@@ -93,13 +174,15 @@
 </template>
 
 <script>
-import Delivery from "./Delivery.vue";
+import Delivery from "./Delivery";
 import AppSelect from "../select/AppSelect";
-import AddContact from "../contact/AddContact.vue";
-import MoonLoader from "vue-spinner/src/MoonLoader.vue";
+import AddContact from "../contact/AddContact";
+import MoonLoader from "vue-spinner/src/MoonLoader";
 
+import VueScrollTo from "vue-scrollto";
+import { eventBus } from "../../app";
 import { mapActions, mapGetters } from "vuex";
-import { loader, modal, panels } from "../../mixins";
+import { loader, modal, panels, filters } from "../../mixins";
 
 export default {
   components: {
@@ -108,7 +191,7 @@ export default {
     AddContact,
     MoonLoader
   },
-  mixins: [loader, modal, panels],
+  mixins: [loader, modal, panels, filters],
   props: {
     articles: {
       type: Array,
@@ -153,18 +236,34 @@ export default {
           label: "",
           value: null
         }
-      }
+      },
+      preview: false,
+      animate: false,
+      terms: false,
+      componentToSelectContact: {}
     };
   },
   computed: {
     ...mapGetters([
       "loaderState",
-      "listDeliveries",
       "listContacts",
+      "listDeliveries",
       "listBusinesses"
-    ])
+    ]),
+    getBusiness() {
+      return this.businesses.find(business => {
+        return business.id === this.currentOrder.business.value;
+      });
+    },
+    getBillingContact() {
+      return this.contacts.find(contact => {
+        return contact.id === this.currentOrder.contact.value;
+      });
+    }
   },
   created() {
+    this.onContactCreated();
+    this.bindAddContactHandler();
     this.hydrateContacts(this.contacts);
     this.hydrateDocuments(this.documents);
     this.hydrateBusinesses(this.businesses);
@@ -172,20 +271,21 @@ export default {
     this.hydrateArticleTypes(this.articles);
   },
   mounted() {
-    this.findSelectedBusiness();
     this.findSelectedContact();
+    this.findSelectedBusiness();
     this.checkIfAtLeastOneDeliveryExists();
   },
   methods: {
     ...mapActions([
+      "addContact",
+      "updateOrder",
       "toggleLoader",
       "createDelivery",
       "hydrateContacts",
       "hydrateDocuments",
       "hydrateDeliveries",
       "hydrateBusinesses",
-      "hydrateArticleTypes",
-      "updateOrder"
+      "hydrateArticleTypes"
     ]),
     async addDelivery() {
       try {
@@ -226,8 +326,39 @@ export default {
     checkIfAtLeastOneDeliveryExists() {
       !this.listDeliveries.length ? this.addDelivery() : "";
     },
-    preview() {
-      console.log("preview");
+    togglePreview() {
+      this.animate = true;
+      setTimeout(() => {
+        this.preview = !this.preview;
+        this.animate = false;
+        VueScrollTo.scrollTo("body");
+      }, 200);
+    },
+    completeOrder() {
+      this.togglePreview();
+    },
+    bindAddContactHandler() {
+      eventBus.$on("add-contact:open", component => {
+        this.openAddPanel();
+        this.componentToSelectContact = component;
+      });
+    },
+    onContactCreated() {
+      eventBus.$on("contact:created", payload => {
+        if (payload.component === "order") {
+          this.addContact(payload.contact);
+          this.currentOrder.contact = {
+            label: payload.contact.name,
+            value: payload.contact.id
+          };
+          this.currentOrder.contact_id = payload.contact.id;
+          this.update();
+          window.flash({
+            message: "Contact ajouté avec succès!",
+            level: "success"
+          });
+        }
+      });
     }
   }
 };

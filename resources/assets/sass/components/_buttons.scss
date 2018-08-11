@@ -136,6 +136,28 @@
     }
   }
 
+  &--red-big {
+    display: inline-block;
+    font-size: 2rem;
+    color: $white;
+    background-color: $bg-red;
+    border: 1px solid $bg-red;
+    padding: 2rem 5rem;
+
+    &:hover,
+    &:active,
+    &:focus {
+      outline: none;
+      background-color: lighten($bg-red, 5%);
+      border: 1px solid lighten($bg-red, 5%);
+
+      &:disabled {
+        background-color: $mercury;
+        border: 1px solid $mercury;
+      }
+    }
+  }
+
   &--grey {
     width: 150px;
     color: $dark-grey;

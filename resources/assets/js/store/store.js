@@ -58,9 +58,15 @@ export const store = new Vuex.Store({
    * Mutations
    */
   mutations: {
+    /**
+     * Switch the loader state.
+     */
     toggleLoader: state => {
       state.loader.show = !state.loader.show
     },
+    /**
+     * Hydrate the articles.
+     */
     hydrateArticleTypes: (state, articles) => {
       const formattedArticles = articles.map(article => {
         return { value: article.id, label: article.description, type: article.type, greyscale: article.greyscale ? true : false };
@@ -75,19 +81,31 @@ export const store = new Vuex.Store({
         }
       })
     },
+    /**
+     * Hydrate the businesses.
+     */
     hydrateBusinesses: (state, businesses) => {
       state.businesses = businesses.map(business => {
         return { label: business.name, value: business.id };
       });
     },
+    /**
+     * Hydrate the contacts.
+     */
     hydrateContacts: (state, contacts) => {
       state.contacts = contacts.map(contact => {
         return { label: contact.name, value: contact.id };
       });
     },
-    addContact: (state, payload) => {
-      state.contacts.push(payload)
+    /**
+     * Add a new contact to the list.
+     */
+    addToContactsList: (state, contact) => {
+      state.contacts.push({ label: contact.name, value: contact.id });
     },
+    /**
+     * Hydrate the deliveries.
+     */
     hydrateDeliveries: (state, payload) => {
       state.deliveries = payload
     },
@@ -168,14 +186,17 @@ export const store = new Vuex.Store({
     hydrateContacts: ({ commit }, payload) => {
       commit('hydrateContacts', payload)
     },
-    addContact: ({ commit }, payload) => {
-      commit('addContact', payload)
+    /**
+     * Add a new contact.
+     */
+    addContact: ({ commit }, contact) => {
+      commit('addToContactsList', contact)
     },
     hydrateDeliveries: ({ commit }, payload) => {
       commit('hydrateDeliveries', payload)
     },
     /**
-     * Update an existing order
+     * Update an existing order.
      */
     async updateOrder({ commit }, order) {
       await window.axios.patch(window.route("orders.update", [order.reference]), {
@@ -246,38 +267,6 @@ export const store = new Vuex.Store({
         window.axios.delete(endpoint, payload.document)
           .then(() => resolve())
           .catch(() => reject())
-      })
-    },
-    cloneOptions: ({ commit }, payload) => {
-      commit('toggleLoader')
-      return new Promise((resolve, reject) => {
-        const endpoint = window.route('documents.clone.options', [payload.orderReference, payload.deliveryReference])
-        window.axios.post(endpoint, {
-          print: payload.print,
-          finish: payload.finish,
-          quantity: payload.quantity,
-          options: payload.options,
-          width: payload.width,
-          height: payload.height
-        })
-          .then(() => {
-            commit('toggleLoader')
-            commit('cloneOptions', {
-              deliveryId: payload.deliveryId,
-              print: payload.print,
-              finish: payload.finish,
-              quantity: payload.quantity,
-              options: payload.options,
-              optionModels: payload.optionModels,
-              width: payload.width,
-              height: payload.height
-            })
-            resolve()
-          })
-          .catch(() => {
-            commit('toggleLoader')
-            reject()
-          })
       })
     },
   }

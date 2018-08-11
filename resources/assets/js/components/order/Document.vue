@@ -1,5 +1,7 @@
 <template>
-  <div class="document__container">
+  <div
+    :class="{ 'document__container--preview': preview }"
+    class="document__container">
     <div class="document__image">
       <i
         :class="fileType"
@@ -18,6 +20,7 @@
           <AppSelect
             :options="listArticlePrintTypes"
             v-model="currentDocument.printType"
+            :disabled="preview"
             variant="printTypes"
             @input="update">
             {{ currentDocument.printType.label ? currentDocument.printType.label : 'Sélectionner' }}
@@ -30,6 +33,7 @@
           <AppSelect
             :options="optionsForFinish"
             v-model="currentDocument.finish"
+            :disabled="preview"
             @input="update">
             {{ currentDocument.finish.label ? currentDocument.finish.label : 'Sélectionner' | capitalize }}
           </AppSelect>
@@ -39,11 +43,15 @@
         <div class="document__option">
           <h4 class="document__option-label">Options</h4>
           <AppSelect
+            v-if="!preview"
+            :disabled="preview"
             :options="listArticleOptionTypes"
             @input="addOption">
-            Sélectionner
+            Ajouter
           </AppSelect>
-          <ul class="document__list">
+          <ul
+            :class="{ 'document__list--disabled': preview }"
+            class="document__list">
             <li
               v-for="option in currentDocument.options"
               :key="option.value"
@@ -60,6 +68,8 @@
           <h4 class="document__option-label">Quantité</h4>
           <input
             v-model.number="currentDocument.quantity"
+            :disabled="preview"
+            :class="{ 'document__input--disabled': preview }"
             type="number"
             class="document__input"
             @blur="checkQuantity">
@@ -70,6 +80,8 @@
     <!-- Controls -->
     <div class="document__controls">
       <button
+        :disabled="preview"
+        :class="{ 'document__delete-button--disabled': preview }"
         role="button"
         title="Supprimer"
         class="document__delete-button"
@@ -78,6 +90,8 @@
       </button>
 
       <button
+        :disabled="preview"
+        :class="{ 'document__copy-button--disabled': preview }"
         role="button"
         title="Copier"
         class="document__copy-button"
@@ -118,6 +132,11 @@ export default {
     options: {
       type: Array,
       required: true
+    },
+    preview: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -150,44 +169,20 @@ export default {
       "listDocuments"
     ]),
     fileType() {
-      // Images
-      if (
-        this.document.media[0].mime_type === "image/jpeg" ||
-        this.document.media[0].mime_type === "image/png" ||
-        this.document.media[0].mime_type === "image/gif" ||
-        this.document.media[0].mime_type === "image/vnd.adobe.photoshop" ||
-        this.document.media[0].mime_type === "application/postscript"
-      ) {
+      const mime_type = this.document.media[0].mime_type;
+      if (this.fileTypeImage(mime_type)) {
         return "fa-file-image";
-      }
-      // PDF
-      if (this.document.media[0].mime_type === "application/pdf")
+      } else if (this.fileTypePDF(mime_type)) {
         return "fa-file-pdf";
-      // Word
-      if (
-        this.document.media[0].mime_type === "application/msword" ||
-        this.document.media[0].mime_type ===
-          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-      ) {
+      } else if (this.fileTypeMSWord(mime_type)) {
         return "fa-file-word";
-      }
-      // Excel
-      if (
-        this.document.media[0].mime_type === "application/vnd.ms-excel" ||
-        this.document.media[0].mime_type ===
-          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-      ) {
+      } else if (this.fileTypeMSExcel(mime_type)) {
         return "fa-file-excel";
-      }
-      // Powerpoint
-      if (
-        this.document.media[0].mime_type === "application/vnd.ms-powerpoint" ||
-        this.document.media[0].mime_type ===
-          "application/vnd.openxmlformats-officedocument.presentationml.presentation"
-      ) {
+      } else if (this.fileTypeMSPowerPoint(mime_type)) {
         return "fa-file-powerpoint";
+      } else {
+        return "fa-file";
       }
-      return "fa-file";
     }
   },
   created() {
@@ -206,13 +201,15 @@ export default {
       });
     },
     removeOption(option) {
-      this.currentDocument.options.splice(
-        this.currentDocument.options.findIndex(item => {
-          return item.value === option.value;
-        }),
-        1
-      );
-      this.update();
+      if (!this.preview) {
+        this.currentDocument.options.splice(
+          this.currentDocument.options.findIndex(item => {
+            return item.value === option.value;
+          }),
+          1
+        );
+        this.update();
+      }
     },
     addOption(option) {
       const index = this.currentDocument.options.findIndex(item => {
@@ -282,6 +279,39 @@ export default {
           this.update();
         }
       });
+    },
+    fileTypeImage(mime_type) {
+      return (
+        mime_type === "image/jpeg" ||
+        mime_type === "image/png" ||
+        mime_type === "image/gif" ||
+        mime_type === "image/vnd.adobe.photoshop" ||
+        mime_type === "application/postscript"
+      );
+    },
+    fileTypePDF(mime_type) {
+      return mime_type === "application/pdf";
+    },
+    fileTypeMSWord(mime_type) {
+      return (
+        mime_type === "application/msword" ||
+        mime_type ===
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      );
+    },
+    fileTypeMSExcel(mime_type) {
+      return (
+        mime_type === "application/vnd.ms-excel" ||
+        mime_type ===
+          "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      );
+    },
+    fileTypeMSPowerPoint(mime_type) {
+      return (
+        mime_type === "application/vnd.ms-powerpoint" ||
+        mime_type ===
+          "application/vnd.openxmlformats-officedocument.presentationml.presentation"
+      );
     }
   }
 };

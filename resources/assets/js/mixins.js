@@ -257,6 +257,7 @@ export const datepicker = {
   methods: {
     formatDeliveryDate(date) {
       this.currentDelivery.to_deliver_at = moment(date, "LL HH:mm").format("YYYY-MM-DD HH:mm:ss");
+      this.deliveryDateString = moment(date, "LL HH:mm").format("LL [à] HH[h]mm");
       this.update();
     },
     getSelectedDeliveryDate() {
@@ -264,6 +265,7 @@ export const datepicker = {
         this.option.placeholder = moment(this.delivery.to_deliver_at).format(
           "LL [à] HH[h]mm"
         );
+        this.deliveryDateString = this.option.placeholder;
       }
     }
   }

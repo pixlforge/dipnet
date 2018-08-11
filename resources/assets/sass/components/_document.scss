@@ -129,6 +129,25 @@
         }
       }
     }
+
+    &--disabled {
+      li {
+        cursor: default;
+
+        &:hover {
+          color: inherit;
+          background-color: transparent;
+
+          .fa-plus {
+            display: inline-block;
+          }
+    
+          .fa-minus {
+            display: none;
+          }
+        }
+      }
+    }
   }
 
   &__input {
@@ -144,6 +163,16 @@
     &:focus,
     &:active {
       border-bottom: 1px solid $dark-grey;
+    }
+
+    &--disabled {
+      border-bottom: none;
+
+      &:hover,
+      &:focus,
+      &:active {
+        border-bottom: none;
+      }
     }
   }
 
@@ -167,6 +196,11 @@
       svg {
         color: $bg-red;
       }
+    }
+
+    &--disabled {
+      opacity: 0;
+      cursor: default;
     }
   }
 

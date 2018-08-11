@@ -176,6 +176,13 @@ export default {
       default: () => {
         return {};
       }
+    },
+    component: {
+      type: Object,
+      required: false,
+      default() {
+        return {};
+      }
     }
   },
   data() {
@@ -210,9 +217,6 @@ export default {
       return { label: company.name, value: company.id };
     });
   },
-  created() {
-    eventBus.$on("dropdown:add-contact", () => this.toggleModal());
-  },
   methods: {
     ...mapActions(["toggleLoader"]),
     async addContact() {
@@ -224,6 +228,11 @@ export default {
         );
         this.contact = res.data;
         this.$emit("contact:created", this.contact);
+        eventBus.$emit("contact:created", {
+          contact: this.contact,
+          component: this.component.component,
+          id: this.component.id
+        });
         this.$emit("add-contact:close");
         this.toggleLoader();
       } catch (err) {
