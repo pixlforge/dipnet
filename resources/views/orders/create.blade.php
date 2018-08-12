@@ -10,7 +10,8 @@
                        :contacts="{{ $contacts }}"
                        :deliveries="{{ $deliveries }}"
                        :documents="{{ $documents }}"
-                       :order="{{ $order }}">
+                       :order="{{ $order }}"
+                       :user="{{ auth()->user() }}">
     </order-preparation>
   @endif
 @endsection

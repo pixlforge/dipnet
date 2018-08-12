@@ -22,6 +22,7 @@
           <AppSelect
             :options="listBusinesses"
             v-model="currentOrder.business"
+            allow-create-business
             @input="update">
             <p><strong>{{ currentOrder.business.label ? currentOrder.business.label : 'Aucune' }}</strong></p>
           </AppSelect>
@@ -166,6 +167,15 @@
         @add-contact:close="closePanels"/>
     </transition>
 
+    <!-- Add business panel -->
+    <transition name="slide">
+      <AddBusiness
+        v-if="showAddBusinessPanel"
+        :contacts="listContacts"
+        :user="user"
+        @add-business:close="closePanels"/>
+    </transition>
+
     <MoonLoader
       :loading="loaderState"
       :color="loader.color"
@@ -177,6 +187,7 @@
 import Delivery from "./Delivery";
 import AppSelect from "../select/AppSelect";
 import AddContact from "../contact/AddContact";
+import AddBusiness from "../business/AddBusiness";
 import MoonLoader from "vue-spinner/src/MoonLoader";
 
 import VueScrollTo from "vue-scrollto";
@@ -189,6 +200,7 @@ export default {
     Delivery,
     AppSelect,
     AddContact,
+    AddBusiness,
     MoonLoader
   },
   mixins: [loader, modal, panels, filters],
@@ -214,6 +226,10 @@ export default {
       required: true
     },
     order: {
+      type: Object,
+      required: true
+    },
+    user: {
       type: Object,
       required: true
     }
@@ -263,7 +279,9 @@ export default {
   },
   created() {
     this.onContactCreated();
+    this.onBusinessCreated();
     this.bindAddContactHandler();
+    this.bindAddBusinessHandler();
     this.hydrateContacts(this.contacts);
     this.hydrateDocuments(this.documents);
     this.hydrateBusinesses(this.businesses);
@@ -278,6 +296,7 @@ export default {
   methods: {
     ...mapActions([
       "addContact",
+      "addBusiness",
       "updateOrder",
       "toggleLoader",
       "createDelivery",
@@ -341,6 +360,26 @@ export default {
       eventBus.$on("add-contact:open", component => {
         this.openAddPanel();
         this.componentToSelectContact = component;
+      });
+    },
+    bindAddBusinessHandler() {
+      eventBus.$on("add-business:open", () => {
+        this.openAddBusinessPanel();
+      });
+    },
+    onBusinessCreated() {
+      eventBus.$on("business:created", business => {
+        this.addBusiness(business);
+        this.currentOrder.business = {
+          label: business.name,
+          value: business.id
+        };
+        this.currentOrder.business_id = business.id;
+        this.update();
+        window.flash({
+          message: "Affaire ajoutée avec succès!",
+          level: "success"
+        });
       });
     },
     onContactCreated() {

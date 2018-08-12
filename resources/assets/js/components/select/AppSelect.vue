@@ -61,12 +61,18 @@
           @click.prevent="selectOption(option)">
           {{ option.label | capitalize }}
         </li>
-        <hr v-if="allowCreateContact">
+        <hr v-if="allowCreateContact || allowCreateBusiness">
         <li
           v-if="allowCreateContact"
           @click.prevent="openAddContactPanel">
           <i class="fal fa-plus fa-sm"/>
           Ajouter un contact
+        </li>
+        <li
+          v-if="allowCreateBusiness"
+          @click.prevent="openAddBusinessPanel">
+          <i class="fal fa-plus fa-sm"/>
+          Ajouter une affaire
         </li>
       </ul>
     </div>
@@ -105,6 +111,11 @@ export default {
       default: false
     },
     allowCreateContact: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    allowCreateBusiness: {
       type: Boolean,
       required: false,
       default: false
@@ -154,6 +165,10 @@ export default {
     },
     openAddContactPanel() {
       eventBus.$emit("add-contact:open", this.component);
+      this.open = false;
+    },
+    openAddBusinessPanel() {
+      eventBus.$emit("add-business:open");
       this.open = false;
     }
   }

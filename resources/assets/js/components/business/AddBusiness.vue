@@ -113,6 +113,7 @@ import ModalInput from "../forms/ModalInput";
 import ModalSelect from "../forms/ModalSelect";
 
 import { mapActions } from "vuex";
+import { eventBus } from "../../app";
 
 export default {
   components: {
@@ -122,7 +123,10 @@ export default {
   props: {
     companies: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     },
     contacts: {
       type: Array,
@@ -134,7 +138,10 @@ export default {
     },
     users: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     }
   },
   data() {
@@ -161,9 +168,13 @@ export default {
   computed: {
     optionsForContact() {
       if (this.filteredContacts) {
-        return this.filteredContacts.map(contact => {
-          return { label: contact.name, value: contact.id };
-        });
+        if (this.filteredContacts[0].value) {
+          return this.filteredContacts;
+        } else {
+          return this.filteredContacts.map(contact => {
+            return { label: contact.name, value: contact.id };
+          });
+        }
       }
     },
     filteredContacts() {
@@ -212,6 +223,7 @@ export default {
           this.business
         );
         this.$emit("business:created", res.data);
+        eventBus.$emit("business:created", res.data);
         this.$emit("add-business:close");
         this.toggleLoader();
       } catch (err) {

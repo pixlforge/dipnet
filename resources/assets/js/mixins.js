@@ -102,6 +102,7 @@ export const panels = {
       modelToEdit: {},
       showAddPanel: false,
       showEditPanel: false,
+      showAddBusinessPanel: false
     };
   },
   mounted() {
@@ -117,16 +118,22 @@ export const panels = {
       this.showEditPanel = true;
       this.toggleModal();
     },
+    openAddBusinessPanel() {
+      this.showAddBusinessPanel = true;
+      this.toggleModal();
+    },
     closePanels() {
       this.showAddPanel = false;
       this.showEditPanel = false;
+      this.showAddBusinessPanel = false;
       this.toggleModal();
     },
     bindEscapeKey() {
       const escapeHandler = event => {
-        if (event.key === "Escape" && (this.showAddPanel || this.showEditPanel)) {
+        if (event.key === "Escape" && (this.showAddPanel || this.showEditPanel || this.showAddBusinessPanel)) {
           this.showAddPanel = false;
           this.showEditPanel = false;
+          this.showAddBusinessPanel = false;
           this.toggleModal();
         }
       };

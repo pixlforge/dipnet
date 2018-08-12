@@ -104,6 +104,12 @@ export const store = new Vuex.Store({
       state.contacts.push({ label: contact.name, value: contact.id });
     },
     /**
+     * Add a new business to the list.
+     */
+    addToBusinessesList: (state, business) => {
+      state.businesses.push({ label: business.name, value: business.id });
+    },
+    /**
      * Hydrate the deliveries.
      */
     hydrateDeliveries: (state, payload) => {
@@ -191,6 +197,12 @@ export const store = new Vuex.Store({
      */
     addContact: ({ commit }, contact) => {
       commit('addToContactsList', contact)
+    },
+    /**
+     * Add a new business.
+     */
+    addBusiness: ({ commit }, business) => {
+      commit('addToBusinessesList', business)
     },
     hydrateDeliveries: ({ commit }, payload) => {
       commit('hydrateDeliveries', payload)
