@@ -248,7 +248,8 @@ export const store = new Vuex.Store({
         admin_note: delivery.admin_note,
         to_deliver_at: delivery.to_deliver_at,
         order_id: delivery.order_id,
-        contact_id: delivery.contact.value
+        contact_id: delivery.contact.value,
+        pickup: delivery.pickup
       });
     },
     /**
