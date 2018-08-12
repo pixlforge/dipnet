@@ -29,6 +29,7 @@
             :component="{ component: 'delivery', id: delivery.id }"
             large
             darker
+            allow-pickup
             allow-create-contact
             @input="updateContact">
             <p>{{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}</p>
@@ -124,6 +125,14 @@
       </transition>
     </div>
 
+    <!-- Note preview -->
+    <div
+      v-if="currentDelivery.note && preview"
+      class="delivery__note">
+      <h5>Note:</h5>
+      <p>{{ currentDelivery.note }}</p>
+    </div>
+
     <!-- Documents -->
     <Document
       v-for="document in deliveryDocuments"
@@ -191,7 +200,8 @@ export default {
         contact: {
           label: "",
           value: null
-        }
+        },
+        pickup: this.delivery.pickup
       },
       errors: {},
       showNote: this.delivery.note ? true : false,
@@ -235,7 +245,12 @@ export default {
   methods: {
     ...mapActions(["updateDelivery", "deleteDelivery", "addContact"]),
     updateContact() {
-      this.currentDelivery.contact_id = this.currentDelivery.contact.value;
+      if (this.currentDelivery.contact.value) {
+        this.currentDelivery.contact_id = this.currentDelivery.contact.value;
+        this.currentDelivery.pickup = false;
+      } else {
+        this.currentDelivery.pickup = true;
+      }
       this.update();
     },
     async update() {
@@ -265,6 +280,8 @@ export default {
         this.currentDelivery.contact = this.listContacts.find(contact => {
           return contact.value === this.delivery.contact_id;
         });
+      } else if (this.delivery.pickup) {
+        this.currentDelivery.contact.label = "Récupérer sur place";
       }
     },
     initDropzone() {

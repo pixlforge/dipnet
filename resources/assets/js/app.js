@@ -1,9 +1,9 @@
 import { store } from './store/store'
 
 require('./bootstrap')
-require('./fontawesome')
-require('./packs/light')
-require('./packs/solid')
+require('./fontawesome/fontawesome')
+require('./fontawesome/light')
+require('./fontawesome/solid')
 
 window.Vue = require('vue')
 

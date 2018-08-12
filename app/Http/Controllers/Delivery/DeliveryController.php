@@ -56,6 +56,7 @@ class DeliveryController extends Controller
         $delivery->note = $request->note;
         $delivery->contact_id = $request->contact_id;
         $delivery->to_deliver_at = $request->to_deliver_at;
+        $delivery->pickup = $request->pickup;
         $delivery->save();
 
         return response($delivery, 200);

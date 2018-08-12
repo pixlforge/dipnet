@@ -16,6 +16,7 @@ $factory->define(Delivery::class, function (Faker $faker) {
         },
         'contact_id' => null,
         'to_deliver_at' => null,
+        'pickup' => false,
         'deleted_at' => null
     ];
 });

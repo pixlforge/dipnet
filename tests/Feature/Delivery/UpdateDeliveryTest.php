@@ -143,6 +143,41 @@ class UpdateDeliveryTest extends TestCase
     }
 
     /** @test */
+    public function users_can_choose_to_pick_up_their_deliveries_on_site()
+    {
+        $this->withoutExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $order = factory(Order::class)->create(['company_id' => $company->id]);
+        $delivery = factory(Delivery::class)->create(['order_id' => $order->id]);
+
+        $this->assertNull($delivery->note);
+        $this->assertNull($delivery->contact_id);
+        $this->assertNull($delivery->to_deliver_at);
+        $this->assertFalse($delivery->pickup);
+
+        $response = $this->patchJson(route('deliveries.update', $delivery), [
+            'note' => 'Lorem ipsum dolor sit amet.',
+            'contact_id' => $contact->id,
+            'to_deliver_at' => null,
+            'pickup' => true
+        ]);
+        
+        $response->assertOk();
+
+        $delivery = $delivery->fresh();
+        $this->assertEquals('Lorem ipsum dolor sit amet.', $delivery->note);
+        $this->assertEquals($contact->id, $delivery->contact_id);
+        $this->assertNull($delivery->to_deliver_at);
+        $this->assertTrue($delivery->pickup);
+    }
+
+    /** @test */
     public function delivery_update_validation_fails_if_note_is_not_a_string()
     {
         $this->withExceptionHandling();

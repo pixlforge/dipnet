@@ -10,6 +10,10 @@ class Delivery extends Model
 {
     use SoftDeletes;
 
+    protected $casts = [
+        'pickup' => 'boolean',
+    ];
+
     protected $dates = [
         'to_deliver_at',
         'deleted_at',

@@ -173,23 +173,15 @@
   }
 
   &__note {
-    margin-left: 3rem;
-    width: 100%;
-
-    h5 {
-      font-size: 1.6rem;
-    }
-  }
-
-  &__delivery-note {
-    width: 25vw;
+    width: 84%;
+    margin: auto;
     color: $white;
-    line-height: 1.5;
 
     h5 {
-      font-size: 1rem;
-      font-weight: 300;
-      color: currentColor;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: inherit;
+      text-transform: uppercase;
     }
   }
 

@@ -61,6 +61,13 @@
           @click.prevent="selectOption(option)">
           {{ option.label | capitalize }}
         </li>
+        <hr v-if="allowPickup">
+        <li
+          v-if="allowPickup"
+          @click.prevent="selectOption({ label: 'Récupérer sur place', value: ''})">
+          <i class="fas fa-person-carry fa-sm"/>
+          Récupérer sur place
+        </li>
         <hr v-if="allowCreateContact || allowCreateBusiness">
         <li
           v-if="allowCreateContact"
@@ -106,6 +113,11 @@ export default {
       default: ""
     },
     disabled: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    allowPickup: {
       type: Boolean,
       required: false,
       default: false
