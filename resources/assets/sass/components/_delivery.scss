@@ -38,7 +38,7 @@
 
   &__header {
     width: 84vw;
-    margin: 3rem auto;
+    margin: 0 auto;
     display: flex;
     align-items: center;
 
@@ -55,6 +55,14 @@
     &--admin {
       padding: 0 4rem;
       align-items: stretch;
+    }
+
+    &--main {
+      margin-top: 3rem;
+    }
+
+    &--secondary {
+      margin-bottom: 3rem;
     }
   }
 
@@ -87,6 +95,10 @@
       width: 100%;
       display: flex;
       align-items: flex-start;
+    }
+
+    &--order {
+      margin-left: 20rem;
     }
   }
 

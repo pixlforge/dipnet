@@ -2,7 +2,7 @@
   <div
     :class="previewContainerStyles"
     class="delivery__container">
-    <div class="delivery__header">
+    <div class="delivery__header delivery__header--main">
 
       <!-- Contact -->
       <div class="delivery__header-box">
@@ -30,7 +30,7 @@
             large
             darker
             allow-create-contact
-            @input="update">
+            @input="updateContact">
             <p>{{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}</p>
           </AppSelect>
         </div>
@@ -88,6 +88,25 @@
           @click.prevent="toggleNote">
           Ajouter une note
         </button>
+      </div>
+    </div>
+
+    <!-- Selected contact details -->
+    <div class="delivery__header delivery__header--secondary">
+      <div class="delivery__header-box">
+        <div class="delivery__details delivery__details--order">
+          <ul
+            v-if="selectedContactDetails"
+            class="delivery__list">
+            <li>{{ selectedContactDetails.name }}</li>
+            <li>{{ selectedContactDetails.address_line1 }}</li>
+            <li v-if="selectedContactDetails.address_line2">{{ selectedContactDetails.address_line2 }}</li>
+            <li>{{ selectedContactDetails.zip }} {{ selectedContactDetails.city }}</li>
+            <li v-if="selectedContactDetails.phone_number">{{ selectedContactDetails.phone_number }}</li>
+            <li v-if="selectedContactDetails.fax">{{ selectedContactDetails.fax }}</li>
+            <li>{{ selectedContactDetails.email }}</li>
+          </ul>
+        </div>
       </div>
     </div>
 
@@ -178,7 +197,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["listContacts", "listDeliveries", "listDocuments"]),
+    ...mapGetters([
+      "listContacts",
+      "listRawContacts",
+      "listDeliveries",
+      "listDocuments"
+    ]),
     deliveryDocuments() {
       return this.listDocuments.filter(document => {
         return document.delivery_id === this.delivery.id;
@@ -187,6 +211,13 @@ export default {
     previewContainerStyles() {
       if (this.preview) {
         return `bg-red-${this.count}` + " delivery__container--preview";
+      }
+    },
+    selectedContactDetails() {
+      if (this.listRawContacts) {
+        return this.listRawContacts.find(contact => {
+          return contact.id === this.currentDelivery.contact.value;
+        });
       }
     }
   },
@@ -201,6 +232,10 @@ export default {
   },
   methods: {
     ...mapActions(["updateDelivery", "deleteDelivery", "addContact"]),
+    updateContact() {
+      this.currentDelivery.contact_id = this.currentDelivery.contact.value;
+      this.update();
+    },
     async update() {
       try {
         await this.updateDelivery(this.currentDelivery);

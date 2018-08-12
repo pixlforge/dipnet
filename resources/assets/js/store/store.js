@@ -17,6 +17,7 @@ export const store = new Vuex.Store({
     },
     businesses: [],
     contacts: [],
+    rawContacts: [],
     deliveries: [],
     documents: [],
     loader: {
@@ -29,28 +30,31 @@ export const store = new Vuex.Store({
    */
   getters: {
     loaderState: state => {
-      return state.loader.show
+      return state.loader.show;
     },
     listArticlePrintTypes: state => {
-      return state.articles.types.print
+      return state.articles.types.print;
     },
     listArticleOptionTypes: state => {
-      return state.articles.types.option
+      return state.articles.types.option;
     },
     listFinishTypes: state => {
-      return state.articles.types.finish
+      return state.articles.types.finish;
     },
     listBusinesses: state => {
-      return state.businesses
+      return state.businesses;
     },
     listContacts: state => {
-      return state.contacts
+      return state.contacts;
+    },
+    listRawContacts: state => {
+      return state.rawContacts;
     },
     listDeliveries: state => {
-      return state.deliveries
+      return state.deliveries;
     },
     listDocuments: state => {
-      return state.documents
+      return state.documents;
     },
   },
 
@@ -96,12 +100,14 @@ export const store = new Vuex.Store({
       state.contacts = contacts.map(contact => {
         return { label: contact.name, value: contact.id };
       });
+      state.rawContacts = contacts;
     },
     /**
      * Add a new contact to the list.
      */
     addToContactsList: (state, contact) => {
       state.contacts.push({ label: contact.name, value: contact.id });
+      state.rawContacts.push(contact);
     },
     /**
      * Add a new business to the list.
