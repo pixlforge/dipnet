@@ -73,14 +73,10 @@ class OrderController extends Controller
 
         $articles = Article::all();
 
-        $documents = $order->documents()->with(['articles' => function ($query) {
+        $documents = $order->documents()->with(['media', 'articles' => function ($query) {
             $query->orderBy('description');
         }])->get();
         
-        foreach ($documents as $document) {
-            $document->getMedia();
-        }
-
         return view('orders.create', compact('order', 'businesses', 'contacts', 'deliveries', 'documents', 'articles'));
     }
 
