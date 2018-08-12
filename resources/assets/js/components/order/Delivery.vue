@@ -94,7 +94,9 @@
     <!-- Selected contact details -->
     <div class="delivery__header delivery__header--secondary">
       <div class="delivery__header-box">
-        <div class="delivery__details delivery__details--order">
+        <div
+          :class="{ 'delivery__details--order': !preview, 'delivery__details--preview': preview }"
+          class="delivery__details">
           <ul
             v-if="selectedContactDetails"
             class="delivery__list">

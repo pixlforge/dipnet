@@ -44857,6 +44857,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 
 
@@ -79586,7 +79588,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "delivery__header-box"
   }, [_c('div', {
-    staticClass: "delivery__details delivery__details--order"
+    staticClass: "delivery__details",
+    class: {
+      'delivery__details--order': !_vm.preview, 'delivery__details--preview': _vm.preview
+    }
   }, [(_vm.selectedContactDetails) ? _c('ul', {
     staticClass: "delivery__list"
   }, [_c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.name))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.address_line1))]), _vm._v(" "), (_vm.selectedContactDetails.address_line2) ? _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.address_line2))]) : _vm._e(), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.zip) + " " + _vm._s(_vm.selectedContactDetails.city))]), _vm._v(" "), (_vm.selectedContactDetails.phone_number) ? _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.phone_number))]) : _vm._e(), _vm._v(" "), (_vm.selectedContactDetails.fax) ? _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.fax))]) : _vm._e(), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.email))])]) : _vm._e()])])]), _vm._v(" "), (!_vm.preview) ? _c('div', [_c('transition', {

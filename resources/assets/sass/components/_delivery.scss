@@ -87,10 +87,6 @@
     display: flex;
     align-items: center;
 
-    &--preview {
-      width: 50rem;
-    }
-
     &--secondary {
       width: 100%;
       display: flex;
@@ -99,6 +95,12 @@
 
     &--order {
       margin-left: 20rem;
+    }
+
+    &--preview {
+      color: $white;
+      margin-left: 14rem;
+      margin-top: 1.5rem;
     }
   }
 
