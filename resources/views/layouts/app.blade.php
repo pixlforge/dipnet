@@ -35,5 +35,6 @@
     :ticker="{{ $ticker ? $ticker : collect() }}"
     cookie="{{ Cookie::get('ticker') }}"/>
 </div>
+@include('layouts.partials._footer')
 </body>
 </html>

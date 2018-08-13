@@ -28,6 +28,10 @@ body {
   font: 1.4rem $font-stack;
 }
 
+#app {
+  min-height: 100vh;
+}
+
 a {
   text-decoration: none;
   color: $dark-grey;

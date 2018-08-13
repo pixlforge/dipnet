@@ -45544,9 +45544,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__business_AddBusiness___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__business_AddBusiness__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_scrollto__ = __webpack_require__(442);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vue_scrollto___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_vue_scrollto__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__app__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__app__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_scrollto__ = __webpack_require__(442);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vue_scrollto___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_vue_scrollto__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_vuex__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__mixins__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
@@ -45899,25 +45899,25 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       setTimeout(() => {
         this.preview = !this.preview;
         this.animate = false;
-        __WEBPACK_IMPORTED_MODULE_5_vue_scrollto___default.a.scrollTo("body");
+        __WEBPACK_IMPORTED_MODULE_6_vue_scrollto___default.a.scrollTo("body");
       }, 200);
     },
     completeOrder() {
       this.togglePreview();
     },
     bindAddContactHandler() {
-      __WEBPACK_IMPORTED_MODULE_6__app__["eventBus"].$on("add-contact:open", component => {
+      __WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on("add-contact:open", component => {
         this.openAddPanel();
         this.componentToSelectContact = component;
       });
     },
     bindAddBusinessHandler() {
-      __WEBPACK_IMPORTED_MODULE_6__app__["eventBus"].$on("add-business:open", () => {
+      __WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on("add-business:open", () => {
         this.openAddBusinessPanel();
       });
     },
     onBusinessCreated() {
-      __WEBPACK_IMPORTED_MODULE_6__app__["eventBus"].$on("business:created", business => {
+      __WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on("business:created", business => {
         this.addBusiness(business);
         this.currentOrder.business = {
           label: business.name,
@@ -45932,7 +45932,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       });
     },
     onContactCreated() {
-      __WEBPACK_IMPORTED_MODULE_6__app__["eventBus"].$on("contact:created", payload => {
+      __WEBPACK_IMPORTED_MODULE_5__app__["eventBus"].$on("contact:created", payload => {
         if (payload.component === "order") {
           this.addContact(payload.contact);
           this.currentOrder.contact = {

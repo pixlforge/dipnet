@@ -1,0 +1,15 @@
+.footer {
+  &__container {
+    padding-bottom: 12rem;
+    display: flex;
+    justify-content: center;
+
+    a[href] {
+      color: $brand-red;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
