@@ -44869,6 +44869,20 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -45090,6 +45104,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -45530,6 +45553,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -72369,18 +72396,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-search"
   }), _vm._v("\n        Aperçu de la commande\n      ")]) : _vm._e()])], 1), _vm._v(" "), _c('transition', {
     attrs: {
-      "name": "fade"
-    }
-  }, [(_vm.showModal) ? _c('div', {
-    staticClass: "modal__background",
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.closePanels($event)
-      }
-    }
-  }) : _vm._e()]), _vm._v(" "), _c('transition', {
-    attrs: {
       "name": "slide"
     }
   }, [(_vm.showAddPanel) ? _c('AddContact', {
@@ -72402,7 +72417,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "add-business:close": _vm.closePanels
     }
-  }) : _vm._e()], 1), _vm._v(" "), _c('MoonLoader', {
+  }) : _vm._e()], 1), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [(_vm.showModal) ? _c('div', {
+    staticClass: "modal__background",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.closePanels($event)
+      }
+    }
+  }) : _vm._e()]), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,

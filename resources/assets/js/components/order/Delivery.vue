@@ -2,16 +2,22 @@
   <div
     :class="previewContainerStyles"
     class="delivery__container">
+
+    <!-- Header main -->
     <div class="delivery__header delivery__header--main">
 
       <!-- Contact -->
       <div class="delivery__header-box">
         <div class="delivery__details">
+
+          <!-- Delivery number -->
           <div
             v-if="!preview"
             class="badge__order">
             {{ count }}
           </div>
+
+          <!-- Contact label -->
           <h3
             :class="{ 'delivery__label--preview': preview }"
             class="delivery__label">
@@ -22,6 +28,8 @@
             class="delivery__label delivery__label--bold delivery__label--preview">
             {{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}
           </h3>
+
+          <!-- Contact select -->
           <AppSelect
             v-else
             :options="listContacts"
@@ -41,6 +49,8 @@
       <!-- Datepicker -->
       <div class="delivery__header-box">
         <div class="delivery__details">
+
+          <!-- Datepicker label -->
           <h3
             :class="{ 'delivery__label--preview': preview }"
             class="delivery__label">
@@ -51,6 +61,8 @@
             class="delivery__label delivery__label--bold delivery__label--preview">
             {{ deliveryDateString }}
           </h3>
+
+          <!-- Datepicker input -->
           <Datepicker
             v-else
             :date="startTime"
@@ -93,8 +105,10 @@
       </div>
     </div>
 
-    <!-- Selected contact details -->
+    <!-- Header secondary -->
     <div class="delivery__header delivery__header--secondary">
+
+      <!-- Selected contact details -->
       <div class="delivery__header-box">
         <div
           :class="{ 'delivery__details--order': !preview, 'delivery__details--preview': preview }"

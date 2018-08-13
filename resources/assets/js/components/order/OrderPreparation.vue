@@ -12,6 +12,7 @@
         </template>
       </h1>
 
+      <!-- Order header -->
       <div
         v-if="!preview"
         class="order__header">
@@ -125,6 +126,7 @@
       </div>
     </transition>
 
+    <!-- Order footer -->
     <div class="order__footer">
       <transition
         name="fade"
@@ -153,13 +155,6 @@
       </transition>
     </div>
 
-    <transition name="fade">
-      <div
-        v-if="showModal"
-        class="modal__background"
-        @click.prevent="closePanels"/>
-    </transition>
-
     <!-- Add contact panel -->
     <transition name="slide">
       <AddContact
@@ -177,6 +172,15 @@
         @add-business:close="closePanels"/>
     </transition>
 
+    <!-- Modal backdrop -->
+    <transition name="fade">
+      <div
+        v-if="showModal"
+        class="modal__background"
+        @click.prevent="closePanels"/>
+    </transition>
+
+    <!-- Spinner -->
     <MoonLoader
       :loading="loaderState"
       :color="loader.color"

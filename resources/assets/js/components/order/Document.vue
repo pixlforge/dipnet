@@ -2,12 +2,18 @@
   <div
     :class="{ 'document__container--preview': preview }"
     class="document__container">
+
+    <!-- File type icon -->
     <div class="document__image">
       <i
         :class="fileType"
         class="fal fa-5x icon__file-type"/>
     </div>
+
+    <!-- Content -->
     <div class="document__content">
+
+      <!-- File name -->
       <div class="document__header">
         <h2 class="document__title">{{ document.media[0].file_name }}</h2>
       </div>
@@ -79,6 +85,8 @@
 
     <!-- Controls -->
     <div class="document__controls">
+
+      <!-- Delete -->
       <button
         :disabled="preview"
         :class="{ 'document__delete-button--disabled': preview }"
@@ -89,6 +97,7 @@
         <i class="fal fa-times"/>
       </button>
 
+      <!-- Copy -->
       <button
         :disabled="preview"
         :class="{ 'document__copy-button--disabled': preview }"
