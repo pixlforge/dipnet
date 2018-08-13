@@ -44966,6 +44966,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       }
     }
   }),
+  watch: {
+    listDocuments() {
+      this.determineDropzoneStyle();
+    }
+  },
   created() {
     this.onContactCreated();
   },
@@ -45299,30 +45304,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     this.findSelectedOptions();
     this.findSelectedPrintType();
   },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["c" /* mapActions */])(["cloneOptions", "updateDocument"]), {
-    copy() {
-      __WEBPACK_IMPORTED_MODULE_3__app__["eventBus"].$emit("copy", {
-        deliveryId: this.delivery.id,
-        document: this.currentDocument
-      });
-    },
-    removeOption(option) {
-      if (!this.preview) {
-        this.currentDocument.options.splice(this.currentDocument.options.findIndex(item => {
-          return item.value === option.value;
-        }), 1);
-        this.update();
-      }
-    },
-    addOption(option) {
-      const index = this.currentDocument.options.findIndex(item => {
-        return item.value === option.value;
-      });
-      if (index === -1) {
-        this.currentDocument.options.push(option);
-        this.update();
-      }
-    },
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["c" /* mapActions */])(["cloneOptions", "updateDocument", "deleteDocument"]), {
     checkQuantity() {
       if (this.currentDocument.quantity <= 0) {
         this.currentDocument.quantity = 1;
@@ -45354,10 +45336,33 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       })();
     },
     destroy() {
-      __WEBPACK_IMPORTED_MODULE_3__app__["eventBus"].$emit("removeDocument", {
-        document: this.currentDocument,
-        orderReference: this.order.reference,
-        deliveryReference: this.delivery.reference
+      var _this2 = this;
+
+      return _asyncToGenerator(function* () {
+        yield _this2.deleteDocument(_this2.currentDocument);
+      })();
+    },
+    addOption(option) {
+      const index = this.currentDocument.options.findIndex(item => {
+        return item.value === option.value;
+      });
+      if (index === -1) {
+        this.currentDocument.options.push(option);
+        this.update();
+      }
+    },
+    removeOption(option) {
+      if (!this.preview) {
+        this.currentDocument.options.splice(this.currentDocument.options.findIndex(item => {
+          return item.value === option.value;
+        }), 1);
+        this.update();
+      }
+    },
+    copy() {
+      __WEBPACK_IMPORTED_MODULE_3__app__["eventBus"].$emit("copy", {
+        deliveryId: this.delivery.id,
+        document: this.currentDocument
       });
     },
     copyDocumentDetails() {
@@ -51801,11 +51806,9 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       state.documents[index].height = payload.document.height;
       state.documents[index].nb_orig = payload.document.nb_orig;
     },
-    removeDocument: (state, payload) => {
-      const index = state.documents.findIndex(document => {
-        if (document.id === payload.id) {
-          return true;
-        }
+    removeDocument: (state, document) => {
+      const index = state.documents.findIndex(item => {
+        return item.id === document.id;
       });
       state.documents.splice(index, 1);
     },
@@ -51928,12 +51931,14 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         });
       })();
     },
-    removeDocument: ({ commit }, payload) => {
-      commit('removeDocument', payload.document);
-      return new Promise((resolve, reject) => {
-        const endpoint = window.route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id]);
-        window.axios.delete(endpoint, payload.document).then(() => resolve()).catch(() => reject());
-      });
+    /**
+     * Delete an existing document.
+     */
+    deleteDocument({ commit }, document) {
+      return _asyncToGenerator(function* () {
+        commit('removeDocument', document);
+        yield window.axios.delete(window.route('documents.destroy', [document.id]));
+      })();
     }
   }
 });

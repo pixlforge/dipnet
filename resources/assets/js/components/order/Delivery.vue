@@ -255,6 +255,11 @@ export default {
       }
     }
   },
+  watch: {
+    listDocuments() {
+      this.determineDropzoneStyle();
+    }
+  },
   created() {
     this.onContactCreated();
   },

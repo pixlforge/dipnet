@@ -160,12 +160,10 @@ export const store = new Vuex.Store({
       state.documents[index].height = payload.document.height
       state.documents[index].nb_orig = payload.document.nb_orig
     },
-    removeDocument: (state, payload) => {
-      const index = state.documents.findIndex(document => {
-        if (document.id === payload.id) {
-          return true
-        }
-      })
+    removeDocument: (state, document) => {
+      const index = state.documents.findIndex(item => {
+        return item.id === document.id;
+      });
       state.documents.splice(index, 1)
     },
     cloneOptions: (state, payload) => {
@@ -279,14 +277,12 @@ export const store = new Vuex.Store({
         })
       });
     },
-    removeDocument: ({ commit }, payload) => {
-      commit('removeDocument', payload.document)
-      return new Promise((resolve, reject) => {
-        const endpoint = window.route('documents.destroy', [payload.orderReference, payload.deliveryReference, payload.document.id])
-        window.axios.delete(endpoint, payload.document)
-          .then(() => resolve())
-          .catch(() => reject())
-      })
+    /**
+     * Delete an existing document.
+     */
+    async deleteDocument({ commit }, document) {
+      commit('removeDocument', document);
+      await window.axios.delete(window.route('documents.destroy', [document.id]));
     },
   }
 })

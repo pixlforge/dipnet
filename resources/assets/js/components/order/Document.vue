@@ -202,33 +202,7 @@ export default {
     this.findSelectedPrintType();
   },
   methods: {
-    ...mapActions(["cloneOptions", "updateDocument"]),
-    copy() {
-      eventBus.$emit("copy", {
-        deliveryId: this.delivery.id,
-        document: this.currentDocument
-      });
-    },
-    removeOption(option) {
-      if (!this.preview) {
-        this.currentDocument.options.splice(
-          this.currentDocument.options.findIndex(item => {
-            return item.value === option.value;
-          }),
-          1
-        );
-        this.update();
-      }
-    },
-    addOption(option) {
-      const index = this.currentDocument.options.findIndex(item => {
-        return item.value === option.value;
-      });
-      if (index === -1) {
-        this.currentDocument.options.push(option);
-        this.update();
-      }
-    },
+    ...mapActions(["cloneOptions", "updateDocument", "deleteDocument"]),
     checkQuantity() {
       if (this.currentDocument.quantity <= 0) {
         this.currentDocument.quantity = 1;
@@ -257,11 +231,33 @@ export default {
     async update() {
       await this.updateDocument(this.currentDocument);
     },
-    destroy() {
-      eventBus.$emit("removeDocument", {
-        document: this.currentDocument,
-        orderReference: this.order.reference,
-        deliveryReference: this.delivery.reference
+    async destroy() {
+      await this.deleteDocument(this.currentDocument);
+    },
+    addOption(option) {
+      const index = this.currentDocument.options.findIndex(item => {
+        return item.value === option.value;
+      });
+      if (index === -1) {
+        this.currentDocument.options.push(option);
+        this.update();
+      }
+    },
+    removeOption(option) {
+      if (!this.preview) {
+        this.currentDocument.options.splice(
+          this.currentDocument.options.findIndex(item => {
+            return item.value === option.value;
+          }),
+          1
+        );
+        this.update();
+      }
+    },
+    copy() {
+      eventBus.$emit("copy", {
+        deliveryId: this.delivery.id,
+        document: this.currentDocument
       });
     },
     copyDocumentDetails() {
