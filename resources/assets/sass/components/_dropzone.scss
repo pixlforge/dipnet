@@ -1,10 +1,10 @@
 .dropzone {
+  background-color: $alabaster;
   width: 84%;
+  min-height: 450px;
   padding: 0;
   margin: 3rem auto;
   border: 1px dashed $mercury;
-  background: $alabaster;
-  height: 450px;
 }
 
 .dropzone--small {
@@ -23,13 +23,17 @@
 .dz-started > .dz-default.dz-message::before,
 .dz-default.dz-message::before {
   content: "";
+  display: block;
   background-image: url("../img/icons/drag-files-here-illustration.svg");
   background-repeat: no-repeat;
   margin: auto;
   margin-bottom: 2rem;
-  display: block;
   width: 75px;
   height: 57px;
+}
+
+.dz-hidden {
+  display: none !important;
 }
 
 .dropzone .dz-preview {
@@ -59,8 +63,12 @@
   }
 }
 
-.dz-hidden {
-  display: none !important;
+.dropzone .dz-preview.dz-error .dz-error-message {
+  z-index: 1500;
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 // Progress bar
@@ -86,4 +94,13 @@
 .dropzone .dz-preview .dz-success-mark {
   border-radius: 100%;
   background: $atlantis;
+}
+
+.dropzone .dz-preview .dz-remove {
+  z-index: 1000;
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: $brand-red;
 }

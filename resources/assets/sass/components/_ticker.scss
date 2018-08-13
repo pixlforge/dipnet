@@ -1,5 +1,6 @@
 .ticker {
   &__container {
+    z-index: 2000;
     position: fixed;
     bottom: 0;
     width: 100vw;

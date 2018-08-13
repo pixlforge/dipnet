@@ -44980,7 +44980,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     this.findSelectedContact();
     this.getSelectedDeliveryDate();
   },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["c" /* mapActions */])(["updateDelivery", "deleteDelivery", "addContact"]), {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["c" /* mapActions */])(["updateDelivery", "deleteDelivery", "addContact", "addDocument"]), {
     updateContact() {
       if (this.currentDelivery.contact.value) {
         this.currentDelivery.contact_id = this.currentDelivery.contact.value;
@@ -45033,34 +45033,29 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       __WEBPACK_IMPORTED_MODULE_3_dropzone___default.a.autoDiscover = false;
 
       const drop = new __WEBPACK_IMPORTED_MODULE_3_dropzone___default.a("#delivery-file-upload-" + this.delivery.id, {
+        // autoProcessQueue: false, // tmp
         createImageThumbnails: false,
         url: window.route("documents.store", [this.delivery.reference]),
         headers: {
           "X-CSRF-TOKEN": window.Laravel.csrfToken
         },
+        maxFilesize: 10,
+        addRemoveLinks: true,
         dictRemoveFile: "Supprimer",
         dictCancelUpload: "Annuler",
+        dictCancelUploadConfirmation: "Êtes-vous certain de vouloir annuler le téléchargement?",
         dictDefaultMessage: "<span>Glissez-déposez des fichiers ici pour les télécharger ou</span> <span class='ml-3'><strong>choisissiez vos fichiers</strong>.</span>",
-        dictFallbackMessage: "Votre navigateur est trop ancien ou incompatible. Changez-le ou mettez-le à jour."
+        dictFallbackMessage: "Votre navigateur est trop ancien ou incompatible. Changez-en ou mettez-le à jour.",
+        dictFileTooBig: "Ce fichier est trop volumineux. {{filesize}}MB de {{maxFilesize}}MB autorisés.",
+        dictFileSizeUnits: "mb"
       });
 
-      drop.on("success", (file, response) => {
-        file.id = response.id;
-        this.$store.dispatch("addDocument", response);
+      drop.on("success", (file, res) => {
+        this.addDocument(res);
         file.previewElement.classList.add("dz-hidden");
         window.flash({
           message: "Votre document a bien été téléchargé!",
           level: "success"
-        });
-      });
-
-      drop.on("removedfile", file => {
-        window.axios.delete(window.route("documents.destroy", [this.order.reference, this.delivery.reference, file.id])).catch(() => {
-          drop.emit("addedfile", {
-            id: file.id,
-            name: file.name,
-            size: file.size
-          });
         });
       });
     },

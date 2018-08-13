@@ -270,7 +270,12 @@ export default {
     this.getSelectedDeliveryDate();
   },
   methods: {
-    ...mapActions(["updateDelivery", "deleteDelivery", "addContact"]),
+    ...mapActions([
+      "updateDelivery",
+      "deleteDelivery",
+      "addContact",
+      "addDocument"
+    ]),
     updateContact() {
       if (this.currentDelivery.contact.value) {
         this.currentDelivery.contact_id = this.currentDelivery.contact.value;
@@ -315,45 +320,34 @@ export default {
       Dropzone.autoDiscover = false;
 
       const drop = new Dropzone("#delivery-file-upload-" + this.delivery.id, {
+        // autoProcessQueue: false, // tmp
         createImageThumbnails: false,
         url: window.route("documents.store", [this.delivery.reference]),
         headers: {
           "X-CSRF-TOKEN": window.Laravel.csrfToken
         },
+        maxFilesize: 10,
+        addRemoveLinks: true,
         dictRemoveFile: "Supprimer",
         dictCancelUpload: "Annuler",
+        dictCancelUploadConfirmation:
+          "Êtes-vous certain de vouloir annuler le téléchargement?",
         dictDefaultMessage:
           "<span>Glissez-déposez des fichiers ici pour les télécharger ou</span> <span class='ml-3'><strong>choisissiez vos fichiers</strong>.</span>",
         dictFallbackMessage:
-          "Votre navigateur est trop ancien ou incompatible. Changez-le ou mettez-le à jour."
+          "Votre navigateur est trop ancien ou incompatible. Changez-en ou mettez-le à jour.",
+        dictFileTooBig:
+          "Ce fichier est trop volumineux. {{filesize}}MB de {{maxFilesize}}MB autorisés.",
+        dictFileSizeUnits: "mb"
       });
 
-      drop.on("success", (file, response) => {
-        file.id = response.id;
-        this.$store.dispatch("addDocument", response);
+      drop.on("success", (file, res) => {
+        this.addDocument(res);
         file.previewElement.classList.add("dz-hidden");
         window.flash({
           message: "Votre document a bien été téléchargé!",
           level: "success"
         });
-      });
-
-      drop.on("removedfile", file => {
-        window.axios
-          .delete(
-            window.route("documents.destroy", [
-              this.order.reference,
-              this.delivery.reference,
-              file.id
-            ])
-          )
-          .catch(() => {
-            drop.emit("addedfile", {
-              id: file.id,
-              name: file.name,
-              size: file.size
-            });
-          });
       });
     },
     determineDropzoneStyle() {
