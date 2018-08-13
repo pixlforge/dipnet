@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $company->name)
+@section('title', 'Profil de votre société "' . $company->name . '"')
 
 @section('content')
   @include('layouts.partials._nav')

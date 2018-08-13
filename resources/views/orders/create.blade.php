@@ -1,9 +1,9 @@
-@extends ('layouts.app')
+@extends('layouts.app')
 
-@section ('title', 'Nouvelle commande')
+@section('title', 'Nouvelle commande')
 
-@section ('content')
-  @include ('layouts.partials._nav')
+@section('content')
+  @include('layouts.partials._nav')
   @if ($order)
     <order-preparation :articles="{{ $articles }}"
                        :businesses="{{ $businesses }}"
