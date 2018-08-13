@@ -195,8 +195,8 @@ import AddContact from "../contact/AddContact";
 import AddBusiness from "../business/AddBusiness";
 import MoonLoader from "vue-spinner/src/MoonLoader";
 
-import VueScrollTo from "vue-scrollto";
 import { eventBus } from "../../app";
+import VueScrollTo from "vue-scrollto";
 import { mapActions, mapGetters } from "vuex";
 import { loader, modal, panels, filters } from "../../mixins";
 
