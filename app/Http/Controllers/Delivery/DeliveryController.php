@@ -54,7 +54,11 @@ class DeliveryController extends Controller
         $this->authorize('touch', $delivery);
 
         $delivery->note = $request->note;
-        $delivery->contact_id = $request->contact_id;
+
+        if (auth()->user()->isNotSolo()) {
+            $delivery->contact_id = $request->contact_id;
+        }
+        
         $delivery->to_deliver_at = $request->to_deliver_at;
         $delivery->pickup = $request->pickup;
         $delivery->save();

@@ -52,7 +52,8 @@
           :delivery="delivery"
           :order="order"
           :count="index + 1"
-          :preview="preview"/>
+          :preview="preview"
+          :user="user"/>
       </div>
     </transition>
 

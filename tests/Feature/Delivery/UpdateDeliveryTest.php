@@ -95,10 +95,11 @@ class UpdateDeliveryTest extends TestCase
         $this->assertNull($delivery->note);
         $this->assertNull($delivery->contact_id);
         $this->assertNull($delivery->to_deliver_at);
+        $this->assertFalse($delivery->pickup);
 
         $response = $this->patchJson(route('deliveries.update', $delivery), [
             'note' => 'Lorem ipsum dolor sit amet.',
-            'contact_id' => $contact->id,
+            'pickup' => true,
             'to_deliver_at' => '2018-12-01 08:00:00',
         ]);
         
@@ -106,8 +107,9 @@ class UpdateDeliveryTest extends TestCase
 
         $delivery = $delivery->fresh();
         $this->assertEquals('Lorem ipsum dolor sit amet.', $delivery->note);
-        $this->assertEquals($contact->id, $delivery->contact_id);
+        $this->assertNull($delivery->contact_id);
         $this->assertEquals('2018-12-01 08:00:00', $delivery->to_deliver_at);
+        $this->assertTrue($delivery->pickup);
     }
 
     /** @test */

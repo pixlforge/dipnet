@@ -27,6 +27,7 @@
             :options="listContacts"
             v-model="currentDelivery.contact"
             :component="{ component: 'delivery', id: delivery.id }"
+            :user-is-solo="user.is_solo"
             large
             darker
             allow-pickup
@@ -185,6 +186,13 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    user: {
+      type: Object,
+      required: false,
+      default() {
+        return {};
+      }
     }
   },
   data() {

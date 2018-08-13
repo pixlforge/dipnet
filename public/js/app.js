@@ -44868,6 +44868,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -44902,6 +44903,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       type: Boolean,
       required: false,
       default: false
+    },
+    user: {
+      type: Object,
+      required: false,
+      default() {
+        return {};
+      }
     }
   },
   data() {
@@ -45522,6 +45530,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
 //
 //
 //
@@ -48166,6 +48175,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -48218,6 +48229,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       default() {
         return {};
       }
+    },
+    userIsSolo: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -51944,7 +51960,7 @@ exports.push([module.i, "\nsvg[data-v-490930b0] {\n  margin-left: 1rem;\n}\n", "
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(11)();
-exports.push([module.i, "\nli svg[data-v-5b653420] {\n  -webkit-transform: translate(-2px, -2px);\n          transform: translate(-2px, -2px);\n}\nhr[data-v-5b653420] {\n  color: #f9f9f9;\n  border-style: solid;\n}\n", ""]);
+exports.push([module.i, "\nli svg[data-v-5b653420] {\n  -webkit-transform: translate(-5px, -1px);\n          transform: translate(-5px, -1px);\n}\nhr[data-v-5b653420] {\n  color: #f9f9f9;\n  border-style: solid;\n}\n", ""]);
 
 /***/ }),
 /* 275 */
@@ -72251,7 +72267,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "delivery": delivery,
         "order": _vm.order,
         "count": index + 1,
-        "preview": _vm.preview
+        "preview": _vm.preview,
+        "user": _vm.user
       }
     })
   }))]), _vm._v(" "), (!_vm.preview) ? _c('div', {
@@ -77992,7 +78009,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n        " + _vm._s(_vm._f("capitalize")(option.label)) + "\n      ")]) : _vm._e()
   })], 2) : _vm._e(), _vm._v(" "), (!_vm.variant && !_vm.disabled) ? _c('ul', {
     staticClass: "dropdown__list"
-  }, [_vm._l((_vm.options), function(option) {
+  }, [(!_vm.userIsSolo) ? _vm._l((_vm.options), function(option) {
     return _c('li', {
       key: option.value,
       on: {
@@ -78001,8 +78018,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.selectOption(option)
         }
       }
-    }, [_vm._v("\n        " + _vm._s(_vm._f("capitalize")(option.label)) + "\n      ")])
-  }), _vm._v(" "), (_vm.allowPickup) ? _c('hr') : _vm._e(), _vm._v(" "), (_vm.allowPickup) ? _c('li', {
+    }, [_vm._v("\n          " + _vm._s(_vm._f("capitalize")(option.label)) + "\n        ")])
+  }) : _vm._e(), _vm._v(" "), (_vm.allowPickup && !_vm.userIsSolo) ? _c('hr') : _vm._e(), _vm._v(" "), (_vm.allowPickup) ? _c('li', {
     on: {
       "click": function($event) {
         $event.preventDefault();
@@ -78014,7 +78031,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fas fa-person-carry fa-sm"
-  }), _vm._v("\n        Récupérer sur place\n      ")]) : _vm._e(), _vm._v(" "), (_vm.allowCreateContact || _vm.allowCreateBusiness) ? _c('hr') : _vm._e(), _vm._v(" "), (_vm.allowCreateContact) ? _c('li', {
+  }), _vm._v("\n        Récupérer sur place\n      ")]) : _vm._e(), _vm._v(" "), ((_vm.allowCreateContact || _vm.allowCreateBusiness) && !_vm.userIsSolo) ? _c('hr') : _vm._e(), _vm._v(" "), (_vm.allowCreateContact && !_vm.userIsSolo) ? _c('li', {
     on: {
       "click": function($event) {
         $event.preventDefault();
@@ -78618,6 +78635,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         component: 'delivery',
         id: _vm.delivery.id
       },
+      "user-is-solo": _vm.user.is_solo,
       "large": "",
       "darker": "",
       "allow-pickup": "",

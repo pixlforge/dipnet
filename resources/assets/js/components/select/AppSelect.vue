@@ -55,22 +55,24 @@
       <ul
         v-if="!variant && !disabled"
         class="dropdown__list">
-        <li
-          v-for="option in options"
-          :key="option.value"
-          @click.prevent="selectOption(option)">
-          {{ option.label | capitalize }}
-        </li>
-        <hr v-if="allowPickup">
+        <template v-if="!userIsSolo">
+          <li
+            v-for="option in options"
+            :key="option.value"
+            @click.prevent="selectOption(option)">
+            {{ option.label | capitalize }}
+          </li>
+        </template>
+        <hr v-if="allowPickup && !userIsSolo">
         <li
           v-if="allowPickup"
           @click.prevent="selectOption({ label: 'Récupérer sur place', value: ''})">
           <i class="fas fa-person-carry fa-sm"/>
           Récupérer sur place
         </li>
-        <hr v-if="allowCreateContact || allowCreateBusiness">
+        <hr v-if="(allowCreateContact || allowCreateBusiness) && !userIsSolo">
         <li
-          v-if="allowCreateContact"
+          v-if="allowCreateContact && !userIsSolo"
           @click.prevent="openAddContactPanel">
           <i class="fal fa-plus fa-sm"/>
           Ajouter un contact
@@ -138,6 +140,11 @@ export default {
       default() {
         return {};
       }
+    },
+    userIsSolo: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -189,7 +196,7 @@ export default {
 
 <style scoped>
 li svg {
-  transform: translate(-2px, -2px);
+  transform: translate(-5px, -1px);
 }
 
 hr {
