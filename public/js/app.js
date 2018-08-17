@@ -38172,6 +38172,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -73605,36 +73609,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }), _vm._v(" "), _c('p', {
     staticClass: "alert-page__paragraph"
-  }, [_c('span', [_vm._v(_vm._s(_vm.context) + " disposer d'une affaire par défaut. Veuillez")]), _vm._v(" "), (_vm.businesses.length) ? _c('span', [_vm._v("sélectionner une affaire existante ou ")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v("créer une nouvelle affaire afin de la définir en tant qu'affaire par défaut pour votre société.")])]), _vm._v(" "), (_vm.businesses.length) ? _c('form', {
-    staticClass: "alert-page__form",
-    on: {
-      "submit": function($event) {
-        $event.preventDefault();
-        _vm.defineBusiness($event)
-      }
-    }
-  }, [_c('h1', {
-    staticClass: "alert-page__title"
-  }, [_vm._v("Sélectionner une affaire existante")]), _vm._v(" "), _c('ModalSelect', {
-    attrs: {
-      "id": "business_id",
-      "options": _vm.optionsForBusiness,
-      "required": ""
-    },
-    model: {
-      value: (_vm.business_id),
-      callback: function($$v) {
-        _vm.business_id = $$v
-      },
-      expression: "business_id"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Affaire")]), _vm._v(" "), (_vm.errors.business_id) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n          " + _vm._s(_vm.errors.business_id[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _vm._m(0)], 1) : _vm._e(), _vm._v(" "), (_vm.businesses.length) ? [_c('p', {
-    staticClass: "alert-page__or"
-  }, [_vm._v("Ou")])] : _vm._e(), _vm._v(" "), _c('form', {
+  }, [_c('span', [_vm._v(_vm._s(_vm.context) + " disposer d'une affaire par défaut. Veuillez")]), _vm._v(" "), (_vm.businesses.length) ? _c('span', [_vm._v("sélectionner une affaire existante ou ")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v("créer une nouvelle affaire afin de la définir en tant qu'affaire par défaut pour votre société.")])]), _vm._v(" "), _c('form', {
     staticClass: "alert-page__form",
     on: {
       "submit": function($event) {
@@ -73693,26 +73668,45 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Contact")]), _vm._v(" "), (_vm.errors.contact_id) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n          " + _vm._s(_vm.errors.contact_id[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _vm._m(1)], 1)], 2), _vm._v(" "), _c('MoonLoader', {
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.contact_id[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _vm._m(0)], 1)]), _vm._v(" "), (_vm.businesses.length) ? [_c('p', {
+    staticClass: "alert-page__or"
+  }, [_vm._v("Ou")])] : _vm._e(), _vm._v(" "), (_vm.businesses.length) ? _c('div', {
+    staticClass: "alert-page__card"
+  }, [_c('form', {
+    staticClass: "alert-page__form",
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.defineBusiness($event)
+      }
+    }
+  }, [_c('h1', {
+    staticClass: "alert-page__title"
+  }, [_vm._v("Sélectionner une affaire existante")]), _vm._v(" "), _c('ModalSelect', {
+    attrs: {
+      "id": "business_id",
+      "options": _vm.optionsForBusiness,
+      "required": ""
+    },
+    model: {
+      value: (_vm.business_id),
+      callback: function($$v) {
+        _vm.business_id = $$v
+      },
+      expression: "business_id"
+    }
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Affaire")]), _vm._v(" "), (_vm.errors.business_id) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.business_id[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _vm._m(1)], 1)]) : _vm._e(), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
       "size": _vm.loader.size
     }
-  })], 1)
+  })], 2)
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "alert-page__controls"
-  }, [_c('button', {
-    staticClass: "btn btn--red",
-    attrs: {
-      "type": "submit",
-      "role": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-check"
-  }), _vm._v("\n          Définir cette affaire en tant qu'affaire par défaut\n        ")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "alert-page__controls"
   }, [_c('button', {
@@ -73724,6 +73718,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fal fa-plus"
   }), _vm._v("\n          Ajouter une affaire et la définir en tant qu'affaire par défaut\n        ")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "alert-page__controls"
+  }, [_c('button', {
+    staticClass: "btn btn--red",
+    attrs: {
+      "type": "submit",
+      "role": "button"
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n          Définir cette affaire en tant qu'affaire par défaut\n        ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

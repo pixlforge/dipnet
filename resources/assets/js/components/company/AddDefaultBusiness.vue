@@ -1,5 +1,7 @@
 <template>
   <div class="alert-page__container">
+
+    <!-- Create a business -->
     <div class="alert-page__card">
 
       <img
@@ -13,44 +15,6 @@
         <span>créer une nouvelle affaire afin de la définir en tant qu'affaire par défaut pour votre société.</span>
       </p>
 
-      <!-- Define a business -->
-      <form
-        v-if="businesses.length"
-        class="alert-page__form"
-        @submit.prevent="defineBusiness">
-        <h1 class="alert-page__title">Sélectionner une affaire existante</h1>
-
-        <!-- Business -->
-        <ModalSelect
-          id="business_id"
-          :options="optionsForBusiness"
-          v-model="business_id"
-          required>
-          <template slot="label">Affaire</template>
-          <template
-            v-if="errors.business_id"
-            slot="errors">
-            {{ errors.business_id[0] }}
-          </template>
-        </ModalSelect>
-
-        <!-- Controls -->
-        <div class="alert-page__controls">
-          <button
-            type="submit"
-            role="button"
-            class="btn btn--red">
-            <i class="fal fa-check"/>
-            Définir cette affaire en tant qu'affaire par défaut
-          </button>
-        </div>
-      </form>
-
-      <template v-if="businesses.length">
-        <p class="alert-page__or">Ou</p>
-      </template>
-
-      <!-- Create a business -->
       <form
         class="alert-page__form"
         @submit.prevent="addBusiness">
@@ -104,6 +68,46 @@
             class="btn btn--red">
             <i class="fal fa-plus"/>
             Ajouter une affaire et la définir en tant qu'affaire par défaut
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <template v-if="businesses.length">
+      <p class="alert-page__or">Ou</p>
+    </template>
+
+    <!-- Define a business -->
+    <div
+      v-if="businesses.length"
+      class="alert-page__card">
+      <form
+        class="alert-page__form"
+        @submit.prevent="defineBusiness">
+        <h1 class="alert-page__title">Sélectionner une affaire existante</h1>
+
+        <!-- Business -->
+        <ModalSelect
+          id="business_id"
+          :options="optionsForBusiness"
+          v-model="business_id"
+          required>
+          <template slot="label">Affaire</template>
+          <template
+            v-if="errors.business_id"
+            slot="errors">
+            {{ errors.business_id[0] }}
+          </template>
+        </ModalSelect>
+
+        <!-- Controls -->
+        <div class="alert-page__controls">
+          <button
+            type="submit"
+            role="button"
+            class="btn btn--red">
+            <i class="fal fa-check"/>
+            Définir cette affaire en tant qu'affaire par défaut
           </button>
         </div>
       </form>
