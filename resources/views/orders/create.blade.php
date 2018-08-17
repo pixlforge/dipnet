@@ -14,4 +14,5 @@
                        :user="{{ auth()->user() }}">
     </order-preparation>
   @endif
+  @include('layouts.partials._footer')
 @endsection

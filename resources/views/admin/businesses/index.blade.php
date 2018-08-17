@@ -11,4 +11,5 @@
     :users="{{ $users }}"
     :orders="{{ $orders }}">
   </businesses>
+  @include('layouts.partials._footer')
 @endsection

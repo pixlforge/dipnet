@@ -26,12 +26,13 @@
   }
 
   &__container {
-    min-height: 80vh;
+    min-height: 50vh;
     background-color: $alabaster;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 5rem;
+    margin-bottom: 12rem;
   }
 
   &__box {

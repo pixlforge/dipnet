@@ -5,4 +5,5 @@
 @section ('content')
   @include ('layouts.partials._nav')
   <tickers></tickers>
+  @include('layouts.partials._footer')
 @endsection

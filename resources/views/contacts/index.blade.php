@@ -7,4 +7,5 @@
   <contacts
     :companies="{{ isset($companies) ? $companies : collect() }}"
     :user="{{ auth()->user() }}"></contacts>
+  @include('layouts.partials._footer')
 @endsection

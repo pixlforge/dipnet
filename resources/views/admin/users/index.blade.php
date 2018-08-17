@@ -5,4 +5,5 @@
 @section('content')
   @include ('layouts.partials._nav')
   <users :companies="{{ $companies }}"></users>
+  @include('layouts.partials._footer')
 @endsection

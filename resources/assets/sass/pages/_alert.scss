@@ -1,11 +1,12 @@
 .alert-page {
   &__container {
+    background-color: $alabaster;
+    width: 100vw;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100vw;
-    min-height: 100vh;
-    background-color: $alabaster;
+    margin-bottom: 12rem;
   }
 
   &__card {

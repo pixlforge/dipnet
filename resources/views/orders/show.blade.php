@@ -11,4 +11,5 @@
                :businesses="{{ $businesses }}"
                :contacts="{{ $contacts }}"
                :formats="{{ $formats }}"></order-admin>
+  @include('layouts.partials._footer')
 @endsection

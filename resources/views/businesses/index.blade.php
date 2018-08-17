@@ -10,4 +10,5 @@
     :user="{{ auth()->user() }}"
     :orders="{{ $orders }}">
   </businesses>
+  @include('layouts.partials._footer')
 @endsection

@@ -9,4 +9,5 @@
            :businesses="{{ $businesses }}"
            avatar="{{ auth()->user()->avatarPath() }}"
            random-avatar="{{ session('randomAvatar') }}"></profile>
+  @include('layouts.partials._footer')
 @endsection

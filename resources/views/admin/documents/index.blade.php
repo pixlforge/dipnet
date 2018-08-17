@@ -5,4 +5,5 @@
 @section('content')
   @include('layouts.partials._nav')
   <documents></documents>
+  @include('layouts.partials._footer')
 @endsection

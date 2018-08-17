@@ -6,4 +6,5 @@
 <add-default-business
   :company="{{ $company }}"
   :businesses="{{ $businesses }}"></add-default-business>
+  @include('layouts.partials._footer')
 @endsection

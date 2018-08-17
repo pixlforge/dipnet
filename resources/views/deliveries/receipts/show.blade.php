@@ -143,4 +143,5 @@
       </table>
     </div>
   </div>
+  @include('layouts.partials._footer')
 @endsection

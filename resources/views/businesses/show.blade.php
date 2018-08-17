@@ -12,4 +12,5 @@
     avatar-path="{{ auth()->user()->avatarPath() }}"
     random-avatar="{{ 'img/placeholders/' . auth()->user()->randomAvatar() }}"
     :comments="{{ $comments }}"></show-business>
+  @include('layouts.partials._footer')
 @endsection

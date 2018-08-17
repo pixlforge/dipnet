@@ -9,4 +9,5 @@
     :invitations="{{ $invitations }}"
     :businesses="{{ $businesses }}">
   </show-company>
+  @include('layouts.partials._footer')
 @endsection

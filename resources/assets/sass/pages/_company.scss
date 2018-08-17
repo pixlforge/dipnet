@@ -7,15 +7,15 @@
 
   &__container {
     background-color: $alabaster;
-    min-height: 60vh;
     padding-top: 5rem;
   }
 
   &__group {
     margin-bottom: 5rem;
-
+    
     &--last {
-      padding-bottom: 25rem;
+      padding-bottom: 10rem;
+      margin-bottom: 12rem;
     }
   }
 

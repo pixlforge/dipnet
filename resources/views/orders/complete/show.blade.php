@@ -106,5 +106,5 @@
       </div>
     @endforeach
   </section>
-
+  @include('layouts.partials._footer')
 @endsection
