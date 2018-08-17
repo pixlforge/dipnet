@@ -40,12 +40,12 @@ class UserController extends Controller
     {
         if ($sort) {
             if ($sort === 'created_at' || $sort === 'role') {
-                $users = User::orderBy($sort, 'desc')->paginate(25, $this->fields);
+                $users = User::with('company')->orderBy($sort, 'desc')->paginate(25, $this->fields);
             } else {
-                $users = User::orderBy($sort)->paginate(25, $this->fields);
+                $users = User::with('company')->orderBy($sort)->paginate(25, $this->fields);
             }
         } else {
-            $users = User::orderBy('role', 'username')->paginate(25, $this->fields);
+            $users = User::with('company')->orderBy('role', 'username')->paginate(25, $this->fields);
         }
 
         return new UsersCollection($users);

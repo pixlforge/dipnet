@@ -23,6 +23,6 @@ class DocumentController extends Controller
      */
     public function index()
     {
-        return new DocumentsCollection(Document::latest()->paginate(25));
+        return new DocumentsCollection(Document::with('media', 'article')->latest()->paginate(25));
     }
 }
