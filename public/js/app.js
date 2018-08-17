@@ -36126,6 +36126,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -36755,6 +36762,23 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -38507,6 +38531,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -39159,6 +39192,26 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -40845,6 +40898,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -40876,6 +40945,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_filesize__ = __webpack_require__(276);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_filesize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_filesize__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -41805,6 +41888,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -45359,6 +45449,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -48526,6 +48624,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -48535,6 +48641,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     ticker: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    statusClass() {
+      if (this.ticker.active) {
+        return "badge--success";
+      }
+
+      return "badge--danger";
     }
   },
   methods: {
@@ -49158,6 +49273,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -75940,17 +76068,29 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--document"
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm.document.media[0].file_name))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Nom du fichier")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.document.media[0].file_name))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--document"
-  }, [_c('span', [_vm._v(_vm._s(_vm.document.media[0].mime_type))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Format")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.document.media[0].mime_type))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--document"
-  }, [_c('span', [_vm._v(_vm._s(_vm.getFilesize))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Taille")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.getFilesize))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--document"
-  }, [(_vm.document.article) ? _c('span', [_vm._v(_vm._s(_vm.document.article.description))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [(_vm.document.article) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Impression")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.document.article.description))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--document"
-  }, [_c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.document.finish)))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Finition")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.document.finish)))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--document"
-  }, [_c('span', [_vm._v("Quantité: " + _vm._s(_vm.document.quantity))])])])
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Quantité")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.document.quantity))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -76053,11 +76193,17 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--company"
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.name)))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.name)))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--company"
-  }, [_c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.description)))])]), _vm._v(" "), _c('div', {
+  }, [(_vm.company.description) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Description")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.description)))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--company"
-  }, [_c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.status)))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Statut")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.status)))])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
   }, [_c('button', {
     attrs: {
@@ -77601,15 +77747,25 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--delivery"
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm.delivery.reference))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Référence")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.delivery.reference))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--delivery"
-  }, [(_vm.delivery.note) ? _c('span', [_vm._v(_vm._s(_vm.deliveryNote))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [(_vm.delivery.note) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Note")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.deliveryNote))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--delivery"
-  }, [_c('span', [_vm._v("Commande ref.: " + _vm._s(_vm.delivery.order.reference))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Commande réf.")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.delivery.order.reference))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--delivery"
-  }, [(_vm.delivery.contact) ? _c('span', [_vm._v("Livraison: " + _vm._s(_vm.delivery.contact.name))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [(_vm.delivery.contact) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Contact de livraison")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.delivery.contact.name))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--delivery"
-  }, [(_vm.delivery.to_deliver_at) ? _c('span', [_vm._v("À livrer: " + _vm._s(_vm.getDate(_vm.delivery.to_deliver_at)))]) : _vm._e()])])
+  }, [(_vm.delivery.to_deliver_at) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Date de livraison")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.getDate(_vm.delivery.to_deliver_at)))])] : _vm._e()], 2)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -77635,15 +77791,31 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--contact"
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.name)))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.name)))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--contact"
-  }, [_c('div', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.address_line1)))]), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.address_line2)))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Adresse")]), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.address_line1)))]), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.address_line2)))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--contact"
-  }, [_c('span', [_vm._v(_vm._s(_vm.contact.zip) + " " + _vm._s(_vm.contact.city))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("NPA & Localité")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.contact.zip) + " " + _vm._s(_vm.contact.city))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--contact"
-  }, [(_vm.contact.company) ? _c('span', [_vm._v(_vm._s(_vm.contact.company.name))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Société")]), _vm._v(" "), (_vm.contact.company) ? _c('span', [_vm._v(_vm._s(_vm.contact.company.name))]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--contact"
-  }, [(_vm.contact.phone_number) ? _c('div', [_vm._v("Tel: " + _vm._s(_vm.contact.phone_number))]) : _vm._e(), _vm._v(" "), (_vm.contact.fax) ? _c('div', [_vm._v("Fax: " + _vm._s(_vm.contact.fax))]) : _vm._e(), _vm._v(" "), _c('div', [_vm._v("Email: " + _vm._s(_vm.contact.email))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Coordonnées")]), _vm._v(" "), (_vm.contact.phone_number) ? _c('div', [_c('i', {
+    staticClass: "fal fa-phone fa-sm mr-2"
+  }), _vm._v("\n      " + _vm._s(_vm.contact.phone_number) + "\n    ")]) : _vm._e(), _vm._v(" "), (_vm.contact.fax) ? _c('div', [_c('i', {
+    staticClass: "fal fa-fax fa-sm mr-2"
+  }), _vm._v("\n      " + _vm._s(_vm.contact.fax) + "\n    ")]) : _vm._e(), _vm._v(" "), _c('div', [_c('i', {
+    staticClass: "fal fa-envelope fa-sm mr-2"
+  }), _vm._v("\n      " + _vm._s(_vm.contact.email) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
   }, [_c('button', {
     attrs: {
@@ -79800,22 +79972,30 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--order"
-  }, [_c('a', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Référence")]), _vm._v(" "), _c('a', {
     attrs: {
       "href": _vm.orderRoute
     }
-  }, [_c('strong', [_vm._v(_vm._s(_vm.order.reference))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n      " + _vm._s(_vm.order.reference) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--order"
   }, [_c('span', {
     staticClass: "badge",
     class: _vm.statusClass
   }, [_vm._v("\n      " + _vm._s(_vm._f("capitalize")(_vm.order.status)) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--order"
-  }, [(_vm.order.business) ? _c('span', [_vm._v("Affaire: " + _vm._s(_vm.order.business.name))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [(_vm.order.business) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Affaire")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.order.business.name))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--order"
-  }, [(_vm.order.contact) ? _c('span', [_vm._v("Facturation: " + _vm._s(_vm.order.contact.name))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [(_vm.order.contact) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Facturation")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.order.contact.name))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--order"
-  }, [_c('span', [_vm._v("Par: " + _vm._s(_vm.order.user.username))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Auteur")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.order.user.username))])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls card__controls--order"
   }, [(_vm.order.status === 'incomplète') ? _c('div', {
     attrs: {
@@ -80053,15 +80233,25 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--user"
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.user.username)))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Nom d'utilisateur")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.user.username)))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--user"
-  }, [_c('span', [_vm._v(_vm._s(_vm.user.email))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Email")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.user.email))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--user"
-  }, [_c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.user.role)))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Rôle")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.user.role)))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--user"
-  }, [(_vm.user.company) ? _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.user.company.name)))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [(_vm.user.company && _vm.userIsNotAdmin) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Société")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.user.company.name)))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--user"
-  }, [_c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Compte")]), _vm._v(" "), _c('div', {
     staticClass: "card__details-group"
   }, [_c('span', [_vm._v("Compte")]), _vm._v(" "), (_vm.user.email_confirmed) ? _c('span', [_c('i', {
     staticClass: "fal fa-check-circle text--success"
@@ -81653,9 +81843,14 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--ticker"
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.ticker.body)))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Contenu")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.ticker.body)))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--ticker"
-  }, [_c('span', [_vm._v(_vm._s(_vm.ticker.active ? 'Actif' : 'Inactif'))])]), _vm._v(" "), _c('div', {
+  }, [_c('span', {
+    staticClass: "badge",
+    class: _vm.statusClass
+  }, [_vm._v("\n      " + _vm._s(_vm.ticker.active ? 'Actif' : 'Inactif') + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
   }, [_c('button', {
     attrs: {
@@ -82441,11 +82636,17 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--article"
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.article.description)))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Description")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.article.description)))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--article"
-  }, [_c('span', [_vm._v(_vm._s(_vm.article.reference))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Référence")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.article.reference))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--article"
-  }, [_c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.article.type)))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Type")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.article.type)))])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
   }, [_c('button', {
     attrs: {
@@ -82499,15 +82700,25 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--business"
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.business.name)))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.business.name)))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--business"
-  }, [_c('span', [_vm._v(_vm._s(_vm.business.reference))])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Référence")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.business.reference))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--business"
-  }, [_c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.business.description)))])]), _vm._v(" "), _c('div', {
+  }, [(_vm.business.description) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Description")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.business.description)))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--business"
-  }, [(_vm.business.company) ? _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.business.company.name)))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [(_vm.business.company) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Société")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.business.company.name)))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--business"
-  }, [(_vm.business.contact) ? _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.business.contact.name)))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [(_vm.business.contact) ? [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Contact")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.business.contact.name)))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
   }, [_c('button', {
     attrs: {
@@ -82943,11 +83154,17 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--format"
-  }, [_c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.format.name)))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.format.name)))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--format"
-  }, [_c('span', [_vm._v("H: " + _vm._s(_vm.format.height) + " mm")])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Hauteur")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.format.height) + " mm")])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--format"
-  }, [_c('span', [_vm._v("L: " + _vm._s(_vm.format.width) + " mm")])]), _vm._v(" "), _c('div', {
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Largeur")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.format.width) + " mm")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
   }, [_c('button', {
     attrs: {

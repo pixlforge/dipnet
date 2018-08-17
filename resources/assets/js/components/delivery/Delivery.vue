@@ -6,26 +6,42 @@
         alt="Bullet point image">
     </div>
 
+    <!-- Reference -->
     <div class="card__details card__details--delivery">
+      <h5 class="model__label">Référence</h5>
       <span>
         <strong>{{ delivery.reference }}</strong>
       </span>
     </div>
 
+    <!-- Note -->
     <div class="card__details card__details--delivery">
-      <span v-if="delivery.note">{{ deliveryNote }}</span>
+      <template v-if="delivery.note">
+        <h5 class="model__label">Note</h5>
+        <span>{{ deliveryNote }}</span>
+      </template>
     </div>
 
+    <!-- Order reference -->
     <div class="card__details card__details--delivery">
-      <span>Commande ref.: {{ delivery.order.reference }}</span>
+      <h5 class="model__label">Commande réf.</h5>
+      <span>{{ delivery.order.reference }}</span>
     </div>
 
+    <!-- Delivery contact -->
     <div class="card__details card__details--delivery">
-      <span v-if="delivery.contact">Livraison: {{ delivery.contact.name }}</span>
+      <template v-if="delivery.contact">
+        <h5 class="model__label">Contact de livraison</h5>
+        <span>{{ delivery.contact.name }}</span>
+      </template>
     </div>
 
+    <!-- Delivery date -->
     <div class="card__details card__details--delivery">
-      <span v-if="delivery.to_deliver_at">À livrer: {{ getDate(delivery.to_deliver_at) }}</span>
+      <template v-if="delivery.to_deliver_at">
+        <h5 class="model__label">Date de livraison</h5>
+        <span>{{ getDate(delivery.to_deliver_at) }}</span>
+      </template>
     </div>
   </div>
 </template>

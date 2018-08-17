@@ -6,31 +6,51 @@
         alt="Bullet point image">
     </div>
 
+    <!-- Name -->
     <div class="card__details card__details--contact">
+      <h5 class="model__label">Nom</h5>
       <span>
         <strong>{{ contact.name | capitalize }}</strong>
       </span>
     </div>
 
+    <!-- Address -->
     <div class="card__details card__details--contact">
+      <h5 class="model__label">Adresse</h5>
       <div>{{ contact.address_line1 | capitalize }}</div>
       <div>{{ contact.address_line2 | capitalize }}</div>
     </div>
 
+    <!-- Zip & City -->
     <div class="card__details card__details--contact">
+      <h5 class="model__label">NPA &amp; Localité</h5>
       <span>{{ contact.zip }} {{ contact.city }}</span>
     </div>
 
+    <!-- Company -->
     <div class="card__details card__details--contact">
+      <h5 class="model__label">Société</h5>
       <span v-if="contact.company">{{ contact.company.name }}</span>
     </div>
 
+    <!-- Phone, fax & email -->
     <div class="card__details card__details--contact">
-      <div v-if="contact.phone_number">Tel: {{ contact.phone_number }}</div>
-      <div v-if="contact.fax">Fax: {{ contact.fax }}</div>
-      <div>Email: {{ contact.email }}</div>
+      <h5 class="model__label">Coordonnées</h5>
+      <div v-if="contact.phone_number">
+        <i class="fal fa-phone fa-sm mr-2"/>
+        {{ contact.phone_number }}
+      </div>
+      <div v-if="contact.fax">
+        <i class="fal fa-fax fa-sm mr-2"/>
+        {{ contact.fax }}
+      </div>
+      <div>
+        <i class="fal fa-envelope fa-sm mr-2"/>
+        {{ contact.email }}
+      </div>
     </div>
 
+    <!-- Controls -->
     <div class="card__controls">
       <button
         role="button"

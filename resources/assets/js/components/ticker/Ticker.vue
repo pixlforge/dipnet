@@ -6,16 +6,24 @@
         alt="Bullet point image">
     </div>
 
+    <!-- Body -->
     <div class="card__details card__details--ticker">
+      <h5 class="model__label">Contenu</h5>
       <span>
         <strong>{{ ticker.body | capitalize }}</strong>
       </span>
     </div>
 
+    <!-- Active -->
     <div class="card__details card__details--ticker">
-      <span>{{ ticker.active ? 'Actif' : 'Inactif' }}</span>
+      <span
+        :class="statusClass"
+        class="badge">
+        {{ ticker.active ? 'Actif' : 'Inactif' }}
+      </span>
     </div>
 
+    <!-- Controls -->
     <div class="card__controls">
       <button
         role="button"
@@ -42,6 +50,15 @@ export default {
     ticker: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    statusClass() {
+      if (this.ticker.active) {
+        return "badge--success";
+      }
+
+      return "badge--danger";
     }
   },
   methods: {

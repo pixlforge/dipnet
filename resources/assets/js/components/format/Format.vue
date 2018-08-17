@@ -6,20 +6,27 @@
         alt="Bullet point image">
     </div>
 
+    <!-- Name -->
     <div class="card__details card__details--format">
+      <h5 class="model__label">Nom</h5>
       <span>
         <strong>{{ format.name | capitalize }}</strong>
       </span>
     </div>
 
+    <!-- Height -->
     <div class="card__details card__details--format">
-      <span>H: {{ format.height }} mm</span>
+      <h5 class="model__label">Hauteur</h5>
+      <span>{{ format.height }} mm</span>
     </div>
 
+    <!-- Width -->
     <div class="card__details card__details--format">
-      <span>L: {{ format.width }} mm</span>
+      <h5 class="model__label">Largeur</h5>
+      <span>{{ format.width }} mm</span>
     </div>
 
+    <!-- Controls -->
     <div class="card__controls">
       <button
         role="button"

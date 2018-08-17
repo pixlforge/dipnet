@@ -6,20 +6,27 @@
         alt="Bullet point image">
     </div>
 
+    <!-- Description -->
     <div class="card__details card__details--article">
+      <h5 class="model__label">Description</h5>
       <span>
         <strong>{{ article.description | capitalize }}</strong>
       </span>
     </div>
 
+    <!-- Reference -->
     <div class="card__details card__details--article">
+      <h5 class="model__label">Référence</h5>
       <span>{{ article.reference }}</span>
     </div>
 
+    <!-- Type -->
     <div class="card__details card__details--article">
+      <h5 class="model__label">Type</h5>
       <span>{{ article.type | capitalize }}</span>
     </div>
 
+    <!-- Controls -->
     <div class="card__controls">
       <button
         role="button"

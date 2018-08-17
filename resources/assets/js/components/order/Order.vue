@@ -8,8 +8,9 @@
 
     <!-- Reference -->
     <div class="card__details card__details--order">
+      <h5 class="model__label">Référence</h5>
       <a :href="orderRoute">
-        <strong>{{ order.reference }}</strong>
+        {{ order.reference }}
       </a>
     </div>
 
@@ -24,17 +25,24 @@
 
     <!-- Business -->
     <div class="card__details card__details--order">
-      <span v-if="order.business">Affaire: {{ order.business.name }}</span>
+      <template v-if="order.business">
+        <h5 class="model__label">Affaire</h5>
+        <span>{{ order.business.name }}</span>
+      </template>
     </div>
 
     <!-- Contact -->
     <div class="card__details card__details--order">
-      <span v-if="order.contact">Facturation: {{ order.contact.name }}</span>
+      <template v-if="order.contact">
+        <h5 class="model__label">Facturation</h5>
+        <span>{{ order.contact.name }}</span>
+      </template>
     </div>
 
     <!-- Username -->
     <div class="card__details card__details--order">
-      <span>Par: {{ order.user.username }}</span>
+      <h5 class="model__label">Auteur</h5>
+      <span>{{ order.user.username }}</span>
     </div>
 
     <!-- Controls -->

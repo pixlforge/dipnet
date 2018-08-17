@@ -37,11 +37,11 @@ class ContactController extends Controller
         } elseif (auth()->user()->isNotSolo()) {
             if ($sort === 'created_at') {
                 return new ContactsCollection(
-                    Contact::where('company_id', auth()->user()->company->id)->orderBy($sort, 'desc')->paginate(25)
+                    Contact::with('company')->where('company_id', auth()->user()->company->id)->orderBy($sort, 'desc')->paginate(25)
                 );
             } else {
                 return new ContactsCollection(
-                    Contact::where('company_id', auth()->user()->company->id)->orderBy($sort)->paginate(25)
+                    Contact::with('company')->where('company_id', auth()->user()->company->id)->orderBy($sort)->paginate(25)
                 );
             }
         } elseif (auth()->user()->isSolo()) {

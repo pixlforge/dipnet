@@ -6,28 +6,45 @@
         alt="Bullet point image">
     </div>
 
+    <!-- Name -->
     <div class="card__details card__details--business">
+      <h5 class="model__label">Nom</h5>
       <span>
         <strong>{{ business.name | capitalize }}</strong>
       </span>
     </div>
 
+    <!-- Reference -->
     <div class="card__details card__details--business">
+      <h5 class="model__label">Référence</h5>
       <span>{{ business.reference }}</span>
     </div>
 
+    <!-- Description -->
     <div class="card__details card__details--business">
-      <span>{{ business.description | capitalize }}</span>
+      <template v-if="business.description">
+        <h5 class="model__label">Description</h5>
+        <span>{{ business.description | capitalize }}</span>
+      </template>
     </div>
 
+    <!-- Company -->
     <div class="card__details card__details--business">
-      <span v-if="business.company">{{ business.company.name | capitalize }}</span>
+      <template v-if="business.company">
+        <h5 class="model__label">Société</h5>
+        <span>{{ business.company.name | capitalize }}</span>
+      </template>
     </div>
 
+    <!-- Contact -->
     <div class="card__details card__details--business">
-      <span v-if="business.contact">{{ business.contact.name | capitalize }}</span>
+      <template v-if="business.contact">
+        <h5 class="model__label">Contact</h5>
+        <span>{{ business.contact.name | capitalize }}</span>
+      </template>
     </div>
 
+    <!-- Controls -->
     <div class="card__controls">
       <button
         role="button"

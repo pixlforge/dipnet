@@ -6,25 +6,37 @@
         alt="Bullet point image">
     </div>
 
+    <!-- Username -->
     <div class="card__details card__details--user">
+      <h5 class="model__label">Nom d'utilisateur</h5>
       <span>
         <strong>{{ user.username | capitalize }}</strong>
       </span>
     </div>
 
+    <!-- Email -->
     <div class="card__details card__details--user">
+      <h5 class="model__label">Email</h5>
       <span>{{ user.email }}</span>
     </div>
 
+    <!-- Role -->
     <div class="card__details card__details--user">
+      <h5 class="model__label">Rôle</h5>
       <span>{{ user.role | capitalize }}</span>
     </div>
 
+    <!-- Company -->
     <div class="card__details card__details--user">
-      <span v-if="user.company">{{ user.company.name | capitalize }}</span>
+      <template v-if="user.company && userIsNotAdmin">
+        <h5 class="model__label">Société</h5>
+        <span>{{ user.company.name | capitalize }}</span>
+      </template>
     </div>
 
+    <!-- Account details -->
     <div class="card__details card__details--user">
+      <h5 class="model__label">Compte</h5>
       <div class="card__details-group">
         <span>Compte</span>
         <span v-if="user.email_confirmed">
@@ -58,6 +70,7 @@
       </div>
     </div>
 
+    <!-- Controls -->
     <div class="card__controls">
       <button
         role="button"
