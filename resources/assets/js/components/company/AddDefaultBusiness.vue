@@ -73,6 +73,7 @@
       </form>
     </div>
 
+    <!-- Or -->
     <template v-if="businesses.length">
       <p class="alert-page__or">Ou</p>
     </template>
