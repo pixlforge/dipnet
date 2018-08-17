@@ -6,28 +6,27 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ user.username | capitalize }}
+    <div class="card__details card__details--user">
+      <span>
+        <strong>{{ user.username | capitalize }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Role</span>
-        {{ user.role | capitalize }}
-      </div>
-      <div>
-        <span class="card__label">Email</span>
-        {{ user.email }}
-      </div>
-      <div v-if="user.company">
-        <span class="card__label">Société</span>
-        {{ user.company.name | capitalize }}
-      </div>
+    <div class="card__details card__details--user">
+      <span>{{ user.email }}</span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Compte</span>
+    <div class="card__details card__details--user">
+      <span>{{ user.role | capitalize }}</span>
+    </div>
+
+    <div class="card__details card__details--user">
+      <span v-if="user.company">{{ user.company.name | capitalize }}</span>
+    </div>
+
+    <div class="card__details card__details--user">
+      <div class="card__details-group">
+        <span>Compte</span>
         <span v-if="user.email_confirmed">
           <i class="fal fa-check-circle text--success"/>
         </span>
@@ -35,8 +34,10 @@
           <i class="fal fa-times-circle text--warning"/>
         </span>
       </div>
-      <div v-if="userIsNotAdmin">
-        <span class="card__label">Contact</span>
+      <div
+        v-if="userIsNotAdmin"
+        class="card__details-group">
+        <span>Contact</span>
         <span v-if="user.contact_confirmed">
           <i class="fal fa-check-circle text--success"/>
         </span>
@@ -44,25 +45,16 @@
           <i class="fal fa-times-circle text--warning"/>
         </span>
       </div>
-      <div v-if="userIsNotAdmin">
-        <span class="card__label">Société</span>
+      <div
+        v-if="userIsNotAdmin"
+        class="card__details-group">
+        <span>Société</span>
         <span v-if="user.company_confirmed">
           <i class="fal fa-check-circle text--success"/>
         </span>
         <span v-else>
           <i class="fal fa-times-circle text--warning"/>
         </span>
-      </div>
-    </div>
-
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(user.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(user.updated_at) }}
       </div>
     </div>
 

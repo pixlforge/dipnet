@@ -6,52 +6,29 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ contact.name | capitalize }}
+    <div class="card__details card__details--contact">
+      <span>
+        <strong>{{ contact.name | capitalize }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Adresse</span>
-        {{ contact.address_line1 | capitalize }}
-      </div>
-      <div>
-        {{ contact.address_line2 | capitalize }}
-      </div>
-      <div>
-        <span class="card__label">Localité</span>
-        {{ contact.zip }} {{ contact.city }}
-      </div>
+    <div class="card__details card__details--contact">
+      <div>{{ contact.address_line1 | capitalize }}</div>
+      <div>{{ contact.address_line2 | capitalize }}</div>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Tel</span>
-        {{ contact.phone_number }}
-      </div>
-      <div>
-        <span class="card__label">Fax</span>
-        {{ contact.fax }}
-      </div>
-      <div>
-        <span class="card__label">Email</span>
-        {{ contact.email }}
-      </div>
-      <div v-if="contact.company">
-        <span class="card__label">Société</span>
-        {{ contact.company.name }}
-      </div>
+    <div class="card__details card__details--contact">
+      <span>{{ contact.zip }} {{ contact.city }}</span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(contact.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(contact.updated_at) }}
-      </div>
+    <div class="card__details card__details--contact">
+      <span v-if="contact.company">{{ contact.company.name }}</span>
+    </div>
+
+    <div class="card__details card__details--contact">
+      <div v-if="contact.phone_number">Tel: {{ contact.phone_number }}</div>
+      <div v-if="contact.fax">Fax: {{ contact.fax }}</div>
+      <div>Email: {{ contact.email }}</div>
     </div>
 
     <div class="card__controls">

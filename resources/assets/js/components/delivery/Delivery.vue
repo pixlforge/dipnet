@@ -6,40 +6,26 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ delivery.reference }}
+    <div class="card__details card__details--delivery">
+      <span>
+        <strong>{{ delivery.reference }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div v-if="delivery.note">
-        {{ deliveryNote }}
-      </div>
+    <div class="card__details card__details--delivery">
+      <span v-if="delivery.note">{{ deliveryNote }}</span>
     </div>
 
-    <div class="card__meta">
-      <div v-if="delivery.order">
-        <span class="card__label">Commande</span>
-        {{ delivery.order.reference }}
-      </div>
-      <div v-if="delivery.contact">
-        <span class="card__label">Contact</span>
-        {{ delivery.contact.name }}
-      </div>
-      <div v-if="delivery.to_delivery_at">
-        <span class="card__label">Date</span>
-        {{ getDate(delivery.to_deliver_at) }}
-      </div>
+    <div class="card__details card__details--delivery">
+      <span>Commande ref.: {{ delivery.order.reference }}</span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(delivery.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(delivery.updated_at) }}
-      </div>
+    <div class="card__details card__details--delivery">
+      <span v-if="delivery.contact">Livraison: {{ delivery.contact.name }}</span>
+    </div>
+
+    <div class="card__details card__details--delivery">
+      <span v-if="delivery.to_deliver_at">À livrer: {{ getDate(delivery.to_deliver_at) }}</span>
     </div>
   </div>
 </template>

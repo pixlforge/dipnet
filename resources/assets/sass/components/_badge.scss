@@ -1,23 +1,26 @@
 .badge {
-  width: 10rem;
-  font-size: 1.2rem;
-  font-weight: 300;
-  letter-spacing: .2px;
-  text-align: center;
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase;
   color: $white;
-  padding: .75rem 1rem;
-  border-radius: 3px;
+  text-align: center;
+  letter-spacing: .2px;
+  padding: .75rem 3rem;
+  border-radius: 5rem;
 
   &--success {
-    background-color: $bg-success;
+    color: darken($bg-success, 10%);
+    background-color: lighten($bg-success, 47.5%);
   }
 
   &--warning {
-    background-color: $bg-warning;
+    color: darken($bg-warning, 15%);
+    background-color: lighten($bg-warning, 22.5%);
   }
 
   &--danger {
-    background-color: $bg-red;
+    color: $bg-red;
+    background-color: lighten($bg-red, 35%);
   }
 
   &__summary {

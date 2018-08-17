@@ -76,15 +76,6 @@
       <!-- Controls -->
       <div class="delivery__controls">
 
-        <!-- Delete delivery -->
-        <button
-          v-if="listDeliveries.length > 1 && !preview"
-          role="button"
-          class="delivery__delete-button"
-          @click.prevent="remove">
-          <i class="fal fa-times"/>
-        </button>
-
         <!-- Remove note -->
         <button
           v-if="showNote && !preview"
@@ -101,6 +92,15 @@
           class="delivery__note-control"
           @click.prevent="toggleNote">
           Ajouter une note
+        </button>
+
+        <!-- Delete delivery -->
+        <button
+          v-if="listDeliveries.length > 1 && !preview"
+          role="button"
+          class="delivery__delete-button"
+          @click.prevent="remove">
+          <i class="fal fa-times"/>
         </button>
       </div>
     </div>
@@ -320,7 +320,6 @@ export default {
       Dropzone.autoDiscover = false;
 
       const drop = new Dropzone("#delivery-file-upload-" + this.delivery.id, {
-        // autoProcessQueue: false, // tmp
         createImageThumbnails: false,
         url: window.route("documents.store", [this.delivery.reference]),
         headers: {

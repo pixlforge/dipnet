@@ -24,6 +24,7 @@
 
   &__img {
     width: 4rem;
+    margin-right: 8rem;
 
     @media all and (max-width: $bp-md) {
       display: none;
@@ -35,32 +36,54 @@
     }
   }
 
-  &__title {
-    font-size: 1.6rem;
-    font-weight: 300;
+  &__details {
+    text-align: center;
 
-    @media all and (max-width: $bp-md) {
-      margin-bottom: 2rem;
+    & span,
+    & div {
+      font-size: 1.5rem;
+      font-weight: 300;
     }
 
-    a {
+    & strong {
+      font-weight: 400;
+    }
+
+    a[href] {
       &:hover,
       &:active {
         text-decoration: underline;
       }
     }
-  }
 
-  &__meta {
-    font-size: 1.2rem;
+    &--document,
+    &--delivery,
+    &--contact,
+    &--business,
+    &--order {
+      width: 15%;
+    }
 
-    @media all and (max-width: $bp-md) {
-      margin-top: 2rem;
+    &--user {
+      width: 20%;
+    }
+
+    &--article,
+    &--format,
+    &--company {
+      width: 30%;
+    }
+
+    &--ticker {
+      width: 40%;
     }
   }
 
-  &__label {
-    text-transform: uppercase;
+  &__details-group {
+    span {
+      font-size: 1.2rem;
+      text-transform: uppercase;
+    }
   }
 
   &__controls {

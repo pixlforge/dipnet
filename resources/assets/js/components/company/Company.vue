@@ -6,30 +6,18 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ company.name | capitalize }}
+    <div class="card__details card__details--company">
+      <span>
+        <strong>{{ company.name | capitalize }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Description</span>
-        {{ company.description | capitalize }}
-      </div>
-      <div>
-        <span class="card__label">Statut</span>
-        {{ company.status | capitalize }}
-      </div>
+    <div class="card__details card__details--company">
+      <span>{{ company.description | capitalize }}</span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(company.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(company.updated_at) }}
-      </div>
+    <div class="card__details card__details--company">
+      <span>{{ company.status | capitalize }}</span>
     </div>
 
     <div class="card__controls">

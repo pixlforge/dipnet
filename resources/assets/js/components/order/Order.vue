@@ -6,57 +6,38 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      <a
-        v-if="order.status === 'incomplète'"
-        :href="createRoute">
-        {{ order.reference }}
-      </a>
-      <a
-        v-if="order.status !== 'incomplète' && userRole === 'utilisateur'"
-        :href="showRoute">
-        {{ order.reference }}
-      </a>
-      <a
-        v-if="order.status !== 'incomplète' && userRole === 'administrateur'"
-        :href="adminRoute">
-        {{ order.reference }}
+    <!-- Reference -->
+    <div class="card__details card__details--order">
+      <a :href="orderRoute">
+        <strong>{{ order.reference }}</strong>
       </a>
     </div>
 
-    <div
-      :class="statusClass"
-      class="badge">
-      {{ order.status | capitalize }}
+    <!-- Status -->
+    <div class="card__details card__details--order">
+      <span
+        :class="statusClass"
+        class="badge">
+        {{ order.status | capitalize }}
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div v-if="order.business">
-        <span class="card__label">Affaire</span>
-        {{ order.business.name }}
-      </div>
-      <div v-if="order.contact">
-        <span class="card__label">Facturation</span>
-        {{ order.contact.name }}
-      </div>
+    <!-- Business -->
+    <div class="card__details card__details--order">
+      <span v-if="order.business">Affaire: {{ order.business.name }}</span>
     </div>
 
-    <div class="card__meta">
-      <span class="card__label">Par</span>
-      {{ order.user.username }}
+    <!-- Contact -->
+    <div class="card__details card__details--order">
+      <span v-if="order.contact">Facturation: {{ order.contact.name }}</span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(order.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(order.updated_at) }}
-      </div>
+    <!-- Username -->
+    <div class="card__details card__details--order">
+      <span>Par: {{ order.user.username }}</span>
     </div>
 
+    <!-- Controls -->
     <div class="card__controls card__controls--order">
       <div
         v-if="order.status === 'incomplète'"
@@ -108,6 +89,15 @@ export default {
     },
     adminRoute() {
       return window.route("orders.show", [this.order.reference]);
+    },
+    orderRoute() {
+      if (this.userRole === "administrateur") {
+        return this.adminRoute;
+      } else if (this.order.status !== "incomplète") {
+        return this.showRoute;
+      } else if (this.order.status === "incomplète") {
+        return this.createRoute;
+      }
     }
   },
   methods: {

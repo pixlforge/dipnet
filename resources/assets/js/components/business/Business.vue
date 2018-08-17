@@ -6,41 +6,26 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ business.name | capitalize }}
+    <div class="card__details card__details--business">
+      <span>
+        <strong>{{ business.name | capitalize }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Référence</span>
-        {{ business.reference }}
-      </div>
-      <div v-if="business.description">
-        <span class="card__label">Description</span>
-        {{ business.description | capitalize }}
-      </div>
+    <div class="card__details card__details--business">
+      <span>{{ business.reference }}</span>
     </div>
 
-    <div class="card__meta">
-      <div v-if="business.company">
-        <span class="card__label">Société</span>
-        {{ business.company.name | capitalize }}
-      </div>
-      <div v-if="business.contact">
-        <span class="card__label">Contact</span>
-        {{ business.contact.name | capitalize }}
-      </div>
+    <div class="card__details card__details--business">
+      <span>{{ business.description | capitalize }}</span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(business.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(business.updated_at) }}
-      </div>
+    <div class="card__details card__details--business">
+      <span v-if="business.company">{{ business.company.name | capitalize }}</span>
+    </div>
+
+    <div class="card__details card__details--business">
+      <span v-if="business.contact">{{ business.contact.name | capitalize }}</span>
     </div>
 
     <div class="card__controls">

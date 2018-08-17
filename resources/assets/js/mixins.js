@@ -176,7 +176,7 @@ export const registration = {
     },
     congratulateUponRegistration() {
       window.flash({
-        message: 'Félicitations! Votre compte est fin prêt!',
+        message: 'Félicitations! Votre compte est prêt!',
         level: 'success'
       })
     },

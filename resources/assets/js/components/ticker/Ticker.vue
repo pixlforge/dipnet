@@ -6,25 +6,14 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ ticker.body | capitalize }}
+    <div class="card__details card__details--ticker">
+      <span>
+        <strong>{{ ticker.body | capitalize }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">{{ ticker.active ? 'Actif' : 'Inactif' }}</span>
-      </div>
-    </div>
-
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(ticker.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(ticker.updated_at) }}
-      </div>
+    <div class="card__details card__details--ticker">
+      <span>{{ ticker.active ? 'Actif' : 'Inactif' }}</span>
     </div>
 
     <div class="card__controls">
@@ -45,10 +34,10 @@
 </template>
 
 <script>
-import { filters, dates } from "../../mixins";
+import { filters } from "../../mixins";
 
 export default {
-  mixins: [filters, dates],
+  mixins: [filters],
   props: {
     ticker: {
       type: Object,

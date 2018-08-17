@@ -6,30 +6,18 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ article.reference }}
+    <div class="card__details card__details--article">
+      <span>
+        <strong>{{ article.description | capitalize }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Description</span>
-        {{ article.description | capitalize }}
-      </div>
-      <div>
-        <span class="card__label">Type</span>
-        {{ article.type | capitalize }}
-      </div>
+    <div class="card__details card__details--article">
+      <span>{{ article.reference }}</span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(article.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(article.updated_at) }}
-      </div>
+    <div class="card__details card__details--article">
+      <span>{{ article.type | capitalize }}</span>
     </div>
 
     <div class="card__controls">
@@ -50,10 +38,10 @@
 </template>
 
 <script>
-import { filters, dates } from "../../mixins";
+import { filters } from "../../mixins";
 
 export default {
-  mixins: [filters, dates],
+  mixins: [filters],
   props: {
     article: {
       type: Object,

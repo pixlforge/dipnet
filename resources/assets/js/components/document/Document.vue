@@ -6,58 +6,49 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ document.filename }}
+    <div class="card__details card__details--document">
+      <span>
+        <strong>{{ document.media[0].file_name }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Type</span>
-        {{ document.mime_type }}
-      </div>
-      <div>
-        <span class="card__label">Taille</span>
-        {{ document.size }}
-      </div>
+    <div class="card__details card__details--document">
+      <span>{{ document.media[0].mime_type }}</span>
     </div>
 
-    <div class="card__meta">
-      <div v-if="document.article">
-        <span class="card__label">Impression</span>
-        {{ document.article.description }}
-      </div>
-      <div>
-        <span class="card__label">Quantité</span>
-        {{ document.quantity }}
-      </div>
-      <div>
-        <span class="card__label">Finition</span>
-        {{ document.finish | capitalize }}
-      </div>
+    <div class="card__details card__details--document">
+      <span>{{ getFilesize }}</span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(document.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(document.updated_at) }}
-      </div>
+    <div class="card__details card__details--document">
+      <span v-if="document.article">{{ document.article.description }}</span>
+    </div>
+
+    <div class="card__details card__details--document">
+      <span>{{ document.finish | capitalize }}</span>
+    </div>
+
+    <div class="card__details card__details--document">
+      <span>Quantité: {{ document.quantity }}</span>
     </div>
   </div>
 </template>
 
 <script>
-import { filters, dates } from "../../mixins";
+import filesize from "filesize";
+import { filters } from "../../mixins";
 
 export default {
-  mixins: [filters, dates],
+  mixins: [filters],
   props: {
     document: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    getFilesize() {
+      return filesize(this.document.media[0].size);
     }
   }
 };

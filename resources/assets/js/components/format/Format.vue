@@ -6,34 +6,18 @@
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ format.name | capitalize }}
+    <div class="card__details card__details--format">
+      <span>
+        <strong>{{ format.name | capitalize }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Hauteur</span>
-        {{ format.height }} mm
-      </div>
-      <div>
-        <span class="card__label">Largeur</span>
-        {{ format.width }} mm
-      </div>
-      <div>
-        <span class="card__label">Surface</span>
-        {{ widthTimesHeight }} mm<sup>2</sup>
-      </div>
+    <div class="card__details card__details--format">
+      <span>H: {{ format.height }} mm</span>
     </div>
 
-    <div class="card__meta">
-      <div>
-        <span class="card__label">Créé</span>
-        {{ getDate(format.created_at) }}
-      </div>
-      <div>
-        <span class="card__label">Modifié</span>
-        {{ getDate(format.updated_at) }}
-      </div>
+    <div class="card__details card__details--format">
+      <span>L: {{ format.width }} mm</span>
     </div>
 
     <div class="card__controls">
@@ -54,10 +38,10 @@
 </template>
 
 <script>
-import { filters, dates } from "../../mixins";
+import { filters } from "../../mixins";
 
 export default {
-  mixins: [filters, dates],
+  mixins: [filters],
   props: {
     format: {
       type: Object,
