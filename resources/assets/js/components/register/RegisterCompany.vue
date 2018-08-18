@@ -53,13 +53,14 @@
         </ModalInput>
 
         <div class="register__buttons">
-          <button
+          <Button
             type="submit"
-            role="button"
-            class="btn btn--red">
+            primary
+            red
+            long>
             <i class="fal fa-check"/>
             Terminer l'enregistrement
-          </button>
+          </Button>
         </div>
       </form>
     </section>
@@ -67,6 +68,7 @@
 </template>
 
 <script>
+import Button from "../buttons/Button";
 import ModalInput from "../forms/ModalInput";
 
 import { mapActions } from "vuex";
@@ -74,6 +76,7 @@ import { appName, logo, registration } from "../../mixins";
 
 export default {
   components: {
+    Button,
     ModalInput
   },
   mixins: [appName, logo, registration],

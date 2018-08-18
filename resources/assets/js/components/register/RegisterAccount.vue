@@ -71,13 +71,14 @@
         </ModalInput>
 
         <div class="register__buttons">
-          <button
+          <Button
             type="submit"
-            role="button"
-            class="btn btn--red">
+            primary
+            red
+            long>
             <i class="fal fa-check"/>
             Créer le compte
-          </button>
+          </Button>
         </div>
 
         <div class="register__login">
@@ -105,6 +106,7 @@
 </template>
 
 <script>
+import Button from "../buttons/Button";
 import Carousel from "../carousel/Carousel";
 import ModalInput from "../forms/ModalInput";
 
@@ -113,6 +115,7 @@ import { appName, logo, registration } from "../../mixins";
 
 export default {
   components: {
+    Button,
     Carousel,
     ModalInput
   },

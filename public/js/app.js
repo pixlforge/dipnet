@@ -47469,8 +47469,326 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__carousel_Carousel__ = __webpack_require__(16);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__carousel_Carousel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__carousel_Carousel__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(461);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__carousel_Carousel__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__carousel_Carousel___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__carousel_Carousel__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_ModalInput__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__forms_ModalInput__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Button: __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default.a,
+    Carousel: __WEBPACK_IMPORTED_MODULE_1__carousel_Carousel___default.a,
+    ModalInput: __WEBPACK_IMPORTED_MODULE_2__forms_ModalInput___default.a
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_4__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_4__mixins__["i" /* registration */]],
+  props: {
+    registrationType: {
+      type: String,
+      required: true
+    },
+    invitation: {
+      type: Object,
+      required: true
+    }
+  },
+  data() {
+    return {
+      account: {
+        username: "",
+        email: "",
+        password: "",
+        password_confirmation: "",
+        is_solo: this.registrationType === "self" ? true : false
+      },
+      errors: {}
+    };
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
+  },
+  created() {
+    if (this.invitation) {
+      this.account.email = this.invitation.email;
+    }
+  },
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+    registerAccount() {
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        try {
+          yield window.axios.post(window.route("register.store"), _this.account);
+          _this.toggleLoader();
+          _this.$emit("account:created");
+          _this.account = {};
+        } catch (err) {
+          _this.errors = err.response.data.errors;
+          _this.toggleLoader();
+        }
+      })();
+    }
+  })
+});
+
+/***/ }),
+/* 247 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(461);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forms_ModalInput__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__forms_ModalInput__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__mixins__ = __webpack_require__(3);
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  components: {
+    Button: __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default.a,
+    ModalInput: __WEBPACK_IMPORTED_MODULE_1__forms_ModalInput___default.a
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_3__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_3__mixins__["i" /* registration */]],
+  data() {
+    return {
+      company: {
+        name: ""
+      },
+      errors: {}
+    };
+  },
+  mounted() {
+    this.$refs.focus.$el.children[2].focus();
+  },
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+    createCompany() {
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        _this.toggleLoader();
+        try {
+          yield window.axios.post(window.route("register.company.store"), _this.company);
+          _this.$emit("company:created");
+          _this.company = {};
+        } catch (err) {
+          _this.errors = err.response.data.errors;
+          _this.toggleLoader();
+        }
+      })();
+    }
+  })
+});
+
+/***/ }),
+/* 248 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(461);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forms_ModalInput__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__forms_ModalInput__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vuex__ = __webpack_require__(2);
@@ -47585,6 +47903,61 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -47594,368 +47967,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Carousel: __WEBPACK_IMPORTED_MODULE_0__carousel_Carousel___default.a,
+    Button: __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default.a,
     ModalInput: __WEBPACK_IMPORTED_MODULE_1__forms_ModalInput___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_3__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_3__mixins__["i" /* registration */]],
-  props: {
-    registrationType: {
-      type: String,
-      required: true
-    },
-    invitation: {
-      type: Object,
-      required: true
-    }
-  },
-  data() {
-    return {
-      account: {
-        username: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-        is_solo: this.registrationType === "self" ? true : false
-      },
-      errors: {}
-    };
-  },
-  mounted() {
-    this.$refs.focus.$el.children[2].focus();
-  },
-  created() {
-    if (this.invitation) {
-      this.account.email = this.invitation.email;
-    }
-  },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(["toggleLoader"]), {
-    registerAccount() {
-      var _this = this;
-
-      return _asyncToGenerator(function* () {
-        _this.toggleLoader();
-        try {
-          yield window.axios.post(window.route("register.store"), _this.account);
-          _this.toggleLoader();
-          _this.$emit("account:created");
-          _this.account = {};
-        } catch (err) {
-          _this.errors = err.response.data.errors;
-          _this.toggleLoader();
-        }
-      })();
-    }
-  })
-});
-
-/***/ }),
-/* 247 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(3);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    ModalInput: __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default.a
-  },
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_2__mixins__["g" /* logo */], __WEBPACK_IMPORTED_MODULE_2__mixins__["i" /* registration */]],
-  data() {
-    return {
-      company: {
-        name: ""
-      },
-      errors: {}
-    };
-  },
-  mounted() {
-    this.$refs.focus.$el.children[2].focus();
-  },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
-    createCompany() {
-      var _this = this;
-
-      return _asyncToGenerator(function* () {
-        _this.toggleLoader();
-        try {
-          yield window.axios.post(window.route("register.company.store"), _this.company);
-          _this.$emit("company:created");
-          _this.company = {};
-        } catch (err) {
-          _this.errors = err.response.data.errors;
-          _this.toggleLoader();
-        }
-      })();
-    }
-  })
-});
-
-/***/ }),
-/* 248 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__forms_ModalInput__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins__ = __webpack_require__(3);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    ModalInput: __WEBPACK_IMPORTED_MODULE_0__forms_ModalInput___default.a
-  },
-  mixins: [__WEBPACK_IMPORTED_MODULE_2__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_2__mixins__["g" /* logo */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_3__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_3__mixins__["g" /* logo */]],
   props: {
     registrationType: {
       type: String,
@@ -47984,7 +47999,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   mounted() {
     this.$refs.focus.$el.children[2].focus();
   },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     createContact() {
       var _this = this;
 
@@ -76252,7 +76267,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Nom de la société")]), _vm._v(" "), (_vm.errors.name) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n          " + _vm._s(_vm.errors.name[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _vm._m(2)], 1)])])
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.name[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "register__buttons"
+  }, [_c('Button', {
+    attrs: {
+      "type": "submit",
+      "primary": "",
+      "red": "",
+      "long": ""
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n          Terminer l'enregistrement\n        ")])], 1)], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "register__summary"
@@ -76287,18 +76313,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('h1', {
     staticClass: "register__title"
   }, [_vm._v("Votre "), _c('strong', [_vm._v("société")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "register__buttons"
-  }, [_c('button', {
-    staticClass: "btn btn--red",
-    attrs: {
-      "type": "submit",
-      "role": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-check"
-  }), _vm._v("\n          Terminer l'enregistrement\n        ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -77945,7 +77959,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Fax")]), _vm._v(" "), (_vm.errors.fax) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n          " + _vm._s(_vm.errors.fax[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _vm._m(3)], 1)])])
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.fax[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "register__buttons"
+  }, [_c('Button', {
+    attrs: {
+      "type": "submit",
+      "primary": "",
+      "red": "",
+      "long": ""
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n          Créer le contact\n        ")])], 1)], 1)])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "register__summary-item register__summary-item--done"
@@ -77968,18 +77993,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('h1', {
     staticClass: "register__title"
   }, [_vm._v("Votre premier "), _c('strong', [_vm._v("contact")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "register__buttons"
-  }, [_c('button', {
-    staticClass: "btn btn--red",
-    attrs: {
-      "type": "submit",
-      "role": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-check"
-  }), _vm._v("\n          Créer le contact\n        ")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -83397,7 +83410,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Confirmation")]), _vm._v(" "), (_vm.errors.password_confirmation) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n          " + _vm._s(_vm.errors.password_confirmation[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.password_confirmation[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "register__buttons"
+  }, [_c('Button', {
+    attrs: {
+      "type": "submit",
+      "primary": "",
+      "red": "",
+      "long": ""
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-check"
+  }), _vm._v("\n          Créer le compte\n        ")])], 1), _vm._v(" "), _c('div', {
     staticClass: "register__login"
   }, [_vm._v("\n        Vous disposez déjà d'un compte?\n        "), _c('a', {
     staticClass: "register__link",
@@ -83417,19 +83441,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "alt": (_vm.appName + " logo")
     }
   })]), _vm._v(" "), _c('Carousel')], 1)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "register__buttons"
-  }, [_c('button', {
-    staticClass: "btn btn--red",
-    attrs: {
-      "type": "submit",
-      "role": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fal fa-check"
-  }), _vm._v("\n          Créer le compte\n        ")])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
