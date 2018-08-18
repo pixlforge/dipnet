@@ -3,27 +3,29 @@
     <div class="header__container">
       <h1 class="header__title">Utilisateurs</h1>
 
+      <!-- Count -->
       <div class="header__stats">
         <span v-text="modelCount"/>
       </div>
 
-      <div>
-        <AppSelect
-          :options="sortOptions"
-          v-model="sort"
-          @input="selectSort(sort)">
-          <span class="dropdown__title">Trier par</span>
-          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
-        </AppSelect>
-      </div>
+      <!-- Sort -->
+      <AppSelect
+        :options="sortOptions"
+        v-model="sort"
+        @input="selectSort(sort)">
+        <span class="dropdown__title">Trier par</span>
+        <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+      </AppSelect>
 
-      <button
-        role="button"
-        class="btn btn--red-large"
-        @click="openAddPanel">
+      <!-- Add button -->
+      <Button
+        primary
+        red
+        long
+        @click.prevent="openAddPanel">
         <i class="fal fa-plus-circle"/>
         Ajouter un utilisateur
-      </button>
+      </Button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -88,6 +90,7 @@
 import User from "./User.vue";
 import AddUser from "./AddUser";
 import EditUser from "./EditUser";
+import Button from "../buttons/Button";
 import AppSelect from "../select/AppSelect";
 import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
@@ -100,6 +103,7 @@ export default {
     User,
     AddUser,
     EditUser,
+    Button,
     AppSelect,
     Pagination,
     MoonLoader

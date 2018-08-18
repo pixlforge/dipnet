@@ -58,7 +58,7 @@
           <button
             type="submit"
             role="button"
-            class="btn btn--red">
+            class="button__primary button__primary--red btn__primary--long">
             <i class="fal fa-key"/>
             Connexion
           </button>

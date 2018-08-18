@@ -27,10 +27,10 @@
           class="profile__header-item"/>
 
         <button
-          class="btn btn--red"
           role="button"
-          @click="openEditPanel">
-          <i class="fal fa-pencil"/>
+          class="button__primary button__primary--red button__primary--long"
+          @click.prevent="openEditPanel">
+          <i class="fal fa-edit"/>
           Éditer mon compte
         </button>
       </div>

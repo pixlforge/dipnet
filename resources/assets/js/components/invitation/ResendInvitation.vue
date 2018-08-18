@@ -1,17 +1,23 @@
 <template>
-  <button
-    class="btn btn--red"
-    role="button"
-    @click="resend">
+  <Button
+    primary
+    orange
+    small
+    @click.prevent="resend">
     <i class="fal fa-redo"/>
     Renvoyer
-  </button>
+  </Button>
 </template>
 
 <script>
+import Button from "../buttons/Button";
+
 import { mapActions } from "vuex";
 
 export default {
+  components: {
+    Button
+  },
   props: {
     invitation: {
       type: Object,

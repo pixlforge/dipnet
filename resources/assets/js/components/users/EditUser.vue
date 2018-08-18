@@ -85,26 +85,33 @@
 
       <!-- Controls -->
       <div class="modal__buttons">
-        <button
+        
+        <!-- Submit -->
+        <Button
           type="submit"
-          role="button"
-          class="btn btn--red">
+          primary
+          red
+          long>
           <i class="fal fa-check"/>
           Mettre à jour
-        </button>
-        <button
-          class="btn btn--grey"
-          role="button"
+        </Button>
+
+        <!-- Cancel -->
+        <Button
+          primary
+          grey
+          long
           @click.prevent="$emit('edit-user:close')">
           <i class="fal fa-times"/>
           Annuler
-        </button>
+        </Button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import Button from "../buttons/Button";
 import ModalInput from "../forms/ModalInput";
 import ModalSelect from "../forms/ModalSelect";
 
@@ -113,6 +120,7 @@ import { loader, modal } from "../../mixins";
 
 export default {
   components: {
+    Button,
     ModalInput,
     ModalSelect
   },

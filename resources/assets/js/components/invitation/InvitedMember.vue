@@ -15,20 +15,21 @@
     </div>
 
     <div class="card__controls">
-      <div
-        role="button"
-        @click="destroy">
+      <Button
+        @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </div>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
+import Button from "../buttons/Button";
 import ResendInvitation from "./ResendInvitation.vue";
 
 export default {
   components: {
+    Button,
     ResendInvitation
   },
   props: {

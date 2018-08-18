@@ -10,9 +10,9 @@
       </div>
 
       <button
-        class="btn btn--red-large"
+        class="button__primary button__primary--red"
         role="button"
-        @click="redirect()">
+        @click.prevent="redirect">
         <i class="fal fa-plus-circle"/>
         Nouvelle commande
       </button>

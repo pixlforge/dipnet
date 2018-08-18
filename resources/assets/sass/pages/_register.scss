@@ -185,6 +185,10 @@
     @media all and (max-width: $bp-sm) {
       width: 80%;
     }
+
+    &--center {
+      align-items: center;
+    }
   }
 
   &__title {
@@ -217,21 +221,7 @@
     font-size: 2.4rem;
     font-weight: 300;
     text-align: center;
-  }
-
-  &__back {
-    width: 5rem;
-    cursor: pointer;
-    margin: 3rem auto 0 auto;
-    text-align: center;
-
-    &:hover,
-    &:focus,
-    &:active {
-      svg {
-        color: $bg-red;
-      }
-    }
+    margin-bottom: 4rem;
   }
 
   &__btn {

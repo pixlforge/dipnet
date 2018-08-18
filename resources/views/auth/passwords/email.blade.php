@@ -52,7 +52,8 @@
 
         <button
           type="submit"
-          class="btn btn--red">
+          role="button"
+          class="button__primary button__primary--red btn__primary--long">
           Réinitialiser le mot de passe
         </button>
       </form>

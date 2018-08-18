@@ -77,31 +77,28 @@
       <div class="delivery__controls">
 
         <!-- Remove note -->
-        <button
+        <Button
           v-if="showNote && !preview"
-          role="button"
           class="delivery__note-control"
           @click.prevent="removeNote">
           Retirer la note
-        </button>
+        </Button>
 
         <!-- Add note -->
-        <button
+        <Button
           v-if="!showNote && !preview"
-          role="button"
           class="delivery__note-control"
           @click.prevent="toggleNote">
           Ajouter une note
-        </button>
+        </Button>
 
         <!-- Delete delivery -->
-        <button
+        <Button
           v-if="listDeliveries.length > 1 && !preview"
-          role="button"
           class="delivery__delete-button"
           @click.prevent="remove">
           <i class="fal fa-times"/>
-        </button>
+        </Button>
       </div>
     </div>
 
@@ -168,6 +165,7 @@
 
 <script>
 import Document from "./Document";
+import Button from "../buttons/Button";
 import AppSelect from "../select/AppSelect";
 import Datepicker from "../datepicker/Datepicker";
 
@@ -179,6 +177,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     Document,
+    Button,
     AppSelect,
     Datepicker
   },

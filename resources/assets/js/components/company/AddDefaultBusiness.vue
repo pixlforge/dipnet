@@ -62,13 +62,13 @@
 
         <!-- Controls -->
         <div class="alert-page__controls">
-          <button
+          <Button
             type="submit"
-            role="button"
-            class="btn btn--red">
+            primary
+            red>
             <i class="fal fa-plus"/>
             Ajouter une affaire et la définir en tant qu'affaire par défaut
-          </button>
+          </Button>
         </div>
       </form>
     </div>
@@ -103,13 +103,13 @@
 
         <!-- Controls -->
         <div class="alert-page__controls">
-          <button
+          <Button
             type="submit"
-            role="button"
-            class="btn btn--red">
+            primary
+            red>
             <i class="fal fa-check"/>
             Définir cette affaire en tant qu'affaire par défaut
-          </button>
+          </Button>
         </div>
       </form>
     </div>
@@ -122,6 +122,7 @@
 </template>
 
 <script>
+import Button from "../buttons/Button";
 import ModalInput from "../forms/ModalInput";
 import ModalSelect from "../forms/ModalSelect";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
@@ -131,6 +132,7 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
+    Button,
     ModalInput,
     ModalSelect,
     MoonLoader

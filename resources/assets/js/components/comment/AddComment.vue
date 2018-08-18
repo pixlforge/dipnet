@@ -15,20 +15,27 @@
       type="text"
       class="comments__textarea"
       placeholder="Votre commentaire ici..."/>
-    <button
-      role="button"
-      class="btn btn--red"
-      @click="addComment">
+    
+    <!-- Send button -->
+    <Button
+      primary
+      red
+      @click.prevent="addComment">
       <i class="fal fa-paper-plane"/>
       Envoyer
-    </button>
+    </Button>
   </div>
 </template>
 
 <script>
+import Button from "../buttons/Button";
+
 import { mapActions } from "vuex";
 
 export default {
+  components: {
+    Button
+  },
   props: {
     business: {
       type: Object,

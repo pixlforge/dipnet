@@ -37,6 +37,7 @@
       <div class="register__form">
         <h1 class="register__title">Votre société</h1>
 
+        <!-- Name -->
         <div class="form__group">
           <label for="name">Nom de la société</label>
           <span class="form__required">*</span>
@@ -57,8 +58,9 @@
 
         <div class="register__buttons">
           <button
-            class="btn btn--red"
-            @click="createCompany">
+            role="button"
+            class="button__primary button__primary--red button__primary--long"
+            @click.prevent="createCompany">
             <i class="fal fa-check"/>
             Terminer l'enregistrement
           </button>

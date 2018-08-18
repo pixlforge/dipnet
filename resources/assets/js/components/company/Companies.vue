@@ -3,27 +3,29 @@
     <div class="header__container">
       <h1 class="header__title">Sociétés</h1>
 
+      <!-- Count -->
       <div class="header__stats">
         <span v-text="modelCount"/>
       </div>
 
-      <div>
-        <AppSelect
-          :options="sortOptions"
-          v-model="sort"
-          @input="selectSort(sort)">
-          <span class="dropdown__title">Trier par</span>
-          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
-        </AppSelect>
-      </div>
+      <!-- Sort -->
+      <AppSelect
+        :options="sortOptions"
+        v-model="sort"
+        @input="selectSort(sort)">
+        <span class="dropdown__title">Trier par</span>
+        <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+      </AppSelect>
 
-      <button
-        role="button"
-        class="btn btn--red-large"
-        @click="openAddPanel">
+      <!-- Add button -->
+      <Button
+        primary
+        red
+        long
+        @click.prevent="openAddPanel">
         <i class="fal fa-plus-circle"/>
         Ajouter une société
-      </button>
+      </Button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -93,6 +95,7 @@
 
 <script>
 import Company from "./Company.vue";
+import Button from "../buttons/Button";
 import AddCompany from "./AddCompany.vue";
 import EditCompany from "./EditCompany.vue";
 import AppSelect from "../select/AppSelect";
@@ -106,6 +109,7 @@ import { loader, modal, panels, modelCount } from "../../mixins";
 export default {
   components: {
     Company,
+    Button,
     AddCompany,
     EditCompany,
     AppSelect,

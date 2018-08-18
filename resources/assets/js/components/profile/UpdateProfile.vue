@@ -70,13 +70,13 @@
         <button
           type="submit"
           role="button"
-          class="btn btn--red">
+          class="button__primary button__primary--red button__primary--long">
           <i class="fal fa-check"/>
           Mettre à jour
         </button>
         <button
           role="button"
-          class="btn btn--grey"
+          class="button__primary button__primary--grey button__primary--long"
           @click.prevent="$emit('update-profile:close');">
           <i class="fal fa-times"/>
           Annuler

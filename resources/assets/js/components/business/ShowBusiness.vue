@@ -3,13 +3,14 @@
     <div class="header__container">
       <h1 class="header__title">{{ currentBusiness.name }}</h1>
 
-      <button
-        role="button"
-        class="btn btn--red"
+      <Button
+        primary
+        red
+        long
         @click.prevent="openEditPanel">
-        <i class="fal fa-edit"/>
+        <i class="fal fa-check"/>
         Mettre à jour
-      </button>
+      </Button>
     </div>
 
     <div
@@ -72,6 +73,7 @@
 
 <script>
 import Order from "../order/Order";
+import Button from "../buttons/Button";
 import EditBusiness from "./EditBusiness";
 import Comments from "../comment/Comments";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
@@ -83,6 +85,7 @@ import { loader, modal, panels } from "../../mixins";
 export default {
   components: {
     Order,
+    Button,
     EditBusiness,
     Comments,
     MoonLoader,

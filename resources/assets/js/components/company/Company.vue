@@ -30,18 +30,20 @@
 
     <!-- Controls -->
     <div class="card__controls">
-      <button
-        role="button"
+
+      <!-- Delete -->
+      <Button
         title="Supprimer"
         @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </button>
-      <button
-        role="button"
+      </Button>
+
+      <!-- Edit -->
+      <Button
         title="Modifier"
         @click.prevent="edit">
         <i class="fal fa-pencil"/>
-      </button>
+      </Button>
     </div>
   </div>
 </template>

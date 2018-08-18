@@ -160,8 +160,9 @@
 
         <div class="register__buttons">
           <button
-            class="btn btn--red"
-            @click="createContact">
+            role="button"
+            class="button__primary button__primary--red button__primary--long"
+            @click.prevent="createContact">
             <i class="fal fa-check"/>
             Créer le contact
           </button>

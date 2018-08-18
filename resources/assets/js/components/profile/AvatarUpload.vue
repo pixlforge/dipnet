@@ -4,8 +4,9 @@
 
     <div class="modal__group">
       <label
+        role="button"
         for="avatar"
-        class="btn btn--red">
+        class="button__primary button__primary--red button__primary--long">
         <i class="fal fa-folder-open"/>
         Sélectionner une image
       </label>
@@ -46,8 +47,8 @@
       v-if="newAvatar.id"
       class="modal__buttons modal__buttons--avatar">
       <button
-        class="btn btn--red"
         role="button"
+        class="button__primary button__primary--red button__primary--long"
         @click.prevent="update">
         <i class="fal fa-upload"/>
         Mettre à jour l'avatar

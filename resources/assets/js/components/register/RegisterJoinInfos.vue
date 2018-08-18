@@ -6,7 +6,7 @@
           :src="logoColor"
           :alt="`${appName} logo`">
       </div>
-      <div class="register__form">
+      <div class="register__form register__form--center">
         <h1 class="register__title">Rejoindre ma société</h1>
 
         <p class="register__lead">
@@ -14,11 +14,14 @@
           tant que membre de votre société.
         </p>
 
-        <div
-          class="register__back"
+        <!-- Back to menu -->
+        <button
+          role="button"
+          class="button__primary button__primary--orange"
           @click.prevent="$emit('back-to:menu')">
-          <i class="fal fa-arrow-left fa-2x"/>
-        </div>
+          <i class="fal fa-arrow-left"/>
+          Retour au menu
+        </button>
       </div>
     </section>
 

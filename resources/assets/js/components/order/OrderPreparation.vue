@@ -60,7 +60,7 @@
 
     <!-- Add delivery button -->
     <div
-      v-if="!preview"
+      v-if="!preview && !animate"
       role="button"
       class="order__controls"
       @click.prevent="addDelivery">
@@ -132,26 +132,42 @@
         name="fade"
         mode="out-in">
         
-        <!-- Complete button -->
-        <button
+        <div
           v-if="preview && !animate"
-          :disabled="!terms"
-          role="button"
-          class="btn btn--red-big"
-          @click.prevent="completeOrder">
-          <i class="fal fa-paper-plane"/>
-          Finaliser et envoyer la commande
-        </button>
+          class="order__button-group">
+
+          <!-- Back button -->
+          <Button
+            primary
+            big
+            orange
+            @click.prevent="togglePreview">
+            <i class="fal fa-arrow-left"/>
+            Modifier ma commande
+          </Button>
+
+          <!-- Complete button -->
+          <Button
+            :disabled="!terms"
+            primary
+            big
+            red
+            @click.prevent="completeOrder">
+            <i class="fal fa-paper-plane"/>
+            Finaliser et envoyer la commande
+          </Button>
+        </div>
         
         <!-- Preview button -->
-        <button
+        <Button
           v-if="!preview && !animate"
-          role="button"
-          class="btn btn--red"
+          primary
+          red
+          long
           @click.prevent="togglePreview">
-          <i class="fal fa-search"/>
+          <i class="fal fa-eye"/>
           Aperçu de la commande
-        </button>
+        </Button>
       </transition>
     </div>
 
@@ -190,6 +206,7 @@
 
 <script>
 import Delivery from "./Delivery";
+import Button from "../buttons/Button";
 import AppSelect from "../select/AppSelect";
 import AddContact from "../contact/AddContact";
 import AddBusiness from "../business/AddBusiness";
@@ -203,6 +220,7 @@ import { loader, modal, panels, filters } from "../../mixins";
 export default {
   components: {
     Delivery,
+    Button,
     AppSelect,
     AddContact,
     AddBusiness,

@@ -89,26 +89,33 @@
 
       <!-- Controls -->
       <div class="modal__buttons">
-        <button
+
+        <!-- Submit -->
+        <Button
           type="submit"
-          role="button"
-          class="btn btn--red">
+          primary
+          red
+          long>
           <i class="fal fa-check"/>
           Mettre à jour
-        </button>
-        <button
-          role="button"
-          class="btn btn--grey"
+        </Button>
+
+        <!-- Cancel -->
+        <Button
+          primary
+          grey
+          long
           @click.prevent="$emit('edit-business:close')">
           <i class="fal fa-times"/>
           Annuler
-        </button>
+        </Button>
       </div>
     </form>
   </div>
 </template>
 
 <script>
+import Button from "../buttons/Button";
 import ModalInput from "../forms/ModalInput";
 import ModalSelect from "../forms/ModalSelect";
 
@@ -116,6 +123,7 @@ import { mapActions } from "vuex";
 
 export default {
   components: {
+    Button,
     ModalInput,
     ModalSelect
   },

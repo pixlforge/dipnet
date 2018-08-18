@@ -104,7 +104,7 @@ class BusinessController extends Controller
             $contacts = Contact::where('user_id', auth()->id())->orderBy('name')->latest()->get();
         }
 
-        $orders = Order::with('user')->where('business_id', $business->id)->latest()->get();
+        $orders = Order::with('user', 'business', 'contact')->where('business_id', $business->id)->latest()->get();
         $comments = Comment::with('user', 'user.avatar')->where('business_id', $business->id)->latest()->get();
 
         return view('businesses.show', compact('business', 'contacts', 'orders', 'comments'));

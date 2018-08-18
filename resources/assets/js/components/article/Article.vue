@@ -28,26 +28,33 @@
 
     <!-- Controls -->
     <div class="card__controls">
-      <button
-        role="button"
+      
+      <!-- Delete -->
+      <Button
         title="Supprimer"
         @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </button>
-      <button
-        role="button"
-        title="Modifier"
+      </Button>
+
+      <!-- Edit -->
+      <Button
+        title="Supprimer"
         @click.prevent="edit">
         <i class="fal fa-pencil"/>
-      </button>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
+import Button from "../buttons/Button";
+
 import { filters } from "../../mixins";
 
 export default {
+  components: {
+    Button
+  },
   mixins: [filters],
   props: {
     article: {

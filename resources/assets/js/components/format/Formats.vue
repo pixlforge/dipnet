@@ -3,27 +3,29 @@
     <div class="header__container">
       <h1 class="header__title">Formats</h1>
 
+      <!-- Count -->
       <div class="header__stats">
         <span v-text="modelCount"/>
       </div>
 
-      <div>
-        <AppSelect
-          :options="sortOptions"
-          v-model="sort"
-          @input="selectSort(sort)">
-          <span class="dropdown__title">Trier par</span>
-          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
-        </AppSelect>
-      </div>
+      <!-- Sort -->
+      <AppSelect
+        :options="sortOptions"
+        v-model="sort"
+        @input="selectSort(sort)">
+        <span class="dropdown__title">Trier par</span>
+        <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+      </AppSelect>
 
-      <button
-        role="button"
-        class="btn btn--red-large"
-        @click="openAddPanel">
+      <!-- Add button -->
+      <Button
+        primary
+        red
+        long
+        @click.prevent="openAddPanel">
         <i class="fal fa-plus-circle"/>
         Ajouter un format
-      </button>
+      </Button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -93,6 +95,7 @@
 
 <script>
 import Format from "./Format.vue";
+import Button from "../buttons/Button";
 import AddFormat from "./AddFormat.vue";
 import EditFormat from "./EditFormat.vue";
 import AppSelect from "../select/AppSelect";
@@ -106,6 +109,7 @@ import { loader, modal, panels, modelCount } from "../../mixins";
 export default {
   components: {
     Format,
+    Button,
     AddFormat,
     EditFormat,
     AppSelect,

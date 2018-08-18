@@ -23,20 +23,26 @@
       </div>
     </div>
 
-    <button
-      class="btn btn--red"
-      role="button"
+    <!-- Send -->
+    <Button
+      primary
+      red
       @click="sendInvitation">
       <i class="fal fa-user-plus"/>
       Envoyer une invitation
-    </button>
+    </Button>
   </div>
 </template>
 
 <script>
+import Button from "../buttons/Button";
+
 import { mapActions } from "vuex";
 
 export default {
+  components: {
+    Button
+  },
   data() {
     return {
       invitation: {

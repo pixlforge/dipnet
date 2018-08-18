@@ -87,31 +87,30 @@
     <div class="document__controls">
 
       <!-- Delete -->
-      <button
+      <Button
         :disabled="preview"
         :class="{ 'document__delete-button--disabled': preview }"
-        role="button"
         title="Supprimer"
         class="document__delete-button"
         @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </button>
+      </Button>
 
       <!-- Copy -->
-      <button
+      <Button
         :disabled="preview"
         :class="{ 'document__copy-button--disabled': preview }"
-        role="button"
         title="Copier"
         class="document__copy-button"
         @click.prevent="copy">
         <i class="fal fa-copy"/>
-      </button>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
+import Button from "../buttons/Button";
 import AppSelect from "../select/AppSelect";
 import ArticleDropdown from "./ArticleDropdown";
 
@@ -121,6 +120,7 @@ import { mapGetters, mapActions } from "vuex";
 
 export default {
   components: {
+    Button,
     AppSelect,
     ArticleDropdown
   },

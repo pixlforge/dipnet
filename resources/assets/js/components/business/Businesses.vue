@@ -3,27 +3,29 @@
     <div class="header__container">
       <h1 class="header__title">Affaires</h1>
 
+      <!-- Count -->
       <div class="header__stats">
         <span v-text="modelCount"/>
       </div>
 
-      <div>
-        <AppSelect
-          :options="sortOptions"
-          v-model="sort"
-          @input="selectSort(sort)">
-          <span class="dropdown__title">Trier par</span>
-          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
-        </AppSelect>
-      </div>
+      <!-- Sort -->
+      <AppSelect
+        :options="sortOptions"
+        v-model="sort"
+        @input="selectSort(sort)">
+        <span class="dropdown__title">Trier par</span>
+        <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+      </AppSelect>
 
-      <button
-        role="button"
-        class="btn btn--red-large"
-        @click="openAddPanel">
+      <!-- Add button -->
+      <Button
+        primary
+        red
+        long
+        @click.prevent="openAddPanel">
         <i class="fal fa-plus-circle"/>
         Ajouter une affaire
-      </button>
+      </Button>
     </div>
 
     <div class="main__container main__container--grey">
@@ -123,6 +125,7 @@
 
 <script>
 import Business from "./Business.vue";
+import Button from "../buttons/Button";
 import UserBusiness from "./UserBusiness";
 import AppSelect from "../select/AppSelect";
 import AddBusiness from "./AddBusiness.vue";
@@ -137,6 +140,7 @@ import { loader, modal, panels, modelCount } from "../../mixins";
 export default {
   components: {
     Business,
+    Button,
     UserBusiness,
     AppSelect,
     AddBusiness,
