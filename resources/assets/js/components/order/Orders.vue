@@ -3,27 +3,28 @@
     <div class="header__container">
       <h1 class="header__title">Commandes</h1>
 
+      <!-- Count -->
       <div class="header__stats">
-        <span v-if="meta.total > 1">{{ meta.total }} commandes</span>
-        <span v-else-if="meta.total === 1">{{ meta.total }} commande</span>
-        <span v-else>Aucune commande</span>
+        <span v-text="modelCount"/>
       </div>
 
-      <button
-        class="button__primary button__primary--red"
-        role="button"
+      <!-- Create order -->
+      <Button
+        primary
+        red
+        long
         @click.prevent="redirect">
         <i class="fal fa-plus-circle"/>
         Nouvelle commande
-      </button>
+      </Button>
     </div>
 
     <div class="main__container main__container--grey">
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--top"
-        @paginationSwitched="getOrders"/>
+        @pagination:switched="getOrders"/>
 
       <div
         v-if="!orders.length && !fetching"
@@ -37,7 +38,7 @@
           name="pagination"
           tag="div"
           mode="out-in">
-          <order
+          <Order
             v-for="order in orders"
             :key="order.id"
             :order="order"
@@ -47,14 +48,14 @@
         </transition-group>
       </template>
 
-      <pagination
+      <Pagination
         v-if="meta.total > 25"
         :meta="meta"
         class="pagination pagination--bottom"
-        @paginationSwitched="getOrders"/>
+        @pagination:switched="getOrders"/>
     </div>
 
-    <moon-loader
+    <MoonLoader
       :loading="loaderState"
       :color="loader.color"
       :size="loader.size"/>
@@ -63,23 +64,23 @@
 
 <script>
 import Order from "./Order.vue";
-import AddOrder from "./CreateOrder.vue";
+import Button from "../buttons/Button";
 import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import IllustrationFileSearching from "../illustrations/IllustrationFileSearching";
 
 import { mapGetters } from "vuex";
-import { loader } from "../../mixins";
+import { loader, modelCount } from "../../mixins";
 
 export default {
   components: {
     Order,
-    AddOrder,
+    Button,
     Pagination,
     MoonLoader,
     IllustrationFileSearching
   },
-  mixins: [loader],
+  mixins: [loader, modelCount],
   props: {
     userRole: {
       type: String,

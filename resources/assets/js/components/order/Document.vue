@@ -112,7 +112,6 @@
 <script>
 import Button from "../buttons/Button";
 import AppSelect from "../select/AppSelect";
-import ArticleDropdown from "./ArticleDropdown";
 
 import { filters } from "../../mixins";
 import { eventBus } from "../../app";
@@ -121,8 +120,7 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   components: {
     Button,
-    AppSelect,
-    ArticleDropdown
+    AppSelect
   },
   mixins: [filters],
   props: {
