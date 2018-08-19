@@ -39864,7 +39864,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       setTimeout(() => {
         this.preview = !this.preview;
         this.animate = false;
-        // VueScrollTo.scrollTo("body");
+        __WEBPACK_IMPORTED_MODULE_7_vue_scrollto___default.a.scrollTo("body");
       }, 200);
     },
     buildOrder() {
@@ -39875,6 +39875,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         user_id: this.currentOrder.user_id,
         business_id: this.currentOrder.business_id,
         contact_id: this.currentOrder.contact_id,
+        pickup: this.currentOrder.pickup,
         manager_id: this.currentOrder.manager_id,
         deliveries: this.listDeliveries
       };

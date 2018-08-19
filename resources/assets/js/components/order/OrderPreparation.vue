@@ -402,7 +402,7 @@ export default {
       setTimeout(() => {
         this.preview = !this.preview;
         this.animate = false;
-        // VueScrollTo.scrollTo("body");
+        VueScrollTo.scrollTo("body");
       }, 200);
     },
     buildOrder() {
@@ -413,6 +413,7 @@ export default {
         user_id: this.currentOrder.user_id,
         business_id: this.currentOrder.business_id,
         contact_id: this.currentOrder.contact_id,
+        pickup: this.currentOrder.pickup,
         manager_id: this.currentOrder.manager_id,
         deliveries: this.listDeliveries
       };

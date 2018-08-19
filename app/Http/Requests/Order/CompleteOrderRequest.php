@@ -31,7 +31,8 @@ class CompleteOrderRequest extends FormRequest
             'user_id' => 'required_without:company_id|nullable|exists:users,id',
             'deliveries' => 'required|min:1',
             'deliveries.*.id' => 'exists:deliveries,id',
-            'deliveries.*.contact_id' => 'required|exists:contacts,id',
+            'deliveries.*.contact_id' => 'required_without:deliveries.*.pickup|nullable|exists:contacts,id',
+            'deliveries.*.pickup' => 'required_without:deliveries.*.contact_id|nullable',
             'deliveries.*.to_deliver_at' => 'required',
             'deliveries.*.documents' => 'min:1',
             'deliveries.*.documents.*.article_id' => 'required'
@@ -65,7 +66,7 @@ class CompleteOrderRequest extends FormRequest
             
             'deliveries.*.id.exists' => "Aucune livraison portant cette référence n'existe.",
 
-            'deliveries.*.contact_id.required' => "Aucun contact de livraison n'est spécifié pour la livraison.",
+            'deliveries.*.contact_id.required_without' => "Aucun contact de livraison n'est spécifié pour la livraison.",
             'deliveries.*.contact_id.exists' => "Aucun contact de livraison portant cette référence n'existe.",
 
             'deliveries.*.to_deliver_at.required' => 'Une date de livraison est requise.',
