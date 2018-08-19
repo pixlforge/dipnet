@@ -160,6 +160,27 @@
       v-show="!preview"
       :id="'delivery-file-upload-' + delivery.id"
       class="dropzone"/>
+
+    <!-- Errors -->
+    <div v-if="(!preview && hasErrors) || (!preview && hasErrorsRelatedToDocuments)">
+      <div class="error__container">
+        <i class="fas fa-exclamation fa-2x"/>
+        <ul class="error__list">
+          <li v-if="getValidationErrors[`deliveries.${count - 1}.contact_id`]">
+            {{ getValidationErrors[`deliveries.${count - 1}.contact_id`][0] }}
+          </li>
+          <li v-if="getValidationErrors[`deliveries.${count - 1}.to_deliver_at`]">
+            {{ getValidationErrors[`deliveries.${count - 1}.to_deliver_at`][0] }}
+          </li>
+          <li v-if="getValidationErrors[`deliveries.${count - 1}.documents`]">
+            La livraison doit contenir au minimum un document.
+          </li>
+          <li v-if="hasErrorsRelatedToDocuments">
+            Vous devez sélectionner un type d'impression pour chaque document de cette livraison.
+          </li>
+        </ul>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -234,7 +255,8 @@ export default {
       "listContacts",
       "listRawContacts",
       "listDeliveries",
-      "listDocuments"
+      "listDocuments",
+      "getValidationErrors"
     ]),
     deliveryDocuments() {
       return this.listDocuments.filter(document => {
@@ -252,6 +274,26 @@ export default {
           return contact.id === this.currentDelivery.contact.value;
         });
       }
+    },
+    hasErrors() {
+      if (
+        this.getValidationErrors[`deliveries.${this.count - 1}.contact_id`] ||
+        this.getValidationErrors[
+          `deliveries.${this.count - 1}.to_deliver_at`
+        ] ||
+        this.getValidationErrors[`deliveries.${this.count - 1}.documents`]
+      ) {
+        return true;
+      }
+    },
+    hasErrorsRelatedToDocuments() {
+      let hasErrors = false;
+      for (let error in this.getValidationErrors) {
+        if (error.includes(`deliveries.${this.count - 1}.documents.`)) {
+          hasErrors = true;
+        }
+      }
+      return hasErrors;
     }
   },
   watch: {
@@ -269,12 +311,7 @@ export default {
     this.getSelectedDeliveryDate();
   },
   methods: {
-    ...mapActions([
-      "updateDelivery",
-      "deleteDelivery",
-      "addContact",
-      "addDocument"
-    ]),
+    ...mapActions(["deleteDelivery", "addContact", "addDocument"]),
     updateContact() {
       if (this.currentDelivery.contact.value) {
         this.currentDelivery.contact_id = this.currentDelivery.contact.value;
@@ -286,7 +323,7 @@ export default {
     },
     async update() {
       try {
-        await this.updateDelivery(this.currentDelivery);
+        await this.$store.dispatch("updateDelivery", this.currentDelivery);
       } catch (err) {
         this.errors = err.response.data.errors;
       }

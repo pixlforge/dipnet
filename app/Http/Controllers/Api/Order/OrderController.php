@@ -33,6 +33,7 @@ class OrderController extends Controller
         } else {
             return new OrdersCollection(
                 Order::own()
+                    ->orderBy('status', 'desc')
                     ->latest()
                     ->with('business', 'contact', 'user')
                     ->paginate(25)

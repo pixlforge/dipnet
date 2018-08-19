@@ -26,13 +26,15 @@
           v-if="!user.email_confirmed"
           class="profile__header-item"/>
 
-        <button
-          role="button"
-          class="button__primary button__primary--red button__primary--long"
+        <!-- Edit account -->
+        <Button
+          primary
+          red
+          long
           @click.prevent="openEditPanel">
           <i class="fal fa-edit"/>
           Éditer mon compte
-        </button>
+        </Button>
       </div>
     </div>
 
@@ -111,6 +113,7 @@
 </template>
 
 <script>
+import Button from "../buttons/Button";
 import UpdateProfile from "./UpdateProfile.vue";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import SendConfirmationEmailAgain from "../register/SendConfirmationEmailAgain.vue";
@@ -120,6 +123,7 @@ import { dates, loader, modal, panels } from "../../mixins";
 
 export default {
   components: {
+    Button,
     SendConfirmationEmailAgain,
     UpdateProfile,
     MoonLoader

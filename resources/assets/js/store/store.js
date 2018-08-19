@@ -23,6 +23,7 @@ export const store = new Vuex.Store({
     loader: {
       show: false
     },
+    validationErrors: {}
   },
 
   /**
@@ -56,6 +57,9 @@ export const store = new Vuex.Store({
     listDocuments: state => {
       return state.documents;
     },
+    getValidationErrors: state => {
+      return state.validationErrors;
+    }
   },
 
   /**
@@ -118,11 +122,25 @@ export const store = new Vuex.Store({
     /**
      * Hydrate the deliveries.
      */
-    hydrateDeliveries: (state, payload) => {
-      state.deliveries = payload
+    hydrateDeliveries: (state, deliveries) => {
+      deliveries.forEach(delivery => {
+        Vue.set(delivery, 'documents', []);
+      });
+      state.deliveries = deliveries;
     },
+    /**
+     * Add a delivery.
+     */
     addDelivery: (state, payload) => {
-      state.deliveries.push(payload)
+      let delivery = payload;
+      Vue.set(delivery, 'documents', [])
+      state.deliveries.push(delivery)
+    },
+    updateDelivery(state, payload) {
+      const index = state.deliveries.findIndex(delivery => {
+        return delivery.id === payload.id;
+      });
+      state.deliveries[index] = payload;
     },
     removeDelivery: (state, payload) => {
       const index = state.deliveries.findIndex(delivery => {
@@ -132,9 +150,15 @@ export const store = new Vuex.Store({
       })
       state.deliveries.splice(index, 1)
     },
-    hydrateDocuments: (state, payload) => {
-      state.documents = payload
+    /**
+     * Hydrate the delivery documents.
+     */
+    hydrateDocuments: (state, documents) => {
+      state.documents = documents;
     },
+    /**
+     * Add a document.
+     */
     addDocument: (state, payload) => {
       state.documents.push(payload)
       const index = state.documents.findIndex(document => {
@@ -147,18 +171,11 @@ export const store = new Vuex.Store({
       Vue.set(state.documents[index], 'articles', [])
     },
     updateDocument: (state, payload) => {
+      // console.log(payload);
       const index = state.documents.findIndex(document => {
-        if (document.id === payload.document.id) {
-          return true
-        }
-      })
-      state.documents[index].article_id = payload.document.article_id
-      state.documents[index].finish = payload.document.finish
-      state.documents[index].quantity = payload.document.quantity
-      state.documents[index].articles = payload.options
-      state.documents[index].width = payload.document.width
-      state.documents[index].height = payload.document.height
-      state.documents[index].nb_orig = payload.document.nb_orig
+        return document.id === payload.id;
+      });
+      state.documents[index] = payload;
     },
     removeDocument: (state, document) => {
       const index = state.documents.findIndex(item => {
@@ -166,17 +183,8 @@ export const store = new Vuex.Store({
       });
       state.documents.splice(index, 1)
     },
-    cloneOptions: (state, payload) => {
-      state.documents.forEach(document => {
-        if (document.delivery_id === payload.deliveryId) {
-          document.article_id = payload.print
-          document.finish = payload.finish
-          document.quantity = payload.quantity
-          document.articles = payload.optionModels
-          document.width = payload.width
-          document.height = payload.height
-        }
-      })
+    mutateValidationErrors: (state, errors) => {
+      state.validationErrors = errors;
     },
   },
 
@@ -212,6 +220,23 @@ export const store = new Vuex.Store({
       commit('hydrateDeliveries', payload)
     },
     /**
+     * Set the validation errors.
+     */
+    setValidationErrors({ commit }, errors) {
+      commit('mutateValidationErrors', errors);
+    },
+    /**
+     * Complete the order.
+     */
+    async completeOrder({ commit }, order) {
+      commit('toggleLoader');
+      await window.axios.patch(window.route("orders.complete.update", [order.reference]), order)
+        .catch(err => {
+          commit('toggleLoader');
+          return Promise.reject(err);
+        });
+    },
+    /**
      * Update an existing order.
      */
     async updateOrder({ commit }, order) {
@@ -238,17 +263,19 @@ export const store = new Vuex.Store({
     /**
      * Update an existing delivery.
      */
-    async updateDelivery({ commit }, delivery) {
-      await window.axios.patch(window.route('deliveries.update', [delivery.reference]), {
-        id: delivery.id,
-        reference: delivery.reference,
-        note: delivery.note,
-        admin_note: delivery.admin_note,
-        to_deliver_at: delivery.to_deliver_at,
-        order_id: delivery.order_id,
-        contact_id: delivery.contact.value,
-        pickup: delivery.pickup
-      });
+    async updateDelivery({ commit }, payload) {
+      const delivery = {
+        id: payload.id,
+        reference: payload.reference,
+        note: payload.note,
+        admin_note: payload.admin_note,
+        to_deliver_at: payload.to_deliver_at,
+        order_id: payload.order_id,
+        contact_id: payload.contact.value,
+        pickup: payload.pickup
+      };
+      commit('updateDelivery', delivery);
+      await window.axios.patch(window.route('deliveries.update', [delivery.reference]), delivery);
     },
     /**
      * Delete an existing delivery.
@@ -257,9 +284,12 @@ export const store = new Vuex.Store({
       window.axios.delete(window.route('deliveries.destroy', [delivery.reference]));
       commit('removeDelivery', delivery);
     },
-    hydrateDocuments: ({ commit }, payload) => {
-      commit('hydrateDocuments', payload)
+    hydrateDocuments: ({ commit }, documents) => {
+      commit('hydrateDocuments', documents)
     },
+    /**
+     * Add a document.
+     */
     addDocument: ({ commit }, payload) => {
       commit('addDocument', payload)
     },
@@ -267,6 +297,7 @@ export const store = new Vuex.Store({
      * Update an existing document.
      */
     async updateDocument({ commit }, document) {
+      commit('updateDocument', document);
       await window.axios.patch(window.route("documents.update", [document.id]), {
         id: document.id,
         article_id: document.printType.value,

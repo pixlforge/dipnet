@@ -37,7 +37,7 @@
             v-model="currentOrder.contact"
             :component="{ component: 'order', id: order.id }"
             allow-create-contact
-            @input="update">
+            @input="updateContact">
             <p><strong>{{ currentOrder.contact.label ? currentOrder.contact.label : 'Aucun' }}</strong></p>
           </AppSelect>
         </div>
@@ -68,6 +68,18 @@
         <i class="fal fa-plus-circle mr-2"/>
         <span>Ajouter une livraison</span>
       </h4>
+    </div>
+
+    <!-- Errors -->
+    <div
+      v-if="!preview && hasValidationErrors"
+      class="error__container">
+      <i class="fas fa-exclamation-triangle fa-2x"/>
+      <ul class="error__list">
+        <li v-if="hasValidationErrors">
+          {{ getValidationErrors.contact_id[0] }}
+        </li>
+      </ul>
     </div>
 
     <!-- Preview footer -->
@@ -152,7 +164,7 @@
             primary
             big
             red
-            @click.prevent="completeOrder">
+            @click.prevent="complete">
             <i class="fal fa-paper-plane"/>
             Finaliser et envoyer la commande
           </Button>
@@ -276,6 +288,9 @@ export default {
           value: null
         }
       },
+      errors: {
+        deliveries: {}
+      },
       preview: false,
       animate: false,
       terms: false,
@@ -286,8 +301,10 @@ export default {
     ...mapGetters([
       "loaderState",
       "listContacts",
+      "listDocuments",
       "listDeliveries",
-      "listBusinesses"
+      "listBusinesses",
+      "getValidationErrors"
     ]),
     getBusiness() {
       return this.businesses.find(business => {
@@ -298,6 +315,11 @@ export default {
       return this.contacts.find(contact => {
         return contact.id === this.currentOrder.contact.value;
       });
+    },
+    hasValidationErrors() {
+      if (this.getValidationErrors.contact_id) {
+        return true;
+      }
     }
   },
   created() {
@@ -307,8 +329,8 @@ export default {
     this.bindAddBusinessHandler();
     this.hydrateContacts(this.contacts);
     this.hydrateDocuments(this.documents);
-    this.hydrateBusinesses(this.businesses);
     this.hydrateDeliveries(this.deliveries);
+    this.hydrateBusinesses(this.businesses);
     this.hydrateArticleTypes(this.articles);
   },
   mounted() {
@@ -320,15 +342,22 @@ export default {
     ...mapActions([
       "addContact",
       "addBusiness",
-      "updateOrder",
       "toggleLoader",
+      "completeOrder",
       "createDelivery",
       "hydrateContacts",
       "hydrateDocuments",
       "hydrateDeliveries",
       "hydrateBusinesses",
-      "hydrateArticleTypes"
+      "hydrateArticleTypes",
+      "setValidationErrors"
     ]),
+    updateContact() {
+      if (this.currentOrder.contact.value) {
+        this.currentOrder.contact_id = this.currentOrder.contact.value;
+      }
+      this.update();
+    },
     async addDelivery() {
       try {
         await this.createDelivery(this.order.reference);
@@ -346,7 +375,7 @@ export default {
     },
     async update() {
       try {
-        await this.updateOrder(this.currentOrder);
+        await this.$store.dispatch("updateOrder", this.currentOrder);
       } catch (err) {
         this.errors = err.response.data.errors;
       }
@@ -373,11 +402,53 @@ export default {
       setTimeout(() => {
         this.preview = !this.preview;
         this.animate = false;
-        VueScrollTo.scrollTo("body");
+        // VueScrollTo.scrollTo("body");
       }, 200);
     },
-    completeOrder() {
-      this.togglePreview();
+    buildOrder() {
+      let order = {
+        id: this.currentOrder.id,
+        reference: this.currentOrder.reference,
+        status: this.currentOrder.status,
+        user_id: this.currentOrder.user_id,
+        business_id: this.currentOrder.business_id,
+        contact_id: this.currentOrder.contact_id,
+        manager_id: this.currentOrder.manager_id,
+        deliveries: this.listDeliveries
+      };
+
+      order.deliveries.forEach(delivery => {
+        delivery.documents = this.listDocuments.filter(document => {
+          return document.delivery_id === delivery.id;
+        });
+      });
+
+      return order;
+    },
+    async complete() {
+      if (this.terms) {
+        let order = this.buildOrder();
+
+        await this.completeOrder(order)
+          .then(() => {
+            window.flash({
+              message: "Commande envoyée avec succès!",
+              level: "success"
+            });
+            setTimeout(() => {
+              window.location = "/";
+            }, 1000);
+          })
+          .catch(err => {
+            this.setValidationErrors(err.response.data.errors);
+            this.togglePreview();
+            this.terms = false;
+            window.flash({
+              message: `La commande comporte des erreurs.`,
+              level: "danger"
+            });
+          });
+      }
     },
     bindAddContactHandler() {
       eventBus.$on("add-contact:open", component => {

@@ -28,7 +28,7 @@
             v-model="currentDocument.printType"
             :disabled="preview"
             variant="printTypes"
-            @input="update">
+            @input="updateArticle">
             {{ currentDocument.printType.label ? currentDocument.printType.label : 'Sélectionner' }}
           </AppSelect>
         </div>
@@ -138,7 +138,10 @@ export default {
     },
     options: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     },
     preview: {
       type: Boolean,
@@ -150,6 +153,10 @@ export default {
     return {
       currentDocument: {
         id: this.document.id,
+        article_id: this.document.article_id,
+        delivery_id: this.document.delivery_id,
+        quantity: this.document.quantity,
+        media: this.document.media,
         printType: {
           label: "",
           type: "",
@@ -160,8 +167,7 @@ export default {
           label: this.document.finish ? this.document.finish : "plié",
           value: null
         },
-        options: [],
-        quantity: this.document.quantity
+        options: []
       },
       optionsForFinish: [
         { label: "plié", value: null },
@@ -226,8 +232,12 @@ export default {
         );
       }
     },
+    updateArticle() {
+      this.currentDocument.article_id = this.currentDocument.printType.value;
+      this.update();
+    },
     async update() {
-      await this.updateDocument(this.currentDocument);
+      await this.$store.dispatch("updateDocument", this.currentDocument);
     },
     async destroy() {
       await this.deleteDocument(this.currentDocument);
@@ -268,6 +278,7 @@ export default {
           document.id !== this.document.id
         ) {
           this.currentDocument.printType = document.printType;
+          this.currentDocument.article_id = document.printType.value;
           this.currentDocument.finish = document.finish;
           this.currentDocument.quantity = document.quantity;
           this.currentDocument.options = [];

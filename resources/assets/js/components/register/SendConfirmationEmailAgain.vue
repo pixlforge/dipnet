@@ -1,19 +1,22 @@
 <template>
-  <div>
-    <button
-      role="button"
-      class="btn btn--warning"
-      @click.prevent="sendConfirmationAgain">
-      <i class="fal fa-redo"/>
-      Renvoyer l'email de confirmation
-    </button>
-  </div>
+  <Button
+    primary
+    orange
+    @click.prevent="sendConfirmationAgain">
+    <i class="fal fa-redo"/>
+    Renvoyer l'email de confirmation
+  </Button>
 </template>
 
 <script>
+import Button from "../buttons/Button";
+
 import { mapActions } from "vuex";
 
 export default {
+  components: {
+    Button
+  },
   methods: {
     ...mapActions(["toggleLoader"]),
     async sendConfirmationAgain() {

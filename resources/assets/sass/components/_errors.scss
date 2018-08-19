@@ -7,3 +7,34 @@
   font-size: 0.75rem;
   color: $error;
 }
+
+.error {
+  &__container {
+    width: 84%;    
+    background-color: lighten($bg-red, 37%);
+    border-radius: 5px;
+    margin: 5rem auto;
+    padding: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    & svg {
+      color: $brand-red;
+    }
+  }
+
+  &__list {
+    list-style: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: $bg-red;
+    text-align: center;
+    margin-top: 3rem;
+
+    li {
+      line-height: 1.5;
+    }
+  }
+}

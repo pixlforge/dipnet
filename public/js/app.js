@@ -38759,6 +38759,27 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -38825,7 +38846,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       deliveryDateString: "date à définir"
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["listContacts", "listRawContacts", "listDeliveries", "listDocuments"]), {
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["listContacts", "listRawContacts", "listDeliveries", "listDocuments", "getValidationErrors"]), {
     deliveryDocuments() {
       return this.listDocuments.filter(document => {
         return document.delivery_id === this.delivery.id;
@@ -38842,6 +38863,20 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           return contact.id === this.currentDelivery.contact.value;
         });
       }
+    },
+    hasErrors() {
+      if (this.getValidationErrors[`deliveries.${this.count - 1}.contact_id`] || this.getValidationErrors[`deliveries.${this.count - 1}.to_deliver_at`] || this.getValidationErrors[`deliveries.${this.count - 1}.documents`]) {
+        return true;
+      }
+    },
+    hasErrorsRelatedToDocuments() {
+      let hasErrors = false;
+      for (let error in this.getValidationErrors) {
+        if (error.includes(`deliveries.${this.count - 1}.documents.`)) {
+          hasErrors = true;
+        }
+      }
+      return hasErrors;
     }
   }),
   watch: {
@@ -38858,7 +38893,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     this.findSelectedContact();
     this.getSelectedDeliveryDate();
   },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["c" /* mapActions */])(["updateDelivery", "deleteDelivery", "addContact", "addDocument"]), {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["c" /* mapActions */])(["deleteDelivery", "addContact", "addDocument"]), {
     updateContact() {
       if (this.currentDelivery.contact.value) {
         this.currentDelivery.contact_id = this.currentDelivery.contact.value;
@@ -38873,7 +38908,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return _asyncToGenerator(function* () {
         try {
-          yield _this.updateDelivery(_this.currentDelivery);
+          yield _this.$store.dispatch("updateDelivery", _this.currentDelivery);
         } catch (err) {
           _this.errors = err.response.data.errors;
         }
@@ -39121,7 +39156,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     options: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     },
     preview: {
       type: Boolean,
@@ -39133,6 +39171,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return {
       currentDocument: {
         id: this.document.id,
+        article_id: this.document.article_id,
+        delivery_id: this.document.delivery_id,
+        quantity: this.document.quantity,
+        media: this.document.media,
         printType: {
           label: "",
           type: "",
@@ -39143,8 +39185,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           label: this.document.finish ? this.document.finish : "plié",
           value: null
         },
-        options: [],
-        quantity: this.document.quantity
+        options: []
       },
       optionsForFinish: [{ label: "plié", value: null }, { label: "roulé", value: null }]
     };
@@ -39198,11 +39239,15 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         });
       }
     },
+    updateArticle() {
+      this.currentDocument.article_id = this.currentDocument.printType.value;
+      this.update();
+    },
     update() {
       var _this = this;
 
       return _asyncToGenerator(function* () {
-        yield _this.updateDocument(_this.currentDocument);
+        yield _this.$store.dispatch("updateDocument", _this.currentDocument);
       })();
     },
     destroy() {
@@ -39242,6 +39287,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
         if (deliveryId === this.delivery.id && document.id !== this.document.id) {
           this.currentDocument.printType = document.printType;
+          this.currentDocument.article_id = document.printType.value;
           this.currentDocument.finish = document.finish;
           this.currentDocument.quantity = document.quantity;
           this.currentDocument.options = [];
@@ -39634,6 +39680,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -39706,13 +39764,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           value: null
         }
       },
+      errors: {
+        deliveries: {}
+      },
       preview: false,
       animate: false,
       terms: false,
       componentToSelectContact: {}
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["b" /* mapGetters */])(["loaderState", "listContacts", "listDeliveries", "listBusinesses"]), {
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["b" /* mapGetters */])(["loaderState", "listContacts", "listDocuments", "listDeliveries", "listBusinesses", "getValidationErrors"]), {
     getBusiness() {
       return this.businesses.find(business => {
         return business.id === this.currentOrder.business.value;
@@ -39722,6 +39783,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       return this.contacts.find(contact => {
         return contact.id === this.currentOrder.contact.value;
       });
+    },
+    hasValidationErrors() {
+      if (this.getValidationErrors.contact_id) {
+        return true;
+      }
     }
   }),
   created() {
@@ -39731,8 +39797,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     this.bindAddBusinessHandler();
     this.hydrateContacts(this.contacts);
     this.hydrateDocuments(this.documents);
-    this.hydrateBusinesses(this.businesses);
     this.hydrateDeliveries(this.deliveries);
+    this.hydrateBusinesses(this.businesses);
     this.hydrateArticleTypes(this.articles);
   },
   mounted() {
@@ -39740,7 +39806,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     this.findSelectedBusiness();
     this.checkIfAtLeastOneDeliveryExists();
   },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["c" /* mapActions */])(["addContact", "addBusiness", "updateOrder", "toggleLoader", "createDelivery", "hydrateContacts", "hydrateDocuments", "hydrateDeliveries", "hydrateBusinesses", "hydrateArticleTypes"]), {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["c" /* mapActions */])(["addContact", "addBusiness", "toggleLoader", "completeOrder", "createDelivery", "hydrateContacts", "hydrateDocuments", "hydrateDeliveries", "hydrateBusinesses", "hydrateArticleTypes", "setValidationErrors"]), {
+    updateContact() {
+      if (this.currentOrder.contact.value) {
+        this.currentOrder.contact_id = this.currentOrder.contact.value;
+      }
+      this.update();
+    },
     addDelivery() {
       var _this = this;
 
@@ -39764,7 +39836,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return _asyncToGenerator(function* () {
         try {
-          yield _this2.updateOrder(_this2.currentOrder);
+          yield _this2.$store.dispatch("updateOrder", _this2.currentOrder);
         } catch (err) {
           _this2.errors = err.response.data.errors;
         }
@@ -39792,11 +39864,55 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       setTimeout(() => {
         this.preview = !this.preview;
         this.animate = false;
-        __WEBPACK_IMPORTED_MODULE_7_vue_scrollto___default.a.scrollTo("body");
+        // VueScrollTo.scrollTo("body");
       }, 200);
     },
-    completeOrder() {
-      this.togglePreview();
+    buildOrder() {
+      let order = {
+        id: this.currentOrder.id,
+        reference: this.currentOrder.reference,
+        status: this.currentOrder.status,
+        user_id: this.currentOrder.user_id,
+        business_id: this.currentOrder.business_id,
+        contact_id: this.currentOrder.contact_id,
+        manager_id: this.currentOrder.manager_id,
+        deliveries: this.listDeliveries
+      };
+
+      order.deliveries.forEach(delivery => {
+        delivery.documents = this.listDocuments.filter(document => {
+          return document.delivery_id === delivery.id;
+        });
+      });
+
+      return order;
+    },
+    complete() {
+      var _this3 = this;
+
+      return _asyncToGenerator(function* () {
+        if (_this3.terms) {
+          let order = _this3.buildOrder();
+
+          yield _this3.completeOrder(order).then(function () {
+            window.flash({
+              message: "Commande envoyée avec succès!",
+              level: "success"
+            });
+            setTimeout(function () {
+              window.location = "/";
+            }, 1000);
+          }).catch(function (err) {
+            _this3.setValidationErrors(err.response.data.errors);
+            _this3.togglePreview();
+            _this3.terms = false;
+            window.flash({
+              message: `La commande comporte des erreurs.`,
+              level: "danger"
+            });
+          });
+        }
+      })();
     },
     bindAddContactHandler() {
       __WEBPACK_IMPORTED_MODULE_6__app__["eventBus"].$on("add-contact:open", component => {
@@ -40263,14 +40379,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UpdateProfile_vue__ = __webpack_require__(312);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__UpdateProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__UpdateProfile_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_SendConfirmationEmailAgain_vue__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__register_SendConfirmationEmailAgain_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__register_SendConfirmationEmailAgain_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vuex__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UpdateProfile_vue__ = __webpack_require__(312);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__UpdateProfile_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__UpdateProfile_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__register_SendConfirmationEmailAgain_vue__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__register_SendConfirmationEmailAgain_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__register_SendConfirmationEmailAgain_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -40385,6 +40503,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+
 
 
 
@@ -40395,11 +40516,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    SendConfirmationEmailAgain: __WEBPACK_IMPORTED_MODULE_2__register_SendConfirmationEmailAgain_vue___default.a,
-    UpdateProfile: __WEBPACK_IMPORTED_MODULE_0__UpdateProfile_vue___default.a,
-    MoonLoader: __WEBPACK_IMPORTED_MODULE_1_vue_spinner_src_MoonLoader_vue___default.a
+    Button: __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default.a,
+    SendConfirmationEmailAgain: __WEBPACK_IMPORTED_MODULE_3__register_SendConfirmationEmailAgain_vue___default.a,
+    UpdateProfile: __WEBPACK_IMPORTED_MODULE_1__UpdateProfile_vue___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["f" /* dates */], __WEBPACK_IMPORTED_MODULE_4__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_4__mixins__["b" /* modal */], __WEBPACK_IMPORTED_MODULE_4__mixins__["c" /* panels */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_5__mixins__["f" /* dates */], __WEBPACK_IMPORTED_MODULE_5__mixins__["a" /* loader */], __WEBPACK_IMPORTED_MODULE_5__mixins__["b" /* modal */], __WEBPACK_IMPORTED_MODULE_5__mixins__["c" /* panels */]],
   props: {
     user: {
       type: Object,
@@ -40422,7 +40544,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       required: true
     }
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["b" /* mapGetters */])(["loaderState"]), {
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(["loaderState"]), {
     randomAvatarPath() {
       return "img/placeholders/" + this.randomAvatar;
     },
@@ -41458,7 +41580,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(2);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
@@ -41473,13 +41597,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+  components: {
+    Button: __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default.a
+  },
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_vuex__["c" /* mapActions */])(["toggleLoader"]), {
     sendConfirmationAgain() {
       var _this = this;
 
@@ -45268,7 +45395,8 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     documents: [],
     loader: {
       show: false
-    }
+    },
+    validationErrors: {}
   },
 
   /**
@@ -45301,6 +45429,9 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
     listDocuments: state => {
       return state.documents;
+    },
+    getValidationErrors: state => {
+      return state.validationErrors;
     }
   },
 
@@ -45364,11 +45495,25 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     /**
      * Hydrate the deliveries.
      */
-    hydrateDeliveries: (state, payload) => {
-      state.deliveries = payload;
+    hydrateDeliveries: (state, deliveries) => {
+      deliveries.forEach(delivery => {
+        __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(delivery, 'documents', []);
+      });
+      state.deliveries = deliveries;
     },
+    /**
+     * Add a delivery.
+     */
     addDelivery: (state, payload) => {
-      state.deliveries.push(payload);
+      let delivery = payload;
+      __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(delivery, 'documents', []);
+      state.deliveries.push(delivery);
+    },
+    updateDelivery(state, payload) {
+      const index = state.deliveries.findIndex(delivery => {
+        return delivery.id === payload.id;
+      });
+      state.deliveries[index] = payload;
     },
     removeDelivery: (state, payload) => {
       const index = state.deliveries.findIndex(delivery => {
@@ -45378,9 +45523,15 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       });
       state.deliveries.splice(index, 1);
     },
-    hydrateDocuments: (state, payload) => {
-      state.documents = payload;
+    /**
+     * Hydrate the delivery documents.
+     */
+    hydrateDocuments: (state, documents) => {
+      state.documents = documents;
     },
+    /**
+     * Add a document.
+     */
     addDocument: (state, payload) => {
       state.documents.push(payload);
       const index = state.documents.findIndex(document => {
@@ -45393,18 +45544,11 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       __WEBPACK_IMPORTED_MODULE_0_vue___default.a.set(state.documents[index], 'articles', []);
     },
     updateDocument: (state, payload) => {
+      // console.log(payload);
       const index = state.documents.findIndex(document => {
-        if (document.id === payload.document.id) {
-          return true;
-        }
+        return document.id === payload.id;
       });
-      state.documents[index].article_id = payload.document.article_id;
-      state.documents[index].finish = payload.document.finish;
-      state.documents[index].quantity = payload.document.quantity;
-      state.documents[index].articles = payload.options;
-      state.documents[index].width = payload.document.width;
-      state.documents[index].height = payload.document.height;
-      state.documents[index].nb_orig = payload.document.nb_orig;
+      state.documents[index] = payload;
     },
     removeDocument: (state, document) => {
       const index = state.documents.findIndex(item => {
@@ -45412,17 +45556,8 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       });
       state.documents.splice(index, 1);
     },
-    cloneOptions: (state, payload) => {
-      state.documents.forEach(document => {
-        if (document.delivery_id === payload.deliveryId) {
-          document.article_id = payload.print;
-          document.finish = payload.finish;
-          document.quantity = payload.quantity;
-          document.articles = payload.optionModels;
-          document.width = payload.width;
-          document.height = payload.height;
-        }
-      });
+    mutateValidationErrors: (state, errors) => {
+      state.validationErrors = errors;
     }
   },
 
@@ -45458,6 +45593,24 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       commit('hydrateDeliveries', payload);
     },
     /**
+     * Set the validation errors.
+     */
+    setValidationErrors({ commit }, errors) {
+      commit('mutateValidationErrors', errors);
+    },
+    /**
+     * Complete the order.
+     */
+    completeOrder({ commit }, order) {
+      return _asyncToGenerator(function* () {
+        commit('toggleLoader');
+        yield window.axios.patch(window.route("orders.complete.update", [order.reference]), order).catch(function (err) {
+          commit('toggleLoader');
+          return Promise.reject(err);
+        });
+      })();
+    },
+    /**
      * Update an existing order.
      */
     updateOrder({ commit }, order) {
@@ -45488,18 +45641,20 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     /**
      * Update an existing delivery.
      */
-    updateDelivery({ commit }, delivery) {
+    updateDelivery({ commit }, payload) {
       return _asyncToGenerator(function* () {
-        yield window.axios.patch(window.route('deliveries.update', [delivery.reference]), {
-          id: delivery.id,
-          reference: delivery.reference,
-          note: delivery.note,
-          admin_note: delivery.admin_note,
-          to_deliver_at: delivery.to_deliver_at,
-          order_id: delivery.order_id,
-          contact_id: delivery.contact.value,
-          pickup: delivery.pickup
-        });
+        const delivery = {
+          id: payload.id,
+          reference: payload.reference,
+          note: payload.note,
+          admin_note: payload.admin_note,
+          to_deliver_at: payload.to_deliver_at,
+          order_id: payload.order_id,
+          contact_id: payload.contact.value,
+          pickup: payload.pickup
+        };
+        commit('updateDelivery', delivery);
+        yield window.axios.patch(window.route('deliveries.update', [delivery.reference]), delivery);
       })();
     },
     /**
@@ -45509,9 +45664,12 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
       window.axios.delete(window.route('deliveries.destroy', [delivery.reference]));
       commit('removeDelivery', delivery);
     },
-    hydrateDocuments: ({ commit }, payload) => {
-      commit('hydrateDocuments', payload);
+    hydrateDocuments: ({ commit }, documents) => {
+      commit('hydrateDocuments', documents);
     },
+    /**
+     * Add a document.
+     */
     addDocument: ({ commit }, payload) => {
       commit('addDocument', payload);
     },
@@ -45520,6 +45678,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
      */
     updateDocument({ commit }, document) {
       return _asyncToGenerator(function* () {
+        commit('updateDocument', document);
         yield window.axios.patch(window.route("documents.update", [document.id]), {
           id: document.id,
           article_id: document.printType.value,
@@ -69242,10 +69401,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('button', {
-    staticClass: "btn btn--warning",
+  return _c('Button', {
     attrs: {
-      "role": "button"
+      "primary": "",
+      "orange": ""
     },
     on: {
       "click": function($event) {
@@ -69255,7 +69414,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-redo"
-  }), _vm._v("\n    Renvoyer l'email de confirmation\n  ")])])
+  }), _vm._v("\n  Renvoyer l'email de confirmation\n")])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -69309,7 +69468,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "allow-create-contact": ""
     },
     on: {
-      "input": _vm.update
+      "input": _vm.updateContact
     },
     model: {
       value: (_vm.currentOrder.contact),
@@ -69351,7 +69510,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addDelivery($event)
       }
     }
-  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _c('transition', {
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), (!_vm.preview && _vm.hasValidationErrors) ? _c('div', {
+    staticClass: "error__container"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation-triangle fa-2x"
+  }), _vm._v(" "), _c('ul', {
+    staticClass: "error__list"
+  }, [(_vm.hasValidationErrors) ? _c('li', [_vm._v("\n        " + _vm._s(_vm.getValidationErrors.contact_id[0]) + "\n      ")]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "fade"
     }
@@ -69435,7 +69600,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": function($event) {
         $event.preventDefault();
-        _vm.completeOrder($event)
+        _vm.complete($event)
       }
     }
   }, [_c('i', {
@@ -72833,7 +72998,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "variant": "printTypes"
     },
     on: {
-      "input": _vm.update
+      "input": _vm.updateArticle
     },
     model: {
       value: (_vm.currentDocument.printType),
@@ -74473,10 +74638,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "profile__header-item"
   }, [_vm._v("\n        Compte non vérifié\n      ")]) : _vm._e(), _vm._v(" "), (!_vm.user.email_confirmed) ? _c('SendConfirmationEmailAgain', {
     staticClass: "profile__header-item"
-  }) : _vm._e(), _vm._v(" "), _c('button', {
-    staticClass: "button__primary button__primary--red button__primary--long",
+  }) : _vm._e(), _vm._v(" "), _c('Button', {
     attrs: {
-      "role": "button"
+      "primary": "",
+      "red": "",
+      "long": ""
     },
     on: {
       "click": function($event) {
@@ -75053,7 +75219,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": 'delivery-file-upload-' + _vm.delivery.id
     }
-  })], 2)
+  }), _vm._v(" "), ((!_vm.preview && _vm.hasErrors) || (!_vm.preview && _vm.hasErrorsRelatedToDocuments)) ? _c('div', [_c('div', {
+    staticClass: "error__container"
+  }, [_c('i', {
+    staticClass: "fas fa-exclamation fa-2x"
+  }), _vm._v(" "), _c('ul', {
+    staticClass: "error__list"
+  }, [(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")]) ? _c('li', [_vm._v("\n          " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")][0]) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")]) ? _c('li', [_vm._v("\n          " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")][0]) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".documents")]) ? _c('li', [_vm._v("\n          La livraison doit contenir au minimum un document.\n        ")]) : _vm._e(), _vm._v(" "), (_vm.hasErrorsRelatedToDocuments) ? _c('li', [_vm._v("\n          Vous devez sélectionner un type d'impression pour chaque document de cette livraison.\n        ")]) : _vm._e()])])]) : _vm._e()], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

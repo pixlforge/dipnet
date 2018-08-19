@@ -31,11 +31,10 @@ class CompleteOrderRequest extends FormRequest
             'user_id' => 'required_without:company_id|nullable|exists:users,id',
             'deliveries' => 'required|min:1',
             'deliveries.*.id' => 'exists:deliveries,id',
-            'deliveries.*.*.contact_id' => 'required|exists:contacts,id',
-            'deliveries.*.*.to_deliver_at' => 'required',
-            'deliveries.*.*.documents' => 'required|min:1',
-            'deliveries.*.*.documents.*.id' => 'exists:documents,id',
-            'deliveries.*.*.documents.*.article_id' => 'required',
+            'deliveries.*.contact_id' => 'required|exists:contacts,id',
+            'deliveries.*.to_deliver_at' => 'required',
+            'deliveries.*.documents' => 'min:1',
+            'deliveries.*.documents.*.article_id' => 'required'
         ];
     }
 
@@ -66,17 +65,10 @@ class CompleteOrderRequest extends FormRequest
             
             'deliveries.*.id.exists' => "Aucune livraison portant cette référence n'existe.",
 
-            'deliveries.*.*.contact_id.required' => "Aucun contact de livraison n'est spécifié pour la livraison.",
-            'deliveries.*.*.contact_id.exists' => "Aucun contact de livraison portant cette référence n'existe.",
+            'deliveries.*.contact_id.required' => "Aucun contact de livraison n'est spécifié pour la livraison.",
+            'deliveries.*.contact_id.exists' => "Aucun contact de livraison portant cette référence n'existe.",
 
-            'deliveries.*.*.to_deliver_at.required' => 'Une date de livraison est requise.',
-
-            'deliveries.*.*.documents.required' => 'Les documents relatifs à la livraison sont requis.',
-            'deliveries.*.*.documents.min' => 'La livraison doit contenir au minimum un document.',
-
-            'deliveries.*.*.documents.*.id.exists' => "Aucun document portant cette référence n'existe.",
-
-            'deliveries.*.*.documents.*.article_id.required' => "Une option d'impression est requise.",
+            'deliveries.*.to_deliver_at.required' => 'Une date de livraison est requise.',
         ];
     }
 }

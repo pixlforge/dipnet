@@ -3,7 +3,9 @@
         "eslint:recommended",
         "plugin:vue/recommended"
     ],
-    "rules": {},
+    "rules": {
+        "no-unused-vars": "off"
+    },
     "parserOptions": {
         "ecmaVersion": 2017
     }
