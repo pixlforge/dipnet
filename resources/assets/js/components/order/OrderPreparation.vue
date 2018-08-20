@@ -54,13 +54,14 @@
           :order="order"
           :count="index + 1"
           :preview="preview"
-          :user="user"/>
+          :user="user"
+          :admin="admin"/>
       </div>
     </transition>
 
     <!-- Add delivery button -->
     <div
-      v-if="!preview && !animate"
+      v-if="!preview && !animate && !admin"
       role="button"
       class="order__controls"
       @click.prevent="addDelivery">
@@ -172,7 +173,7 @@
         
         <!-- Preview button -->
         <Button
-          v-if="!preview && !animate"
+          v-if="!preview && !animate && !admin"
           primary
           red
           long
@@ -260,6 +261,13 @@ export default {
       type: Array,
       required: true
     },
+    formats: {
+      type: Array,
+      required: false,
+      default() {
+        return [];
+      }
+    },
     order: {
       type: Object,
       required: true
@@ -267,6 +275,11 @@ export default {
     user: {
       type: Object,
       required: true
+    },
+    admin: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -327,6 +340,7 @@ export default {
     this.onBusinessCreated();
     this.bindAddContactHandler();
     this.bindAddBusinessHandler();
+    this.hydrateFormats(this.formats);
     this.hydrateContacts(this.contacts);
     this.hydrateDocuments(this.documents);
     this.hydrateDeliveries(this.deliveries);
@@ -345,6 +359,7 @@ export default {
       "toggleLoader",
       "completeOrder",
       "createDelivery",
+      "hydrateFormats",
       "hydrateContacts",
       "hydrateDocuments",
       "hydrateDeliveries",

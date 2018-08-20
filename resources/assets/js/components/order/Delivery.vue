@@ -181,11 +181,12 @@
       :delivery="delivery"
       :document="document"
       :options="document.articles"
-      :preview="preview"/>
+      :preview="preview"
+      :admin="admin"/>
     
     <!-- Dropzone -->
     <div
-      v-show="!preview"
+      v-show="!preview && !admin"
       :id="'delivery-file-upload-' + delivery.id"
       class="dropzone"/>
 
@@ -255,6 +256,11 @@ export default {
       default() {
         return {};
       }
+    },
+    admin: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {

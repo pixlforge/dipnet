@@ -81,6 +81,54 @@
             @blur="checkQuantity">
         </div>
       </div>
+
+      <!-- Admin only controls -->
+      <div
+        v-if="admin"
+        class="document__options-container">
+
+        <!-- Format -->
+        <div class="document__option">
+          <h4 class="document__option-label">Format</h4>
+          <AppSelect
+            :options="listFormats"
+            formats
+            @input="selectFormat">
+            Sélectionner
+          </AppSelect>
+        </div>
+
+        <!-- Width -->
+        <div class="document__option">
+          <h4 class="document__option-label">Largeur</h4>
+          <input
+            v-model.number="currentDocument.width"
+            type="number"
+            class="document__input"
+            @blur="update">
+        </div>
+
+        <!-- Height -->
+        <div class="document__option">
+          <h4 class="document__option-label">Hauteur</h4>
+          <input
+            v-model.number="currentDocument.height"
+            type="number"
+            class="document__input"
+            @blur="update">
+        </div>
+        
+        <!-- Nb orig -->
+        <div class="document__option">
+          <h4 class="document__option-label">Pages</h4>
+          <input
+            v-model.number="currentDocument.nb_orig"
+            type="number"
+            class="document__input"
+            @blur="update">
+        </div>
+        
+      </div>
     </div>
 
     <!-- Controls -->
@@ -147,6 +195,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    admin: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -157,6 +210,9 @@ export default {
         delivery_id: this.document.delivery_id,
         quantity: this.document.quantity,
         media: this.document.media,
+        width: this.document.width,
+        height: this.document.height,
+        nb_orig: this.document.nb_orig ? this.document.nb_orig : 1,
         printType: {
           label: "",
           type: "",
@@ -172,14 +228,16 @@ export default {
       optionsForFinish: [
         { label: "plié", value: null },
         { label: "roulé", value: null }
-      ]
+      ],
+      optionsForFormat: []
     };
   },
   computed: {
     ...mapGetters([
+      "listFormats",
+      "listDocuments",
       "listArticlePrintTypes",
-      "listArticleOptionTypes",
-      "listDocuments"
+      "listArticleOptionTypes"
     ]),
     fileType() {
       const mime_type = this.document.media[0].mime_type;
@@ -242,6 +300,11 @@ export default {
     async destroy() {
       await this.deleteDocument(this.currentDocument);
     },
+    selectFormat(event) {
+      this.currentDocument.width = event.value.width;
+      this.currentDocument.height = event.value.height;
+      this.update();
+    },
     addOption(option) {
       const index = this.currentDocument.options.findIndex(item => {
         return item.value === option.value;
@@ -281,6 +344,9 @@ export default {
           this.currentDocument.article_id = document.printType.value;
           this.currentDocument.finish = document.finish;
           this.currentDocument.quantity = document.quantity;
+          this.currentDocument.width = document.width;
+          this.currentDocument.height = document.height;
+          this.currentDocument.nb_orig = document.nb_orig;
           this.currentDocument.options = [];
           document.options.forEach(option => {
             const index = this.currentDocument.options.findIndex(item => {

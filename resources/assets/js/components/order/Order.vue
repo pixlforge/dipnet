@@ -96,7 +96,7 @@ export default {
       return window.route("orders.complete.show", [this.order.reference]);
     },
     adminRoute() {
-      return window.route("orders.show", [this.order.reference]);
+      return window.route("admin.orders.show", [this.order.reference]);
     },
     orderRoute() {
       if (this.userRole === "administrateur") {

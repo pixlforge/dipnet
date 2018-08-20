@@ -15,6 +15,7 @@ export const store = new Vuex.Store({
         finish: ""
       }
     },
+    formats: [],
     businesses: [],
     contacts: [],
     rawContacts: [],
@@ -57,6 +58,9 @@ export const store = new Vuex.Store({
     listDocuments: state => {
       return state.documents;
     },
+    listFormats: state => {
+      return state.formats;
+    },
     getValidationErrors: state => {
       return state.validationErrors;
     }
@@ -95,6 +99,20 @@ export const store = new Vuex.Store({
     hydrateBusinesses: (state, businesses) => {
       state.businesses = businesses.map(business => {
         return { label: business.name, value: business.id };
+      });
+    },
+    /**
+     * Hydrate the formats.
+     */
+    hydrateFormats: (state, formats) => {
+      state.formats = formats.map(format => {
+        return {
+          label: format.name,
+          value: {
+            width: format.width,
+            height: format.height
+          },
+        }
       });
     },
     /**
@@ -204,6 +222,9 @@ export const store = new Vuex.Store({
     hydrateContacts: ({ commit }, payload) => {
       commit('hydrateContacts', payload)
     },
+    hydrateFormats({ commit }, formats) {
+      commit('hydrateFormats', formats);
+    },
     /**
      * Add a new contact.
      */
@@ -306,7 +327,10 @@ export const store = new Vuex.Store({
         quantity: document.quantity,
         options: document.options.map(option => {
           return { article_id: option.value }
-        })
+        }),
+        nb_orig: document.nb_orig,
+        width: document.width,
+        height: document.height
       });
     },
     /**

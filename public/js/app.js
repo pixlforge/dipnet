@@ -38809,6 +38809,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -38852,6 +38853,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       default() {
         return {};
       }
+    },
+    admin: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -39185,6 +39191,54 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -39223,6 +39277,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       type: Boolean,
       required: false,
       default: false
+    },
+    admin: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -39233,6 +39292,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         delivery_id: this.document.delivery_id,
         quantity: this.document.quantity,
         media: this.document.media,
+        width: this.document.width,
+        height: this.document.height,
+        nb_orig: this.document.nb_orig ? this.document.nb_orig : 1,
         printType: {
           label: "",
           type: "",
@@ -39245,10 +39307,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         },
         options: []
       },
-      optionsForFinish: [{ label: "plié", value: null }, { label: "roulé", value: null }]
+      optionsForFinish: [{ label: "plié", value: null }, { label: "roulé", value: null }],
+      optionsForFormat: []
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(["listArticlePrintTypes", "listArticleOptionTypes", "listDocuments"]), {
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(["listFormats", "listDocuments", "listArticlePrintTypes", "listArticleOptionTypes"]), {
     fileType() {
       const mime_type = this.document.media[0].mime_type;
       if (this.fileTypeImage(mime_type)) {
@@ -39315,6 +39378,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         yield _this2.deleteDocument(_this2.currentDocument);
       })();
     },
+    selectFormat(event) {
+      this.currentDocument.width = event.value.width;
+      this.currentDocument.height = event.value.height;
+      this.update();
+    },
     addOption(option) {
       const index = this.currentDocument.options.findIndex(item => {
         return item.value === option.value;
@@ -39348,6 +39416,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           this.currentDocument.article_id = document.printType.value;
           this.currentDocument.finish = document.finish;
           this.currentDocument.quantity = document.quantity;
+          this.currentDocument.width = document.width;
+          this.currentDocument.height = document.height;
+          this.currentDocument.nb_orig = document.nb_orig;
           this.currentDocument.options = [];
           document.options.forEach(option => {
             const index = this.currentDocument.options.findIndex(item => {
@@ -39484,7 +39555,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return window.route("orders.complete.show", [this.order.reference]);
     },
     adminRoute() {
-      return window.route("orders.show", [this.order.reference]);
+      return window.route("admin.orders.show", [this.order.reference]);
     },
     orderRoute() {
       if (this.userRole === "administrateur") {
@@ -39750,6 +39821,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -39794,6 +39866,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       type: Array,
       required: true
     },
+    formats: {
+      type: Array,
+      required: false,
+      default() {
+        return [];
+      }
+    },
     order: {
       type: Object,
       required: true
@@ -39801,6 +39880,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     user: {
       type: Object,
       required: true
+    },
+    admin: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -39853,6 +39937,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     this.onBusinessCreated();
     this.bindAddContactHandler();
     this.bindAddBusinessHandler();
+    this.hydrateFormats(this.formats);
     this.hydrateContacts(this.contacts);
     this.hydrateDocuments(this.documents);
     this.hydrateDeliveries(this.deliveries);
@@ -39864,7 +39949,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     this.findSelectedBusiness();
     this.checkIfAtLeastOneDeliveryExists();
   },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["c" /* mapActions */])(["addContact", "addBusiness", "toggleLoader", "completeOrder", "createDelivery", "hydrateContacts", "hydrateDocuments", "hydrateDeliveries", "hydrateBusinesses", "hydrateArticleTypes", "setValidationErrors"]), {
+  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["c" /* mapActions */])(["addContact", "addBusiness", "toggleLoader", "completeOrder", "createDelivery", "hydrateFormats", "hydrateContacts", "hydrateDocuments", "hydrateDeliveries", "hydrateBusinesses", "hydrateArticleTypes", "setValidationErrors"]), {
     updateContact() {
       if (this.currentOrder.contact.value) {
         this.currentOrder.contact_id = this.currentOrder.contact.value;
@@ -41932,6 +42017,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -41986,6 +42083,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     userIsSolo: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    formats: {
       type: Boolean,
       required: false,
       default: false
@@ -45447,6 +45549,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         finish: ""
       }
     },
+    formats: [],
     businesses: [],
     contacts: [],
     rawContacts: [],
@@ -45489,6 +45592,9 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     listDocuments: state => {
       return state.documents;
     },
+    listFormats: state => {
+      return state.formats;
+    },
     getValidationErrors: state => {
       return state.validationErrors;
     }
@@ -45527,6 +45633,20 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     hydrateBusinesses: (state, businesses) => {
       state.businesses = businesses.map(business => {
         return { label: business.name, value: business.id };
+      });
+    },
+    /**
+     * Hydrate the formats.
+     */
+    hydrateFormats: (state, formats) => {
+      state.formats = formats.map(format => {
+        return {
+          label: format.name,
+          value: {
+            width: format.width,
+            height: format.height
+          }
+        };
       });
     },
     /**
@@ -45635,6 +45755,9 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     },
     hydrateContacts: ({ commit }, payload) => {
       commit('hydrateContacts', payload);
+    },
+    hydrateFormats({ commit }, formats) {
+      commit('hydrateFormats', formats);
     },
     /**
      * Add a new contact.
@@ -45746,7 +45869,10 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
           quantity: document.quantity,
           options: document.options.map(function (option) {
             return { article_id: option.value };
-          })
+          }),
+          nb_orig: document.nb_orig,
+          width: document.width,
+          height: document.height
         });
       })();
     },
@@ -69556,10 +69682,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "order": _vm.order,
         "count": index + 1,
         "preview": _vm.preview,
-        "user": _vm.user
+        "user": _vm.user,
+        "admin": _vm.admin
       }
     })
-  }))]), _vm._v(" "), (!_vm.preview && !_vm.animate) ? _c('div', {
+  }))]), _vm._v(" "), (!_vm.preview && !_vm.animate && !_vm.admin) ? _c('div', {
     staticClass: "order__controls",
     attrs: {
       "role": "button"
@@ -69665,7 +69792,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-paper-plane"
-  }), _vm._v("\n          Finaliser et envoyer la commande\n        ")])], 1) : _vm._e(), _vm._v(" "), (!_vm.preview && !_vm.animate) ? _c('Button', {
+  }), _vm._v("\n          Finaliser et envoyer la commande\n        ")])], 1) : _vm._e(), _vm._v(" "), (!_vm.preview && !_vm.animate && !_vm.admin) ? _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -73151,7 +73278,111 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$set(_vm.currentDocument, "quantity", _vm._n($event.target.value))
       }
     }
-  })])])]), _vm._v(" "), _c('div', {
+  })])]), _vm._v(" "), (_vm.admin) ? _c('div', {
+    staticClass: "document__options-container"
+  }, [_c('div', {
+    staticClass: "document__option"
+  }, [_c('h4', {
+    staticClass: "document__option-label"
+  }, [_vm._v("Format")]), _vm._v(" "), _c('AppSelect', {
+    attrs: {
+      "options": _vm.listFormats,
+      "formats": ""
+    },
+    on: {
+      "input": _vm.selectFormat
+    }
+  }, [_vm._v("\n          Sélectionner\n        ")])], 1), _vm._v(" "), _c('div', {
+    staticClass: "document__option"
+  }, [_c('h4', {
+    staticClass: "document__option-label"
+  }, [_vm._v("Largeur")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number",
+      value: (_vm.currentDocument.width),
+      expression: "currentDocument.width",
+      modifiers: {
+        "number": true
+      }
+    }],
+    staticClass: "document__input",
+    attrs: {
+      "type": "number"
+    },
+    domProps: {
+      "value": (_vm.currentDocument.width)
+    },
+    on: {
+      "blur": [_vm.update, function($event) {
+        _vm.$forceUpdate()
+      }],
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.currentDocument, "width", _vm._n($event.target.value))
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "document__option"
+  }, [_c('h4', {
+    staticClass: "document__option-label"
+  }, [_vm._v("Hauteur")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number",
+      value: (_vm.currentDocument.height),
+      expression: "currentDocument.height",
+      modifiers: {
+        "number": true
+      }
+    }],
+    staticClass: "document__input",
+    attrs: {
+      "type": "number"
+    },
+    domProps: {
+      "value": (_vm.currentDocument.height)
+    },
+    on: {
+      "blur": [_vm.update, function($event) {
+        _vm.$forceUpdate()
+      }],
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.currentDocument, "height", _vm._n($event.target.value))
+      }
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "document__option"
+  }, [_c('h4', {
+    staticClass: "document__option-label"
+  }, [_vm._v("Pages")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model.number",
+      value: (_vm.currentDocument.nb_orig),
+      expression: "currentDocument.nb_orig",
+      modifiers: {
+        "number": true
+      }
+    }],
+    staticClass: "document__input",
+    attrs: {
+      "type": "number"
+    },
+    domProps: {
+      "value": (_vm.currentDocument.nb_orig)
+    },
+    on: {
+      "blur": [_vm.update, function($event) {
+        _vm.$forceUpdate()
+      }],
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.currentDocument, "nb_orig", _vm._n($event.target.value))
+      }
+    }
+  })])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "document__controls"
   }, [_c('Button', {
     staticClass: "document__delete-button",
@@ -74518,7 +74749,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v("\n        " + _vm._s(_vm._f("capitalize")(option.label)) + "\n      ")]) : _vm._e()
-  })], 2) : _vm._e(), _vm._v(" "), (!_vm.variant && !_vm.disabled) ? _c('ul', {
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.formats) ? _c('ul', {
+    staticClass: "dropdown__list"
+  }, _vm._l((_vm.options), function(option) {
+    return _c('li', {
+      key: option.label,
+      on: {
+        "click": function($event) {
+          $event.preventDefault();
+          _vm.selectOption(option)
+        }
+      }
+    }, [_vm._v("\n        " + _vm._s(((option.label) + " (" + (option.value.width) + " x " + (option.value.height) + ")")) + "\n      ")])
+  })) : _vm._e(), _vm._v(" "), (!_vm.variant && !_vm.formats && !_vm.disabled) ? _c('ul', {
     staticClass: "dropdown__list"
   }, [(!_vm.userIsSolo) ? _vm._l((_vm.options), function(option) {
     return _c('li', {
@@ -75298,15 +75541,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "delivery": _vm.delivery,
         "document": document,
         "options": document.articles,
-        "preview": _vm.preview
+        "preview": _vm.preview,
+        "admin": _vm.admin
       }
     })
   }), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (!_vm.preview),
-      expression: "!preview"
+      value: (!_vm.preview && !_vm.admin),
+      expression: "!preview && !admin"
     }],
     staticClass: "dropzone",
     attrs: {

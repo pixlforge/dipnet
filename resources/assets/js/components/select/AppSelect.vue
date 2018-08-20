@@ -51,9 +51,21 @@
         </li>
       </ul>
 
+      <!-- Formats -->
+      <ul
+        v-if="formats"
+        class="dropdown__list">
+        <li
+          v-for="option in options"
+          :key="option.label"
+          @click.prevent="selectOption(option)">
+          {{ `${option.label} (${option.value.width} x ${option.value.height})` }}
+        </li>
+      </ul>
+
       <!-- Standard list -->
       <ul
-        v-if="!variant && !disabled"
+        v-if="!variant && !formats && !disabled"
         class="dropdown__list">
         <template v-if="!userIsSolo">
           <li
@@ -142,6 +154,11 @@ export default {
       }
     },
     userIsSolo: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    formats: {
       type: Boolean,
       required: false,
       default: false

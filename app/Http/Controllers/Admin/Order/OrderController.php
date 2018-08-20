@@ -31,7 +31,7 @@ class OrderController extends Controller
 
         $deliveries = $this->getOrderDeliveries($order);
         $articles = Article::all();
-        $documents = $order->documents()->with('articles')->get();
+        $documents = $order->documents()->with('articles', 'media')->get();
 
         $contacts = Contact::all();
         $businesses = Business::all();

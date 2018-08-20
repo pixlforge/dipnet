@@ -17,7 +17,9 @@ class DocumentPolicy
      */
     public function touch(User $user, Document $document)
     {
-        if ($user->isPartOfACompany()) {
+        if ($user->isAdmin()) {
+            return true;
+        } elseif ($user->isPartOfACompany()) {
             return $document->delivery->order->company_id == $user->company->id;
         } elseif ($user->isSolo()) {
             return $document->delivery->order->user_id == $user->id;
