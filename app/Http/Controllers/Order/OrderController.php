@@ -92,6 +92,11 @@ class OrderController extends Controller
         $order->status = $request->status;
         $order->business_id = $request->business_id;
         $order->contact_id = $request->contact_id;
+
+        if (auth()->user()->isAdmin()) {
+            $order->managedBy()->associate(auth()->id());
+        }
+
         $order->save();
 
         return response($order, 200);
