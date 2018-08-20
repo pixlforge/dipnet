@@ -1,5 +1,7 @@
 <template>
-  <form class="searchbar">
+  <form
+    class="searchbar"
+    @submit.prevent>
     <i class="fal fa-search"/>
     <input
       v-model="search.query"
@@ -7,70 +9,86 @@
       type="text"
       class="searchbar__input"
       placeholder="Rechercher"
-      @keyup.prevent="research">
+      @keyup.prevent="debounceInput">
     <transition name="fade">
       <ul
         v-if="search.query.length > 1"
         class="searchbar__dropdown">
         <li v-if="searching">Recherche en cours...</li>
         
+        <!-- Orders -->
         <div v-if="containsOrders">
           <h6 class="searchbar__title">Commandes</h6>
           <li
-            v-for="(result, index) in results.orders"
-            :key="index">
-            <a :href="'/orders/' + result.id">{{ result.reference }}</a>
+            v-for="result in results.orders"
+            :key="result.id">
+            <a :href="`/orders/${result.id}`">
+              {{ result.reference }}
+            </a>
           </li>
         </div>
         
+        <!-- Companies -->
         <div v-if="containsCompanies">
           <li
             v-if="containsOrders"
             class="dropdown__list-item-divider"/>
           <h6 class="searchbar__title">Sociétés</h6>
           <li
-            v-for="(result, index) in results.companies"
-            :key="index">
-            <a :href="'/companies/' + result.id">{{ result.name }}</a>
+            v-for="result in results.companies"
+            :key="result.id">
+            <a :href="`/companies/${result.id}`">
+              {{ result.name }}
+            </a>
           </li>
         </div>
         
+        <!-- Businesses -->
         <div v-if="containsBusinesses">
           <li
             v-if="containsOrders || containsCompanies"
             class="dropdown__list-item-divider"/>
           <h6 class="searchbar__title">Affaires</h6>
           <li
-            v-for="(result, index) in results.businesses"
-            :key="index">
-            <a :href="'/businesses/' + result.id">{{ result.name }}</a>
+            v-for="result in results.businesses"
+            :key="result.id">
+            <a :href="`/businesses/${result.id}`">
+              {{ result.name }}
+            </a>
           </li>
         </div>
         
+        <!-- Deliveries -->
         <div v-if="containsDeliveries">
           <li
             v-if="containsOrders || containsCompanies || containsBusinesses"
             class="dropdown__list-item-divider"/>
           <h6 class="searchbar__title">Livraisons</h6>
           <li
-            v-for="(result, index) in results.deliveries"
-            :key="index">
-            <a :href="'/deliveries/' + result.id">{{ result.reference }}</a>
+            v-for="result in results.deliveries"
+            :key="result.id">
+            <a :href="`/deliveries/${result.id}`">
+              {{ result.reference }}
+            </a>
           </li>
         </div>
         
+        <!-- Contacts -->
         <div v-if="containsContacts">
           <li
             v-if="containsOrders || containsCompanies || containsBusinesses || containsDeliveries"
             class="dropdown__list-item-divider"/>
           <h6 class="searchbar__title">Contacts</h6>
           <li
-            v-for="(result, index) in results.contacts"
-            :key="index">
-            <a :href="'/contacts/' + result.id">{{ result.name }}</a>
+            v-for="result in results.contacts"
+            :key="result.id">
+            <a :href="`/contacts/${result.id}`">
+              {{ result.name }}
+            </a>
           </li>
         </div>
 
+        <!-- No result -->
         <li
           v-if="search.query.length > 1 && !searching && !containsOrders && !containsCompanies && !containsBusinesses && !containsDeliveries && !containsContacts">
           Aucun résultat
@@ -115,9 +133,8 @@ export default {
     }
   },
   methods: {
-    research() {
+    debounceInput: window._.debounce(function() {
       if (this.search.query.length > 1) {
-        this.toggleSearch();
         window.axios
           .post(window.route("search.query"), this.search)
           .then(response => {
@@ -126,16 +143,9 @@ export default {
             this.results.businesses = response.data[2];
             this.results.deliveries = response.data[3];
             this.results.contacts = response.data[4];
-            this.toggleSearch();
-          })
-          .catch(() => {
-            this.toggleSearch();
           });
       }
-    },
-    toggleSearch() {
-      this.searching = !this.searching;
-    }
+    }, 500)
   }
 };
 </script>

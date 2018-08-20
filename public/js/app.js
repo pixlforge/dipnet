@@ -41936,6 +41936,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data() {
@@ -41971,24 +41989,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
-    research() {
+    debounceInput: window._.debounce(function () {
       if (this.search.query.length > 1) {
-        this.toggleSearch();
         window.axios.post(window.route("search.query"), this.search).then(response => {
           this.results.orders = response.data[0];
           this.results.companies = response.data[1];
           this.results.businesses = response.data[2];
           this.results.deliveries = response.data[3];
           this.results.contacts = response.data[4];
-          this.toggleSearch();
-        }).catch(() => {
-          this.toggleSearch();
         });
       }
-    },
-    toggleSearch() {
-      this.searching = !this.searching;
-    }
+    }, 500)
   }
 });
 
@@ -71814,7 +71825,12 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('form', {
-    staticClass: "searchbar"
+    staticClass: "searchbar",
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+      }
+    }
   }, [_c('i', {
     staticClass: "fal fa-search"
   }), _vm._v(" "), _c('input', {
@@ -71836,7 +71852,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "keyup": function($event) {
         $event.preventDefault();
-        _vm.research($event)
+        _vm.debounceInput($event)
       },
       "input": function($event) {
         if ($event.target.composing) { return; }
@@ -71851,62 +71867,62 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "searchbar__dropdown"
   }, [(_vm.searching) ? _c('li', [_vm._v("Recherche en cours...")]) : _vm._e(), _vm._v(" "), (_vm.containsOrders) ? _c('div', [_c('h6', {
     staticClass: "searchbar__title"
-  }, [_vm._v("Commandes")]), _vm._v(" "), _vm._l((_vm.results.orders), function(result, index) {
+  }, [_vm._v("Commandes")]), _vm._v(" "), _vm._l((_vm.results.orders), function(result) {
     return _c('li', {
-      key: index
+      key: result.id
     }, [_c('a', {
       attrs: {
-        "href": '/orders/' + result.id
+        "href": ("/orders/" + (result.id))
       }
-    }, [_vm._v(_vm._s(result.reference))])])
+    }, [_vm._v("\n            " + _vm._s(result.reference) + "\n          ")])])
   })], 2) : _vm._e(), _vm._v(" "), (_vm.containsCompanies) ? _c('div', [(_vm.containsOrders) ? _c('li', {
     staticClass: "dropdown__list-item-divider"
   }) : _vm._e(), _vm._v(" "), _c('h6', {
     staticClass: "searchbar__title"
-  }, [_vm._v("Sociétés")]), _vm._v(" "), _vm._l((_vm.results.companies), function(result, index) {
+  }, [_vm._v("Sociétés")]), _vm._v(" "), _vm._l((_vm.results.companies), function(result) {
     return _c('li', {
-      key: index
+      key: result.id
     }, [_c('a', {
       attrs: {
-        "href": '/companies/' + result.id
+        "href": ("/companies/" + (result.id))
       }
-    }, [_vm._v(_vm._s(result.name))])])
+    }, [_vm._v("\n            " + _vm._s(result.name) + "\n          ")])])
   })], 2) : _vm._e(), _vm._v(" "), (_vm.containsBusinesses) ? _c('div', [(_vm.containsOrders || _vm.containsCompanies) ? _c('li', {
     staticClass: "dropdown__list-item-divider"
   }) : _vm._e(), _vm._v(" "), _c('h6', {
     staticClass: "searchbar__title"
-  }, [_vm._v("Affaires")]), _vm._v(" "), _vm._l((_vm.results.businesses), function(result, index) {
+  }, [_vm._v("Affaires")]), _vm._v(" "), _vm._l((_vm.results.businesses), function(result) {
     return _c('li', {
-      key: index
+      key: result.id
     }, [_c('a', {
       attrs: {
-        "href": '/businesses/' + result.id
+        "href": ("/businesses/" + (result.id))
       }
-    }, [_vm._v(_vm._s(result.name))])])
+    }, [_vm._v("\n            " + _vm._s(result.name) + "\n          ")])])
   })], 2) : _vm._e(), _vm._v(" "), (_vm.containsDeliveries) ? _c('div', [(_vm.containsOrders || _vm.containsCompanies || _vm.containsBusinesses) ? _c('li', {
     staticClass: "dropdown__list-item-divider"
   }) : _vm._e(), _vm._v(" "), _c('h6', {
     staticClass: "searchbar__title"
-  }, [_vm._v("Livraisons")]), _vm._v(" "), _vm._l((_vm.results.deliveries), function(result, index) {
+  }, [_vm._v("Livraisons")]), _vm._v(" "), _vm._l((_vm.results.deliveries), function(result) {
     return _c('li', {
-      key: index
+      key: result.id
     }, [_c('a', {
       attrs: {
-        "href": '/deliveries/' + result.id
+        "href": ("/deliveries/" + (result.id))
       }
-    }, [_vm._v(_vm._s(result.reference))])])
+    }, [_vm._v("\n            " + _vm._s(result.reference) + "\n          ")])])
   })], 2) : _vm._e(), _vm._v(" "), (_vm.containsContacts) ? _c('div', [(_vm.containsOrders || _vm.containsCompanies || _vm.containsBusinesses || _vm.containsDeliveries) ? _c('li', {
     staticClass: "dropdown__list-item-divider"
   }) : _vm._e(), _vm._v(" "), _c('h6', {
     staticClass: "searchbar__title"
-  }, [_vm._v("Contacts")]), _vm._v(" "), _vm._l((_vm.results.contacts), function(result, index) {
+  }, [_vm._v("Contacts")]), _vm._v(" "), _vm._l((_vm.results.contacts), function(result) {
     return _c('li', {
-      key: index
+      key: result.id
     }, [_c('a', {
       attrs: {
-        "href": '/contacts/' + result.id
+        "href": ("/contacts/" + (result.id))
       }
-    }, [_vm._v(_vm._s(result.name))])])
+    }, [_vm._v("\n            " + _vm._s(result.name) + "\n          ")])])
   })], 2) : _vm._e(), _vm._v(" "), (_vm.search.query.length > 1 && !_vm.searching && !_vm.containsOrders && !_vm.containsCompanies && !_vm.containsBusinesses && !_vm.containsDeliveries && !_vm.containsContacts) ? _c('li', [_vm._v("\n        Aucun résultat\n      ")]) : _vm._e()]) : _vm._e()])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
