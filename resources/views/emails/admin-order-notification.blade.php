@@ -79,7 +79,7 @@ Option: {{ $article->description }}<br>
 @endcomponent
 @endforeach
 
-@component('mail::button', ['url' => config('app.url') . '/orders/' . $order->reference . '/show'])
+@component('mail::button', ['url' => config('app.url') . '/orders/' . $order->reference . '/show', 'color' => 'red'])
 Visualiser la commande
 @endcomponent
 
