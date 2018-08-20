@@ -272,7 +272,8 @@ export const store = new Vuex.Store({
         to_deliver_at: payload.to_deliver_at,
         order_id: payload.order_id,
         contact_id: payload.contact.value,
-        pickup: payload.pickup
+        pickup: payload.pickup,
+        express: payload.express
       };
       commit('updateDelivery', delivery);
       await window.axios.patch(window.route('deliveries.update', [delivery.reference]), delivery);

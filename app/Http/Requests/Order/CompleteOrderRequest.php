@@ -33,7 +33,8 @@ class CompleteOrderRequest extends FormRequest
             'deliveries.*.id' => 'exists:deliveries,id',
             'deliveries.*.contact_id' => 'required_without:deliveries.*.pickup|nullable|exists:contacts,id',
             'deliveries.*.pickup' => 'required_without:deliveries.*.contact_id|nullable',
-            'deliveries.*.to_deliver_at' => 'required',
+            'deliveries.*.to_deliver_at' => 'required_if:deliveries.*.express,false',
+            'deliveries.*.express' => 'required_if:deliveries.*.to_deliver_at,null|boolean',
             'deliveries.*.documents' => 'min:1',
             'deliveries.*.documents.*.article_id' => 'required'
         ];
@@ -69,7 +70,7 @@ class CompleteOrderRequest extends FormRequest
             'deliveries.*.contact_id.required_without' => "Aucun contact de livraison n'est spécifié pour la livraison.",
             'deliveries.*.contact_id.exists' => "Aucun contact de livraison portant cette référence n'existe.",
 
-            'deliveries.*.to_deliver_at.required' => 'Une date de livraison est requise.',
+            'deliveries.*.to_deliver_at.required_if' => 'Vous devez sélectionner une date de livraison.',
         ];
     }
 }

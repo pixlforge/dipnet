@@ -22,6 +22,7 @@ class CreateDeliveriesTable extends Migration
             $table->unsignedInteger('contact_id')->nullable();
             $table->boolean('pickup')->nullable()->default(false);
             $table->dateTime('to_deliver_at')->nullable();
+            $table->boolean('express')->nullable()->default(false);
             $table->timestamps();
             $table->softDeletes();
 

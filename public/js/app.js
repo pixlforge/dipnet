@@ -5873,6 +5873,7 @@ const datepicker = {
   methods: {
     formatDeliveryDate(date) {
       this.currentDelivery.to_deliver_at = __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, "LL HH:mm").format("YYYY-MM-DD HH:mm:ss");
+      this.currentDelivery.express = false;
       this.deliveryDateString = __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, "LL HH:mm").format("LL [à] HH[h]mm");
       this.update();
     },
@@ -38780,6 +38781,34 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -38839,11 +38868,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           label: "",
           value: null
         },
-        pickup: this.delivery.pickup
+        pickup: this.delivery.pickup,
+        express: this.delivery.express ? this.delivery.express : false,
+        deliveryMode: {
+          label: "",
+          value: null
+        }
       },
       errors: {},
       showNote: this.delivery.note ? true : false,
-      deliveryDateString: "date à définir"
+      deliveryDateString: "date à définir",
+      optionsForDeliveryMode: [{ label: "Sélection d'une date", value: "date" }, { label: "Livraison éclair", value: "express" }]
     };
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["listContacts", "listRawContacts", "listDeliveries", "listDocuments", "getValidationErrors"]), {
@@ -38890,6 +38925,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   mounted() {
     this.initDropzone();
     this.determineDropzoneStyle();
+    this.determineDeliveryMode();
     this.findSelectedContact();
     this.getSelectedDeliveryDate();
   },
@@ -38977,6 +39013,28 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         templateHTML.classList.add("dropzone--small");
       } else {
         templateHTML.classList.remove("dropzone--small");
+      }
+    },
+    selectDeliveryMode(event) {
+      if (event.value === "express") {
+        this.currentDelivery.express = true;
+        this.currentDelivery.to_deliver_at = null;
+      } else if (event.value === "date") {
+        this.currentDelivery.express = false;
+      }
+      this.update();
+    },
+    determineDeliveryMode() {
+      if (this.delivery.express) {
+        this.currentDelivery.deliveryMode = {
+          label: this.optionsForDeliveryMode[1].label,
+          value: this.optionsForDeliveryMode[1].value
+        };
+      } else if (!this.delivery.express) {
+        this.currentDelivery.deliveryMode = {
+          label: this.optionsForDeliveryMode[0].label,
+          value: this.optionsForDeliveryMode[0].value
+        };
       }
     },
     onContactCreated() {
@@ -45652,7 +45710,8 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
           to_deliver_at: payload.to_deliver_at,
           order_id: payload.order_id,
           contact_id: payload.contact.value,
-          pickup: payload.pickup
+          pickup: payload.pickup,
+          express: payload.express
         };
         commit('updateDelivery', delivery);
         yield window.axios.patch(window.route('deliveries.update', [delivery.reference]), delivery);
@@ -75112,6 +75171,39 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "currentDelivery.contact"
     }
   }, [_c('p', [_vm._v(_vm._s(_vm.currentDelivery.contact.label ? _vm.currentDelivery.contact.label : 'Sélectionner'))])])], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "delivery__header-box"
+  }, [_c('div', {
+    staticClass: "delivery__details"
+  }, [_c('h3', {
+    staticClass: "delivery__label",
+    class: {
+      'delivery__label--preview': _vm.preview
+    }
+  }, [_vm._v("\n          Mode de livraison\n        ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
+    staticClass: "delivery__label delivery__label--bold delivery__label--preview"
+  }, [_vm._v("\n          " + _vm._s(_vm.currentDelivery.deliveryMode.label ? _vm.currentDelivery.deliveryMode.label : 'Sélectionner') + "\n        ")]) : _c('AppSelect', {
+    attrs: {
+      "options": _vm.optionsForDeliveryMode,
+      "large": "",
+      "darker": ""
+    },
+    on: {
+      "input": _vm.selectDeliveryMode
+    },
+    model: {
+      value: (_vm.currentDelivery.deliveryMode),
+      callback: function($$v) {
+        _vm.$set(_vm.currentDelivery, "deliveryMode", $$v)
+      },
+      expression: "currentDelivery.deliveryMode"
+    }
+  }, [_c('p', [_vm._v(_vm._s(_vm.currentDelivery.deliveryMode.label ? _vm.currentDelivery.deliveryMode.label : 'Sélectionner'))])])], 1)]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.currentDelivery.deliveryMode.value === 'date'),
+      expression: "currentDelivery.deliveryMode.value === 'date'"
+    }],
     staticClass: "delivery__header-box"
   }, [_c('div', {
     staticClass: "delivery__details"

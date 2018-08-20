@@ -61,6 +61,7 @@ class DeliveryController extends Controller
         
         $delivery->to_deliver_at = $request->to_deliver_at;
         $delivery->pickup = $request->pickup;
+        $delivery->express = $request->express;
         $delivery->save();
 
         return response($delivery, 200);

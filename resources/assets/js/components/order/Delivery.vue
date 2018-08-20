@@ -46,8 +46,36 @@
         </div>
       </div>
 
-      <!-- Datepicker -->
+      <!-- Delivery mode -->
       <div class="delivery__header-box">
+        <div class="delivery__details">
+          <h3
+            :class="{ 'delivery__label--preview': preview }"
+            class="delivery__label">
+            Mode de livraison
+          </h3>
+          <h3
+            v-if="preview"
+            class="delivery__label delivery__label--bold delivery__label--preview">
+            {{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'Sélectionner' }}
+          </h3>
+
+          <AppSelect
+            v-else
+            :options="optionsForDeliveryMode"
+            v-model="currentDelivery.deliveryMode"
+            large
+            darker
+            @input="selectDeliveryMode">
+            <p>{{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'Sélectionner' }}</p>
+          </AppSelect>
+        </div>
+      </div>
+
+      <!-- Datepicker -->
+      <div
+        v-show="currentDelivery.deliveryMode.value === 'date'"
+        class="delivery__header-box">
         <div class="delivery__details">
 
           <!-- Datepicker label -->
@@ -243,11 +271,20 @@ export default {
           label: "",
           value: null
         },
-        pickup: this.delivery.pickup
+        pickup: this.delivery.pickup,
+        express: this.delivery.express ? this.delivery.express : false,
+        deliveryMode: {
+          label: "",
+          value: null
+        }
       },
       errors: {},
       showNote: this.delivery.note ? true : false,
-      deliveryDateString: "date à définir"
+      deliveryDateString: "date à définir",
+      optionsForDeliveryMode: [
+        { label: "Sélection d'une date", value: "date" },
+        { label: "Livraison éclair", value: "express" }
+      ]
     };
   },
   computed: {
@@ -307,6 +344,7 @@ export default {
   mounted() {
     this.initDropzone();
     this.determineDropzoneStyle();
+    this.determineDeliveryMode();
     this.findSelectedContact();
     this.getSelectedDeliveryDate();
   },
@@ -393,6 +431,28 @@ export default {
         templateHTML.classList.add("dropzone--small");
       } else {
         templateHTML.classList.remove("dropzone--small");
+      }
+    },
+    selectDeliveryMode(event) {
+      if (event.value === "express") {
+        this.currentDelivery.express = true;
+        this.currentDelivery.to_deliver_at = null;
+      } else if (event.value === "date") {
+        this.currentDelivery.express = false;
+      }
+      this.update();
+    },
+    determineDeliveryMode() {
+      if (this.delivery.express) {
+        this.currentDelivery.deliveryMode = {
+          label: this.optionsForDeliveryMode[1].label,
+          value: this.optionsForDeliveryMode[1].value
+        };
+      } else if (!this.delivery.express) {
+        this.currentDelivery.deliveryMode = {
+          label: this.optionsForDeliveryMode[0].label,
+          value: this.optionsForDeliveryMode[0].value
+        };
       }
     },
     onContactCreated() {

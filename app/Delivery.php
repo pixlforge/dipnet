@@ -12,6 +12,7 @@ class Delivery extends Model
 
     protected $casts = [
         'pickup' => 'boolean',
+        'express' => 'boolean',
     ];
 
     protected $dates = [
