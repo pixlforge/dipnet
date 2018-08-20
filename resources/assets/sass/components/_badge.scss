@@ -8,6 +8,11 @@
   padding: .75rem 3rem;
   border-radius: 5rem;
 
+  &--larger {
+    font-size: 1.6rem !important;
+    padding: 1rem 5rem;
+  }
+
   &--success {
     color: darken($bg-success, 10%);
     background-color: lighten($bg-success, 47.5%);

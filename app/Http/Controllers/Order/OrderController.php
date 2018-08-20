@@ -89,6 +89,7 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
+        $order->status = $request->status;
         $order->business_id = $request->business_id;
         $order->contact_id = $request->contact_id;
         $order->save();

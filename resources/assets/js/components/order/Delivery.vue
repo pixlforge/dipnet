@@ -3,6 +3,23 @@
     :class="previewContainerStyles"
     class="delivery__container">
 
+    <!-- Admin controls -->
+    <div
+      v-if="admin"
+      class="delivery__header delivery__header--admin">
+      <div>
+        <a
+          :href="routeDeliveryReceipt"
+          role="button"
+          class="button__primary button__primary--red"
+          target="_blank"
+          rel="noopener noreferrer">
+          <i class="fal fa-clipboard"/>
+          Bulletin de livraison
+        </a>
+      </div>
+    </div>
+
     <!-- Header main -->
     <div class="delivery__header delivery__header--main">
 
@@ -301,6 +318,11 @@ export default {
       "listDocuments",
       "getValidationErrors"
     ]),
+    routeDeliveryReceipt() {
+      return window.route("deliveries.receipts.show", [
+        this.delivery.reference
+      ]);
+    },
     deliveryDocuments() {
       return this.listDocuments.filter(document => {
         return document.delivery_id === this.delivery.id;

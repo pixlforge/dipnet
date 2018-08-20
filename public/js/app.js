@@ -38810,6 +38810,23 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -38888,6 +38905,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     };
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["listContacts", "listRawContacts", "listDeliveries", "listDocuments", "getValidationErrors"]), {
+    routeDeliveryReceipt() {
+      return window.route("deliveries.receipts.show", [this.delivery.reference]);
+    },
     deliveryDocuments() {
       return this.listDocuments.filter(document => {
         return document.delivery_id === this.delivery.id;
@@ -39822,6 +39842,46 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -39912,10 +39972,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       preview: false,
       animate: false,
       terms: false,
-      componentToSelectContact: {}
+      componentToSelectContact: {},
+      optionsForStatus: [{ label: "Traitée", value: "traitée" }, { label: "Envoyée", value: "envoyée" }, { label: "Incomplète", value: "incomplète" }]
     };
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["b" /* mapGetters */])(["loaderState", "listContacts", "listDocuments", "listDeliveries", "listBusinesses", "getValidationErrors"]), {
+    statusClass() {
+      if (this.currentOrder.status === "incomplète") return "badge--danger";
+      if (this.currentOrder.status === "envoyée") return "badge--warning";
+      if (this.currentOrder.status === "traitée") return "badge--success";
+    },
+    routeOrderReceipt() {
+      return window.route("orders.receipts.show", [this.order.reference]);
+    },
     getBusiness() {
       return this.businesses.find(business => {
         return business.id === this.currentOrder.business.value;
@@ -39950,6 +40019,10 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     this.checkIfAtLeastOneDeliveryExists();
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["c" /* mapActions */])(["addContact", "addBusiness", "toggleLoader", "completeOrder", "createDelivery", "hydrateFormats", "hydrateContacts", "hydrateDocuments", "hydrateDeliveries", "hydrateBusinesses", "hydrateArticleTypes", "setValidationErrors"]), {
+    updateStatus(event) {
+      this.currentOrder.status = event.value;
+      this.update();
+    },
     updateContact() {
       if (this.currentOrder.contact.value) {
         this.currentOrder.contact_id = this.currentOrder.contact.value;
@@ -69619,7 +69692,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__container"
   }, [_c('h1', {
     staticClass: "header__title"
-  }, [(!_vm.preview) ? [_vm._v("\n        Nouvelle commande\n      ")] : [_vm._v("\n        Prévisualisation de la commande\n      ")]], 2), _vm._v(" "), (!_vm.preview) ? _c('div', {
+  }, [(!_vm.preview && !_vm.admin) ? [_vm._v("\n        Nouvelle commande\n      ")] : _vm._e(), _vm._v(" "), (_vm.preview) ? [_vm._v("\n        Prévisualisation de la commande\n      ")] : _vm._e(), _vm._v(" "), (_vm.admin) ? [_vm._v("\n        Administration de la commande "), _c('strong', [_vm._v(_vm._s(_vm.order.reference))])] : _vm._e()], 2), _vm._v(" "), (!_vm.preview) ? _c('div', {
     staticClass: "order__header"
   }, [_c('div', {
     staticClass: "order__business"
@@ -69663,7 +69736,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "currentOrder.contact"
     }
-  }, [_c('p', [_c('strong', [_vm._v(_vm._s(_vm.currentOrder.contact.label ? _vm.currentOrder.contact.label : 'Aucun'))])])])], 1)]) : _vm._e()]), _vm._v(" "), _c('transition', {
+  }, [_c('p', [_c('strong', [_vm._v(_vm._s(_vm.currentOrder.contact.label ? _vm.currentOrder.contact.label : 'Aucun'))])])])], 1)]) : _vm._e()]), _vm._v(" "), (_vm.admin) ? _c('div', {
+    staticClass: "header__container"
+  }, [_c('div', {
+    staticClass: "order__status"
+  }, [_c('div', {
+    staticClass: "badge badge--larger badge--order-status",
+    class: _vm.statusClass
+  }, [_vm._v("\n        " + _vm._s(_vm._f("capitalize")(_vm.currentOrder.status)) + "\n      ")]), _vm._v(" "), _c('div', [_c('h6', {
+    staticClass: "order__label"
+  }, [_vm._v("Statut")]), _vm._v(" "), _c('AppSelect', {
+    attrs: {
+      "options": _vm.optionsForStatus
+    },
+    on: {
+      "input": _vm.updateStatus
+    }
+  }, [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.currentOrder.status ? _vm.currentOrder.status : 'Sélectionner')))])])], 1)]), _vm._v(" "), _c('div', [_c('a', {
+    staticClass: "button__primary button__primary--red button__primary--long",
+    attrs: {
+      "href": _vm.routeOrderReceipt,
+      "role": "button",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-clipboard"
+  }), _vm._v("\n        Bulletin de commande\n      ")])])]) : _vm._e(), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "fade"
     }
@@ -75375,7 +75474,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "delivery__container",
     class: _vm.previewContainerStyles
-  }, [_c('div', {
+  }, [(_vm.admin) ? _c('div', {
+    staticClass: "delivery__header delivery__header--admin"
+  }, [_c('div', [_c('a', {
+    staticClass: "button__primary button__primary--red",
+    attrs: {
+      "href": _vm.routeDeliveryReceipt,
+      "role": "button",
+      "target": "_blank",
+      "rel": "noopener noreferrer"
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-clipboard"
+  }), _vm._v("\n        Bulletin de livraison\n      ")])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "delivery__header delivery__header--main"
   }, [_c('div', {
     staticClass: "delivery__header-box"

@@ -4,11 +4,14 @@
 
       <!-- Page title -->
       <h1 class="header__title">
-        <template v-if="!preview">
+        <template v-if="!preview && !admin">
           Nouvelle commande
         </template>
-        <template v-else>
+        <template v-if="preview">
           Prévisualisation de la commande
+        </template>
+        <template v-if="admin">
+          Administration de la commande <strong>{{ order.reference }}</strong>
         </template>
       </h1>
 
@@ -41,6 +44,43 @@
             <p><strong>{{ currentOrder.contact.label ? currentOrder.contact.label : 'Aucun' }}</strong></p>
           </AppSelect>
         </div>
+      </div>
+    </div>
+
+    <!-- Admin order controls -->
+    <div
+      v-if="admin"
+      class="header__container">
+
+      <!-- Order status -->
+      <div class="order__status">
+        <div
+          :class="statusClass"
+          class="badge badge--larger badge--order-status">
+          {{ currentOrder.status | capitalize }}
+        </div>
+
+        <div>
+          <h6 class="order__label">Statut</h6>
+          <AppSelect
+            :options="optionsForStatus"
+            @input="updateStatus">
+            <strong>{{ currentOrder.status ? currentOrder.status : 'Sélectionner' | capitalize }}</strong>
+          </AppSelect>
+        </div>
+      </div>
+
+      <!-- Order receipt -->
+      <div>
+        <a
+          :href="routeOrderReceipt"
+          role="button"
+          class="button__primary button__primary--red button__primary--long"
+          target="_blank"
+          rel="noopener noreferrer">
+          <i class="fal fa-clipboard"/>
+          Bulletin de commande
+        </a>
       </div>
     </div>
 
@@ -307,7 +347,12 @@ export default {
       preview: false,
       animate: false,
       terms: false,
-      componentToSelectContact: {}
+      componentToSelectContact: {},
+      optionsForStatus: [
+        { label: "Traitée", value: "traitée" },
+        { label: "Envoyée", value: "envoyée" },
+        { label: "Incomplète", value: "incomplète" }
+      ]
     };
   },
   computed: {
@@ -319,6 +364,14 @@ export default {
       "listBusinesses",
       "getValidationErrors"
     ]),
+    statusClass() {
+      if (this.currentOrder.status === "incomplète") return "badge--danger";
+      if (this.currentOrder.status === "envoyée") return "badge--warning";
+      if (this.currentOrder.status === "traitée") return "badge--success";
+    },
+    routeOrderReceipt() {
+      return window.route("orders.receipts.show", [this.order.reference]);
+    },
     getBusiness() {
       return this.businesses.find(business => {
         return business.id === this.currentOrder.business.value;
@@ -367,6 +420,10 @@ export default {
       "hydrateArticleTypes",
       "setValidationErrors"
     ]),
+    updateStatus(event) {
+      this.currentOrder.status = event.value;
+      this.update();
+    },
     updateContact() {
       if (this.currentOrder.contact.value) {
         this.currentOrder.contact_id = this.currentOrder.contact.value;
