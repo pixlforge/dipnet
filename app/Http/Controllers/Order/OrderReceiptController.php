@@ -23,9 +23,14 @@ class OrderReceiptController extends Controller
      */
     public function show(Order $order)
     {
+        $order = Order::with(
+            'deliveries.contact',
+            'deliveries.documents.articles',
+            'deliveries.documents.article',
+            'deliveries.documents.media'
+        )->find($order->id);
         $company = $order->business->company;
         $user = $order->user;
-        $order->load('managedBy');
 
         return view('orders.receipts.show', compact('order', 'company', 'user'));
     }

@@ -23,24 +23,14 @@ class DeliveryReceiptController extends Controller
      */
     public function show(Delivery $delivery)
     {
-        $order = $delivery->order;
-        $order->load('contact', 'managedBy');
+        $delivery = Delivery::with(
+            'order.company',
+            'order.user',
+            'documents.media',
+            'documents.article',
+            'documents.articles'
+        )->find($delivery->id);
 
-        $company = $order->business->company;
-
-        $user = $order->user;
-
-        $delivery->load('contact');
-
-        $documents = $delivery->documents;
-        $documents = $documents->load(['article', 'articles']);
-
-        return view('deliveries.receipts.show', [
-            'order' => $order,
-            'delivery' => $delivery,
-            'documents' => $documents,
-            'company' => $company,
-            'user' => $user
-        ]);
+        return view('deliveries.receipts.show', compact('delivery'));
     }
 }

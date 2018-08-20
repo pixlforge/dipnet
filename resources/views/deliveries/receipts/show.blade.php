@@ -27,13 +27,13 @@
         <div class="receipt__item">
           <h2 class="receipt__item-title">Date de la commande</h2>
           <p class="receipt__item-content">
-            {{ $order->updated_at->formatLocalized('%e %B %Y - %H:%M') }}
+            {{ $delivery->order->updated_at->formatLocalized('%e %B %Y - %H:%M') }}
           </p>
         </div>
         <div class="receipt__item">
           <h2 class="receipt__item-title">Commande n°</h2>
           <p class="receipt__item-content">
-            {{ $order->reference }}
+            {{ $delivery->order->reference }}
           </p>
         </div>
       </div>
@@ -43,12 +43,12 @@
         <div class="receipt__item">
           <h2 class="receipt__item-title">Commandé par</h2>
           <ul class="receipt__item-list">
-            <li>{{ optional($company)->name }}</li>
-            <li>{{ optional($company)->description }}</li>
-            <li>{{ optional($company)->status }}</li>
+            <li>{{ $delivery->order->company->name }}</li>
+            <li>{{ $delivery->order->company->description }}</li>
+            <li>{{ $delivery->order->company->status }}</li>
             <br>
-            <li>{{ optional($user)->username }}</li>
-            <li>{{ optional($user)->email }}</li>
+            <li>{{ $delivery->order->user->username }}</li>
+            <li>{{ $delivery->order->user->email }}</li>
           </ul>
         </div>
         <div class="receipt__item">
@@ -66,13 +66,13 @@
         <div class="receipt__item">
           <h2 class="receipt__item-title">Facturation à</h2>
           <ul class="receipt__item-list">
-            <li>{{ ucfirst($order->contact->name) }}</li>
-            <li>{{ $order->contact->address_line1 }}</li>
-            <li>{{ $order->contact->address_line2 }}</li>
-            <li>{{ $order->contact->zip }} {{ $order->contact->city }}</li>
-            <li>{{ $order->contact->phone_number }}</li>
-            <li>{{ $order->contact->fax }}</li>
-            <li>{{ $order->contact->email }}</li>
+            <li>{{ ucfirst($delivery->order->contact->name) }}</li>
+            <li>{{ $delivery->order->contact->address_line1 }}</li>
+            <li>{{ $delivery->order->contact->address_line2 }}</li>
+            <li>{{ $delivery->order->contact->zip }} {{ $delivery->order->contact->city }}</li>
+            <li>{{ $delivery->order->contact->phone_number }}</li>
+            <li>{{ $delivery->order->contact->fax }}</li>
+            <li>{{ $delivery->order->contact->email }}</li>
           </ul>
         </div>
       </div>
@@ -82,13 +82,13 @@
         <div class="receipt__item">
           <h2 class="receipt__item-title">Affaire</h2>
           <p class="receipt__item-content">
-            {{ $order->business->name }}
+            {{ $delivery->order->business->name }}
           </p>
         </div>
         <div class="receipt__item">
           <h2 class="receipt__item-title">Commande prise en charge par</h2>
           <p class="receipt__item-content">
-            {{ optional($order->managedBy)->username }}
+            {{ optional($delivery->order->managedBy)->username }}
           </p>
         </div>
       </div>
@@ -122,9 +122,9 @@
           <th>Hauteur</th>
           <th>Nb. Orig.</th>
         </tr>
-        @foreach($documents as $document)
+        @foreach($delivery->documents as $document)
           <tr>
-            <td>{{ $document->filename }}</td>
+            <td>{{ $document->media->first()->file_name }}</td>
             <td>{{ $document->article->description }}</td>
             <td>{{ ucfirst($document->finish) }}</td>
             <td>

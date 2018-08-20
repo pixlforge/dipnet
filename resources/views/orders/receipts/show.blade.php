@@ -125,7 +125,7 @@
             </tr>
             @foreach ($delivery->documents as $document)
               <tr>
-                <td>{{ $document->filename }}</td>
+                <td>{{ $document->media->first()->file_name }}</td>
                 <td>{{ $document->article->description }}</td>
                 <td>{{ ucfirst($document->finish) }}</td>
                 <td>
