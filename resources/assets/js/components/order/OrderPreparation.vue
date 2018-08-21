@@ -70,8 +70,19 @@
         </div>
       </div>
 
-      <!-- Order receipt -->
-      <div>
+      <!-- Header controls -->
+      <div class="order__header-controls">
+
+        <!-- Download -->
+        <Button
+          primary
+          orange
+          icon-only
+          @click.prevent="download">
+          <i class="fal fa-arrow-to-bottom fa-2x"/>
+        </Button>
+
+        <!-- Order receipt -->
         <a
           :href="routeOrderReceipt"
           role="button"
@@ -82,6 +93,18 @@
           Bulletin de commande
         </a>
       </div>
+    </div>
+
+    <!-- Errors -->
+    <div
+      v-if="!preview && hasValidationErrors"
+      class="error__container">
+      <i class="fal fa-info-circle fa-2x"/>
+      <ul class="error__list">
+        <li v-if="hasValidationErrors">
+          {{ getValidationErrors.contact_id[0] }}
+        </li>
+      </ul>
     </div>
 
     <!-- Deliveries -->
@@ -109,18 +132,6 @@
         <i class="fal fa-plus-circle mr-2"/>
         <span>Ajouter une livraison</span>
       </h4>
-    </div>
-
-    <!-- Errors -->
-    <div
-      v-if="!preview && hasValidationErrors"
-      class="error__container">
-      <i class="fas fa-exclamation-triangle fa-2x"/>
-      <ul class="error__list">
-        <li v-if="hasValidationErrors">
-          {{ getValidationErrors.contact_id[0] }}
-        </li>
-      </ul>
     </div>
 
     <!-- Preview footer -->
@@ -420,6 +431,18 @@ export default {
       "hydrateArticleTypes",
       "setValidationErrors"
     ]),
+    async download() {
+      let res = await window.axios.get(
+        window.route("admin.orders.files.download", [this.order.reference]),
+        { responseType: "blob" }
+      );
+      // console.log(res.data);
+      let blob = new Blob([res.data], { type: "application/x-zip" });
+      let link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = `commande-${this.order.reference}-fichiers.zip`;
+      link.click();
+    },
     updateStatus(event) {
       this.currentOrder.status = event.value;
       this.update();
@@ -518,7 +541,7 @@ export default {
             this.terms = false;
             window.flash({
               message: `La commande comporte des erreurs.`,
-              level: "danger"
+              level: "warning"
             });
           });
       }

@@ -33231,6 +33231,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       type: Boolean,
       required: false,
       default: false
+    },
+    iconOnly: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -33243,7 +33248,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         "button__primary--grey": this.grey,
         "button__primary--long": this.long,
         "button__primary--big": this.big,
-        "button__primary--small": this.small
+        "button__primary--small": this.small,
+        "button__primary--icon-only": this.iconOnly
       }
     };
   },
@@ -39020,8 +39026,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         dictCancelUploadConfirmation: "Êtes-vous certain de vouloir annuler le téléchargement?",
         dictDefaultMessage: "<span>Glissez-déposez des fichiers ici pour les télécharger ou</span> <span class='ml-3'><strong>choisissiez vos fichiers</strong>.</span>",
         dictFallbackMessage: "Votre navigateur est trop ancien ou incompatible. Changez-en ou mettez-le à jour.",
-        dictFileTooBig: "Ce fichier est trop volumineux. {{filesize}}MB de {{maxFilesize}}MB autorisés.",
-        dictFileSizeUnits: "mb"
+        dictFileTooBig: "Ce fichier est trop volumineux. {{filesize}}MB de {{maxFilesize}}MB autorisés."
       });
 
       drop.on("success", (file, res) => {
@@ -39882,6 +39887,17 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -40019,6 +40035,19 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     this.checkIfAtLeastOneDeliveryExists();
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8_vuex__["c" /* mapActions */])(["addContact", "addBusiness", "toggleLoader", "completeOrder", "createDelivery", "hydrateFormats", "hydrateContacts", "hydrateDocuments", "hydrateDeliveries", "hydrateBusinesses", "hydrateArticleTypes", "setValidationErrors"]), {
+    download() {
+      var _this = this;
+
+      return _asyncToGenerator(function* () {
+        let res = yield window.axios.get(window.route("admin.orders.files.download", [_this.order.reference]), { responseType: "blob" });
+        // console.log(res.data);
+        let blob = new Blob([res.data], { type: "application/x-zip" });
+        let link = document.createElement("a");
+        link.href = window.URL.createObjectURL(blob);
+        link.download = `commande-${_this.order.reference}-fichiers.zip`;
+        link.click();
+      })();
+    },
     updateStatus(event) {
       this.currentOrder.status = event.value;
       this.update();
@@ -40030,11 +40059,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       this.update();
     },
     addDelivery() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator(function* () {
         try {
-          yield _this.createDelivery(_this.order.reference);
+          yield _this2.createDelivery(_this2.order.reference);
           window.flash({
             message: "Une nouvelle livraison a été ajoutée à votre commande.",
             level: "success"
@@ -40048,13 +40077,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       })();
     },
     update() {
-      var _this2 = this;
+      var _this3 = this;
 
       return _asyncToGenerator(function* () {
         try {
-          yield _this2.$store.dispatch("updateOrder", _this2.currentOrder);
+          yield _this3.$store.dispatch("updateOrder", _this3.currentOrder);
         } catch (err) {
-          _this2.errors = err.response.data.errors;
+          _this3.errors = err.response.data.errors;
         }
       })();
     },
@@ -40105,13 +40134,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       return order;
     },
     complete() {
-      var _this3 = this;
+      var _this4 = this;
 
       return _asyncToGenerator(function* () {
-        if (_this3.terms) {
-          let order = _this3.buildOrder();
+        if (_this4.terms) {
+          let order = _this4.buildOrder();
 
-          yield _this3.completeOrder(order).then(function () {
+          yield _this4.completeOrder(order).then(function () {
             window.flash({
               message: "Commande envoyée avec succès!",
               level: "success"
@@ -40120,12 +40149,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
               window.location = "/";
             }, 1000);
           }).catch(function (err) {
-            _this3.setValidationErrors(err.response.data.errors);
-            _this3.togglePreview();
-            _this3.terms = false;
+            _this4.setValidationErrors(err.response.data.errors);
+            _this4.togglePreview();
+            _this4.terms = false;
             window.flash({
               message: `La commande comporte des erreurs.`,
-              level: "danger"
+              level: "warning"
             });
           });
         }
@@ -41954,8 +41983,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -42019,7 +42046,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
     },
     getDeliveryOrderUrl(result) {
-      // `/livraisons/${result.reference}`
       if (this.userIsAdmin) {
         return `/admin/commandes/${result.order.reference}/voir`;
       } else {
@@ -43414,6 +43440,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
 //
 //
 //
@@ -69789,7 +69817,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": _vm.updateStatus
     }
-  }, [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.currentOrder.status ? _vm.currentOrder.status : 'Sélectionner')))])])], 1)]), _vm._v(" "), _c('div', [_c('a', {
+  }, [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.currentOrder.status ? _vm.currentOrder.status : 'Sélectionner')))])])], 1)]), _vm._v(" "), _c('div', {
+    staticClass: "order__header-controls"
+  }, [_c('Button', {
+    attrs: {
+      "primary": "",
+      "orange": "",
+      "icon-only": ""
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.download($event)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "fal fa-arrow-to-bottom fa-2x"
+  })]), _vm._v(" "), _c('a', {
     staticClass: "button__primary button__primary--red button__primary--long",
     attrs: {
       "href": _vm.routeOrderReceipt,
@@ -69799,7 +69843,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-clipboard"
-  }), _vm._v("\n        Bulletin de commande\n      ")])])]) : _vm._e(), _vm._v(" "), _c('transition', {
+  }), _vm._v("\n        Bulletin de commande\n      ")])], 1)]) : _vm._e(), _vm._v(" "), (!_vm.preview && _vm.hasValidationErrors) ? _c('div', {
+    staticClass: "error__container"
+  }, [_c('i', {
+    staticClass: "fal fa-info-circle fa-2x"
+  }), _vm._v(" "), _c('ul', {
+    staticClass: "error__list"
+  }, [(_vm.hasValidationErrors) ? _c('li', [_vm._v("\n        " + _vm._s(_vm.getValidationErrors.contact_id[0]) + "\n      ")]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "fade"
     }
@@ -69833,13 +69883,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addDelivery($event)
       }
     }
-  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), (!_vm.preview && _vm.hasValidationErrors) ? _c('div', {
-    staticClass: "error__container"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation-triangle fa-2x"
-  }), _vm._v(" "), _c('ul', {
-    staticClass: "error__list"
-  }, [(_vm.hasValidationErrors) ? _c('li', [_vm._v("\n        " + _vm._s(_vm.getValidationErrors.contact_id[0]) + "\n      ")]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c('transition', {
+  }, [_vm._m(0)]) : _vm._e(), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "fade"
     }
@@ -74690,7 +74734,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('AppSelect', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "header__sort"
+  }, [_c('AppSelect', {
     attrs: {
       "options": _vm.sortOptions
     },
@@ -74708,7 +74754,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])]), _vm._v(" "), _c('Button', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -75627,7 +75673,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [(_vm.selectedContactDetails) ? _c('ul', {
     staticClass: "delivery__list"
-  }, [_c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.name))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.address_line1))]), _vm._v(" "), (_vm.selectedContactDetails.address_line2) ? _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.address_line2))]) : _vm._e(), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.zip) + " " + _vm._s(_vm.selectedContactDetails.city))]), _vm._v(" "), (_vm.selectedContactDetails.phone_number) ? _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.phone_number))]) : _vm._e(), _vm._v(" "), (_vm.selectedContactDetails.fax) ? _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.fax))]) : _vm._e(), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.email))])]) : _vm._e()])])]), _vm._v(" "), (!_vm.preview) ? _c('div', [_c('transition', {
+  }, [_c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.name))]), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.address_line1))]), _vm._v(" "), (_vm.selectedContactDetails.address_line2) ? _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.address_line2))]) : _vm._e(), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.zip) + " " + _vm._s(_vm.selectedContactDetails.city))]), _vm._v(" "), (_vm.selectedContactDetails.phone_number) ? _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.phone_number))]) : _vm._e(), _vm._v(" "), (_vm.selectedContactDetails.fax) ? _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.fax))]) : _vm._e(), _vm._v(" "), _c('li', [_vm._v(_vm._s(_vm.selectedContactDetails.email))])]) : _vm._e()])])]), _vm._v(" "), ((!_vm.preview && _vm.hasErrors) || (!_vm.preview && _vm.hasErrorsRelatedToDocuments)) ? _c('div', [_c('div', {
+    staticClass: "error__container"
+  }, [_c('i', {
+    staticClass: "fal fa-info-circle fa-2x"
+  }), _vm._v(" "), _c('ul', {
+    staticClass: "error__list"
+  }, [(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")]) ? _c('li', [_vm._v("\n          " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")][0]) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")]) ? _c('li', [_vm._v("\n          " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")][0]) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".documents")]) ? _c('li', [_vm._v("\n          La livraison doit contenir au minimum un document.\n        ")]) : _vm._e(), _vm._v(" "), (_vm.hasErrorsRelatedToDocuments) ? _c('li', [_vm._v("\n          Vous devez sélectionner un type d'impression pour chaque document de cette livraison.\n        ")]) : _vm._e()])])]) : _vm._e(), _vm._v(" "), (!_vm.preview) ? _c('div', [_c('transition', {
     attrs: {
       "name": "fade"
     }
@@ -75677,13 +75729,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": 'delivery-file-upload-' + _vm.delivery.id
     }
-  }), _vm._v(" "), ((!_vm.preview && _vm.hasErrors) || (!_vm.preview && _vm.hasErrorsRelatedToDocuments)) ? _c('div', [_c('div', {
-    staticClass: "error__container"
-  }, [_c('i', {
-    staticClass: "fas fa-exclamation fa-2x"
-  }), _vm._v(" "), _c('ul', {
-    staticClass: "error__list"
-  }, [(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")]) ? _c('li', [_vm._v("\n          " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")][0]) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")]) ? _c('li', [_vm._v("\n          " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")][0]) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".documents")]) ? _c('li', [_vm._v("\n          La livraison doit contenir au minimum un document.\n        ")]) : _vm._e(), _vm._v(" "), (_vm.hasErrorsRelatedToDocuments) ? _c('li', [_vm._v("\n          Vous devez sélectionner un type d'impression pour chaque document de cette livraison.\n        ")]) : _vm._e()])])]) : _vm._e()], 2)
+  })], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

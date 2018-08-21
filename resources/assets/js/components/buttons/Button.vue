@@ -66,6 +66,11 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    iconOnly: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   data() {
@@ -78,7 +83,8 @@ export default {
         "button__primary--grey": this.grey,
         "button__primary--long": this.long,
         "button__primary--big": this.big,
-        "button__primary--small": this.small
+        "button__primary--small": this.small,
+        "button__primary--icon-only": this.iconOnly
       }
     };
   },

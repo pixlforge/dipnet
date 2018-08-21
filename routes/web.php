@@ -171,6 +171,11 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
      */
     Route::prefix('/commandes')->namespace('Order')->name('orders.')->group(function () {
         Route::get('/{order}/voir', 'OrderController@show')->name('show');
+
+        /**
+         * Download
+         */
+        Route::get('/{order}/telecharger', 'OrderFileDownloadController@download')->name('files.download');
     });
 
     /**

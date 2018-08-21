@@ -17,6 +17,14 @@
       margin-right: 1rem;
     }
 
+    &--icon-only {
+      margin-right: 2rem;
+      
+      svg {
+        margin-right: 0;
+      }
+    }
+
     &--big {
       font-size: 2rem;
       padding: 2rem 5rem;
