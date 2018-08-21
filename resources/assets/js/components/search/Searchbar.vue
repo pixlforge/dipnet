@@ -22,42 +22,12 @@
           <li
             v-for="result in results.orders"
             :key="result.id">
-            <a :href="`/orders/${result.id}`">
+            <a :href="getOrderUrl(result)">
               {{ result.reference }}
             </a>
           </li>
         </div>
-        
-        <!-- Companies -->
-        <div v-if="containsCompanies">
-          <li
-            v-if="containsOrders"
-            class="dropdown__list-item-divider"/>
-          <h6 class="searchbar__title">Sociétés</h6>
-          <li
-            v-for="result in results.companies"
-            :key="result.id">
-            <a :href="`/companies/${result.id}`">
-              {{ result.name }}
-            </a>
-          </li>
-        </div>
-        
-        <!-- Businesses -->
-        <div v-if="containsBusinesses">
-          <li
-            v-if="containsOrders || containsCompanies"
-            class="dropdown__list-item-divider"/>
-          <h6 class="searchbar__title">Affaires</h6>
-          <li
-            v-for="result in results.businesses"
-            :key="result.id">
-            <a :href="`/businesses/${result.id}`">
-              {{ result.name }}
-            </a>
-          </li>
-        </div>
-        
+
         <!-- Deliveries -->
         <div v-if="containsDeliveries">
           <li
@@ -67,14 +37,46 @@
           <li
             v-for="result in results.deliveries"
             :key="result.id">
-            <a :href="`/deliveries/${result.id}`">
+            <a :href="getDeliveryOrderUrl(result)">
               {{ result.reference }}
             </a>
           </li>
         </div>
         
+        <!-- Companies -->
+        <!-- <div v-if="containsCompanies">
+          <li
+            v-if="containsOrders"
+            class="dropdown__list-item-divider"/>
+          <h6 class="searchbar__title">Sociétés</h6>
+          <li
+            v-for="result in results.companies"
+            :key="result.id">
+            <a :href="`/societes/${result.id}`">
+              {{ result.name }}
+            </a>
+          </li>
+        </div> -->
+        
+        <!-- Businesses -->
+        <!-- <div v-if="containsBusinesses">
+          <li
+            v-if="containsOrders || containsCompanies"
+            class="dropdown__list-item-divider"/>
+          <h6 class="searchbar__title">Affaires</h6>
+          <li
+            v-for="result in results.businesses"
+            :key="result.id">
+            <a :href="`/affaires/${result.id}`">
+              {{ result.name }}
+            </a>
+          </li>
+        </div> -->
+        
+        
+        
         <!-- Contacts -->
-        <div v-if="containsContacts">
+        <!-- <div v-if="containsContacts">
           <li
             v-if="containsOrders || containsCompanies || containsBusinesses || containsDeliveries"
             class="dropdown__list-item-divider"/>
@@ -86,7 +88,7 @@
               {{ result.name }}
             </a>
           </li>
-        </div>
+        </div> -->
 
         <!-- No result -->
         <li
@@ -100,6 +102,12 @@
 
 <script>
 export default {
+  props: {
+    userRole: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       search: {
@@ -130,6 +138,9 @@ export default {
     },
     containsContacts() {
       return this.results.contacts.length;
+    },
+    userIsAdmin() {
+      return this.userRole === "administrateur";
     }
   },
   methods: {
@@ -145,7 +156,22 @@ export default {
             this.results.contacts = response.data[4];
           });
       }
-    }, 500)
+    }, 500),
+    getOrderUrl(result) {
+      if (this.userIsAdmin) {
+        return `/admin/commandes/${result.reference}/voir`;
+      } else {
+        return `/commandes/${result.reference}/details`;
+      }
+    },
+    getDeliveryOrderUrl(result) {
+      // `/livraisons/${result.reference}`
+      if (this.userIsAdmin) {
+        return `/admin/commandes/${result.order.reference}/voir`;
+      } else {
+        return `/commandes/${result.order.reference}/details`;
+      }
+    }
   }
 };
 </script>

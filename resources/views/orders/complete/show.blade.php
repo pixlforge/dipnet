@@ -74,7 +74,9 @@
             </div>
             <div class="receipt__item">
               <h2 class="receipt__item-title">Date de livraison</h2>
-              <p class="receipt__item-content">{{ $delivery->to_deliver_at->formatLocalized('%e %B %Y à %H:%M') }}</p>
+              <p class="receipt__item-content">
+                {{ $delivery->to_deliver_at ? optional($delivery->to_deliver_at)->formatLocalized('%e %B %Y à %H:%M') : "Livraison éclair" }}
+              </p>
             </div>
             <div class="receipt__item">
               <h2 class="receipt__item-title">Note</h2>
@@ -86,7 +88,7 @@
           <div class="receipt__row">
             @foreach ($delivery->documents as $document)
               <div class="receipt__item">
-                <h2 class="receipt__item-title">{{ $document->filename }}</h2>
+                <h2 class="receipt__item-title">{{ $document->media->first()->file_name }}</h2>
                 <ul class="receipt__item-list">
                   <li>Finition: {{ ucfirst($document->finish) }}</li>
                   <li>Impression: {{ $document->article->description }}</li>

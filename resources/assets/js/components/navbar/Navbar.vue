@@ -9,7 +9,7 @@
         </a>
       </div>
       <div class="navbar__searchbar">
-        <Searchbar/>
+        <Searchbar :user-role="userRole"/>
       </div>
     </div>
     <div class="navbar__second-section">

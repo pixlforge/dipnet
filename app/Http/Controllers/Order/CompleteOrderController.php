@@ -27,11 +27,16 @@ class CompleteOrderController extends Controller
      */
     public function show(Order $order)
     {
-        $order->load('business', 'contact', 'user', 'deliveries.contact', 'deliveries.documents.article', 'deliveries.documents.articles');
-
-        return view('orders.complete.show', [
-            'order' => $order
-        ]);
+        $order = Order::with(
+            'business',
+            'contact',
+            'deliveries.contact',
+            'deliveries.documents.article',
+            'deliveries.documents.articles',
+            'deliveries.documents.media'
+        )->find($order->id);
+        
+        return view('orders.complete.show', compact('order'));
     }
 
     /**

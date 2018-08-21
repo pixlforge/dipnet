@@ -312,7 +312,7 @@ Route::prefix('/commandes')->namespace('Order')->name('orders.')->group(function
      */
     Route::name('complete.')->group(function () {
         Route::patch('/{order}/finaliser', 'CompleteOrderController@update')->name('update');
-        Route::get('/{order}/finaliser/voir', 'CompleteOrderController@show')->name('show');
+        Route::get('/{order}/details', 'CompleteOrderController@show')->name('show');
     });
 
     /**

@@ -11,7 +11,7 @@
           Prévisualisation de la commande
         </template>
         <template v-if="admin">
-          Administration de la commande <strong>{{ order.reference }}</strong>
+          Commande <strong>{{ order.reference }}</strong>
         </template>
       </h1>
 

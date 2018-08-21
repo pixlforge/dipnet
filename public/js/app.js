@@ -41954,8 +41954,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    userRole: {
+      type: String,
+      required: true
+    }
+  },
   data() {
     return {
       search: {
@@ -41986,6 +41994,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     containsContacts() {
       return this.results.contacts.length;
+    },
+    userIsAdmin() {
+      return this.userRole === "administrateur";
     }
   },
   methods: {
@@ -41999,7 +42010,22 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           this.results.contacts = response.data[4];
         });
       }
-    }, 500)
+    }, 500),
+    getOrderUrl(result) {
+      if (this.userIsAdmin) {
+        return `/admin/commandes/${result.reference}/voir`;
+      } else {
+        return `/commandes/${result.reference}/details`;
+      }
+    },
+    getDeliveryOrderUrl(result) {
+      // `/livraisons/${result.reference}`
+      if (this.userIsAdmin) {
+        return `/admin/commandes/${result.order.reference}/voir`;
+      } else {
+        return `/commandes/${result.order.reference}/details`;
+      }
+    }
   }
 });
 
@@ -69703,7 +69729,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__container"
   }, [_c('h1', {
     staticClass: "header__title"
-  }, [(!_vm.preview && !_vm.admin) ? [_vm._v("\n        Nouvelle commande\n      ")] : _vm._e(), _vm._v(" "), (_vm.preview) ? [_vm._v("\n        Prévisualisation de la commande\n      ")] : _vm._e(), _vm._v(" "), (_vm.admin) ? [_vm._v("\n        Administration de la commande "), _c('strong', [_vm._v(_vm._s(_vm.order.reference))])] : _vm._e()], 2), _vm._v(" "), (!_vm.preview) ? _c('div', {
+  }, [(!_vm.preview && !_vm.admin) ? [_vm._v("\n        Nouvelle commande\n      ")] : _vm._e(), _vm._v(" "), (_vm.preview) ? [_vm._v("\n        Prévisualisation de la commande\n      ")] : _vm._e(), _vm._v(" "), (_vm.admin) ? [_vm._v("\n        Commande "), _c('strong', [_vm._v(_vm._s(_vm.order.reference))])] : _vm._e()], 2), _vm._v(" "), (!_vm.preview) ? _c('div', {
     staticClass: "order__header"
   }, [_c('div', {
     staticClass: "order__business"
@@ -71872,33 +71898,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: result.id
     }, [_c('a', {
       attrs: {
-        "href": ("/orders/" + (result.id))
+        "href": _vm.getOrderUrl(result)
       }
     }, [_vm._v("\n            " + _vm._s(result.reference) + "\n          ")])])
-  })], 2) : _vm._e(), _vm._v(" "), (_vm.containsCompanies) ? _c('div', [(_vm.containsOrders) ? _c('li', {
-    staticClass: "dropdown__list-item-divider"
-  }) : _vm._e(), _vm._v(" "), _c('h6', {
-    staticClass: "searchbar__title"
-  }, [_vm._v("Sociétés")]), _vm._v(" "), _vm._l((_vm.results.companies), function(result) {
-    return _c('li', {
-      key: result.id
-    }, [_c('a', {
-      attrs: {
-        "href": ("/companies/" + (result.id))
-      }
-    }, [_vm._v("\n            " + _vm._s(result.name) + "\n          ")])])
-  })], 2) : _vm._e(), _vm._v(" "), (_vm.containsBusinesses) ? _c('div', [(_vm.containsOrders || _vm.containsCompanies) ? _c('li', {
-    staticClass: "dropdown__list-item-divider"
-  }) : _vm._e(), _vm._v(" "), _c('h6', {
-    staticClass: "searchbar__title"
-  }, [_vm._v("Affaires")]), _vm._v(" "), _vm._l((_vm.results.businesses), function(result) {
-    return _c('li', {
-      key: result.id
-    }, [_c('a', {
-      attrs: {
-        "href": ("/businesses/" + (result.id))
-      }
-    }, [_vm._v("\n            " + _vm._s(result.name) + "\n          ")])])
   })], 2) : _vm._e(), _vm._v(" "), (_vm.containsDeliveries) ? _c('div', [(_vm.containsOrders || _vm.containsCompanies || _vm.containsBusinesses) ? _c('li', {
     staticClass: "dropdown__list-item-divider"
   }) : _vm._e(), _vm._v(" "), _c('h6', {
@@ -71908,21 +71910,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       key: result.id
     }, [_c('a', {
       attrs: {
-        "href": ("/deliveries/" + (result.id))
+        "href": _vm.getDeliveryOrderUrl(result)
       }
     }, [_vm._v("\n            " + _vm._s(result.reference) + "\n          ")])])
-  })], 2) : _vm._e(), _vm._v(" "), (_vm.containsContacts) ? _c('div', [(_vm.containsOrders || _vm.containsCompanies || _vm.containsBusinesses || _vm.containsDeliveries) ? _c('li', {
-    staticClass: "dropdown__list-item-divider"
-  }) : _vm._e(), _vm._v(" "), _c('h6', {
-    staticClass: "searchbar__title"
-  }, [_vm._v("Contacts")]), _vm._v(" "), _vm._l((_vm.results.contacts), function(result) {
-    return _c('li', {
-      key: result.id
-    }, [_c('a', {
-      attrs: {
-        "href": ("/contacts/" + (result.id))
-      }
-    }, [_vm._v("\n            " + _vm._s(result.name) + "\n          ")])])
   })], 2) : _vm._e(), _vm._v(" "), (_vm.search.query.length > 1 && !_vm.searching && !_vm.containsOrders && !_vm.containsCompanies && !_vm.containsBusinesses && !_vm.containsDeliveries && !_vm.containsContacts) ? _c('li', [_vm._v("\n        Aucun résultat\n      ")]) : _vm._e()]) : _vm._e()])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -72782,7 +72772,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])]), _vm._v(" "), _c('div', {
     staticClass: "navbar__searchbar"
-  }, [_c('Searchbar')], 1)]), _vm._v(" "), _c('div', {
+  }, [_c('Searchbar', {
+    attrs: {
+      "user-role": _vm.userRole
+    }
+  })], 1)]), _vm._v(" "), _c('div', {
     staticClass: "navbar__second-section"
   }, [_c('div', {
     staticClass: "navbar__quicklinks"
