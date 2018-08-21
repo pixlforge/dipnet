@@ -39019,7 +39019,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         headers: {
           "X-CSRF-TOKEN": window.Laravel.csrfToken
         },
-        maxFilesize: 10,
+        maxFilesize: 1000,
         addRemoveLinks: true,
         dictRemoveFile: "Supprimer",
         dictCancelUpload: "Annuler",

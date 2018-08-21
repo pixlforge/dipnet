@@ -170,6 +170,27 @@
       </div>
     </div>
 
+    <!-- Errors -->
+    <div v-if="(!preview && hasErrors) || (!preview && hasErrorsRelatedToDocuments)">
+      <div class="error__container">
+        <i class="fal fa-info-circle fa-2x"/>
+        <ul class="error__list">
+          <li v-if="getValidationErrors[`deliveries.${count - 1}.contact_id`]">
+            {{ getValidationErrors[`deliveries.${count - 1}.contact_id`][0] }}
+          </li>
+          <li v-if="getValidationErrors[`deliveries.${count - 1}.to_deliver_at`]">
+            {{ getValidationErrors[`deliveries.${count - 1}.to_deliver_at`][0] }}
+          </li>
+          <li v-if="getValidationErrors[`deliveries.${count - 1}.documents`]">
+            La livraison doit contenir au minimum un document.
+          </li>
+          <li v-if="hasErrorsRelatedToDocuments">
+            Vous devez sélectionner un type d'impression pour chaque document de cette livraison.
+          </li>
+        </ul>
+      </div>
+    </div>
+
     <!-- Note -->
     <div v-if="!preview">
       <transition name="fade">
@@ -206,27 +227,6 @@
       v-show="!preview && !admin"
       :id="'delivery-file-upload-' + delivery.id"
       class="dropzone"/>
-
-    <!-- Errors -->
-    <div v-if="(!preview && hasErrors) || (!preview && hasErrorsRelatedToDocuments)">
-      <div class="error__container">
-        <i class="fas fa-exclamation fa-2x"/>
-        <ul class="error__list">
-          <li v-if="getValidationErrors[`deliveries.${count - 1}.contact_id`]">
-            {{ getValidationErrors[`deliveries.${count - 1}.contact_id`][0] }}
-          </li>
-          <li v-if="getValidationErrors[`deliveries.${count - 1}.to_deliver_at`]">
-            {{ getValidationErrors[`deliveries.${count - 1}.to_deliver_at`][0] }}
-          </li>
-          <li v-if="getValidationErrors[`deliveries.${count - 1}.documents`]">
-            La livraison doit contenir au minimum un document.
-          </li>
-          <li v-if="hasErrorsRelatedToDocuments">
-            Vous devez sélectionner un type d'impression pour chaque document de cette livraison.
-          </li>
-        </ul>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -427,7 +427,7 @@ export default {
         headers: {
           "X-CSRF-TOKEN": window.Laravel.csrfToken
         },
-        maxFilesize: 10,
+        maxFilesize: 1000,
         addRemoveLinks: true,
         dictRemoveFile: "Supprimer",
         dictCancelUpload: "Annuler",
@@ -438,8 +438,7 @@ export default {
         dictFallbackMessage:
           "Votre navigateur est trop ancien ou incompatible. Changez-en ou mettez-le à jour.",
         dictFileTooBig:
-          "Ce fichier est trop volumineux. {{filesize}}MB de {{maxFilesize}}MB autorisés.",
-        dictFileSizeUnits: "mb"
+          "Ce fichier est trop volumineux. {{filesize}}MB de {{maxFilesize}}MB autorisés."
       });
 
       drop.on("success", (file, res) => {
