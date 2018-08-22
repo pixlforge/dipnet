@@ -17,7 +17,9 @@ class BusinessPolicy
      */
     public function view(User $user, Business $business)
     {
-        if ($user->isPartOfACompany()) {
+        if ($user->isAdmin()) {
+            return true;
+        } elseif ($user->isPartOfACompany()) {
             return $user->company_id === $business->company_id;
         } elseif ($user->isSolo()) {
             return $user->id === $business->user_id;

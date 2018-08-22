@@ -55,12 +55,12 @@ class SearchController extends Controller
             //     ->get()
             //     ->toArray();
 
-            // $businesses = Business::select(['id', 'name'])
-            //     ->where('name', 'like', '%' . request('query') . '%')
-            //     ->latest()
-            //     ->limit(5)
-            //     ->get()
-            //     ->toArray();
+            $businesses = Business::select(['id', 'name', 'reference'])
+                ->where('name', 'like', '%' . request('query') . '%')
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
 
             // $contacts = Contact::select(['id', 'name'])
             //     ->where('name', 'like', '%' . request('query') . '%')
@@ -102,15 +102,27 @@ class SearchController extends Controller
             //     ->toArray();
 
             // Show the businesses related the user's company
-            // $businesses = Business::select(['id', 'name'])
-            //     ->where([
-            //         ['company_id', auth()->user()->company_id],
-            //         ['name', 'like', '%' . request('query') . '%']
-            //     ])
-            //     ->latest()
-            //     ->limit(5)
-            //     ->get()
-            //     ->toArray();
+            if (auth()->user()->isPartOfACompany()) {
+                $businesses = Business::select(['id', 'name', 'reference'])
+                    ->where([
+                        ['company_id', auth()->user()->company_id],
+                        ['name', 'like', '%' . request('query') . '%']
+                    ])
+                    ->latest()
+                    ->limit(5)
+                    ->get()
+                    ->toArray();
+            } else {
+                $businesses = Business::select(['id', 'name', 'reference'])
+                    ->where([
+                        ['user_id', auth()->id()],
+                        ['name', 'like', '%' . request('query') . '%']
+                    ])
+                    ->latest()
+                    ->limit(5)
+                    ->get()
+                    ->toArray();
+            }
 
             // Search for the contacts related to the user.
             // $contacts = Contact::select(['id', 'name'])

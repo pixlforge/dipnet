@@ -59,7 +59,7 @@
         </div> -->
         
         <!-- Businesses -->
-        <!-- <div v-if="containsBusinesses">
+        <div v-if="containsBusinesses">
           <li
             v-if="containsOrders || containsCompanies"
             class="dropdown__list-item-divider"/>
@@ -67,13 +67,11 @@
           <li
             v-for="result in results.businesses"
             :key="result.id">
-            <a :href="`/affaires/${result.id}`">
+            <a :href="getBusinessUrl(result)">
               {{ result.name }}
             </a>
           </li>
-        </div> -->
-        
-        
+        </div>
         
         <!-- Contacts -->
         <!-- <div v-if="containsContacts">
@@ -165,12 +163,14 @@ export default {
       }
     },
     getDeliveryOrderUrl(result) {
-      // `/livraisons/${result.reference}`
       if (this.userIsAdmin) {
         return `/admin/commandes/${result.order.reference}/voir`;
       } else {
         return `/commandes/${result.order.reference}/details`;
       }
+    },
+    getBusinessUrl(result) {
+      return `/affaires/${result.reference}/details`;
     }
   }
 };
