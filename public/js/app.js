@@ -39670,6 +39670,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -40359,7 +40361,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
 //
 //
 //
@@ -76924,15 +76925,16 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "card__details card__details--order"
-  }, [_c('h5', {
-    staticClass: "model__label"
-  }, [_vm._v("Référence")]), _vm._v(" "), _c('a', {
+  return _c('a', {
+    staticClass: "card__container",
     attrs: {
       "href": _vm.orderRoute
     }
-  }, [_vm._v("\n      " + _vm._s(_vm.order.reference) + "\n    ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "card__details card__details--order"
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Référence")]), _vm._v(" "), _c('span', [_vm._v("\n      " + _vm._s(_vm.order.reference) + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--order"
   }, [_c('span', {
     staticClass: "badge",
@@ -79474,7 +79476,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.orders), function(order) {
     return _c('Order', {
       key: order.id,
-      staticClass: "card__container",
       attrs: {
         "order": order,
         "user-role": _vm.userRole
