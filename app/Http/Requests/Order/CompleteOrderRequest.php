@@ -23,6 +23,7 @@ class CompleteOrderRequest extends FormRequest
      */
     public function rules()
     {
+        // dd(request()->all());
         return [
             'status' => 'required|in:incomplète',
             'business_id' => 'required|exists:businesses,id',

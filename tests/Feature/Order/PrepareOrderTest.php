@@ -74,7 +74,7 @@ class PrepareOrderTest extends TestCase
             'contact_id' => $contact->id,
             'user_id' => null,
             'company_id' => $company->id,
-            'deliveries' => [$deliveries],
+            'deliveries' => $deliveries,
         ]);
 
         // dd($response->content());
@@ -83,9 +83,7 @@ class PrepareOrderTest extends TestCase
         Mail::assertQueued(CustomerOrderCompleteConfirmation::class, function ($mail) use ($user) {
             return $mail->hasTo($user->email);
         });
-        Mail::assertQueued(AdminOrderCompleteNotification::class, function ($mail) {
-            return $mail->hasTo('admin@dipnet.ch');
-        });
+        Mail::assertQueued(AdminOrderCompleteNotification::class);
     }
 
     /** @test */
@@ -556,10 +554,10 @@ class PrepareOrderTest extends TestCase
         ]);
 
         // dd($response->content());
-        $response->assertJsonValidationErrors('deliveries.0.0.contact_id');
+        $response->assertJsonValidationErrors('deliveries.0.contact_id');
         $errors = json_decode($response->content());
         $errors = collect($errors->errors);
-        $this->assertContains("Aucun contact de livraison n'est spécifié pour la livraison.", $errors['deliveries.0.0.contact_id']);
+        $this->assertContains("Aucun contact de livraison n'est spécifié pour la livraison.", $errors['deliveries.0.contact_id']);
         $this->assertEquals('incomplète', $order->fresh()->status);
     }
 
@@ -599,161 +597,7 @@ class PrepareOrderTest extends TestCase
         ]);
 
         // dd($response->content());
-        $response->assertJsonValidationErrors('deliveries.0.0.to_deliver_at');
-        $errors = json_decode($response->content());
-        $errors = collect($errors->errors);
-        $this->assertContains('Une date de livraison est requise.', $errors['deliveries.0.0.to_deliver_at']);
-        $this->assertEquals('incomplète', $order->fresh()->status);
-    }
-
-    /** @test */
-    public function complete_order_validation_fails_if_deliveries_do_not_have_associated_documents()
-    {
-        $this->withExceptionHandling();
-
-        $business = factory(Business::class)->create(['company_id' => 1]);
-        $company = factory(Company::class)->create(['business_id' => $business->id]);
-        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
-        $order = factory(Order::class)->create(['company_id' => $company->id]);
-
-        $deliveries = [
-           [
-               $deliveryA = factory(Delivery::class)->create([
-                   'order_id' => $order->id,
-                   'contact_id' => $contact->id,
-                   'to_deliver_at' => now()->addWeeks(2),
-               ]),
-           ],
-        ];
-        $this->assertCount(0, $deliveryA->documents);
-
-        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
-        $this->actingAs($user);
-        $this->assertAuthenticatedAs($user);
-
-        $response = $this->patchJson(route('orders.complete.update', $order), [
-            'reference' => 'MBXBXWWX',
-            'status' => 'incomplète',
-            'business_id' => $business->id,
-            'contact_id' => $contact->id,
-            'user_id' => null,
-            'company_id' => $company->id,
-            'deliveries' => $deliveries,
-        ]);
-
-        // dd($response->content());
-        $response->assertJsonValidationErrors('deliveries.0.0.documents');
-        $errors = json_decode($response->content());
-        $errors = collect($errors->errors);
-        $this->assertContains('Les documents relatifs à la livraison sont requis.', $errors['deliveries.0.0.documents']);
-        $this->assertEquals('incomplète', $order->fresh()->status);
-    }
-
-    /** @test */
-    public function complete_order_validation_fails_if_deliveries_documents_do_not_exist()
-    {
-        $this->withExceptionHandling();
-
-        $business = factory(Business::class)->create(['company_id' => 1]);
-        $company = factory(Company::class)->create(['business_id' => $business->id]);
-        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
-        $order = factory(Order::class)->create(['company_id' => $company->id]);
-
-        $deliveries = [
-            [
-                $deliveryA = factory(Delivery::class)->create([
-                    'order_id' => $order->id,
-                    'contact_id' => $contact->id,
-                    'to_deliver_at' => now()->addWeeks(2),
-                ]),
-            ],
-        ];
-        $documents = [
-            factory(Document::class)->make(['id' => 997, 'delivery_id' => $deliveryA->id]),
-            factory(Document::class)->make(['id' => 998, 'delivery_id' => $deliveryA->id]),
-            factory(Document::class)->make(['id' => 999, 'delivery_id' => $deliveryA->id]),
-        ];
-        $deliveryA->documents = $documents;
-
-        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
-        $this->actingAs($user);
-        $this->assertAuthenticatedAs($user);
-
-        $response = $this->patchJson(route('orders.complete.update', $order), [
-            'reference' => 'MBXBXWWX',
-            'status' => 'incomplète',
-            'business_id' => $business->id,
-            'contact_id' => $contact->id,
-            'user_id' => null,
-            'company_id' => $company->id,
-            'deliveries' => $deliveries,
-        ]);
-
-        // dd($response->content());
-        $response->assertJsonValidationErrors('deliveries.0.0.documents.0.id');
-        $response->assertJsonValidationErrors('deliveries.0.0.documents.1.id');
-        $response->assertJsonValidationErrors('deliveries.0.0.documents.2.id');
-        $this->assertEquals('incomplète', $order->fresh()->status);
-    }
-
-    /** @test */
-    public function complete_order_validation_fails_if_deliveries_documents_are_not_associated_with_a_print_article()
-    {
-        $this->withExceptionHandling();
-
-        $business = factory(Business::class)->create(['company_id' => 1]);
-        $company = factory(Company::class)->create(['business_id' => $business->id]);
-        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
-        $order = factory(Order::class)->create(['company_id' => $company->id]);
-
-        $deliveries = [
-            [
-                $deliveryA = factory(Delivery::class)->create([
-                    'order_id' => $order->id,
-                    'contact_id' => $contact->id,
-                    'to_deliver_at' => now()->addWeeks(2),
-                ]),
-            ],
-        ];
-        $documents = [
-            factory(Document::class)->create([
-                'delivery_id' => $deliveryA->id,
-                'article_id' => null,
-            ]),
-            factory(Document::class)->create([
-                'delivery_id' => $deliveryA->id,
-                'article_id' => null,
-            ]),
-            factory(Document::class)->create([
-                'delivery_id' => $deliveryA->id,
-                'article_id' => null,
-            ]),
-        ];
-        $deliveryA->documents = $documents;
-
-        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
-        $this->actingAs($user);
-        $this->assertAuthenticatedAs($user);
-
-        $response = $this->patchJson(route('orders.complete.update', $order), [
-            'reference' => 'MBXBXWWX',
-            'status' => 'incomplète',
-            'business_id' => $business->id,
-            'contact_id' => $contact->id,
-            'user_id' => null,
-            'company_id' => $company->id,
-            'deliveries' => $deliveries,
-        ]);
-
-        // dd($response->content());
-        $response->assertJsonValidationErrors('deliveries.0.0.documents.0.article_id');
-        $response->assertJsonValidationErrors('deliveries.0.0.documents.1.article_id');
-        $response->assertJsonValidationErrors('deliveries.0.0.documents.2.article_id');
-        $errors = json_decode($response->content());
-        $errors = collect($errors->errors);
-        $this->assertContains("Une option d'impression est requise.", $errors['deliveries.0.0.documents.0.article_id']);
-        $this->assertContains("Une option d'impression est requise.", $errors['deliveries.0.0.documents.1.article_id']);
-        $this->assertContains("Une option d'impression est requise.", $errors['deliveries.0.0.documents.2.article_id']);
+        $response->assertJsonValidationErrors('deliveries.0.pickup');
         $this->assertEquals('incomplète', $order->fresh()->status);
     }
 }
