@@ -1,7 +1,7 @@
-@extends ('layouts.app')
+@extends('layouts.app')
 
-@section ('title', 'Compléter les informations sur le contact')
+@section('title', 'Compléter les informations sur le contact')
 
-@section ('content')
+@section('content')
   <account-contact :user="{{ auth()->user() }}"></account-contact>
 @endsection

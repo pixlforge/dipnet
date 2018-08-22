@@ -1,7 +1,7 @@
-@extends ('layouts.app')
+@extends('layouts.app')
 
-@section ('title', 'Complétez les informations de votre compte')
+@section('title', 'Complétez les informations de votre compte')
 
-@section ('content')
-    <app-account-details></app-account-details>
+@section('content')
+  <app-account-details></app-account-details>
 @endsection
