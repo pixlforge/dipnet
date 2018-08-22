@@ -44,6 +44,7 @@ Une nouvelle commande client a été passée.
 # Livraison n° {{ $delivery->reference }}
 @component('mail::panel')
 ## Adresse de livraison
+@if ($delivery->contact)
 {{ $delivery->contact->name }}<br>
 {{ $delivery->contact->address_line1 }}<br>
 @if ($delivery->contact->address_line2)
@@ -57,6 +58,9 @@ Une nouvelle commande client a été passée.
 {{ $delivery->contact->fax }}<br>
 @endif
 {{ $delivery->contact->email }}
+@else
+À récupérer sur place.
+@endif
 
 ## Documents
 @foreach ($delivery->documents as $document)

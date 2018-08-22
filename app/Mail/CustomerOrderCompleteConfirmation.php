@@ -25,7 +25,6 @@ class CustomerOrderCompleteConfirmation extends Mailable implements ShouldQueue
     public function __construct(Order $order)
     {
         $this->order = $order;
-        $this->order->load('user', 'business', 'contact', 'deliveries.contact', 'deliveries.documents.article', 'deliveries.documents.articles', 'deliveries.documents.media');
     }
 
     /**
