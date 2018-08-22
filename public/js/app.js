@@ -34551,15 +34551,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -34595,6 +34586,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   data() {
     return {
+      invitationsList: this.invitations,
       optionsForBusiness: [],
       currentCompany: {
         id: this.company.id,
@@ -34617,17 +34609,16 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   methods: {
     addInvitation(member) {
-      this.invitations.unshift(member);
+      this.invitationsList.unshift(member);
       window.flash({
         message: `L'invitation à ${member.email} a bien été envoyée!`,
         level: "success"
       });
     },
-    removeMember() {
-      alert("removed a member");
-    },
-    removeInvitation(index) {
-      this.invitations.splice(index, 1);
+    removeInvitation(id) {
+      this.invitations.splice(this.invitations.findIndex(invitation => {
+        return invitation.id == id;
+      }), 1);
     },
     selectBusiness(business) {
       this.currentCompany.business = business;
@@ -77241,47 +77232,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "company__group"
   }, [_c('h2', {
     staticClass: "company__title"
-  }, [_vm._v("Membres de " + _vm._s(_vm.company.name))]), _vm._v(" "), _c('transition-group', {
-    attrs: {
-      "name": "highlight",
-      "tag": "div"
-    }
-  }, _vm._l((_vm.company.user), function(user, index) {
+  }, [_vm._v("Membres de " + _vm._s(_vm.company.name))]), _vm._v(" "), _vm._l((_vm.company.user), function(user, index) {
     return _c('CompanyMember', {
       key: index,
       attrs: {
         "user": user
-      },
-      on: {
-        "member:removed": function($event) {
-          _vm.removeMember(index)
-        }
       }
     })
-  }))], 1), _vm._v(" "), _c('div', {
+  })], 2), _vm._v(" "), _c('div', {
     staticClass: "company__group"
   }, [_c('h2', {
     staticClass: "company__title"
   }, [_vm._v("Invitations")]), _vm._v(" "), (!_vm.invitations.length) ? _c('p', {
     staticClass: "company__paragraph"
-  }, [_vm._v("\n        Invitez vos collègues à rejoindre " + _vm._s(_vm.appName) + " et vos invitations s'afficheront ici.\n      ")]) : _vm._e(), _vm._v(" "), _c('transition-group', {
-    attrs: {
-      "name": "highlight",
-      "tag": "div"
-    }
-  }, _vm._l((_vm.invitations), function(invitation, index) {
+  }, [_vm._v("\n        Invitez vos collègues à rejoindre " + _vm._s(_vm.appName) + " et vos invitations s'afficheront ici.\n      ")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.invitationsList), function(invitation) {
     return _c('InvitedMember', {
-      key: index,
+      key: invitation.id,
       attrs: {
         "invitation": invitation
       },
       on: {
-        "invitation:deleted": function($event) {
-          _vm.removeInvitation(index)
-        }
+        "invitation:deleted": _vm.removeInvitation
       }
     })
-  }))], 1), _vm._v(" "), _c('div', {
+  })], 2), _vm._v(" "), _c('div', {
     staticClass: "company__group company__group--last"
   }, [_c('h3', {
     staticClass: "company__title"

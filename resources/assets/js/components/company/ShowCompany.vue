@@ -19,15 +19,10 @@
     <div class="company__container">
       <div class="company__group">
         <h2 class="company__title">Membres de {{ company.name }}</h2>
-        <transition-group
-          name="highlight"
-          tag="div">
-          <CompanyMember
-            v-for="(user, index) in company.user"
-            :key="index"
-            :user="user"
-            @member:removed="removeMember(index)"/>
-        </transition-group>
+        <CompanyMember
+          v-for="(user, index) in company.user"
+          :key="index"
+          :user="user"/>
       </div>
 
       <div class="company__group">
@@ -37,15 +32,11 @@
           class="company__paragraph">
           Invitez vos collègues à rejoindre {{ appName }} et vos invitations s'afficheront ici.
         </p>
-        <transition-group
-          name="highlight"
-          tag="div">
-          <InvitedMember
-            v-for="(invitation, index) in invitations"
-            :key="index"
-            :invitation="invitation"
-            @invitation:deleted="removeInvitation(index)"/>
-        </transition-group>
+        <InvitedMember
+          v-for="invitation in invitationsList"
+          :key="invitation.id"
+          :invitation="invitation"
+          @invitation:deleted="removeInvitation"/>
       </div>
 
       <div class="company__group company__group--last">
@@ -110,6 +101,7 @@ export default {
   },
   data() {
     return {
+      invitationsList: this.invitations,
       optionsForBusiness: [],
       currentCompany: {
         id: this.company.id,
@@ -134,17 +126,19 @@ export default {
   },
   methods: {
     addInvitation(member) {
-      this.invitations.unshift(member);
+      this.invitationsList.unshift(member);
       window.flash({
         message: `L'invitation à ${member.email} a bien été envoyée!`,
         level: "success"
       });
     },
-    removeMember() {
-      alert("removed a member");
-    },
-    removeInvitation(index) {
-      this.invitations.splice(index, 1);
+    removeInvitation(id) {
+      this.invitations.splice(
+        this.invitations.findIndex(invitation => {
+          return invitation.id == id;
+        }),
+        1
+      );
     },
     selectBusiness(business) {
       this.currentCompany.business = business;
