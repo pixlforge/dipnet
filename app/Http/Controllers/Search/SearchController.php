@@ -48,12 +48,12 @@ class SearchController extends Controller
                 ->get()
                 ->toArray();
 
-            // $companies = Company::select(['id', 'name'])
-            //     ->where('name', 'like', '%' . request('query') . '%')
-            //     ->latest()
-            //     ->limit(5)
-            //     ->get()
-            //     ->toArray();
+            $companies = Company::select(['id', 'name', 'slug'])
+                ->where('name', 'like', '%' . request('query') . '%')
+                ->latest()
+                ->limit(5)
+                ->get()
+                ->toArray();
 
             $businesses = Business::select(['id', 'name', 'reference'])
                 ->where('name', 'like', '%' . request('query') . '%')
@@ -93,13 +93,13 @@ class SearchController extends Controller
                 ->toArray();
 
             // Search for the user's own company.
-            // $companies = Company::select(['id', 'name'])
-            //     ->where([
-            //         ['id', auth()->user()->company_id],
-            //         ['name', 'like', '%' . request('query') . '%']
-            //     ])
-            //     ->get()
-            //     ->toArray();
+            $companies = Company::select(['id', 'name', 'slug'])
+                ->where([
+                    ['id', auth()->user()->company_id],
+                    ['name', 'like', '%' . request('query') . '%']
+                ])
+                ->get()
+                ->toArray();
 
             // Show the businesses related the user's company
             if (auth()->user()->isPartOfACompany()) {

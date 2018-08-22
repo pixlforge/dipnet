@@ -42171,6 +42171,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     getContactUrl(result) {
       return `/contacts/${result.id}/details`;
+    },
+    getCompanyUrl(result) {
+      return `/societes/${result.slug}`;
     }
   }
 });
@@ -72145,6 +72148,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": _vm.getDeliveryOrderUrl(result)
       }
     }, [_vm._v("\n            " + _vm._s(result.reference) + "\n          ")])])
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.containsCompanies) ? _c('div', [(_vm.containsOrders) ? _c('li', {
+    staticClass: "dropdown__list-item-divider"
+  }) : _vm._e(), _vm._v(" "), _c('h6', {
+    staticClass: "searchbar__title"
+  }, [_vm._v("Sociétés")]), _vm._v(" "), _vm._l((_vm.results.companies), function(result) {
+    return _c('li', {
+      key: result.id
+    }, [_c('a', {
+      attrs: {
+        "href": _vm.getCompanyUrl(result)
+      }
+    }, [_vm._v("\n            " + _vm._s(result.name) + "\n          ")])])
   })], 2) : _vm._e(), _vm._v(" "), (_vm.containsBusinesses) ? _c('div', [(_vm.containsOrders || _vm.containsCompanies) ? _c('li', {
     staticClass: "dropdown__list-item-divider"
   }) : _vm._e(), _vm._v(" "), _c('h6', {
