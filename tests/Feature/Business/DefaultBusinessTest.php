@@ -3,11 +3,11 @@
 namespace Tests\Feature\Business;
 
 use App\User;
+use App\Contact;
 use App\Company;
 use App\Business;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Contact;
 
 class DefaultBusinessTest extends TestCase
 {
@@ -416,7 +416,7 @@ class DefaultBusinessTest extends TestCase
         
         $response = $this->postJson(route('companies.default.business.store', $company), [
             'name' => "Fête de l'Hiver",
-            'description' => str_repeat('a', 46),
+            'description' => str_repeat('a', 256),
             'contact_id' => $contact->id,
         ]);
 

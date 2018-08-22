@@ -25,7 +25,7 @@ class StoreCompanyDefaultBusinessRequest extends FormRequest
     {
         return [
             'name' => 'required|string|min:3|max:45',
-            'description' => 'nullable|string|max:45',
+            'description' => 'nullable|string|max:255',
             'contact_id' => 'nullable|exists:contacts,id',
         ];
     }
@@ -44,7 +44,7 @@ class StoreCompanyDefaultBusinessRequest extends FormRequest
             'name.max' => 'Maximum 45 caractères.',
 
             'description.string' => 'La description doit être une chaîne de caractères.',
-            'description.max' => 'Maximum 45 caractères.',
+            'description.max' => 'Maximum 255 caractères.',
 
             'contact_id.required' => 'Veuillez sélectionner un contact.',
             'contact_id.exists' => 'Veuillez sélectionner un contact parmi ceux proposés.',
