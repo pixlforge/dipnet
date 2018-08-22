@@ -41,7 +41,7 @@
     </section>
 
     <section class="register__form-section">
-      <div class="register__form">
+      <div class="register__form register__form--details">
         <h1 class="register__title">Votre premier contact</h1>
 
         <div class="form__group">

@@ -29,14 +29,13 @@
 
     @media all and (max-width: $bp-md) {
       order: 1;
-      padding: 6rem 0;
     }
   }
 
   &__second-section {
     @media all and (max-width: $bp-md) {
       order: 0;
-      height: 70vh;
+      height: 50vh;
     }
   }
 
@@ -169,7 +168,7 @@
 
   &__form {
     width: 50%;
-    min-height: 60vh;
+    max-width: 50rem;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -179,11 +178,21 @@
     }
 
     @media all and (max-width: $bp-md) {
-      width: 70%;
+      height: unset;
+      padding-top: 10rem;
+      padding-bottom: 20rem;
     }
 
     @media all and (max-width: $bp-sm) {
-      width: 80%;
+      width: 100%;
+    }
+
+    @media all and (max-width: $bp-xs) {
+      width: 90%;
+    }
+
+    &--details {
+      padding-top: 10rem;
     }
 
     &--center {

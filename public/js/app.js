@@ -42051,6 +42051,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       } else {
         return `/commandes/${result.order.reference}/details`;
       }
+    },
+    getBusinessUrl(result) {
+      return `/affaires/${result.reference}/details`;
     }
   }
 });
@@ -70862,7 +70865,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('section', {
     staticClass: "register__form-section"
   }, [_c('div', {
-    staticClass: "register__form"
+    staticClass: "register__form register__form--details"
   }, [_c('h1', {
     staticClass: "register__title"
   }, [_vm._v("Votre société")]), _vm._v(" "), _c('div', {
@@ -71957,6 +71960,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": _vm.getDeliveryOrderUrl(result)
       }
     }, [_vm._v("\n            " + _vm._s(result.reference) + "\n          ")])])
+  })], 2) : _vm._e(), _vm._v(" "), (_vm.containsBusinesses) ? _c('div', [(_vm.containsOrders || _vm.containsCompanies) ? _c('li', {
+    staticClass: "dropdown__list-item-divider"
+  }) : _vm._e(), _vm._v(" "), _c('h6', {
+    staticClass: "searchbar__title"
+  }, [_vm._v("Affaires")]), _vm._v(" "), _vm._l((_vm.results.businesses), function(result) {
+    return _c('li', {
+      key: result.id
+    }, [_c('a', {
+      attrs: {
+        "href": _vm.getBusinessUrl(result)
+      }
+    }, [_vm._v("\n            " + _vm._s(result.name) + "\n          ")])])
   })], 2) : _vm._e(), _vm._v(" "), (_vm.search.query.length > 1 && !_vm.searching && !_vm.containsOrders && !_vm.containsCompanies && !_vm.containsBusinesses && !_vm.containsDeliveries && !_vm.containsContacts) ? _c('li', [_vm._v("\n        Aucun résultat\n      ")]) : _vm._e()]) : _vm._e()])], 1)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -72214,7 +72229,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Terminé!")])])])]), _vm._v(" "), _c('section', {
     staticClass: "register__form-section"
   }, [_c('div', {
-    staticClass: "register__form"
+    staticClass: "register__form register__form--details"
   }, [_c('h1', {
     staticClass: "register__title"
   }, [_vm._v("Votre premier contact")]), _vm._v(" "), _c('div', {
@@ -72689,7 +72704,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('section', {
     staticClass: "register__form-section"
   }, [_c('form', {
-    staticClass: "register__form",
+    staticClass: "register__form register__form--details",
     on: {
       "submit": function($event) {
         $event.preventDefault();
@@ -74211,7 +74226,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Terminé!")])])])]), _vm._v(" "), _c('section', {
     staticClass: "register__form-section"
   }, [_c('form', {
-    staticClass: "register__form",
+    staticClass: "register__form register__form--details",
     on: {
       "submit": function($event) {
         $event.preventDefault();

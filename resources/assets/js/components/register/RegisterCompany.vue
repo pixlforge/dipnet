@@ -33,7 +33,7 @@
 
     <section class="register__form-section">
       <form
-        class="register__form"
+        class="register__form register__form--details"
         @submit.prevent="createCompany">
         <h1 class="register__title">Votre <strong>société</strong></h1>
 

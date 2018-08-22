@@ -44,7 +44,7 @@
 
     <section class="register__form-section">
       <form
-        class="register__form"
+        class="register__form register__form--details"
         @submit.prevent="createContact">
         <h1 class="register__title">Votre premier <strong>contact</strong></h1>
 
