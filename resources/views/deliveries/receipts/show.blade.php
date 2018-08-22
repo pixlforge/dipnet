@@ -54,13 +54,17 @@
         <div class="receipt__item">
           <h2 class="receipt__item-title">Livraison chez</h2>
           <ul class="receipt__item-list">
-            <li>{{ ucfirst($delivery->contact->name) }}</li>
-            <li>{{ $delivery->contact->address_line1 }}</li>
-            <li>{{ $delivery->contact->address_line2 }}</li>
-            <li>{{ $delivery->contact->zip }} {{ $delivery->contact->city }}</li>
-            <li>{{ $delivery->contact->phone_number }}</li>
-            <li>{{ $delivery->contact->fax }}</li>
-            <li>{{ $delivery->contact->email }}</li>
+            @if ($delivery->contact)
+              <li>{{ ucfirst($delivery->contact->name) }}</li>
+              <li>{{ $delivery->contact->address_line1 }}</li>
+              <li>{{ $delivery->contact->address_line2 }}</li>
+              <li>{{ $delivery->contact->zip }} {{ $delivery->contact->city }}</li>
+              <li>{{ $delivery->contact->phone_number }}</li>
+              <li>{{ $delivery->contact->fax }}</li>
+              <li>{{ $delivery->contact->email }}</li>
+            @else
+              <li>À récupérer sur place</li>
+            @endif
           </ul>
         </div>
         <div class="receipt__item">
