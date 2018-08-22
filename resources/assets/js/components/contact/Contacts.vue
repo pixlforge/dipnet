@@ -53,7 +53,6 @@
             :contact="contact"
             :companies="companies"
             :user="user"
-            class="card__container"
             @edit-contact:open="openEditPanel"
             @contact:deleted="removeContact(index)"/>
         </transition-group>

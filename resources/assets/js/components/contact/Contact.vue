@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <a
+    :href="url"
+    class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"
@@ -9,9 +11,9 @@
     <!-- Name -->
     <div class="card__details card__details--contact">
       <h5 class="model__label">Nom</h5>
-      <a :href="url">
+      <span>
         <strong>{{ contact.name | capitalize }}</strong>
-      </a>
+      </span>
     </div>
 
     <!-- Address -->
@@ -67,7 +69,7 @@
         <i class="fal fa-pencil"/>
       </Button>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>

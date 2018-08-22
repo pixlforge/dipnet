@@ -49,6 +49,7 @@ class ContactController extends Controller
         
         if ($request->user()->isPartOfACompany()) {
             $contact->company()->associate(auth()->user()->company);
+            $contact->user()->associate(auth()->id());
         } elseif ($request->user()->isSolo()) {
             $contact->user()->associate(auth()->id());
         }
