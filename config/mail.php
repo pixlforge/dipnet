@@ -60,6 +60,12 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'order' => [
+        'confirmation' => [
+            'address' => env('MAIL_ORDER_CONFIRMATION_ADDRESS')
+        ]
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol

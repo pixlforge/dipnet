@@ -61,7 +61,7 @@ Une nouvelle commande client a été passée.
 ## Documents
 @foreach ($delivery->documents as $document)
 
-### {{ $document->filename }}<br>
+### {{ $document->media->first()->file_name }}<br>
 
 Impression: {{ $document->article->description }}<br>
 @if ($document->finish === 'roulé')
@@ -79,7 +79,7 @@ Option: {{ $article->description }}<br>
 @endcomponent
 @endforeach
 
-@component('mail::button', ['url' => config('app.url') . '/orders/' . $order->reference . '/show', 'color' => 'red'])
+@component('mail::button', ['url' => config('app.url') . '/commandes/' . $order->reference . '/details', 'color' => 'red'])
 Visualiser la commande
 @endcomponent
 

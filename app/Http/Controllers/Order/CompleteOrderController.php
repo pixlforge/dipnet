@@ -54,7 +54,7 @@ class CompleteOrderController extends Controller
         Mail::to(auth()->user()->email)
             ->queue(new CustomerOrderCompleteConfirmation($order));
 
-        Mail::to('admin@dipnet.ch')
+        Mail::to(config('mail.order.confirmation.address'))
             ->queue(new AdminOrderCompleteNotification($order));
 
         return response(null, 200);

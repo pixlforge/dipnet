@@ -25,7 +25,7 @@ class AdminOrderCompleteNotification extends Mailable implements ShouldQueue
     public function __construct(Order $order)
     {
         $this->order = $order;
-        $this->order->load('user', 'business.company', 'contact', 'deliveries.contact', 'deliveries.documents.article', 'deliveries.documents.articles');
+        $this->order->load('user', 'business.company', 'contact', 'deliveries.contact', 'deliveries.documents.article', 'deliveries.documents.articles', 'deliveries.documents.media');
     }
 
     /**
