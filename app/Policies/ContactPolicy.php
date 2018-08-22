@@ -17,7 +17,9 @@ class ContactPolicy
      */
     public function view(User $user, Contact $contact)
     {
-        if ($user->isPartOfACompany()) {
+        if ($user->isAdmin()) {
+            return true;
+        } elseif ($user->isPartOfACompany()) {
             return $contact->company_id == $user->company->id;
         } elseif ($user->isSolo()) {
             return $contact->user_id == $user->id;

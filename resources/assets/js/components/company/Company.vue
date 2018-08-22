@@ -9,9 +9,9 @@
     <!-- Name -->
     <div class="card__details card__details--company">
       <h5 class="model__label">Nom</h5>
-      <span>
+      <a :href="showRoute">
         <strong>{{ company.name | capitalize }}</strong>
-      </span>
+      </a>
     </div>
 
     <!-- Description -->
@@ -57,6 +57,11 @@ export default {
     company: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    showRoute() {
+      return window.route(`companies.show`, [this.company.slug]);
     }
   },
   methods: {

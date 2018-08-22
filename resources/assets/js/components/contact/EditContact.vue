@@ -176,7 +176,10 @@ export default {
     },
     companies: {
       type: Array,
-      required: true
+      required: false,
+      default() {
+        return [];
+      }
     },
     user: {
       type: Object,

@@ -6,6 +6,7 @@ use App\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\StoreUserContactRequest;
 use App\Http\Requests\Contact\UpdateUserContactRequest;
+use App\Company;
 
 class ContactController extends Controller
 {
@@ -69,8 +70,14 @@ class ContactController extends Controller
         $this->authorize('view', $contact);
 
         $contact->load('user', 'company');
+
+        if (auth()->user()->isAdmin()) {
+            $companies = Company::all();
+        } else {
+            $companies = collect();
+        }
         
-        return view('contacts.show', compact('contact'));
+        return view('contacts.show', compact('contact', 'companies'));
     }
 
     /**

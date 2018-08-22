@@ -62,7 +62,7 @@
 
       <!-- Edit -->
       <Button
-        title="Supprimer"
+        title="Modifier"
         @click.prevent="edit">
         <i class="fal fa-pencil"/>
       </Button>
