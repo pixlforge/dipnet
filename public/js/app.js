@@ -40040,7 +40040,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return _asyncToGenerator(function* () {
         let res = yield window.axios.get(window.route("admin.orders.files.download", [_this.order.reference]), { responseType: "blob" });
-        // console.log(res.data);
         let blob = new Blob([res.data], { type: "application/x-zip" });
         let link = document.createElement("a");
         link.href = window.URL.createObjectURL(blob);
@@ -40050,6 +40049,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     },
     updateStatus(event) {
       this.currentOrder.status = event.value;
+      this.update();
+    },
+    updateBusiness() {
+      if (this.currentOrder.business.value) {
+        this.currentOrder.business_id = this.currentOrder.business.value;
+      }
       this.update();
     },
     updateContact() {
@@ -69772,7 +69777,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "allow-create-business": ""
     },
     on: {
-      "input": _vm.update
+      "input": _vm.updateBusiness
     },
     model: {
       value: (_vm.currentOrder.business),

@@ -27,7 +27,7 @@
             :options="listBusinesses"
             v-model="currentOrder.business"
             allow-create-business
-            @input="update">
+            @input="updateBusiness">
             <p><strong>{{ currentOrder.business.label ? currentOrder.business.label : 'Aucune' }}</strong></p>
           </AppSelect>
         </div>
@@ -436,7 +436,6 @@ export default {
         window.route("admin.orders.files.download", [this.order.reference]),
         { responseType: "blob" }
       );
-      // console.log(res.data);
       let blob = new Blob([res.data], { type: "application/x-zip" });
       let link = document.createElement("a");
       link.href = window.URL.createObjectURL(blob);
@@ -445,6 +444,12 @@ export default {
     },
     updateStatus(event) {
       this.currentOrder.status = event.value;
+      this.update();
+    },
+    updateBusiness() {
+      if (this.currentOrder.business.value) {
+        this.currentOrder.business_id = this.currentOrder.business.value;
+      }
       this.update();
     },
     updateContact() {
