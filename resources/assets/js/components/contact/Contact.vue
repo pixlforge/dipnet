@@ -9,9 +9,9 @@
     <!-- Name -->
     <div class="card__details card__details--contact">
       <h5 class="model__label">Nom</h5>
-      <span>
+      <a :href="url">
         <strong>{{ contact.name | capitalize }}</strong>
-      </span>
+      </a>
     </div>
 
     <!-- Address -->
@@ -100,6 +100,9 @@ export default {
     },
     endpoint() {
       return this.userIsAdmin ? "admin.contacts.destroy" : "contacts.destroy";
+    },
+    url() {
+      return window.route("contacts.show", [this.contact.id]);
     }
   },
   methods: {

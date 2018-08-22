@@ -259,6 +259,7 @@ Route::prefix('/societes')->namespace('Company')->name('companies.')->group(func
 Route::prefix('/contacts')->namespace('Contact')->name('contacts.')->group(function () {
     Route::get('/', 'ContactController@index')->name('index');
     Route::post('/', 'ContactController@store')->name('store');
+    Route::get('/{contact}/details', 'ContactController@show')->name('show');
     Route::patch('/{contact}', 'ContactController@update')->name('update');
     Route::delete('/{contact}', 'ContactController@destroy')->name('destroy');
 });

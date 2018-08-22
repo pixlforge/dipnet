@@ -60,6 +60,20 @@ class ContactController extends Controller
     }
 
     /**
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function show(Contact $contact)
+    {
+        $this->authorize('view', $contact);
+
+        $contact->load('user', 'company');
+        
+        return view('contacts.show', compact('contact'));
+    }
+
+    /**
      * Update an existing contact.
      *
      * @param UpdateUserContactRequest $request

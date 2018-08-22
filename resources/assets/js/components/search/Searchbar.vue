@@ -74,7 +74,7 @@
         </div>
         
         <!-- Contacts -->
-        <!-- <div v-if="containsContacts">
+        <div v-if="containsContacts">
           <li
             v-if="containsOrders || containsCompanies || containsBusinesses || containsDeliveries"
             class="dropdown__list-item-divider"/>
@@ -82,11 +82,11 @@
           <li
             v-for="result in results.contacts"
             :key="result.id">
-            <a :href="`/contacts/${result.id}`">
+            <a :href="getContactUrl(result)">
               {{ result.name }}
             </a>
           </li>
-        </div> -->
+        </div>
 
         <!-- No result -->
         <li
@@ -171,6 +171,9 @@ export default {
     },
     getBusinessUrl(result) {
       return `/affaires/${result.reference}/details`;
+    },
+    getContactUrl(result) {
+      return `/contacts/${result.id}/details`;
     }
   }
 };
