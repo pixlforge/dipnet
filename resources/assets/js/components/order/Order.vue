@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <a
+    :href="orderRoute"
+    class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"
@@ -9,9 +11,9 @@
     <!-- Reference -->
     <div class="card__details card__details--order">
       <h5 class="model__label">Référence</h5>
-      <a :href="orderRoute">
+      <span>
         {{ order.reference }}
-      </a>
+      </span>
     </div>
 
     <!-- Status -->
@@ -55,7 +57,7 @@
         <i class="fal fa-times"/>
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>

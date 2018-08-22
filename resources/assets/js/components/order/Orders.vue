@@ -43,7 +43,6 @@
             :key="order.id"
             :order="order"
             :user-role="userRole"
-            class="card__container"
             @orderWasDeleted="removeOrder"/>
         </transition-group>
       </template>
