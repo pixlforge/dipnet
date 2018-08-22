@@ -170,7 +170,7 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
      * Orders
      */
     Route::prefix('/commandes')->namespace('Order')->name('orders.')->group(function () {
-        Route::get('/{order}/voir', 'OrderController@show')->name('show');
+        Route::get('/{order}/details', 'OrderController@show')->name('show');
 
         /**
          * Download
