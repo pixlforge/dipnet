@@ -71,17 +71,30 @@ class SearchController extends Controller
         }
 
         if (auth()->user()->isNotAdmin()) {
+            if (auth()->user()->isPartOfACompany()) {
+                $orders = Order::select(['id', 'reference'])
+                    ->where([
+                        ['company_id', auth()->user()->company->id],
+                        ['reference', 'like', '%' . request('query') . '%']
+                    ])
+                    ->latest()
+                    ->limit(5)
+                    ->get()
+                    ->toArray();
+            } else {
+                $orders = Order::select(['id', 'reference'])
+                    ->where([
+                        ['user_id', auth()->id()],
+                        ['reference', 'like', '%' . request('query') . '%']
+                    ])
+                    ->latest()
+                    ->limit(5)
+                    ->get()
+                    ->toArray();
+            }
 
             // Search for the orders placed by the user.
-            $orders = Order::select(['id', 'reference'])
-                ->where([
-                    ['user_id', auth()->id()],
-                    ['reference', 'like', '%' . request('query') . '%']
-                ])
-                ->latest()
-                ->limit(5)
-                ->get()
-                ->toArray();
+            
 
             // Search for the deliveries related to the user's company.
             $deliveries = auth()->user()->deliveries()
