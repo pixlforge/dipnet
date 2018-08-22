@@ -34466,20 +34466,22 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CompanyMember_vue__ = __webpack_require__(283);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__CompanyMember_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__CompanyMember_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__invitation_Invitation_vue__ = __webpack_require__(303);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__invitation_Invitation_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__invitation_Invitation_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__invitation_InvitedMember_vue__ = __webpack_require__(304);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__invitation_InvitedMember_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__invitation_InvitedMember_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown__ = __webpack_require__(295);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__select_AppSelect__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__select_AppSelect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__select_AppSelect__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CompanyMember__ = __webpack_require__(283);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CompanyMember___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__CompanyMember__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__invitation_Invitation__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__invitation_Invitation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__invitation_Invitation__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__invitation_InvitedMember__ = __webpack_require__(304);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__invitation_InvitedMember___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__invitation_InvitedMember__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
 //
 //
 //
@@ -34569,11 +34571,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    CompanyMember: __WEBPACK_IMPORTED_MODULE_0__CompanyMember_vue___default.a,
-    InviteMember: __WEBPACK_IMPORTED_MODULE_1__invitation_Invitation_vue___default.a,
-    MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a,
-    InvitedMember: __WEBPACK_IMPORTED_MODULE_3__invitation_InvitedMember_vue___default.a,
-    SettingsDropdown: __WEBPACK_IMPORTED_MODULE_4__dropdown_SettingsDropdown___default.a
+    AppSelect: __WEBPACK_IMPORTED_MODULE_0__select_AppSelect___default.a,
+    CompanyMember: __WEBPACK_IMPORTED_MODULE_1__CompanyMember___default.a,
+    InviteMember: __WEBPACK_IMPORTED_MODULE_2__invitation_Invitation___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader___default.a,
+    InvitedMember: __WEBPACK_IMPORTED_MODULE_4__invitation_InvitedMember___default.a
   },
   mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["h" /* appName */], __WEBPACK_IMPORTED_MODULE_6__mixins__["c" /* loader */]],
   props: {
@@ -34592,18 +34594,25 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   data() {
     return {
-      selectedBusiness: "Sélection"
+      optionsForBusiness: [],
+      currentCompany: {
+        id: this.company.id,
+        name: this.company.name,
+        slug: this.company.slug,
+        status: this.company.status,
+        description: this.company.description,
+        business_id: this.company.business_id,
+        business: {
+          label: "",
+          value: null
+        }
+      }
     };
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(["loaderState"])),
   mounted() {
-    const businessId = this.company.business_id;
-    if (businessId !== null) {
-      const business = this.businesses.find(business => {
-        return business.id === businessId;
-      });
-      this.selectedBusiness = business.name;
-    }
+    this.formatBusinessOptions();
+    this.selectedBusiness();
   },
   methods: {
     addInvitation(member) {
@@ -34620,12 +34629,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.invitations.splice(index, 1);
     },
     selectBusiness(business) {
-      this.selectedBusiness = business.name;
-      this.company.business_id = business.id;
-      this.update(business);
+      this.currentCompany.business = business;
+      this.currentCompany.business_id = business.value;
+      this.update();
+    },
+    formatBusinessOptions() {
+      this.optionsForBusiness = this.businesses.map(business => {
+        return { label: business.name, value: business.id };
+      });
+    },
+    selectedBusiness() {
+      if (this.company.business_id) {
+        this.currentCompany.business = this.optionsForBusiness.find(business => {
+          return business.value === this.company.business_id;
+        });
+      }
     },
     update() {
-      window.axios.put(window.route("companies.update", [this.company.id]), this.company).then(() => {
+      window.axios.patch(window.route("companies.default.business.update", [this.company.slug]), this.currentCompany).then(() => {
         window.flash({
           message: "Les paramètres de votre société ont bien été mis à jour!",
           level: "success"
@@ -36996,90 +37017,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 });
 
 /***/ }),
-/* 206 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* filters */]],
-  props: {
-    label: {
-      type: String,
-      required: true
-    },
-    items: {
-      type: Array,
-      required: true
-    }
-  },
-  data() {
-    return {
-      open: false
-    };
-  },
-  created() {
-    const escapeHandler = event => {
-      if (event.key === "Escape" && this.open) {
-        this.open = false;
-      }
-    };
-    document.addEventListener("keydown", escapeHandler);
-
-    const clickHandler = event => {
-      let element = this.$refs.dropdownMenu;
-      let target = event.target;
-      if (element !== target && !element.contains(target)) {
-        this.open = false;
-      }
-    };
-    document.addEventListener("click", clickHandler);
-
-    this.$once("hook:destroyed", () => {
-      document.removeEventListener("keydown", escapeHandler);
-      document.removeEventListener("click", clickHandler);
-    });
-  },
-  methods: {
-    toggleOpen() {
-      this.open = !this.open;
-    },
-    selectItem(item) {
-      this.$emit("item:selected", item);
-      this.toggleOpen();
-    }
-  }
-});
-
-/***/ }),
+/* 206 */,
 /* 207 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -68492,40 +68430,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 295 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(206),
-  /* template */
-  __webpack_require__(365),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/celienboillat/Webdev/Projects/dipnet/resources/assets/js/components/dropdown/SettingsDropdown.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] SettingsDropdown.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-41028488", Component.options)
-  } else {
-    hotAPI.reload("data-v-41028488", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 295 */,
 /* 296 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -73945,43 +73850,7 @@ if (false) {
 }
 
 /***/ }),
-/* 365 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    ref: "dropdownMenu"
-  }, [_c('div', {
-    staticClass: "dropdown__label",
-    on: {
-      "click": _vm.toggleOpen
-    }
-  }, [_c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.label)))]), _vm._v(" "), _c('i', {
-    staticClass: "fas fa-caret-down"
-  })]), _vm._v(" "), (_vm.open) ? _c('div', {
-    staticClass: "dropdown__container"
-  }, [_c('ul', {
-    staticClass: "dropdown__list"
-  }, [(_vm.items.length <= 0) ? _c('li', [_vm._v("Aucun contact")]) : _vm._e(), _vm._v(" "), _vm._l((_vm.items), function(business) {
-    return _c('li', {
-      key: business,
-      on: {
-        "click": function($event) {
-          _vm.selectItem(business)
-        }
-      }
-    }, [_vm._v("\n        " + _vm._s(business.name) + "\n      ")])
-  })], 2)]) : _vm._e()])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-41028488", module.exports)
-  }
-}
-
-/***/ }),
+/* 365 */,
 /* 366 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -77407,15 +77276,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "company__option"
   }, [_c('label', {
     staticClass: "company__label"
-  }, [_vm._v("Affaire par défaut :")]), _vm._v(" "), _c('SettingsDropdown', {
+  }, [_vm._v("Affaire par défaut :")]), _vm._v(" "), _c('AppSelect', {
     attrs: {
-      "label": _vm.selectedBusiness,
-      "items": _vm.businesses
+      "options": _vm.optionsForBusiness
     },
     on: {
-      "item:selected": _vm.selectBusiness
+      "input": _vm.selectBusiness
     }
-  })], 1)])])]), _vm._v(" "), _c('MoonLoader', {
+  }, [_vm._v("\n            " + _vm._s(_vm.currentCompany.business.label ? _vm.currentCompany.business.label : 'Sélectionner') + "\n          ")])], 1)])])]), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,

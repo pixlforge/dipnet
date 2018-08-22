@@ -56,13 +56,15 @@
           Gérez les paramètres par défaut pour votre société.
         </p>
 
+        <!-- Default business -->
         <div class="company__options">
           <div class="company__option">
             <label class="company__label">Affaire par défaut :</label>
-            <SettingsDropdown
-              :label="selectedBusiness"
-              :items="businesses"
-              @item:selected="selectBusiness"/>
+            <AppSelect
+              :options="optionsForBusiness"
+              @input="selectBusiness">
+              {{ currentCompany.business.label ? currentCompany.business.label : 'Sélectionner' }}
+            </AppSelect>
           </div>
         </div>
       </div>
@@ -76,22 +78,22 @@
 </template>
 
 <script>
-import CompanyMember from "./CompanyMember.vue";
-import InviteMember from "../invitation/Invitation.vue";
-import MoonLoader from "vue-spinner/src/MoonLoader.vue";
-import InvitedMember from "../invitation/InvitedMember.vue";
-import SettingsDropdown from "../dropdown/SettingsDropdown";
+import AppSelect from "../select/AppSelect";
+import CompanyMember from "./CompanyMember";
+import InviteMember from "../invitation/Invitation";
+import MoonLoader from "vue-spinner/src/MoonLoader";
+import InvitedMember from "../invitation/InvitedMember";
 
 import { mapGetters } from "vuex";
 import { appName, loader } from "../../mixins";
 
 export default {
   components: {
+    AppSelect,
     CompanyMember,
     InviteMember,
     MoonLoader,
-    InvitedMember,
-    SettingsDropdown
+    InvitedMember
   },
   mixins: [appName, loader],
   props: {
@@ -110,20 +112,27 @@ export default {
   },
   data() {
     return {
-      selectedBusiness: "Sélection"
+      optionsForBusiness: [],
+      currentCompany: {
+        id: this.company.id,
+        name: this.company.name,
+        slug: this.company.slug,
+        status: this.company.status,
+        description: this.company.description,
+        business_id: this.company.business_id,
+        business: {
+          label: "",
+          value: null
+        }
+      }
     };
   },
   computed: {
     ...mapGetters(["loaderState"])
   },
   mounted() {
-    const businessId = this.company.business_id;
-    if (businessId !== null) {
-      const business = this.businesses.find(business => {
-        return business.id === businessId;
-      });
-      this.selectedBusiness = business.name;
-    }
+    this.formatBusinessOptions();
+    this.selectedBusiness();
   },
   methods: {
     addInvitation(member) {
@@ -140,13 +149,32 @@ export default {
       this.invitations.splice(index, 1);
     },
     selectBusiness(business) {
-      this.selectedBusiness = business.name;
-      this.company.business_id = business.id;
-      this.update(business);
+      this.currentCompany.business = business;
+      this.currentCompany.business_id = business.value;
+      this.update();
+    },
+    formatBusinessOptions() {
+      this.optionsForBusiness = this.businesses.map(business => {
+        return { label: business.name, value: business.id };
+      });
+    },
+    selectedBusiness() {
+      if (this.company.business_id) {
+        this.currentCompany.business = this.optionsForBusiness.find(
+          business => {
+            return business.value === this.company.business_id;
+          }
+        );
+      }
     },
     update() {
       window.axios
-        .put(window.route("companies.update", [this.company.id]), this.company)
+        .patch(
+          window.route("companies.default.business.update", [
+            this.company.slug
+          ]),
+          this.currentCompany
+        )
         .then(() => {
           window.flash({
             message: "Les paramètres de votre société ont bien été mis à jour!",
