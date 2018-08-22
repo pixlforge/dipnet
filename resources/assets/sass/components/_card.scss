@@ -1,5 +1,6 @@
 .card {
   &__container {
+    position: relative;
     width: 84%;
     background-color: $white;
     display: flex;
@@ -24,7 +25,6 @@
 
   &__img {
     width: 4rem;
-    margin-right: 8rem;
 
     @media all and (max-width: $bp-md) {
       display: none;
@@ -39,10 +39,18 @@
   &__details {
     text-align: center;
 
+    @media all and (max-width: $bp-md) {
+      margin-top: 1.5rem;
+    }
+
     & span,
     & div {
       font-size: 1.5rem;
       font-weight: 300;
+
+      @media all and (max-width: $bp-md) {
+        font-size: 1.8rem;
+      }
     }
 
     & strong {
@@ -62,20 +70,41 @@
     &--business,
     &--order {
       width: 15%;
+
+      @media all and (max-width: $bp-md) {
+        width: 100%;
+      }
     }
 
     &--user {
       width: 20%;
+
+      @media all and (max-width: $bp-md) {
+        width: 100%;
+      }
     }
 
     &--article,
     &--format,
     &--company {
       width: 30%;
+
+      @media all and (max-width: $bp-md) {
+        width: 100%;
+      }
     }
 
-    &--ticker {
+    &--ticker,
+    &--invitation {
       width: 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      @media all and (max-width: $bp-md) {
+        width: 100%;
+      }
     }
   }
 
@@ -83,16 +112,26 @@
     span {
       font-size: 1.2rem;
       text-transform: uppercase;
+
+      @media all and (max-width: $bp-md) {
+        font-size: 1.4rem;
+      }
     }
   }
 
   &__controls {
     height: 5rem;
+    font-size: 1.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.5rem;
+
+    @media all and (max-width: $bp-md) {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+    }
 
     button {
       color: $light-grey;
@@ -108,11 +147,6 @@
       @media all and (max-width: $bp-md) {
         margin: 0 .5rem;
       }
-    }
-
-    @media all and (max-width: $bp-md) {
-      flex-direction: row;
-      margin-top: 2rem;
     }
 
     &--order {

@@ -34292,6 +34292,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -34480,8 +34483,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(3);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
 //
 //
 //
@@ -38015,6 +38016,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ResendInvitation_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__ResendInvitation_vue__);
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -42647,7 +42654,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(3);
 //
 //
 //
@@ -42689,13 +42698,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* filters */]],
+  components: {
+    Button: __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default.a
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["b" /* filters */]],
   props: {
     ticker: {
       type: Object,
@@ -43357,7 +43369,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(3);
 //
 //
 //
@@ -43446,13 +43460,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* filters */], __WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* dates */]],
+  components: {
+    Button: __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default.a
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["b" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* dates */]],
   props: {
     user: {
       type: Object,
@@ -71762,14 +71779,18 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "card__title"
-  }, [_vm._v("\n    " + _vm._s(_vm.user.username) + "\n  ")]), _vm._v(" "), _c('div', {
-    staticClass: "card__meta"
-  }, [_c('span', {
-    staticClass: "card__label"
-  }, [_vm._v("Email")]), _vm._v("\n    " + _vm._s(_vm.user.email) + "\n  ")]), _vm._v(" "), _c('div', {
-    staticClass: "card__meta"
+  return _c('div', {
+    staticClass: "card__container"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "card__details card__details--member"
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Nom d'utilisateur")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.user.username))])])]), _vm._v(" "), _c('div', {
+    staticClass: "card__details card__details--member"
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Adresse e-mail")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.user.email))])]), _vm._v(" "), _c('div', {
+    staticClass: "card__details"
   })])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -77081,9 +77102,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-times-circle text--warning"
   })])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('button', {
+  }, [_c('Button', {
     attrs: {
-      "role": "button",
       "title": "Supprimer"
     },
     on: {
@@ -77094,9 +77114,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })]), _vm._v(" "), _c('button', {
+  })]), _vm._v(" "), _c('Button', {
     attrs: {
-      "role": "button",
       "title": "Modifier"
     },
     on: {
@@ -77107,7 +77126,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-pencil"
-  })])])])
+  })])], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -77230,7 +77249,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.company.user), function(user, index) {
     return _c('CompanyMember', {
       key: index,
-      staticClass: "card__container",
       attrs: {
         "user": user
       },
@@ -77254,7 +77272,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.invitations), function(invitation, index) {
     return _c('InvitedMember', {
       key: index,
-      staticClass: "card__container",
       attrs: {
         "invitation": invitation
       },
@@ -78613,9 +78630,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: _vm.statusClass
   }, [_vm._v("\n      " + _vm._s(_vm.ticker.active ? 'Actif' : 'Inactif') + "\n    ")])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
-  }, [_c('button', {
+  }, [_c('Button', {
     attrs: {
-      "role": "button",
       "title": "Supprimer"
     },
     on: {
@@ -78626,9 +78642,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })]), _vm._v(" "), _c('button', {
+  })]), _vm._v(" "), _c('Button', {
     attrs: {
-      "role": "button",
       "title": "Modifier"
     },
     on: {
@@ -78639,7 +78654,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-pencil"
-  })])])])
+  })])], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
@@ -78770,10 +78785,14 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "card__title"
-  }, [_vm._v("\n    " + _vm._s(_vm.invitation.email) + "\n  ")]), _vm._v(" "), _c('div', {
-    staticClass: "card__meta"
+  return _c('div', {
+    staticClass: "card__container"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "card__details card__details--invitation"
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Adresse e-mail")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.invitation.email))])])]), _vm._v(" "), _c('div', {
+    staticClass: "card__details card__details--invitation"
   }, [_c('ResendInvitation', {
     attrs: {
       "invitation": _vm.invitation

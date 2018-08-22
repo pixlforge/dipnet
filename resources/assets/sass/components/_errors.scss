@@ -10,31 +10,35 @@
 
 .error {
   &__container {
+    position: relative;
     width: 84%;    
-    background-color: lighten($bg-red, 37%);
+    background-color: $bg-orange;
     border-radius: 5px;
     margin: 5rem auto;
-    padding: 5rem;
+    padding: 2.5rem 6rem;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
 
     & svg {
-      color: $brand-red;
+      position: absolute;
+      top: 50%;
+      left: 5rem;
+      transform: translate(-50%, -50%);
+      color: $white;
     }
   }
 
   &__list {
     list-style: none;
-    font-size: 1.6rem;
-    font-weight: 700;
+    font-size: 1.8rem;
+    font-weight: 400;
     color: $bg-red;
     text-align: center;
-    margin-top: 3rem;
 
     li {
       line-height: 1.5;
+      color: $white;
     }
   }
 }

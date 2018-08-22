@@ -32,6 +32,10 @@
     margin-right: .5rem;
   }
 
+  &__header-controls {
+    display: flex;
+  }
+
   &__controls {
     display: flex;
     flex-wrap: wrap;

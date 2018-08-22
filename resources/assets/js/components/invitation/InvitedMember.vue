@@ -1,19 +1,25 @@
 <template>
-  <div>
+  <div class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"
         alt="Bullet point image">
     </div>
 
-    <div class="card__title">
-      {{ invitation.email }}
+    <!-- Email -->
+    <div class="card__details card__details--invitation">
+      <h5 class="model__label">Adresse e-mail</h5>
+      <span>
+        <strong>{{ invitation.email }}</strong>
+      </span>
     </div>
 
-    <div class="card__meta">
+    <!-- Resend invitation -->
+    <div class="card__details card__details--invitation">
       <ResendInvitation :invitation="invitation"/>
     </div>
 
+    <!-- Controls -->
     <div class="card__controls">
       <Button
         @click.prevent="destroy">

@@ -1,7 +1,6 @@
 .header {
   &__container {
     width: 84vw;
-    height: 5rem;
     margin: 3rem auto;
     display: flex;
     justify-content: space-between;
@@ -14,5 +13,11 @@
 
   &__stats {
     margin: 2rem 0;
+  }
+
+  &__sort {
+    @media all and (max-width: $bp-md) {
+      margin: 2rem 0;
+    }
   }
 }

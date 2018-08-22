@@ -9,13 +9,15 @@
       </div>
 
       <!-- Sort -->
-      <AppSelect
-        :options="sortOptions"
-        v-model="sort"
-        @input="selectSort(sort)">
-        <span class="dropdown__title">Trier par</span>
-        <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
-      </AppSelect>
+      <div class="header__sort">
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
+      </div>
 
       <!-- Add button -->
       <Button

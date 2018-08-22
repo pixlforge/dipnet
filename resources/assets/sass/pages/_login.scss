@@ -32,7 +32,7 @@
   &__second-section {
     @media all and (max-width: $bp-md) {
       order: 0;
-      height: 70vh;
+      height: 50vh;
     }
   }
 
@@ -63,6 +63,7 @@
 
   &__form {
     width: 50%;
+    max-width: 50rem;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -73,11 +74,17 @@
     }
 
     @media all and (max-width: $bp-md) {
-      height: 60vh;
+      height: unset;
+      padding-top: 10rem;
+      padding-bottom: 20rem;
     }
 
     @media all and (max-width: $bp-sm) {
-      height: 65vh;
+      width: 100%;
+    }
+
+    @media all and (max-width: $bp-xs) {
+      width: 90%;
     }
   }
 

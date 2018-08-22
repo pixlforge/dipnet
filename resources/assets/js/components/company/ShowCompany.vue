@@ -26,7 +26,6 @@
             v-for="(user, index) in company.user"
             :key="index"
             :user="user"
-            class="card__container"
             @member:removed="removeMember(index)"/>
         </transition-group>
       </div>
@@ -45,7 +44,6 @@
             v-for="(invitation, index) in invitations"
             :key="index"
             :invitation="invitation"
-            class="card__container"
             @invitation:deleted="removeInvitation(index)"/>
         </transition-group>
       </div>

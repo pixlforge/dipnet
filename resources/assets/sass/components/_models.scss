@@ -4,5 +4,9 @@
     color: $lighter-grey;
     text-transform: uppercase;
     margin-bottom: .75rem;
+
+    @media all and (max-width: $bp-md) {
+      font-size: 1.2rem;
+    }
   }
 }

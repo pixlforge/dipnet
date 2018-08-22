@@ -72,26 +72,29 @@
 
     <!-- Controls -->
     <div class="card__controls">
-      <button
-        role="button"
+      <Button
         title="Supprimer"
         @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </button>
-      <button
-        role="button"
+      </Button>
+      <Button
         title="Modifier"
         @click.prevent="edit">
         <i class="fal fa-pencil"/>
-      </button>
+      </Button>
     </div>
   </div>
 </template>
 
 <script>
+import Button from "../buttons/Button";
+
 import { filters, dates } from "../../mixins";
 
 export default {
+  components: {
+    Button
+  },
   mixins: [filters, dates],
   props: {
     user: {
