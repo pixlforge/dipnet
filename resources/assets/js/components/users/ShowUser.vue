@@ -148,10 +148,11 @@ export default {
     }
   },
   methods: {
-    congratulations(contact) {
-      this.currentContact = contact;
+    congratulations(user) {
+      this.currentUser = user;
       window.flash({
-        message: "Les modifications apportées au contact ont été enregistrées.",
+        message:
+          "Les modifications apportées à l'utilisateur ont été enregistrées.",
         level: "success"
       });
     }

@@ -107,6 +107,8 @@ class UserController extends Controller
 
         $user->save();
 
+        $user->load('company');
+
         return response($user, 200);
     }
 
