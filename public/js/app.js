@@ -35007,6 +35007,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -74728,9 +74730,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "model__label"
   }, [_vm._v("NPA & Localité")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.contact.zip) + " " + _vm._s(_vm.contact.city))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--contact"
-  }, [_c('h5', {
+  }, [(_vm.contact.company) ? [_c('h5', {
     staticClass: "model__label"
-  }, [_vm._v("Société")]), _vm._v(" "), (_vm.contact.company) ? _c('span', [_vm._v(_vm._s(_vm.contact.company.name))]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Société")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.contact.company.name))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--contact"
   }, [_c('h5', {
     staticClass: "model__label"

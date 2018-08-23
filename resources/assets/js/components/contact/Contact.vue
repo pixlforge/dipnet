@@ -31,8 +31,10 @@
 
     <!-- Company -->
     <div class="card__details card__details--contact">
-      <h5 class="model__label">Société</h5>
-      <span v-if="contact.company">{{ contact.company.name }}</span>
+      <template v-if="contact.company">
+        <h5 class="model__label">Société</h5>
+        <span>{{ contact.company.name }}</span>
+      </template>
     </div>
 
     <!-- Phone, fax & email -->
