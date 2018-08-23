@@ -157,26 +157,26 @@ export default {
     }, 500),
     getOrderUrl(result) {
       if (this.userIsAdmin) {
-        return `/admin/commandes/${result.reference}/voir`;
+        return window.route("admin.orders.show", [result.reference]);
       } else {
-        return `/commandes/${result.reference}/details`;
+        return window.route("orders.complete.show", [result.reference]);
       }
     },
     getDeliveryOrderUrl(result) {
       if (this.userIsAdmin) {
-        return `/admin/commandes/${result.order.reference}/voir`;
+        return window.route("admin.orders.show", [result.order.reference]);
       } else {
-        return `/commandes/${result.order.reference}/details`;
+        return window.route("orders.complete.show", [result.order.reference]);
       }
     },
     getBusinessUrl(result) {
-      return `/affaires/${result.reference}/details`;
+      return window.route("businesses.show", [result.reference]);
     },
     getContactUrl(result) {
-      return `/contacts/${result.id}/details`;
+      return window.route("contacts.show", [result.id]);
     },
     getCompanyUrl(result) {
-      return `/societes/${result.slug}`;
+      return window.route("companies.show", [result.slug]);
     }
   }
 };

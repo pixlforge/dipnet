@@ -138,15 +138,27 @@ class SearchController extends Controller
             }
 
             // Search for the contacts related to the user.
-            $contacts = Contact::select(['id', 'name'])
-                ->where([
-                    ['user_id', auth()->id()],
-                    ['name', 'like', '%' . request('query') . '%']
-                ])
-                ->latest()
-                ->limit(5)
-                ->get()
-                ->toArray();
+            if (auth()->user()->isPartOfACompany()) {
+                $contacts = Contact::select(['id', 'name'])
+                    ->where([
+                        ['company_id', auth()->user()->company->id],
+                        ['name', 'like', '%' . request('query') . '%']
+                    ])
+                    ->latest()
+                    ->limit(5)
+                    ->get()
+                    ->toArray();
+            } else {
+                $contacts = Contact::select(['id', 'name'])
+                    ->where([
+                        ['user_id', auth()->id()],
+                        ['name', 'like', '%' . request('query') . '%']
+                    ])
+                    ->latest()
+                    ->limit(5)
+                    ->get()
+                    ->toArray();
+            }
         }
 
         return response([
