@@ -30,6 +30,19 @@ class TickerController extends Controller
     }
 
     /**
+     * Show a ticker.
+     *
+     * @param Ticker $ticker
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Ticker $ticker)
+    {
+        $currentTicker = Ticker::find($ticker->id);
+        
+        return view('admin.tickers.show', compact('currentTicker'));
+    }
+
+    /**
      * Store a new ticker.
      *
      * @param StoreTickerRequest $request

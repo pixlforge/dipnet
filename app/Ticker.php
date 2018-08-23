@@ -15,7 +15,7 @@ class Ticker extends Model
     ];
 
     protected $casts = [
-        'active' => 'boolean',
+        'active' => 'boolean'
     ];
 
     /**

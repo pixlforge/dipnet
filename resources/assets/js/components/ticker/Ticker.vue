@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <a
+    :href="url"
+    class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"
@@ -36,7 +38,7 @@
         <i class="fal fa-pencil"/>
       </Button>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -60,8 +62,10 @@ export default {
       if (this.ticker.active) {
         return "badge--success";
       }
-
       return "badge--danger";
+    },
+    url() {
+      return window.route("admin.tickers.show", [this.ticker.id]);
     }
   },
   methods: {

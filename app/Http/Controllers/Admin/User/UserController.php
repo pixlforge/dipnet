@@ -32,6 +32,12 @@ class UserController extends Controller
         return view('admin.users.index', compact('companies'));
     }
 
+    /**
+     * Show a user.
+     *
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(User $user)
     {
         $user->load('company', 'avatar');

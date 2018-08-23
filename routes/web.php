@@ -183,6 +183,7 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
      */
     Route::prefix('/tickers')->namespace('Ticker')->name('tickers.')->group(function () {
         Route::get('/', 'TickerController@index')->name('index');
+        Route::get('/{ticker}', 'TickerController@show')->name('show');
         Route::post('/', 'TickerController@store')->name('store');
         Route::patch('/{ticker}', 'TickerController@update')->name('update');
         Route::delete('/{ticker}', 'TickerController@destroy')->name('destroy');

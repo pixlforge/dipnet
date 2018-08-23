@@ -51,7 +51,6 @@
             v-for="(ticker, index) in tickers"
             :key="ticker.id"
             :ticker="ticker"
-            class="card__container"
             @edit-ticker:open="openEditPanel"
             @ticker:deleted="removeTicker(index)"/>
         </transition-group>
