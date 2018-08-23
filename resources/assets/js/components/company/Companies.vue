@@ -51,7 +51,6 @@
             v-for="(company, index) in companies"
             :key="company.id"
             :company="company"
-            class="card__container"
             @edit-company:open="openEditPanel"
             @company:deleted="removeCompany(index)"/>
         </transition-group>

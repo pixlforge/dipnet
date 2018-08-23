@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <a
+    :href="url"
+    class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"
@@ -9,9 +11,9 @@
     <!-- Name -->
     <div class="card__details card__details--company">
       <h5 class="model__label">Nom</h5>
-      <a :href="showRoute">
+      <span>
         <strong>{{ company.name | capitalize }}</strong>
-      </a>
+      </span>
     </div>
 
     <!-- Description -->
@@ -45,7 +47,7 @@
         <i class="fal fa-pencil"/>
       </Button>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -60,8 +62,8 @@ export default {
     }
   },
   computed: {
-    showRoute() {
-      return window.route(`companies.show`, [this.company.slug]);
+    url() {
+      return window.route("companies.show", [this.company.slug]);
     }
   },
   methods: {

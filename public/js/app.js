@@ -34098,7 +34098,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
 
 
 
@@ -34247,6 +34246,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -34259,8 +34260,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   computed: {
-    showRoute() {
-      return window.route(`companies.show`, [this.company.slug]);
+    url() {
+      return window.route("companies.show", [this.company.slug]);
     }
   },
   methods: {
@@ -73248,15 +73249,16 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
+  return _c('a', {
+    staticClass: "card__container",
+    attrs: {
+      "href": _vm.url
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--company"
   }, [_c('h5', {
     staticClass: "model__label"
-  }, [_vm._v("Nom")]), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": _vm.showRoute
-    }
-  }, [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.name)))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Nom")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.name)))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--company"
   }, [(_vm.company.description) ? [_c('h5', {
     staticClass: "model__label"
@@ -73888,7 +73890,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.companies), function(company, index) {
     return _c('Company', {
       key: company.id,
-      staticClass: "card__container",
       attrs: {
         "company": company
       },
