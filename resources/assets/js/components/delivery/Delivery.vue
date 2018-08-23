@@ -30,18 +30,16 @@
 
     <!-- Delivery contact -->
     <div class="card__details card__details--delivery">
-      <template v-if="delivery.contact">
-        <h5 class="model__label">Contact de livraison</h5>
-        <span>{{ delivery.contact.name }}</span>
-      </template>
+      <h5 class="model__label">Livraison</h5>
+      <span v-if="delivery.contact">{{ delivery.contact.name }}</span>
+      <span v-else>Récupérer sur place</span>
     </div>
 
     <!-- Delivery date -->
     <div class="card__details card__details--delivery">
-      <template v-if="delivery.to_deliver_at">
-        <h5 class="model__label">Date de livraison</h5>
-        <span>{{ getDate(delivery.to_deliver_at) }}</span>
-      </template>
+      <h5 class="model__label">Date de livraison</h5>
+      <span v-if="delivery.to_deliver_at">{{ getDate(delivery.to_deliver_at) }}</span>
+      <span v-else>Livraison éclair</span>
     </div>
   </div>
 </template>
@@ -59,10 +57,12 @@ export default {
   },
   computed: {
     deliveryNote() {
-      if (this.delivery.note.length > 45) {
-        return this.delivery.note.substr(0, 45) + "...";
-      } else {
-        return this.delivery.note;
+      if (this.delivery.note) {
+        if (this.delivery.note.length > 45) {
+          return this.delivery.note.substr(0, 45) + "...";
+        } else {
+          return this.delivery.note;
+        }
       }
     }
   }

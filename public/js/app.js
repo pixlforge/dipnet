@@ -37134,8 +37134,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 
 
@@ -37149,10 +37147,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   computed: {
     deliveryNote() {
-      if (this.delivery.note.length > 45) {
-        return this.delivery.note.substr(0, 45) + "...";
-      } else {
-        return this.delivery.note;
+      if (this.delivery.note) {
+        if (this.delivery.note.length > 45) {
+          return this.delivery.note.substr(0, 45) + "...";
+        } else {
+          return this.delivery.note;
+        }
       }
     }
   }
@@ -76083,13 +76083,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "model__label"
   }, [_vm._v("Commande réf.")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.delivery.order.reference))])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--delivery"
-  }, [(_vm.delivery.contact) ? [_c('h5', {
+  }, [_c('h5', {
     staticClass: "model__label"
-  }, [_vm._v("Contact de livraison")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.delivery.contact.name))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
+  }, [_vm._v("Livraison")]), _vm._v(" "), (_vm.delivery.contact) ? _c('span', [_vm._v(_vm._s(_vm.delivery.contact.name))]) : _c('span', [_vm._v("Récupérer sur place")])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--delivery"
-  }, [(_vm.delivery.to_deliver_at) ? [_c('h5', {
+  }, [_c('h5', {
     staticClass: "model__label"
-  }, [_vm._v("Date de livraison")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.getDate(_vm.delivery.to_deliver_at)))])] : _vm._e()], 2)])
+  }, [_vm._v("Date de livraison")]), _vm._v(" "), (_vm.delivery.to_deliver_at) ? _c('span', [_vm._v(_vm._s(_vm.getDate(_vm.delivery.to_deliver_at)))]) : _c('span', [_vm._v("Livraison éclair")])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"
