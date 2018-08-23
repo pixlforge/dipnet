@@ -33,6 +33,7 @@ Vue.component('ShowBusiness', require('./components/business/ShowBusiness'));
 Vue.component('Tickers', require('./components/ticker/Tickers'));
 Vue.component('ActiveTicker', require('./components/ticker/ActiveTicker'));
 Vue.component('ShowContact', require('./components/contact/ShowContact'));
+Vue.component('ShowUser', require('./components/users/ShowUser'));
 
 export const eventBus = new Vue()
 

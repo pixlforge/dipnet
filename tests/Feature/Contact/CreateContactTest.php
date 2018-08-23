@@ -767,7 +767,6 @@ class CreateContactTest extends TestCase
 
         $contact = Contact::first();
         $this->assertEquals($company->id, $contact->company->id);
-        $this->assertNull($contact->user);
     }
 
     /** @test */

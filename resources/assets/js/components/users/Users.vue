@@ -45,7 +45,6 @@
           v-for="(user, index) in users"
           :key="user.id"
           :user="user"
-          class="card__container"
           @edit-user:open="openEditPanel"
           @user:deleted="removeUser(index)"/>
       </transition-group>

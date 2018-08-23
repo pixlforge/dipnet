@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <a
+    :href="url"
+    class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"
@@ -83,7 +85,7 @@
         <i class="fal fa-pencil"/>
       </Button>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -105,6 +107,9 @@ export default {
   computed: {
     userIsNotAdmin() {
       return this.user.role === "" || this.user.role === "utilisateur";
+    },
+    url() {
+      return window.route("admin.users.show", [this.user.id]);
     }
   },
   methods: {

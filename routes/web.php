@@ -193,6 +193,7 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
      */
     Route::prefix('/utilisateurs')->namespace('User')->name('users.')->group(function () {
         Route::get('/', 'UserController@index')->name('index');
+        Route::get('/{user}', 'UserController@show')->name('show');
         Route::post('/', 'UserController@store')->name('store');
         Route::patch('/{user}', 'UserController@update')->name('update');
         Route::delete('/{user}', 'UserController@destroy')->name('destroy');

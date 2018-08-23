@@ -32,6 +32,15 @@ class UserController extends Controller
         return view('admin.users.index', compact('companies'));
     }
 
+    public function show(User $user)
+    {
+        $user->load('company', 'avatar');
+
+        $companies = Company::all();
+
+        return view('admin.users.show', compact('user', 'companies'));
+    }
+
     /**
      * Store a new user.
      *
