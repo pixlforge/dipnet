@@ -29,6 +29,17 @@ class ArticleController extends Controller
     }
 
     /**
+     * Show an article.
+     *
+     * @param Article $article
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Article $article)
+    {
+        return view('admin.articles.show', compact('article'));
+    }
+
+    /**
      * Store a new article.
      *
      * @param StoreArticleRequest $request
