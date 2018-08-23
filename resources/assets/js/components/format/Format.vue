@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <a
+    :href="url"
+    class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"
@@ -43,7 +45,7 @@
         <i class="fal fa-pencil"/>
       </Button>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -65,6 +67,9 @@ export default {
   computed: {
     widthTimesHeight() {
       return this.format.height * this.format.width;
+    },
+    url() {
+      return window.route("admin.formats.show", [this.format.id]);
     }
   },
   methods: {

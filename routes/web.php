@@ -162,6 +162,7 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
      */
     Route::prefix('/formats')->namespace('Format')->name('formats.')->group(function () {
         Route::get('/', 'FormatController@index')->name('index');
+        Route::get('/{format}', 'FormatController@show')->name('show');
         Route::post('/', 'FormatController@store')->name('store');
         Route::patch('/{format}', 'FormatController@update')->name('update');
         Route::delete('/{format}', 'FormatController@destroy')->name('destroy');

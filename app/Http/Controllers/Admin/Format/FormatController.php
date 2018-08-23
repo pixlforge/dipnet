@@ -28,6 +28,17 @@ class FormatController extends Controller
     }
 
     /**
+     * Show a format.
+     *
+     * @param Format $format
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Format $format)
+    {
+        return view('admin.formats.show', compact('format'));
+    }
+
+    /**
      * Store a new format.
      *
      * @param StoreFormatRequest $request

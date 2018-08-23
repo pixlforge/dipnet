@@ -51,7 +51,6 @@
             v-for="(format, index) in formats"
             :key="format.id"
             :format="format"
-            class="card__container"
             @edit-format:open="openEditPanel"
             @format:deleted="removeFormat(index)"/>
         </transition-group>
