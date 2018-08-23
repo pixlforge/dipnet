@@ -73,7 +73,6 @@
             :contacts="contacts"
             :user="user"
             :users="users"
-            class="card__container"
             @edit-business:open="openEditPanel"
             @business:deleted="removeBusiness(index)"/>
         </transition-group>

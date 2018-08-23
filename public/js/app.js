@@ -32362,6 +32362,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -32392,6 +32394,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     users: {
       type: Array,
       required: true
+    }
+  },
+  computed: {
+    url() {
+      return window.route("businesses.show", [this.business.reference]);
     }
   },
   methods: {
@@ -32435,7 +32442,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-//
 //
 //
 //
@@ -76343,7 +76349,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.businesses), function(business, index) {
     return _c('Business', {
       key: business.id,
-      staticClass: "card__container",
       attrs: {
         "business": business,
         "companies": _vm.companies,
@@ -79577,7 +79582,12 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
+  return _c('a', {
+    staticClass: "card__container",
+    attrs: {
+      "href": _vm.url
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--business"
   }, [_c('h5', {
     staticClass: "model__label"

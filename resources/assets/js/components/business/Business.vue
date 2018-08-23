@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <a
+    :href="url"
+    class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"
@@ -61,7 +63,7 @@
         <i class="fal fa-pencil"/>
       </Button>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -94,6 +96,11 @@ export default {
     users: {
       type: Array,
       required: true
+    }
+  },
+  computed: {
+    url() {
+      return window.route("businesses.show", [this.business.reference]);
     }
   },
   methods: {
