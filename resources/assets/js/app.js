@@ -35,6 +35,7 @@ Vue.component('ActiveTicker', require('./components/ticker/ActiveTicker'));
 Vue.component('ShowContact', require('./components/contact/ShowContact'));
 Vue.component('ShowUser', require('./components/users/ShowUser'));
 Vue.component('ShowTicker', require('./components/ticker/ShowTicker'));
+Vue.component('ShowArticle', require('./components/article/ShowArticle'));
 
 export const eventBus = new Vue()
 

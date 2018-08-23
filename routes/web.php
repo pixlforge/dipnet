@@ -106,6 +106,7 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
      */
     Route::prefix('/articles')->namespace('Article')->name('articles.')->group(function () {
         Route::get('/', 'ArticleController@index')->name('index');
+        Route::get('/{article}', 'ArticleController@show')->name('show');
         Route::post('/', 'ArticleController@store')->name('store');
         Route::patch('/{article}', 'ArticleController@update')->name('update');
         Route::delete('/{article}', 'ArticleController@destroy')->name('destroy');

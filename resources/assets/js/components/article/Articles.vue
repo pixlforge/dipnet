@@ -51,7 +51,6 @@
             v-for="(article, index) in articles"
             :key="article.id"
             :article="article"
-            class="card__container"
             @edit-article:open="openEditPanel"
             @article:deleted="removeArticle(index)"/>
         </transition-group>

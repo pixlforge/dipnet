@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <a
+    :href="url"
+    class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"
@@ -43,7 +45,7 @@
         <i class="fal fa-pencil"/>
       </Button>
     </div>
-  </div>
+  </a>
 </template>
 
 <script>
@@ -60,6 +62,11 @@ export default {
     article: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    url() {
+      return window.route("admin.articles.show", [this.article.id]);
     }
   },
   methods: {
