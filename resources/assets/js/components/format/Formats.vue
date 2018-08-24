@@ -28,40 +28,43 @@
       </Button>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getFormats"/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section main__section--white">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getFormats"/>
 
-      <div
-        v-if="!formats.length && !fetching"
-        class="main__no-results">
-        <p>Il n'existe encore aucun format.</p>
-        <IllustrationNoData/>
-      </div>
+        <div
+          v-if="!formats.length && !fetching"
+          class="main__no-results">
+          <p>Il n'existe encore aucun format.</p>
+          <IllustrationNoData/>
+        </div>
 
-      <template v-else>
-        <transition-group
-          name="pagination"
-          tag="div"
-          mode="out-in">
-          <Format
-            v-for="(format, index) in formats"
-            :key="format.id"
-            :format="format"
-            @edit-format:open="openEditPanel"
-            @format:deleted="removeFormat(index)"/>
-        </transition-group>
-      </template>
+        <template v-else>
+          <transition-group
+            name="pagination"
+            tag="div"
+            mode="out-in">
+            <Format
+              v-for="(format, index) in formats"
+              :key="format.id"
+              :format="format"
+              @edit-format:open="openEditPanel"
+              @format:deleted="removeFormat(index)"/>
+          </transition-group>
+        </template>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getFormats"/>
-    </div>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getFormats"/>
+      </section>
+    </main>
 
     <transition name="fade">
       <div

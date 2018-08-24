@@ -30,31 +30,34 @@
       </Button>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getUsers"/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getUsers"/>
 
-      <transition-group
-        name="pagination"
-        tag="div"
-        mode="out-in">
-        <User
-          v-for="(user, index) in users"
-          :key="user.id"
-          :user="user"
-          @edit-user:open="openEditPanel"
-          @user:deleted="removeUser(index)"/>
-      </transition-group>
+        <transition-group
+          name="pagination"
+          tag="div"
+          mode="out-in">
+          <User
+            v-for="(user, index) in users"
+            :key="user.id"
+            :user="user"
+            @edit-user:open="openEditPanel"
+            @user:deleted="removeUser(index)"/>
+        </transition-group>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getUsers"/>
-    </div>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getUsers"/>
+      </section>
+    </main>
 
     <transition name="fade">
       <div

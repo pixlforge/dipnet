@@ -14,52 +14,57 @@
         Modifier
       </Button>
     </div>
-    <div class="profile__container">
-      <div class="profile__box">
 
-        <div class="profile__box-item">
-          <div class="profile__avatar">
-            <IllustrationFormat/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section main__section--white">
+        <div class="profile__box">
+
+          <div class="profile__box-item">
+            <div class="profile__avatar">
+              <IllustrationFormat/>
+            </div>
+          </div>
+
+          <div class="profile__box-item">
+
+            <!-- Name -->
+            <div class="profile__item">
+              <h3>Nom</h3>
+              <p>{{ currentFormat.name }}</p>
+            </div>
+
+            <!-- Height -->
+            <div class="profile__item">
+              <h3>Hauteur</h3>
+              <p>{{ currentFormat.height }}</p>
+            </div>
+
+            <!-- Width -->
+            <div class="profile__item">
+              <h3>Largeur</h3>
+              <p>{{ currentFormat.width }}</p>
+            </div>
+          </div>
+
+          <div class="profile__box-item">
+
+            <!-- Created at -->
+            <div class="profile__item">
+              <h3>Créé le</h3>
+              <p>{{ getDate(format.created_at) }}</p>
+            </div>
+
+            <!-- Updated at -->
+            <div class="profile__item">
+              <h3>Dernière mise à jour</h3>
+              <p>{{ getDate(currentFormat.updated_at) }}</p>
+            </div>
           </div>
         </div>
+      </section>
+    </main>
 
-        <div class="profile__box-item">
-
-          <!-- Name -->
-          <div class="profile__item">
-            <h3>Nom</h3>
-            <p>{{ currentFormat.name }}</p>
-          </div>
-
-          <!-- Height -->
-          <div class="profile__item">
-            <h3>Hauteur</h3>
-            <p>{{ currentFormat.height }}</p>
-          </div>
-
-          <!-- Width -->
-          <div class="profile__item">
-            <h3>Largeur</h3>
-            <p>{{ currentFormat.width }}</p>
-          </div>
-        </div>
-
-        <div class="profile__box-item">
-
-          <!-- Created at -->
-          <div class="profile__item">
-            <h3>Créé le</h3>
-            <p>{{ getDate(format.created_at) }}</p>
-          </div>
-
-          <!-- Updated at -->
-          <div class="profile__item">
-            <h3>Dernière mise à jour</h3>
-            <p>{{ getDate(currentFormat.updated_at) }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
 
     <transition name="fade">
       <div

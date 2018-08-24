@@ -36,9 +36,6 @@
   }
 
   &__box {
-    width: 84%;
-    min-height: 28rem;
-    background-color: $white;
     display: flex;
 
     @media all and (max-width: $bp-md) {

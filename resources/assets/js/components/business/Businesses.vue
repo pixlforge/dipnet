@@ -28,62 +28,66 @@
       </Button>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getBusinesses"/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getBusinesses"/>
 
-      <div
-        v-if="!businesses.length && !fetching"
-        class="main__no-results">
-        <p>Il n'existe encore aucune affaire.</p>
-        <IllustrationNoData/>
-      </div>
+        <div
+          v-if="!businesses.length && !fetching"
+          class="main__no-results">
+          <p>Il n'existe encore aucune affaire.</p>
+          <IllustrationNoData/>
+        </div>
 
-      <template v-if="businesses.length && user.role === 'utilisateur'">
-        <div class="user-business__container">
+        <template v-if="businesses.length && user.role === 'utilisateur'">
+          <div class="user-business__container">
+            <transition-group
+              name="pagination"
+              tag="div"
+              mode="out-in">
+              <UserBusiness
+                v-for="(business, index) in businesses"
+                :key="business.id"
+                :business="business"
+                :orders="orders"
+                :user="user"
+                @edit-business:open="openEditPanel"
+                @business:deleted="removeBusiness(index)"/>
+            </transition-group>
+          </div>
+        </template>
+
+        <template v-if="businesses.length && user.role === 'administrateur'">
           <transition-group
             name="pagination"
             tag="div"
             mode="out-in">
-            <UserBusiness
+            <Business
               v-for="(business, index) in businesses"
               :key="business.id"
               :business="business"
-              :orders="orders"
+              :companies="companies"
+              :contacts="contacts"
               :user="user"
+              :users="users"
               @edit-business:open="openEditPanel"
               @business:deleted="removeBusiness(index)"/>
           </transition-group>
-        </div>
-      </template>
+        </template>
 
-      <template v-if="businesses.length && user.role === 'administrateur'">
-        <transition-group
-          name="pagination"
-          tag="div"
-          mode="out-in">
-          <Business
-            v-for="(business, index) in businesses"
-            :key="business.id"
-            :business="business"
-            :companies="companies"
-            :contacts="contacts"
-            :user="user"
-            :users="users"
-            @edit-business:open="openEditPanel"
-            @business:deleted="removeBusiness(index)"/>
-        </transition-group>
-      </template>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getBusinesses"/>
+      </section>
+    </main>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getBusinesses"/>
-    </div>
 
     <transition name="fade">
       <div

@@ -7,7 +7,9 @@
 
   &__container {
     background-color: $alabaster;
-    padding-top: 5rem;
+    width: 84%;
+    max-width: 1920px;
+    margin: auto;
   }
 
   &__group {

@@ -20,40 +20,44 @@
       <div/>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getDeliveries"/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getDeliveries"/>
 
-      <div
-        v-if="!deliveries.length && !fetching"
-        class="main__no-results">
-        <p>Il n'existe encore aucune livraison.</p>
-        <IllustrationNoData/>
-      </div>
+        <div
+          v-if="!deliveries.length && !fetching"
+          class="main__no-results">
+          <p>Il n'existe encore aucune livraison.</p>
+          <IllustrationNoData/>
+        </div>
 
-      <template v-else>
-        <transition-group
-          name="pagination"
-          tag="div"
-          mode="out-in">
-          <Delivery
-            v-for="(delivery, index) in deliveries"
-            :key="delivery.id"
-            :delivery="delivery"
-            class="card__container"
-            @delivery:deleted="removeDelivery(index)"/>
-        </transition-group>
-      </template>
+        <template v-else>
+          <transition-group
+            name="pagination"
+            tag="div"
+            mode="out-in">
+            <Delivery
+              v-for="(delivery, index) in deliveries"
+              :key="delivery.id"
+              :delivery="delivery"
+              class="card__container"
+              @delivery:deleted="removeDelivery(index)"/>
+          </transition-group>
+        </template>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getDeliveries"/>
-    </div>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getDeliveries"/>
+      </section>
+    </main>
+
 
     <MoonLoader
       :loading="loaderState"

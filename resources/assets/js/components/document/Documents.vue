@@ -10,40 +10,42 @@
       <div/>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getDocuments"/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getDocuments"/>
 
-      <div
-        v-if="!documents.length && !fetching"
-        class="main__no-results">
-        <p>Il n'existe encore aucun document.</p>
-        <IllustrationNoData/>
-      </div>
+        <div
+          v-if="!documents.length && !fetching"
+          class="main__no-results">
+          <p>Il n'existe encore aucun document.</p>
+          <IllustrationNoData/>
+        </div>
 
-      <template v-else>
-        <transition-group
-          name="pagination"
-          tag="div"
-          mode="out-in">
-          <Document
-            v-for="(document, index) in documents"
-            :key="document.id"
-            :document="document"
-            class="card__container"
-            @document:deleted="removeDocument(index)"/>
-        </transition-group>
-      </template>
+        <template v-else>
+          <transition-group
+            name="pagination"
+            tag="div"
+            mode="out-in">
+            <Document
+              v-for="(document, index) in documents"
+              :key="document.id"
+              :document="document"
+              @document:deleted="removeDocument(index)"/>
+          </transition-group>
+        </template>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getDocuments"/>
-    </div>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getDocuments"/>
+      </section>
+    </main>
 
     <MoonLoader
       :loading="loaderState"

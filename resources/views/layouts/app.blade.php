@@ -5,7 +5,7 @@
 </head>
 <body id="body">
   <div id="app">
-    @yield ('content')
+    @yield('content')
     <flash
       message="{{ session('flash') }}"
       level="{{ session('level') }}">

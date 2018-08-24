@@ -28,42 +28,46 @@
       </Button>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getContacts"/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getContacts"/>
 
-      <div
-        v-if="!contacts.length && !fetching"
-        class="main__no-results">
-        <p>Il n'existe encore aucun contact.</p>
-        <IllustrationNoData/>
-      </div>
+        <div
+          v-if="!contacts.length && !fetching"
+          class="main__no-results">
+          <p>Il n'existe encore aucun contact.</p>
+          <IllustrationNoData/>
+        </div>
 
-      <template v-else>
-        <transition-group
-          name="pagination"
-          tag="div"
-          mode="out-in">
-          <Contact
-            v-for="(contact, index) in contacts"
-            :key="contact.id"
-            :contact="contact"
-            :companies="companies"
-            :user="user"
-            @edit-contact:open="openEditPanel"
-            @contact:deleted="removeContact(index)"/>
-        </transition-group>
-      </template>
+        <template v-else>
+          <transition-group
+            name="pagination"
+            tag="div"
+            mode="out-in">
+            <Contact
+              v-for="(contact, index) in contacts"
+              :key="contact.id"
+              :contact="contact"
+              :companies="companies"
+              :user="user"
+              @edit-contact:open="openEditPanel"
+              @contact:deleted="removeContact(index)"/>
+          </transition-group>
+        </template>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getContacts"/>
-    </div>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getContacts"/>
+      </section>
+    </main>
+
 
     <transition name="fade">
       <div

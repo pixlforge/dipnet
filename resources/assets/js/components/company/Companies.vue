@@ -28,40 +28,44 @@
       </Button>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getCompanies"/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getCompanies"/>
 
-      <div
-        v-if="!companies.length && !fetching"
-        class="main__no-results">
-        <p>Il n'existe encore aucune société.</p>
-        <IllustrationNoData/>
-      </div>
+        <div
+          v-if="!companies.length && !fetching"
+          class="main__no-results">
+          <p>Il n'existe encore aucune société.</p>
+          <IllustrationNoData/>
+        </div>
 
-      <template v-else>
-        <transition-group
-          name="pagination"
-          tag="div"
-          mode="out-in">
-          <Company
-            v-for="(company, index) in companies"
-            :key="company.id"
-            :company="company"
-            @edit-company:open="openEditPanel"
-            @company:deleted="removeCompany(index)"/>
-        </transition-group>
-      </template>
+        <template v-else>
+          <transition-group
+            name="pagination"
+            tag="div"
+            mode="out-in">
+            <Company
+              v-for="(company, index) in companies"
+              :key="company.id"
+              :company="company"
+              @edit-company:open="openEditPanel"
+              @company:deleted="removeCompany(index)"/>
+          </transition-group>
+        </template>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getCompanies"/>
-    </div>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getCompanies"/>
+      </section>
+    </main>
+
 
     <transition name="fade">
       <div

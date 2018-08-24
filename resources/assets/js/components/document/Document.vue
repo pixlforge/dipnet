@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="card__container">
     <div class="card__img">
       <img
         src="/img/placeholders/contact-bullet.jpg"

@@ -1,14 +1,21 @@
 .main {
   &__container {
+    background-color: $alabaster;
+    width: 100vw;
+    min-height: 80vh;
+    margin-bottom: 12rem;
+    padding-top: 4rem;
+  }
+
+  &__section {
+    width: 84%;
+    max-width: 1920px;
+    margin: auto;
     display: flex;
     flex-direction: column;
-    width: 100vw;
-    min-height: 50vh;
-    margin-bottom: 12rem;
-    padding: 6rem 0;
 
-    &--grey {
-      background-color: $alabaster;
+    &--white {
+      background-color: $white;
     }
   }
 

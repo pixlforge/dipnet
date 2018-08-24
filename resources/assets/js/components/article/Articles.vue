@@ -28,40 +28,43 @@
       </Button>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getArticles"/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section main__section--white">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getArticles"/>
 
-      <div
-        v-if="!articles.length && !fetching"
-        class="main__no-results">
-        <p>Il n'existe encore aucun article.</p>
-        <IllustrationNoData/>
-      </div>
+        <div
+          v-if="!articles.length && !fetching"
+          class="main__no-results">
+          <p>Il n'existe encore aucun article.</p>
+          <IllustrationNoData/>
+        </div>
 
-      <template v-else>
-        <transition-group
-          name="pagination"
-          tag="div"
-          mode="out-in">
-          <Article
-            v-for="(article, index) in articles"
-            :key="article.id"
-            :article="article"
-            @edit-article:open="openEditPanel"
-            @article:deleted="removeArticle(index)"/>
-        </transition-group>
-      </template>
+        <template v-else>
+          <transition-group
+            name="pagination"
+            tag="div"
+            mode="out-in">
+            <Article
+              v-for="(article, index) in articles"
+              :key="article.id"
+              :article="article"
+              @edit-article:open="openEditPanel"
+              @article:deleted="removeArticle(index)"/>
+          </transition-group>
+        </template>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getArticles"/>
-    </div>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getArticles"/>
+      </section>
+    </main>
 
     <transition name="fade">
       <div

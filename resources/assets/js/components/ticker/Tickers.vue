@@ -28,40 +28,43 @@
       </Button>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getTickers"/>
+    <!-- Main content -->
+    <main class="main__container">
+      <section class="main__section">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getTickers"/>
 
-      <div
-        v-if="!tickers.length && !fetching"
-        class="main__no-results">
-        <p>Il n'existe encore aucun ticker.</p>
-        <IllustrationNoData/>
-      </div>
+        <div
+          v-if="!tickers.length && !fetching"
+          class="main__no-results">
+          <p>Il n'existe encore aucun ticker.</p>
+          <IllustrationNoData/>
+        </div>
 
-      <template v-else>
-        <transition-group
-          name="pagination"
-          tag="div"
-          mode="out-in">
-          <Ticker
-            v-for="(ticker, index) in tickers"
-            :key="ticker.id"
-            :ticker="ticker"
-            @edit-ticker:open="openEditPanel"
-            @ticker:deleted="removeTicker(index)"/>
-        </transition-group>
-      </template>
+        <template v-else>
+          <transition-group
+            name="pagination"
+            tag="div"
+            mode="out-in">
+            <Ticker
+              v-for="(ticker, index) in tickers"
+              :key="ticker.id"
+              :ticker="ticker"
+              @edit-ticker:open="openEditPanel"
+              @ticker:deleted="removeTicker(index)"/>
+          </transition-group>
+        </template>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getTickers"/>
-    </div>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getTickers"/>
+      </section>
+    </main>
 
     <transition name="fade">
       <div

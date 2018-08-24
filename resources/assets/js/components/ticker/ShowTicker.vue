@@ -14,46 +14,48 @@
         Modifier
       </Button>
     </div>
-    <div class="profile__container">
-      <div class="profile__box">
 
-        <div class="profile__box-item">
-          <div class="profile__avatar">
-            <IllustrationTicker/>
+    <main class="main__container">
+      <section class="main__section main__section--white">
+        <div class="profile__box">
+          <div class="profile__box-item">
+            <div class="profile__avatar">
+              <IllustrationTicker/>
+            </div>
+          </div>
+
+          <div class="profile__box-item">
+
+            <!-- Body -->
+            <div class="profile__item">
+              <h3>Contenu</h3>
+              <p>{{ currentTicker.body }}</p>
+            </div>
+
+            <!-- Active -->
+            <div class="profile__item">
+              <h3>Statut</h3>
+              <p>{{ currentTicker.active ? 'Actif' : 'Inactif' }}</p>
+            </div>
+          </div>
+
+          <div class="profile__box-item">
+
+            <!-- Created at -->
+            <div class="profile__item">
+              <h3>Créé le</h3>
+              <p>{{ getDate(ticker.created_at) }}</p>
+            </div>
+
+            <!-- Updated at -->
+            <div class="profile__item">
+              <h3>Dernière mise à jour</h3>
+              <p>{{ getDate(currentTicker.updated_at) }}</p>
+            </div>
           </div>
         </div>
-
-        <div class="profile__box-item">
-
-          <!-- Body -->
-          <div class="profile__item">
-            <h3>Contenu</h3>
-            <p>{{ currentTicker.body }}</p>
-          </div>
-
-          <!-- Active -->
-          <div class="profile__item">
-            <h3>Statut</h3>
-            <p>{{ currentTicker.active ? 'Actif' : 'Inactif' }}</p>
-          </div>
-        </div>
-
-        <div class="profile__box-item">
-
-          <!-- Created at -->
-          <div class="profile__item">
-            <h3>Créé le</h3>
-            <p>{{ getDate(ticker.created_at) }}</p>
-          </div>
-
-          <!-- Updated at -->
-          <div class="profile__item">
-            <h3>Dernière mise à jour</h3>
-            <p>{{ getDate(currentTicker.updated_at) }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
+      </section>
+    </main>
 
     <transition name="fade">
       <div

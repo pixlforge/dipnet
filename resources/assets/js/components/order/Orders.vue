@@ -19,40 +19,42 @@
       </Button>
     </div>
 
-    <div class="main__container main__container--grey">
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--top"
-        @pagination:switched="getOrders"/>
+    <main class="main__container">
+      <section class="main__section">
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--top"
+          @pagination:switched="getOrders"/>
 
-      <div
-        v-if="!orders.length && !fetching"
-        class="main__no-results">
-        <p>Il n'existe encore aucune commande.</p>
-        <IllustrationFileSearching/>
-      </div>
+        <div
+          v-if="!orders.length && !fetching"
+          class="main__no-results">
+          <p>Il n'existe encore aucune commande.</p>
+          <IllustrationFileSearching/>
+        </div>
 
-      <template v-else>
-        <transition-group
-          name="pagination"
-          tag="div"
-          mode="out-in">
-          <Order
-            v-for="order in orders"
-            :key="order.id"
-            :order="order"
-            :user-role="userRole"
-            @orderWasDeleted="removeOrder"/>
-        </transition-group>
-      </template>
+        <template v-else>
+          <transition-group
+            name="pagination"
+            tag="div"
+            mode="out-in">
+            <Order
+              v-for="order in orders"
+              :key="order.id"
+              :order="order"
+              :user-role="userRole"
+              @orderWasDeleted="removeOrder"/>
+          </transition-group>
+        </template>
 
-      <Pagination
-        v-if="meta.total > 25"
-        :meta="meta"
-        class="pagination pagination--bottom"
-        @pagination:switched="getOrders"/>
-    </div>
+        <Pagination
+          v-if="meta.total > 25"
+          :meta="meta"
+          class="pagination pagination--bottom"
+          @pagination:switched="getOrders"/>
+      </section>
+    </main>
 
     <MoonLoader
       :loading="loaderState"

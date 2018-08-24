@@ -16,48 +16,52 @@
         @invitation:created="addInvitation"/>
     </div>
 
-    <div class="company__container">
-      <div class="company__group">
-        <h2 class="company__title">Membres de {{ company.name }}</h2>
-        <CompanyMember
-          v-for="(user, index) in company.user"
-          :key="index"
-          :user="user"/>
-      </div>
+    <!-- Main content -->
+    <main class="main__container">
+      <div class="company__container">
+        <div class="company__group">
+          <h2 class="company__title">Membres de {{ company.name }}</h2>
+          <CompanyMember
+            v-for="(user, index) in company.user"
+            :key="index"
+            :user="user"/>
+        </div>
 
-      <div class="company__group">
-        <h2 class="company__title">Invitations</h2>
-        <p
-          v-if="!invitations.length"
-          class="company__paragraph">
-          Invitez vos collègues à rejoindre {{ appName }} et vos invitations s'afficheront ici.
-        </p>
-        <InvitedMember
-          v-for="invitation in invitationsList"
-          :key="invitation.id"
-          :invitation="invitation"
-          @invitation:deleted="removeInvitation"/>
-      </div>
+        <div class="company__group">
+          <h2 class="company__title">Invitations</h2>
+          <p
+            v-if="!invitations.length"
+            class="company__paragraph">
+            Invitez vos collègues à rejoindre {{ appName }} et vos invitations s'afficheront ici.
+          </p>
+          <InvitedMember
+            v-for="invitation in invitationsList"
+            :key="invitation.id"
+            :invitation="invitation"
+            @invitation:deleted="removeInvitation"/>
+        </div>
 
-      <div class="company__group company__group--last">
-        <h3 class="company__title">Paramètres</h3>
-        <p class="company__paragraph">
-          Gérez les paramètres par défaut pour votre société.
-        </p>
+        <div class="company__group company__group--last">
+          <h3 class="company__title">Paramètres</h3>
+          <p class="company__paragraph">
+            Gérez les paramètres par défaut pour votre société.
+          </p>
 
-        <!-- Default business -->
-        <div class="company__options">
-          <div class="company__option">
-            <label class="company__label">Affaire par défaut :</label>
-            <AppSelect
-              :options="optionsForBusiness"
-              @input="selectBusiness">
-              {{ currentCompany.business.label ? currentCompany.business.label : 'Sélectionner' }}
-            </AppSelect>
+          <!-- Default business -->
+          <div class="company__options">
+            <div class="company__option">
+              <label class="company__label">Affaire par défaut :</label>
+              <AppSelect
+                :options="optionsForBusiness"
+                @input="selectBusiness">
+                {{ currentCompany.business.label ? currentCompany.business.label : 'Sélectionner' }}
+              </AppSelect>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </main>
+
 
     <MoonLoader
       :loading="loaderState"
