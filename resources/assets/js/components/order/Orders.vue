@@ -10,7 +10,13 @@
 
       <!-- Sort -->
       <div class="header__sort">
-        
+        <AppSelect
+          :options="sortOptions"
+          v-model="sort"
+          @input="selectSort(sort)">
+          <span class="dropdown__title">Trier par</span>
+          <span><strong>{{ sort ? sort.label : 'Aucun' }}</strong></span>
+        </AppSelect>
       </div>
 
       <!-- Create order -->
@@ -71,6 +77,7 @@
 <script>
 import Order from "./Order.vue";
 import Button from "../buttons/Button";
+import AppSelect from "../select/AppSelect";
 import Pagination from "../pagination/Pagination";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 import IllustrationFileSearching from "../illustrations/IllustrationFileSearching";
@@ -82,6 +89,7 @@ export default {
   components: {
     Order,
     Button,
+    AppSelect,
     Pagination,
     MoonLoader,
     IllustrationFileSearching
@@ -98,6 +106,11 @@ export default {
       orders: [],
       meta: {},
       errors: {},
+      sort: "",
+      sortOptions: [
+        { label: "Aucun", value: "" },
+        { label: "Référence", value: "reference" }
+      ],
       fetching: false,
       modelNameSingular: "commande",
       modelNamePlural: "commandes",
@@ -116,7 +129,7 @@ export default {
       this.fetching = true;
 
       window.axios
-        .get(window.route("api.orders.index"), {
+        .get(window.route("api.orders.index", this.sort.value), {
           params: {
             page
           }
@@ -132,6 +145,10 @@ export default {
           this.$store.dispatch("toggleLoader");
           this.fetching = false;
         });
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getOrders();
     },
     redirect() {
       window.location = window.route("orders.create.start");

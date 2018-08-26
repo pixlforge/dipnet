@@ -21,23 +21,44 @@ class OrderController extends Controller
      *
      * @return OrdersCollection
      */
-    public function index()
+    public function index($sort = null)
     {
-        if (auth()->user()->isAdmin()) {
-            return new OrdersCollection(
-                Order::latest()
-                    ->completed()
-                    ->with('business', 'contact', 'user')
-                    ->paginate(25)
-            );
+        if ($sort) {
+            if (auth()->user()->isAdmin()) {
+                return new OrdersCollection(
+                    Order::completed()
+                        ->orderBy($sort)
+                        ->latest()
+                        ->with('business', 'contact', 'user')
+                        ->paginate(25)
+                );
+            } else {
+                return new OrdersCollection(
+                    Order::own()
+                        ->orderBy($sort)
+                        ->latest()
+                        ->with('business', 'contact', 'user')
+                        ->orderBy($sort)
+                        ->paginate(25)
+                );
+            }
         } else {
-            return new OrdersCollection(
-                Order::own()
-                    ->orderBy('status', 'desc')
-                    ->latest()
-                    ->with('business', 'contact', 'user')
-                    ->paginate(25)
-            );
+            if (auth()->user()->isAdmin()) {
+                return new OrdersCollection(
+                    Order::completed()
+                        ->latest()
+                        ->with('business', 'contact', 'user')
+                        ->paginate(25)
+                );
+            } else {
+                return new OrdersCollection(
+                    Order::own()
+                        ->orderBy('status', 'desc')
+                        ->latest()
+                        ->with('business', 'contact', 'user')
+                        ->paginate(25)
+                );
+            }
         }
     }
 }

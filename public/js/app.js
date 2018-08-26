@@ -40905,14 +40905,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Order_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Order_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_Button__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__buttons_Button__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pagination_Pagination__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__pagination_Pagination__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__illustrations_IllustrationFileSearching__ = __webpack_require__(152);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__illustrations_IllustrationFileSearching___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__illustrations_IllustrationFileSearching__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__select_AppSelect__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__select_AppSelect___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__select_AppSelect__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pagination_Pagination__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__pagination_Pagination__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__illustrations_IllustrationFileSearching__ = __webpack_require__(152);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__illustrations_IllustrationFileSearching___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__illustrations_IllustrationFileSearching__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_vuex__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__mixins__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 //
@@ -40985,6 +40987,13 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 
 
@@ -40999,11 +41008,12 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   components: {
     Order: __WEBPACK_IMPORTED_MODULE_0__Order_vue___default.a,
     Button: __WEBPACK_IMPORTED_MODULE_1__buttons_Button___default.a,
-    Pagination: __WEBPACK_IMPORTED_MODULE_2__pagination_Pagination___default.a,
-    MoonLoader: __WEBPACK_IMPORTED_MODULE_3_vue_spinner_src_MoonLoader_vue___default.a,
-    IllustrationFileSearching: __WEBPACK_IMPORTED_MODULE_4__illustrations_IllustrationFileSearching___default.a
+    AppSelect: __WEBPACK_IMPORTED_MODULE_2__select_AppSelect___default.a,
+    Pagination: __WEBPACK_IMPORTED_MODULE_3__pagination_Pagination___default.a,
+    MoonLoader: __WEBPACK_IMPORTED_MODULE_4_vue_spinner_src_MoonLoader_vue___default.a,
+    IllustrationFileSearching: __WEBPACK_IMPORTED_MODULE_5__illustrations_IllustrationFileSearching___default.a
   },
-  mixins: [__WEBPACK_IMPORTED_MODULE_6__mixins__["e" /* loader */], __WEBPACK_IMPORTED_MODULE_6__mixins__["f" /* modelCount */]],
+  mixins: [__WEBPACK_IMPORTED_MODULE_7__mixins__["e" /* loader */], __WEBPACK_IMPORTED_MODULE_7__mixins__["f" /* modelCount */]],
   props: {
     userRole: {
       type: String,
@@ -41015,13 +41025,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       orders: [],
       meta: {},
       errors: {},
+      sort: "",
+      sortOptions: [{ label: "Aucun", value: "" }, { label: "Référence", value: "reference" }],
       fetching: false,
       modelNameSingular: "commande",
       modelNamePlural: "commandes",
       modelGender: "F"
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(["loaderState"])),
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(["loaderState"])),
   mounted() {
     this.getOrders();
   },
@@ -41030,7 +41042,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       this.$store.dispatch("toggleLoader");
       this.fetching = true;
 
-      window.axios.get(window.route("api.orders.index"), {
+      window.axios.get(window.route("api.orders.index", this.sort.value), {
         params: {
           page
         }
@@ -41044,6 +41056,10 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         this.$store.dispatch("toggleLoader");
         this.fetching = false;
       });
+    },
+    selectSort(sort) {
+      this.sort = sort;
+      this.getOrders();
     },
     redirect() {
       window.location = window.route("orders.create.start");
@@ -83402,7 +83418,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "header__sort"
-  }), _vm._v(" "), _c('Button', {
+  }, [_c('AppSelect', {
+    attrs: {
+      "options": _vm.sortOptions
+    },
+    on: {
+      "input": function($event) {
+        _vm.selectSort(_vm.sort)
+      }
+    },
+    model: {
+      value: (_vm.sort),
+      callback: function($$v) {
+        _vm.sort = $$v
+      },
+      expression: "sort"
+    }
+  }, [_c('span', {
+    staticClass: "dropdown__title"
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",

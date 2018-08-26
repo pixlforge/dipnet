@@ -70,7 +70,7 @@ Route::prefix('/api')->namespace('Api')->name('api.')->group(function () {
      * Orders
      */
     Route::prefix('/commandes')->namespace('Order')->name('orders.')->group(function () {
-        Route::get('/', 'OrderController@index')->name('index');
+        Route::get('/{sort?}', 'OrderController@index')->name('index');
     });
 
     /**
