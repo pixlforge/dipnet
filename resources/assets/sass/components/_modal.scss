@@ -26,6 +26,8 @@
     background-color: $white;
     overflow-y: scroll;
     cursor: default !important;
+    display: flex;
+    justify-content: center;
 
     @media all and (max-width: $bp-md) {
       width: 100vw;
@@ -33,9 +35,22 @@
   }
 
   &__container {
-    width: 70%;
-    margin: 12rem 0 12rem 6rem;
+    flex: 1;
+    max-width: 70rem;
+    margin: 12rem 12rem 12rem 6rem;
     cursor: default !important;
+
+    @media all and (max-width: $bp-md) {
+      margin: 12rem 10rem;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      margin: 12rem 6rem;
+    }
+
+    @media all and (max-width: $bp-xs) {
+      margin: 12rem 3rem;
+    }
   }
 
   &__title {
@@ -120,9 +135,10 @@
   }
 
   &__buttons {
-    display: flex;
     margin-top: 5rem;
     color: $dark-grey;
+    display: flex;
+    flex-wrap: wrap;
 
     :first-child {
       margin-right: 1rem;

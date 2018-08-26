@@ -8,6 +8,11 @@
         <span v-text="modelCount"/>
       </div>
 
+      <!-- Sort -->
+      <div class="header__sort">
+        
+      </div>
+
       <!-- Create order -->
       <Button
         primary

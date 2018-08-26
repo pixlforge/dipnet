@@ -95,7 +95,7 @@
           type="submit"
           primary
           red
-          long>
+          panel>
           <i class="fal fa-check"/>
           Ajouter
         </Button>
@@ -104,7 +104,7 @@
         <Button
           primary
           grey
-          long
+          panel
           @click.prevent="$emit('add-business:close')">
           <i class="fal fa-times"/>
           Annuler

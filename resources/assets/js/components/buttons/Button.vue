@@ -62,6 +62,11 @@ export default {
       required: false,
       default: false
     },
+    panel: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     small: {
       type: Boolean,
       required: false,
@@ -83,6 +88,7 @@ export default {
         "button__primary--grey": this.grey,
         "button__primary--long": this.long,
         "button__primary--big": this.big,
+        "button__primary--panel": this.panel,
         "button__primary--small": this.small,
         "button__primary--icon-only": this.iconOnly
       }

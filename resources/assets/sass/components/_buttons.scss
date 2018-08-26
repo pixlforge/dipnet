@@ -25,6 +25,10 @@
       }
     }
 
+    &--panel {
+      flex: 1;
+    }
+
     &--big {
       font-size: 2rem;
       padding: 2rem 5rem;

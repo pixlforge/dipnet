@@ -8,7 +8,7 @@
         red
         long
         @click.prevent="openEditPanel">
-        <i class="fal fa-check"/>
+        <i class="fal fa-edit"/>
         Mettre à jour
       </Button>
     </div>

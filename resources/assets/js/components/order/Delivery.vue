@@ -1,232 +1,235 @@
 <template>
   <div
-    :class="previewContainerStyles"
+    :class="deliveryContainerStyles"
     class="delivery__container">
 
-    <!-- Admin controls -->
-    <div
-      v-if="admin"
-      class="delivery__header delivery__header--admin">
-      <div>
-        <a
-          :href="routeDeliveryReceipt"
-          role="button"
-          class="button__primary button__primary--red"
-          target="_blank"
-          rel="noopener noreferrer">
-          <i class="fal fa-clipboard"/>
-          Bulletin de livraison
-        </a>
-      </div>
-    </div>
+    <section class="main__section">
 
-    <!-- Header main -->
-    <div class="delivery__header delivery__header--main">
-
-      <!-- Contact -->
-      <div class="delivery__header-box">
-        <div class="delivery__details">
-
-          <!-- Delivery number -->
-          <div
-            v-if="!preview"
-            class="badge__order">
-            {{ count }}
-          </div>
-
-          <!-- Contact label -->
-          <h3
-            :class="{ 'delivery__label--preview': preview }"
-            class="delivery__label">
-            Livraison à
-          </h3>
-          <h3
-            v-if="preview"
-            class="delivery__label delivery__label--bold delivery__label--preview">
-            {{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}
-          </h3>
-
-          <!-- Contact select -->
-          <AppSelect
-            v-else
-            :options="listContacts"
-            v-model="currentDelivery.contact"
-            :component="{ component: 'delivery', id: delivery.id }"
-            :user-is-solo="user.is_solo"
-            large
-            darker
-            allow-pickup
-            allow-create-contact
-            @input="updateContact">
-            <p>{{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}</p>
-          </AppSelect>
-        </div>
-      </div>
-
-      <!-- Delivery mode -->
-      <div class="delivery__header-box">
-        <div class="delivery__details">
-          <h3
-            :class="{ 'delivery__label--preview': preview }"
-            class="delivery__label">
-            Mode de livraison
-          </h3>
-          <h3
-            v-if="preview"
-            class="delivery__label delivery__label--bold delivery__label--preview">
-            {{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'Sélectionner' }}
-          </h3>
-
-          <AppSelect
-            v-else
-            :options="optionsForDeliveryMode"
-            v-model="currentDelivery.deliveryMode"
-            large
-            darker
-            @input="selectDeliveryMode">
-            <p>{{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'Sélectionner' }}</p>
-          </AppSelect>
-        </div>
-      </div>
-
-      <!-- Datepicker -->
+      <!-- Admin controls -->
       <div
-        v-show="currentDelivery.deliveryMode.value === 'date'"
-        class="delivery__header-box">
-        <div class="delivery__details">
-
-          <!-- Datepicker label -->
-          <h3
-            :class="{ 'delivery__label--preview': preview }"
-            class="delivery__label">
-            Le
-          </h3>
-          <h3
-            v-if="preview"
-            class="delivery__label delivery__label--bold delivery__label--preview">
-            {{ deliveryDateString }}
-          </h3>
-
-          <!-- Datepicker input -->
-          <Datepicker
-            v-else
-            :date="startTime"
-            :option="option"
-            :limit="limit"
-            :to-deliver-at="currentDelivery.to_deliver_at"
-            @change="formatDeliveryDate"/>
+        v-if="admin"
+        class="delivery__header delivery__header--admin">
+        <div>
+          <a
+            :href="routeDeliveryReceipt"
+            role="button"
+            class="button__primary button__primary--red"
+            target="_blank"
+            rel="noopener noreferrer">
+            <i class="fal fa-clipboard"/>
+            Bulletin de livraison
+          </a>
         </div>
       </div>
 
-      <!-- Controls -->
-      <div class="delivery__controls">
+      <!-- Header main -->
+      <div class="delivery__header delivery__header--main">
 
-        <!-- Remove note -->
-        <Button
-          v-if="showNote && !preview"
-          class="delivery__note-control"
-          @click.prevent="removeNote">
-          Retirer la note
-        </Button>
+        <!-- Contact -->
+        <div class="delivery__header-box">
+          <div class="delivery__details">
 
-        <!-- Add note -->
-        <Button
-          v-if="!showNote && !preview"
-          class="delivery__note-control"
-          @click.prevent="toggleNote">
-          Ajouter une note
-        </Button>
+            <!-- Delivery number -->
+            <div
+              v-if="!preview"
+              class="badge__order">
+              {{ count }}
+            </div>
 
-        <!-- Delete delivery -->
-        <Button
-          v-if="listDeliveries.length > 1 && !preview"
-          class="delivery__delete-button"
-          @click.prevent="remove">
-          <i class="fal fa-times"/>
-        </Button>
-      </div>
-    </div>
+            <!-- Contact label -->
+            <h3
+              :class="{ 'delivery__label--preview': preview }"
+              class="delivery__label">
+              Livraison à
+            </h3>
+            <h3
+              v-if="preview"
+              class="delivery__label delivery__label--bold delivery__label--preview">
+              {{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}
+            </h3>
 
-    <!-- Header secondary -->
-    <div class="delivery__header delivery__header--secondary">
+            <!-- Contact select -->
+            <AppSelect
+              v-else
+              :options="listContacts"
+              v-model="currentDelivery.contact"
+              :component="{ component: 'delivery', id: delivery.id }"
+              :user-is-solo="user.is_solo"
+              large
+              darker
+              allow-pickup
+              allow-create-contact
+              @input="updateContact">
+              <p>{{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}</p>
+            </AppSelect>
+          </div>
+        </div>
 
-      <!-- Selected contact details -->
-      <div class="delivery__header-box">
+        <!-- Delivery mode -->
+        <div class="delivery__header-box">
+          <div class="delivery__details">
+            <h3
+              :class="{ 'delivery__label--preview': preview }"
+              class="delivery__label">
+              Mode de livraison
+            </h3>
+            <h3
+              v-if="preview"
+              class="delivery__label delivery__label--bold delivery__label--preview">
+              {{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'Sélectionner' }}
+            </h3>
+
+            <AppSelect
+              v-else
+              :options="optionsForDeliveryMode"
+              v-model="currentDelivery.deliveryMode"
+              large
+              darker
+              @input="selectDeliveryMode">
+              <p>{{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'Sélectionner' }}</p>
+            </AppSelect>
+          </div>
+        </div>
+
+        <!-- Datepicker -->
         <div
-          :class="{ 'delivery__details--order': !preview, 'delivery__details--preview': preview }"
-          class="delivery__details">
-          <ul
-            v-if="selectedContactDetails"
-            class="delivery__list">
-            <li>{{ selectedContactDetails.name }}</li>
-            <li>{{ selectedContactDetails.address_line1 }}</li>
-            <li v-if="selectedContactDetails.address_line2">{{ selectedContactDetails.address_line2 }}</li>
-            <li>{{ selectedContactDetails.zip }} {{ selectedContactDetails.city }}</li>
-            <li v-if="selectedContactDetails.phone_number">{{ selectedContactDetails.phone_number }}</li>
-            <li v-if="selectedContactDetails.fax">{{ selectedContactDetails.fax }}</li>
-            <li>{{ selectedContactDetails.email }}</li>
+          v-show="currentDelivery.deliveryMode.value === 'date'"
+          class="delivery__header-box">
+          <div class="delivery__details">
+
+            <!-- Datepicker label -->
+            <h3
+              :class="{ 'delivery__label--preview': preview }"
+              class="delivery__label">
+              Le
+            </h3>
+            <h3
+              v-if="preview"
+              class="delivery__label delivery__label--bold delivery__label--preview">
+              {{ deliveryDateString }}
+            </h3>
+
+            <!-- Datepicker input -->
+            <Datepicker
+              v-else
+              :date="startTime"
+              :option="option"
+              :limit="limit"
+              :to-deliver-at="currentDelivery.to_deliver_at"
+              @change="formatDeliveryDate"/>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="delivery__controls">
+
+          <!-- Remove note -->
+          <Button
+            v-if="showNote && !preview"
+            class="delivery__note-control"
+            @click.prevent="removeNote">
+            Retirer la note
+          </Button>
+
+          <!-- Add note -->
+          <Button
+            v-if="!showNote && !preview"
+            class="delivery__note-control"
+            @click.prevent="toggleNote">
+            Ajouter une note
+          </Button>
+
+          <!-- Delete delivery -->
+          <Button
+            v-if="listDeliveries.length > 1 && !preview"
+            class="delivery__delete-button"
+            @click.prevent="remove">
+            <i class="fal fa-times"/>
+          </Button>
+        </div>
+      </div>
+
+      <!-- Header secondary -->
+      <div class="delivery__header delivery__header--secondary">
+
+        <!-- Selected contact details -->
+        <div class="delivery__header-box">
+          <div
+            :class="{ 'delivery__details--order': !preview, 'delivery__details--preview': preview }"
+            class="delivery__details">
+            <ul
+              v-if="selectedContactDetails"
+              class="delivery__list">
+              <li>{{ selectedContactDetails.name }}</li>
+              <li>{{ selectedContactDetails.address_line1 }}</li>
+              <li v-if="selectedContactDetails.address_line2">{{ selectedContactDetails.address_line2 }}</li>
+              <li>{{ selectedContactDetails.zip }} {{ selectedContactDetails.city }}</li>
+              <li v-if="selectedContactDetails.phone_number">{{ selectedContactDetails.phone_number }}</li>
+              <li v-if="selectedContactDetails.fax">{{ selectedContactDetails.fax }}</li>
+              <li>{{ selectedContactDetails.email }}</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Errors -->
+      <div v-if="(!preview && hasErrors) || (!preview && hasErrorsRelatedToDocuments)">
+        <div class="error__container">
+          <i class="fal fa-info-circle fa-2x"/>
+          <ul class="error__list">
+            <li v-if="getValidationErrors[`deliveries.${count - 1}.contact_id`]">
+              {{ getValidationErrors[`deliveries.${count - 1}.contact_id`][0] }}
+            </li>
+            <li v-if="getValidationErrors[`deliveries.${count - 1}.to_deliver_at`]">
+              {{ getValidationErrors[`deliveries.${count - 1}.to_deliver_at`][0] }}
+            </li>
+            <li v-if="getValidationErrors[`deliveries.${count - 1}.documents`]">
+              La livraison doit contenir au minimum un document.
+            </li>
+            <li v-if="hasErrorsRelatedToDocuments">
+              Vous devez sélectionner un type d'impression pour chaque document de cette livraison.
+            </li>
           </ul>
         </div>
       </div>
-    </div>
 
-    <!-- Errors -->
-    <div v-if="(!preview && hasErrors) || (!preview && hasErrorsRelatedToDocuments)">
-      <div class="error__container">
-        <i class="fal fa-info-circle fa-2x"/>
-        <ul class="error__list">
-          <li v-if="getValidationErrors[`deliveries.${count - 1}.contact_id`]">
-            {{ getValidationErrors[`deliveries.${count - 1}.contact_id`][0] }}
-          </li>
-          <li v-if="getValidationErrors[`deliveries.${count - 1}.to_deliver_at`]">
-            {{ getValidationErrors[`deliveries.${count - 1}.to_deliver_at`][0] }}
-          </li>
-          <li v-if="getValidationErrors[`deliveries.${count - 1}.documents`]">
-            La livraison doit contenir au minimum un document.
-          </li>
-          <li v-if="hasErrorsRelatedToDocuments">
-            Vous devez sélectionner un type d'impression pour chaque document de cette livraison.
-          </li>
-        </ul>
+      <!-- Note -->
+      <div v-if="!preview">
+        <transition name="fade">
+          <textarea
+            v-if="showNote"
+            v-model="currentDelivery.note"
+            class="delivery__textarea"
+            placeholder="Faîtes nous part de vos commentaires pour cette livraison ici."
+            @blur="update"/>
+        </transition>
       </div>
-    </div>
 
-    <!-- Note -->
-    <div v-if="!preview">
-      <transition name="fade">
-        <textarea
-          v-if="showNote"
-          v-model="currentDelivery.note"
-          class="delivery__textarea"
-          placeholder="Faîtes nous part de vos commentaires pour cette livraison ici."
-          @blur="update"/>
-      </transition>
-    </div>
+      <!-- Note preview -->
+      <div
+        v-if="currentDelivery.note && preview"
+        class="delivery__note">
+        <h5>Note:</h5>
+        <p>{{ currentDelivery.note }}</p>
+      </div>
 
-    <!-- Note preview -->
-    <div
-      v-if="currentDelivery.note && preview"
-      class="delivery__note">
-      <h5>Note:</h5>
-      <p>{{ currentDelivery.note }}</p>
-    </div>
-
-    <!-- Documents -->
-    <Document
-      v-for="document in deliveryDocuments"
-      :key="document.id"
-      :order="order"
-      :delivery="delivery"
-      :document="document"
-      :options="document.articles"
-      :preview="preview"
-      :admin="admin"/>
-    
-    <!-- Dropzone -->
-    <div
-      v-show="!preview && !admin"
-      :id="'delivery-file-upload-' + delivery.id"
-      class="dropzone"/>
+      <!-- Documents -->
+      <Document
+        v-for="document in deliveryDocuments"
+        :key="document.id"
+        :order="order"
+        :delivery="delivery"
+        :document="document"
+        :options="document.articles"
+        :preview="preview"
+        :admin="admin"/>
+      
+      <!-- Dropzone -->
+      <div
+        v-show="!preview && !admin"
+        :id="'delivery-file-upload-' + delivery.id"
+        class="dropzone"/>
+    </section>
   </div>
 </template>
 
@@ -328,9 +331,13 @@ export default {
         return document.delivery_id === this.delivery.id;
       });
     },
-    previewContainerStyles() {
+    deliveryContainerStyles() {
       if (this.preview) {
         return `bg-red-${this.count}` + " delivery__container--preview";
+      }
+
+      if (this.admin) {
+        return ` delivery__container--admin`;
       }
     },
     selectedContactDetails() {

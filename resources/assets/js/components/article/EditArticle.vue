@@ -59,7 +59,7 @@
           type="submit"
           primary
           red
-          long>
+          panel>
           <i class="fal fa-check"/>
           Mettre à jour
         </Button>
@@ -68,7 +68,7 @@
         <Button
           primary
           grey
-          long
+          panel
           @click.prevent="$emit('edit-article:close')">
           <i class="fal fa-times"/>
           Annuler

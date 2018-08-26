@@ -11,11 +11,11 @@
 .error {
   &__container {
     position: relative;
-    width: 84%;    
     background-color: $bg-orange;
-    border-radius: 5px;
-    margin: 5rem auto;
+    width: 100%;
+    margin-bottom: 2rem;
     padding: 2.5rem 6rem;
+    border-radius: 5px;
     display: flex;
     justify-content: center;
     align-items: center;

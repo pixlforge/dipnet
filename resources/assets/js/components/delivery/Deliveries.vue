@@ -7,7 +7,7 @@
         <span v-text="modelCount"/>
       </div>
 
-      <div>
+      <div class="header__sort">
         <AppSelect
           :options="sortOptions"
           v-model="sort"

@@ -98,13 +98,15 @@
     <!-- Errors -->
     <div
       v-if="!preview && hasValidationErrors"
-      class="error__container">
-      <i class="fal fa-info-circle fa-2x"/>
-      <ul class="error__list">
-        <li v-if="hasValidationErrors">
-          {{ getValidationErrors.contact_id[0] }}
-        </li>
-      </ul>
+      class="header__container">
+      <div class="error__container">
+        <i class="fal fa-info-circle fa-2x"/>
+        <ul class="error__list">
+          <li v-if="hasValidationErrors">
+            {{ getValidationErrors.contact_id[0] }}
+          </li>
+        </ul>
+      </div>
     </div>
 
     <!-- Deliveries -->

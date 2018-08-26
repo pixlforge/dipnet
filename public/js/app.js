@@ -31967,6 +31967,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 
 
@@ -32908,6 +32910,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 
 
@@ -33576,6 +33580,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       required: false,
       default: false
     },
+    panel: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     small: {
       type: Boolean,
       required: false,
@@ -33597,6 +33606,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         "button__primary--grey": this.grey,
         "button__primary--long": this.long,
         "button__primary--big": this.big,
+        "button__primary--panel": this.panel,
         "button__primary--small": this.small,
         "button__primary--icon-only": this.iconOnly
       }
@@ -34346,6 +34356,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
 //
 //
 //
@@ -35440,6 +35452,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
 //
 //
 //
@@ -38077,6 +38091,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 
 
@@ -39490,6 +39506,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
+//
 
 
 
@@ -39576,9 +39595,13 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         return document.delivery_id === this.delivery.id;
       });
     },
-    previewContainerStyles() {
+    deliveryContainerStyles() {
       if (this.preview) {
         return `bg-red-${this.count}` + " delivery__container--preview";
+      }
+
+      if (this.admin) {
+        return ` delivery__container--admin`;
       }
     },
     selectedContactDetails() {
@@ -40557,6 +40580,8 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
+//
 
 
 
@@ -40890,6 +40915,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__mixins__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+//
+//
+//
+//
+//
 //
 //
 //
@@ -43523,6 +43553,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
+//
 //
 //
 //
@@ -70819,7 +70851,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -70827,7 +70859,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -70971,12 +71003,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('i', {
     staticClass: "fal fa-clipboard"
   }), _vm._v("\n        Bulletin de commande\n      ")])], 1)]) : _vm._e(), _vm._v(" "), (!_vm.preview && _vm.hasValidationErrors) ? _c('div', {
+    staticClass: "header__container"
+  }, [_c('div', {
     staticClass: "error__container"
   }, [_c('i', {
     staticClass: "fal fa-info-circle fa-2x"
   }), _vm._v(" "), _c('ul', {
     staticClass: "error__list"
-  }, [(_vm.hasValidationErrors) ? _c('li', [_vm._v("\n        " + _vm._s(_vm.getValidationErrors.contact_id[0]) + "\n      ")]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c('transition', {
+  }, [(_vm.hasValidationErrors) ? _c('li', [_vm._v("\n          " + _vm._s(_vm.getValidationErrors.contact_id[0]) + "\n        ")]) : _vm._e()])])]) : _vm._e(), _vm._v(" "), _c('transition', {
     attrs: {
       "name": "fade"
     }
@@ -72898,7 +72932,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -72906,7 +72940,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -73315,7 +73349,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -73323,7 +73357,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -74290,7 +74324,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('AppSelect', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "header__sort"
+  }, [_c('AppSelect', {
     attrs: {
       "options": _vm.sortOptions
     },
@@ -74308,7 +74344,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])]), _vm._v(" "), _c('Button', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -74945,7 +74981,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "fal fa-check"
+    staticClass: "fal fa-edit"
   }), _vm._v("\n      Mettre à jour\n    ")])], 1), _vm._v(" "), (_vm.business.description) ? _c('div', {
     staticClass: "header__container"
   }, [_c('p', {
@@ -75036,7 +75072,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('AppSelect', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "header__sort"
+  }, [_c('AppSelect', {
     attrs: {
       "options": _vm.sortOptions
     },
@@ -75054,7 +75092,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])]), _vm._v(" "), _c('Button', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -75450,7 +75488,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('AppSelect', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "header__sort"
+  }, [_c('AppSelect', {
     attrs: {
       "options": _vm.sortOptions
     },
@@ -75468,7 +75508,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])]), _vm._v(" "), _c('Button', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -76633,7 +76673,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -76641,7 +76681,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -76885,7 +76925,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('div', [_c('AppSelect', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "header__sort"
+  }, [_c('AppSelect', {
     attrs: {
       "options": _vm.sortOptions
     },
@@ -77860,7 +77902,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -77868,7 +77910,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -77903,7 +77945,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('AppSelect', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "header__sort"
+  }, [_c('AppSelect', {
     attrs: {
       "options": _vm.sortOptions
     },
@@ -77921,7 +77965,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])]), _vm._v(" "), _c('Button', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -78032,7 +78076,9 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "delivery__container",
-    class: _vm.previewContainerStyles
+    class: _vm.deliveryContainerStyles
+  }, [_c('section', {
+    staticClass: "main__section"
   }, [(_vm.admin) ? _c('div', {
     staticClass: "delivery__header delivery__header--admin"
   }, [_c('div', [_c('a', {
@@ -78045,7 +78091,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-clipboard"
-  }), _vm._v("\n        Bulletin de livraison\n      ")])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }), _vm._v("\n          Bulletin de livraison\n        ")])])]) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "delivery__header delivery__header--main"
   }, [_c('div', {
     staticClass: "delivery__header-box"
@@ -78053,14 +78099,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "delivery__details"
   }, [(!_vm.preview) ? _c('div', {
     staticClass: "badge__order"
-  }, [_vm._v("\n          " + _vm._s(_vm.count) + "\n        ")]) : _vm._e(), _vm._v(" "), _c('h3', {
+  }, [_vm._v("\n            " + _vm._s(_vm.count) + "\n          ")]) : _vm._e(), _vm._v(" "), _c('h3', {
     staticClass: "delivery__label",
     class: {
       'delivery__label--preview': _vm.preview
     }
-  }, [_vm._v("\n          Livraison à\n        ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
+  }, [_vm._v("\n            Livraison à\n          ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
     staticClass: "delivery__label delivery__label--bold delivery__label--preview"
-  }, [_vm._v("\n          " + _vm._s(_vm.currentDelivery.contact.label ? _vm.currentDelivery.contact.label : 'Sélectionner') + "\n        ")]) : _c('AppSelect', {
+  }, [_vm._v("\n            " + _vm._s(_vm.currentDelivery.contact.label ? _vm.currentDelivery.contact.label : 'Sélectionner') + "\n          ")]) : _c('AppSelect', {
     attrs: {
       "options": _vm.listContacts,
       "component": {
@@ -78092,9 +78138,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'delivery__label--preview': _vm.preview
     }
-  }, [_vm._v("\n          Mode de livraison\n        ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
+  }, [_vm._v("\n            Mode de livraison\n          ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
     staticClass: "delivery__label delivery__label--bold delivery__label--preview"
-  }, [_vm._v("\n          " + _vm._s(_vm.currentDelivery.deliveryMode.label ? _vm.currentDelivery.deliveryMode.label : 'Sélectionner') + "\n        ")]) : _c('AppSelect', {
+  }, [_vm._v("\n            " + _vm._s(_vm.currentDelivery.deliveryMode.label ? _vm.currentDelivery.deliveryMode.label : 'Sélectionner') + "\n          ")]) : _c('AppSelect', {
     attrs: {
       "options": _vm.optionsForDeliveryMode,
       "large": "",
@@ -78125,9 +78171,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'delivery__label--preview': _vm.preview
     }
-  }, [_vm._v("\n          Le\n        ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
+  }, [_vm._v("\n            Le\n          ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
     staticClass: "delivery__label delivery__label--bold delivery__label--preview"
-  }, [_vm._v("\n          " + _vm._s(_vm.deliveryDateString) + "\n        ")]) : _c('Datepicker', {
+  }, [_vm._v("\n            " + _vm._s(_vm.deliveryDateString) + "\n          ")]) : _c('Datepicker', {
     attrs: {
       "date": _vm.startTime,
       "option": _vm.option,
@@ -78147,7 +78193,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.removeNote($event)
       }
     }
-  }, [_vm._v("\n        Retirer la note\n      ")]) : _vm._e(), _vm._v(" "), (!_vm.showNote && !_vm.preview) ? _c('Button', {
+  }, [_vm._v("\n          Retirer la note\n        ")]) : _vm._e(), _vm._v(" "), (!_vm.showNote && !_vm.preview) ? _c('Button', {
     staticClass: "delivery__note-control",
     on: {
       "click": function($event) {
@@ -78155,7 +78201,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.toggleNote($event)
       }
     }
-  }, [_vm._v("\n        Ajouter une note\n      ")]) : _vm._e(), _vm._v(" "), (_vm.listDeliveries.length > 1 && !_vm.preview) ? _c('Button', {
+  }, [_vm._v("\n          Ajouter une note\n        ")]) : _vm._e(), _vm._v(" "), (_vm.listDeliveries.length > 1 && !_vm.preview) ? _c('Button', {
     staticClass: "delivery__delete-button",
     on: {
       "click": function($event) {
@@ -78182,7 +78228,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "fal fa-info-circle fa-2x"
   }), _vm._v(" "), _c('ul', {
     staticClass: "error__list"
-  }, [(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")]) ? _c('li', [_vm._v("\n          " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")][0]) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")]) ? _c('li', [_vm._v("\n          " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")][0]) + "\n        ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".documents")]) ? _c('li', [_vm._v("\n          La livraison doit contenir au minimum un document.\n        ")]) : _vm._e(), _vm._v(" "), (_vm.hasErrorsRelatedToDocuments) ? _c('li', [_vm._v("\n          Vous devez sélectionner un type d'impression pour chaque document de cette livraison.\n        ")]) : _vm._e()])])]) : _vm._e(), _vm._v(" "), (!_vm.preview) ? _c('div', [_c('transition', {
+  }, [(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")]) ? _c('li', [_vm._v("\n            " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".contact_id")][0]) + "\n          ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")]) ? _c('li', [_vm._v("\n            " + _vm._s(_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".to_deliver_at")][0]) + "\n          ")]) : _vm._e(), _vm._v(" "), (_vm.getValidationErrors[("deliveries." + (_vm.count - 1) + ".documents")]) ? _c('li', [_vm._v("\n            La livraison doit contenir au minimum un document.\n          ")]) : _vm._e(), _vm._v(" "), (_vm.hasErrorsRelatedToDocuments) ? _c('li', [_vm._v("\n            Vous devez sélectionner un type d'impression pour chaque document de cette livraison.\n          ")]) : _vm._e()])])]) : _vm._e(), _vm._v(" "), (!_vm.preview) ? _c('div', [_c('transition', {
     attrs: {
       "name": "fade"
     }
@@ -78232,7 +78278,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": 'delivery-file-upload-' + _vm.delivery.id
     }
-  })], 2)
+  })], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -78659,7 +78705,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('AppSelect', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "header__sort"
+  }, [_c('AppSelect', {
     attrs: {
       "options": _vm.sortOptions
     },
@@ -78677,7 +78725,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])]), _vm._v(" "), _c('Button', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -78940,7 +78988,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -78948,7 +78996,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -78983,7 +79031,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('AppSelect', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "header__sort"
+  }, [_c('AppSelect', {
     attrs: {
       "options": _vm.sortOptions
     },
@@ -79001,7 +79051,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])]), _vm._v(" "), _c('Button', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -80782,7 +80832,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -80790,7 +80840,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -81046,7 +81096,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -81054,7 +81104,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -82769,7 +82819,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -82777,7 +82827,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -83184,7 +83234,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -83192,7 +83242,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -83303,7 +83353,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -83311,7 +83361,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -83350,7 +83400,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     domProps: {
       "textContent": _vm._s(_vm.modelCount)
     }
-  })]), _vm._v(" "), _c('Button', {
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "header__sort"
+  }), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -83721,7 +83773,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -83729,7 +83781,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -84067,7 +84119,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -84075,7 +84127,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
@@ -84240,7 +84292,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit",
       "primary": "",
       "red": "",
-      "long": ""
+      "panel": ""
     }
   }, [_c('i', {
     staticClass: "fal fa-check"
@@ -84248,7 +84300,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "primary": "",
       "grey": "",
-      "long": ""
+      "panel": ""
     },
     on: {
       "click": function($event) {
