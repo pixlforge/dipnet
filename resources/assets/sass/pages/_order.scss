@@ -5,25 +5,48 @@
   }
 
   &__header {
-    width: 50%;
+    width: 100%;
     display: flex;
     justify-content: flex-end;
+
+    @media all and (max-width: $bp-lg) {
+      justify-content: space-around;
+      margin-top: 3rem;
+    }
+
+    @media all and (max-width: $bp-xs) {
+      flex-direction: column;
+    }
+  }
+
+  &__business,
+  &__billing {
+    
   }
 
   &__status {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    flex: 0 0 40rem;
+    flex: 1;
+
+    @media all and (max-width: $bp-lg) {
+      width: 100%;
+      justify-content: space-around;
+    }
+    
+    @media all and (max-width: $bp-xs) {
+      flex-direction: column;
+    }
+
+    :first-child {
+      margin-right: 2rem;
+    }
   }
 
-  &__business {
-    min-width: 20rem;
-    margin-right: 2rem;
-  }
-
-  &__billing {
-    min-width: 20rem;
+  &__status-select {
+    @media all and (max-width: $bp-xs) {
+      margin-top: 3rem;
+    }
   }
 
   &__label {
@@ -34,6 +57,23 @@
 
   &__header-controls {
     display: flex;
+    justify-content: flex-end;
+    flex: 1;
+
+    @media all and (max-width: $bp-lg) {
+      width: 100%;
+      justify-content: space-evenly;
+      margin-top: 3rem;
+    }
+
+    @media all and (max-width: $bp-xs) {
+      flex-direction: column;
+      align-items: center;
+
+      a {
+        margin-top: 3rem;
+      }
+    }
   }
 
   &__controls {

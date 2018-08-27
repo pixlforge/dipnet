@@ -13,6 +13,12 @@
     font-size: 2rem !important;
     padding: 1.2rem 5rem;
     width: 25rem;
+
+    @media all and (max-width: $bp-sm) {
+      width: 15rem;
+      font-size: 1.6rem !important;
+      padding: 1rem 3rem;
+    }
   }
 
   &--success {
@@ -58,5 +64,19 @@
     font-size: 1.4rem;
     color: $white;
     text-align: center;
+    
+    @media all and (max-width: $bp-lg) {
+      position: absolute;
+      left: 0;
+    }
+
+    @media all and (max-width: $bp-md) {
+      top: -7.1rem;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      top: -7.8rem;
+      padding-top: 1.5rem;
+    }
   }
 }

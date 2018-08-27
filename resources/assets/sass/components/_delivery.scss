@@ -37,10 +37,20 @@
 
     &--admin {
       justify-content: flex-end;
+
+      @media all and (max-width: $bp-lg) {
+        align-items: flex-end;
+      } 
     }
 
     &--main {
+      position: relative;
+      flex-wrap: wrap;
       margin-top: 3rem;
+
+      @media all and (max-width: $bp-lg) {
+        align-items: center;
+      }
     }
 
     &--secondary {
@@ -49,7 +59,7 @@
   }
 
   &__header-box {
-    margin-right: 5rem;
+    margin-right: 2rem;
 
     &--white {
       color: $white;
@@ -65,18 +75,24 @@
   }
 
   &__details {
-    min-width: 40rem;
     display: flex;
     align-items: center;
 
     &--secondary {
-      width: 100%;
+      flex: 1;
       display: flex;
       align-items: flex-start;
     }
 
     &--order {
       margin-left: 20rem;
+
+      @media all and (max-width: $bp-lg) {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-left: 0;
+      }
     }
 
     &--preview {

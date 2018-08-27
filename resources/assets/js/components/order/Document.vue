@@ -20,65 +20,71 @@
 
       <div class="document__options-container">
 
-        <!-- Print type -->
-        <div class="document__option">
-          <h4 class="document__option-label">Type d'impression</h4>
-          <AppSelect
-            :options="listArticlePrintTypes"
-            v-model="currentDocument.printType"
-            :disabled="preview"
-            variant="printTypes"
-            @input="updateArticle">
-            {{ currentDocument.printType.label ? currentDocument.printType.label : 'Sélectionner' }}
-          </AppSelect>
-        </div>
-        
-        <!-- Finish -->
-        <div class="document__option">
-          <h4 class="document__option-label">Finition</h4>
-          <AppSelect
-            :options="optionsForFinish"
-            v-model="currentDocument.finish"
-            :disabled="preview"
-            @input="update">
-            {{ currentDocument.finish.label ? currentDocument.finish.label : 'Sélectionner' | capitalize }}
-          </AppSelect>
+        <div class="document__options-group">
+
+          <!-- Print type -->
+          <div class="document__option">
+            <h4 class="document__option-label">Type d'impression</h4>
+            <AppSelect
+              :options="listArticlePrintTypes"
+              v-model="currentDocument.printType"
+              :disabled="preview"
+              variant="printTypes"
+              @input="updateArticle">
+              {{ currentDocument.printType.label ? currentDocument.printType.label : 'Sélectionner' }}
+            </AppSelect>
+          </div>
+          
+          <!-- Finish -->
+          <div class="document__option">
+            <h4 class="document__option-label">Finition</h4>
+            <AppSelect
+              :options="optionsForFinish"
+              v-model="currentDocument.finish"
+              :disabled="preview"
+              @input="update">
+              {{ currentDocument.finish.label ? currentDocument.finish.label : 'Sélectionner' | capitalize }}
+            </AppSelect>
+          </div>
         </div>
 
-        <!-- Options -->
-        <div class="document__option">
-          <h4 class="document__option-label">Options</h4>
-          <AppSelect
-            v-if="!preview"
-            :disabled="preview"
-            :options="listArticleOptionTypes"
-            @input="addOption">
-            Ajouter
-          </AppSelect>
-          <ul
-            :class="{ 'document__list--disabled': preview }"
-            class="document__list">
-            <li
-              v-for="option in currentDocument.options"
-              :key="option.value"
-              @click.prevent="removeOption(option)">
-              <i class="fal fa-plus"/>
-              <i class="fal fa-minus"/>
-              <span>{{ option.label }}</span>
-            </li>
-          </ul>
-        </div>
+        <div class="document__options-group">
 
-        <!--Quantity-->
-        <div class="document__option">
-          <h4 class="document__option-label">Quantité</h4>
-          <input
-            v-model.number="currentDocument.quantity"
-            :disabled="preview"
-            :class="{ 'document__input--disabled': preview }"
-            type="number"
-            class="document__input"
-            @blur="checkQuantity">
+          <!-- Options -->
+          <div class="document__option">
+            <h4 class="document__option-label">Options</h4>
+            <AppSelect
+              v-if="!preview"
+              :disabled="preview"
+              :options="listArticleOptionTypes"
+              @input="addOption">
+              Ajouter
+            </AppSelect>
+            <ul
+              :class="{ 'document__list--disabled': preview }"
+              class="document__list">
+              <li
+                v-for="option in currentDocument.options"
+                :key="option.value"
+                @click.prevent="removeOption(option)">
+                <i class="fal fa-plus"/>
+                <i class="fal fa-minus"/>
+                <span>{{ option.label }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!--Quantity-->
+          <div class="document__option">
+            <h4 class="document__option-label">Quantité</h4>
+            <input
+              v-model.number="currentDocument.quantity"
+              :disabled="preview"
+              :class="{ 'document__input--disabled': preview }"
+              type="number"
+              class="document__input"
+              @blur="checkQuantity">
+          </div>
         </div>
       </div>
 
@@ -87,45 +93,51 @@
         v-if="admin"
         class="document__options-container">
 
-        <!-- Format -->
-        <div class="document__option">
-          <h4 class="document__option-label">Format</h4>
-          <AppSelect
-            :options="listFormats"
-            formats
-            @input="selectFormat">
-            Sélectionner
-          </AppSelect>
+        <div class="document__options-group">
+
+          <!-- Format -->
+          <div class="document__option">
+            <h4 class="document__option-label">Format</h4>
+            <AppSelect
+              :options="listFormats"
+              formats
+              @input="selectFormat">
+              Sélectionner
+            </AppSelect>
+          </div>
+
+          <!-- Width -->
+          <div class="document__option">
+            <h4 class="document__option-label">Largeur</h4>
+            <input
+              v-model.number="currentDocument.width"
+              type="number"
+              class="document__input"
+              @blur="update">
+          </div>
         </div>
 
-        <!-- Width -->
-        <div class="document__option">
-          <h4 class="document__option-label">Largeur</h4>
-          <input
-            v-model.number="currentDocument.width"
-            type="number"
-            class="document__input"
-            @blur="update">
-        </div>
+        <div class="document__options-group">
 
-        <!-- Height -->
-        <div class="document__option">
-          <h4 class="document__option-label">Hauteur</h4>
-          <input
-            v-model.number="currentDocument.height"
-            type="number"
-            class="document__input"
-            @blur="update">
-        </div>
-        
-        <!-- Nb orig -->
-        <div class="document__option">
-          <h4 class="document__option-label">Pages</h4>
-          <input
-            v-model.number="currentDocument.nb_orig"
-            type="number"
-            class="document__input"
-            @blur="update">
+          <!-- Height -->
+          <div class="document__option">
+            <h4 class="document__option-label">Hauteur</h4>
+            <input
+              v-model.number="currentDocument.height"
+              type="number"
+              class="document__input"
+              @blur="update">
+          </div>
+          
+          <!-- Nb orig -->
+          <div class="document__option">
+            <h4 class="document__option-label">Pages</h4>
+            <input
+              v-model.number="currentDocument.nb_orig"
+              type="number"
+              class="document__input"
+              @blur="update">
+          </div>
         </div>
         
       </div>

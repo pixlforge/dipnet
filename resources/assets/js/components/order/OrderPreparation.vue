@@ -60,7 +60,7 @@
           {{ currentOrder.status | capitalize }}
         </div>
 
-        <div>
+        <div class="order__status-select">
           <h6 class="order__label">Statut</h6>
           <AppSelect
             :options="optionsForStatus"

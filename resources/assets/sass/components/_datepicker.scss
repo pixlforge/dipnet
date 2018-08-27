@@ -7,6 +7,10 @@
   margin-left: .5rem;
   background-color: transparent;
 
+  @media all and (max-width: $bp-md) {
+    font-size: 2.4rem !important;
+  }
+
   &:hover {
     background-color: $mercury !important;
   }

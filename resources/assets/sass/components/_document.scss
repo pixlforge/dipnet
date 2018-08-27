@@ -21,6 +21,14 @@
     display: flex;
     justify-content: center;
     padding-top: 3rem;
+
+    @media all and (max-width: $bp-xl) {
+      width: 8rem;
+
+      svg {
+        font-size: 5rem;
+      }
+    }
   }
 
   &__content {
@@ -41,6 +49,19 @@
   &__options-container {
     display: flex;
     margin-top: 2rem;
+
+    @media all and (max-width: $bp-lg) {
+      flex-direction: column;
+    }
+  }
+
+  &__options-group {
+    display: flex;
+    flex: 1;
+
+    @media all and (max-width: $bp-sm) {
+      flex-direction: column;
+    }
   }
 
   &__option-label {
@@ -52,11 +73,16 @@
 
   &__option {
     min-height: 60px;
-    flex: 0 0 25%;
+    flex: 1;
 
     &:not(:last-child) {
       border-right: 1px solid $concrete;
       margin-right: 20px;
+
+      @media all and (max-width: $bp-sm) {
+        border-right: none;
+        margin-right: 0;
+      }
     }
 
     p {
@@ -67,6 +93,10 @@
   &__list {
     list-style: none;
     padding: 0;
+
+    @media all and (max-width: $bp-sm) {
+      margin-bottom: 3rem;
+    }
 
     li {
       line-height: 2;
@@ -150,6 +180,7 @@
   }
 
   &__input {
+    width: 95%;
     font-size: 1.4rem;
     outline: none;
     padding-bottom: .5rem;
@@ -157,6 +188,18 @@
     border-bottom: 1px solid $lighter-grey;
     transition: border-bottom .2s;
     margin-top: 1rem;
+    
+    @media all and (max-width: $bp-md) {
+      width: 90%;
+    }
+
+    @media all and (max-width: $bp-sm) {
+      width: 96%;
+    }
+
+    @media all and (max-width: $bp-xs) {
+      width: 90%;
+    }
 
     &:hover,
     &:focus,
@@ -179,6 +222,10 @@
     display: flex;
     flex-direction: column;
     margin-right: 4rem;
+
+    @media all and (max-width: $bp-xl) {
+      margin-right: 1rem;
+    }
   }
 
   &__delete-button,
@@ -190,6 +237,10 @@
     border: none;
     background-color: transparent;
     outline: none;
+
+    @media all and (max-width: $bp-xl) {
+      font-size: 2rem;
+    }
 
     &:hover {
       svg {

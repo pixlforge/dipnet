@@ -9,17 +9,15 @@
       <div
         v-if="admin"
         class="delivery__header delivery__header--admin">
-        <div>
-          <a
-            :href="routeDeliveryReceipt"
-            role="button"
-            class="button__primary button__primary--red"
-            target="_blank"
-            rel="noopener noreferrer">
-            <i class="fal fa-clipboard"/>
-            Bulletin de livraison
-          </a>
-        </div>
+        <a
+          :href="routeDeliveryReceipt"
+          role="button"
+          class="button__primary button__primary--red button--block"
+          target="_blank"
+          rel="noopener noreferrer">
+          <i class="fal fa-clipboard"/>
+          Bulletin de livraison
+        </a>
       </div>
 
       <!-- Header main -->
@@ -153,22 +151,20 @@
       <div class="delivery__header delivery__header--secondary">
 
         <!-- Selected contact details -->
-        <div class="delivery__header-box">
-          <div
-            :class="{ 'delivery__details--order': !preview, 'delivery__details--preview': preview }"
-            class="delivery__details">
-            <ul
-              v-if="selectedContactDetails"
-              class="delivery__list">
-              <li>{{ selectedContactDetails.name }}</li>
-              <li>{{ selectedContactDetails.address_line1 }}</li>
-              <li v-if="selectedContactDetails.address_line2">{{ selectedContactDetails.address_line2 }}</li>
-              <li>{{ selectedContactDetails.zip }} {{ selectedContactDetails.city }}</li>
-              <li v-if="selectedContactDetails.phone_number">{{ selectedContactDetails.phone_number }}</li>
-              <li v-if="selectedContactDetails.fax">{{ selectedContactDetails.fax }}</li>
-              <li>{{ selectedContactDetails.email }}</li>
-            </ul>
-          </div>
+        <div
+          :class="{ 'delivery__details--order': !preview, 'delivery__details--preview': preview }"
+          class="delivery__details">
+          <ul
+            v-if="selectedContactDetails"
+            class="delivery__list">
+            <li>{{ selectedContactDetails.name }}</li>
+            <li>{{ selectedContactDetails.address_line1 }}</li>
+            <li v-if="selectedContactDetails.address_line2">{{ selectedContactDetails.address_line2 }}</li>
+            <li>{{ selectedContactDetails.zip }} {{ selectedContactDetails.city }}</li>
+            <li v-if="selectedContactDetails.phone_number">{{ selectedContactDetails.phone_number }}</li>
+            <li v-if="selectedContactDetails.fax">{{ selectedContactDetails.fax }}</li>
+            <li>{{ selectedContactDetails.email }}</li>
+          </ul>
         </div>
       </div>
 
