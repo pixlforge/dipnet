@@ -88,6 +88,10 @@ export default {
       type: String,
       required: true
     },
+    user: {
+      type: Object,
+      required: true
+    },
     userName: {
       type: String,
       required: true
@@ -134,7 +138,7 @@ export default {
       }
     },
     routeCompany() {
-      if (this.userRole === "administrateur") {
+      if (this.userRole === "administrateur" || this.user.is_solo) {
         return;
       } else {
         return window.route("companies.show", [this.userCompanySlug]);

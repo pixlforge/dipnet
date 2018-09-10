@@ -3,6 +3,7 @@
           route-name="{{ Route::currentRouteName() }}"
           avatar-path="{{ auth()->user()->avatarPath() }}"
           random-avatar="{{ 'img/placeholders/' . auth()->user()->randomAvatar() }}"
+          :user="{{ auth()->user() }}"
           user-name="{{ auth()->user()->username }}"
           user-role="{{ auth()->user()->role }}"
           user-company-name="{{ auth()->user()->company->name }}"
