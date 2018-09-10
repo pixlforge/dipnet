@@ -43,7 +43,11 @@ class Order extends Model
      */
     public function scopeOwn(Builder $builder)
     {
-        return $builder->where('company_id', auth()->user()->company_id);
+        if (auth()->user()->isPartOfACompany()) {
+            return $builder->where('company_id', auth()->user()->company_id);
+        } elseif (auth()->user()->isSolo()) {
+            return $builder->where('user_id', auth()->id());
+        }
     }
 
     /**
