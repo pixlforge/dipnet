@@ -41005,6 +41005,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
 
 
 
@@ -41045,7 +41046,11 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       modelGender: "F"
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(["loaderState"])),
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_6_vuex__["b" /* mapGetters */])(["loaderState"]), {
+    userIsNotAdmin() {
+      return this.userRole !== "administrateur";
+    }
+  }),
   mounted() {
     this.getOrders();
   },
@@ -83470,7 +83475,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('span', {
     staticClass: "dropdown__title"
-  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), _c('Button', {
+  }, [_vm._v("Trier par")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.sort ? _vm.sort.label : 'Aucun'))])])])], 1), _vm._v(" "), (_vm.userIsNotAdmin) ? _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -83484,7 +83489,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "fal fa-plus-circle"
-  }), _vm._v("\n      Nouvelle commande\n    ")])], 1), _vm._v(" "), _c('main', {
+  }), _vm._v("\n      Nouvelle commande\n    ")]) : _vm._e()], 1), _vm._v(" "), _c('main', {
     staticClass: "main__container"
   }, [_c('section', {
     staticClass: "main__section"

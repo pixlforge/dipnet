@@ -312,7 +312,7 @@ Route::prefix('/invitation')->namespace('Invitations')->group(function () {
 Route::prefix('/commandes')->namespace('Order')->name('orders.')->group(function () {
     Route::get('/', 'OrderController@index')->name('index');
     Route::get('/{order}/voir', 'OrderController@show')->name('show');
-    Route::get('/create', 'OrderController@create')->name('create.start');
+    Route::get('/creer', 'OrderController@create')->name('create.start');
     Route::get('/{order}/creer', 'OrderController@create')->name('create.end');
     Route::patch('/{order}', 'OrderController@update')->name('update');
     Route::delete('/{order}', 'OrderController@destroy')->name('destroy');

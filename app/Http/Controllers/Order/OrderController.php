@@ -45,6 +45,8 @@ class OrderController extends Controller
      */
     public function create(Order $order)
     {
+        abort_if(auth()->user()->isAdmin(), 403, "Vous n'êtes pas autorisé à accéder à cette ressource.");
+        
         // Create an order if none exist and redirect along with the newly created order.
         if (!$order->exists) {
             $order = $this->createSkeletonOrder();

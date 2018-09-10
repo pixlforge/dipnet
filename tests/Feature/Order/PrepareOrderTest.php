@@ -20,6 +20,19 @@ class PrepareOrderTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function admins_cannot_access_the_order_preparation_page()
+    {
+        $this->withExceptionHandling();
+
+        $admin = factory(User::class)->states('admin')->create();
+        $this->actingAs($admin);
+        $this->assertAuthenticatedAs($admin);
+
+        $response = $this->get(route('orders.create.start'));
+        $response->assertForbidden();
+    }
+
+    /** @test */
     public function users_associated_with_a_company_can_prepare_and_complete_orders()
     {
         $this->withoutExceptionHandling();

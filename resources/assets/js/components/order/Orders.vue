@@ -21,6 +21,7 @@
 
       <!-- Create order -->
       <Button
+        v-if="userIsNotAdmin"
         primary
         red
         long
@@ -118,7 +119,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loaderState"])
+    ...mapGetters(["loaderState"]),
+    userIsNotAdmin() {
+      return this.userRole !== "administrateur";
+    }
   },
   mounted() {
     this.getOrders();

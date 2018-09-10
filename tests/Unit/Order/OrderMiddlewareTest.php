@@ -14,24 +14,6 @@ class OrderMiddlewareTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function admins_are_not_redirected_by_the_middlewares()
-    {
-        $this->withoutExceptionHandling();
-
-        $admin = factory(User::class)->states('admin')->create();
-        $this->actingAs($admin);
-        $this->assertAuthenticatedAs($admin);
-
-        $this->assertNull($admin->company_id);
-        $this->assertFalse($admin->isSolo());
-        $this->assertCount(0, Order::all());
-
-        $response = $this->get(route('orders.create.start'));
-        $response->assertRedirect(route('orders.create.end', 'ODJEGDNM'));
-        $this->assertCount(1, Order::all());
-    }
-
-    /** @test */
     public function confirmed_users_can_access_the_order_creation_page()
     {
         $this->withoutExceptionHandling();
