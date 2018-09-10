@@ -51,6 +51,8 @@ class OrderController extends Controller
             return redirect()->route('orders.create.end', $order);
         }
 
+        abort_if($order->status !== 'incomplète', 403, "Vous n'êtes pas autorisé à accéder à cette ressource.");
+
         $this->authorize('touch', $order);
 
         if (auth()->user()->isAdmin()) {

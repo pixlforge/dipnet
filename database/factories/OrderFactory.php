@@ -17,6 +17,12 @@ $factory->define(Order::class, function (Faker $faker) {
     ];
 });
 
+$factory->state(Order::class, 'sent', function () {
+    return [
+        'status' => 'envoyée',
+    ];
+});
+
 $factory->state(Order::class, 'add-business', function () {
     return [
         'business_id' => function () {
