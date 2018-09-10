@@ -34,6 +34,7 @@ class SearchController extends Controller
 
         if (auth()->user()->isAdmin()) {
             $orders = Order::select(['id', 'reference'])
+                ->completed()
                 ->where('reference', 'like', '%' . request('query') . '%')
                 ->latest()
                 ->limit(5)
