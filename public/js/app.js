@@ -41522,11 +41522,21 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
     }
   }),
   methods: {
-    profileUpdated() {
-      window.flash({
-        message: "Votre compte a été mis à jour avec succès!",
-        level: "success"
-      });
+    profileUpdated(emailUpdated) {
+      if (emailUpdated) {
+        window.flash({
+          message: "Votre compte a été mis à jour avec succès! Veuillez re-confirmer votre compte, s'il-vous-plaît.",
+          level: "success"
+        });
+      } else {
+        window.flash({
+          message: "Votre compte a été mis à jour avec succès!",
+          level: "success"
+        });
+      }
+      setTimeout(() => {
+        window.location = window.route("profile.index");
+      }, 1500);
     }
   }
 });
@@ -41682,7 +41692,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         _this.toggleLoader();
         try {
           yield window.axios.patch(window.route("account.update"), _this.currentUser);
-          _this.$emit("profile:updated");
+          if (_this.currentUser.email !== _this.user.email) {
+            _this.$emit("profile:updated", { emailUpdated: true });
+          } else {
+            _this.$emit("profile:updated");
+          }
           _this.$emit("update-profile:close");
           _this.toggleLoader();
         } catch (err) {
