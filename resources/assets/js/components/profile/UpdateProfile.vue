@@ -135,7 +135,11 @@ export default {
           window.route("account.update"),
           this.currentUser
         );
-        this.$emit("profile:updated");
+        if (this.currentUser.email !== this.user.email) {
+          this.$emit("profile:updated", { emailUpdated: true });
+        } else {
+          this.$emit("profile:updated");
+        }
         this.$emit("update-profile:close");
         this.toggleLoader();
       } catch (err) {

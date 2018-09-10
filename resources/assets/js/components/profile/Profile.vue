@@ -165,11 +165,22 @@ export default {
     }
   },
   methods: {
-    profileUpdated() {
-      window.flash({
-        message: "Votre compte a été mis à jour avec succès!",
-        level: "success"
-      });
+    profileUpdated(emailUpdated) {
+      if (emailUpdated) {
+        window.flash({
+          message:
+            "Votre compte a été mis à jour avec succès! Veuillez re-confirmer votre compte, s'il-vous-plaît.",
+          level: "success"
+        });
+      } else {
+        window.flash({
+          message: "Votre compte a été mis à jour avec succès!",
+          level: "success"
+        });
+      }
+      setTimeout(() => {
+        window.location = window.route("profile.index");
+      }, 1500);
     }
   }
 };

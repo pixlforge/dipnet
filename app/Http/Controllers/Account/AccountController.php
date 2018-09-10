@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Account;
 
+use App\User;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\UserUpdatedEmailAddress;
 use App\Http\Requests\Profile\UpdateProfileRequest;
 
 class AccountController extends Controller
@@ -43,15 +46,27 @@ class AccountController extends Controller
      */
     public function update(UpdateProfileRequest $request)
     {
-        $request->user()->username = $request->username;
-        $request->user()->email = $request->email;
+        $user = $request->user();
 
-        if ($request->has('password') && $request->password !== null) {
-            $request->user()->password = bcrypt($request->password);
+        $user->username = $request->username;
+
+        if ($request->has('email') && !is_null($request->email) && $user->email !== $request->email) {
+            $user->email = $request->email;
+            $user->email_confirmed = false;
+            $user->confirmation_token = User::generateConfirmationToken($request->email);
+
+            $user->save();
+
+            Mail::to($request->email)
+                ->queue(new UserUpdatedEmailAddress($user));
         }
 
-        $request->user()->save();
+        if ($request->has('password') && !is_null($request->password)) {
+            $user->password = bcrypt($request->password);
+        }
 
-        return response(null, 200);
+        $user->save();
+
+        return response($user, 200);
     }
 }
