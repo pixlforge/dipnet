@@ -5,23 +5,18 @@
   }
 
   &__header {
-    width: 100%;
     display: flex;
     justify-content: flex-end;
-
+    
     @media all and (max-width: $bp-lg) {
+      width: 100%;
       justify-content: space-around;
       margin-top: 3rem;
     }
-
+    
     @media all and (max-width: $bp-xs) {
       flex-direction: column;
     }
-  }
-
-  &__business,
-  &__billing {
-    
   }
 
   &__status {
