@@ -58,7 +58,6 @@
     @foreach ($order->deliveries as $delivery)
       <div class="receipt__content">
         <div class="receipt__container">
-          <h1 class="receipt__secondary-title">Livraison n°{{ $delivery->reference }}</h1>
           <div class="receipt__row">
             <div class="receipt__item">
               <h2 class="receipt__item-title">Adresse de livraison</h2>
@@ -91,7 +90,15 @@
                 <h2 class="receipt__item-title">{{ $document->media->first()->file_name }}</h2>
                 <ul class="receipt__item-list">
                   <li>Finition: {{ ucfirst($document->finish) }}</li>
-                  <li>Impression: {{ $document->article->description }}</li>
+                  <li>
+                    Impression:
+                    {{ $document->article->description }}
+                    @if ($document->article->type === 'impression' && $document->article->greyscale === true)
+                      <small class="text-xs">(Noir / Blanc)</small>
+                    @elseif ($document->article->type === 'impression' && $document->article->greyscale === false)
+                      <small class="text-xs">(Couleur)</small>
+                    @endif
+                  </li>
                   <li>Quantité: {{ $document->quantity }}</li>
                   <li>
                     <ul class="receipt__item-list">
