@@ -61,6 +61,10 @@ export default {
     userRole: {
       type: String,
       required: true
+    },
+    appName: {
+      type: String,
+      required: true
     }
   },
   data() {

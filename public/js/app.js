@@ -38583,6 +38583,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     userRole: {
       type: String,
       required: true
+    },
+    appName: {
+      type: String,
+      required: true
     }
   },
   data() {
@@ -38662,6 +38666,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Menu___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Menu__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_Searchbar__ = __webpack_require__(331);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__search_Searchbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__search_Searchbar__);
+//
 //
 //
 //
@@ -74056,7 +74061,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "navbar__user-name",
     attrs: {
       "label": _vm.userName,
-      "user-role": _vm.userRole
+      "user-role": _vm.userRole,
+      "app-name": _vm.appName
     }
   }), _vm._v(" "), _c('div', {
     staticClass: "vertical-divider"

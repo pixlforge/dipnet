@@ -50,6 +50,7 @@
         <Menu
           :label="userName"
           :user-role="userRole"
+          :app-name="appName"
           class="navbar__user-name"/>
         <div class="vertical-divider"/>
         <a
