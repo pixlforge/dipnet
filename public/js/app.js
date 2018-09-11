@@ -6477,7 +6477,6 @@ Vue.component('Articles', __webpack_require__(278));
 Vue.component('Users', __webpack_require__(340));
 Vue.component('Companies', __webpack_require__(289));
 Vue.component('Orders', __webpack_require__(321));
-Vue.component('Documents', __webpack_require__(301));
 Vue.component('OrderPreparation', __webpack_require__(320));
 Vue.component('AddDefaultBusiness', __webpack_require__(288));
 Vue.component('Login', __webpack_require__(315));
@@ -37051,213 +37050,8 @@ exports.default = {
 /***/ }),
 /* 208 */,
 /* 209 */,
-/* 210 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_filesize__ = __webpack_require__(268);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_filesize___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_filesize__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(4);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["b" /* filters */]],
-  props: {
-    document: {
-      type: Object,
-      required: true
-    }
-  },
-  computed: {
-    getFilesize() {
-      return __WEBPACK_IMPORTED_MODULE_0_filesize___default()(this.document.media[0].size);
-    }
-  }
-});
-
-/***/ }),
-/* 211 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Document__ = __webpack_require__(300);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Document___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Document__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination_Pagination__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__pagination_Pagination___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__pagination_Pagination__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__illustrations_IllustrationNoData__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__illustrations_IllustrationNoData___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__illustrations_IllustrationNoData__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__mixins__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_vuex__ = __webpack_require__(2);
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  components: {
-    Document: __WEBPACK_IMPORTED_MODULE_0__Document___default.a,
-    Pagination: __WEBPACK_IMPORTED_MODULE_1__pagination_Pagination___default.a,
-    MoonLoader: __WEBPACK_IMPORTED_MODULE_2_vue_spinner_src_MoonLoader_vue___default.a,
-    IllustrationNoData: __WEBPACK_IMPORTED_MODULE_3__illustrations_IllustrationNoData___default.a
-  },
-  mixins: [__WEBPACK_IMPORTED_MODULE_4__mixins__["f" /* modelCount */], __WEBPACK_IMPORTED_MODULE_4__mixins__["e" /* loader */]],
-  data() {
-    return {
-      documents: [],
-      meta: {},
-      errors: {},
-      fetching: false,
-      modelNameSingular: "document",
-      modelNamePlural: "documents",
-      modelGender: "M"
-    };
-  },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(["loaderState"])),
-  mounted() {
-    this.getDocuments();
-  },
-  methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["c" /* mapActions */])(["toggleLoader"]), {
-    getDocuments(page = 1) {
-      this.toggleLoader();
-      this.fetching = true;
-
-      window.axios.get("/api/documents", {
-        params: {
-          page
-        }
-      }).then(res => {
-        this.documents = res.data.data;
-        this.meta = res.data.meta;
-        this.toggleLoader();
-        this.fetching = false;
-      }).catch(err => {
-        this.errors = err.response.data;
-        this.toggleLoader();
-        this.fetching = false;
-      });
-    }
-  })
-});
-
-/***/ }),
+/* 210 */,
+/* 211 */,
 /* 212 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -38776,12 +38570,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -38814,9 +38602,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     routeCompanies() {
       return window.route("admin.companies.index");
-    },
-    routeDocuments() {
-      return window.route("admin.documents.index");
     },
     routeFormats() {
       return window.route("admin.formats.index");
@@ -50476,187 +50261,7 @@ function __guardMethod__(obj, methodName, transform) {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(20)(module)))
 
 /***/ }),
-/* 268 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
-
-/**
- * filesize
- *
- * @copyright 2018 Jason Mulligan <jason.mulligan@avoidwork.com>
- * @license BSD-3-Clause
- * @version 3.6.1
- */
-(function (global) {
-	var b = /^(b|B)$/,
-	    symbol = {
-		iec: {
-			bits: ["b", "Kib", "Mib", "Gib", "Tib", "Pib", "Eib", "Zib", "Yib"],
-			bytes: ["B", "KiB", "MiB", "GiB", "TiB", "PiB", "EiB", "ZiB", "YiB"]
-		},
-		jedec: {
-			bits: ["b", "Kb", "Mb", "Gb", "Tb", "Pb", "Eb", "Zb", "Yb"],
-			bytes: ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"]
-		}
-	},
-	    fullform = {
-		iec: ["", "kibi", "mebi", "gibi", "tebi", "pebi", "exbi", "zebi", "yobi"],
-		jedec: ["", "kilo", "mega", "giga", "tera", "peta", "exa", "zetta", "yotta"]
-	};
-
-	/**
-  * filesize
-  *
-  * @method filesize
-  * @param  {Mixed}   arg        String, Int or Float to transform
-  * @param  {Object}  descriptor [Optional] Flags
-  * @return {String}             Readable file size String
-  */
-	function filesize(arg) {
-		var descriptor = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-		var result = [],
-		    val = 0,
-		    e = void 0,
-		    base = void 0,
-		    bits = void 0,
-		    ceil = void 0,
-		    full = void 0,
-		    fullforms = void 0,
-		    neg = void 0,
-		    num = void 0,
-		    output = void 0,
-		    round = void 0,
-		    unix = void 0,
-		    separator = void 0,
-		    spacer = void 0,
-		    standard = void 0,
-		    symbols = void 0;
-
-		if (isNaN(arg)) {
-			throw new Error("Invalid arguments");
-		}
-
-		bits = descriptor.bits === true;
-		unix = descriptor.unix === true;
-		base = descriptor.base || 2;
-		round = descriptor.round !== void 0 ? descriptor.round : unix ? 1 : 2;
-		separator = descriptor.separator !== void 0 ? descriptor.separator || "" : "";
-		spacer = descriptor.spacer !== void 0 ? descriptor.spacer : unix ? "" : " ";
-		symbols = descriptor.symbols || descriptor.suffixes || {};
-		standard = base === 2 ? descriptor.standard || "jedec" : "jedec";
-		output = descriptor.output || "string";
-		full = descriptor.fullform === true;
-		fullforms = descriptor.fullforms instanceof Array ? descriptor.fullforms : [];
-		e = descriptor.exponent !== void 0 ? descriptor.exponent : -1;
-		num = Number(arg);
-		neg = num < 0;
-		ceil = base > 2 ? 1000 : 1024;
-
-		// Flipping a negative number to determine the size
-		if (neg) {
-			num = -num;
-		}
-
-		// Determining the exponent
-		if (e === -1 || isNaN(e)) {
-			e = Math.floor(Math.log(num) / Math.log(ceil));
-
-			if (e < 0) {
-				e = 0;
-			}
-		}
-
-		// Exceeding supported length, time to reduce & multiply
-		if (e > 8) {
-			e = 8;
-		}
-
-		// Zero is now a special case because bytes divide by 1
-		if (num === 0) {
-			result[0] = 0;
-			result[1] = unix ? "" : symbol[standard][bits ? "bits" : "bytes"][e];
-		} else {
-			val = num / (base === 2 ? Math.pow(2, e * 10) : Math.pow(1000, e));
-
-			if (bits) {
-				val = val * 8;
-
-				if (val >= ceil && e < 8) {
-					val = val / ceil;
-					e++;
-				}
-			}
-
-			result[0] = Number(val.toFixed(e > 0 ? round : 0));
-			result[1] = base === 10 && e === 1 ? bits ? "kb" : "kB" : symbol[standard][bits ? "bits" : "bytes"][e];
-
-			if (unix) {
-				result[1] = standard === "jedec" ? result[1].charAt(0) : e > 0 ? result[1].replace(/B$/, "") : result[1];
-
-				if (b.test(result[1])) {
-					result[0] = Math.floor(result[0]);
-					result[1] = "";
-				}
-			}
-		}
-
-		// Decorating a 'diff'
-		if (neg) {
-			result[0] = -result[0];
-		}
-
-		// Applying custom symbol
-		result[1] = symbols[result[1]] || result[1];
-
-		// Returning Array, Object, or String (default)
-		if (output === "array") {
-			return result;
-		}
-
-		if (output === "exponent") {
-			return e;
-		}
-
-		if (output === "object") {
-			return { value: result[0], suffix: result[1], symbol: result[1] };
-		}
-
-		if (full) {
-			result[1] = fullforms[e] ? fullforms[e] : fullform[standard][e] + (bits ? "bit" : "byte") + (result[0] === 1 ? "" : "s");
-		}
-
-		if (separator.length > 0) {
-			result[0] = result[0].toString().replace(".", separator);
-		}
-
-		return result.join(spacer);
-	}
-
-	// Partial application for functional programming
-	filesize.partial = function (opt) {
-		return function (arg) {
-			return filesize(arg, opt);
-		};
-	};
-
-	// CommonJS, AMD, script tag
-	if (true) {
-		module.exports = filesize;
-	} else if (typeof define === "function" && define.amd) {
-		define(function () {
-			return filesize;
-		});
-	} else {
-		global.filesize = filesize;
-	}
-})(typeof window !== "undefined" ? window : global);
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(17)))
-
-/***/ }),
+/* 268 */,
 /* 269 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -69094,74 +68699,8 @@ module.exports = Component.exports
 /***/ }),
 /* 298 */,
 /* 299 */,
-/* 300 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(210),
-  /* template */
-  __webpack_require__(370),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/celienboillat/Webdev/Projects/dipnet/resources/assets/js/components/document/Document.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Document.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-377f0539", Component.options)
-  } else {
-    hotAPI.reload("data-v-377f0539", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 301 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(1)(
-  /* script */
-  __webpack_require__(211),
-  /* template */
-  __webpack_require__(408),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "/Users/celienboillat/Webdev/Projects/dipnet/resources/assets/js/components/document/Documents.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] Documents.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-87e579ec", Component.options)
-  } else {
-    hotAPI.reload("data-v-87e579ec", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
+/* 300 */,
+/* 301 */,
 /* 302 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -74537,56 +74076,7 @@ if (false) {
 }
 
 /***/ }),
-/* 370 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card__container"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "card__details card__details--document"
-  }, [_c('h5', {
-    staticClass: "model__label"
-  }, [_vm._v("Nom du fichier")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm.document.media[0].file_name))])])]), _vm._v(" "), _c('div', {
-    staticClass: "card__details card__details--document"
-  }, [_c('h5', {
-    staticClass: "model__label"
-  }, [_vm._v("Format")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.document.media[0].mime_type))])]), _vm._v(" "), _c('div', {
-    staticClass: "card__details card__details--document"
-  }, [_c('h5', {
-    staticClass: "model__label"
-  }, [_vm._v("Taille")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.getFilesize))])]), _vm._v(" "), _c('div', {
-    staticClass: "card__details card__details--document"
-  }, [(_vm.document.article) ? [_c('h5', {
-    staticClass: "model__label"
-  }, [_vm._v("Impression")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.document.article.description))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
-    staticClass: "card__details card__details--document"
-  }, [_c('h5', {
-    staticClass: "model__label"
-  }, [_vm._v("Finition")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.document.finish)))])]), _vm._v(" "), _c('div', {
-    staticClass: "card__details card__details--document"
-  }, [_c('h5', {
-    staticClass: "model__label"
-  }, [_vm._v("Quantité")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.document.quantity))])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card__img"
-  }, [_c('img', {
-    attrs: {
-      "src": "/img/placeholders/contact-bullet.jpg",
-      "alt": "Bullet point image"
-    }
-  })])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-377f0539", module.exports)
-  }
-}
-
-/***/ }),
+/* 370 */,
 /* 371 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -76188,12 +75678,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": _vm.routeCompanies
     }
   }, [_vm._v("Sociétés")])]) : _vm._e(), _vm._v(" "), (_vm.userIsAdmin) ? _c('li', [_c('a', {
-    attrs: {
-      "href": _vm.routeDocuments
-    }
-  }, [_vm._v("Documents")])]) : _vm._e(), _vm._v(" "), (_vm.userIsAdmin) ? _c('li', {
-    staticClass: "dropdown__list-item-divider"
-  }) : _vm._e(), _vm._v(" "), (_vm.userIsAdmin) ? _c('li', [_c('a', {
     attrs: {
       "href": _vm.routeFormats
     }
@@ -80864,77 +80348,7 @@ if (false) {
 }
 
 /***/ }),
-/* 408 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "header__container"
-  }, [_c('h1', {
-    staticClass: "header__title"
-  }, [_vm._v("Documents")]), _vm._v(" "), _c('div', {
-    staticClass: "header__stats"
-  }, [_c('span', {
-    domProps: {
-      "textContent": _vm._s(_vm.modelCount)
-    }
-  })]), _vm._v(" "), _c('div')]), _vm._v(" "), _c('main', {
-    staticClass: "main__container"
-  }, [_c('section', {
-    staticClass: "main__section"
-  }, [(_vm.meta.total > 25) ? _c('Pagination', {
-    staticClass: "pagination pagination--top",
-    attrs: {
-      "meta": _vm.meta
-    },
-    on: {
-      "pagination:switched": _vm.getDocuments
-    }
-  }) : _vm._e(), _vm._v(" "), (!_vm.documents.length && !_vm.fetching) ? _c('div', {
-    staticClass: "main__no-results"
-  }, [_c('p', [_vm._v("Il n'existe encore aucun document.")]), _vm._v(" "), _c('IllustrationNoData')], 1) : [_c('transition-group', {
-    attrs: {
-      "name": "pagination",
-      "tag": "div",
-      "mode": "out-in"
-    }
-  }, _vm._l((_vm.documents), function(document, index) {
-    return _c('Document', {
-      key: document.id,
-      attrs: {
-        "document": document
-      },
-      on: {
-        "document:deleted": function($event) {
-          _vm.removeDocument(index)
-        }
-      }
-    })
-  }))], _vm._v(" "), (_vm.meta.total > 25) ? _c('Pagination', {
-    staticClass: "pagination pagination--bottom",
-    attrs: {
-      "meta": _vm.meta
-    },
-    on: {
-      "pagination:switched": _vm.getDocuments
-    }
-  }) : _vm._e()], 2)]), _vm._v(" "), _c('MoonLoader', {
-    attrs: {
-      "loading": _vm.loaderState,
-      "color": _vm.loader.color,
-      "size": _vm.loader.size
-    }
-  })], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-87e579ec", module.exports)
-  }
-}
-
-/***/ }),
+/* 408 */,
 /* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 

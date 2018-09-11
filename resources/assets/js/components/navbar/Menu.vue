@@ -23,12 +23,6 @@
           <a :href="routeCompanies">Sociétés</a>
         </li>
         <li v-if="userIsAdmin">
-          <a :href="routeDocuments">Documents</a>
-        </li>
-        <li
-          v-if="userIsAdmin"
-          class="dropdown__list-item-divider"/>
-        <li v-if="userIsAdmin">
           <a :href="routeFormats">Formats</a>
         </li>
         <li v-if="userIsAdmin">
@@ -86,9 +80,6 @@ export default {
     },
     routeCompanies() {
       return window.route("admin.companies.index");
-    },
-    routeDocuments() {
-      return window.route("admin.documents.index");
     },
     routeFormats() {
       return window.route("admin.formats.index");

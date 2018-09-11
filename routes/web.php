@@ -150,13 +150,6 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
     });
 
     /**
-     * Documents
-     */
-    Route::prefix('/documents')->namespace('Document')->name('documents.')->group(function () {
-        Route::get('/', 'DocumentController@index')->name('index');
-    });
-
-    /**
      * Formats
      */
     Route::prefix('/formats')->namespace('Format')->name('formats.')->group(function () {
