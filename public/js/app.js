@@ -5901,7 +5901,11 @@ const datepicker = {
         month: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
         format: "LL HH:mm"
       },
-      limit: [{ type: "weekday", available: [1, 2, 3, 4, 5] }]
+      limit: [{ type: "weekday", available: [1, 2, 3, 4, 5] }, {
+        type: 'fromto',
+        from: new __WEBPACK_IMPORTED_MODULE_0_moment___default.a().add(1, 'days'),
+        to: new __WEBPACK_IMPORTED_MODULE_0_moment___default.a().add(6, 'months')
+      }]
     };
   },
   methods: {
@@ -39656,9 +39660,18 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
       return _asyncToGenerator(function* () {
         try {
-          yield _this.$store.dispatch("updateDelivery", _this.currentDelivery);
+          yield _this.$store.dispatch("updateDelivery", {
+            currentDelivery: _this.currentDelivery,
+            user: _this.user
+          });
         } catch (err) {
           _this.errors = err.response.data.errors;
+          if (_this.errors.to_deliver_at) {
+            window.flash({
+              message: "La date de livraison est invalide. Elle doit être définie pour le lendemain, au minimum.",
+              level: "danger"
+            });
+          }
         }
       })();
     },
@@ -47067,19 +47080,28 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
      */
     updateDelivery({ commit }, payload) {
       return _asyncToGenerator(function* () {
+        const user = payload.user;
         const delivery = {
-          id: payload.id,
-          reference: payload.reference,
-          note: payload.note,
-          admin_note: payload.admin_note,
-          to_deliver_at: payload.to_deliver_at,
-          order_id: payload.order_id,
-          contact_id: payload.contact.value,
-          pickup: payload.pickup,
-          express: payload.express
+          id: payload.currentDelivery.id,
+          reference: payload.currentDelivery.reference,
+          note: payload.currentDelivery.note,
+          admin_note: payload.currentDelivery.admin_note,
+          to_deliver_at: payload.currentDelivery.to_deliver_at,
+          order_id: payload.currentDelivery.order_id,
+          contact_id: payload.currentDelivery.contact.value,
+          pickup: payload.currentDelivery.pickup,
+          express: payload.currentDelivery.express
         };
         commit('updateDelivery', delivery);
-        yield window.axios.patch(window.route('deliveries.update', [delivery.reference]), delivery);
+        try {
+          if (user.role === 'administrateur') {
+            yield window.axios.patch(window.route('admin.deliveries.update', [delivery.reference]), delivery);
+          } else {
+            yield window.axios.patch(window.route('deliveries.update', [delivery.reference]), delivery);
+          }
+        } catch (err) {
+          throw err;
+        }
       })();
     },
     /**

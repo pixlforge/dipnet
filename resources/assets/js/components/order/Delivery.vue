@@ -392,9 +392,19 @@ export default {
     },
     async update() {
       try {
-        await this.$store.dispatch("updateDelivery", this.currentDelivery);
+        await this.$store.dispatch("updateDelivery", {
+          currentDelivery: this.currentDelivery,
+          user: this.user
+        });
       } catch (err) {
         this.errors = err.response.data.errors;
+        if (this.errors.to_deliver_at) {
+          window.flash({
+            message:
+              "La date de livraison est invalide. Elle doit être définie pour le lendemain, au minimum.",
+            level: "danger"
+          });
+        }
       }
     },
     async remove() {

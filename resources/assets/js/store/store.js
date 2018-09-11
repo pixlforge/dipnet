@@ -285,19 +285,28 @@ export const store = new Vuex.Store({
      * Update an existing delivery.
      */
     async updateDelivery({ commit }, payload) {
+      const user = payload.user;
       const delivery = {
-        id: payload.id,
-        reference: payload.reference,
-        note: payload.note,
-        admin_note: payload.admin_note,
-        to_deliver_at: payload.to_deliver_at,
-        order_id: payload.order_id,
-        contact_id: payload.contact.value,
-        pickup: payload.pickup,
-        express: payload.express
+        id: payload.currentDelivery.id,
+        reference: payload.currentDelivery.reference,
+        note: payload.currentDelivery.note,
+        admin_note: payload.currentDelivery.admin_note,
+        to_deliver_at: payload.currentDelivery.to_deliver_at,
+        order_id: payload.currentDelivery.order_id,
+        contact_id: payload.currentDelivery.contact.value,
+        pickup: payload.currentDelivery.pickup,
+        express: payload.currentDelivery.express
       };
       commit('updateDelivery', delivery);
-      await window.axios.patch(window.route('deliveries.update', [delivery.reference]), delivery);
+      try {
+        if (user.role === 'administrateur') {
+          await window.axios.patch(window.route('admin.deliveries.update', [delivery.reference]), delivery);
+        } else {
+          await window.axios.patch(window.route('deliveries.update', [delivery.reference]), delivery);
+        }
+      } catch (err) {
+        throw err;
+      }
     },
     /**
      * Delete an existing delivery.

@@ -258,7 +258,14 @@ export const datepicker = {
         ],
         format: "LL HH:mm"
       },
-      limit: [{ type: "weekday", available: [1, 2, 3, 4, 5] }]
+      limit: [
+        { type: "weekday", available: [1, 2, 3, 4, 5] },
+        {
+          type: 'fromto',
+          from: new moment().add(1, 'days'),
+          to: new moment().add(6, 'months')
+        }
+      ]
     };
   },
   methods: {
