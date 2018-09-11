@@ -25,6 +25,7 @@ class CreateUsersTable extends Migration
             $table->boolean('contact_confirmed')->default(false);
             $table->boolean('company_confirmed')->default(false);
             $table->string('confirmation_token')->nullable()->unique();
+            $table->boolean('legacy_user')->nullable()->default(false);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

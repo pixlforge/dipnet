@@ -74434,7 +74434,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v("\n      Ajouter un format\n    ")])], 1), _vm._v(" "), _c('main', {
     staticClass: "main__container"
   }, [_c('section', {
-    staticClass: "main__section main__section--white"
+    staticClass: "main__section"
   }, [(_vm.meta.total > 25) ? _c('Pagination', {
     staticClass: "pagination pagination--top",
     attrs: {
@@ -78064,7 +78064,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v("\n      Ajouter un article\n    ")])], 1), _vm._v(" "), _c('main', {
     staticClass: "main__container"
   }, [_c('section', {
-    staticClass: "main__section main__section--white"
+    staticClass: "main__section"
   }, [(_vm.meta.total > 25) ? _c('Pagination', {
     staticClass: "pagination pagination--top",
     attrs: {

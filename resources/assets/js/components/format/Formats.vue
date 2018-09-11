@@ -32,7 +32,7 @@
 
     <!-- Main content -->
     <main class="main__container">
-      <section class="main__section main__section--white">
+      <section class="main__section">
         <Pagination
           v-if="meta.total > 25"
           :meta="meta"
