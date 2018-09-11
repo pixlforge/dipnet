@@ -130,7 +130,14 @@
             @foreach ($delivery->documents as $document)
               <tr>
                 <td>{{ $document->media->first()->file_name }}</td>
-                <td>{{ $document->article->description }}</td>
+                <td>
+                  {{ $document->article->description }}
+                  @if ($document->article->type === 'impression' && $document->article->greyscale === true)
+                    <small class="text-xs">(Noir / Blanc)</small>
+                  @elseif ($document->article->type === 'impression' && $document->article->greyscale === false)
+                    <small class="text-xs">(Couleur)</small>
+                  @endif
+                </td>
                 <td>{{ ucfirst($document->finish) }}</td>
                 <td>
                   <ol>
