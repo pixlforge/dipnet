@@ -14,7 +14,9 @@ $factory->define(Business::class, function (Faker $faker) {
         'description' => $faker->catchPhrase,
         'user_id' => null,
         'company_id' => null,
-        'contact_id' => null,
+        'contact_id' => function () {
+            return factory(Contact::class)->create()->id;
+        }
     ];
 });
 
@@ -31,13 +33,5 @@ $factory->state(Business::class, 'company', function () {
         'company_id' => function () {
             return factory(Company::class)->create()->id;
         },
-    ];
-});
-
-$factory->state(Business::class, 'contact', function () {
-    return [
-        'contact_id' => function () {
-            return factory(Contact::class)->create()->id;
-        }
     ];
 });

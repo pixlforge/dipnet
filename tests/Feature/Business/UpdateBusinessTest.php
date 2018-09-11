@@ -23,6 +23,7 @@ class UpdateBusinessTest extends TestCase
         $this->assertAuthenticatedAs($admin);
         
         $otherCompany = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $otherCompany->id]);
 
         $business = factory(Business::class)->create([
             'name' => 'Fête Nationale',
@@ -35,6 +36,7 @@ class UpdateBusinessTest extends TestCase
             'name' => "Fête de l'Hiver",
             'description' => "It'll change your entire perspective.",
             'company_id' => $otherCompany->id,
+            'contact_id' => $contact->id,
             'folder_color' => 'blue',
         ]);
         $response->assertOk();
@@ -59,6 +61,7 @@ class UpdateBusinessTest extends TestCase
 
         $user = factory(User::class)->create();
         $otherUser = factory(User::class)->create();
+        $contact = factory(Contact::class)->create(['user_id' => $otherUser->id]);
 
         $business = factory(Business::class)->create([
             'name' => 'Fête Nationale',
@@ -72,6 +75,7 @@ class UpdateBusinessTest extends TestCase
             'name' => "Fête de l'Hiver",
             'description' => "It'll change your entire perspective.",
             'user_id' => $otherUser->id,
+            'contact_id' => $contact->id,
             'folder_color' => 'blue',
         ]);
         $response->assertOk();
@@ -82,7 +86,7 @@ class UpdateBusinessTest extends TestCase
         $this->assertEquals('KPLQMRLJ', $business->reference);
         $this->assertEquals($otherUser->id, $business->user_id);
         $this->assertEquals(null, $business->company_id);
-        $this->assertEquals(null, $business->contact_id);
+        $this->assertEquals($contact->id, $business->contact_id);
         $this->assertEquals('blue', $business->folder_color);
     }
 
@@ -702,6 +706,7 @@ class UpdateBusinessTest extends TestCase
         $this->withoutExceptionHandling();
 
         $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
         $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
         $this->actingAs($user);
         $this->assertAuthenticatedAs($user);
@@ -717,6 +722,7 @@ class UpdateBusinessTest extends TestCase
         $response = $this->patchJson(route('businesses.update', $business), [
             'name' => "Fête de l'Hiver",
             'description' => "It'll change your entire perspective.",
+            'contact_id' => $contact->id,
             'folder_color' => 'blue',
         ]);
         $response->assertOk();
@@ -739,6 +745,8 @@ class UpdateBusinessTest extends TestCase
         $this->actingAs($user);
         $this->assertAuthenticatedAs($user);
 
+        $contact = factory(Contact::class)->create(['user_id' => $user->id]);
+
         $business = factory(Business::class)->create([
             'name' => 'Fête Nationale',
             'description' => "In life you need colors. Just take out whatever you don't want.",
@@ -750,6 +758,7 @@ class UpdateBusinessTest extends TestCase
         $response = $this->patchJson(route('businesses.update', $business), [
             'name' => "Fête de l'Hiver",
             'description' => "It'll change your entire perspective.",
+            'contact_id' => $contact->id,
             'folder_color' => 'blue',
         ]);
         $response->assertOk();
@@ -802,6 +811,7 @@ class UpdateBusinessTest extends TestCase
 
         $company = factory(Company::class)->create();
         $otherCompany = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $otherCompany->id]);
         $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
         $this->actingAs($user);
         $this->assertAuthenticatedAs($user);
@@ -817,6 +827,7 @@ class UpdateBusinessTest extends TestCase
         $response = $this->patchJson(route('businesses.update', $business), [
             'name' => "Fête de l'Hiver",
             'description' => "It'll change your entire perspective.",
+            'contact_id' => $contact->id,
             'folder_color' => 'blue',
         ]);
         $response->assertForbidden();
@@ -836,6 +847,7 @@ class UpdateBusinessTest extends TestCase
         $this->withExceptionHandling();
 
         $user = factory(User::class)->states('user', 'solo')->create();
+        $contact = factory(Contact::class)->create(['user_id' => $user->id]);
         $this->actingAs($user);
         $this->assertAuthenticatedAs($user);
 
@@ -852,6 +864,7 @@ class UpdateBusinessTest extends TestCase
         $response = $this->patchJson(route('businesses.update', $business), [
             'name' => "Fête de l'Hiver",
             'description' => "It'll change your entire perspective.",
+            'contact_id' => $contact->id,
             'folder_color' => 'blue',
         ]);
         $response->assertForbidden();
@@ -1082,6 +1095,44 @@ class UpdateBusinessTest extends TestCase
             'folder_color' => 'blue',
         ]);
         $response->assertJsonValidationErrors('description');
+
+        $business = $business->fresh();
+        $this->assertEquals('Fête Nationale', $business->name);
+        $this->assertEquals("In life you need colors. Just take out whatever you don't want.", $business->description);
+        $this->assertEquals('KPLQMRLJ', $business->reference);
+        $this->assertEquals(null, $business->user_id);
+        $this->assertEquals($company->id, $business->company_id);
+        $this->assertEquals($contact->id, $business->contact_id);
+        $this->assertEquals('red', $business->folder_color);
+    }
+
+    /** @test */
+    public function update_user_businesses_validation_fails_if_contact_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $business = factory(Business::class)->create([
+            'name' => 'Fête Nationale',
+            'description' => "In life you need colors. Just take out whatever you don't want.",
+            'reference' => 'KPLQMRLJ',
+            'company_id' => $company->id,
+            'contact_id' => $contact->id,
+            'folder_color' => 'red',
+        ]);
+
+        $response = $this->patchJson(route('businesses.update', $business), [
+            'name' => "Fête de l'Hiver",
+            'description' => "It'll change your entire perspective.",
+            'contact_id' => '',
+            'folder_color' => 'blue',
+        ]);
+        $response->assertJsonValidationErrors('contact_id');
 
         $business = $business->fresh();
         $this->assertEquals('Fête Nationale', $business->name);

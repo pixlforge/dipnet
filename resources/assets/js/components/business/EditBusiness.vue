@@ -65,7 +65,8 @@
       <ModalSelect
         id="contact_id"
         :options="optionsForContact"
-        v-model="currentBusiness.contact_id">
+        v-model="currentBusiness.contact_id"
+        required>
         <template slot="label">Contact</template>
         <template
           v-if="errors.contact_id"

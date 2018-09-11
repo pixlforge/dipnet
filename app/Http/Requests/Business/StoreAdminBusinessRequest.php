@@ -28,7 +28,7 @@ class StoreAdminBusinessRequest extends FormRequest
             'description' => 'nullable|string|max:255',
             'user_id' => 'required_without:company_id|nullable|exists:users,id',
             'company_id' => 'required_without:user_id|nullable|exists:companies,id',
-            'contact_id' => 'nullable|exists:contacts,id',
+            'contact_id' => 'required|exists:contacts,id',
             'folder_color' => 'nullable|in:red,orange,purple,blue'
         ];
     }

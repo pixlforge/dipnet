@@ -25,11 +25,13 @@ class CreateBusinessTest extends TestCase
         $this->assertCount(0, Business::all());
 
         $company = factory(Company::class)->create();
+        $contact = factory(Contact::class)->create(['company_id' => $company->id]);
 
         $response = $this->postJson(route('admin.businesses.store'), [
             'name' => 'Fête Nationale',
             'description' => 'Lorem ipsum dolor sit amet.',
             'company_id' => $company->id,
+            'contact_id' => $contact->id,
         ]);
         $response->assertOk();
         $this->assertCount(1, Business::all());
@@ -47,11 +49,13 @@ class CreateBusinessTest extends TestCase
         $this->assertCount(0, Business::all());
 
         $user = factory(User::class)->create();
+        $contact = factory(Contact::class)->create(['user_id' => $user->id]);
 
         $response = $this->postJson(route('admin.businesses.store'), [
             'name' => 'Fête Nationale',
             'description' => 'Lorem ipsum dolor sit amet.',
             'user_id' => $user->id,
+            'contact_id' => $contact->id
         ]);
         $response->assertOk();
         $this->assertCount(1, Business::all());
@@ -391,6 +395,28 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
+    public function admin_business_creation_validation_fails_if_contact_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $admin = factory(User::class)->states('admin')->create();
+        $this->actingAs($admin);
+        $this->assertAuthenticatedAs($admin);
+
+        $this->assertCount(0, Business::all());
+
+        $company = factory(Company::class)->create();
+
+        $response = $this->postJson(route('admin.businesses.store'), [
+            'name' => 'Fête Nationale',
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'contact_id' => '',
+        ]);
+        $response->assertJsonValidationErrors('contact_id');
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
     public function admin_business_creation_validation_fails_if_contact_does_not_exist()
     {
         $this->withExceptionHandling();
@@ -569,6 +595,28 @@ class CreateBusinessTest extends TestCase
             'folder_color' => 'red',
         ]);
         $response->assertJsonValidationErrors('description');
+        $this->assertCount(0, Business::all());
+    }
+
+    /** @test */
+    public function user_business_creation_validation_fails_if_contact_is_missing()
+    {
+        $this->withExceptionHandling();
+
+        $company = factory(Company::class)->create();
+        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
+        $this->actingAs($user);
+        $this->assertAuthenticatedAs($user);
+
+        $this->assertCount(0, Business::all());
+
+        $response = $this->postJson(route('businesses.store'), [
+            'name' => "Fête de l'Hiver",
+            'description' => 'Lorem ipsum dolor sit amet.',
+            'contact_id' => '',
+            'folder_color' => 'red',
+        ]);
+        $response->assertJsonValidationErrors('contact_id');
         $this->assertCount(0, Business::all());
     }
 

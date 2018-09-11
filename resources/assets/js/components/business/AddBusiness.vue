@@ -65,7 +65,8 @@
       <ModalSelect
         id="contact_id"
         :options="optionsForContact"
-        v-model="business.contact_id">
+        v-model="business.contact_id"
+        required>
         <template slot="label">Contact</template>
         <template
           v-if="errors.contact_id"
@@ -189,7 +190,7 @@ export default {
       if (this.userIsAdmin) {
         if (this.business.company_id !== "") {
           return this.contacts.filter(contact => {
-            return contact.company_id === this.business.company_id;
+            return contact.company_id == this.business.company_id;
           });
         }
       } else {

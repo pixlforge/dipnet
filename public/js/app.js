@@ -32508,6 +32508,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -32578,7 +32579,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       if (this.userIsAdmin) {
         if (this.business.company_id !== "") {
           return this.contacts.filter(contact => {
-            return contact.company_id === this.business.company_id;
+            return contact.company_id == this.business.company_id;
           });
         }
       } else {
@@ -33051,6 +33052,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
+//
 //
 //
 //
@@ -76716,7 +76718,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalSelect', {
     attrs: {
       "id": "contact_id",
-      "options": _vm.optionsForContact
+      "options": _vm.optionsForContact,
+      "required": ""
     },
     model: {
       value: (_vm.business.contact_id),
@@ -79029,7 +79032,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalSelect', {
     attrs: {
       "id": "contact_id",
-      "options": _vm.optionsForContact
+      "options": _vm.optionsForContact,
+      "required": ""
     },
     model: {
       value: (_vm.currentBusiness.contact_id),
