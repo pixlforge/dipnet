@@ -35382,6 +35382,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
@@ -35456,7 +35458,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-//
 //
 //
 //
@@ -76201,11 +76202,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__details card__details--contact"
   }, [_c('h5', {
     staticClass: "model__label"
-  }, [_vm._v("NPA & Localité")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.contact.zip) + " " + _vm._s(_vm.contact.city))])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("NPA & Localité")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.contact.zip) + " " + _vm._s(_vm.contact.city))])]), _vm._v(" "), (_vm.user.role === 'administrateur') ? _c('div', {
     staticClass: "card__details card__details--contact"
   }, [(_vm.contact.company) ? [_c('h5', {
     staticClass: "model__label"
-  }, [_vm._v("Société")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.contact.company.name))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
+  }, [_vm._v("Société")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.contact.company.name))])] : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--contact"
   }, [_c('h5', {
     staticClass: "model__label"

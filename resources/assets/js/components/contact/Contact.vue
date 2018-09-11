@@ -30,7 +30,9 @@
     </div>
 
     <!-- Company -->
-    <div class="card__details card__details--contact">
+    <div
+      v-if="user.role === 'administrateur'"
+      class="card__details card__details--contact">
       <template v-if="contact.company">
         <h5 class="model__label">Société</h5>
         <span>{{ contact.company.name }}</span>

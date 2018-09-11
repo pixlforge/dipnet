@@ -70,7 +70,6 @@
       </section>
     </main>
 
-
     <transition name="fade">
       <div
         v-if="showModal"
