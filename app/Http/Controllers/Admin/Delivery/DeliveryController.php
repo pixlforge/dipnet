@@ -17,16 +17,6 @@ class DeliveryController extends Controller
     }
 
     /**
-     * Display a list of all deliveries.
-     *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index()
-    {
-        return view('admin.deliveries.index');
-    }
-
-    /**
      * Update an existing delivery.
      *
      * @param UpdateAdminDeliveryRequest $request

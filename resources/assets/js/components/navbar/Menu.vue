@@ -23,9 +23,6 @@
           <a :href="routeCompanies">Sociétés</a>
         </li>
         <li v-if="userIsAdmin">
-          <a :href="routeDeliveries">Livraisons</a>
-        </li>
-        <li v-if="userIsAdmin">
           <a :href="routeDocuments">Documents</a>
         </li>
         <li
@@ -89,9 +86,6 @@ export default {
     },
     routeCompanies() {
       return window.route("admin.companies.index");
-    },
-    routeDeliveries() {
-      return window.route("admin.deliveries.index");
     },
     routeDocuments() {
       return window.route("admin.documents.index");

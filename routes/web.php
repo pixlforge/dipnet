@@ -146,7 +146,6 @@ Route::prefix('/admin')->namespace('Admin')->name('admin.')->group(function () {
      * Deliveries
      */
     Route::prefix('/livraisons')->namespace('Delivery')->name('deliveries.')->group(function () {
-        Route::get('/', 'DeliveryController@index')->name('index');
         Route::patch('/{delivery}', 'DeliveryController@update')->name('update');
     });
 
