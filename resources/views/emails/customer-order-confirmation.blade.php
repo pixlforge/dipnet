@@ -38,7 +38,7 @@ Votre commande nous est bien parvenue et nous vous assurons qu'elle sera traité
 
 @foreach ($order->deliveries as $delivery)
 <br>
-# Livraison n° {{ $delivery->reference }}
+# Livraison {{ $delivery->reference }}
 @component('mail::panel')
 ## Adresse de livraison
 @if ($delivery->contact)

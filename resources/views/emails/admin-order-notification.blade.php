@@ -41,7 +41,7 @@ Une nouvelle commande client a été passée.
 
 @foreach ($order->deliveries as $delivery)
 <br>
-# Livraison
+# Livraison {{ $delivery->reference }}
 @component('mail::panel')
 ## Adresse de livraison
 @if ($delivery->contact)

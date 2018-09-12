@@ -20,11 +20,10 @@
       </h1>
     </div>
 
-
     <section class="receipt__section">
       <div class="receipt__content">
         <div class="receipt__container">
-          <h1 class="receipt__secondary-title">Livraison</h1>
+          <h1 class="receipt__secondary-title">Livraison {{ $delivery->reference }}</h1>
 
           {{--First row--}}
           <div class="receipt__row">

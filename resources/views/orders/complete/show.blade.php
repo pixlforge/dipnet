@@ -58,6 +58,7 @@
     @foreach ($order->deliveries as $delivery)
       <div class="receipt__content">
         <div class="receipt__container">
+          <h1 class="receipt__secondary-title">Livraison {{ $delivery->reference }}</h1>
           <div class="receipt__row">
             <div class="receipt__item">
               <h2 class="receipt__item-title">Adresse de livraison</h2>
