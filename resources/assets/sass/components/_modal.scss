@@ -27,7 +27,7 @@
     overflow-y: scroll;
     cursor: default !important;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
 
     @media all and (max-width: $bp-md) {
       width: 100vw;
@@ -37,7 +37,7 @@
   &__container {
     flex: 1;
     max-width: 70rem;
-    margin: 12rem 12rem 12rem 6rem;
+    margin: 12rem 12rem 12rem 12rem;
     cursor: default !important;
 
     @media all and (max-width: $bp-md) {
