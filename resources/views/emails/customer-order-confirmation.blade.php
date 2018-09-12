@@ -64,7 +64,12 @@ Votre commande nous est bien parvenue et nous vous assurons qu'elle sera traité
 
 ### {{ $document->media->first()->file_name }}<br>
 
-Impression: {{ $document->article->description }}<br>
+Impression: {{ $document->article->description }}
+@if ($document->article->type === 'impression' && $document->article->greyscale === true)
+<small>(Noir / Blanc)</small>
+@elseif ($document->article->type === 'impression' && $document->article->greyscale === false)
+<small>(Couleur)</small>
+@endif<br>
 @if ($document->finish === 'roulé')
 Finition: Roulé<br>
 @elseif ($document->finish === 'plié')

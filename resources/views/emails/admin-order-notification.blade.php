@@ -41,7 +41,7 @@ Une nouvelle commande client a été passée.
 
 @foreach ($order->deliveries as $delivery)
 <br>
-# Livraison n° {{ $delivery->reference }}
+# Livraison
 @component('mail::panel')
 ## Adresse de livraison
 @if ($delivery->contact)
@@ -67,7 +67,12 @@ Une nouvelle commande client a été passée.
 
 ### {{ $document->media->first()->file_name }}<br>
 
-Impression: {{ $document->article->description }}<br>
+Impression: {{ $document->article->description }}
+@if ($document->article->type === 'impression' && $document->article->greyscale === true)
+<small>(Noir / Blanc)</small>
+@elseif ($document->article->type === 'impression' && $document->article->greyscale === false)
+<small>(Couleur)</small>
+@endif<br>
 @if ($document->finish === 'roulé')
 Finition: Roulé<br>
 @elseif ($document->finish === 'plié')
