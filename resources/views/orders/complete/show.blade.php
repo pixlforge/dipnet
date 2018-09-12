@@ -61,16 +61,20 @@
           <h1 class="receipt__secondary-title">Livraison {{ $delivery->reference }}</h1>
           <div class="receipt__row">
             <div class="receipt__item">
-              <h2 class="receipt__item-title">Adresse de livraison</h2>
-              <ul class="receipt__item-list">
-                <li>{{ optional($delivery->contact)->name }}</li>
-                <li>{{ optional($delivery->contact)->address_line1 }}</li>
-                <li>{{ optional($delivery->contact)->address_line2 }}</li>
-                <li>{{ optional($delivery->contact)->zip }} {{ optional($delivery->contact)->city }}</li>
-                <li>{{ optional($delivery->contact)->phone_number  }}</li>
-                <li>{{ optional($delivery->contact)->fax  }}</li>
-                <li>{{ optional($delivery->contact)->email  }}</li>
-              </ul>
+              @if ($delivery->contact)
+                <h2 class="receipt__item-title">Adresse de livraison</h2>
+                <ul class="receipt__item-list">
+                  <li>{{ optional($delivery->contact)->name }}</li>
+                  <li>{{ optional($delivery->contact)->address_line1 }}</li>
+                  <li>{{ optional($delivery->contact)->address_line2 }}</li>
+                  <li>{{ optional($delivery->contact)->zip }} {{ optional($delivery->contact)->city }}</li>
+                  <li>{{ optional($delivery->contact)->phone_number  }}</li>
+                  <li>{{ optional($delivery->contact)->fax  }}</li>
+                  <li>{{ optional($delivery->contact)->email  }}</li>
+                </ul>
+              @else
+                <h2 class="receipt__item-title">À récupérer sur place</h2>
+              @endif 
             </div>
             <div class="receipt__item">
               <h2 class="receipt__item-title">Date de livraison</h2>
