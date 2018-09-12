@@ -5870,7 +5870,7 @@ const datepicker = {
         type: "min",
         week: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
         month: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-        format: "LL [à] HH[h]mm",
+        format: "DD MMM [à] HH[h]mm",
         placeholder: "date de livraison",
         inputStyle: {
           display: "inline-block",
@@ -5899,7 +5899,7 @@ const datepicker = {
         type: "min",
         week: ["Lun", "Mar", "Mer", "Jeu", "Ven", "Sam", "Dim"],
         month: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
-        format: "LL HH:mm"
+        format: "DD MMM HH:mm"
       },
       limit: [{ type: "weekday", available: [1, 2, 3, 4, 5] }, {
         type: 'fromto',
@@ -5910,14 +5910,14 @@ const datepicker = {
   },
   methods: {
     formatDeliveryDate(date) {
-      this.currentDelivery.to_deliver_at = __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, "LL HH:mm").format("YYYY-MM-DD HH:mm:ss");
+      this.currentDelivery.to_deliver_at = __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, "DD MMM HH:mm").format("YYYY-MM-DD HH:mm:ss");
       this.currentDelivery.express = false;
-      this.deliveryDateString = __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, "LL HH:mm").format("LL [à] HH[h]mm");
+      this.deliveryDateString = __WEBPACK_IMPORTED_MODULE_0_moment___default()(date, "DD MMM HH:mm").format("DD MMM [à] HH[h]mm");
       this.update();
     },
     getSelectedDeliveryDate() {
       if (this.delivery.to_deliver_at) {
-        this.option.placeholder = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.delivery.to_deliver_at).format("LL [à] HH[h]mm");
+        this.option.placeholder = __WEBPACK_IMPORTED_MODULE_0_moment___default()(this.delivery.to_deliver_at).format("DD MMM [à] HH[h]mm");
         this.deliveryDateString = this.option.placeholder;
       }
     }
@@ -39067,10 +39067,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
 
 
 
@@ -39145,7 +39141,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       errors: {},
       showNote: this.delivery.note ? true : false,
       deliveryDateString: "date à définir",
-      optionsForDeliveryMode: [{ label: "Sélection d'une date", value: "date" }, { label: "Livraison éclair", value: "express" }]
+      optionsForDeliveryMode: [{ label: "à la date", value: "date" }, { label: "le plus rapidement possible", value: "express" }]
     };
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_vuex__["b" /* mapGetters */])(["listContacts", "listRawContacts", "listDeliveries", "listDocuments", "getValidationErrors"]), {
@@ -39258,7 +39254,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           return contact.value === this.delivery.contact_id;
         });
       } else if (this.delivery.pickup) {
-        this.currentDelivery.contact.label = "Récupérer sur place";
+        this.currentDelivery.contact.label = "récupérer sur place";
       }
     },
     initDropzone() {
@@ -39301,6 +39297,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       if (event.value === "express") {
         this.currentDelivery.express = true;
         this.currentDelivery.to_deliver_at = null;
+        this.deliveryDateString = null;
+        this.startTime.time = "date de livraison";
+        this.delivery.to_deliver_at = "";
       } else if (event.value === "date") {
         this.currentDelivery.express = false;
       }
@@ -42491,6 +42490,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
 
 
 
@@ -42533,6 +42535,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       default: false
     },
     allowCreateBusiness: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    allowExpressDelivery: {
       type: Boolean,
       required: false,
       default: false
@@ -76603,13 +76610,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.selectOption(option)
         }
       }
-    }, [_vm._v("\n          " + _vm._s(_vm._f("capitalize")(option.label)) + "\n        ")])
+    }, [(option.value === 'express') ? [_c('i', {
+      staticClass: "fas fa-bolt fa-sm"
+    })] : _vm._e(), _vm._v("\n          " + _vm._s(_vm._f("capitalize")(option.label)) + "\n        ")], 2)
   }) : _vm._e(), _vm._v(" "), (_vm.allowPickup && !_vm.userIsSolo) ? _c('hr') : _vm._e(), _vm._v(" "), (_vm.allowPickup) ? _c('li', {
     on: {
       "click": function($event) {
         $event.preventDefault();
         _vm.selectOption({
-          label: 'Récupérer sur place',
+          label: 'récupérer sur place',
           value: ''
         })
       }
@@ -77240,7 +77249,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("\n            Livraison à\n          ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
     staticClass: "delivery__label delivery__label--bold delivery__label--preview"
-  }, [_vm._v("\n            " + _vm._s(_vm.currentDelivery.contact.label ? _vm.currentDelivery.contact.label : 'Sélectionner') + "\n          ")]) : _c('AppSelect', {
+  }, [_vm._v("\n            " + _vm._s(_vm.currentDelivery.contact.label ? _vm.currentDelivery.contact.label : 'sélectionner') + "\n          ")]) : _c('AppSelect', {
     attrs: {
       "options": _vm.listContacts,
       "component": {
@@ -77263,22 +77272,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "currentDelivery.contact"
     }
-  }, [_c('p', [_vm._v(_vm._s(_vm.currentDelivery.contact.label ? _vm.currentDelivery.contact.label : 'Sélectionner'))])])], 1)]), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v(_vm._s(_vm.currentDelivery.contact.label ? _vm.currentDelivery.contact.label : 'sélectionner'))])])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "delivery__header-box"
   }, [_c('div', {
     staticClass: "delivery__details"
-  }, [_c('h3', {
-    staticClass: "delivery__label",
-    class: {
-      'delivery__label--preview': _vm.preview
-    }
-  }, [_vm._v("\n            Mode de livraison\n          ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
+  }, [(_vm.preview) ? _c('h3', {
     staticClass: "delivery__label delivery__label--bold delivery__label--preview"
-  }, [_vm._v("\n            " + _vm._s(_vm.currentDelivery.deliveryMode.label ? _vm.currentDelivery.deliveryMode.label : 'Sélectionner') + "\n          ")]) : _c('AppSelect', {
+  }, [_vm._v("\n            " + _vm._s(_vm.currentDelivery.deliveryMode.label ? _vm.currentDelivery.deliveryMode.label : 'sélectionner') + "\n          ")]) : _c('AppSelect', {
     attrs: {
       "options": _vm.optionsForDeliveryMode,
       "large": "",
-      "darker": ""
+      "darker": "",
+      "allow-express-delivery": ""
     },
     on: {
       "input": _vm.selectDeliveryMode
@@ -77290,7 +77295,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "currentDelivery.deliveryMode"
     }
-  }, [_c('p', [_vm._v(_vm._s(_vm.currentDelivery.deliveryMode.label ? _vm.currentDelivery.deliveryMode.label : 'Sélectionner'))])])], 1)]), _vm._v(" "), _c('div', {
+  }, [_c('p', [_vm._v(_vm._s(_vm.currentDelivery.deliveryMode.label ? _vm.currentDelivery.deliveryMode.label : 'sélectionner'))])])], 1)]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -77305,7 +77310,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'delivery__label--preview': _vm.preview
     }
-  }, [_vm._v("\n            Le\n          ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
+  }, [_vm._v("\n            du\n          ")]), _vm._v(" "), (_vm.preview) ? _c('h3', {
     staticClass: "delivery__label delivery__label--bold delivery__label--preview"
   }, [_vm._v("\n            " + _vm._s(_vm.deliveryDateString) + "\n          ")]) : _c('Datepicker', {
     attrs: {

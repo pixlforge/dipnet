@@ -43,7 +43,7 @@
             <h3
               v-if="preview"
               class="delivery__label delivery__label--bold delivery__label--preview">
-              {{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}
+              {{ currentDelivery.contact.label ? currentDelivery.contact.label : 'sélectionner' }}
             </h3>
 
             <!-- Contact select -->
@@ -58,7 +58,7 @@
               allow-pickup
               allow-create-contact
               @input="updateContact">
-              <p>{{ currentDelivery.contact.label ? currentDelivery.contact.label : 'Sélectionner' }}</p>
+              <p>{{ currentDelivery.contact.label ? currentDelivery.contact.label : 'sélectionner' }}</p>
             </AppSelect>
           </div>
         </div>
@@ -67,14 +67,9 @@
         <div class="delivery__header-box">
           <div class="delivery__details">
             <h3
-              :class="{ 'delivery__label--preview': preview }"
-              class="delivery__label">
-              Mode de livraison
-            </h3>
-            <h3
               v-if="preview"
               class="delivery__label delivery__label--bold delivery__label--preview">
-              {{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'Sélectionner' }}
+              {{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'sélectionner' }}
             </h3>
 
             <AppSelect
@@ -83,8 +78,9 @@
               v-model="currentDelivery.deliveryMode"
               large
               darker
+              allow-express-delivery
               @input="selectDeliveryMode">
-              <p>{{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'Sélectionner' }}</p>
+              <p>{{ currentDelivery.deliveryMode.label ? currentDelivery.deliveryMode.label : 'sélectionner' }}</p>
             </AppSelect>
           </div>
         </div>
@@ -99,7 +95,7 @@
             <h3
               :class="{ 'delivery__label--preview': preview }"
               class="delivery__label">
-              Le
+              du
             </h3>
             <h3
               v-if="preview"
@@ -304,8 +300,8 @@ export default {
       showNote: this.delivery.note ? true : false,
       deliveryDateString: "date à définir",
       optionsForDeliveryMode: [
-        { label: "Sélection d'une date", value: "date" },
-        { label: "Livraison éclair", value: "express" }
+        { label: "à la date", value: "date" },
+        { label: "le plus rapidement possible", value: "express" }
       ]
     };
   },
@@ -428,7 +424,7 @@ export default {
           return contact.value === this.delivery.contact_id;
         });
       } else if (this.delivery.pickup) {
-        this.currentDelivery.contact.label = "Récupérer sur place";
+        this.currentDelivery.contact.label = "récupérer sur place";
       }
     },
     initDropzone() {
@@ -477,6 +473,9 @@ export default {
       if (event.value === "express") {
         this.currentDelivery.express = true;
         this.currentDelivery.to_deliver_at = null;
+        this.deliveryDateString = null;
+        this.startTime.time = "date de livraison";
+        this.delivery.to_deliver_at = "";
       } else if (event.value === "date") {
         this.currentDelivery.express = false;
       }

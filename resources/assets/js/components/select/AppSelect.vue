@@ -72,13 +72,16 @@
             v-for="option in options"
             :key="option.value"
             @click.prevent="selectOption(option)">
+            <template v-if="option.value === 'express'">
+              <i class="fas fa-bolt fa-sm"/>
+            </template>
             {{ option.label | capitalize }}
           </li>
         </template>
         <hr v-if="allowPickup && !userIsSolo">
         <li
           v-if="allowPickup"
-          @click.prevent="selectOption({ label: 'Récupérer sur place', value: ''})">
+          @click.prevent="selectOption({ label: 'récupérer sur place', value: '' })">
           <i class="fas fa-person-carry fa-sm"/>
           Récupérer sur place
         </li>
@@ -142,6 +145,11 @@ export default {
       default: false
     },
     allowCreateBusiness: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+    allowExpressDelivery: {
       type: Boolean,
       required: false,
       default: false

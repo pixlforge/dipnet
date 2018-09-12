@@ -214,7 +214,7 @@ export const datepicker = {
           "Novembre",
           "Décembre"
         ],
-        format: "LL [à] HH[h]mm",
+        format: "DD MMM [à] HH[h]mm",
         placeholder: "date de livraison",
         inputStyle: {
           display: "inline-block",
@@ -256,7 +256,7 @@ export const datepicker = {
           "Novembre",
           "Décembre"
         ],
-        format: "LL HH:mm"
+        format: "DD MMM HH:mm"
       },
       limit: [
         { type: "weekday", available: [1, 2, 3, 4, 5] },
@@ -270,15 +270,15 @@ export const datepicker = {
   },
   methods: {
     formatDeliveryDate(date) {
-      this.currentDelivery.to_deliver_at = moment(date, "LL HH:mm").format("YYYY-MM-DD HH:mm:ss");
+      this.currentDelivery.to_deliver_at = moment(date, "DD MMM HH:mm").format("YYYY-MM-DD HH:mm:ss");
       this.currentDelivery.express = false;
-      this.deliveryDateString = moment(date, "LL HH:mm").format("LL [à] HH[h]mm");
+      this.deliveryDateString = moment(date, "DD MMM HH:mm").format("DD MMM [à] HH[h]mm");
       this.update();
     },
     getSelectedDeliveryDate() {
       if (this.delivery.to_deliver_at) {
         this.option.placeholder = moment(this.delivery.to_deliver_at).format(
-          "LL [à] HH[h]mm"
+          "DD MMM [à] HH[h]mm"
         );
         this.deliveryDateString = this.option.placeholder;
       }
