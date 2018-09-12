@@ -9,7 +9,7 @@ Veuillez, s'il-vous-plaît, confirmer que vous êtes bien le propriétaire de ce
 Confirmer ma nouvelle adresse e-mail
 @endcomponent
 
-Veuillez nous contacter à l'adresse {{ config('mail.from.address') }} dans le cas ou vous ne seriez par à l'origine de ce changement.
+Veuillez contacter l'administration dans le cas ou vous ne seriez par à l'origine de ce changement.
 
 Merci pour votre confiance,<br>
 {{ config('app.name') }}
