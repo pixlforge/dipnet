@@ -74647,7 +74647,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "disabled": _vm.preview,
-      "title": "Copier"
+      "title": "Caractéristiques à appliquer aux autres fichiers"
     },
     on: {
       "click": function($event) {

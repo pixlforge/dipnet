@@ -160,7 +160,7 @@
       <Button
         :disabled="preview"
         :class="{ 'document__copy-button--disabled': preview }"
-        title="Copier"
+        title="Caractéristiques à appliquer aux autres fichiers"
         class="document__copy-button"
         @click.prevent="copy">
         <i class="fal fa-copy"/>
