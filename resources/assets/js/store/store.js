@@ -332,7 +332,7 @@ export const store = new Vuex.Store({
       await window.axios.patch(window.route("documents.update", [document.id]), {
         id: document.id,
         article_id: document.printType.value,
-        finish: document.finish.label,
+        finish: document.finish.value,
         quantity: document.quantity,
         options: document.options.map(option => {
           return { article_id: option.value }

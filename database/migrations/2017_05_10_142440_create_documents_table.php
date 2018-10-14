@@ -19,7 +19,7 @@ class CreateDocumentsTable extends Migration
             $table->integer('height')->nullable();
             $table->integer('nb_orig')->nullable();
             $table->integer('quantity')->default(1);
-            $table->enum('finish', ['roulé', 'plié'])->default('roulé');
+            $table->enum('finish', ['roulé', 'plié', 'plat'])->default('plat');
             $table->unsignedInteger('delivery_id')->nullable();
             $table->unsignedInteger('article_id')->nullable();
             $table->timestamps();

@@ -28,7 +28,7 @@ class UpdateDocumentRequest extends FormRequest
             'height' => 'nullable|integer|min:1',
             'nb_orig' => 'nullable|integer|min:1',
             'quantity' => 'nullable|integer|min:1',
-            'finish' => 'nullable|string|in:plié,roulé',
+            'finish' => 'nullable|string|in:plié,roulé,plat',
             'article_id' => 'nullable|exists:articles,id',
             'options.*.id' => 'nullable|exists:articles,id'
         ];

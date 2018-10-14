@@ -12,9 +12,8 @@ class TickersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Ticker::class, 10)->create();
         factory(Ticker::class)->states('active')->create([
-            'body' => 'Bienvenue sur la plateforme en développement Dipnet!'
+            'body' => "Oh, I've been so worried about you ever since you ran off the other night. Are you okay? You're a slacker. You wanna be a slacker for the rest of your life? this has gotta be a dream."
         ]);
     }
 }

@@ -43,7 +43,7 @@
               v-model="currentDocument.finish"
               :disabled="preview"
               @input="update">
-              {{ currentDocument.finish.label ? currentDocument.finish.label : 'Sélectionner' | capitalize }}
+              {{ currentDocument.finish ? currentDocument.finish.label : 'Sélectionner' | capitalize }}
             </AppSelect>
           </div>
         </div>
@@ -232,14 +232,15 @@ export default {
           value: null
         },
         finish: {
-          label: this.document.finish ? this.document.finish : "plié",
+          label: "",
           value: null
         },
         options: []
       },
       optionsForFinish: [
-        { label: "plié", value: null },
-        { label: "roulé", value: null }
+        { label: "plié", value: "plié" },
+        { label: "roulé", value: "roulé" },
+        { label: "à plat", value: "plat" }
       ],
       optionsForFormat: []
     };
@@ -274,6 +275,7 @@ export default {
   mounted() {
     this.findSelectedOptions();
     this.findSelectedPrintType();
+    this.findSelectedFinish();
   },
   methods: {
     ...mapActions(["cloneOptions", "updateDocument", "deleteDocument"]),
@@ -282,6 +284,11 @@ export default {
         this.currentDocument.quantity = 1;
       }
       this.update();
+    },
+    findSelectedFinish() {
+      this.currentDocument.finish = this.optionsForFinish.find(option => {
+        return option.value === this.document.finish;
+      });
     },
     findSelectedOptions() {
       this.currentDocument.options = this.options.map(option => {

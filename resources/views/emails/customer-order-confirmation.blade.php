@@ -74,6 +74,8 @@ Impression: {{ $document->article->description }}
 Finition: Roulé<br>
 @elseif ($document->finish === 'plié')
 Finition: Plié<br>
+@elseif ($document->finish === 'plat')
+Finition: À plat<br>
 @endif
 Quantité: {{ $document->quantity }}<br>
 

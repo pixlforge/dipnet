@@ -39548,12 +39548,12 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           value: null
         },
         finish: {
-          label: this.document.finish ? this.document.finish : "plié",
+          label: "",
           value: null
         },
         options: []
       },
-      optionsForFinish: [{ label: "plié", value: null }, { label: "roulé", value: null }],
+      optionsForFinish: [{ label: "plié", value: "plié" }, { label: "roulé", value: "roulé" }, { label: "à plat", value: "plat" }],
       optionsForFormat: []
     };
   },
@@ -39581,6 +39581,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   mounted() {
     this.findSelectedOptions();
     this.findSelectedPrintType();
+    this.findSelectedFinish();
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["c" /* mapActions */])(["cloneOptions", "updateDocument", "deleteDocument"]), {
     checkQuantity() {
@@ -39588,6 +39589,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         this.currentDocument.quantity = 1;
       }
       this.update();
+    },
+    findSelectedFinish() {
+      this.currentDocument.finish = this.optionsForFinish.find(option => {
+        return option.value === this.document.finish;
+      });
     },
     findSelectedOptions() {
       this.currentDocument.options = this.options.map(option => {
@@ -46640,7 +46646,7 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
         yield window.axios.patch(window.route("documents.update", [document.id]), {
           id: document.id,
           article_id: document.printType.value,
-          finish: document.finish.label,
+          finish: document.finish.value,
           quantity: document.quantity,
           options: document.options.map(function (option) {
             return { article_id: option.value };
@@ -74440,7 +74446,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "currentDocument.finish"
     }
-  }, [_vm._v("\n            " + _vm._s(_vm._f("capitalize")(_vm.currentDocument.finish.label ? _vm.currentDocument.finish.label : 'Sélectionner')) + "\n          ")])], 1)]), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n            " + _vm._s(_vm._f("capitalize")(_vm.currentDocument.finish ? _vm.currentDocument.finish.label : 'Sélectionner')) + "\n          ")])], 1)]), _vm._v(" "), _c('div', {
     staticClass: "document__options-group"
   }, [_c('div', {
     staticClass: "document__option"
