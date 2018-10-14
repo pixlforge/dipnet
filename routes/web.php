@@ -360,10 +360,3 @@ Route::prefix('/recherche')->namespace('Search')->name('search.')->group(functio
     Route::post('/', 'SearchController@search')->name('query');
     Route::get('/testing', 'SearchController@testing')->name('testing');
 });
-
-/**
- * 404
- */
-Route::fallback(function () {
-    return response()->view('errors.notfound', [], 404);
-});
