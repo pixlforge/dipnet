@@ -30,8 +30,7 @@ class StoreUserContactRequest extends FormRequest
             'zip' => 'required|string|min:4|max:16',
             'city' => 'required|string|min:2|max:255',
             'phone_number' => 'nullable|string|max:255',
-            'fax' => 'nullable|string|max:255',
-            'email' => 'required|email|max:255',
+            'email' => 'nullable|email|max:255',
         ];
     }
 
@@ -69,10 +68,6 @@ class StoreUserContactRequest extends FormRequest
             'phone_number.string' => 'Le n° de téléphone doit être une chaîne de caractères.',
             'phone_number.max' => 'Le n° de téléphone doit être composé de 255 caractères au maximum.',
 
-            'fax.string' => 'Le fax doit être une chaîne de caractères.',
-            'fax.max' => 'Le n° de fax doit être composé de 255 caractères au maximum.',
-
-            'email.required' => 'Veuillez entrer une adresse e-mail pour le contact.',
             'email.email' => 'Le format doit être du type adresse@email.com.',
             'email.max' => 'Maximum 255 caractères.',
         ];

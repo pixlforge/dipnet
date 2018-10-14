@@ -26,6 +26,8 @@ class ProfileTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        Mail::fake();
+
         $user = factory(User::class)->create([
             'username' => 'John Doe',
             'email' => 'johndoe@example.com'

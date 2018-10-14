@@ -77,7 +77,6 @@ class GuestsCanRegisterTest extends TestCase
             'zip' => '10100',
             'city' => 'Castle Black',
             'phone_number' => '012 34 56 78',
-            'fax' => '012 34 56 789',
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
@@ -87,7 +86,6 @@ class GuestsCanRegisterTest extends TestCase
             'zip' => '10100',
             'city' => 'Castle Black',
             'phone_number' => '012 34 56 78',
-            'fax' => '012 34 56 789',
             'email' => 'johndoe@example.com',
             'user_id' => 1
         ]);
@@ -108,7 +106,6 @@ class GuestsCanRegisterTest extends TestCase
             'zip' => '10100',
             'city' => 'Castle Black',
             'phone_number' => '012 34 56 78',
-            'fax' => '012 34 56 789',
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
@@ -118,7 +115,6 @@ class GuestsCanRegisterTest extends TestCase
             'zip' => '10100',
             'city' => 'Castle Black',
             'phone_number' => '012 34 56 78',
-            'fax' => '012 34 56 789',
             'email' => 'johndoe@example.com',
             'user_id' => 1
         ]);
@@ -147,7 +143,6 @@ class GuestsCanRegisterTest extends TestCase
             'zip' => '10100',
             'city' => 'Castle Black',
             'phone_number' => '012 34 56 78',
-            'fax' => '012 34 56 789',
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
@@ -157,7 +152,6 @@ class GuestsCanRegisterTest extends TestCase
             'zip' => '10100',
             'city' => 'Castle Black',
             'phone_number' => '012 34 56 78',
-            'fax' => '012 34 56 789',
             'email' => 'johndoe@example.com',
             'user_id' => 1
         ]);
@@ -190,7 +184,6 @@ class GuestsCanRegisterTest extends TestCase
             'zip' => '10100',
             'city' => 'Castle Black',
             'phone_number' => '012 34 56 78',
-            'fax' => '012 34 56 789',
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
@@ -200,7 +193,6 @@ class GuestsCanRegisterTest extends TestCase
             'zip' => '10100',
             'city' => 'Castle Black',
             'phone_number' => '012 34 56 78',
-            'fax' => '012 34 56 789',
             'email' => 'johndoe@example.com',
             'user_id' => 1
         ]);

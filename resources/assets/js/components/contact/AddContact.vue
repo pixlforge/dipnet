@@ -5,6 +5,20 @@
       @submit.prevent="addContact">
       <h2 class="modal__title">Ajouter un <strong>contact</strong></h2>
 
+      <!-- Company -->
+      <ModalSelect
+        v-if="userIsAdmin"
+        id="company_id"
+        :options="optionsForCompany"
+        v-model="contact.company_id">
+        <template slot="label">Société</template>
+        <template
+          v-if="errors.company_id"
+          slot="errors">
+          {{ errors.company_id[0] }}
+        </template>
+      </ModalSelect>
+
       <!-- Name -->
       <ModalInput
         id="name"
@@ -12,7 +26,7 @@
         v-model="contact.name"
         type="text"
         required>
-        <template slot="label">Nom</template>
+        <template slot="label">Nom / Prénom</template>
         <template
           v-if="errors.description"
           slot="errors">
@@ -88,25 +102,11 @@
         </template>
       </ModalInput>
 
-      <!-- Fax -->
-      <ModalInput
-        id="fax"
-        v-model="contact.fax"
-        type="text">
-        <template slot="label">Fax</template>
-        <template
-          v-if="errors.fax"
-          slot="errors">
-          {{ errors.fax[0] }}
-        </template>
-      </ModalInput>
-
       <!-- Email -->
       <ModalInput
         id="email"
         v-model="contact.email"
-        type="email"
-        required>
+        type="email">
         <template slot="label">E-mail</template>
         <template
           v-if="errors.email"
@@ -114,20 +114,6 @@
           {{ errors.email[0] }}
         </template>
       </ModalInput>
-
-      <!-- Company -->
-      <ModalSelect
-        v-if="userIsAdmin"
-        id="company_id"
-        :options="optionsForCompany"
-        v-model="contact.company_id">
-        <template slot="label">Société</template>
-        <template
-          v-if="errors.company_id"
-          slot="errors">
-          {{ errors.company_id[0] }}
-        </template>
-      </ModalSelect>
 
       <!-- Controls -->
       <div class="modal__buttons">

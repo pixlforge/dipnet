@@ -48,14 +48,14 @@
         @submit.prevent="createContact">
         <h1 class="register__title">Votre premier <strong>contact</strong></h1>
 
-        <!-- Username -->
+        <!-- Name -->
         <ModalInput
           id="username"
           ref="focus"
           v-model="contact.name"
           type="text"
           required>
-          <template slot="label">Prénom et Nom / Contact</template>
+          <template slot="label">Nom / Prénom</template>
           <template
             v-if="errors.name"
             slot="errors">
@@ -128,19 +128,6 @@
             v-if="errors.phone_number"
             slot="errors">
             {{ errors.phone_number[0] }}
-          </template>
-        </ModalInput>
-
-        <!-- Fax -->
-        <ModalInput
-          id="fax"
-          v-model="contact.fax"
-          type="text">
-          <template slot="label">Fax</template>
-          <template
-            v-if="errors.fax"
-            slot="errors">
-            {{ errors.fax[0] }}
           </template>
         </ModalInput>
 

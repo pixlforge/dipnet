@@ -30,7 +30,6 @@ class RegisterContactController extends Controller
         $contact->zip = $request->zip;
         $contact->city = $request->city;
         $contact->phone_number = $request->phone_number;
-        $contact->fax = $request->fax;
         $contact->email = auth()->user()->email;
         $contact->user_id = auth()->id();
         $contact->save();

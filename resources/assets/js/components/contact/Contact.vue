@@ -46,13 +46,12 @@
         <i class="fal fa-phone fa-sm mr-2"/>
         {{ contact.phone_number }}
       </div>
-      <div v-if="contact.fax">
-        <i class="fal fa-fax fa-sm mr-2"/>
-        {{ contact.fax }}
-      </div>
-      <div>
+      <div v-show="contact.email">
         <i class="fal fa-envelope fa-sm mr-2"/>
         {{ contact.email }}
+      </div>
+      <div v-if="!contact.phone_number && !contact.email">
+        &mdash;
       </div>
     </div>
 

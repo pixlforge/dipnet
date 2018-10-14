@@ -52,16 +52,10 @@
               <p>{{ currentContact.phone_number ? currentContact.phone_number : 'Aucun' }}</p>
             </div>
 
-            <!-- Fax -->
-            <div class="profile__item">
-              <h3>Fax</h3>
-              <p>{{ currentContact.fax ? currentContact.fax : 'Aucun' }}</p>
-            </div>
-
             <!-- Email -->
             <div class="profile__item">
               <h3>Adresse e-mail</h3>
-              <p>{{ currentContact.email }}</p>
+              <p>{{ currentContact.email ? currentContact.email : 'Aucune' }}</p>
             </div>
           </div>
 

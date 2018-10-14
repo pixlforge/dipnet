@@ -31537,21 +31537,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -35188,20 +35173,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -35306,7 +35277,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(4);
-//
 //
 //
 //
@@ -35825,20 +35795,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -35940,12 +35896,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__mixins__ = __webpack_require__(4);
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -41776,19 +41726,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, arguments); return new Promise(function (resolve, reject) { function step(key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { return Promise.resolve(value).then(function (value) { step("next", value); }, function (err) { step("throw", err); }); } } return step("next"); }); }; }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -73316,7 +73253,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "name"
     }
-  }, [_vm._v("Prénom et Nom / Contact")]), _vm._v(" "), _c('span', {
+  }, [_vm._v("Nom / Prénom")]), _vm._v(" "), _c('span', {
     staticClass: "form__required"
   }, [_vm._v("*")]), _vm._v(" "), _c('input', {
     directives: [{
@@ -73540,42 +73477,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }), _vm._v(" "), (_vm.errors.phone_number) ? _c('div', {
     staticClass: "form__alert"
   }, [_vm._v("\n          " + _vm._s(_vm.errors.phone_number[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "form__group"
-  }, [_c('label', {
-    attrs: {
-      "for": "fax"
-    }
-  }, [_vm._v("Fax")]), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model.trim",
-      value: (_vm.contact.fax),
-      expression: "contact.fax",
-      modifiers: {
-        "trim": true
-      }
-    }],
-    staticClass: "form__input",
-    attrs: {
-      "id": "fax",
-      "type": "text",
-      "name": "fax"
-    },
-    domProps: {
-      "value": (_vm.contact.fax)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.contact, "fax", $event.target.value.trim())
-      },
-      "blur": function($event) {
-        _vm.$forceUpdate()
-      }
-    }
-  }), _vm._v(" "), (_vm.errors.fax) ? _c('div', {
-    staticClass: "form__alert"
-  }, [_vm._v("\n          " + _vm._s(_vm.errors.fax[0]) + "\n        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "register__buttons"
   }, [_c('button', {
     staticClass: "button__primary button__primary--red button__primary--long",
@@ -76031,7 +75932,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('template', {
     slot: "label"
-  }, [_vm._v("Prénom et Nom / Contact")]), _vm._v(" "), (_vm.errors.name) ? _c('template', {
+  }, [_vm._v("Nom / Prénom")]), _vm._v(" "), (_vm.errors.name) ? _c('template', {
     slot: "errors"
   }, [_vm._v("\n          " + _vm._s(_vm.errors.name[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
@@ -76116,23 +76017,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Téléphone")]), _vm._v(" "), (_vm.errors.phone_number) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n          " + _vm._s(_vm.errors.phone_number[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
-    attrs: {
-      "id": "fax",
-      "type": "text"
-    },
-    model: {
-      value: (_vm.contact.fax),
-      callback: function($$v) {
-        _vm.$set(_vm.contact, "fax", $$v)
-      },
-      expression: "contact.fax"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Fax")]), _vm._v(" "), (_vm.errors.fax) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n          " + _vm._s(_vm.errors.fax[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n          " + _vm._s(_vm.errors.phone_number[0]) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "register__buttons"
   }, [_c('Button', {
     attrs: {
@@ -76207,11 +76092,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "model__label"
   }, [_vm._v("Coordonnées")]), _vm._v(" "), (_vm.contact.phone_number) ? _c('div', [_c('i', {
     staticClass: "fal fa-phone fa-sm mr-2"
-  }), _vm._v("\n      " + _vm._s(_vm.contact.phone_number) + "\n    ")]) : _vm._e(), _vm._v(" "), (_vm.contact.fax) ? _c('div', [_c('i', {
-    staticClass: "fal fa-fax fa-sm mr-2"
-  }), _vm._v("\n      " + _vm._s(_vm.contact.fax) + "\n    ")]) : _vm._e(), _vm._v(" "), _c('div', [_c('i', {
+  }), _vm._v("\n      " + _vm._s(_vm.contact.phone_number) + "\n    ")]) : _vm._e(), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.contact.email),
+      expression: "contact.email"
+    }]
+  }, [_c('i', {
     staticClass: "fal fa-envelope fa-sm mr-2"
-  }), _vm._v("\n      " + _vm._s(_vm.contact.email) + "\n    ")])]), _vm._v(" "), _c('div', {
+  }), _vm._v("\n      " + _vm._s(_vm.contact.email) + "\n    ")]), _vm._v(" "), (!_vm.contact.phone_number && !_vm.contact.email) ? _c('div', [_vm._v("\n      —\n    ")]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
   }, [_c('Button', {
     attrs: {
@@ -76876,7 +76766,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('h2', {
     staticClass: "modal__title"
-  }, [_vm._v("Modifier le contact "), _c('strong', [_vm._v(_vm._s(_vm.contact.name))])]), _vm._v(" "), _c('ModalInput', {
+  }, [_vm._v("Modifier le contact "), _c('strong', [_vm._v(_vm._s(_vm.contact.name))])]), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
+    attrs: {
+      "id": "company_id",
+      "options": _vm.optionsForCompany
+    },
+    model: {
+      value: (_vm.currentContact.company_id),
+      callback: function($$v) {
+        _vm.$set(_vm.currentContact, "company_id", $$v)
+      },
+      expression: "currentContact.company_id"
+    }
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Société")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalInput', {
     ref: "focus",
     attrs: {
       "id": "name",
@@ -76892,7 +76798,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('template', {
     slot: "label"
-  }, [_vm._v("Nom")]), _vm._v(" "), (_vm.errors.description) ? _c('template', {
+  }, [_vm._v("Nom / Prénom")]), _vm._v(" "), (_vm.errors.description) ? _c('template', {
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.description[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
@@ -76979,25 +76885,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.phone_number[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
-      "id": "fax",
-      "type": "text"
-    },
-    model: {
-      value: (_vm.currentContact.fax),
-      callback: function($$v) {
-        _vm.$set(_vm.currentContact, "fax", $$v)
-      },
-      expression: "currentContact.fax"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Fax")]), _vm._v(" "), (_vm.errors.fax) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.fax[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
-    attrs: {
       "id": "email",
-      "type": "email",
-      "required": ""
+      "type": "email"
     },
     model: {
       value: (_vm.currentContact.email),
@@ -77010,23 +76899,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("E-mail")]), _vm._v(" "), (_vm.errors.email) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.email[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
-    attrs: {
-      "id": "company_id",
-      "options": _vm.optionsForCompany
-    },
-    model: {
-      value: (_vm.currentContact.company_id),
-      callback: function($$v) {
-        _vm.$set(_vm.currentContact, "company_id", $$v)
-      },
-      expression: "currentContact.company_id"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Société")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.email[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
   }, [_c('Button', {
     attrs: {
@@ -79801,7 +79674,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.addContact($event)
       }
     }
-  }, [_vm._m(0), _vm._v(" "), _c('ModalInput', {
+  }, [_vm._m(0), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
+    attrs: {
+      "id": "company_id",
+      "options": _vm.optionsForCompany
+    },
+    model: {
+      value: (_vm.contact.company_id),
+      callback: function($$v) {
+        _vm.$set(_vm.contact, "company_id", $$v)
+      },
+      expression: "contact.company_id"
+    }
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Société")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalInput', {
     ref: "focus",
     attrs: {
       "id": "name",
@@ -79817,7 +79706,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('template', {
     slot: "label"
-  }, [_vm._v("Nom")]), _vm._v(" "), (_vm.errors.description) ? _c('template', {
+  }, [_vm._v("Nom / Prénom")]), _vm._v(" "), (_vm.errors.description) ? _c('template', {
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.description[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
@@ -79904,25 +79793,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.phone_number[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     attrs: {
-      "id": "fax",
-      "type": "text"
-    },
-    model: {
-      value: (_vm.contact.fax),
-      callback: function($$v) {
-        _vm.$set(_vm.contact, "fax", $$v)
-      },
-      expression: "contact.fax"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Fax")]), _vm._v(" "), (_vm.errors.fax) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.fax[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
-    attrs: {
       "id": "email",
-      "type": "email",
-      "required": ""
+      "type": "email"
     },
     model: {
       value: (_vm.contact.email),
@@ -79935,23 +79807,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("E-mail")]), _vm._v(" "), (_vm.errors.email) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.email[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
-    attrs: {
-      "id": "company_id",
-      "options": _vm.optionsForCompany
-    },
-    model: {
-      value: (_vm.contact.company_id),
-      callback: function($$v) {
-        _vm.$set(_vm.contact, "company_id", $$v)
-      },
-      expression: "contact.company_id"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Société")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.email[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
   }, [_c('Button', {
     attrs: {
@@ -80098,9 +79954,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "profile__item"
   }, [_c('h3', [_vm._v("Téléphone")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.phone_number ? _vm.currentContact.phone_number : 'Aucun'))])]), _vm._v(" "), _c('div', {
     staticClass: "profile__item"
-  }, [_c('h3', [_vm._v("Fax")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.fax ? _vm.currentContact.fax : 'Aucun'))])]), _vm._v(" "), _c('div', {
-    staticClass: "profile__item"
-  }, [_c('h3', [_vm._v("Adresse e-mail")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.email))])])]), _vm._v(" "), _c('div', {
+  }, [_c('h3', [_vm._v("Adresse e-mail")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.email ? _vm.currentContact.email : 'Aucune'))])])]), _vm._v(" "), _c('div', {
     staticClass: "profile__box-item"
   }, [_c('div', {
     staticClass: "profile__item"

@@ -30,7 +30,6 @@ class RegisterContactRequest extends FormRequest
             'zip' => 'required|string|min:4|max:16',
             'city' => 'required|string|min:2|max:255',
             'phone_number' => 'nullable|string|max:255',
-            'fax' => 'nullable|string|max:255',
         ];
     }
 
@@ -67,9 +66,6 @@ class RegisterContactRequest extends FormRequest
 
             'phone_number.string' => 'Le n° de téléphone doit être une chaîne de caractères.',
             'phone_number.max' => 'Le n° de téléphone doit être composé de 255 caractères au maximum.',
-
-            'fax.string' => 'Le fax doit être une chaîne de caractères.',
-            'fax.max' => 'Le n° de fax doit être composé de 255 caractères au maximum.',
         ];
     }
 }

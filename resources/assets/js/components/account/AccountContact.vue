@@ -45,7 +45,7 @@
         <h1 class="register__title">Votre premier contact</h1>
 
         <div class="form__group">
-          <label for="name">Prénom et Nom / Contact</label>
+          <label for="name">Nom / Prénom</label>
           <span class="form__required">*</span>
           <input
             id="name"
@@ -140,21 +140,6 @@
             v-if="errors.phone_number"
             class="form__alert">
             {{ errors.phone_number[0] }}
-          </div>
-        </div>
-
-        <div class="form__group">
-          <label for="fax">Fax</label>
-          <input
-            id="fax"
-            v-model.trim="contact.fax"
-            type="text"
-            name="fax"
-            class="form__input">
-          <div
-            v-if="errors.fax"
-            class="form__alert">
-            {{ errors.fax[0] }}
           </div>
         </div>
 

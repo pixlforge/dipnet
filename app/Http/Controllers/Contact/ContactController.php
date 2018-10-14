@@ -44,7 +44,6 @@ class ContactController extends Controller
         $contact->zip = $request->zip;
         $contact->city = $request->city;
         $contact->phone_number = $request->phone_number;
-        $contact->fax = $request->fax;
         $contact->email = $request->email;
         
         if ($request->user()->isPartOfACompany()) {
@@ -99,7 +98,6 @@ class ContactController extends Controller
         $contact->zip = $request->zip;
         $contact->city = $request->city;
         $contact->phone_number = $request->phone_number;
-        $contact->fax = $request->fax;
         $contact->email = $request->email;
 
         $contact->save();
