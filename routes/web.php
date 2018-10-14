@@ -1,13 +1,5 @@
 <?php
 
-use App\User;
-use App\Order;
-use App\Delivery;
-use App\Document;
-use App\Mail\InvitationEmail;
-use App\Mail\RegistrationEmailConfirmation;
-use App\Mail\AdminOrderCompleteNotification;
-use App\Mail\CustomerOrderCompleteConfirmation;
 
 /**
  * --------------------------------------------------------------------------------------
@@ -367,58 +359,6 @@ Route::prefix('/inscription')->namespace('Auth')->name('register.')->group(funct
 Route::prefix('/recherche')->namespace('Search')->name('search.')->group(function () {
     Route::post('/', 'SearchController@search')->name('query');
     Route::get('/testing', 'SearchController@testing')->name('testing');
-});
-
-/**
- * Mailables
- */
-Route::middleware('admin')->group(function () {
-
-    /**
-     * User account registration
-     */
-    Route::get('/mailables/registration', function () {
-        $user = factory(User::class)->states('mailable-tests-only')->make();
-        return new RegistrationEmailConfirmation($user);
-    });
-
-    /**
-     * User account invitation
-     */
-    Route::get('/mailable/invitation', function () {
-        $user = factory(User::class)->states('mailable-tests-only')->make();
-        return new InvitationEmail($user);
-    });
-    
-    /**
-     * User order confirmation
-     */
-    Route::get('/mailables/order/confirmation', function () {
-        $order = factory(Order::class)->create(['status' => 'envoyée']);
-        $deliveries = factory(Delivery::class, 3)->create(['order_id' => $order->id]);
-
-        foreach ($deliveries as $delivery) {
-            factory(Document::class, 3)->create(['delivery_id' => $delivery->id]);
-        }
-
-        return new CustomerOrderCompleteConfirmation($order);
-    });
-
-    /**
-     * Admin order notification
-     */
-    Route::get('/mailables/order/notification', function () {
-        $order = factory(Order::class)->create(['status' => 'envoyée']);
-        $deliveries = factory(Delivery::class, 3)->create(['order_id' => $order->id]);
-        
-        foreach ($deliveries as $delivery) {
-            factory(Document::class, 3)->create([
-                'delivery_id' => $delivery->id
-            ]);
-        }
-
-        return new AdminOrderCompleteNotification($order);
-    });
 });
 
 /**
