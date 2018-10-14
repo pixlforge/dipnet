@@ -14,26 +14,34 @@
            src="{{ asset('/img/logos/header-multicop.png') }}"
            alt="En-tête Multicop">
     @endif
-      <h1 class="receipt__title">Bulletin de livraison
+      <h1 class="receipt__title">Bulletin de livraison</h1>
+      <p class="text-center">
         <small>(ref. {{ $delivery->reference }})</small>
-      </h1>
+      </p>
   </div>
 
   <div class="receipt__content">
     <div class="receipt__container">
-      <h1 class="receipt__secondary-title">Livraison {{ $delivery->reference }}</h1>
 
       {{-- First row --}}
       <div class="receipt__row">
         <div class="receipt__item">
           <h2 class="receipt__item-title">Date de la commande</h2>
-          <p class="receipt__item-content">
+          <p>
             {{ $delivery->order->updated_at->formatLocalized('%e %B %Y - %H:%M') }}
           </p>
         </div>
+
+        <div class="receipt__item">
+          <h2 class="receipt__item-title">Affaire</h2>
+          <p>
+            {{ $delivery->order->business->name }}
+          </p>
+        </div>
+
         <div class="receipt__item">
           <h2 class="receipt__item-title">Commande n°</h2>
-          <p class="receipt__item-content">
+          <p>
             {{ $delivery->order->reference }}
           </p>
         </div>
@@ -85,24 +93,8 @@
       {{-- Third row --}}
       <div class="receipt__row">
         <div class="receipt__item">
-          <h2 class="receipt__item-title">Affaire</h2>
-          <p class="receipt__item-content">
-            {{ $delivery->order->business->name }}
-          </p>
-        </div>
-        <div class="receipt__item">
-          <h2 class="receipt__item-title">Commande prise en charge par</h2>
-          <p class="receipt__item-content">
-            {{ optional($delivery->order->managedBy)->username }}
-          </p>
-        </div>
-      </div>
-
-      {{-- Fourth row --}}
-      <div class="receipt__row">
-        <div class="receipt__item">
           <h2 class="receipt__item-title">Commentaire</h2>
-          <p class="receipt__item-content">
+          <p>
             @if ($delivery->note)
               {{ $delivery->note }}
             @else
@@ -110,7 +102,14 @@
             @endif
           </p>
         </div>
+        <div class="receipt__item">
+          <h2 class="receipt__item-title">Commande prise en charge par</h2>
+          <p>
+            {{ optional($delivery->order->managedBy)->username }}
+          </p>
+        </div>
       </div>
+
     </div>
   </div>
 
