@@ -281,6 +281,15 @@ table {
   overflow: auto;
   float: left;
 }
+
+.hour-box {
+  width: 100%;
+}
+
+.min-box {
+  width: 0;
+}
+
 .hour-box ul,
 .min-box ul {
   list-style: none;
@@ -442,7 +451,7 @@ input::-moz-placeholder {
                     :class="{'active':hitem.checked}"
                     class="hour-item"
                     @click="setTime('hour', hitem, hours)">
-                    {{ hitem.value }}
+                    {{ hitem.value }}h
                   </li>
                 </ul>
               </div>
@@ -558,7 +567,7 @@ exports.default = {
       //   });
       // }
 
-      for (var i = 5; i <= 22; i++) {
+      for (var i = 8; i <= 17; i++) {
         list.push({
           checked: false,
           value: i < 10 ? "0" + i : i
@@ -568,10 +577,10 @@ exports.default = {
     }
     function mins() {
       var list = [
-        { checked: false, value: "00" },
-        { checked: false, value: "15" },
-        { checked: false, value: "30" },
-        { checked: false, value: "45" }
+        { checked: true, value: "00" }
+        // { checked: false, value: "15" },
+        // { checked: false, value: "30" },
+        // { checked: false, value: "45" }
       ];
       // var list = [];
       // var min = 60;
