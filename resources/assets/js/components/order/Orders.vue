@@ -110,7 +110,11 @@ export default {
       sort: "",
       sortOptions: [
         { label: "Aucun", value: "" },
-        { label: "Référence", value: "reference" }
+        { label: "Référence", value: "reference" },
+        { label: "Date de création", value: "created_at" },
+        { label: "Statut", value: "status" },
+        { label: "Affaire", value: "business_id" },
+        { label: "Auteur", value: "user_id" }
       ],
       fetching: false,
       modelNameSingular: "commande",

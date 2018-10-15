@@ -35,8 +35,8 @@ class OrderController extends Controller
             } else {
                 return new OrdersCollection(
                     Order::own()
-                        ->latest()
                         ->orderBy($sort)
+                        ->latest()
                         ->with('business', 'contact', 'user')
                         ->orderBy($sort)
                         ->paginate(25)

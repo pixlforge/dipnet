@@ -40577,7 +40577,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       meta: {},
       errors: {},
       sort: "",
-      sortOptions: [{ label: "Aucun", value: "" }, { label: "Référence", value: "reference" }],
+      sortOptions: [{ label: "Aucun", value: "" }, { label: "Référence", value: "reference" }, { label: "Date de création", value: "created_at" }, { label: "Statut", value: "status" }, { label: "Affaire", value: "business_id" }, { label: "Auteur", value: "user_id" }],
       fetching: false,
       modelNameSingular: "commande",
       modelNamePlural: "commandes",
