@@ -27,16 +27,16 @@ class OrderController extends Controller
             if (auth()->user()->isAdmin()) {
                 return new OrdersCollection(
                     Order::completed()
-                        ->orderBy($sort)
                         ->latest()
+                        ->orderBy($sort)
                         ->with('business', 'contact', 'user')
                         ->paginate(25)
                 );
             } else {
                 return new OrdersCollection(
                     Order::own()
-                        ->orderBy($sort)
                         ->latest()
+                        ->orderBy($sort)
                         ->with('business', 'contact', 'user')
                         ->orderBy($sort)
                         ->paginate(25)
@@ -53,8 +53,8 @@ class OrderController extends Controller
             } else {
                 return new OrdersCollection(
                     Order::own()
-                        ->orderBy('status', 'desc')
                         ->latest()
+                        ->orderBy('status', 'desc')
                         ->with('business', 'contact', 'user')
                         ->paginate(25)
                 );
