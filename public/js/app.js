@@ -39769,9 +39769,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
 
 
 
@@ -79896,13 +79893,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "model__label"
   }, [_vm._v("Affaire")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.order.business.name))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--order"
-  }, [(_vm.order.contact) ? [_c('h5', {
-    staticClass: "model__label"
-  }, [_vm._v("Facturation")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.order.contact.name))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
-    staticClass: "card__details card__details--order"
   }, [_c('h5', {
     staticClass: "model__label"
   }, [_vm._v("Auteur")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.order.user.username))])]), _vm._v(" "), _c('div', {
+    staticClass: "card__details card__details--order"
+  }, [_c('h5', {
+    staticClass: "model__label"
+  }, [_vm._v("Créé le")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.getDate(_vm.order.created_at)))])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls card__controls--order"
   }, [(_vm.order.status === 'incomplète') ? _c('Button', {
     attrs: {

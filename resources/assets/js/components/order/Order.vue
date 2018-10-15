@@ -33,18 +33,15 @@
       </template>
     </div>
 
-    <!-- Contact -->
-    <div class="card__details card__details--order">
-      <template v-if="order.contact">
-        <h5 class="model__label">Facturation</h5>
-        <span>{{ order.contact.name }}</span>
-      </template>
-    </div>
-
     <!-- Username -->
     <div class="card__details card__details--order">
       <h5 class="model__label">Auteur</h5>
       <span>{{ order.user.username }}</span>
+    </div>
+
+    <div class="card__details card__details--order">
+      <h5 class="model__label">Créé le</h5>
+      <span>{{ getDate(order.created_at) }}</span>
     </div>
 
     <!-- Controls -->
