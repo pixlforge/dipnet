@@ -106,6 +106,26 @@ class OrderController extends Controller
         return response($order, 200);
     }
 
+    public function destroy(Order $order)
+    {
+        $this->authorize('touch', $order);
+
+        abort_if($order->status !== 'incomplète', 403, "Vous n'êtes pas autorisé à faire cela.");
+
+        foreach ($order->documents as $document) {
+            if ($document->hasMedia('documents')) {
+                $media = $document->getFirstMedia('documents');
+                $media->delete();
+            }
+        }
+
+        $order->deliveries->each->delete();
+
+        $order->delete();
+
+        return response(null, 204);
+    }
+
     /**
      * Create the base order.
      *

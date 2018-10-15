@@ -39708,7 +39708,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(4);
 //
 //
 //
@@ -39770,12 +39772,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
+
+
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  mixins: [__WEBPACK_IMPORTED_MODULE_0__mixins__["b" /* filters */], __WEBPACK_IMPORTED_MODULE_0__mixins__["a" /* dates */]],
+  components: {
+    Button: __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default.a
+  },
+  mixins: [__WEBPACK_IMPORTED_MODULE_1__mixins__["b" /* filters */], __WEBPACK_IMPORTED_MODULE_1__mixins__["a" /* dates */]],
   props: {
     order: {
       type: Object,
@@ -79898,17 +79904,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "model__label"
   }, [_vm._v("Auteur")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.order.user.username))])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls card__controls--order"
-  }, [(_vm.order.status === 'incomplète') ? _c('div', {
+  }, [(_vm.order.status === 'incomplète') ? _c('Button', {
     attrs: {
-      "title": "Supprimer",
-      "role": "button"
+      "title": "Supprimer"
     },
     on: {
-      "click": _vm.destroy
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.destroy($event)
+      }
     }
   }, [_c('i', {
     staticClass: "fal fa-times"
-  })]) : _vm._e()])])
+  })]) : _vm._e()], 1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "card__img"

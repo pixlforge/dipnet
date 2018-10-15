@@ -49,21 +49,25 @@
 
     <!-- Controls -->
     <div class="card__controls card__controls--order">
-      <div
+      <Button
         v-if="order.status === 'incomplète'"
         title="Supprimer"
-        role="button"
-        @click="destroy">
+        @click.prevent="destroy">
         <i class="fal fa-times"/>
-      </div>
+      </Button>
     </div>
   </a>
 </template>
 
 <script>
+import Button from "../buttons/Button";
+
 import { filters, dates } from "../../mixins";
 
 export default {
+  components: {
+    Button
+  },
   mixins: [filters, dates],
   props: {
     order: {
