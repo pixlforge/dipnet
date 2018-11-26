@@ -584,7 +584,7 @@ export default {
         if (payload.component === "order") {
           this.addContact(payload.contact);
           this.currentOrder.contact = {
-            label: payload.contact.name,
+            label: `${payload.contact.first_name} ${payload.contact.last_name}`,
             value: payload.contact.id
           };
           this.currentOrder.contact_id = payload.contact.id;

@@ -5,32 +5,44 @@
       @submit.prevent="addContact">
       <h2 class="modal__title">Ajouter un <strong>contact</strong></h2>
 
-      <!-- Company -->
-      <ModalSelect
-        v-if="userIsAdmin"
-        id="company_id"
-        :options="optionsForCompany"
-        v-model="contact.company_id">
-        <template slot="label">Société</template>
-        <template
-          v-if="errors.company_id"
-          slot="errors">
-          {{ errors.company_id[0] }}
-        </template>
-      </ModalSelect>
-
-      <!-- Name -->
+      <!-- First Name -->
       <ModalInput
-        id="name"
+        id="first_name"
         ref="focus"
-        v-model="contact.name"
+        v-model="contact.first_name"
         type="text"
         required>
-        <template slot="label">Nom / Prénom</template>
+        <template slot="label">Prénom</template>
         <template
-          v-if="errors.description"
+          v-if="errors.first_name"
           slot="errors">
-          {{ errors.description[0] }}
+          {{ errors.first_name[0] }}
+        </template>
+      </ModalInput>
+
+      <!-- Last Name -->
+      <ModalInput
+        id="last_name"
+        v-model="contact.last_name"
+        type="text">
+        <template slot="label">Nom</template>
+        <template
+          v-if="errors.last_name"
+          slot="errors">
+          {{ errors.last_name[0] }}
+        </template>
+      </ModalInput>
+
+      <!-- Company Name -->
+      <ModalInput
+        id="company_name"
+        v-model="contact.company_name"
+        type="text">
+        <template slot="label">Nom de la société</template>
+        <template
+          v-if="errors.company_name"
+          slot="errors">
+          {{ errors.company_name[0] }}
         </template>
       </ModalInput>
 
@@ -115,6 +127,21 @@
         </template>
       </ModalInput>
 
+      <!-- Company -->
+      <ModalSelect
+        v-if="userIsAdmin"
+        id="company_id"
+        :options="optionsForCompany"
+        v-model="contact.company_id"
+        required>
+        <template slot="label">Société</template>
+        <template
+          v-if="errors.company_id"
+          slot="errors">
+          {{ errors.company_id[0] }}
+        </template>
+      </ModalSelect>
+
       <!-- Controls -->
       <div class="modal__buttons">
 
@@ -182,7 +209,9 @@ export default {
   data() {
     return {
       contact: {
-        name: "",
+        first_name: "",
+        last_name: "",
+        company_name: "",
         address_line1: "",
         address_line2: "",
         zip: "",

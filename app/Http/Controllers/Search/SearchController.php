@@ -63,8 +63,10 @@ class SearchController extends Controller
                 ->get()
                 ->toArray();
 
-            $contacts = Contact::select(['id', 'name'])
-                ->where('name', 'like', '%' . request('query') . '%')
+            $contacts = Contact::select(['id', 'first_name', 'last_name', 'company_name'])
+                ->where('first_name', 'like', '%' . request('query') . '%')
+                ->orWhere('last_name', 'like', '%' . request('query') . '%')
+                ->orWhere('company_name', 'like', '%' . request('query') . '%')
                 ->latest()
                 ->limit(5)
                 ->get()
@@ -93,9 +95,6 @@ class SearchController extends Controller
                     ->get()
                     ->toArray();
             }
-
-            // Search for the orders placed by the user.
-            
 
             // Search for the deliveries related to the user's company.
             $deliveries = auth()->user()->deliveries()
@@ -140,20 +139,32 @@ class SearchController extends Controller
 
             // Search for the contacts related to the user.
             if (auth()->user()->isPartOfACompany()) {
-                $contacts = Contact::select(['id', 'name'])
+                $contacts = Contact::select(['id', 'first_name', 'last_name', 'company_name'])
                     ->where([
                         ['company_id', auth()->user()->company->id],
-                        ['name', 'like', '%' . request('query') . '%']
+                        ['first_name', 'like', '%' . request('query') . '%']
+                    ])
+                    ->orWhere([
+                        ['company_id', auth()->user()->company->id],
+                        ['last_name', 'like', '%' . request('query') . '%']
+                    ])
+                    ->orWhere([
+                        ['company_id', auth()->user()->company->id],
+                        ['company_name', 'like', '%' . request('query') . '%']
                     ])
                     ->latest()
                     ->limit(5)
                     ->get()
                     ->toArray();
             } else {
-                $contacts = Contact::select(['id', 'name'])
+                $contacts = Contact::select(['id', 'first_name', 'last_name'])
                     ->where([
                         ['user_id', auth()->id()],
-                        ['name', 'like', '%' . request('query') . '%']
+                        ['first_name', 'like', '%' . request('query') . '%']
+                    ])
+                    ->orWhere([
+                        ['company_id', auth()->user()->company->id],
+                        ['last_name', 'like', '%' . request('query') . '%']
                     ])
                     ->latest()
                     ->limit(5)

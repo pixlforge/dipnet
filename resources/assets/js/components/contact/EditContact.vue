@@ -3,34 +3,46 @@
     <form
       class="modal__container"
       @submit.prevent="updateContact">
-      <h2 class="modal__title">Modifier le contact <strong>{{ contact.name }}</strong></h2>
+      <h2 class="modal__title">Modifier le <strong>contact</strong></h2>
 
-      <!-- Company -->
-      <ModalSelect
-        v-if="userIsAdmin"
-        id="company_id"
-        :options="optionsForCompany"
-        v-model="currentContact.company_id">
-        <template slot="label">Société</template>
-        <template
-          v-if="errors.company_id"
-          slot="errors">
-          {{ errors.company_id[0] }}
-        </template>
-      </ModalSelect>
-
-      <!-- Name -->
+      <!-- First Name -->
       <ModalInput
-        id="name"
+        id="first_name"
         ref="focus"
-        v-model="currentContact.name"
+        v-model="currentContact.first_name"
         type="text"
         required>
-        <template slot="label">Nom / Prénom</template>
+        <template slot="label">Prénom</template>
         <template
-          v-if="errors.description"
+          v-if="errors.first_name"
           slot="errors">
-          {{ errors.description[0] }}
+          {{ errors.first_name[0] }}
+        </template>
+      </ModalInput>
+
+      <!-- Last Name -->
+      <ModalInput
+        id="last_name"
+        v-model="currentContact.last_name"
+        type="text">
+        <template slot="label">Nom</template>
+        <template
+          v-if="errors.last_name"
+          slot="errors">
+          {{ errors.last_name[0] }}
+        </template>
+      </ModalInput>
+
+      <!-- Company Name -->
+      <ModalInput
+        id="company_name"
+        v-model="currentContact.company_name"
+        type="text">
+        <template slot="label">Nom de la société</template>
+        <template
+          v-if="errors.company_name"
+          slot="errors">
+          {{ errors.company_name[0] }}
         </template>
       </ModalInput>
 
@@ -115,6 +127,21 @@
         </template>
       </ModalInput>
 
+      <!-- Company -->
+      <ModalSelect
+        v-if="userIsAdmin"
+        id="company_id"
+        :options="optionsForCompany"
+        v-model="currentContact.company_id"
+        required>
+        <template slot="label">Société</template>
+        <template
+          v-if="errors.company_id"
+          slot="errors">
+          {{ errors.company_id[0] }}
+        </template>
+      </ModalSelect>
+
       <!-- Controls -->
       <div class="modal__buttons">
 
@@ -176,7 +203,9 @@ export default {
     return {
       currentContact: {
         id: this.contact.id,
-        name: this.contact.name,
+        first_name: this.contact.first_name,
+        last_name: this.contact.last_name,
+        company_name: this.contact.company_name,
         address_line1: this.contact.address_line1,
         address_line2: this.contact.address_line2,
         zip: this.contact.zip,

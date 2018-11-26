@@ -67,8 +67,11 @@
           <h2 class="receipt__item-title">Livraison chez</h2>
           <ul class="receipt__item-list">
             @if ($delivery->contact)
-              {{-- <li>{{ ucfirst($delivery->company_name) }}</li> --}}
-              <li>{{ ucfirst($delivery->contact->name) }}</li>
+
+              <li>{{ $delivery->contact->company_name ? ucfirst($delivery->contact->company_name) : '' }}</li>
+              <li>{{ ucfirst($delivery->contact->first_name) }}</li>
+              <li>{{ $delivery->contact->last_name ? ucfirst($delivery->contact->last_name) : '' }}</li>
+
               <li>{{ $delivery->contact->address_line1 }}</li>
               <li>{{ $delivery->contact->address_line2 }}</li>
               <li>{{ $delivery->contact->zip }} {{ $delivery->contact->city }}</li>
@@ -83,7 +86,11 @@
         <div class="receipt__item">
           <h2 class="receipt__item-title">Facturation à</h2>
           <ul class="receipt__item-list">
-            <li>{{ ucfirst($delivery->order->contact->name) }}</li>
+
+            <li>{{ $delivery->order->contact->company_name ? ucfirst($delivery->order->contact->company_name) : '' }}</li>
+            <li>{{ ucfirst($delivery->order->contact->first_name) }}</li>
+            <li>{{ $delivery->order->contact->last_name ? ucfirst($delivery->order->contact->last_name) : '' }}</li>
+
             <li>{{ $delivery->order->contact->address_line1 }}</li>
             <li>{{ $delivery->order->contact->address_line2 }}</li>
             <li>{{ $delivery->order->contact->zip }} {{ $delivery->order->contact->city }}</li>

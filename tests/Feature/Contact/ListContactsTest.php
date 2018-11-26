@@ -205,13 +205,13 @@ class ListContactsTest extends TestCase
         $this->actingAs($admin);
         $this->assertAuthenticatedAs($admin);
 
-        factory(Contact::class)->create(['name' => "Bill's"]);
-        factory(Contact::class)->create(['name' => "Zoey's"]);
-        factory(Contact::class)->create(['name' => "Andy's"]);
-        factory(Contact::class)->create(['name' => "Yann's"]);
-        factory(Contact::class)->create(['name' => "Clara's"]);
+        factory(Contact::class)->create(['first_name' => "Bill's"]);
+        factory(Contact::class)->create(['first_name' => "Zoey's"]);
+        factory(Contact::class)->create(['first_name' => "Andy's"]);
+        factory(Contact::class)->create(['first_name' => "Yann's"]);
+        factory(Contact::class)->create(['first_name' => "Clara's"]);
 
-        $response = $this->getJson(route('api.contacts.index', 'name'));
+        $response = $this->getJson(route('api.contacts.index', 'first_name'));
         $response->assertOk();
         $response->assertSeeInOrder([
             "Andy's",
@@ -234,27 +234,27 @@ class ListContactsTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         factory(Contact::class)->create([
-            'name' => "Bill's",
+            'first_name' => "Bill's",
             'company_id' => $company->id,
         ]);
         factory(Contact::class)->create([
-            'name' => "Zoey's",
+            'first_name' => "Zoey's",
             'company_id' => $company->id,
         ]);
         factory(Contact::class)->create([
-            'name' => "Andy's",
+            'first_name' => "Andy's",
             'company_id' => $company->id,
         ]);
         factory(Contact::class)->create([
-            'name' => "Yann's",
+            'first_name' => "Yann's",
             'company_id' => $company->id,
         ]);
         factory(Contact::class)->create([
-            'name' => "Clara's",
+            'first_name' => "Clara's",
             'company_id' => $company->id,
         ]);
 
-        $response = $this->getJson(route('api.contacts.index', 'name'));
+        $response = $this->getJson(route('api.contacts.index', 'first_name'));
         $response->assertOk();
         $response->assertSeeInOrder([
             "Andy's",
@@ -275,27 +275,27 @@ class ListContactsTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         factory(Contact::class)->create([
-            'name' => "Bill's",
+            'first_name' => "Bill's",
             'user_id' => $user->id,
         ]);
         factory(Contact::class)->create([
-            'name' => "Zoey's",
+            'first_name' => "Zoey's",
             'user_id' => $user->id,
         ]);
         factory(Contact::class)->create([
-            'name' => "Andy's",
+            'first_name' => "Andy's",
             'user_id' => $user->id,
         ]);
         factory(Contact::class)->create([
-            'name' => "Yann's",
+            'first_name' => "Yann's",
             'user_id' => $user->id,
         ]);
         factory(Contact::class)->create([
-            'name' => "Clara's",
+            'first_name' => "Clara's",
             'user_id' => $user->id,
         ]);
 
-        $response = $this->getJson(route('api.contacts.index', 'name'));
+        $response = $this->getJson(route('api.contacts.index', 'first_name'));
         $response->assertOk();
         $response->assertSeeInOrder([
             "Andy's",
@@ -316,23 +316,23 @@ class ListContactsTest extends TestCase
         $this->assertAuthenticatedAs($admin);
 
         factory(Contact::class)->create([
-            'name' => "Bill's",
+            'first_name' => "Bill's",
             'created_at' => now()->subMonth(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Zoey's",
+            'first_name' => "Zoey's",
             'created_at' => now()->addWeek(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Andy's",
+            'first_name' => "Andy's",
             'created_at' => now(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Yann's",
+            'first_name' => "Yann's",
             'created_at' => now()->subDay(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Clara's",
+            'first_name' => "Clara's",
             'created_at' => now()->addHour(),
         ]);
 
@@ -359,27 +359,27 @@ class ListContactsTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         factory(Contact::class)->create([
-            'name' => "Bill's",
+            'first_name' => "Bill's",
             'company_id' => $company->id,
             'created_at' => now()->subMonth(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Zoey's",
+            'first_name' => "Zoey's",
             'company_id' => $company->id,
             'created_at' => now()->addWeek(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Andy's",
+            'first_name' => "Andy's",
             'company_id' => $company->id,
             'created_at' => now(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Yann's",
+            'first_name' => "Yann's",
             'company_id' => $company->id,
             'created_at' => now()->subDay(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Clara's",
+            'first_name' => "Clara's",
             'company_id' => $company->id,
             'created_at' => now()->addHour(),
         ]);
@@ -405,27 +405,27 @@ class ListContactsTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         factory(Contact::class)->create([
-            'name' => "Bill's",
+            'first_name' => "Bill's",
             'user_id' => $user->id,
             'created_at' => now()->subMonth(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Zoey's",
+            'first_name' => "Zoey's",
             'user_id' => $user->id,
             'created_at' => now()->addWeek(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Andy's",
+            'first_name' => "Andy's",
             'user_id' => $user->id,
             'created_at' => now(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Yann's",
+            'first_name' => "Yann's",
             'user_id' => $user->id,
             'created_at' => now()->subDay(),
         ]);
         factory(Contact::class)->create([
-            'name' => "Clara's",
+            'first_name' => "Clara's",
             'user_id' => $user->id,
             'created_at' => now()->addHour(),
         ]);

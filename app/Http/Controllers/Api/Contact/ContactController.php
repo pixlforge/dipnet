@@ -22,7 +22,7 @@ class ContactController extends Controller
      * @param string $sort
      * @return ContactsCollection
      */
-    public function index($sort = 'name')
+    public function index($sort = 'first_name')
     {
         if (auth()->user()->isAdmin()) {
             if ($sort === 'created_at') {

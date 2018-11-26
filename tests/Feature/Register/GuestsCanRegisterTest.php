@@ -71,7 +71,9 @@ class GuestsCanRegisterTest extends TestCase
 
         // Post contact info
         $this->json('POST', route('register.contact.store'), [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'address_line2' => 'Lord Commander\'s Headquarters',
             'zip' => '10100',
@@ -80,7 +82,9 @@ class GuestsCanRegisterTest extends TestCase
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'address_line2' => 'Lord Commander\'s Headquarters',
             'zip' => '10100',
@@ -100,7 +104,9 @@ class GuestsCanRegisterTest extends TestCase
         $this->signIn($user);
 
         $this->json('POST', route('register.contact.store'), [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'address_line2' => 'Lord Commander\'s Headquarters',
             'zip' => '10100',
@@ -109,7 +115,9 @@ class GuestsCanRegisterTest extends TestCase
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'address_line2' => 'Lord Commander\'s Headquarters',
             'zip' => '10100',
@@ -137,7 +145,9 @@ class GuestsCanRegisterTest extends TestCase
         $this->signIn($user);
 
         $this->json('POST', route('register.contact.store'), [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'address_line2' => 'Lord Commander\'s Headquarters',
             'zip' => '10100',
@@ -146,7 +156,9 @@ class GuestsCanRegisterTest extends TestCase
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'address_line2' => 'Lord Commander\'s Headquarters',
             'zip' => '10100',
@@ -178,7 +190,9 @@ class GuestsCanRegisterTest extends TestCase
         $this->signIn($user);
 
         $this->json('POST', route('register.contact.store'), [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'address_line2' => 'Lord Commander\'s Headquarters',
             'zip' => '10100',
@@ -187,7 +201,9 @@ class GuestsCanRegisterTest extends TestCase
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'address_line2' => 'Lord Commander\'s Headquarters',
             'zip' => '10100',
@@ -236,14 +252,18 @@ class GuestsCanRegisterTest extends TestCase
         $this->signIn($user);
 
         $this->json('POST', route('register.contact.store'), [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'zip' => '10100',
             'city' => 'Castle Black',
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'zip' => '10100',
             'city' => 'Castle Black',
@@ -281,7 +301,9 @@ class GuestsCanRegisterTest extends TestCase
         ]);
 
         $this->postJson(route('register.contact-only.store'), [
-            'name' => 'Home',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Main Street',
             'zip' => '10100',
             'city' => 'Moscow'
@@ -339,14 +361,18 @@ class GuestsCanRegisterTest extends TestCase
 
         // John Doe's contact is created.
         $this->json('POST', route('register.contact.store'), [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'zip' => '10100',
             'city' => 'Castle Black',
         ])->assertStatus(200);
 
         $this->assertDatabaseHas('contacts', [
-            'name' => 'Castle Black',
+            'first_name' => 'Jon',
+            'last_name' => 'Snow',
+            'company_name' => 'Castle Black',
             'address_line1' => 'Castle Black, The Wall',
             'zip' => '10100',
             'city' => 'Castle Black',
@@ -376,7 +402,9 @@ class GuestsCanRegisterTest extends TestCase
 
         // Jane Doe's contact is created
         $this->json('POST', route('register.contact.store'), [
-            'name' => 'Winterfell',
+            'first_name' => 'Jane',
+            'last_name' => 'Doe',
+            'company_name' => 'Winterfell',
             'address_line1' => 'Lord Stark\'s Quarters',
             'zip' => '10100',
             'city' => 'Winterfell'

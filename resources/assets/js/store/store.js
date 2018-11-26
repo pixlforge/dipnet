@@ -120,7 +120,10 @@ export const store = new Vuex.Store({
      */
     hydrateContacts: (state, contacts) => {
       state.contacts = contacts.map(contact => {
-        return { label: contact.name, value: contact.id };
+        return {
+          label: `${contact.first_name} ${contact.last_name}`,
+          value: contact.id
+        };
       });
       state.rawContacts = contacts;
     },
@@ -128,7 +131,10 @@ export const store = new Vuex.Store({
      * Add a new contact to the list.
      */
     addToContactsList: (state, contact) => {
-      state.contacts.push({ label: contact.name, value: contact.id });
+      state.contacts.push({
+        label: `${contact.first_name} ${contact.last_name}`,
+        value: contact.id
+      });
       state.rawContacts.push(contact);
     },
     /**
@@ -189,7 +195,6 @@ export const store = new Vuex.Store({
       Vue.set(state.documents[index], 'articles', [])
     },
     updateDocument: (state, payload) => {
-      // console.log(payload);
       const index = state.documents.findIndex(document => {
         return document.id === payload.id;
       });

@@ -26,8 +26,15 @@ Une nouvelle commande client a été passée.
 {{ $order->business->name }}
 
 ## Adresse de facturation
-{{-- {{ $order->contact->company_name }}<br> --}}
-{{ $order->contact->name }}<br>
+@if ($order->contact->company_name)
+{{ ucfirst($order->contact->company_name) }}<br>
+@endif
+@if ($order->contact->first_name)
+{{ ucfirst($order->contact->first_name) }}<br>
+@endif
+@if ($order->contact->last_name)
+{{ ucfirst($order->contact->last_name) }}<br>
+@endif
 {{ $order->contact->address_line1 }}<br>
 @if ($order->contact->address_line2)
 {{ $order->contact->address_line2 }}<br>
@@ -48,8 +55,15 @@ Une nouvelle commande client a été passée.
 @component('mail::panel')
 ## Adresse de livraison
 @if ($delivery->contact)
-{{-- {{ $delivery->contact->company_name }}<br> --}}
-{{ $delivery->contact->name }}<br>
+@if ($delivery->contact->company_name)
+{{ $delivery->contact->company_name }}<br>
+@endif
+@if ($delivery->contact->first_name)
+{{ $delivery->contact->first_name }}<br>
+@endif
+@if ($delivery->contact->last_name)
+{{ $delivery->contact->last_name }}<br>
+@endif
 {{ $delivery->contact->address_line1 }}<br>
 @if ($delivery->contact->address_line2)
 {{ $delivery->contact->address_line2 }}<br>

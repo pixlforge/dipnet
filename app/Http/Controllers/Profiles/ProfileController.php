@@ -31,7 +31,7 @@ class ProfileController extends Controller
     {
         $this->authorize('view', Profile::class);
 
-        $contacts = Contact::where('company_id', auth()->user()->company->id)->orderBy('name')->get();
+        $contacts = Contact::where('company_id', auth()->user()->company->id)->orderBy('first_name')->get();
 
         $ordersCount = auth()->user()->orders_count;
 

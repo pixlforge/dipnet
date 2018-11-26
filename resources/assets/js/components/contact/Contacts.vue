@@ -146,7 +146,7 @@ export default {
       sort: "",
       sortOptions: [
         { label: "Aucun", value: "" },
-        { label: "Nom", value: "name" },
+        { label: "Prénom", value: "first_name" },
         { label: "Date de création", value: "created_at" }
       ],
       fetching: false,

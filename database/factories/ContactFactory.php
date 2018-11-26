@@ -4,7 +4,9 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Contact::class, function (Faker $faker) {
     return [
-        'name' => $faker->domainWord,
+        'first_name' => $faker->firstName,
+        'last_name' => $faker->lastName,
+        'company_name' => $faker->company,
         'address_line1' => $faker->streetName,
         'address_line2' => $faker->streetAddress,
         'zip' => $faker->postcode,

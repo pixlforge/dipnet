@@ -24,7 +24,9 @@ class RegisterContactRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:3|max:45',
+            'first_name' => 'required|string|min:2|max:45',
+            'last_name' => 'nullable|string|min:2|max:45',
+            'company_name' => 'nullable|string|min:2|max:45',
             'address_line1' => 'required|string|min:3|max:255',
             'address_line2' => 'nullable|string|min:3|max:255',
             'zip' => 'required|string|min:4|max:16',
@@ -41,9 +43,18 @@ class RegisterContactRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Veuillez entrer un nom.',
-            'name.min' => 'Minimum 3 caractères.',
-            'name.max' => 'Maximum 45 caractères.',
+            'first_name.required' => 'Veuillez entrer un nom.',
+            'first_name.string' => 'Le prénom doit être une chaîne de caractères.',
+            'first_name.min' => 'Minimum 2 caractères.',
+            'first_name.max' => 'Maximum 45 caractères.',
+
+            'last_name.string' => 'Le nom doit être une chaîne de caractères.',
+            'last_name.min' => 'Minimum 2 caractères.',
+            'last_name.max' => 'Maximum 45 caractères.',
+
+            'company_name.string' => 'Le nom doit être une chaîne de caractères.',
+            'company_name.min' => 'Minimum 2 caractères.',
+            'company_name.max' => 'Maximum 45 caractères.',
 
             'address_line1.required' => 'Veuillez entrer une adresse.',
             'address_line1.string' => "L'adresse doit être une chaîne de caractères.",

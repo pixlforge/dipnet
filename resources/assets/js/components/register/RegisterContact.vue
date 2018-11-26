@@ -48,18 +48,44 @@
         @submit.prevent="createContact">
         <h1 class="register__title">Votre premier <strong>contact</strong></h1>
 
-        <!-- Name -->
+        <!-- First Name -->
         <ModalInput
-          id="username"
+          id="first_name"
           ref="focus"
-          v-model="contact.name"
+          v-model="contact.first_name"
           type="text"
           required>
-          <template slot="label">Nom / Prénom</template>
+          <template slot="label">Prénom</template>
           <template
-            v-if="errors.name"
+            v-if="errors.first_name"
             slot="errors">
-            {{ errors.name[0] }}
+            {{ errors.first_name[0] }}
+          </template>
+        </ModalInput>
+
+        <!-- Last Name -->
+        <ModalInput
+          id="last_name"
+          v-model="contact.last_name"
+          type="text">
+          <template slot="label">Nom</template>
+          <template
+            v-if="errors.last_name"
+            slot="errors">
+            {{ errors.last_name[0] }}
+          </template>
+        </ModalInput>
+
+        <!-- Company Name -->
+        <ModalInput
+          id="company_name"
+          v-model="contact.company_name"
+          type="text">
+          <template slot="label">Nom de la société</template>
+          <template
+            v-if="errors.company_name"
+            slot="errors">
+            {{ errors.company_name[0] }}
           </template>
         </ModalInput>
 

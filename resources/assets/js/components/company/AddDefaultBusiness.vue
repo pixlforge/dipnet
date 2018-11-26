@@ -178,7 +178,10 @@ export default {
   },
   mounted() {
     this.optionsForContact = this.company.contacts.map(contact => {
-      return { label: contact.name, value: contact.id };
+      return {
+        label: `${contact.first_name} ${contact.last_name}`,
+        value: contact.id
+      };
     });
 
     this.optionsForBusiness = this.businesses.map(business => {

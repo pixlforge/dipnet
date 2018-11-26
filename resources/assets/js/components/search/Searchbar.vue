@@ -83,7 +83,7 @@
             v-for="result in results.contacts"
             :key="result.id">
             <a :href="getContactUrl(result)">
-              {{ result.name }}
+              {{ displayContact(result) }}
             </a>
           </li>
         </div>
@@ -139,7 +139,7 @@ export default {
     },
     userIsAdmin() {
       return this.userRole === "administrateur";
-    }
+    },
   },
   methods: {
     debounceInput: window._.debounce(function() {
@@ -177,6 +177,19 @@ export default {
     },
     getCompanyUrl(result) {
       return window.route("companies.show", [result.slug]);
+    },
+    displayContact(result) {
+      let name = result.first_name;
+
+      if (result.last_name) {
+        name += ` ${result.last_name}`;
+      }
+
+      if (result.company_name) {
+        name += ` (${result.company_name})`;
+      }
+
+      return name;
     }
   }
 };

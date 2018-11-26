@@ -4,9 +4,9 @@ namespace Tests\Feature\Contact;
 
 use App\User;
 use App\Contact;
+use App\Company;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use App\Company;
 
 class CreateContactTest extends TestCase
 {
@@ -26,7 +26,9 @@ class CreateContactTest extends TestCase
         $company = factory(Company::class)->create();
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -51,7 +53,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -73,7 +77,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -86,7 +92,7 @@ class CreateContactTest extends TestCase
     }
 
     /** @test */
-    public function admin_contact_creation_validation_fails_if_name_is_missing()
+    public function admin_contact_creation_validation_fails_if_first_name_is_missing()
     {
         $this->withExceptionHandling();
 
@@ -97,7 +103,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => '',
+            'first_name' => '',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -105,12 +113,12 @@ class CreateContactTest extends TestCase
             'phone_number' => '0123456789',
             'email' => 'derry@example.com',
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
         $this->assertCount(0, Contact::all());
     }
 
     /** @test */
-    public function admin_contact_creation_validation_fails_if_name_is_too_short()
+    public function admin_contact_creation_validation_fails_if_first_name_is_too_short()
     {
         $this->withExceptionHandling();
 
@@ -121,7 +129,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => str_repeat('a', 2),
+            'first_name' => str_repeat('a', 1),
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -129,7 +139,7 @@ class CreateContactTest extends TestCase
             'phone_number' => '0123456789',
             'email' => 'derry@example.com',
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
         $this->assertCount(0, Contact::all());
     }
 
@@ -145,7 +155,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => str_repeat('a', 46),
+            'first_name' => str_repeat('a', 46),
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -153,7 +165,7 @@ class CreateContactTest extends TestCase
             'phone_number' => '0123456789',
             'email' => 'derry@example.com',
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
         $this->assertCount(0, Contact::all());
     }
 
@@ -169,7 +181,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => '',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -193,7 +207,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 123,
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -217,7 +233,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => str_repeat('a', 2),
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -241,7 +259,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => str_repeat('a', 256),
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -265,7 +285,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 123,
             'zip' => '43210',
@@ -289,7 +311,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => str_repeat('a', 2),
             'zip' => '43210',
@@ -313,7 +337,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => str_repeat('a', 256),
             'zip' => '43210',
@@ -337,7 +363,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '',
@@ -361,7 +389,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => 123,
@@ -385,7 +415,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => str_repeat('a', 3),
@@ -409,7 +441,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => str_repeat('a', 17),
@@ -433,7 +467,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -457,7 +493,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -481,7 +519,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -505,7 +545,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -529,7 +571,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -553,7 +597,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -577,7 +623,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -601,7 +649,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -625,7 +675,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('admin.contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -651,7 +703,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -679,7 +733,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -706,7 +762,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -731,7 +789,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => '',
+            'first_name' => '',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -740,7 +800,7 @@ class CreateContactTest extends TestCase
             'email' => 'derry@example.com',
         ]);
 
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
         $this->assertCount(0, Contact::all());
     }
 
@@ -756,7 +816,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 123,
+            'first_name' => 123,
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -765,7 +827,7 @@ class CreateContactTest extends TestCase
             'email' => 'derry@example.com',
         ]);
 
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
         $this->assertCount(0, Contact::all());
     }
 
@@ -781,7 +843,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => str_repeat('a', 2),
+            'first_name' => str_repeat('a', 1),
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -790,7 +854,7 @@ class CreateContactTest extends TestCase
             'email' => 'derry@example.com',
         ]);
 
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
         $this->assertCount(0, Contact::all());
     }
 
@@ -806,7 +870,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => str_repeat('a', 46),
+            'first_name' => str_repeat('a', 46),
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -815,7 +881,7 @@ class CreateContactTest extends TestCase
             'email' => 'derry@example.com',
         ]);
 
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
         $this->assertCount(0, Contact::all());
     }
 
@@ -831,7 +897,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => '',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -856,7 +924,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 123,
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -881,7 +951,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => str_repeat('a', 2),
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -906,7 +978,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => str_repeat('a', 256),
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -931,7 +1005,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 123,
             'zip' => '43210',
@@ -956,7 +1032,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => str_repeat('a', 2),
             'zip' => '43210',
@@ -981,7 +1059,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => str_repeat('a', 256),
             'zip' => '43210',
@@ -1006,7 +1086,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '',
@@ -1031,7 +1113,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => 123,
@@ -1056,7 +1140,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => str_repeat('1', 3),
@@ -1081,7 +1167,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => str_repeat('1', 17),
@@ -1106,7 +1194,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -1131,7 +1221,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -1156,7 +1248,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -1181,7 +1275,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -1206,7 +1302,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -1231,7 +1329,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -1256,7 +1356,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',
@@ -1281,7 +1383,9 @@ class CreateContactTest extends TestCase
         $this->assertCount(0, Contact::all());
 
         $response = $this->postJson(route('contacts.store'), [
-            'name' => 'Derry',
+            'first_name' => 'First Name',
+            'last_name' => 'Last Name',
+            'company_name' => 'Company Name',
             'address_line1' => 'Neibolt St',
             'address_line2' => 'Old House',
             'zip' => '43210',

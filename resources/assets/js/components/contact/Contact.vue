@@ -10,22 +10,27 @@
 
     <!-- Name -->
     <div class="card__details card__details--contact">
-      <h5 class="model__label">Nom</h5>
+      <h5 class="model__label">Prénom &amp; Nom</h5>
       <span>
-        <strong>{{ contact.name | capitalize }}</strong>
+        <strong>{{ `${contact.first_name} ${contact.last_name}` | capitalize }}</strong>
       </span>
     </div>
 
     <!-- Address -->
     <div class="card__details card__details--contact">
-      <h5 class="model__label">Adresse</h5>
-      <div>{{ contact.address_line1 | capitalize }}</div>
-      <div>{{ contact.address_line2 | capitalize }}</div>
+      <h5
+        v-if="contact.company_name"
+        class="model__label">
+        Nom de la société
+      </h5>
+      <div>{{ contact.company_name | capitalize }}</div>
     </div>
 
     <!-- Zip & City -->
     <div class="card__details card__details--contact">
-      <h5 class="model__label">NPA &amp; Localité</h5>
+      <h5 class="model__label">Coordonnées</h5>
+      <div>{{ contact.address_line1 | capitalize }}</div>
+      <div>{{ contact.address_line2 | capitalize }}</div>
       <span>{{ contact.zip }} {{ contact.city }}</span>
     </div>
 

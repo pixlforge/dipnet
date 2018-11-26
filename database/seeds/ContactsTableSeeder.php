@@ -13,7 +13,9 @@ class ContactsTableSeeder extends Seeder
     public function run()
     {
         factory(Contact::class)->create([
-            'name' => 'Borbet',
+            'first_name' => 'Célien',
+            'last_name' => 'Boillat',
+            'company_name' => 'Pixlforge',
             'address_line1' => 'Le Borbet 23',
             'address_line2' => 'App 19',
             'zip' => '2950',
@@ -25,19 +27,9 @@ class ContactsTableSeeder extends Seeder
         ]);
 
         factory(Contact::class)->create([
-            'name' => 'Genévrier',
-            'address_line1' => 'Le Genévrier 2',
-            'address_line2' => 'App 2',
-            'zip' => '2950',
-            'city' => 'Courgenay',
-            'phone_number' => '+41 (0)32 471 30 14',
-            'email' => 'celien@pixlforge.ch',
-            'user_id' => 1,
-            'company_id' => 1,
-        ]);
-
-        factory(Contact::class)->create([
-            'name' => 'Lausanne',
+            'first_name' => 'Radu',
+            'last_name' => 'Marmaziu',
+            'company_name' => 'Bebold Sàrl',
             'address_line1' => 'Le Flon',
             'zip' => '1003',
             'city' => 'Lausanne',
@@ -48,6 +40,9 @@ class ContactsTableSeeder extends Seeder
         ]);
 
         factory(Contact::class)->create([
+            'first_name' => 'Édouard',
+            'last_name' => 'Boisset',
+            'company_name' => 'Bebold Sàrl',
             'name' => 'Martigny',
             'address_line1' => 'Avenue de la Poste',
             'zip' => '1920',

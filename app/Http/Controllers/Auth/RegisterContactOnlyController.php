@@ -24,7 +24,9 @@ class RegisterContactOnlyController extends Controller
     public function store(RegisterContactRequest $request)
     {
         $contact = new Contact;
-        $contact->name = $request->name;
+        $contact->first_name = $request->first_name;
+        $contact->last_name = $request->last_name;
+        $contact->company_name = $request->company_name;
         $contact->address_line1 = $request->address_line1;
         $contact->address_line2 = $request->address_line2;
         $contact->zip = $request->zip;

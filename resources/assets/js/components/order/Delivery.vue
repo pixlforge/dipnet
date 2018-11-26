@@ -502,7 +502,7 @@ export default {
         ) {
           this.addContact(payload.contact);
           this.currentDelivery.contact = {
-            label: payload.contact.name,
+            label: `${payload.contact.first_name} ${payload.contact.last_name}`,
             value: payload.contact.id
           };
           this.currentDelivery.contact_id = payload.contact.id;

@@ -25,7 +25,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -36,7 +38,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -48,7 +52,9 @@ class UpdateContactTest extends TestCase
         $response->assertOk();
 
         $contact = $contact->fresh();
-        $this->assertEquals('New contact name', $contact->name);
+        $this->assertEquals('New contact first name', $contact->first_name);
+        $this->assertEquals('New contact last name', $contact->last_name);
+        $this->assertEquals('New contact company name', $contact->company_name);
         $this->assertEquals('New address line 1', $contact->address_line1);
         $this->assertEquals('New address line 2', $contact->address_line2);
         $this->assertEquals('2000', $contact->zip);
@@ -71,7 +77,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -82,7 +90,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -95,7 +105,9 @@ class UpdateContactTest extends TestCase
         $response->assertForbidden();
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -116,7 +128,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -127,7 +141,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -140,7 +156,9 @@ class UpdateContactTest extends TestCase
         $response->assertRedirect(route('login'));
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -163,7 +181,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -174,7 +194,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => '',
+            'first_name' => '',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -184,10 +206,12 @@ class UpdateContactTest extends TestCase
             'email' => 'newemail@example.com',
             'company_id' => $newCompany->id,
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -210,7 +234,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -221,7 +247,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => str_repeat('a', 2),
+            'first_name' => str_repeat('a', 1),
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -231,10 +259,12 @@ class UpdateContactTest extends TestCase
             'email' => 'newemail@example.com',
             'company_id' => $newCompany->id,
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -257,7 +287,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -268,7 +300,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => str_repeat('a', 46),
+            'first_name' => str_repeat('a', 46),
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -278,10 +312,12 @@ class UpdateContactTest extends TestCase
             'email' => 'newemail@example.com',
             'company_id' => $newCompany->id,
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -304,7 +340,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -315,7 +353,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => '',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -328,7 +368,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line1');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -351,7 +393,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -362,7 +406,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 123,
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -375,7 +421,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line1');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -398,7 +446,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -409,7 +459,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => str_repeat('a', 2),
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -422,7 +474,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line1');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -445,7 +499,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -456,7 +512,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => str_repeat('a', 256),
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -469,7 +527,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line1');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -492,7 +552,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -503,7 +565,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 123,
             'zip' => '2000',
@@ -516,7 +580,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line2');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -539,7 +605,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -550,7 +618,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => str_repeat('a', 2),
             'zip' => '2000',
@@ -563,7 +633,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line2');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -586,7 +658,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -597,7 +671,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => str_repeat('a', 256),
             'zip' => '2000',
@@ -610,7 +686,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line2');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -633,7 +711,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -644,7 +724,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '',
@@ -657,7 +739,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('zip');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -680,7 +764,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -691,7 +777,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => 123,
@@ -704,7 +792,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('zip');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -727,7 +817,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -738,7 +830,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => str_repeat('1', 3),
@@ -751,7 +845,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('zip');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -774,7 +870,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -785,7 +883,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => str_repeat('1', 17),
@@ -798,7 +898,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('zip');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -821,7 +923,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -832,7 +936,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -845,7 +951,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('city');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -868,7 +976,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -879,7 +989,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -892,7 +1004,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('city');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -915,7 +1029,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -926,7 +1042,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -939,7 +1057,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('city');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -962,7 +1082,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -973,7 +1095,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -986,7 +1110,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('city');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1009,7 +1135,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1020,7 +1148,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1033,7 +1163,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('phone_number');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1056,7 +1188,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1067,7 +1201,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1080,7 +1216,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('phone_number');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1103,7 +1241,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1114,7 +1254,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1127,7 +1269,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('email');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1150,7 +1294,9 @@ class UpdateContactTest extends TestCase
         $newCompany = factory(Company::class)->create(['name' => 'newCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1161,7 +1307,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1174,7 +1322,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('email');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1196,7 +1346,9 @@ class UpdateContactTest extends TestCase
         $oldCompany = factory(Company::class)->create(['name' => 'oldCompany']);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1207,7 +1359,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1220,7 +1374,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('company_id');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1240,7 +1396,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1251,7 +1409,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1262,7 +1422,9 @@ class UpdateContactTest extends TestCase
         $response->assertOk();
 
         $contact = $contact->fresh();
-        $this->assertEquals('New contact name', $contact->name);
+        $this->assertEquals('New contact first name', $contact->first_name);
+        $this->assertEquals('New contact last name', $contact->last_name);
+        $this->assertEquals('New contact company name', $contact->company_name);
         $this->assertEquals('New address line 1', $contact->address_line1);
         $this->assertEquals('New address line 2', $contact->address_line2);
         $this->assertEquals('2000', $contact->zip);
@@ -1283,7 +1445,9 @@ class UpdateContactTest extends TestCase
         $otherUser = factory(User::class)->states('user', 'solo')->create();
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1294,7 +1458,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1305,7 +1471,9 @@ class UpdateContactTest extends TestCase
         $response->assertForbidden();
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1324,7 +1492,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1343,10 +1513,12 @@ class UpdateContactTest extends TestCase
             'phone_number' => '0123456789',
             'email' => 'newemail@example.com',
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1365,7 +1537,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1384,10 +1558,12 @@ class UpdateContactTest extends TestCase
             'phone_number' => '0123456789',
             'email' => 'newemail@example.com',
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1406,7 +1582,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1425,10 +1603,12 @@ class UpdateContactTest extends TestCase
             'phone_number' => '0123456789',
             'email' => 'newemail@example.com',
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1447,7 +1627,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1466,10 +1648,12 @@ class UpdateContactTest extends TestCase
             'phone_number' => '0123456789',
             'email' => 'newemail@example.com',
         ]);
-        $response->assertJsonValidationErrors('name');
+        $response->assertJsonValidationErrors('first_name');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1488,7 +1672,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1499,7 +1685,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => '',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1510,7 +1698,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line1');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1529,7 +1719,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1540,7 +1732,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 123,
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1551,7 +1745,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line1');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1570,7 +1766,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1581,7 +1779,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => str_repeat('a', 2),
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1592,7 +1792,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line1');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1611,7 +1813,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1622,7 +1826,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => str_repeat('a', 256),
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1633,7 +1839,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line1');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1652,7 +1860,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1663,7 +1873,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 123,
             'zip' => '2000',
@@ -1674,7 +1886,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line2');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1693,7 +1907,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1704,7 +1920,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => str_repeat('a', 2),
             'zip' => '2000',
@@ -1715,7 +1933,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line2');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1734,7 +1954,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1745,7 +1967,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => str_repeat('a', 256),
             'zip' => '2000',
@@ -1756,7 +1980,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('address_line2');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1775,7 +2001,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1786,7 +2014,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '',
@@ -1797,7 +2027,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('zip');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1816,7 +2048,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1827,7 +2061,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => 123,
@@ -1838,7 +2074,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('zip');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1857,7 +2095,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1868,7 +2108,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => str_repeat('1', 3),
@@ -1879,7 +2121,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('zip');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1898,7 +2142,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1909,7 +2155,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => str_repeat('1', 17),
@@ -1920,7 +2168,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('zip');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1939,7 +2189,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1950,7 +2202,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -1961,7 +2215,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('city');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -1980,7 +2236,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -1991,7 +2249,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -2002,7 +2262,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('city');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -2021,7 +2283,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -2032,7 +2296,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -2043,7 +2309,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('city');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -2062,7 +2330,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -2073,7 +2343,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -2084,7 +2356,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('city');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -2103,7 +2377,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -2114,7 +2390,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -2125,7 +2403,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('phone_number');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -2144,7 +2424,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -2155,7 +2437,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -2166,7 +2450,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('phone_number');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -2185,7 +2471,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -2196,7 +2484,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -2207,7 +2497,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('email');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);
@@ -2226,7 +2518,9 @@ class UpdateContactTest extends TestCase
         $this->assertAuthenticatedAs($user);
 
         $contact = factory(Contact::class)->create([
-            'name' => 'Old contact name',
+            'first_name' => 'Old contact first name',
+            'last_name' => 'Old contact last name',
+            'company_name' => 'Old contact company name',
             'address_line1' => 'Old address line 1',
             'address_line2' => 'Old address line 2',
             'zip' => '1000',
@@ -2237,7 +2531,9 @@ class UpdateContactTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('contacts.update', $contact), [
-            'name' => 'New contact name',
+            'first_name' => 'New contact first name',
+            'last_name' => 'New contact last name',
+            'company_name' => 'New contact company name',
             'address_line1' => 'New address line 1',
             'address_line2' => 'New address line 2',
             'zip' => '2000',
@@ -2248,7 +2544,9 @@ class UpdateContactTest extends TestCase
         $response->assertJsonValidationErrors('email');
 
         $contact = $contact->fresh();
-        $this->assertEquals('Old contact name', $contact->name);
+        $this->assertEquals('Old contact first name', $contact->first_name);
+        $this->assertEquals('Old contact last name', $contact->last_name);
+        $this->assertEquals('Old contact company name', $contact->company_name);
         $this->assertEquals('Old address line 1', $contact->address_line1);
         $this->assertEquals('Old address line 2', $contact->address_line2);
         $this->assertEquals('1000', $contact->zip);

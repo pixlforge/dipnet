@@ -44,23 +44,46 @@
       <div class="register__form register__form--details">
         <h1 class="register__title">Votre premier contact</h1>
 
-        <div class="form__group">
-          <label for="name">Nom / Prénom</label>
-          <span class="form__required">*</span>
-          <input
-            id="name"
-            v-model.trim="contact.name"
-            name="name"
-            type="text"
-            class="form__input"
-            required
-            autofocus>
-          <div
-            v-if="errors.name"
-            class="form__alert">
-            {{ errors.name[0] }}
-          </div>
-        </div>
+        <!-- First Name -->
+        <ModalInput
+          id="first_name"
+          ref="focus"
+          v-model="contact.first_name"
+          type="text"
+          required>
+          <template slot="label">Prénom</template>
+          <template
+            v-if="errors.first_name"
+            slot="errors">
+            {{ errors.first_name[0] }}
+          </template>
+        </ModalInput>
+
+        <!-- Last Name -->
+        <ModalInput
+          id="last_name"
+          v-model="contact.last_name"
+          type="text">
+          <template slot="label">Nom</template>
+          <template
+            v-if="errors.last_name"
+            slot="errors">
+            {{ errors.last_name[0] }}
+          </template>
+        </ModalInput>
+
+        <!-- Company Name -->
+        <ModalInput
+          id="company_name"
+          v-model="contact.company_name"
+          type="text">
+          <template slot="label">Nom de la société</template>
+          <template
+            v-if="errors.company_name"
+            slot="errors">
+            {{ errors.company_name[0] }}
+          </template>
+        </ModalInput>
 
         <div class="form__group">
           <label for="address_line1">Adresse ligne 1</label>
@@ -163,6 +186,7 @@
 </template>
 
 <script>
+import ModalInput from "../forms/ModalInput";
 import MoonLoader from "vue-spinner/src/MoonLoader.vue";
 
 import { mapGetters, mapActions } from "vuex";
@@ -170,6 +194,7 @@ import { appName, logo, loader } from "../../mixins";
 
 export default {
   components: {
+    ModalInput,
     MoonLoader
   },
   mixins: [appName, logo, loader],
