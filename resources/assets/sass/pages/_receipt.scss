@@ -19,7 +19,7 @@
     margin-top: 3rem;
   }
 
-  &__section {
+  &__section:not(:last-of-type) {
     @media only print {
       page-break-after: always;
     }
@@ -56,8 +56,13 @@
     list-style: none;
   }
 
+  &__container {
+    overflow-x: scroll;
+  }
+
   &__table {
     width: 100%;
+    min-width: 120rem;
     text-align: left;
     border-collapse: collapse;
 
@@ -65,11 +70,23 @@
       padding: 1.5rem 2rem;
     }
 
+    th:first-of-type {
+      padding-left: 0;
+    }
+
+    th:last-of-type {
+      padding-right: 0;
+    }
+
     tr {
       transition: background-color .2s;
 
       &:hover:not(:first-child) {
         background-color: $mercury;
+      }
+
+      &:nth-child(odd) {
+        background-color: $alabaster;
       }
     }
 
@@ -83,5 +100,18 @@
       line-height: 1.5;
       padding: 1.5rem 2rem;
     }
+
+    td:first-of-type {
+      padding-left: 0;
+    }
+
+    td:last-of-type {
+      padding-right: 0;
+    }
+
+  }
+
+  &__table-main-cell {
+    width: 35rem;
   }
 }

@@ -121,7 +121,7 @@
     <div class="receipt__container">
       <table class="receipt__table">
         <tr class="receipt__table-header">
-          <th>Nom de fichier</th>
+          <th class="receipt__table-main-cell">Nom de fichier</th>
           <th>Impression</th>
           <th>Finition</th>
           <th>Options</th>
@@ -132,7 +132,7 @@
         </tr>
         @foreach($delivery->documents as $document)
           <tr>
-            <td>{{ $document->media->first()->file_name }}</td>
+            <td class="receipt__table-main-cell">{{ $document->media->first()->file_name }}</td>
             <td>
               {{ $document->article->description }}
               @if ($document->article->type === 'impression' && $document->article->greyscale === true)
