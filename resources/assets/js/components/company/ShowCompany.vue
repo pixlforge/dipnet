@@ -10,7 +10,9 @@
       </div>
     </div>
 
-    <div class="header__container">
+    <div
+      v-if="userIsNotAdmin"
+      class="header__container">
       <InviteMember
         class="invitation__container"
         @invitation:created="addInvitation"/>
@@ -38,14 +40,13 @@
             v-for="invitation in invitationsList"
             :key="invitation.id"
             :invitation="invitation"
-            @invitation:deleted="removeInvitation"/>
+            @invitation:deleted="removeInvitation"
+          />
         </div>
 
         <div class="company__group company__group--last">
           <h3 class="company__title">Paramètres</h3>
-          <p class="company__paragraph">
-            Gérez les paramètres par défaut pour votre société.
-          </p>
+          <p class="company__paragraph">Gérez les paramètres par défaut pour votre société.</p>
 
           <!-- Default business -->
           <div class="company__options">
@@ -61,7 +62,6 @@
         </div>
       </div>
     </main>
-
 
     <MoonLoader
       :loading="loaderState"
@@ -101,6 +101,10 @@ export default {
     businesses: {
       type: Array,
       required: true
+    },
+    user: {
+      type: Object,
+      required: true
     }
   },
   data() {
@@ -122,7 +126,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loaderState"])
+    ...mapGetters(["loaderState"]),
+    userIsNotAdmin() {
+      return this.user.role !== 'administrateur';
+    }
   },
   mounted() {
     this.formatBusinessOptions();

@@ -7,7 +7,8 @@
   <show-company
     :company="{{ $company }}"
     :invitations="{{ $invitations }}"
-    :businesses="{{ $businesses }}">
+    :businesses="{{ $businesses }}"
+    :user="{{ auth()->user() }}">
   </show-company>
   @include('layouts.partials._footer')
 @endsection
