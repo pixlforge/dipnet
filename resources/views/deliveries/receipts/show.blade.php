@@ -52,10 +52,13 @@
         <div class="receipt__item">
           <h2 class="receipt__item-title">Commandé par</h2>
           <ul class="receipt__item-list">
-            <li>{{ $delivery->order->company->name }}</li>
-            <li>{{ $delivery->order->company->description }}</li>
-            <li>{{ $delivery->order->company->status }}</li>
-            <br>
+
+            @if ($delivery->order->company)
+              <li>{{ $delivery->order->company->name }}</li>
+              <li>{{ $delivery->order->company->description }}</li>
+              <br>
+            @endif
+
             <li>{{ $delivery->order->user->username }}</li>
             <li>{{ $delivery->order->user->email }}</li>
           </ul>
@@ -64,6 +67,7 @@
           <h2 class="receipt__item-title">Livraison chez</h2>
           <ul class="receipt__item-list">
             @if ($delivery->contact)
+              {{-- <li>{{ ucfirst($delivery->company_name) }}</li> --}}
               <li>{{ ucfirst($delivery->contact->name) }}</li>
               <li>{{ $delivery->contact->address_line1 }}</li>
               <li>{{ $delivery->contact->address_line2 }}</li>

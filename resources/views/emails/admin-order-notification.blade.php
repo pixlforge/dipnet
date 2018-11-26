@@ -18,12 +18,15 @@ Une nouvelle commande client a été passée.
 {{ $order->user->email }}
 
 ## Société
+@if ($order->business->company)
 {{ $order->business->company->name }}
+@endif
 
 ## Affaire
 {{ $order->business->name }}
 
 ## Adresse de facturation
+{{-- {{ $order->contact->company_name }}<br> --}}
 {{ $order->contact->name }}<br>
 {{ $order->contact->address_line1 }}<br>
 @if ($order->contact->address_line2)
@@ -45,6 +48,7 @@ Une nouvelle commande client a été passée.
 @component('mail::panel')
 ## Adresse de livraison
 @if ($delivery->contact)
+{{-- {{ $delivery->contact->company_name }}<br> --}}
 {{ $delivery->contact->name }}<br>
 {{ $delivery->contact->address_line1 }}<br>
 @if ($delivery->contact->address_line2)

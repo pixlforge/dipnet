@@ -21,6 +21,7 @@ Votre commande nous est bien parvenue et nous vous assurons qu'elle sera traité
 {{ $order->business->name }}
 
 ## Adresse de facturation
+{{-- {{ $order->contact->company_name }}<br> --}}
 {{ $order->contact->name }}<br>
 {{ $order->contact->address_line1 }}<br>
 @if ($order->contact->address_line2)
@@ -42,6 +43,7 @@ Votre commande nous est bien parvenue et nous vous assurons qu'elle sera traité
 @component('mail::panel')
 ## Adresse de livraison
 @if ($delivery->contact)
+{{-- {{ $delivery->contact->company_name }}<br> --}}
 {{ $delivery->contact->name }}<br>
 {{ $delivery->contact->address_line1 }}<br>
 @if ($delivery->contact->address_line2)
