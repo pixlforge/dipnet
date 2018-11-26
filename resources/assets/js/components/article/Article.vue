@@ -74,10 +74,12 @@ export default {
       this.$emit("edit-article:open", this.article);
     },
     destroy() {
-      window.axios.delete(
-        window.route("admin.articles.destroy", [this.article.id])
-      );
-      this.$emit("article:deleted", this.article.id);
+      if (window.confirm(`Êtes-vous certain de vouloir supprimer l'article ${this.article.description}?`)) {
+        window.axios.delete(
+          window.route("admin.articles.destroy", [this.article.id])
+        );
+        this.$emit("article:deleted", this.article.id);
+      }
     }
   }
 };

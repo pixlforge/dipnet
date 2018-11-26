@@ -31823,8 +31823,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$emit("edit-article:open", this.article);
     },
     destroy() {
-      window.axios.delete(window.route("admin.articles.destroy", [this.article.id]));
-      this.$emit("article:deleted", this.article.id);
+      if (window.confirm(`Êtes-vous certain de vouloir supprimer l'article ${this.article.description}?`)) {
+        window.axios.delete(window.route("admin.articles.destroy", [this.article.id]));
+        this.$emit("article:deleted", this.article.id);
+      }
     }
   }
 });
@@ -37460,8 +37462,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$emit("edit-format:open", this.format);
     },
     destroy() {
-      window.axios.delete(window.route("admin.formats.destroy", [this.format.id]));
-      this.$emit("format:deleted", this.format.id);
+      if (window.confirm(`Êtes-vous certain de vouloir supprimer le format ${this.format.name}?`)) {
+        window.axios.delete(window.route("admin.formats.destroy", [this.format.id]));
+        this.$emit("format:deleted", this.format.id);
+      }
     }
   }
 });

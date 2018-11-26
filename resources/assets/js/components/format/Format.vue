@@ -77,10 +77,12 @@ export default {
       this.$emit("edit-format:open", this.format);
     },
     destroy() {
-      window.axios.delete(
-        window.route("admin.formats.destroy", [this.format.id])
-      );
-      this.$emit("format:deleted", this.format.id);
+      if (window.confirm(`Êtes-vous certain de vouloir supprimer le format ${this.format.name}?`)) {
+        window.axios.delete(
+          window.route("admin.formats.destroy", [this.format.id])
+        );
+        this.$emit("format:deleted", this.format.id);
+      }
     }
   }
 };
