@@ -24,7 +24,6 @@ class CreateCompanyTest extends TestCase
 
         $response = $this->postJson(route('admin.companies.store'), [
             'name' => 'Apple',
-            'status' => 'permanent',
             'description' => 'Some basic company description',
         ]);
         $response->assertOk();
@@ -44,7 +43,6 @@ class CreateCompanyTest extends TestCase
 
         $response = $this->postJson(route('admin.companies.store'), [
             'name' => 'Apple',
-            'status' => 'permanent',
             'description' => 'Some basic company description',
         ]);
         $response->assertForbidden();
@@ -62,7 +60,6 @@ class CreateCompanyTest extends TestCase
 
         $response = $this->postJson(route('admin.companies.store'), [
             'name' => 'Apple',
-            'status' => 'permanent',
             'description' => 'Some basic company description',
         ]);
         $response->assertRedirect(route('login'));
@@ -82,7 +79,6 @@ class CreateCompanyTest extends TestCase
 
         $response = $this->postJson(route('admin.companies.store'), [
             'name' => '',
-            'status' => 'permanent',
             'description' => 'Some basic company description',
         ]);
         $response->assertJsonValidationErrors('name');
@@ -102,7 +98,6 @@ class CreateCompanyTest extends TestCase
 
         $response = $this->postJson(route('admin.companies.store'), [
             'name' => 123,
-            'status' => 'permanent',
             'description' => 'Some basic company description',
         ]);
         $response->assertJsonValidationErrors('name');
@@ -122,7 +117,6 @@ class CreateCompanyTest extends TestCase
 
         $response = $this->postJson(route('admin.companies.store'), [
             'name' => str_repeat('a', 2),
-            'status' => 'permanent',
             'description' => 'Some basic company description',
         ]);
         $response->assertJsonValidationErrors('name');
@@ -142,70 +136,9 @@ class CreateCompanyTest extends TestCase
 
         $response = $this->postJson(route('admin.companies.store'), [
             'name' => str_repeat('a', 46),
-            'status' => 'permanent',
             'description' => 'Some basic company description',
         ]);
         $response->assertJsonValidationErrors('name');
-        $this->assertCount(0, Company::all());
-    }
-
-    /** @test */
-    public function company_creation_validation_fails_if_status_is_missing()
-    {
-        $this->withExceptionHandling();
-
-        $admin = factory(User::class)->states('admin')->create();
-        $this->actingAs($admin);
-        $this->assertAuthenticatedAs($admin);
-
-        $this->assertCount(0, Company::all());
-
-        $response = $this->postJson(route('admin.companies.store'), [
-            'name' => 'Apple',
-            'status' => '',
-            'description' => 'Some basic company description',
-        ]);
-        $response->assertJsonValidationErrors('status');
-        $this->assertCount(0, Company::all());
-    }
-
-    /** @test */
-    public function company_creation_validation_fails_if_status_is_not_a_string()
-    {
-        $this->withExceptionHandling();
-
-        $admin = factory(User::class)->states('admin')->create();
-        $this->actingAs($admin);
-        $this->assertAuthenticatedAs($admin);
-
-        $this->assertCount(0, Company::all());
-
-        $response = $this->postJson(route('admin.companies.store'), [
-            'name' => 'Apple',
-            'status' => 123,
-            'description' => 'Some basic company description',
-        ]);
-        $response->assertJsonValidationErrors('status');
-        $this->assertCount(0, Company::all());
-    }
-
-    /** @test */
-    public function company_creation_validation_fails_if_status_is_invalid()
-    {
-        $this->withExceptionHandling();
-
-        $admin = factory(User::class)->states('admin')->create();
-        $this->actingAs($admin);
-        $this->assertAuthenticatedAs($admin);
-
-        $this->assertCount(0, Company::all());
-
-        $response = $this->postJson(route('admin.companies.store'), [
-            'name' => 'Apple',
-            'status' => 'something-else',
-            'description' => 'Some basic company description',
-        ]);
-        $response->assertJsonValidationErrors('status');
         $this->assertCount(0, Company::all());
     }
 
@@ -222,7 +155,6 @@ class CreateCompanyTest extends TestCase
 
         $response = $this->postJson(route('admin.companies.store'), [
             'name' => 'Apple',
-            'status' => 'permanent',
             'description' => 123,
         ]);
         $response->assertJsonValidationErrors('description');
@@ -242,7 +174,6 @@ class CreateCompanyTest extends TestCase
 
         $response = $this->postJson(route('admin.companies.store'), [
             'name' => 'Apple',
-            'status' => 'permanent',
             'description' => str_repeat('a', 256),
         ]);
         $response->assertJsonValidationErrors('description');

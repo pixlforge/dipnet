@@ -17,7 +17,6 @@ class CreateCompaniesTable extends Migration
             $table->increments('id');
             $table->string('name', 45)->index();
             $table->string('slug');
-            $table->enum('status', ['temporaire', 'permanent'])->default('temporaire');
             $table->string('description')->nullable();
             $table->timestamps();
             $table->softDeletes();

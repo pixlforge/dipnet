@@ -9,7 +9,6 @@ $factory->define(Company::class, function (Faker $faker) {
         'slug' => function ($company) {
             return str_slug($company['name']);
         },
-        'status' => 'temporaire',
         'description' => $faker->catchPhrase,
         'business_id' => null,
     ];

@@ -115,7 +115,6 @@ export default {
         id: this.company.id,
         name: this.company.name,
         slug: this.company.slug,
-        status: this.company.status,
         description: this.company.description,
         business_id: this.company.business_id,
         business: {

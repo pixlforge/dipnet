@@ -20,20 +20,6 @@
         </template>
       </ModalInput>
 
-      <!-- Status -->
-      <ModalSelect
-        id="status"
-        :options="optionsForStatus"
-        v-model="currentCompany.status"
-        required>
-        <template slot="label">Statut</template>
-        <template
-          v-if="errors.status"
-          slot="errors">
-          {{ errors.status[0] }}
-        </template>
-      </ModalSelect>
-
       <!-- Description -->
       <ModalInput
         id="description"
@@ -99,14 +85,9 @@ export default {
       currentCompany: {
         id: this.company.id,
         name: this.company.name,
-        status: this.company.status,
         description: this.company.description
       },
       errors: {},
-      optionsForStatus: [
-        { label: "Temporaire", value: "temporaire" },
-        { label: "Permanent", value: "permanent" }
-      ]
     };
   },
   mounted() {

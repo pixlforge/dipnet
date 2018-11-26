@@ -24,12 +24,6 @@
       </template>
     </div>
 
-    <!-- Status -->
-    <div class="card__details card__details--company">
-      <h5 class="model__label">Statut</h5>
-      <span>{{ company.status | capitalize }}</span>
-    </div>
-
     <!-- Controls -->
     <div class="card__controls">
 

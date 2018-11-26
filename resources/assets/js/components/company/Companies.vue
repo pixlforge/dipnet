@@ -132,7 +132,6 @@ export default {
       sortOptions: [
         { label: "Aucun", value: "" },
         { label: "Nom", value: "name" },
-        { label: "Status", value: "status" },
         { label: "Date de création", value: "created_at" }
       ],
       fetching: false,

@@ -116,47 +116,6 @@ class ListCompaniesTest extends TestCase
     }
 
     /** @test */
-    public function admins_can_fetch_companies_via_the_api_sorted_by_status()
-    {
-        $this->withoutExceptionHandling();
-
-        $admin = factory(User::class)->states('admin')->create();
-        $this->actingAs($admin);
-        $this->assertAuthenticatedAs($admin);
-
-        factory(Company::class)->create([
-            'name' => 'Boeing',
-            'status' => 'temporaire',
-        ]);
-        factory(Company::class)->create([
-            'name' => 'Zend',
-            'status' => 'permanent',
-        ]);
-        factory(Company::class)->create([
-            'name' => 'Apple',
-            'status' => 'temporaire',
-        ]);
-        factory(Company::class)->create([
-            'name' => 'Yahoo',
-            'status' => 'permanent',
-        ]);
-        factory(Company::class)->create([
-            'name' => 'Cisco',
-            'status' => 'temporaire',
-        ]);
-
-        $response = $this->getJson(route('api.companies.index', 'status'));
-        $response->assertOk();
-        $response->assertSeeInOrder([
-            'Yahoo',
-            'Zend',
-            'Apple',
-            'Boeing',
-            'Cisco',
-        ]);
-    }
-
-    /** @test */
     public function admins_can_fetch_companies_via_the_api_sorted_by_creation_date()
     {
         $this->withoutExceptionHandling();

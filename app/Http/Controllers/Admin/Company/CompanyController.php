@@ -39,7 +39,6 @@ class CompanyController extends Controller
         $company->name = $request->name;
         $company->slug = str_slug($request->name);
         $company->description = $request->description;
-        $company->status = $request->status;
         $company->save();
 
         return response($company, 200);
@@ -56,7 +55,6 @@ class CompanyController extends Controller
     {
         $company->name = $request->name;
         $company->description = $request->description;
-        $company->status = $request->status;
         $company->save();
 
         return response($company, 200);

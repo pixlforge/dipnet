@@ -34008,20 +34008,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -34039,11 +34025,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     return {
       company: {
         name: "",
-        status: "",
         description: ""
       },
-      errors: {},
-      optionsForStatus: [{ label: "Temporaire", value: "temporaire" }, { label: "Permanent", value: "permanent" }]
+      errors: {}
     };
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["c" /* mapActions */])(["toggleLoader"]), {
@@ -34476,7 +34460,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       meta: {},
       errors: {},
       sort: "",
-      sortOptions: [{ label: "Aucun", value: "" }, { label: "Nom", value: "name" }, { label: "Status", value: "status" }, { label: "Date de création", value: "created_at" }],
+      sortOptions: [{ label: "Aucun", value: "" }, { label: "Nom", value: "name" }, { label: "Date de création", value: "created_at" }],
       fetching: false,
       modelNameSingular: "société",
       modelNamePlural: "sociétés",
@@ -34543,12 +34527,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins__ = __webpack_require__(4);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -34754,20 +34732,6 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -34792,11 +34756,9 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       currentCompany: {
         id: this.company.id,
         name: this.company.name,
-        status: this.company.status,
         description: this.company.description
       },
-      errors: {},
-      optionsForStatus: [{ label: "Temporaire", value: "temporaire" }, { label: "Permanent", value: "permanent" }]
+      errors: {}
     };
   },
   mounted() {
@@ -34959,7 +34921,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         id: this.company.id,
         name: this.company.name,
         slug: this.company.slug,
-        status: this.company.status,
         description: this.company.description,
         business_id: this.company.business_id,
         business: {
@@ -72173,24 +72134,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Nom")]), _vm._v(" "), (_vm.errors.name) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.name[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalSelect', {
-    attrs: {
-      "id": "status",
-      "options": _vm.optionsForStatus,
-      "required": ""
-    },
-    model: {
-      value: (_vm.company.status),
-      callback: function($$v) {
-        _vm.$set(_vm.company, "status", $$v)
-      },
-      expression: "company.status"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Statut")]), _vm._v(" "), (_vm.errors.status) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.status[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.name[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     ref: "focus",
     attrs: {
       "id": "description",
@@ -74108,10 +74052,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [(_vm.company.description) ? [_c('h5', {
     staticClass: "model__label"
   }, [_vm._v("Description")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.description)))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
-    staticClass: "card__details card__details--company"
-  }, [_c('h5', {
-    staticClass: "model__label"
-  }, [_vm._v("Statut")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.company.status)))])]), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
   }, [_c('Button', {
     attrs: {
@@ -82134,24 +82074,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Nom")]), _vm._v(" "), (_vm.errors.name) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.name[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalSelect', {
-    attrs: {
-      "id": "status",
-      "options": _vm.optionsForStatus,
-      "required": ""
-    },
-    model: {
-      value: (_vm.currentCompany.status),
-      callback: function($$v) {
-        _vm.$set(_vm.currentCompany, "status", $$v)
-      },
-      expression: "currentCompany.status"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Statut")]), _vm._v(" "), (_vm.errors.status) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.status[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.name[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalInput', {
     ref: "focus",
     attrs: {
       "id": "description",
