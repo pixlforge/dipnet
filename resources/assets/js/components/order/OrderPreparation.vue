@@ -24,7 +24,7 @@
         <div class="order__business">
           <h6 class="order__label">Affaire</h6>
           <AppSelect
-            :options="listBusinesses"
+            :options="optionsForBusinesses"
             v-model="currentOrder.business"
             allow-create-business
             @input="updateBusiness">
@@ -36,7 +36,7 @@
         <div class="order__billing">
           <h6 class="order__label">Facturation</h6>
           <AppSelect
-            :options="listContacts"
+            :options="optionsForContact"
             v-model="currentOrder.contact"
             :component="{ component: 'order', id: order.id }"
             allow-create-contact
@@ -120,7 +120,8 @@
           :count="index + 1"
           :preview="preview"
           :user="user"
-          :admin="admin"/>
+          :admin="admin"
+          :contacts="contacts"/>
       </div>
     </transition>
 
@@ -399,6 +400,72 @@ export default {
       if (this.getValidationErrors.contact_id) {
         return true;
       }
+    },
+    optionsForBusinesses() {
+      let businesses;
+
+      if (
+        this.user.role === "administrateur" &&
+        this.order.status !== "incomplète"
+      ) {
+        businesses = this.businesses.filter(business => {
+          return business.company_id == this.order.company_id;
+        });
+      }
+
+      if (this.user.role === "utilisateur" && !this.user.is_solo) {
+        businesses = this.businesses.filter(business => {
+          return business.company_id == this.user.company_id;
+        });
+      }
+
+      if (this.user.role === "utilisateur" && this.user.is_solo) {
+        businesses = this.businesses.filter(business => {
+          return business.user_id == this.user.id;
+        });
+      }
+
+      businesses = businesses.map(business => {
+        return {
+          label: business.name,
+          value: business.id
+        };
+      });
+
+      return businesses;
+    },
+    optionsForContact() {
+      let contacts;
+
+      if (
+        this.user.role === "administrateur" &&
+        this.order.status !== "incomplète"
+      ) {
+        contacts = this.contacts.filter(contact => {
+          return contact.company_id == this.order.company_id;
+        });
+      }
+
+      if (this.user.role === "utilisateur" && !this.user.is_solo) {
+        contacts = this.contacts.filter(contact => {
+          return contact.company_id == this.user.company_id;
+        });
+      }
+
+      if (this.user.role === "utilisateur" && this.user.is_solo) {
+        contacts = this.contacts.filter(contact => {
+          return contact.user_id == this.user.id;
+        });
+      }
+
+      contacts = contacts.map(contact => {
+        return {
+          label: this.contactName(contact),
+          value: contact.id
+        };
+      });
+
+      return contacts;
     }
   },
   created() {

@@ -49,7 +49,7 @@
             <!-- Contact select -->
             <AppSelect
               v-else
-              :options="listContacts"
+              :options="optionsForContact"
               v-model="currentDelivery.contact"
               :component="{ component: 'delivery', id: delivery.id }"
               :user-is-solo="user.is_solo"
@@ -273,6 +273,10 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    contacts: {
+      type: Array,
+      required: true
     }
   },
   data() {
@@ -358,6 +362,39 @@ export default {
         }
       }
       return hasErrors;
+    },
+    optionsForContact() {
+      let contacts;
+
+      if (
+        this.user.role === "administrateur" &&
+        this.order.status !== "incomplète"
+      ) {
+        contacts = this.contacts.filter(contact => {
+          return contact.company_id == this.order.company_id;
+        });
+      }
+
+      if (this.user.role === "utilisateur" && !this.user.is_solo) {
+        contacts = this.contacts.filter(contact => {
+          return contact.company_id == this.user.company_id;
+        });
+      }
+
+      if (this.user.role === "utilisateur" && this.user.is_solo) {
+        contacts = this.contacts.filter(contact => {
+          return contact.user_id == this.user.id;
+        });
+      }
+
+      contacts = contacts.map(contact => {
+        return {
+          label: this.contactName(contact),
+          value: contact.id
+        };
+      });
+
+      return contacts;
     }
   },
   watch: {
@@ -377,6 +414,16 @@ export default {
   },
   methods: {
     ...mapActions(["deleteDelivery", "addContact", "addDocument"]),
+    contactName(contact) {
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` (${contact.company_name})`;
+      }
+      return fullName;
+    },
     updateContact() {
       if (this.currentDelivery.contact.value) {
         this.currentDelivery.contact_id = this.currentDelivery.contact.value;

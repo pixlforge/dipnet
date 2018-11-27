@@ -577,28 +577,6 @@ class CreateBusinessTest extends TestCase
     }
 
     /** @test */
-    public function user_business_creation_validation_fails_if_contact_is_missing()
-    {
-        $this->withExceptionHandling();
-
-        $company = factory(Company::class)->create();
-        $user = factory(User::class)->states('user')->create(['company_id' => $company->id]);
-        $this->actingAs($user);
-        $this->assertAuthenticatedAs($user);
-
-        $this->assertCount(0, Business::all());
-
-        $response = $this->postJson(route('businesses.store'), [
-            'name' => "Fête de l'Hiver",
-            'description' => 'Lorem ipsum dolor sit amet.',
-            'contact_id' => '',
-            'folder_color' => 'red',
-        ]);
-        $response->assertJsonValidationErrors('contact_id');
-        $this->assertCount(0, Business::all());
-    }
-
-    /** @test */
     public function user_business_creation_validation_fails_if_contact_is_invalid()
     {
         $this->withExceptionHandling();

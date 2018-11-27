@@ -62,14 +62,14 @@ class OrderController extends Controller
             $contacts = Contact::all();
         } elseif (auth()->user()->isPartOfACompany()) {
             $businesses = Business::where('company_id', auth()->user()->company_id)->orderBy('name')->get();
-            $contacts = Contact::where('company_id', auth()->user()->company_id)->orderBy('first_name', 'last_name')->get();
+            $contacts = Contact::where('company_id', auth()->user()->company_id)->orderBy('first_name', 'last_name', 'company_name')->get();
         } else {
             $contacts = auth()->user()->contacts;
             $contactIds = [];
             foreach ($contacts as $contact) {
                 array_push($contactIds, $contact->id);
             }
-            $businesses = Business::whereIn('contact_id', $contactIds)->get();
+            $businesses = Business::where('user_id', auth()->id())->orderBy('name')->get();
         }
 
         $deliveries = $this->getOrderDeliveries($order);
