@@ -138,6 +138,10 @@ class OrderController extends Controller
         $order->business_id = auth()->user()->company->business_id;
         $order->company_id = auth()->user()->company->id;
         $order->save();
+
+        if ($order->business) {
+            $order->contact_id = $order->business->contact_id;
+        }
         
         $order->reference = HashidsGenerator::generateFor($order->id, 'orders');
         $order->save();

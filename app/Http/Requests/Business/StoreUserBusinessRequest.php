@@ -26,7 +26,7 @@ class StoreUserBusinessRequest extends FormRequest
         return [
             'name' => 'required|string|min:3|max:45',
             'description' => 'nullable|string|max:255',
-            'contact_id' => 'required|exists:contacts,id',
+            'contact_id' => 'nullable|exists:contacts,id',
             'folder_color' => 'required|in:red,orange,purple,blue'
         ];
     }
@@ -47,7 +47,6 @@ class StoreUserBusinessRequest extends FormRequest
             'description.string' => 'La description doit être une chaîne de caractères.',
             'description.max' => 'Maximum 255 caractères.',
 
-            'contact.required' => 'Un contact de référence est requis.',
             'contact_id.exists' => 'Veuillez sélectionner un contact parmi ceux proposés.',
 
             'folder_color.exists' => 'Veuillez sélectionner une couleur parmi celles proposées.',

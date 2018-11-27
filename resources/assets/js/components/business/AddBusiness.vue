@@ -65,6 +65,7 @@
 
       <!-- Default billing contact -->
       <ModalSelect
+        v-if="!user.is_solo"
         id="contact_id"
         :options="optionsForContact"
         v-model="business.contact_id">

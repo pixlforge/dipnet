@@ -32522,6 +32522,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -76048,7 +76049,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Utilisateur")]), _vm._v(" "), (_vm.errors.user_id) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.user_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalSelect', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.user_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), (!_vm.user.is_solo) ? _c('ModalSelect', {
     attrs: {
       "id": "contact_id",
       "options": _vm.optionsForContact
@@ -76064,7 +76065,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Contact de facturation par défaut")]), _vm._v(" "), (_vm.errors.contact_id) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.contact_id[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalSelect', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.contact_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalSelect', {
     attrs: {
       "id": "folder_color",
       "options": _vm.optionsForFolderColor
