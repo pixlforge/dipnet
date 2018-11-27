@@ -134,7 +134,7 @@
         :options="optionsForCompany"
         v-model="currentContact.company_id"
         required>
-        <template slot="label">Société</template>
+        <template slot="label">Société associée</template>
         <template
           v-if="errors.company_id"
           slot="errors">

@@ -127,14 +127,14 @@
         </template>
       </ModalInput>
 
-      <!-- Company -->
+      <!-- Company associated -->
       <ModalSelect
         v-if="userIsAdmin"
         id="company_id"
         :options="optionsForCompany"
         v-model="contact.company_id"
         required>
-        <template slot="label">Société</template>
+        <template slot="label">Société associée</template>
         <template
           v-if="errors.company_id"
           slot="errors">
