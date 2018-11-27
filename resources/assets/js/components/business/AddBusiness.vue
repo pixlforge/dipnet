@@ -33,26 +33,13 @@
         </template>
       </ModalInput>
 
-      <!-- User -->
-      <ModalSelect
-        v-if="userIsAdmin"
-        id="user_id"
-        :options="optionsForUser"
-        v-model="business.user_id">
-        <template slot="label">Utilisateur</template>
-        <template
-          v-if="errors.user_id"
-          slot="errors">
-          {{ errors.user_id[0] }}
-        </template>
-      </ModalSelect>
-
       <!-- Company -->
       <ModalSelect
         v-if="userIsAdmin"
         id="company_id"
         :options="optionsForCompany"
-        v-model="business.company_id">
+        v-model="business.company_id"
+        @input="business.user_id = ''">
         <template slot="label">Société</template>
         <template
           v-if="errors.company_id"
@@ -61,13 +48,27 @@
         </template>
       </ModalSelect>
 
-      <!-- Contact -->
+      <!-- User -->
+      <ModalSelect
+        v-if="userIsAdmin"
+        id="user_id"
+        :options="optionsForUser"
+        v-model="business.user_id"
+        @input="business.company_id = ''">
+        <template slot="label">Utilisateur</template>
+        <template
+          v-if="errors.user_id"
+          slot="errors">
+          {{ errors.user_id[0] }}
+        </template>
+      </ModalSelect>
+
+      <!-- Default billing contact -->
       <ModalSelect
         id="contact_id"
         :options="optionsForContact"
-        v-model="business.contact_id"
-        required>
-        <template slot="label">Contact</template>
+        v-model="business.contact_id">
+        <template slot="label">Contact de facturation par défaut</template>
         <template
           v-if="errors.contact_id"
           slot="errors">
@@ -158,13 +159,12 @@ export default {
       business: {
         name: "",
         description: "",
-        user_id: "",
         company_id: "",
+        user_id: "",
         contact_id: "",
         folder_color: ""
       },
       errors: {},
-      optionsForUser: [],
       optionsForCompany: [],
       optionsForFolderColor: [
         { label: "Rouge", value: "red" },
@@ -176,26 +176,35 @@ export default {
   },
   computed: {
     optionsForContact() {
-      if (this.filteredContacts) {
-        if (this.filteredContacts[0].value) {
-          return this.filteredContacts;
-        } else {
-          return this.filteredContacts.map(contact => {
-            return { label: contact.name, value: contact.id };
-          });
-        }
+      let contacts;
+
+      if (this.business.company_id === "") {
+        contacts = this.contacts.filter(contact => {
+          return contact.user_id == this.business.user_id;
+        });
       }
+
+      if (this.business.user_id === "") {
+        contacts = this.contacts.filter(contact => {
+          return contact.company_id == this.business.company_id;
+        });
+      }
+
+      return contacts.map(contact => {
+        return {
+          label: this.contactName(contact),
+          value: contact.id
+        };
+      });
     },
-    filteredContacts() {
-      if (this.userIsAdmin) {
-        if (this.business.company_id !== "") {
-          return this.contacts.filter(contact => {
-            return contact.company_id == this.business.company_id;
-          });
-        }
-      } else {
-        return this.contacts;
-      }
+    optionsForUser() {
+      return this.users
+        .filter(user => {
+          return user.is_solo;
+        })
+        .map(user => {
+          return { label: user.username, value: user.id };
+        });
     },
     userIsAdmin() {
       return this.user.role === "administrateur";
@@ -211,16 +220,22 @@ export default {
   mounted() {
     this.$refs.focus.$el.children[2].focus();
 
-    this.optionsForUser = this.users.map(user => {
-      return { label: user.username, value: user.id };
-    });
-
     this.optionsForCompany = this.companies.map(company => {
       return { label: company.name, value: company.id };
     });
   },
   methods: {
     ...mapActions(["toggleLoader"]),
+    contactName(contact) {
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` (${contact.company_name})`;
+      }
+      return fullName;
+    },
     async addBusiness() {
       this.toggleLoader();
       if (!this.userIsAdmin) {

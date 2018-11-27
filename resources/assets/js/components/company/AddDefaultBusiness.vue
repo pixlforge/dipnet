@@ -179,7 +179,7 @@ export default {
   mounted() {
     this.optionsForContact = this.company.contacts.map(contact => {
       return {
-        label: `${contact.first_name} ${contact.last_name}`,
+        label: this.contactName(contact),
         value: contact.id
       };
     });
@@ -190,6 +190,16 @@ export default {
   },
   methods: {
     ...mapActions(["toggleLoader"]),
+    contactName(contact) {
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` (${contact.company_name})`;
+      }
+      return fullName;
+    },
     async defineBusiness() {
       this.toggleLoader();
       try {

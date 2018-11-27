@@ -584,7 +584,7 @@ export default {
         if (payload.component === "order") {
           this.addContact(payload.contact);
           this.currentOrder.contact = {
-            label: `${payload.contact.first_name} ${payload.contact.last_name}`,
+            label: this.contactName(payload.contact),
             value: payload.contact.id
           };
           this.currentOrder.contact_id = payload.contact.id;
@@ -595,6 +595,16 @@ export default {
           });
         }
       });
+    },
+    contactName(contact) {
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` (${contact.company_name})`;
+      }
+      return fullName;
     }
   }
 };

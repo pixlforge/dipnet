@@ -28,7 +28,7 @@ class StoreAdminBusinessRequest extends FormRequest
             'description' => 'nullable|string|max:255',
             'user_id' => 'required_without:company_id|nullable|exists:users,id',
             'company_id' => 'required_without:user_id|nullable|exists:companies,id',
-            'contact_id' => 'required|exists:contacts,id',
+            'contact_id' => 'nullable|exists:contacts,id',
             'folder_color' => 'nullable|in:red,orange,purple,blue'
         ];
     }
@@ -55,7 +55,6 @@ class StoreAdminBusinessRequest extends FormRequest
             'company_id.required_without' => 'Veuillez sélectionner une société ou un utilisateur.',
             'company_id.exists' => 'Veuillez sélectionner une société parmi celles proposées.',
 
-            'contact_id.required' => 'Veuillez sélectionner un contact.',
             'contact_id.exists' => 'Veuillez sélectionner un contact parmi ceux proposés.',
 
             'folder_color.exists' => 'Veuillez sélectionner une couleur parmi celles proposées.',

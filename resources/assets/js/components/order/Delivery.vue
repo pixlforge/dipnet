@@ -502,7 +502,15 @@ export default {
         ) {
           this.addContact(payload.contact);
           this.currentDelivery.contact = {
-            label: `${payload.contact.first_name} ${payload.contact.last_name}`,
+            label: `
+              ${payload.contact.first_name}
+              ${payload.contact.last_name ? payload.contact.last_name : ""}
+              ${
+                payload.contact.company_name
+                  ? "(" + payload.contact.company_name + ")"
+                  : ""
+              }
+            `,
             value: payload.contact.id
           };
           this.currentDelivery.contact_id = payload.contact.id;

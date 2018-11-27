@@ -50,7 +50,9 @@
 
           <!-- Default business -->
           <div class="company__options">
-            <div class="company__option">
+            <div
+              v-if="businesses.length"
+              class="company__option">
               <label class="company__label">Affaire par défaut :</label>
               <AppSelect
                 :options="optionsForBusiness"
@@ -127,7 +129,7 @@ export default {
   computed: {
     ...mapGetters(["loaderState"]),
     userIsNotAdmin() {
-      return this.user.role !== 'administrateur';
+      return this.user.role !== "administrateur";
     }
   },
   mounted() {

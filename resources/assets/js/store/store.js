@@ -121,7 +121,11 @@ export const store = new Vuex.Store({
     hydrateContacts: (state, contacts) => {
       state.contacts = contacts.map(contact => {
         return {
-          label: `${contact.first_name} ${contact.last_name}`,
+          label: `
+            ${contact.first_name}
+            ${contact.last_name ? contact.last_name : ''}
+            ${contact.company_name ? "(" + contact.company_name + ")" : ''}
+          `,
           value: contact.id
         };
       });

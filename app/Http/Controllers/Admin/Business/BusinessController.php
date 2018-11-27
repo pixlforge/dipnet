@@ -32,7 +32,7 @@ class BusinessController extends Controller
         $companies = Company::all();
         $contacts = Contact::all();
         $orders = Order::all();
-        $users = User::onlyUsers()->get(['id', 'username', 'email']);
+        $users = User::onlyUsers()->get(['id', 'username', 'email', 'is_solo', 'company_id']);
 
         return view('admin.businesses.index', compact('companies', 'contacts', 'orders', 'users'));
     }
@@ -81,11 +81,25 @@ class BusinessController extends Controller
         $business->name = $request->name;
         $business->description = $request->description;
         $business->user_id = $request->user_id;
+
+        if ($business->company) {
+            if ($business->company->business_id === $business->id) {
+                $business->company->business_id = null;
+                $business->company->save();
+            }
+        }
+
+        if ($business->contact) {
+            $business->contact_id = null;
+        }
+
         $business->contact_id = $request->contact_id;
         $business->company_id = $request->company_id;
         $business->folder_color = $request->folder_color;
 
         $business->save();
+
+        $business->load('company', 'contact');
 
         return response($business, 200);
     }

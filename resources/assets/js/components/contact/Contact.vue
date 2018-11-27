@@ -12,7 +12,7 @@
     <div class="card__details card__details--contact">
       <h5 class="model__label">Prénom &amp; Nom</h5>
       <span>
-        <strong>{{ `${contact.first_name} ${contact.last_name}` | capitalize }}</strong>
+        <strong>{{ contactName | capitalize }}</strong>
       </span>
     </div>
 
@@ -28,7 +28,7 @@
 
     <!-- Zip & City -->
     <div class="card__details card__details--contact">
-      <h5 class="model__label">Coordonnées</h5>
+      <h5 class="model__label">Adresse</h5>
       <div>{{ contact.address_line1 | capitalize }}</div>
       <div>{{ contact.address_line2 | capitalize }}</div>
       <span>{{ contact.zip }} {{ contact.city }}</span>
@@ -113,6 +113,13 @@ export default {
     },
     url() {
       return window.route("contacts.show", [this.contact.id]);
+    },
+    contactName() {
+      let fullName = this.contact.first_name;
+      if (this.contact.last_name) {
+        fullName += ` ${this.contact.last_name}`;
+      }
+      return fullName;
     }
   },
   methods: {

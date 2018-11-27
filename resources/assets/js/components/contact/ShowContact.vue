@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="header__container">
-      <h1 class="header__title">{{ currentContact.name }}</h1>
+      <h1 class="header__title">{{ contactName | capitalize }}</h1>
 
       <!-- Edit -->
       <Button
@@ -28,6 +28,24 @@
 
           <div class="profile__box-item">
 
+            <!-- First name -->
+            <div class="profile__item">
+              <h3>Prénom</h3>
+              <p>{{ currentContact.first_name | capitalize }}</p>
+            </div>
+
+            <!-- Last name -->
+            <div class="profile__item">
+              <h3>Nom</h3>
+              <p>{{ currentContact.last_name | capitalize }}</p>
+            </div>
+
+            <!-- Company name -->
+            <div class="profile__item">
+              <h3>Nom de la société</h3>
+              <p>{{ currentContact.company_name | capitalize }}</p>
+            </div>
+
             <!-- Address line 1 -->
             <div class="profile__item">
               <h3>Adresse ligne 1</h3>
@@ -45,6 +63,9 @@
               <h3>Localité</h3>
               <p>{{ currentContact.zip }} {{ currentContact.city | capitalize }}</p>
             </div>
+          </div>
+
+          <div class="profile__box-item">
 
             <!-- Phone number -->
             <div class="profile__item">
@@ -57,9 +78,6 @@
               <h3>Adresse e-mail</h3>
               <p>{{ currentContact.email ? currentContact.email : 'Aucune' }}</p>
             </div>
-          </div>
-
-          <div class="profile__box-item">
 
             <!-- User -->
             <div class="profile__item">
@@ -148,7 +166,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["loaderState"])
+    ...mapGetters(["loaderState"]),
+    contactName() {
+      let fullName = this.contact.first_name;
+      if (this.contact.last_name) {
+        fullName += ` ${this.contact.last_name}`;
+      }
+      return fullName;
+    }
   },
   methods: {
     congratulations(contact) {

@@ -33,26 +33,13 @@
         </template>
       </ModalInput>
 
-      <!-- User -->
-      <ModalSelect
-        v-if="userIsAdmin"
-        id="user_id"
-        :options="optionsForUser"
-        v-model="currentBusiness.user_id">
-        <template slot="label">Utilisateur</template>
-        <template
-          v-if="errors.user_id"
-          slot="errors">
-          {{ errors.user_id[0] }}
-        </template>
-      </ModalSelect>
-
       <!-- Company -->
       <ModalSelect
         v-if="userIsAdmin"
         id="company_id"
         :options="optionsForCompany"
-        v-model="currentBusiness.company_id">
+        v-model="currentBusiness.company_id"
+        @input="currentBusiness.user_id = ''">
         <template slot="label">Société</template>
         <template
           v-if="errors.company_id"
@@ -61,13 +48,27 @@
         </template>
       </ModalSelect>
 
-      <!-- Contact -->
+      <!-- User -->
+      <ModalSelect
+        v-if="userIsAdmin"
+        id="user_id"
+        :options="optionsForUser"
+        v-model="currentBusiness.user_id"
+        @input="currentBusiness.company_id = ''">
+        <template slot="label">Utilisateur</template>
+        <template
+          v-if="errors.user_id"
+          slot="errors">
+          {{ errors.user_id[0] }}
+        </template>
+      </ModalSelect>
+
+      <!-- Default billing contact -->
       <ModalSelect
         id="contact_id"
         :options="optionsForContact"
-        v-model="currentBusiness.contact_id"
-        required>
-        <template slot="label">Contact</template>
+        v-model="currentBusiness.contact_id">
+        <template slot="label">Contact de facturation par défaut</template>
         <template
           v-if="errors.contact_id"
           slot="errors">
@@ -162,13 +163,12 @@ export default {
         id: this.business.id,
         name: this.business.name,
         description: this.business.description,
-        user_id: this.business.user_id,
         company_id: this.business.company_id,
+        user_id: this.business.user_id,
         contact_id: this.business.contact_id,
         folder_color: this.business.folder_color
       },
       errors: {},
-      optionsForUser: [],
       optionsForCompany: [],
       optionsForFolderColor: [
         { label: "Rouge", value: "red" },
@@ -180,18 +180,41 @@ export default {
   },
   computed: {
     optionsForContact() {
-      if (this.filteredContacts) {
-        return this.filteredContacts.map(contact => {
-          return { label: contact.name, value: contact.id };
+      let contacts = this.contacts;
+
+      if (
+        this.currentBusiness.company_id === "" ||
+        this.currentBusiness.company_id === null
+      ) {
+        contacts = this.contacts.filter(contact => {
+          return contact.user_id == this.currentBusiness.user_id;
         });
       }
+
+      if (
+        this.currentBusiness.user_id === "" ||
+        this.currentBusiness.user_id === null
+      ) {
+        contacts = this.contacts.filter(contact => {
+          return contact.company_id == this.currentBusiness.company_id;
+        });
+      }
+
+      return contacts.map(contact => {
+        return {
+          label: this.contactName(contact),
+          value: contact.id
+        };
+      });
     },
-    filteredContacts() {
-      if (this.business.company_id !== "") {
-        return this.contacts.filter(contact => {
-          return contact.company_id === this.business.company_id;
+    optionsForUser() {
+      return this.users
+        .filter(user => {
+          return user.is_solo;
+        })
+        .map(user => {
+          return { label: user.username, value: user.id };
         });
-      }
     },
     userIsAdmin() {
       return this.user.role === "administrateur";
@@ -204,12 +227,16 @@ export default {
       }
     }
   },
+  watch: {
+    "currentBusiness.company_id"() {
+      this.currentBusiness.contact_id = "";
+    },
+    "currentBusiness.user_id"() {
+      this.currentBusiness.contact_id = "";
+    }
+  },
   mounted() {
     this.$refs.focus.$el.children[2].focus();
-
-    this.optionsForUser = this.users.map(user => {
-      return { label: user.username, value: user.id };
-    });
 
     this.optionsForCompany = this.companies.map(company => {
       return { label: company.name, value: company.id };
@@ -217,6 +244,16 @@ export default {
   },
   methods: {
     ...mapActions(["toggleLoader"]),
+    contactName(contact) {
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` (${contact.company_name})`;
+      }
+      return fullName;
+    },
     async updateBusiness() {
       this.toggleLoader();
       try {

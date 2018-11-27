@@ -42,7 +42,9 @@
     <div class="card__details card__details--business">
       <template v-if="business.contact">
         <h5 class="model__label">Contact</h5>
-        <span>{{ business.contact.name | capitalize }}</span>
+        <span>
+          {{ contactName | capitalize }}
+        </span>
       </template>
     </div>
 
@@ -101,6 +103,17 @@ export default {
   computed: {
     url() {
       return window.route("businesses.show", [this.business.reference]);
+    },
+    contactName() {
+      let contact = this.business.contact;
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` ${contact.company_name}`;
+      }
+      return fullName;
     }
   },
   methods: {

@@ -34,13 +34,20 @@ class BusinessController extends Controller
 
         if (auth()->user()->isPartOfACompany()) {
             $businessIds = [];
+
             foreach (auth()->user()->company->business as $business) {
                 array_push($businessIds, $business->id);
             }
+
             $orders = Order::whereIn('business_id', $businessIds)->get();
-            $contacts = Contact::where('company_id', auth()->user()->company->id)->orderBy('name')->get();
+
+            $contacts = Contact::where('company_id', auth()->user()->company->id)
+                ->orderBy('first_name', 'last_name')
+                ->get();
         } elseif (auth()->user()->isSolo()) {
-            $contacts = Contact::where('user_id', auth()->id())->orderBy('name')->get();
+            $contacts = Contact::where('user_id', auth()->id())
+                ->orderBy('first_name', 'last_name')
+                ->get();
         }
 
         return view('businesses.index', compact('businesses', 'contacts', 'companies', 'orders'));
@@ -99,13 +106,26 @@ class BusinessController extends Controller
         $this->authorize('view', $business);
 
         if (auth()->user()->isPartOfACompany()) {
-            $contacts = Contact::where('company_id', auth()->user()->company_id)->orderBy('name')->latest()->get();
+            $contacts = Contact::where('company_id', auth()->user()->company_id)
+                ->orderBy('first_name', 'last_name', 'company_name')
+                ->latest()
+                ->get();
         } elseif (auth()->user()->isSolo()) {
-            $contacts = Contact::where('user_id', auth()->id())->orderBy('name')->latest()->get();
+            $contacts = Contact::where('user_id', auth()->id())
+                ->orderBy('first_name', 'last_name', 'company_name')
+                ->latest()
+                ->get();
         }
 
-        $orders = Order::with('user', 'business', 'contact')->where('business_id', $business->id)->latest()->get();
-        $comments = Comment::with('user', 'user.avatar')->where('business_id', $business->id)->latest()->get();
+        $orders = Order::with('user', 'business', 'contact')
+            ->where('business_id', $business->id)
+            ->latest()
+            ->get();
+
+        $comments = Comment::with('user', 'user.avatar')
+            ->where('business_id', $business->id)
+            ->latest()
+            ->get();
 
         return view('businesses.show', compact('business', 'contacts', 'orders', 'comments'));
     }

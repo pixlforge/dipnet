@@ -32521,6 +32521,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -32564,39 +32565,45 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       business: {
         name: "",
         description: "",
-        user_id: "",
         company_id: "",
+        user_id: "",
         contact_id: "",
         folder_color: ""
       },
       errors: {},
-      optionsForUser: [],
       optionsForCompany: [],
       optionsForFolderColor: [{ label: "Rouge", value: "red" }, { label: "Orange", value: "orange" }, { label: "Violet", value: "purple" }, { label: "Bleu", value: "blue" }]
     };
   },
   computed: {
     optionsForContact() {
-      if (this.filteredContacts) {
-        if (this.filteredContacts[0].value) {
-          return this.filteredContacts;
-        } else {
-          return this.filteredContacts.map(contact => {
-            return { label: contact.name, value: contact.id };
-          });
-        }
+      let contacts;
+
+      if (this.business.company_id === "") {
+        contacts = this.contacts.filter(contact => {
+          return contact.user_id == this.business.user_id;
+        });
       }
+
+      if (this.business.user_id === "") {
+        contacts = this.contacts.filter(contact => {
+          return contact.company_id == this.business.company_id;
+        });
+      }
+
+      return contacts.map(contact => {
+        return {
+          label: this.contactName(contact),
+          value: contact.id
+        };
+      });
     },
-    filteredContacts() {
-      if (this.userIsAdmin) {
-        if (this.business.company_id !== "") {
-          return this.contacts.filter(contact => {
-            return contact.company_id == this.business.company_id;
-          });
-        }
-      } else {
-        return this.contacts;
-      }
+    optionsForUser() {
+      return this.users.filter(user => {
+        return user.is_solo;
+      }).map(user => {
+        return { label: user.username, value: user.id };
+      });
     },
     userIsAdmin() {
       return this.user.role === "administrateur";
@@ -32612,15 +32619,21 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   mounted() {
     this.$refs.focus.$el.children[2].focus();
 
-    this.optionsForUser = this.users.map(user => {
-      return { label: user.username, value: user.id };
-    });
-
     this.optionsForCompany = this.companies.map(company => {
       return { label: company.name, value: company.id };
     });
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+    contactName(contact) {
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` (${contact.company_name})`;
+      }
+      return fullName;
+    },
     addBusiness() {
       var _this = this;
 
@@ -32653,6 +32666,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__buttons_Button___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__buttons_Button__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins__ = __webpack_require__(4);
+//
+//
 //
 //
 //
@@ -32756,6 +32771,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   computed: {
     url() {
       return window.route("businesses.show", [this.business.reference]);
+    },
+    contactName() {
+      let contact = this.business.contact;
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` ${contact.company_name}`;
+      }
+      return fullName;
     }
   },
   methods: {
@@ -33181,6 +33207,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
 //
 //
 //
+//
 
 
 
@@ -33228,31 +33255,45 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         id: this.business.id,
         name: this.business.name,
         description: this.business.description,
-        user_id: this.business.user_id,
         company_id: this.business.company_id,
+        user_id: this.business.user_id,
         contact_id: this.business.contact_id,
         folder_color: this.business.folder_color
       },
       errors: {},
-      optionsForUser: [],
       optionsForCompany: [],
       optionsForFolderColor: [{ label: "Rouge", value: "red" }, { label: "Orange", value: "orange" }, { label: "Violet", value: "purple" }, { label: "Bleu", value: "blue" }]
     };
   },
   computed: {
     optionsForContact() {
-      if (this.filteredContacts) {
-        return this.filteredContacts.map(contact => {
-          return { label: contact.name, value: contact.id };
+      let contacts = this.contacts;
+
+      if (this.currentBusiness.company_id === "" || this.currentBusiness.company_id === null) {
+        contacts = this.contacts.filter(contact => {
+          return contact.user_id == this.currentBusiness.user_id;
         });
       }
+
+      if (this.currentBusiness.user_id === "" || this.currentBusiness.user_id === null) {
+        contacts = this.contacts.filter(contact => {
+          return contact.company_id == this.currentBusiness.company_id;
+        });
+      }
+
+      return contacts.map(contact => {
+        return {
+          label: this.contactName(contact),
+          value: contact.id
+        };
+      });
     },
-    filteredContacts() {
-      if (this.business.company_id !== "") {
-        return this.contacts.filter(contact => {
-          return contact.company_id === this.business.company_id;
-        });
-      }
+    optionsForUser() {
+      return this.users.filter(user => {
+        return user.is_solo;
+      }).map(user => {
+        return { label: user.username, value: user.id };
+      });
     },
     userIsAdmin() {
       return this.user.role === "administrateur";
@@ -33265,18 +33306,32 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
       }
     }
   },
+  watch: {
+    "currentBusiness.company_id"() {
+      this.currentBusiness.contact_id = "";
+    },
+    "currentBusiness.user_id"() {
+      this.currentBusiness.contact_id = "";
+    }
+  },
   mounted() {
     this.$refs.focus.$el.children[2].focus();
-
-    this.optionsForUser = this.users.map(user => {
-      return { label: user.username, value: user.id };
-    });
 
     this.optionsForCompany = this.companies.map(company => {
       return { label: company.name, value: company.id };
     });
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_3_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+    contactName(contact) {
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` (${contact.company_name})`;
+      }
+      return fullName;
+    },
     updateBusiness() {
       var _this = this;
 
@@ -34280,7 +34335,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
   mounted() {
     this.optionsForContact = this.company.contacts.map(contact => {
       return {
-        label: `${contact.first_name} ${contact.last_name}`,
+        label: this.contactName(contact),
         value: contact.id
       };
     });
@@ -34290,6 +34345,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
     });
   },
   methods: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["c" /* mapActions */])(["toggleLoader"]), {
+    contactName(contact) {
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` (${contact.company_name})`;
+      }
+      return fullName;
+    },
     defineBusiness() {
       var _this = this;
 
@@ -34908,6 +34973,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -34964,7 +35031,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
   },
   computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapGetters */])(["loaderState"]), {
     userIsNotAdmin() {
-      return this.user.role !== 'administrateur';
+      return this.user.role !== "administrateur";
     }
   }),
   mounted() {
@@ -35422,6 +35489,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     url() {
       return window.route("contacts.show", [this.contact.id]);
+    },
+    contactName() {
+      let fullName = this.contact.first_name;
+      if (this.contact.last_name) {
+        fullName += ` ${this.contact.last_name}`;
+      }
+      return fullName;
     }
   },
   methods: {
@@ -36070,6 +36144,24 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -36109,7 +36201,15 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
       currentContact: this.contact
     };
   },
-  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(["loaderState"])),
+  computed: _extends({}, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_vuex__["b" /* mapGetters */])(["loaderState"]), {
+    contactName() {
+      let fullName = this.contact.first_name;
+      if (this.contact.last_name) {
+        fullName += ` ${this.contact.last_name}`;
+      }
+      return fullName;
+    }
+  }),
   methods: {
     congratulations(contact) {
       this.currentContact = contact;
@@ -39348,7 +39448,11 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         if (payload.component === "delivery" && payload.id === this.delivery.id) {
           this.addContact(payload.contact);
           this.currentDelivery.contact = {
-            label: `${payload.contact.first_name} ${payload.contact.last_name}`,
+            label: `
+              ${payload.contact.first_name}
+              ${payload.contact.last_name ? payload.contact.last_name : ""}
+              ${payload.contact.company_name ? "(" + payload.contact.company_name + ")" : ""}
+            `,
             value: payload.contact.id
           };
           this.currentDelivery.contact_id = payload.contact.id;
@@ -40496,7 +40600,7 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
         if (payload.component === "order") {
           this.addContact(payload.contact);
           this.currentOrder.contact = {
-            label: `${payload.contact.first_name} ${payload.contact.last_name}`,
+            label: this.contactName(payload.contact),
             value: payload.contact.id
           };
           this.currentOrder.contact_id = payload.contact.id;
@@ -40507,6 +40611,16 @@ function _asyncToGenerator(fn) { return function () { var gen = fn.apply(this, a
           });
         }
       });
+    },
+    contactName(contact) {
+      let fullName = contact.first_name;
+      if (contact.last_name) {
+        fullName += ` ${contact.last_name}`;
+      }
+      if (contact.company_name) {
+        fullName += ` (${contact.company_name})`;
+      }
+      return fullName;
     }
   })
 });
@@ -46535,7 +46649,11 @@ const store = new __WEBPACK_IMPORTED_MODULE_1_vuex__["a" /* default */].Store({
     hydrateContacts: (state, contacts) => {
       state.contacts = contacts.map(contact => {
         return {
-          label: `${contact.first_name} ${contact.last_name}`,
+          label: `
+            ${contact.first_name}
+            ${contact.last_name ? contact.last_name : ''}
+            ${contact.company_name ? "(" + contact.company_name + ")" : ''}
+          `,
           value: contact.id
         };
       });
@@ -75890,24 +76008,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.description[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
     attrs: {
-      "id": "user_id",
-      "options": _vm.optionsForUser
-    },
-    model: {
-      value: (_vm.business.user_id),
-      callback: function($$v) {
-        _vm.$set(_vm.business, "user_id", $$v)
-      },
-      expression: "business.user_id"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Utilisateur")]), _vm._v(" "), (_vm.errors.user_id) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.user_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
-    attrs: {
       "id": "company_id",
       "options": _vm.optionsForCompany
+    },
+    on: {
+      "input": function($event) {
+        _vm.business.user_id = ''
+      }
     },
     model: {
       value: (_vm.business.company_id),
@@ -75920,11 +76027,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Société")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalSelect', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
+    attrs: {
+      "id": "user_id",
+      "options": _vm.optionsForUser
+    },
+    on: {
+      "input": function($event) {
+        _vm.business.company_id = ''
+      }
+    },
+    model: {
+      value: (_vm.business.user_id),
+      callback: function($$v) {
+        _vm.$set(_vm.business, "user_id", $$v)
+      },
+      expression: "business.user_id"
+    }
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Utilisateur")]), _vm._v(" "), (_vm.errors.user_id) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.user_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalSelect', {
     attrs: {
       "id": "contact_id",
-      "options": _vm.optionsForContact,
-      "required": ""
+      "options": _vm.optionsForContact
     },
     model: {
       value: (_vm.business.contact_id),
@@ -75935,7 +76062,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('template', {
     slot: "label"
-  }, [_vm._v("Contact")]), _vm._v(" "), (_vm.errors.contact_id) ? _c('template', {
+  }, [_vm._v("Contact de facturation par défaut")]), _vm._v(" "), (_vm.errors.contact_id) ? _c('template', {
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.contact_id[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalSelect', {
     attrs: {
@@ -76227,7 +76354,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__details card__details--contact"
   }, [_c('h5', {
     staticClass: "model__label"
-  }, [_vm._v("Prénom & Nom")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(((_vm.contact.first_name) + " " + (_vm.contact.last_name)))))])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("Prénom & Nom")]), _vm._v(" "), _c('span', [_c('strong', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contactName)))])])]), _vm._v(" "), _c('div', {
     staticClass: "card__details card__details--contact"
   }, [(_vm.contact.company_name) ? _c('h5', {
     staticClass: "model__label"
@@ -76235,7 +76362,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__details card__details--contact"
   }, [_c('h5', {
     staticClass: "model__label"
-  }, [_vm._v("Coordonnées")]), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.address_line1)))]), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.address_line2)))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.contact.zip) + " " + _vm._s(_vm.contact.city))])]), _vm._v(" "), (_vm.user.role === 'administrateur') ? _c('div', {
+  }, [_vm._v("Adresse")]), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.address_line1)))]), _vm._v(" "), _c('div', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contact.address_line2)))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.contact.zip) + " " + _vm._s(_vm.contact.city))])]), _vm._v(" "), (_vm.user.role === 'administrateur') ? _c('div', {
     staticClass: "card__details card__details--contact"
   }, [(_vm.contact.company) ? [_c('h5', {
     staticClass: "model__label"
@@ -77081,7 +77208,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('template', {
     slot: "label"
-  }, [_vm._v("Société")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
+  }, [_vm._v("Société associée")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
@@ -78105,24 +78232,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.description[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
     attrs: {
-      "id": "user_id",
-      "options": _vm.optionsForUser
-    },
-    model: {
-      value: (_vm.currentBusiness.user_id),
-      callback: function($$v) {
-        _vm.$set(_vm.currentBusiness, "user_id", $$v)
-      },
-      expression: "currentBusiness.user_id"
-    }
-  }, [_c('template', {
-    slot: "label"
-  }, [_vm._v("Utilisateur")]), _vm._v(" "), (_vm.errors.user_id) ? _c('template', {
-    slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.user_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
-    attrs: {
       "id": "company_id",
       "options": _vm.optionsForCompany
+    },
+    on: {
+      "input": function($event) {
+        _vm.currentBusiness.user_id = ''
+      }
     },
     model: {
       value: (_vm.currentBusiness.company_id),
@@ -78135,11 +78251,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     slot: "label"
   }, [_vm._v("Société")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
     slot: "errors"
-  }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalSelect', {
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), (_vm.userIsAdmin) ? _c('ModalSelect', {
+    attrs: {
+      "id": "user_id",
+      "options": _vm.optionsForUser
+    },
+    on: {
+      "input": function($event) {
+        _vm.currentBusiness.company_id = ''
+      }
+    },
+    model: {
+      value: (_vm.currentBusiness.user_id),
+      callback: function($$v) {
+        _vm.$set(_vm.currentBusiness, "user_id", $$v)
+      },
+      expression: "currentBusiness.user_id"
+    }
+  }, [_c('template', {
+    slot: "label"
+  }, [_vm._v("Utilisateur")]), _vm._v(" "), (_vm.errors.user_id) ? _c('template', {
+    slot: "errors"
+  }, [_vm._v("\n        " + _vm._s(_vm.errors.user_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('ModalSelect', {
     attrs: {
       "id": "contact_id",
-      "options": _vm.optionsForContact,
-      "required": ""
+      "options": _vm.optionsForContact
     },
     model: {
       value: (_vm.currentBusiness.contact_id),
@@ -78150,7 +78286,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('template', {
     slot: "label"
-  }, [_vm._v("Contact")]), _vm._v(" "), (_vm.errors.contact_id) ? _c('template', {
+  }, [_vm._v("Contact de facturation par défaut")]), _vm._v(" "), (_vm.errors.contact_id) ? _c('template', {
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.contact_id[0]) + "\n      ")]) : _vm._e()], 2), _vm._v(" "), _c('ModalSelect', {
     attrs: {
@@ -80026,7 +80162,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('template', {
     slot: "label"
-  }, [_vm._v("Société")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
+  }, [_vm._v("Société associée")]), _vm._v(" "), (_vm.errors.company_id) ? _c('template', {
     slot: "errors"
   }, [_vm._v("\n        " + _vm._s(_vm.errors.company_id[0]) + "\n      ")]) : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('div', {
     staticClass: "modal__buttons"
@@ -80140,7 +80276,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "header__container"
   }, [_c('h1', {
     staticClass: "header__title"
-  }, [_vm._v(_vm._s(_vm.currentContact.name))]), _vm._v(" "), _c('Button', {
+  }, [_vm._v(_vm._s(_vm._f("capitalize")(_vm.contactName)))]), _vm._v(" "), _c('Button', {
     attrs: {
       "primary": "",
       "red": "",
@@ -80169,17 +80305,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "profile__box-item"
   }, [_c('div', {
     staticClass: "profile__item"
+  }, [_c('h3', [_vm._v("Prénom")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.currentContact.first_name)))])]), _vm._v(" "), _c('div', {
+    staticClass: "profile__item"
+  }, [_c('h3', [_vm._v("Nom")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.currentContact.last_name)))])]), _vm._v(" "), _c('div', {
+    staticClass: "profile__item"
+  }, [_c('h3', [_vm._v("Nom de la société")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.currentContact.company_name)))])]), _vm._v(" "), _c('div', {
+    staticClass: "profile__item"
   }, [_c('h3', [_vm._v("Adresse ligne 1")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.address_line1))])]), _vm._v(" "), _c('div', {
     staticClass: "profile__item"
   }, [_c('h3', [_vm._v("Adresse ligne 2")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.address_line2 ? _vm.currentContact.address_line2 : 'Aucune'))])]), _vm._v(" "), _c('div', {
     staticClass: "profile__item"
-  }, [_c('h3', [_vm._v("Localité")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.zip) + " " + _vm._s(_vm._f("capitalize")(_vm.currentContact.city)))])]), _vm._v(" "), _c('div', {
+  }, [_c('h3', [_vm._v("Localité")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.zip) + " " + _vm._s(_vm._f("capitalize")(_vm.currentContact.city)))])])]), _vm._v(" "), _c('div', {
+    staticClass: "profile__box-item"
+  }, [_c('div', {
     staticClass: "profile__item"
   }, [_c('h3', [_vm._v("Téléphone")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.phone_number ? _vm.currentContact.phone_number : 'Aucun'))])]), _vm._v(" "), _c('div', {
     staticClass: "profile__item"
-  }, [_c('h3', [_vm._v("Adresse e-mail")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.email ? _vm.currentContact.email : 'Aucune'))])])]), _vm._v(" "), _c('div', {
-    staticClass: "profile__box-item"
-  }, [_c('div', {
+  }, [_c('h3', [_vm._v("Adresse e-mail")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.currentContact.email ? _vm.currentContact.email : 'Aucune'))])]), _vm._v(" "), _c('div', {
     staticClass: "profile__item"
   }, [_c('h3', [_vm._v("Créé par")]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.contact.user ? _vm.contact.user.username : 'Admin'))])]), _vm._v(" "), _c('div', {
     staticClass: "profile__item"
@@ -80483,7 +80625,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "company__paragraph"
   }, [_vm._v("Gérez les paramètres par défaut pour votre société.")]), _vm._v(" "), _c('div', {
     staticClass: "company__options"
-  }, [_c('div', {
+  }, [(_vm.businesses.length) ? _c('div', {
     staticClass: "company__option"
   }, [_c('label', {
     staticClass: "company__label"
@@ -80494,7 +80636,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": _vm.selectBusiness
     }
-  }, [_vm._v("\n              " + _vm._s(_vm.currentCompany.business.label ? _vm.currentCompany.business.label : 'Sélectionner') + "\n            ")])], 1)])])])]), _vm._v(" "), _c('MoonLoader', {
+  }, [_vm._v("\n              " + _vm._s(_vm.currentCompany.business.label ? _vm.currentCompany.business.label : 'Sélectionner') + "\n            ")])], 1) : _vm._e()])])])]), _vm._v(" "), _c('MoonLoader', {
     attrs: {
       "loading": _vm.loaderState,
       "color": _vm.loader.color,
@@ -82701,7 +82843,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card__details card__details--business"
   }, [(_vm.business.contact) ? [_c('h5', {
     staticClass: "model__label"
-  }, [_vm._v("Contact")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm._f("capitalize")(_vm.business.contact.name)))])] : _vm._e()], 2), _vm._v(" "), _c('div', {
+  }, [_vm._v("Contact")]), _vm._v(" "), _c('span', [_vm._v("\n        " + _vm._s(_vm._f("capitalize")(_vm.contactName)) + "\n      ")])] : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card__controls"
   }, [_c('Button', {
     attrs: {
