@@ -1,53 +1,41 @@
 # Dipnet
 
-Main repo for the *Dipnet* project.
+## Mise à jour 27 novembre 2018
+### Mise à jour
+Cette mise à jour contient des changements importants au niveau des tables. Il est donc nécessaire de relancer les migrations à l'aide de la commande
+```
+php artisan migrate:fresh
+```
+puis
+```
+php artisan db:seed
+```
+dans le cas où vous voulez pré-peupler la base de données. 
 
-## Development server
-
-You can the development server at the address [Development server](https://dipnet.pixlforge.ch). It's automatically updated after each push to this repository.
-
-## Update 31/05/2017
- - Laravel was updated from version 5.4.21 to 5.4.24 using Composer. Several other packages were updated. Check commit [5f0c222](https://github.com/pixlforge/dipnet/commit/5f0c222af469f769fed23a9ff3ad2ae0771b2f5d) for more.
-
-# Laravel
-
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
-
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
-
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb combination of simplicity, elegance, and innovation give you tools you need to build any application with which you are tasked.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough documentation and video tutorial library of any modern web application framework. The [Laravel documentation](https://laravel.com/docs) is thorough, complete, and makes it a breeze to get started learning the framework.
-
-If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 900 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+### Changelog
+- Suppression du package barryvdh/laravel-ide-helper
+- Suppression du package beyondcode/laravel-query-detector qui faisait doublon avec Laravel Telescope
+- Installation de Laravel Telescope [Laravel Telescope - Laravel - The PHP Framework For Web Artisans](https://laravel.com/docs/5.7/telescope)
+- Les administrateurs n’ont désormais plus accès au formulaire d’envoi d’invitation lorsqu’il se trouvent sur la page de détails d’une société. Les administrateurs doivent utiliser la fonctionnalité de création d’utilisateur leur étant destinée.
+- Supprimé le statut de la société
+- Une boîte de confirmation est maintenant affichée aux administrateurs avant la suppression d’articles et de formats
+- Résolu un bug affectant l’envoi de mails pour les utilisateurs solo à la finalisation d’une commande
+- Ajouté plus d’informations de contact dans les bulletins de commande
+- Ajouté plus d’informations de contact dans les bulletins de livraison
+-  Les emails envoyés lors de la finalisation d’une commande reflètent les changements effectués au niveau des bulletins
+- Les rangées paires des tableaux dans les bulletins sont maintenant colorés
+- La colonne du nom de fichier des tableaux des bulletins a été grandement élargie
+- Les tableaux ont maintenant une largeur minimum de 1200px. En-dessous de cette taille, leur conteneur permet un défilement horizontal.
+- Le ticker n’est maintenant plus visible à l’impression
+- Une page blanche superflue était générée à l’impression dans la vue des bulletins de commande. Cela ne devrait plus être le cas désormais.
+- Les contacts sont maintenant identifiés à l’aide d’un prénom, d’un nom et d’un nom de société
+- La fonction de recherche pour les contacts peut s’effectuer sur le prénom, le nom ou le nom de la société d’un contact
+- Le champ anciennement libellé “Société” a été renommé en “Société associée” pour plus de clarté
+- La sélection d’une affaire par défaut sur la page détails d’une société est maintenant masquée lorsque la société ne possède aucune affaire
+- La création d’affaire par les administrateurs a été revue. Lorsque un administrateur sélectionne une société, seuls les contacts associés à cette société sont disponibles. Lorsque l’administrateur séletionne un utilisateur, seuls les utilisateurs solos sont disponibles ainsi que leurs contacts respectifs
+- Toujours dans la création d’affaire par les administrateurs, lorsqu’une société est sélectionnée, la sélection d’un utilisateur déselectionne automatiquement la société précédemment sélectionnée et inversément.
+- Lorsque une affaire est mise à jour par un administrateur et que celle-ci est associée à un autre utilisateur ou à une autre société, l’affaire par défaut de sa précédente société est réinitialisée
+- Résolu un bug dont la particularité était de ne mettre à jour qu’une partie des informations d’une affaire dans la vue des affaires (vue administrateurs seulement)
+- Les utilisateurs associés à une société peuvent maintenant sélectionner un contact par défaut pour leur affaire par défaut. Celle-ci sera automatiquement sélectionnée à la création d’une nouvelle commande
+- Les affaires et les contacts sont maintenant filtrés correctement sur la page de gestion de commande pour les administrateurs
+- Réglé un bug qui empêchait les utilisateurs solo de sélectionner une affaire leur appartenant
