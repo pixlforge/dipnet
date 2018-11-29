@@ -74,7 +74,13 @@ export default {
       this.$emit("edit-article:open", this.article);
     },
     destroy() {
-      if (window.confirm(`Êtes-vous certain de vouloir supprimer l'article ${this.article.description}?`)) {
+      if (
+        window.confirm(
+          `Êtes-vous certain de vouloir supprimer l'article ${
+            this.article.description
+          }? Veuillez vérifier qu'il ne soit pas utilisé dans des commandes`
+        )
+      ) {
         window.axios.delete(
           window.route("admin.articles.destroy", [this.article.id])
         );

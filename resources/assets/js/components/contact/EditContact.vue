@@ -24,7 +24,8 @@
       <ModalInput
         id="last_name"
         v-model="currentContact.last_name"
-        type="text">
+        type="text"
+        required>
         <template slot="label">Nom</template>
         <template
           v-if="errors.last_name"

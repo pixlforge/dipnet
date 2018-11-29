@@ -25,7 +25,7 @@ class StoreUserContactRequest extends FormRequest
     {
         return [
             'first_name' => 'required|string|min:2|max:45',
-            'last_name' => 'nullable|string|min:2|max:45',
+            'last_name' => 'required|string|min:2|max:45',
             'company_name' => 'nullable|string|min:2|max:45',
             'address_line1' => 'required|string|min:3|max:255',
             'address_line2' => 'nullable|string|min:3|max:255',
@@ -44,11 +44,12 @@ class StoreUserContactRequest extends FormRequest
     public function messages()
     {
         return [
-            'first_name.required' => 'Veuillez entrer un nom.',
+            'first_name.required' => 'Veuillez entrer un prénom.',
             'first_name.string' => 'Le prénom doit être une chaîne de caractères.',
             'first_name.min' => 'Minimum 2 caractères.',
             'first_name.max' => 'Maximum 45 caractères.',
-
+            
+            'last_name.required' => 'Veuillez entrer un nom.',
             'last_name.string' => 'Le nom doit être une chaîne de caractères.',
             'last_name.min' => 'Minimum 2 caractères.',
             'last_name.max' => 'Maximum 45 caractères.',

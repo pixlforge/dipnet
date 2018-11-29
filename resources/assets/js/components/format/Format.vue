@@ -77,7 +77,13 @@ export default {
       this.$emit("edit-format:open", this.format);
     },
     destroy() {
-      if (window.confirm(`Êtes-vous certain de vouloir supprimer le format ${this.format.name}?`)) {
+      if (
+        window.confirm(
+          `Êtes-vous certain de vouloir supprimer le format ${
+            this.format.name
+          }? Veuillez vérifier qu'il ne soit pas utilisé dans des commandes.`
+        )
+      ) {
         window.axios.delete(
           window.route("admin.formats.destroy", [this.format.id])
         );
