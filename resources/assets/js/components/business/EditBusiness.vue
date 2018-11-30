@@ -180,24 +180,28 @@ export default {
   },
   computed: {
     optionsForContact() {
-      let contacts = this.contacts;
+      let contacts;
 
-      if (
-        this.currentBusiness.company_id === "" ||
-        this.currentBusiness.company_id === null
-      ) {
-        contacts = this.contacts.filter(contact => {
-          return contact.user_id == this.currentBusiness.user_id;
-        });
-      }
+      if (this.user.role === "administrateur") {
+        if (
+          this.currentBusiness.company_id === "" ||
+          this.currentBusiness.company_id === null
+        ) {
+          contacts = this.contacts.filter(contact => {
+            return contact.user_id == this.currentBusiness.user_id;
+          });
+        }
 
-      if (
-        this.currentBusiness.user_id === "" ||
-        this.currentBusiness.user_id === null
-      ) {
-        contacts = this.contacts.filter(contact => {
-          return contact.company_id == this.currentBusiness.company_id;
-        });
+        if (
+          this.currentBusiness.user_id === "" ||
+          this.currentBusiness.user_id === null
+        ) {
+          contacts = this.contacts.filter(contact => {
+            return contact.company_id == this.currentBusiness.company_id;
+          });
+        }
+      } else {
+        contacts = this.contacts;
       }
 
       return contacts.map(contact => {

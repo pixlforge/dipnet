@@ -179,16 +179,20 @@ export default {
     optionsForContact() {
       let contacts;
 
-      if (this.business.company_id === "") {
-        contacts = this.contacts.filter(contact => {
-          return contact.user_id == this.business.user_id;
-        });
-      }
+      if (this.user.role === "administrateur") {
+        if (this.business.company_id === "") {
+          contacts = this.contacts.filter(contact => {
+            return contact.user_id == this.business.user_id;
+          });
+        }
 
-      if (this.business.user_id === "") {
-        contacts = this.contacts.filter(contact => {
-          return contact.company_id == this.business.company_id;
-        });
+        if (this.business.user_id === "") {
+          contacts = this.contacts.filter(contact => {
+            return contact.company_id == this.business.company_id;
+          });
+        }
+      } else {
+        contacts = this.contacts;
       }
 
       return contacts.map(contact => {
