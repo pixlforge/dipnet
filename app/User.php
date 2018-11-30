@@ -300,6 +300,11 @@ class User extends Authenticatable
         return $this->hasManyThrough(Business::class, Contact::class);
     }
 
+    public function userBusinesses()
+    {
+        return $this->hasMany(Business::class);
+    }
+
     /**
      * A user belongs to an avatar.
      *

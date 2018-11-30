@@ -24,6 +24,7 @@ class OrderController extends Controller
         ]);
         $this->middleware('user.email.confirmed')->except('index');
         $this->middleware('business')->only('create');
+        $this->middleware('userHasBusiness')->only('create');
     }
 
     /**
@@ -46,7 +47,7 @@ class OrderController extends Controller
     public function create(Order $order)
     {
         abort_if(auth()->user()->isAdmin(), 403, "Vous n'êtes pas autorisé à accéder à cette ressource.");
-        
+
         // Create an order if none exist and redirect along with the newly created order.
         if (!$order->exists) {
             $order = $this->createSkeletonOrder();
@@ -135,7 +136,15 @@ class OrderController extends Controller
     {
         $order = new Order;
         $order->user_id = auth()->id();
-        $order->business_id = auth()->user()->company->business_id;
+
+        if (auth()->user()->isPartOfACompany()) {
+            $order->business_id = auth()->user()->company->business_id;
+        }
+        
+        if (auth()->user()->isSolo()) {
+            $order->business_id = auth()->user()->userBusinesses->first()->id;
+        }
+
         $order->company_id = auth()->user()->company->id;
         $order->save();
 

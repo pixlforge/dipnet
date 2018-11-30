@@ -41,6 +41,10 @@ class OrderMiddlewareTest extends TestCase
         $this->actingAs($user);
         $this->assertAuthenticatedAs($user);
 
+        factory(Business::class)->create([
+            'user_id' => $user->id
+        ]);
+
         $this->assertCount(0, Order::all());
 
         $response = $this->get(route('orders.create.start'));

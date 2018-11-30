@@ -7,6 +7,7 @@ use App\Http\Middleware\UserEmailConfirmed;
 use App\Http\Middleware\UserAccountCompanyInfo;
 use App\Http\Middleware\UserAccountContactInfo;
 use App\Http\Middleware\CompanyHasDefaultBusiness;
+use App\Http\Middleware\UserHasAtLeastOneBusiness;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -66,5 +67,6 @@ class Kernel extends HttpKernel
         'user.email.confirmed' => UserEmailConfirmed::class,
         'admin' => UserIsAdmin::class,
         'business' => CompanyHasDefaultBusiness::class,
+        'userHasBusiness' => UserHasAtLeastOneBusiness::class,
     ];
 }
