@@ -48,6 +48,12 @@
         </template>
       </ModalSelect>
 
+      <template v-if="userIsAdmin">
+        <div class="form__group form__or">
+          OU
+        </div>
+      </template>
+
       <!-- User -->
       <ModalSelect
         v-if="userIsAdmin"
