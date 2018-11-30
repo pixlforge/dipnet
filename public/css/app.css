@@ -4435,6 +4435,12 @@ button {
   border-collapse: collapse;
 }
 
+@media only print {
+  .receipt__table {
+    min-width: auto;
+  }
+}
+
 .receipt__table th {
   padding: 1.5rem 2rem;
 }
