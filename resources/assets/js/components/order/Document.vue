@@ -286,9 +286,16 @@ export default {
       this.update();
     },
     findSelectedFinish() {
-      this.currentDocument.finish = this.optionsForFinish.find(option => {
-        return option.value === this.document.finish;
-      });
+      if (this.document.finish) {
+        this.currentDocument.finish = this.optionsForFinish.find(option => {
+          return option.value === this.document.finish;
+        });
+      } else {
+        this.currentDocument.finish = {
+          label: "à plat",
+          value: "plat"
+        };
+      }
     },
     findSelectedOptions() {
       this.currentDocument.options = this.options.map(option => {
