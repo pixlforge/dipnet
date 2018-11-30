@@ -519,6 +519,27 @@ export default {
       if (this.currentOrder.business.value) {
         this.currentOrder.business_id = this.currentOrder.business.value;
       }
+
+      if (!this.user.is_solo) {
+        const currentBusiness = this.businesses.find(business => {
+          return business.id == this.currentOrder.business_id;
+        });
+
+        if (currentBusiness.contact_id) {
+          const defaultContactForCurrentBusiness = this.contacts.find(
+            contact => {
+              return contact.id == currentBusiness.contact_id;
+            }
+          );
+
+          this.currentOrder.contact.label = this.contactName(
+            defaultContactForCurrentBusiness
+          );
+          this.currentOrder.contact.value = defaultContactForCurrentBusiness.id;
+          this.currentOrder.contact_id = defaultContactForCurrentBusiness.id;
+        }
+      }
+
       this.update();
     },
     updateContact() {
