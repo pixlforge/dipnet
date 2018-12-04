@@ -89,5 +89,12 @@
   &__or {
     color: $brand-red;
     font-weight: bold;
+    margin: 0 5rem;
+    display: flex;
+    align-items: center;
+
+    @media all and (max-width: $bp-lg) {
+      margin: 0 2.5rem;
+    }
   }
 }

@@ -10,6 +10,12 @@
 - L'affaire par défaut d'une société est maintenant réinitialisée lorsque celle-ci est supprimée.
 - L'adresse e-mail de l'administrateur ayant pris en charge la commande est maintenant affichée sur les bulletins de commande et de livraison.
 - L'impression est désormais réalisée à 100% de la largeur de la page.
+- La taille du texte des pages bulletin de commande et livraison a été réduite de manière générale à l'impression.
+- La taille des en-têtes du tableau des documents des pages bulletin de commande et livraison a été réduite légèrement à l'impression.
+- Le tableau des pages bulleting de commande et livraison force maintenant l'affichage de la couleur de fond des rangées impaires à l'impression.
+- Les utilisateurs ont maintenant la possibilité de supprimer leurs affaires.
+- Résolu un bug qui empêchait les administrateurs de supprimer correctement les affaires.
+- L'affichage des groupes société et utilisateur pour les sliders de création et d'ajout de société pour les administrateurs a été modifié et se présente maintenant sur une seule ligne.
 
 ## Mise à jour 27 novembre 2018
 

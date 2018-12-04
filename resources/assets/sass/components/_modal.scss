@@ -66,6 +66,15 @@
     position: relative;
   }
 
+  &__group-inline {
+    display: flex;
+    justify-content: space-between;
+
+    & > div {
+      flex: 1;
+    }
+  }
+
   &__label {
     font-size: 1.4rem;
     color: $scorpion;
@@ -142,6 +151,14 @@
 
     :first-child {
       margin-right: 1rem;
+
+      @media all and (max-width: $bp-lg) {
+        margin-right: 0;
+      }
+
+      @media all and (max-width: $bp-md) {
+        margin-right: 1rem;
+      }
     }
 
     &--avatar {

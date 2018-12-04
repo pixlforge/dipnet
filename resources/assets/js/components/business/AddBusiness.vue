@@ -33,41 +33,40 @@
         </template>
       </ModalInput>
 
-      <!-- Company -->
-      <ModalSelect
+      <div
         v-if="userIsAdmin"
-        id="company_id"
-        :options="optionsForCompany"
-        v-model="business.company_id"
-        @input="business.user_id = ''">
-        <template slot="label">Société</template>
-        <template
-          v-if="errors.company_id"
-          slot="errors">
-          {{ errors.company_id[0] }}
-        </template>
-      </ModalSelect>
+        class="modal__group-inline">
 
-      <template v-if="userIsAdmin">
-        <div class="form__group form__or">
-          OU
-        </div>
-      </template>
+        <!-- Company -->
+        <ModalSelect
+          id="company_id"
+          :options="optionsForCompany"
+          v-model="business.company_id"
+          @input="business.user_id = ''">
+          <template slot="label">Société</template>
+          <template
+            v-if="errors.company_id"
+            slot="errors">
+            {{ errors.company_id[0] }}
+          </template>
+        </ModalSelect>
 
-      <!-- User -->
-      <ModalSelect
-        v-if="userIsAdmin"
-        id="user_id"
-        :options="optionsForUser"
-        v-model="business.user_id"
-        @input="business.company_id = ''">
-        <template slot="label">Utilisateur</template>
-        <template
-          v-if="errors.user_id"
-          slot="errors">
-          {{ errors.user_id[0] }}
-        </template>
-      </ModalSelect>
+        <span class="form__or">OU</span>
+
+        <!-- User -->
+        <ModalSelect
+          id="user_id"
+          :options="optionsForUser"
+          v-model="business.user_id"
+          @input="business.company_id = ''">
+          <template slot="label">Utilisateur</template>
+          <template
+            v-if="errors.user_id"
+            slot="errors">
+            {{ errors.user_id[0] }}
+          </template>
+        </ModalSelect>
+      </div>
 
       <!-- Default billing contact -->
       <ModalSelect
