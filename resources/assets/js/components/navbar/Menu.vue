@@ -100,7 +100,7 @@ export default {
     routeLegacyApp() {
       if (this.appName === "Dipnet") {
         return "http://dipnet.dip.ch/";
-      } else if (this.appName === "Multicop") {
+      } else if (this.appName === "Multiprint") {
         return "http://multiprint.multicop.ch/";
       }
     }

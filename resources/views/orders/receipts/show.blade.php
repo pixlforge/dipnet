@@ -10,10 +10,10 @@
         <img class="receipt__logo"
              src="{{ asset('/img/logos/header-dip.gif') }}"
              alt="En-tête Dip">
-      @elseif (config('app.name') === 'Multicop')
+      @elseif (config('app.name') === 'Multiprint')
         <img class="receipt__logo"
              src="{{ asset('/img/logos/header-multicop.png') }}"
-             alt="En-tête Multicop">
+             alt="En-tête Multiprint">
       @endif
       <h1 class="receipt__title">Bulletin de livraison</h1>
       <p class="text-center">

@@ -26,13 +26,13 @@ class UpdateCompanyTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.companies.update', $company), [
-            'name' => 'Multicop',
+            'name' => 'Multiprint',
             'description' => "There's really no end to this. You are only limited by your imagination.",
         ]);
         $response->assertOk();
 
         $company = $company->fresh();
-        $this->assertEquals('Multicop', $company->name);
+        $this->assertEquals('Multiprint', $company->name);
         $this->assertEquals("There's really no end to this. You are only limited by your imagination.", $company->description);
     }
 
@@ -51,7 +51,7 @@ class UpdateCompanyTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.companies.update', $company), [
-            'name' => 'Multicop',
+            'name' => 'Multiprint',
             'description' => "There's really no end to this. You are only limited by your imagination.",
         ]);
         $response->assertForbidden();
@@ -74,7 +74,7 @@ class UpdateCompanyTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.companies.update', $company), [
-            'name' => 'Multicop',
+            'name' => 'Multiprint',
             'description' => "There's really no end to this. You are only limited by your imagination.",
         ]);
         $response->assertRedirect(route('login'));
@@ -199,7 +199,7 @@ class UpdateCompanyTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.companies.update', $company), [
-            'name' => 'Multicop',
+            'name' => 'Multiprint',
             'description' => 123,
         ]);
         $response->assertJsonValidationErrors('description');
@@ -224,7 +224,7 @@ class UpdateCompanyTest extends TestCase
         ]);
 
         $response = $this->patchJson(route('admin.companies.update', $company), [
-            'name' => 'Multicop',
+            'name' => 'Multiprint',
             'description' => str_repeat('a', 256),
         ]);
         $response->assertJsonValidationErrors('description');
@@ -250,7 +250,7 @@ class UpdateCompanyTest extends TestCase
 
 
         $response = $this->patchJson(route('admin.companies.update', $company), [
-            'name' => 'Multicop',
+            'name' => 'Multiprint',
             'description' => str_repeat('a', 256),
             'business_id' => 999,
         ]);

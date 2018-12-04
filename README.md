@@ -8,7 +8,7 @@
 - Les articles supprimés sont tout de même visibles dans le gestionnaire de commande ainsi que dans les bulletins de commande et livraison afin d'assurer l'intégrité des données.
 - Les affaires supprimées sont tout de même visibles dans le gestionnaire de commande ainsi que dans les bulletins de commande et livraison afin d'assurer l'intégrité des données.
 - L'affaire par défaut d'une société est maintenant réinitialisée lorsque celle-ci est supprimée.
-- L'adresse e-mail de l'administrateur ayant pris en charge la commande est maintenant affichée sur les bulletins de commande et de livraison.
+- L'adresse e-mail de l'administrateur ayant pris en charge la commande est maintenant affichée sur les pages de bulletin de commande et de livraison.
 - L'impression est désormais réalisée à 100% de la largeur de la page.
 - La taille du texte des pages bulletin de commande et livraison a été réduite de manière générale à l'impression.
 - La taille des en-têtes du tableau des documents des pages bulletin de commande et livraison a été réduite légèrement à l'impression.
@@ -16,6 +16,7 @@
 - Les utilisateurs ont maintenant la possibilité de supprimer leurs affaires.
 - Résolu un bug qui empêchait les administrateurs de supprimer correctement les affaires.
 - L'affichage des groupes société et utilisateur pour les sliders de création et d'ajout de société pour les administrateurs a été modifié et se présente maintenant sur une seule ligne.
+- L'email de confirmation de création de compte affiche désormais correctement le nom de l'application.
 
 ## Mise à jour 27 novembre 2018
 

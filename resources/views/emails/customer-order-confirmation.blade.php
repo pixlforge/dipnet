@@ -1,7 +1,7 @@
 @if (config('app.name') === 'Dipnet')
 <img src="{{ config('app.url') . '/img/logos/header-dip.gif' }}" alt="Logo Dip">
-@elseif (config('app.name') === 'Multicop')
-<img src="{{ config('app.url') . '/img/logos/header-multicop.png' }}" alt="Logo Multicop">
+@elseif (config('app.name') === 'Multiprint')
+<img src="{{ config('app.url') . '/img/logos/header-multicop.png' }}" alt="Logo Multiprint">
 @endif
 
 @component('mail::message')

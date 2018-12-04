@@ -7,7 +7,7 @@
   <meta name="msapplication-TileColor" content="#da532c">
   <meta name="msapplication-config" content="/favicons/dip/browserconfig.xml">
   <meta name="theme-color" content="#ffffff">
-@elseif (config('app.name') === 'Multicop')
+@elseif (config('app.name') === 'Multiprint')
   <link rel="apple-touch-icon" sizes="180x180" href="/favicons/multicop/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicons/multicop/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicons/multicop/favicon-16x16.png">

@@ -31,14 +31,14 @@ export const logo = {
     logoColor() {
       if (this.appName === 'Dipnet') {
         return '/img/logos/dip-logo-md.png'
-      } else if (this.appName === 'Multicop') {
+      } else if (this.appName === 'Multiprint') {
         return '/img/logos/multicop-logo-md.png'
       }
     },
     logoBw() {
       if (this.appName === 'Dipnet') {
         return '/img/logos/dip-logo-white-md.png'
-      } else if (this.appName === 'Multicop') {
+      } else if (this.appName === 'Multiprint') {
         return '/img/logos/multicop-logo-white-md.png'
       }
     },

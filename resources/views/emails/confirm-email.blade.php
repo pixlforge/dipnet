@@ -1,7 +1,7 @@
 @component('mail::message')
 # Confirmation de création de votre compte
 
-Aidez-nous à déterminer que vous êtes bien un humain en confirmant la création de votre compte Dipnet à l'aide du bouton ci-dessous :)
+Aidez-nous à déterminer que vous êtes bien un humain en confirmant la création de votre compte {{ config('app.name') }} à l'aide du bouton ci-dessous :)
 
 @component('mail::button', ['url' => route('register.confirm.index', ['token' => $user->confirmation_token]), 'color' => 'red'])
     Confirmer la création de mon compte
