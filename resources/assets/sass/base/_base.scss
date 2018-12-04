@@ -22,6 +22,10 @@ html {
   @media all and (max-width: $bp-sm) {
     font-size: 50%; // 8px
   }
+
+  @media only print {
+    font-size: 42.5%;
+  }
 }
 
 body {
