@@ -14,6 +14,13 @@ class UpdateDeliveryTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->deliveryDate = today()->addDays(3)->format('Y-m-d h:i:s');
+    }
+
     /** @test */
     public function users_associated_with_a_company_can_update_their_own_deliveries()
     {
@@ -35,7 +42,7 @@ class UpdateDeliveryTest extends TestCase
         $response = $this->patchJson(route('deliveries.update', $delivery), [
             'note' => 'Lorem ipsum dolor sit amet.',
             'contact_id' => $contact->id,
-            'to_deliver_at' => '2018-12-01 08:00:00',
+            'to_deliver_at' => $this->deliveryDate,
         ]);
         
         $response->assertOk();
@@ -43,7 +50,7 @@ class UpdateDeliveryTest extends TestCase
         $delivery = $delivery->fresh();
         $this->assertEquals('Lorem ipsum dolor sit amet.', $delivery->note);
         $this->assertEquals($contact->id, $delivery->contact_id);
-        $this->assertEquals('2018-12-01 08:00:00', $delivery->to_deliver_at);
+        $this->assertEquals($this->deliveryDate, $delivery->to_deliver_at);
     }
 
     /** @test */
@@ -68,7 +75,7 @@ class UpdateDeliveryTest extends TestCase
         $response = $this->patchJson(route('deliveries.update', $delivery), [
             'note' => 'Lorem ipsum dolor sit amet.',
             'contact_id' => $contact->id,
-            'to_deliver_at' => '2018-12-01 08:00:00',
+            'to_deliver_at' => $this->deliveryDate,
         ]);
         
         $response->assertForbidden();
@@ -100,7 +107,7 @@ class UpdateDeliveryTest extends TestCase
         $response = $this->patchJson(route('deliveries.update', $delivery), [
             'note' => 'Lorem ipsum dolor sit amet.',
             'pickup' => true,
-            'to_deliver_at' => '2018-12-01 08:00:00',
+            'to_deliver_at' => $this->deliveryDate,
         ]);
         
         $response->assertOk();
@@ -108,7 +115,7 @@ class UpdateDeliveryTest extends TestCase
         $delivery = $delivery->fresh();
         $this->assertEquals('Lorem ipsum dolor sit amet.', $delivery->note);
         $this->assertNull($delivery->contact_id);
-        $this->assertEquals('2018-12-01 08:00:00', $delivery->to_deliver_at);
+        $this->assertEquals($this->deliveryDate, $delivery->to_deliver_at);
         $this->assertTrue($delivery->pickup);
     }
 
@@ -133,7 +140,7 @@ class UpdateDeliveryTest extends TestCase
         $response = $this->patchJson(route('deliveries.update', $delivery), [
             'note' => 'Lorem ipsum dolor sit amet.',
             'contact_id' => $contact->id,
-            'to_deliver_at' => '2018-12-01 08:00:00',
+            'to_deliver_at' => $this->deliveryDate,
         ]);
         
         $response->assertForbidden();
@@ -361,7 +368,7 @@ class UpdateDeliveryTest extends TestCase
             'note' => 'Lorem ipsum dolor sit amet.',
             'admin_note' => 'Lorem ipsum.',
             'contact_id' => $contact->id,
-            'to_deliver_at' => '2018-12-01 08:00:00',
+            'to_deliver_at' => $this->deliveryDate,
         ]);
         
         $response->assertOk();
@@ -370,7 +377,7 @@ class UpdateDeliveryTest extends TestCase
         $this->assertEquals('Lorem ipsum dolor sit amet.', $delivery->note);
         $this->assertEquals('Lorem ipsum.', $delivery->admin_note);
         $this->assertEquals($contact->id, $delivery->contact_id);
-        $this->assertEquals('2018-12-01 08:00:00', $delivery->to_deliver_at);
+        $this->assertEquals($this->deliveryDate, $delivery->to_deliver_at);
     }
 
     /** @test */
