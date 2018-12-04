@@ -216,6 +216,7 @@ Route::prefix('/affaires')->namespace('Business')->name('businesses.')->group(fu
     Route::post('/', 'BusinessController@store')->name('store');
     Route::get('/{business}/details', 'BusinessController@show')->name('show');
     Route::patch('/{business}', 'BusinessController@update')->name('update');
+    Route::delete('/{business}', 'BusinessController@destroy')->name('destroy');
 });
 
 /**

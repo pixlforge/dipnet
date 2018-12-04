@@ -9,6 +9,11 @@
         class="user-business__img">
       <h2 class="user-business__title">{{ business.name }}</h2>
       <p class="user-business__orders">{{ userOrders }}</p>
+      <button
+        class="user-business__delete-button"
+        @click.prevent="deleteBusiness">
+        <i class="fal fa-times"/>
+      </button>
     </a>
   </div>
 </template>
@@ -57,6 +62,18 @@ export default {
     },
     routeShowBusiness() {
       return window.route("businesses.show", [this.business.reference]);
+    }
+  },
+  methods: {
+    async deleteBusiness() {
+      if (
+        window.confirm("Êtes-vous certain de vouloir supprimer cette affaire?")
+      ) {
+        await window.axios.delete(
+          window.route("businesses.destroy", [this.business.reference])
+        );
+        this.$emit("business:deleted");
+      }
     }
   }
 };

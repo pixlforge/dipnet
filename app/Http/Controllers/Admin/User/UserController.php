@@ -96,10 +96,10 @@ class UserController extends Controller
         if ($request->role === 'administrateur') {
             $user->company_id = null;
             $user->is_solo = false;
-        } elseif ($user->isNotSolo() && $request->has('company_id')) {
+        } elseif ($user->isPartOfACompany() && $request->has('company_id')) {
             $user->company_id = $request->company_id;
             $user->is_solo = false;
-        } elseif ($user->isNotSolo() && !$request->has('company_id')) {
+        } elseif ($user->isPartOfACompany() && !$request->has('company_id')) {
             $user->company_id = null;
             $user->is_solo = true;
         } elseif ($user->isSolo() && $request->has('company_id')) {

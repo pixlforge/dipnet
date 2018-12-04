@@ -566,6 +566,12 @@ html {
   }
 }
 
+@media only print {
+  html {
+    font-size: 42.5%;
+  }
+}
+
 body {
   color: #2b2b2b;
   font: 1.4rem "Lato", sans-serif;
@@ -3237,6 +3243,7 @@ button {
 }
 
 .user-business__card {
+  position: relative;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 35rem;
           flex: 0 0 35rem;
@@ -3294,6 +3301,22 @@ button {
 
 .user-business__orders {
   font-size: 1.4rem;
+}
+
+.user-business__delete-button {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  padding: 1rem 1.5rem;
+  color: #949494;
+  font-size: 2rem;
+  border: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+.user-business__delete-button:hover {
+  color: #e84949;
 }
 
 .comments__title {
@@ -4367,6 +4390,12 @@ button {
   font-size: 3.6rem;
   margin-top: 3rem;
   text-align: center;
+}
+
+@media only print {
+  .receipt__title {
+    font-size: 2.8rem;
+  }
 }
 
 .receipt__secondary-title {

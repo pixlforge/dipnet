@@ -249,7 +249,7 @@ export default {
     removeBusiness(index) {
       this.businesses.splice(index, 1);
       window.flash({
-        message: "Suppression de l'affaire réussie.",
+        message: "L'affaire a été supprimée avec succès!",
         level: "success"
       });
     }

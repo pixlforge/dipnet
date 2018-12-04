@@ -150,4 +150,24 @@ class BusinessController extends Controller
 
         return response($business, 200);
     }
+
+    /**
+     * Undocumented function
+     *
+     * @param Business $business
+     * @return void
+     */
+    public function destroy(Business $business)
+    {
+        $this->authorize('delete', $business);
+
+        if ($business->belongsToACompany()) {
+            $business->company->business_id = null;
+            $business->company->save();
+        }
+
+        $business->delete();
+
+        return response(null, 204);
+    }
 }

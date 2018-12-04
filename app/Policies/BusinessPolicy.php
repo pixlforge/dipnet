@@ -41,11 +41,19 @@ class BusinessPolicy
     }
 
     /**
-     * @return mixed
+     * Checks whether the user is authorized to make a delete request.
+     *
+     * @param User $user
+     * @param Business $business
+     * @return bool
      */
-    public function delete()
+    public function delete(User $user, Business $business)
     {
-        return auth()->user()->isAdmin();
+        if ($user->isPartOfACompany()) {
+            return $user->company_id === $business->company_id;
+        } elseif ($user->isSolo()) {
+            return $user->id === $business->user_id;
+        }
     }
 
     /**

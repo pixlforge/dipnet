@@ -31,7 +31,7 @@ class Business extends Model
     /**
      * Checks whether a business is associated with a company.
      *
-     * @return boolean
+     * @return bool
      */
     public function belongsToACompany()
     {
