@@ -117,6 +117,7 @@
           <h2 class="receipt__item-title">Commande prise en charge par</h2>
           <p>
             {{ optional($delivery->order->managedBy)->username }}
+            <span>({{ optional($delivery->order->managedBy)->email }})</span>
           </p>
         </div>
       </div>
