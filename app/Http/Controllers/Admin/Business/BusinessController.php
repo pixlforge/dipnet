@@ -113,6 +113,11 @@ class BusinessController extends Controller
      */
     public function destroy(Business $business)
     {
+        if ($business->belongsToACompany()) {
+            $business->company->business_id = null;
+            $business->company->save();
+        }
+
         $business->delete();
 
         return response(null, 204);

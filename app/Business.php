@@ -29,6 +29,16 @@ class Business extends Model
     }
 
     /**
+     * Checks whether a business is associated with a company.
+     *
+     * @return boolean
+     */
+    public function belongsToACompany()
+    {
+        return $this->company;
+    }
+
+    /**
      * A business has many comments.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

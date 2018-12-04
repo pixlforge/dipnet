@@ -122,7 +122,7 @@ export default {
     },
     destroy() {
       window.axios.delete(
-        window.route("businesses.destroy", [this.business.id])
+        window.route("admin.businesses.destroy", [this.business.reference])
       );
       this.$emit("business:deleted", this.business.id);
     }

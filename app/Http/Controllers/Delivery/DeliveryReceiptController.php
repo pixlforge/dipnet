@@ -31,6 +31,8 @@ class DeliveryReceiptController extends Controller
             'documents.articles'
         )->find($delivery->id);
 
-        return view('deliveries.receipts.show', compact('delivery'));
+        $business = $delivery->order->business()->withTrashed()->first();
+
+        return view('deliveries.receipts.show', compact('delivery', 'business'));
     }
 }

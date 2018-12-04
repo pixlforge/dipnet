@@ -1,18 +1,34 @@
 # Dipnet
 
+## Mise à jour 4 décembre 2018
+
+### Changelog v0.3
+
+- Les formats supprimés sont tout de même visibles dans le gestionnaire de commande ainsi que dans les bulletins de commande et livraison afin d'assurer l'intégrité des données.
+- Les articles supprimés sont tout de même visibles dans le gestionnaire de commande ainsi que dans les bulletins de commande et livraison afin d'assurer l'intégrité des données.
+- Les affaires supprimées sont tout de même visibles dans le gestionnaire de commande ainsi que dans les bulletins de commande et livraison afin d'assurer l'intégrité des données.
+- L'affaire par défaut d'une société est maintenant réinitialisée lorsque celle-ci est supprimée.
+
 ## Mise à jour 27 novembre 2018
+
 ### Mise à jour
+
 Cette mise à jour contient des changements importants au niveau des tables. Il est donc nécessaire de relancer les migrations à l'aide de la commande
-```
+
+```cli
 php artisan migrate:fresh
 ```
+
 puis
-```
+
+```cli
 php artisan db:seed
 ```
+
 dans le cas où vous voulez pré-peupler la base de données. 
 
-### Changelog
+### Changelog v0.2
+
 - Suppression du package barryvdh/laravel-ide-helper
 - Suppression du package beyondcode/laravel-query-detector qui faisait doublon avec Laravel Telescope
 - Installation de Laravel Telescope [Laravel Telescope - Laravel - The PHP Framework For Web Artisans](https://laravel.com/docs/5.7/telescope)

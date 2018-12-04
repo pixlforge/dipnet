@@ -30,12 +30,12 @@ class OrderController extends Controller
         $order = Order::with('business', 'contact')->find($order->id);
 
         $deliveries = $this->getOrderDeliveries($order);
-        $articles = Article::all();
+        $articles = Article::withTrashed()->get();
         $documents = $order->documents()->with('articles', 'media')->get();
 
         $contacts = Contact::all();
-        $businesses = Business::all();
-        $formats = Format::all();
+        $businesses = Business::withTrashed()->get();
+        $formats = Format::withTrashed()->get();
 
         return view('admin.orders.show', compact('order', 'deliveries', 'articles', 'documents', 'businesses', 'contacts', 'formats'));
     }

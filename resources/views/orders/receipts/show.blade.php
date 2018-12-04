@@ -37,7 +37,7 @@
             <div class="receipt__item">
               <h2 class="receipt__item-title">Affaire</h2>
               <p>
-                {{ $order->business->name }}
+                {{ $business->name }}
               </p>
             </div>
             
@@ -55,9 +55,9 @@
               <h2 class="receipt__item-title">Commandé par</h2>
               <ul class="receipt__item-list">
                 
-                @if ($company)
-                  <li>{{ $company->name }}</li>
-                  <li>{{ $company->description }}</li>
+                @if ($order->company)
+                  <li>{{ $order->company->name }}</li>
+                  <li>{{ $order->company->description }}</li>
                   <br>
                 @endif
 

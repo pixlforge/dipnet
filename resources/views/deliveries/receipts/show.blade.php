@@ -35,7 +35,7 @@
         <div class="receipt__item">
           <h2 class="receipt__item-title">Affaire</h2>
           <p>
-            {{ $delivery->order->business->name }}
+            {{ $business->name }}
           </p>
         </div>
 

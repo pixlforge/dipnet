@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Order;
 
 use App\Order;
 use App\Http\Controllers\Controller;
+use App\Business;
 
 class OrderReceiptController extends Controller
 {
@@ -27,11 +28,13 @@ class OrderReceiptController extends Controller
             'deliveries.contact',
             'deliveries.documents.articles',
             'deliveries.documents.article',
-            'deliveries.documents.media'
+            'deliveries.documents.media',
+            'company'
         )->find($order->id);
-        $company = $order->business->company;
+        // $company = $order->business->company;
+        $business = Business::withTrashed()->where('company_id', $order->company_id)->first();
         $user = $order->user;
 
-        return view('orders.receipts.show', compact('order', 'company', 'user'));
+        return view('orders.receipts.show', compact('order', 'user', 'business'));
     }
 }
