@@ -8,6 +8,8 @@
 - Les articles supprimés sont tout de même visibles dans le gestionnaire de commande ainsi que dans les bulletins de commande et livraison afin d'assurer l'intégrité des données.
 - Les affaires supprimées sont tout de même visibles dans le gestionnaire de commande ainsi que dans les bulletins de commande et livraison afin d'assurer l'intégrité des données.
 - L'affaire par défaut d'une société est maintenant réinitialisée lorsque celle-ci est supprimée.
+- L'adresse e-mail de l'administrateur ayant pris en charge la commande est maintenant affichée sur les bulletins de commande et de livraison.
+- L'impression est désormais réalisée à 100% de la largeur de la page.
 
 ## Mise à jour 27 novembre 2018
 

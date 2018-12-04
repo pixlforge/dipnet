@@ -4394,6 +4394,12 @@ button {
   margin: auto;
 }
 
+@media only print {
+  .receipt__container {
+    width: 100%;
+  }
+}
+
 .receipt__row {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4464,6 +4470,7 @@ button {
 
 .receipt__table tr:nth-child(odd) {
   background-color: #f9f9f9;
+  -webkit-print-color-adjust: exact;
 }
 
 .receipt__table th {

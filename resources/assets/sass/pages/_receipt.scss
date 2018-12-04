@@ -34,9 +34,9 @@
     width: 84%;
     margin: auto;
 
-    // @media only print {
-    //   width: 100% !important;
-    // }
+    @media only print {
+      width: 100%;
+    }
   }
 
   &__row {
@@ -95,6 +95,7 @@
 
       &:nth-child(odd) {
         background-color: $alabaster;
+        -webkit-print-color-adjust: exact;
       }
     }
 
