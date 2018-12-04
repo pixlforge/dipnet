@@ -117,10 +117,14 @@
             </div>
             <div class="receipt__item">
               <h2 class="receipt__item-title">Commande prise en charge par</h2>
-              <p>
-                {{ optional($order->managedBy)->username }}
-                <span>({{ optional($order->managedBy)->email }})</span>
-              </p>
+              @if ($order->managedBy)
+                <p>
+                  {{ $order->managedBy->username }}
+                  ({{ $order->managedBy->email }})
+                </p>
+              @else
+                <p>Cette commande n'a pas encore été prise en charge.</p>
+              @endif
             </div>
           </div>
 
